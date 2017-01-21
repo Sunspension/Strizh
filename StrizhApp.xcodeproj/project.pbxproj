@@ -7,15 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D4712BF056042E4491062F2 /* Pods_StrizhApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 277E51B2F6F272FF051A01F5 /* Pods_StrizhApp.framework */; };
+		D491AD731E33AD3B00B258C6 /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D491AD721E33AD3B00B258C6 /* Registration.swift */; };
 		D49726FB1E32BDA50076B7A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49726FA1E32BDA50076B7A1 /* AppDelegate.swift */; };
 		D49726FD1E32BDA50076B7A1 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49726FC1E32BDA50076B7A1 /* FirstViewController.swift */; };
 		D49726FF1E32BDA50076B7A1 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49726FE1E32BDA50076B7A1 /* SecondViewController.swift */; };
 		D49727021E32BDA50076B7A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D49727001E32BDA50076B7A1 /* Main.storyboard */; };
 		D49727041E32BDA50076B7A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D49727031E32BDA50076B7A1 /* Assets.xcassets */; };
 		D49727071E32BDA50076B7A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D49727051E32BDA50076B7A1 /* LaunchScreen.storyboard */; };
+		D49727101E32C8210076B7A1 /* STWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497270F1E32C8210076B7A1 /* STWebSocket.swift */; };
+		D49727131E32CA8B0076B7A1 /* STError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49727121E32CA8B0076B7A1 /* STError.swift */; };
+		D49727171E32D2750076B7A1 /* PRemoteServerApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49727161E32D2750076B7A1 /* PRemoteServerApi.swift */; };
+		D497271B1E32D9BD0076B7A1 /* STServerApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497271A1E32D9BD0076B7A1 /* STServerApi.swift */; };
+		D497271E1E32DC700076B7A1 /* PDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497271D1E32DC700076B7A1 /* PDataBase.swift */; };
+		D49727201E32DCAC0076B7A1 /* STRealmDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497271F1E32DCAC0076B7A1 /* STRealmDB.swift */; };
+		D49727221E32DF300076B7A1 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49727211E32DF300076B7A1 /* Session.swift */; };
+		D49727241E32E3CC0076B7A1 /* STAuthorizationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49727231E32E3CC0076B7A1 /* STAuthorizationError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		277E51B2F6F272FF051A01F5 /* Pods_StrizhApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StrizhApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E8A8787F4373C051854C7D5 /* Pods-StrizhApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp.debug.xcconfig"; sourceTree = "<group>"; };
+		D491AD721E33AD3B00B258C6 /* Registration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Registration.swift; path = ResponseModels/Registration.swift; sourceTree = "<group>"; };
 		D49726F71E32BDA50076B7A1 /* StrizhApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StrizhApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D49726FA1E32BDA50076B7A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D49726FC1E32BDA50076B7A1 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +37,15 @@
 		D49727031E32BDA50076B7A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D49727061E32BDA50076B7A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D49727081E32BDA50076B7A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D497270F1E32C8210076B7A1 /* STWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STWebSocket.swift; path = WebSocket/STWebSocket.swift; sourceTree = "<group>"; };
+		D49727121E32CA8B0076B7A1 /* STError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STError.swift; path = Errors/STError.swift; sourceTree = "<group>"; };
+		D49727161E32D2750076B7A1 /* PRemoteServerApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PRemoteServerApi.swift; path = ServerApi/PRemoteServerApi.swift; sourceTree = "<group>"; };
+		D497271A1E32D9BD0076B7A1 /* STServerApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STServerApi.swift; path = ServerApi/STServerApi.swift; sourceTree = "<group>"; };
+		D497271D1E32DC700076B7A1 /* PDataBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PDataBase.swift; path = DataBase/PDataBase.swift; sourceTree = "<group>"; };
+		D497271F1E32DCAC0076B7A1 /* STRealmDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STRealmDB.swift; path = DataBase/STRealmDB.swift; sourceTree = "<group>"; };
+		D49727211E32DF300076B7A1 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Session.swift; path = ResponseModels/Session.swift; sourceTree = "<group>"; };
+		D49727231E32E3CC0076B7A1 /* STAuthorizationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STAuthorizationError.swift; path = Errors/STAuthorizationError.swift; sourceTree = "<group>"; };
+		F00E8042FB9C8BEBFEB8BA5E /* Pods-StrizhApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +53,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D4712BF056042E4491062F2 /* Pods_StrizhApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8076508875A9EAA67D0F34E2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				277E51B2F6F272FF051A01F5 /* Pods_StrizhApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D49726EE1E32BDA50076B7A1 = {
 			isa = PBXGroup;
 			children = (
 				D49726F91E32BDA50076B7A1 /* StrizhApp */,
 				D49726F81E32BDA50076B7A1 /* Products */,
+				FDD52C1D4865C815C5FA8996 /* Pods */,
+				8076508875A9EAA67D0F34E2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,6 +89,12 @@
 		D49726F91E32BDA50076B7A1 /* StrizhApp */ = {
 			isa = PBXGroup;
 			children = (
+				D49727251E32F34F0076B7A1 /* Extensions */,
+				D497271C1E32DC380076B7A1 /* DataBase */,
+				D49727151E32D21C0076B7A1 /* ServerApi */,
+				D49727141E32CF5B0076B7A1 /* ResponseModels */,
+				D49727111E32CA4B0076B7A1 /* Errors */,
+				D497270E1E32C7E20076B7A1 /* WebSocket */,
 				D49726FA1E32BDA50076B7A1 /* AppDelegate.swift */,
 				D49726FC1E32BDA50076B7A1 /* FirstViewController.swift */,
 				D49726FE1E32BDA50076B7A1 /* SecondViewController.swift */,
@@ -67,6 +106,66 @@
 			path = StrizhApp;
 			sourceTree = "<group>";
 		};
+		D497270E1E32C7E20076B7A1 /* WebSocket */ = {
+			isa = PBXGroup;
+			children = (
+				D497270F1E32C8210076B7A1 /* STWebSocket.swift */,
+			);
+			name = WebSocket;
+			sourceTree = "<group>";
+		};
+		D49727111E32CA4B0076B7A1 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				D49727121E32CA8B0076B7A1 /* STError.swift */,
+				D49727231E32E3CC0076B7A1 /* STAuthorizationError.swift */,
+			);
+			name = Errors;
+			sourceTree = "<group>";
+		};
+		D49727141E32CF5B0076B7A1 /* ResponseModels */ = {
+			isa = PBXGroup;
+			children = (
+				D49727211E32DF300076B7A1 /* Session.swift */,
+				D491AD721E33AD3B00B258C6 /* Registration.swift */,
+			);
+			name = ResponseModels;
+			sourceTree = "<group>";
+		};
+		D49727151E32D21C0076B7A1 /* ServerApi */ = {
+			isa = PBXGroup;
+			children = (
+				D49727161E32D2750076B7A1 /* PRemoteServerApi.swift */,
+				D497271A1E32D9BD0076B7A1 /* STServerApi.swift */,
+			);
+			name = ServerApi;
+			sourceTree = "<group>";
+		};
+		D497271C1E32DC380076B7A1 /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				D497271D1E32DC700076B7A1 /* PDataBase.swift */,
+				D497271F1E32DCAC0076B7A1 /* STRealmDB.swift */,
+			);
+			name = DataBase;
+			sourceTree = "<group>";
+		};
+		D49727251E32F34F0076B7A1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		FDD52C1D4865C815C5FA8996 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3E8A8787F4373C051854C7D5 /* Pods-StrizhApp.debug.xcconfig */,
+				F00E8042FB9C8BEBFEB8BA5E /* Pods-StrizhApp.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +173,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D497270B1E32BDA50076B7A1 /* Build configuration list for PBXNativeTarget "StrizhApp" */;
 			buildPhases = (
+				B9E4773C0C9B395BCF5B174C /* [CP] Check Pods Manifest.lock */,
 				D49726F31E32BDA50076B7A1 /* Sources */,
 				D49726F41E32BDA50076B7A1 /* Frameworks */,
 				D49726F51E32BDA50076B7A1 /* Resources */,
+				17190BFA52DEF46BDCFF6DA8 /* [CP] Embed Pods Frameworks */,
+				4A24ED632928005EEA7F7AEA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -135,14 +237,71 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		17190BFA52DEF46BDCFF6DA8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4A24ED632928005EEA7F7AEA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B9E4773C0C9B395BCF5B174C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D49726F31E32BDA50076B7A1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D49727201E32DCAC0076B7A1 /* STRealmDB.swift in Sources */,
 				D49726FF1E32BDA50076B7A1 /* SecondViewController.swift in Sources */,
+				D49727171E32D2750076B7A1 /* PRemoteServerApi.swift in Sources */,
 				D49726FB1E32BDA50076B7A1 /* AppDelegate.swift in Sources */,
+				D49727131E32CA8B0076B7A1 /* STError.swift in Sources */,
+				D497271B1E32D9BD0076B7A1 /* STServerApi.swift in Sources */,
+				D497271E1E32DC700076B7A1 /* PDataBase.swift in Sources */,
+				D49727241E32E3CC0076B7A1 /* STAuthorizationError.swift in Sources */,
+				D49727221E32DF300076B7A1 /* Session.swift in Sources */,
+				D49727101E32C8210076B7A1 /* STWebSocket.swift in Sources */,
 				D49726FD1E32BDA50076B7A1 /* FirstViewController.swift in Sources */,
+				D491AD731E33AD3B00B258C6 /* Registration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +420,7 @@
 		};
 		D497270C1E32BDA50076B7A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E8A8787F4373C051854C7D5 /* Pods-StrizhApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = KNW26GDP3V;
@@ -274,6 +434,7 @@
 		};
 		D497270D1E32BDA50076B7A1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F00E8042FB9C8BEBFEB8BA5E /* Pods-StrizhApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = KNW26GDP3V;
@@ -304,6 +465,7 @@
 				D497270D1E32BDA50076B7A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
