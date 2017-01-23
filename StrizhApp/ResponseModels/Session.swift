@@ -12,7 +12,7 @@ struct Session: Mappable {
 
     var sid = ""
     
-    var userId: String?
+    var userId = 0
     
     
     init?(map: Map) {

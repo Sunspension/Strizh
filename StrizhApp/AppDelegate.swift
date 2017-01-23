@@ -7,15 +7,23 @@
 //
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
+    static var appSettings: AppSettings = {
+       
+        return AppSettings(dataBase: STRealmDB(), serverApi: STServerApi(serverUrlString: "https://strizhapp.ru"))
+    }()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        AppDelegate.appSettings.db.configure()
+        FIRApp.configure()
+        
         return true
     }
 
@@ -40,7 +48,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
 

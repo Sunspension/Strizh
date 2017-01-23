@@ -7,8 +7,21 @@
 //
 
 import UIKit
+import RealmSwift
 
 struct STRealmDB: PDataBase {
 
-    
+    func configure() {
+        
+        var config = Realm.Configuration()
+        config.schemaVersion = 1
+        config.migrationBlock = { (migration: Migration, oldSchemaVersion: UInt64) in
+            
+            if oldSchemaVersion < 1 {
+                
+            }
+        }
+        
+        Realm.Configuration.defaultConfiguration = config;
+    }
 }

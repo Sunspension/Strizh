@@ -23,6 +23,10 @@
 		D49727201E32DCAC0076B7A1 /* STRealmDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497271F1E32DCAC0076B7A1 /* STRealmDB.swift */; };
 		D49727221E32DF300076B7A1 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49727211E32DF300076B7A1 /* Session.swift */; };
 		D49727241E32E3CC0076B7A1 /* STAuthorizationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49727231E32E3CC0076B7A1 /* STAuthorizationError.swift */; };
+		E53185DE1E35DF8600BC6C9A /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185DD1E35DF8600BC6C9A /* AppSettings.swift */; };
+		E53185E01E35E25100BC6C9A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185DF1E35E25100BC6C9A /* Extensions.swift */; };
+		E53185E21E35E5A200BC6C9A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E53185E11E35E5A200BC6C9A /* GoogleService-Info.plist */; };
+		E53185E41E35E71900BC6C9A /* strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json in Resources */ = {isa = PBXBuildFile; fileRef = E53185E31E35E71900BC6C9A /* strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +49,10 @@
 		D497271F1E32DCAC0076B7A1 /* STRealmDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STRealmDB.swift; path = DataBase/STRealmDB.swift; sourceTree = "<group>"; };
 		D49727211E32DF300076B7A1 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Session.swift; path = ResponseModels/Session.swift; sourceTree = "<group>"; };
 		D49727231E32E3CC0076B7A1 /* STAuthorizationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STAuthorizationError.swift; path = Errors/STAuthorizationError.swift; sourceTree = "<group>"; };
+		E53185DD1E35DF8600BC6C9A /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSettings.swift; path = AppSettings/AppSettings.swift; sourceTree = "<group>"; };
+		E53185DF1E35E25100BC6C9A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		E53185E11E35E5A200BC6C9A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E53185E31E35E71900BC6C9A /* strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json"; sourceTree = "<group>"; };
 		F00E8042FB9C8BEBFEB8BA5E /* Pods-StrizhApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,6 +97,7 @@
 		D49726F91E32BDA50076B7A1 /* StrizhApp */ = {
 			isa = PBXGroup;
 			children = (
+				E53185DC1E35DF5500BC6C9A /* AppSettings */,
 				D49727251E32F34F0076B7A1 /* Extensions */,
 				D497271C1E32DC380076B7A1 /* DataBase */,
 				D49727151E32D21C0076B7A1 /* ServerApi */,
@@ -98,6 +107,8 @@
 				D49726FA1E32BDA50076B7A1 /* AppDelegate.swift */,
 				D49726FC1E32BDA50076B7A1 /* FirstViewController.swift */,
 				D49726FE1E32BDA50076B7A1 /* SecondViewController.swift */,
+				E53185E11E35E5A200BC6C9A /* GoogleService-Info.plist */,
+				E53185E31E35E71900BC6C9A /* strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json */,
 				D49727001E32BDA50076B7A1 /* Main.storyboard */,
 				D49727031E32BDA50076B7A1 /* Assets.xcassets */,
 				D49727051E32BDA50076B7A1 /* LaunchScreen.storyboard */,
@@ -153,8 +164,17 @@
 		D49727251E32F34F0076B7A1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E53185DF1E35E25100BC6C9A /* Extensions.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		E53185DC1E35DF5500BC6C9A /* AppSettings */ = {
+			isa = PBXGroup;
+			children = (
+				E53185DD1E35DF8600BC6C9A /* AppSettings.swift */,
+			);
+			name = AppSettings;
 			sourceTree = "<group>";
 		};
 		FDD52C1D4865C815C5FA8996 /* Pods */ = {
@@ -179,6 +199,7 @@
 				D49726F51E32BDA50076B7A1 /* Resources */,
 				17190BFA52DEF46BDCFF6DA8 /* [CP] Embed Pods Frameworks */,
 				4A24ED632928005EEA7F7AEA /* [CP] Copy Pods Resources */,
+				E53185E51E35E72A00BC6C9A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -230,7 +251,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D49727071E32BDA50076B7A1 /* LaunchScreen.storyboard in Resources */,
+				E53185E21E35E5A200BC6C9A /* GoogleService-Info.plist in Resources */,
 				D49727041E32BDA50076B7A1 /* Assets.xcassets in Resources */,
+				E53185E41E35E71900BC6C9A /* strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json in Resources */,
 				D49727021E32BDA50076B7A1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,6 +306,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		E53185E51E35E72A00BC6C9A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:658913964014:ios:f2ff15fa6aec5f2c\n\n# Replace the /Path/To/ServiceAccount.json with the path to the key you just downloaded\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"${PROJECT_DIR}/StrizhApp/strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json\"";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -290,6 +326,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E53185DE1E35DF8600BC6C9A /* AppSettings.swift in Sources */,
 				D49727201E32DCAC0076B7A1 /* STRealmDB.swift in Sources */,
 				D49726FF1E32BDA50076B7A1 /* SecondViewController.swift in Sources */,
 				D49727171E32D2750076B7A1 /* PRemoteServerApi.swift in Sources */,
@@ -302,6 +339,7 @@
 				D49727101E32C8210076B7A1 /* STWebSocket.swift in Sources */,
 				D49726FD1E32BDA50076B7A1 /* FirstViewController.swift in Sources */,
 				D491AD731E33AD3B00B258C6 /* Registration.swift in Sources */,
+				E53185E01E35E25100BC6C9A /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,6 +463,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = KNW26GDP3V;
 				INFOPLIST_FILE = StrizhApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.strizh.StrizhApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -439,6 +478,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = KNW26GDP3V;
 				INFOPLIST_FILE = StrizhApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.strizh.StrizhApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";

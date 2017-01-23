@@ -14,8 +14,6 @@ import SocketIO
 
 struct STServerApi: PRemoteServerApi {
     
-    // "https://strizhapp.ru/"
-    
     private static let alamofireManager: Alamofire.SessionManager = {
         
         let configuration = URLSessionConfiguration.default

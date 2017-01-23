@@ -10,5 +10,5 @@ import UIKit
 
 protocol PDataBase {
 
-    
+    func configure()
 }
