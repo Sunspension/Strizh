@@ -13,5 +13,7 @@ target 'StrizhApp' do
     pod 'Bond', '~> 6.0-beta'
     pod 'Socket.IO-Client-Swift'
     pod 'Firebase/Crash'
-    
+#    pod 'PhoneNumberKit', '~> 1.2'
+    pod 'SHSPhoneComponent'
+    pod 'Mortar'
 end

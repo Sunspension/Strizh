@@ -14,6 +14,19 @@ class FirstViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        let phone = PhoneNumberTextField(frame: CGRect(x: 0, y: 0, width: 100, height: 21))
+//        
+//        phone.partialFormatter
+//        
+//        let kit = PhoneNumberKit()
+//        
+//        let russia = kit.countries(withCode: 7)
+//        
+//        let formatter = PartialFormatter().formatPartial("+79119477269")
+//        
+//        let f = PartialFormatter(phoneNumberKit: kit, defaultRegion: "RU", withPrefix: true)
+        
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 

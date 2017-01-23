@@ -27,6 +27,16 @@
 		E53185E01E35E25100BC6C9A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185DF1E35E25100BC6C9A /* Extensions.swift */; };
 		E53185E21E35E5A200BC6C9A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E53185E11E35E5A200BC6C9A /* GoogleService-Info.plist */; };
 		E53185E41E35E71900BC6C9A /* strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json in Resources */ = {isa = PBXBuildFile; fileRef = E53185E31E35E71900BC6C9A /* strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json */; };
+		E53185E81E3609B700BC6C9A /* STSingUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185E71E3609B700BC6C9A /* STSingUpTableViewController.swift */; };
+		E53185F11E3612EF00BC6C9A /* GenericTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185EA1E3612EF00BC6C9A /* GenericTableViewDataSource.swift */; };
+		E53185F21E3612EF00BC6C9A /* GenericCollectionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185EB1E3612EF00BC6C9A /* GenericCollectionSection.swift */; };
+		E53185F31E3612EF00BC6C9A /* GenericCollectionSectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185EC1E3612EF00BC6C9A /* GenericCollectionSectionItem.swift */; };
+		E53185F41E3612EF00BC6C9A /* CollectionSectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185ED1E3612EF00BC6C9A /* CollectionSectionItem.swift */; };
+		E53185F51E3612EF00BC6C9A /* CollectionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185EE1E3612EF00BC6C9A /* CollectionSection.swift */; };
+		E53185F61E3612EF00BC6C9A /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185EF1E3612EF00BC6C9A /* TableViewDataSource.swift */; };
+		E53185F71E3612EF00BC6C9A /* STLoadingStatusEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185F01E3612EF00BC6C9A /* STLoadingStatusEnum.swift */; };
+		E53185FE1E364AE700BC6C9A /* STLoginTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185FC1E364AE700BC6C9A /* STLoginTableViewCell.swift */; };
+		E53185FF1E364AE700BC6C9A /* STLoginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E53185FD1E364AE700BC6C9A /* STLoginTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +63,16 @@
 		E53185DF1E35E25100BC6C9A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		E53185E11E35E5A200BC6C9A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E53185E31E35E71900BC6C9A /* strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json"; sourceTree = "<group>"; };
+		E53185E71E3609B700BC6C9A /* STSingUpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpTableViewController.swift; path = SignUp/STSingUpTableViewController.swift; sourceTree = "<group>"; };
+		E53185EA1E3612EF00BC6C9A /* GenericTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericTableViewDataSource.swift; sourceTree = "<group>"; };
+		E53185EB1E3612EF00BC6C9A /* GenericCollectionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericCollectionSection.swift; sourceTree = "<group>"; };
+		E53185EC1E3612EF00BC6C9A /* GenericCollectionSectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericCollectionSectionItem.swift; sourceTree = "<group>"; };
+		E53185ED1E3612EF00BC6C9A /* CollectionSectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionSectionItem.swift; sourceTree = "<group>"; };
+		E53185EE1E3612EF00BC6C9A /* CollectionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionSection.swift; sourceTree = "<group>"; };
+		E53185EF1E3612EF00BC6C9A /* TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
+		E53185F01E3612EF00BC6C9A /* STLoadingStatusEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STLoadingStatusEnum.swift; sourceTree = "<group>"; };
+		E53185FC1E364AE700BC6C9A /* STLoginTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginTableViewCell.swift; path = SignUp/STLoginTableViewCell.swift; sourceTree = "<group>"; };
+		E53185FD1E364AE700BC6C9A /* STLoginTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STLoginTableViewCell.xib; path = SignUp/STLoginTableViewCell.xib; sourceTree = "<group>"; };
 		F00E8042FB9C8BEBFEB8BA5E /* Pods-StrizhApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,6 +117,8 @@
 		D49726F91E32BDA50076B7A1 /* StrizhApp */ = {
 			isa = PBXGroup;
 			children = (
+				E53185E91E3612D600BC6C9A /* DataSource */,
+				E53185E61E36097100BC6C9A /* SingUp */,
 				E53185DC1E35DF5500BC6C9A /* AppSettings */,
 				D49727251E32F34F0076B7A1 /* Extensions */,
 				D497271C1E32DC380076B7A1 /* DataBase */,
@@ -107,6 +129,7 @@
 				D49726FA1E32BDA50076B7A1 /* AppDelegate.swift */,
 				D49726FC1E32BDA50076B7A1 /* FirstViewController.swift */,
 				D49726FE1E32BDA50076B7A1 /* SecondViewController.swift */,
+				E53185F01E3612EF00BC6C9A /* STLoadingStatusEnum.swift */,
 				E53185E11E35E5A200BC6C9A /* GoogleService-Info.plist */,
 				E53185E31E35E71900BC6C9A /* strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json */,
 				D49727001E32BDA50076B7A1 /* Main.storyboard */,
@@ -175,6 +198,45 @@
 				E53185DD1E35DF8600BC6C9A /* AppSettings.swift */,
 			);
 			name = AppSettings;
+			sourceTree = "<group>";
+		};
+		E53185E61E36097100BC6C9A /* SingUp */ = {
+			isa = PBXGroup;
+			children = (
+				E53185F91E362B7A00BC6C9A /* Views */,
+				E53185F81E362B6B00BC6C9A /* Controllers */,
+			);
+			name = SingUp;
+			sourceTree = "<group>";
+		};
+		E53185E91E3612D600BC6C9A /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				E53185EA1E3612EF00BC6C9A /* GenericTableViewDataSource.swift */,
+				E53185EB1E3612EF00BC6C9A /* GenericCollectionSection.swift */,
+				E53185EC1E3612EF00BC6C9A /* GenericCollectionSectionItem.swift */,
+				E53185ED1E3612EF00BC6C9A /* CollectionSectionItem.swift */,
+				E53185EE1E3612EF00BC6C9A /* CollectionSection.swift */,
+				E53185EF1E3612EF00BC6C9A /* TableViewDataSource.swift */,
+			);
+			name = DataSource;
+			sourceTree = "<group>";
+		};
+		E53185F81E362B6B00BC6C9A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E53185E71E3609B700BC6C9A /* STSingUpTableViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		E53185F91E362B7A00BC6C9A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E53185FC1E364AE700BC6C9A /* STLoginTableViewCell.swift */,
+				E53185FD1E364AE700BC6C9A /* STLoginTableViewCell.xib */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		FDD52C1D4865C815C5FA8996 /* Pods */ = {
@@ -254,6 +316,7 @@
 				E53185E21E35E5A200BC6C9A /* GoogleService-Info.plist in Resources */,
 				D49727041E32BDA50076B7A1 /* Assets.xcassets in Resources */,
 				E53185E41E35E71900BC6C9A /* strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json in Resources */,
+				E53185FF1E364AE700BC6C9A /* STLoginTableViewCell.xib in Resources */,
 				D49727021E32BDA50076B7A1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -330,13 +393,22 @@
 				D49727201E32DCAC0076B7A1 /* STRealmDB.swift in Sources */,
 				D49726FF1E32BDA50076B7A1 /* SecondViewController.swift in Sources */,
 				D49727171E32D2750076B7A1 /* PRemoteServerApi.swift in Sources */,
+				E53185FE1E364AE700BC6C9A /* STLoginTableViewCell.swift in Sources */,
+				E53185E81E3609B700BC6C9A /* STSingUpTableViewController.swift in Sources */,
 				D49726FB1E32BDA50076B7A1 /* AppDelegate.swift in Sources */,
 				D49727131E32CA8B0076B7A1 /* STError.swift in Sources */,
 				D497271B1E32D9BD0076B7A1 /* STServerApi.swift in Sources */,
+				E53185F31E3612EF00BC6C9A /* GenericCollectionSectionItem.swift in Sources */,
+				E53185F21E3612EF00BC6C9A /* GenericCollectionSection.swift in Sources */,
 				D497271E1E32DC700076B7A1 /* PDataBase.swift in Sources */,
 				D49727241E32E3CC0076B7A1 /* STAuthorizationError.swift in Sources */,
+				E53185F61E3612EF00BC6C9A /* TableViewDataSource.swift in Sources */,
+				E53185F41E3612EF00BC6C9A /* CollectionSectionItem.swift in Sources */,
 				D49727221E32DF300076B7A1 /* Session.swift in Sources */,
 				D49727101E32C8210076B7A1 /* STWebSocket.swift in Sources */,
+				E53185F51E3612EF00BC6C9A /* CollectionSection.swift in Sources */,
+				E53185F11E3612EF00BC6C9A /* GenericTableViewDataSource.swift in Sources */,
+				E53185F71E3612EF00BC6C9A /* STLoadingStatusEnum.swift in Sources */,
 				D49726FD1E32BDA50076B7A1 /* FirstViewController.swift in Sources */,
 				D491AD731E33AD3B00B258C6 /* Registration.swift in Sources */,
 				E53185E01E35E25100BC6C9A /* Extensions.swift in Sources */,
