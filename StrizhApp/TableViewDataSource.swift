@@ -12,6 +12,7 @@ class TableViewDataSource: NSObject, UITableViewDataSource {
     
     var sections: [CollectionSection] = []
 
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return self.sections[section].items.count 
@@ -24,15 +25,8 @@ class TableViewDataSource: NSObject, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let item = self.sections[(indexPath as NSIndexPath).section].items[(indexPath as NSIndexPath).row]
+        var item = self.sections[(indexPath as NSIndexPath).section].items[(indexPath as NSIndexPath).row]
         item.indexPath = indexPath
-        
-        if item.defaultcell == true {
-            
-            let cell = UITableViewCell(style: item.cellStyle!, reuseIdentifier: item.reusableIdentifier)
-            item.bindingAction?(cell, item)
-            return cell;
-        }
         
         if let cellClass = item.cellClass {
             

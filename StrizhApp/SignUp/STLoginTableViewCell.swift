@@ -9,7 +9,7 @@
 import UIKit
 
 class STLoginTableViewCell: UITableViewCell {
-
+        
     @IBOutlet weak var stackView: UIStackView!
     
     

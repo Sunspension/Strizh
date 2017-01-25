@@ -15,5 +15,5 @@ target 'StrizhApp' do
     pod 'Firebase/Crash'
 #    pod 'PhoneNumberKit', '~> 1.2'
     pod 'SHSPhoneComponent'
-    pod 'Mortar'
+#    pod 'Mortar'
 end

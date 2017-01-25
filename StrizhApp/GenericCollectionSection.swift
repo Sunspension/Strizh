@@ -16,6 +16,10 @@ class GenericCollectionSection<TItem>: NSObject {
     
     var sectionType: Any?
     
+    var cellClass: AnyClass?
+    
+    var nibClass: AnyClass?
+    
     
     init(title: String? = nil) {
         

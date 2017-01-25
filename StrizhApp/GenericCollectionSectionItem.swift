@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GenericCollectionSectionItem<TItem>: NSObject {
+struct GenericCollectionSectionItem<TItem: Any> {
     
     var item: TItem?
     
@@ -22,10 +22,11 @@ class GenericCollectionSectionItem<TItem>: NSObject {
     
     var cellHeight: CGFloat?
     
+    var validation: (() -> Bool)?
+    
     
     init(item: TItem?) {
         
         self.item = item
-        super.init()
     }
 }

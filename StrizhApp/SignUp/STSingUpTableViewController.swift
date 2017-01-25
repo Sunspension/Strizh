@@ -8,7 +8,6 @@
 
 import UIKit
 import SHSPhoneComponent
-import Mortar
 
 class STSingUpTableViewController: UITableViewController {
     
@@ -22,22 +21,19 @@ class STSingUpTableViewController: UITableViewController {
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "photo"))
         self.tableView.backgroundView!.addSubview(logo)
         
-        logo.m_top |=| 84
-        logo.m_centerX |=| self.tableView.backgroundView!
-        
         self.tableView.estimatedRowHeight = 50
         self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.tableFooterView = UIView()
         
         self.tableView.dataSource = dataSource
         self.tableView.register(nibClass: STLoginTableViewCell.self)
         
-        let section = CollectionSection()
-        self.dataSource.sections.append(section)
-        
-        section.initializeItem(nibClass: STLoginTableViewCell.self) { (cell, item) in
+        var section = CollectionSection()
+        section.addItem(STLoginTableViewCell.self) { (cell, item) in
             
-            let viewCell = cell as! STLoginTableViewCell
         }
+        
+        self.dataSource.sections.append(section)
     }
 
     override func viewWillAppear(_ animated: Bool) {

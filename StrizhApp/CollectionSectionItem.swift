@@ -8,17 +8,8 @@
 
 import UIKit
 
-class CollectionSectionItem: NSObject {
+struct CollectionSectionItem {
 
-    fileprivate (set) var defaultcell: Bool = false
-    
-    fileprivate (set) var cellStyle: UITableViewCellStyle?
-    
-    fileprivate (set) var firstReusableIdentifier: String?
-    
-    fileprivate (set) var secondReusableIdentifier: String?
-    
-    
     var item: Any?
     
     var itemType: Any?
@@ -27,23 +18,11 @@ class CollectionSectionItem: NSObject {
     
     var validation: (() -> Bool)?
     
-    var reusableIdentifier: String? {
-        
-        get {
-            
-            return swappable ? (selected ? secondReusableIdentifier : firstReusableIdentifier) : firstReusableIdentifier
-        }
-    }
-    
     var selected = false
-    
-    var hasError = false
     
     var indexPath: IndexPath!
     
     var bindingAction: ((_ cell: UITableViewCell, _ item: CollectionSectionItem) -> Void)?
-    
-    var swappable = false
     
     var cellHeight: CGFloat?
     
@@ -52,47 +31,12 @@ class CollectionSectionItem: NSObject {
     var nibClass: AnyClass?
     
     
-    init(cellClass: AnyClass, item: Any?) {
-        
-        self.cellClass = cellClass
-        self.item = item
-        
-        super.init()
-    }
-    
-    init(nibClass: AnyClass, item: Any?) {
+    init(nibClass: AnyClass, item: Any? = nil, itemType: Any? = nil,
+         bindingAction: @escaping (_ cell: UITableViewCell, _ item: CollectionSectionItem) -> Void) {
         
         self.nibClass = nibClass
         self.item = item
-        
-        super.init()
-    }
-    
-    init(reusableIdentifier: String? = nil, item: Any?) {
-        
-        self.firstReusableIdentifier = reusableIdentifier
-        self.item = item
-        
-        super.init()
-    }
-    
-    init(firstReusableIdentifierOrNibName: String? = nil, secondReusableIdentifierOrNibName: String? = nil, item: Any?) {
-        
-        self.firstReusableIdentifier = firstReusableIdentifierOrNibName
-        self.secondReusableIdentifier = secondReusableIdentifierOrNibName
-        self.item = item
-        self.swappable = true
-        
-        super.init()
-    }
-    
-    init(reusableIdentifier: String?, cellStyle: UITableViewCellStyle, item: Any?) {
-        
-        self.item = item
-        self.cellStyle = cellStyle
-        self.defaultcell = true;
-        self.firstReusableIdentifier = reusableIdentifier
-        
-        super.init()
+        self.itemType = itemType
+        self.bindingAction = bindingAction
     }
 }
