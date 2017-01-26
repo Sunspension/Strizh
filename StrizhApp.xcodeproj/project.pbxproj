@@ -37,6 +37,10 @@
 		E53185F71E3612EF00BC6C9A /* STLoadingStatusEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185F01E3612EF00BC6C9A /* STLoadingStatusEnum.swift */; };
 		E53185FE1E364AE700BC6C9A /* STLoginTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185FC1E364AE700BC6C9A /* STLoginTableViewCell.swift */; };
 		E53185FF1E364AE700BC6C9A /* STLoginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E53185FD1E364AE700BC6C9A /* STLoginTableViewCell.xib */; };
+		E53F37BD1E3A632C00393BAD /* STLoginLogoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53F37BB1E3A632C00393BAD /* STLoginLogoTableViewCell.swift */; };
+		E53F37BE1E3A632C00393BAD /* STLoginLogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E53F37BC1E3A632C00393BAD /* STLoginLogoTableViewCell.xib */; };
+		E53F37C01E3A6ADD00393BAD /* STSingUpNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53F37BF1E3A6ADD00393BAD /* STSingUpNavigationController.swift */; };
+		E53F37C31E3A75F900393BAD /* KeyboardNotificationListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53F37C21E3A75F900393BAD /* KeyboardNotificationListener.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +77,10 @@
 		E53185F01E3612EF00BC6C9A /* STLoadingStatusEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STLoadingStatusEnum.swift; sourceTree = "<group>"; };
 		E53185FC1E364AE700BC6C9A /* STLoginTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginTableViewCell.swift; path = SignUp/STLoginTableViewCell.swift; sourceTree = "<group>"; };
 		E53185FD1E364AE700BC6C9A /* STLoginTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STLoginTableViewCell.xib; path = SignUp/STLoginTableViewCell.xib; sourceTree = "<group>"; };
+		E53F37BB1E3A632C00393BAD /* STLoginLogoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginLogoTableViewCell.swift; path = SignUp/STLoginLogoTableViewCell.swift; sourceTree = "<group>"; };
+		E53F37BC1E3A632C00393BAD /* STLoginLogoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STLoginLogoTableViewCell.xib; path = SignUp/STLoginLogoTableViewCell.xib; sourceTree = "<group>"; };
+		E53F37BF1E3A6ADD00393BAD /* STSingUpNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpNavigationController.swift; path = SignUp/STSingUpNavigationController.swift; sourceTree = "<group>"; };
+		E53F37C21E3A75F900393BAD /* KeyboardNotificationListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardNotificationListener.swift; sourceTree = "<group>"; };
 		F00E8042FB9C8BEBFEB8BA5E /* Pods-StrizhApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,6 +125,7 @@
 		D49726F91E32BDA50076B7A1 /* StrizhApp */ = {
 			isa = PBXGroup;
 			children = (
+				E53F37C11E3A75E200393BAD /* Helpers */,
 				E53185E91E3612D600BC6C9A /* DataSource */,
 				E53185E61E36097100BC6C9A /* SingUp */,
 				E53185DC1E35DF5500BC6C9A /* AppSettings */,
@@ -226,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				E53185E71E3609B700BC6C9A /* STSingUpTableViewController.swift */,
+				E53F37BF1E3A6ADD00393BAD /* STSingUpNavigationController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -235,8 +245,18 @@
 			children = (
 				E53185FC1E364AE700BC6C9A /* STLoginTableViewCell.swift */,
 				E53185FD1E364AE700BC6C9A /* STLoginTableViewCell.xib */,
+				E53F37BB1E3A632C00393BAD /* STLoginLogoTableViewCell.swift */,
+				E53F37BC1E3A632C00393BAD /* STLoginLogoTableViewCell.xib */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		E53F37C11E3A75E200393BAD /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				E53F37C21E3A75F900393BAD /* KeyboardNotificationListener.swift */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		FDD52C1D4865C815C5FA8996 /* Pods */ = {
@@ -318,6 +338,7 @@
 				E53185E41E35E71900BC6C9A /* strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json in Resources */,
 				E53185FF1E364AE700BC6C9A /* STLoginTableViewCell.xib in Resources */,
 				D49727021E32BDA50076B7A1 /* Main.storyboard in Resources */,
+				E53F37BE1E3A632C00393BAD /* STLoginLogoTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,14 +419,17 @@
 				D49726FB1E32BDA50076B7A1 /* AppDelegate.swift in Sources */,
 				D49727131E32CA8B0076B7A1 /* STError.swift in Sources */,
 				D497271B1E32D9BD0076B7A1 /* STServerApi.swift in Sources */,
+				E53F37C01E3A6ADD00393BAD /* STSingUpNavigationController.swift in Sources */,
 				E53185F31E3612EF00BC6C9A /* GenericCollectionSectionItem.swift in Sources */,
 				E53185F21E3612EF00BC6C9A /* GenericCollectionSection.swift in Sources */,
 				D497271E1E32DC700076B7A1 /* PDataBase.swift in Sources */,
 				D49727241E32E3CC0076B7A1 /* STAuthorizationError.swift in Sources */,
+				E53F37BD1E3A632C00393BAD /* STLoginLogoTableViewCell.swift in Sources */,
 				E53185F61E3612EF00BC6C9A /* TableViewDataSource.swift in Sources */,
 				E53185F41E3612EF00BC6C9A /* CollectionSectionItem.swift in Sources */,
 				D49727221E32DF300076B7A1 /* Session.swift in Sources */,
 				D49727101E32C8210076B7A1 /* STWebSocket.swift in Sources */,
+				E53F37C31E3A75F900393BAD /* KeyboardNotificationListener.swift in Sources */,
 				E53185F51E3612EF00BC6C9A /* CollectionSection.swift in Sources */,
 				E53185F11E3612EF00BC6C9A /* GenericTableViewDataSource.swift in Sources */,
 				E53185F71E3612EF00BC6C9A /* STLoadingStatusEnum.swift in Sources */,

@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="57"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="56.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Gkn-AU-PdO">
@@ -27,7 +27,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="+7 (921) 333-33-33" placeholder="+7 (921) 333-33-33" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Zv-ik-nlb" customClass="SHSPhoneTextField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="+7 (921) 333-33-33" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Zv-ik-nlb" customClass="SHSPhoneTextField">
                                 <rect key="frame" x="108.5" y="0.0" width="195.5" height="50"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -46,8 +46,11 @@
                     <constraint firstItem="Gkn-AU-PdO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="iii-qP-KsG"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="stackView" destination="Gkn-AU-PdO" id="XFO-An-GI5"/>
+                <outlet property="title" destination="0Iy-ud-dwd" id="xxD-Vc-iVg"/>
+                <outlet property="value" destination="2Zv-ik-nlb" id="H52-Gv-fzV"/>
             </connections>
             <point key="canvasLocation" x="34" y="60.5"/>
         </tableViewCell>
