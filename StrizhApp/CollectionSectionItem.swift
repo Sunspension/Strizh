@@ -8,8 +8,10 @@
 
 import UIKit
 
-struct CollectionSectionItem {
+typealias BindingAction = ((_ cell: UITableViewCell, _ item: CollectionSectionItem) -> Void)
 
+struct CollectionSectionItem {
+    
     var item: Any?
     
     var itemType: Any?
@@ -22,7 +24,7 @@ struct CollectionSectionItem {
     
     var indexPath: IndexPath!
     
-    var bindingAction: ((_ cell: UITableViewCell, _ item: CollectionSectionItem) -> Void)?
+    var bindingAction: BindingAction?
     
     var cellHeight: CGFloat?
     
@@ -31,8 +33,10 @@ struct CollectionSectionItem {
     var nibClass: AnyClass?
     
     
-    init(nibClass: AnyClass, item: Any? = nil, itemType: Any? = nil,
-         bindingAction: @escaping (_ cell: UITableViewCell, _ item: CollectionSectionItem) -> Void) {
+    init(nibClass: AnyClass,
+         item: Any? = nil,
+         itemType: Any? = nil,
+         bindingAction: BindingAction? = nil) {
         
         self.nibClass = nibClass
         self.item = item

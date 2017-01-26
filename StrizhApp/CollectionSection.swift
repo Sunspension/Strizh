@@ -26,8 +26,10 @@ struct CollectionSection {
         self.title = title;
     }
     
-    mutating func addItem(_ nibClass: AnyClass, item: Any? = nil, itemType: Any? = nil,
-                 bindingAction: @escaping (_ cell: UITableViewCell, _ item: CollectionSectionItem) -> Void) {
+    mutating func addItem(nibClass: AnyClass,
+                          item: Any? = nil,
+                          itemType: Any? = nil,
+                          bindingAction: BindingAction? = nil) {
         
         let item = CollectionSectionItem(nibClass: nibClass,
                                          item: item,

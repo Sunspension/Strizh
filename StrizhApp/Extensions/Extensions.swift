@@ -18,6 +18,13 @@ extension UIViewController {
             return AppDelegate.appSettings.api
         }
     }
+    
+    func setCustomBackButton() {
+        
+        let back = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        back.tintColor = UIColor.white
+        self.navigationItem.backBarButtonItem = back
+    }
 }
 
 extension UITableView {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iAu-t0-xUO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iAu-t0-xUO">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -119,7 +119,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="FJ4-sy-lMf" kind="relationship" relationship="rootViewController" id="2T8-vA-gU5"/>
+                        <segue destination="FJ4-sy-lMf" kind="relationship" relationship="rootViewController" id="r9M-hM-c83"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hkx-r2-g7D" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -134,48 +134,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="87" id="ICY-eU-Im5" customClass="STLoginTableViewCell" customModule="StrizhApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="87"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ICY-eU-Im5" id="hlf-aS-ky9">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="87"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="n97-Sn-We9">
-                                            <rect key="frame" x="8" y="0.0" width="359" height="50"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Телефон" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6iu-NP-K8j">
-                                                    <rect key="frame" x="0.0" y="0.0" width="116.5" height="50"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="+7 (921) 333-33-33" placeholder="+7 (921) 333-33-33" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u9W-am-jfm" customClass="SHSPhoneTextField">
-                                                    <rect key="frame" x="126.5" y="0.0" width="232.5" height="50"/>
-                                                    <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="50" id="7KO-KD-jBZ"/>
-                                            </constraints>
-                                        </stackView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="n97-Sn-We9" secondAttribute="bottom" priority="999" id="5yi-gK-aur"/>
-                                        <constraint firstItem="n97-Sn-We9" firstAttribute="top" secondItem="hlf-aS-ky9" secondAttribute="top" id="8EA-LB-S1e"/>
-                                        <constraint firstAttribute="trailing" secondItem="n97-Sn-We9" secondAttribute="trailing" constant="8" id="ChG-vy-o0r"/>
-                                        <constraint firstItem="n97-Sn-We9" firstAttribute="leading" secondItem="hlf-aS-ky9" secondAttribute="leading" constant="8" id="x7D-eh-WIk"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="title" destination="6iu-NP-K8j" id="Qlo-3P-tQU"/>
-                                    <outlet property="valueField" destination="u9W-am-jfm" id="A4G-yB-Jn3"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="FJ4-sy-lMf" id="oT6-Ed-SeT"/>
                             <outlet property="delegate" destination="FJ4-sy-lMf" id="nRh-EC-b48"/>
@@ -185,7 +143,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bhu-1O-kyi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="904.79999999999995" y="-1341.6791604197902"/>
+            <point key="canvasLocation" x="750" y="-1341"/>
         </scene>
     </scenes>
     <resources>
