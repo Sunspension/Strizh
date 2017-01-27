@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import RealmSwift
+import ObjectMapper
 
-protocol PDataBase {
-
+protocol PDBConfiguration {
+    
     func configure()
 }

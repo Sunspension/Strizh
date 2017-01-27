@@ -12,7 +12,13 @@ extension UIViewController {
     
     func st_Router_SigUpStepTwo() {
         
-        let controller = STSingUpTableViewController()
+        let controller = STSingUpTableViewController(signupStep: .signupSecondStep)
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func st_Router_SigUpStepThree() {
+        
+        let controller = STSingUpTableViewController(signupStep: .signupThirdStep)
         self.navigationController?.pushViewController(controller, animated: true)
     }
 }

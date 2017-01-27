@@ -16,12 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     static var appSettings: AppSettings = {
        
-        return AppSettings(dataBase: STRealmDB(), serverApi: STServerApi(serverUrlString: "https://strizhapp.ru"))
+        return AppSettings(dbConfig: STRealmConfiguration(),
+                           serverApi: STServerApi(serverUrlString: "https://strizhapp.ru"))
     }()
+    
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        AppDelegate.appSettings.db.configure()
+        AppDelegate.appSettings.dbConfig.configure()
+        
         FIRApp.configure()
         
         return true

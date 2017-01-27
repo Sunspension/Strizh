@@ -26,15 +26,24 @@ struct CollectionSection {
         self.title = title;
     }
     
-    mutating func addItem(nibClass: AnyClass,
-                          item: Any? = nil,
-                          itemType: Any? = nil,
-                          bindingAction: BindingAction? = nil) {
+    mutating func addItem(nibClass: AnyClass, item: Any? = nil,
+                          itemType: Any? = nil, bindingAction: BindingAction? = nil) {
         
         let item = CollectionSectionItem(nibClass: nibClass,
                                          item: item,
                                          itemType: itemType,
                                          bindingAction: bindingAction)
         self.items.append(item)
+    }
+    
+    mutating func addItem(cellStyle: UITableViewCellStyle, item: Any? = nil,
+                          itemType: Any? = nil, bindingAction: BindingAction?) {
+        
+        let item = CollectionSectionItem(cellStyle: cellStyle,
+                                         item: item,
+                                         itemType: itemType,
+                                         bindingAction: bindingAction)
+        self.items.append(item)
+        
     }
 }

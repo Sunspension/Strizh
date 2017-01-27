@@ -32,6 +32,8 @@ struct CollectionSectionItem {
     
     var nibClass: AnyClass?
     
+    var cellStyle: UITableViewCellStyle?
+    
     
     init(nibClass: AnyClass,
          item: Any? = nil,
@@ -39,6 +41,17 @@ struct CollectionSectionItem {
          bindingAction: BindingAction? = nil) {
         
         self.nibClass = nibClass
+        self.item = item
+        self.itemType = itemType
+        self.bindingAction = bindingAction
+    }
+    
+    init(cellStyle: UITableViewCellStyle,
+         item: Any? = nil,
+         itemType: Any? = nil,
+         bindingAction: BindingAction? = nil) {
+        
+        self.cellStyle = cellStyle
         self.item = item
         self.itemType = itemType
         self.bindingAction = bindingAction

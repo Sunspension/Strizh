@@ -7,19 +7,38 @@
 //
 
 import UIKit
+import RealmSwift
+
+let deviceType = "ios"
+let kSTLastSessionPhone = "kSTLastSessionPhone"
 
 struct AppSettings {
-
+    
     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
     
-    var db: PDataBase
+    var dbConfig: PDBConfiguration
     
     var api: PRemoteServerApi
     
-    
-    init(dataBase: PDataBase, serverApi: PRemoteServerApi) {
+    var lastSessionPhoneNumber: String? {
         
-        self.db = dataBase
+        get {
+            
+            let defaults = UserDefaults.standard
+            return defaults.object(forKey: kSTLastSessionPhone) as? String
+        }
+        
+        set (newValue) {
+            
+            let defauls = UserDefaults.standard
+            defauls.setValue(newValue, forKey: kSTLastSessionPhone)
+            defauls.synchronize()
+        }
+    }
+    
+    init(dbConfig: PDBConfiguration, serverApi: PRemoteServerApi) {
+        
+        self.dbConfig = dbConfig
         self.api = serverApi
     }
 }

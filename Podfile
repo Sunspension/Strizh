@@ -16,4 +16,5 @@ target 'StrizhApp' do
 #    pod 'PhoneNumberKit', '~> 1.2'
     pod 'SHSPhoneComponent'
 #    pod 'Mortar'
+    pod 'NVActivityIndicatorView'
 end

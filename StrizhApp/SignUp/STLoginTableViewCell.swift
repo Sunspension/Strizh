@@ -21,8 +21,6 @@ class STLoginTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        value.formatter.setDefaultOutputPattern(" (###) ### ## ##")
-        value.formatter.prefix = "+7"
         value.tintColor = UIColor.white
     }
 

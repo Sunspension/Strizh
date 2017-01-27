@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,17 +19,17 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Gkn-AU-PdO">
-                        <rect key="frame" x="8" y="0.0" width="304" height="50"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Gkn-AU-PdO">
+                        <rect key="frame" x="16" y="0.0" width="288" height="50"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Телефон" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Iy-ud-dwd">
-                                <rect key="frame" x="0.0" y="0.0" width="98.5" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="92.5" height="50"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="+7 (921) 333-33-33" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Zv-ik-nlb" customClass="SHSPhoneTextField">
-                                <rect key="frame" x="108.5" y="0.0" width="195.5" height="50"/>
+                                <rect key="frame" x="102.5" y="0.0" width="185.5" height="50"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -36,14 +37,15 @@
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="IUN-eX-7dl"/>
+                            <constraint firstItem="0Iy-ud-dwd" firstAttribute="width" secondItem="2Zv-ik-nlb" secondAttribute="width" multiplier="4:8" id="Nxt-ms-oC6"/>
                         </constraints>
                     </stackView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Gkn-AU-PdO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="LyE-bV-rA2"/>
                     <constraint firstAttribute="bottom" secondItem="Gkn-AU-PdO" secondAttribute="bottom" priority="999" id="Mnu-fQ-ZU7"/>
-                    <constraint firstAttribute="trailing" secondItem="Gkn-AU-PdO" secondAttribute="trailing" constant="8" id="Rl7-EM-R41"/>
-                    <constraint firstItem="Gkn-AU-PdO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="iii-qP-KsG"/>
+                    <constraint firstAttribute="trailing" secondItem="Gkn-AU-PdO" secondAttribute="trailing" constant="16" id="Rl7-EM-R41"/>
+                    <constraint firstItem="Gkn-AU-PdO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="iii-qP-KsG"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

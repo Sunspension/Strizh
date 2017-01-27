@@ -21,8 +21,8 @@
 		D49727131E32CA8B0076B7A1 /* STError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49727121E32CA8B0076B7A1 /* STError.swift */; };
 		D49727171E32D2750076B7A1 /* PRemoteServerApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49727161E32D2750076B7A1 /* PRemoteServerApi.swift */; };
 		D497271B1E32D9BD0076B7A1 /* STServerApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497271A1E32D9BD0076B7A1 /* STServerApi.swift */; };
-		D497271E1E32DC700076B7A1 /* PDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497271D1E32DC700076B7A1 /* PDataBase.swift */; };
-		D49727201E32DCAC0076B7A1 /* STRealmDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497271F1E32DCAC0076B7A1 /* STRealmDB.swift */; };
+		D497271E1E32DC700076B7A1 /* PDBConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497271D1E32DC700076B7A1 /* PDBConfiguration.swift */; };
+		D49727201E32DCAC0076B7A1 /* STRealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497271F1E32DCAC0076B7A1 /* STRealmConfiguration.swift */; };
 		D49727221E32DF300076B7A1 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49727211E32DF300076B7A1 /* Session.swift */; };
 		D49727241E32E3CC0076B7A1 /* STAuthorizationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49727231E32E3CC0076B7A1 /* STAuthorizationError.swift */; };
 		E53185DE1E35DF8600BC6C9A /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185DD1E35DF8600BC6C9A /* AppSettings.swift */; };
@@ -42,6 +42,7 @@
 		E53F37BE1E3A632C00393BAD /* STLoginLogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E53F37BC1E3A632C00393BAD /* STLoginLogoTableViewCell.xib */; };
 		E53F37C01E3A6ADD00393BAD /* STSingUpNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53F37BF1E3A6ADD00393BAD /* STSingUpNavigationController.swift */; };
 		E53F37C31E3A75F900393BAD /* KeyboardNotificationListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53F37C21E3A75F900393BAD /* KeyboardNotificationListener.swift */; };
+		E54D88F41E3BB579005233DB /* RealmExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54D88F31E3BB579005233DB /* RealmExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,8 +63,8 @@
 		D49727121E32CA8B0076B7A1 /* STError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STError.swift; path = Errors/STError.swift; sourceTree = "<group>"; };
 		D49727161E32D2750076B7A1 /* PRemoteServerApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PRemoteServerApi.swift; path = ServerApi/PRemoteServerApi.swift; sourceTree = "<group>"; };
 		D497271A1E32D9BD0076B7A1 /* STServerApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STServerApi.swift; path = ServerApi/STServerApi.swift; sourceTree = "<group>"; };
-		D497271D1E32DC700076B7A1 /* PDataBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PDataBase.swift; path = DataBase/PDataBase.swift; sourceTree = "<group>"; };
-		D497271F1E32DCAC0076B7A1 /* STRealmDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STRealmDB.swift; path = DataBase/STRealmDB.swift; sourceTree = "<group>"; };
+		D497271D1E32DC700076B7A1 /* PDBConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PDBConfiguration.swift; path = DataBase/PDBConfiguration.swift; sourceTree = "<group>"; };
+		D497271F1E32DCAC0076B7A1 /* STRealmConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STRealmConfiguration.swift; path = DataBase/STRealmConfiguration.swift; sourceTree = "<group>"; };
 		D49727211E32DF300076B7A1 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Session.swift; path = ResponseModels/Session.swift; sourceTree = "<group>"; };
 		D49727231E32E3CC0076B7A1 /* STAuthorizationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STAuthorizationError.swift; path = Errors/STAuthorizationError.swift; sourceTree = "<group>"; };
 		E53185DD1E35DF8600BC6C9A /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSettings.swift; path = AppSettings/AppSettings.swift; sourceTree = "<group>"; };
@@ -83,6 +84,7 @@
 		E53F37BC1E3A632C00393BAD /* STLoginLogoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STLoginLogoTableViewCell.xib; path = SignUp/STLoginLogoTableViewCell.xib; sourceTree = "<group>"; };
 		E53F37BF1E3A6ADD00393BAD /* STSingUpNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpNavigationController.swift; path = SignUp/STSingUpNavigationController.swift; sourceTree = "<group>"; };
 		E53F37C21E3A75F900393BAD /* KeyboardNotificationListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardNotificationListener.swift; sourceTree = "<group>"; };
+		E54D88F31E3BB579005233DB /* RealmExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmExtensions.swift; path = Extensions/RealmExtensions.swift; sourceTree = "<group>"; };
 		F00E8042FB9C8BEBFEB8BA5E /* Pods-StrizhApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -189,8 +191,8 @@
 		D497271C1E32DC380076B7A1 /* DataBase */ = {
 			isa = PBXGroup;
 			children = (
-				D497271D1E32DC700076B7A1 /* PDataBase.swift */,
-				D497271F1E32DCAC0076B7A1 /* STRealmDB.swift */,
+				D497271D1E32DC700076B7A1 /* PDBConfiguration.swift */,
+				D497271F1E32DCAC0076B7A1 /* STRealmConfiguration.swift */,
 			);
 			name = DataBase;
 			sourceTree = "<group>";
@@ -200,6 +202,7 @@
 			children = (
 				D40A6BE71E3AA7FB00F1D218 /* Extensions.swift */,
 				D40A6BE51E3AA7DB00F1D218 /* Router.swift */,
+				E54D88F31E3BB579005233DB /* RealmExtensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -415,7 +418,7 @@
 			files = (
 				E53185DE1E35DF8600BC6C9A /* AppSettings.swift in Sources */,
 				D40A6BE81E3AA7FB00F1D218 /* Extensions.swift in Sources */,
-				D49727201E32DCAC0076B7A1 /* STRealmDB.swift in Sources */,
+				D49727201E32DCAC0076B7A1 /* STRealmConfiguration.swift in Sources */,
 				D49726FF1E32BDA50076B7A1 /* SecondViewController.swift in Sources */,
 				D49727171E32D2750076B7A1 /* PRemoteServerApi.swift in Sources */,
 				D40A6BE61E3AA7DB00F1D218 /* Router.swift in Sources */,
@@ -427,9 +430,10 @@
 				E53F37C01E3A6ADD00393BAD /* STSingUpNavigationController.swift in Sources */,
 				E53185F31E3612EF00BC6C9A /* GenericCollectionSectionItem.swift in Sources */,
 				E53185F21E3612EF00BC6C9A /* GenericCollectionSection.swift in Sources */,
-				D497271E1E32DC700076B7A1 /* PDataBase.swift in Sources */,
+				D497271E1E32DC700076B7A1 /* PDBConfiguration.swift in Sources */,
 				D49727241E32E3CC0076B7A1 /* STAuthorizationError.swift in Sources */,
 				E53F37BD1E3A632C00393BAD /* STLoginLogoTableViewCell.swift in Sources */,
+				E54D88F41E3BB579005233DB /* RealmExtensions.swift in Sources */,
 				E53185F61E3612EF00BC6C9A /* TableViewDataSource.swift in Sources */,
 				E53185F41E3612EF00BC6C9A /* CollectionSectionItem.swift in Sources */,
 				D49727221E32DF300076B7A1 /* Session.swift in Sources */,

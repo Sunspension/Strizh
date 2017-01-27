@@ -9,8 +9,10 @@
 import UIKit
 import RealmSwift
 
-struct STRealmDB: PDataBase {
-
+struct STRealmConfiguration: PDBConfiguration {
+    
+    let realm = try! Realm()
+    
     func configure() {
         
         var config = Realm.Configuration()

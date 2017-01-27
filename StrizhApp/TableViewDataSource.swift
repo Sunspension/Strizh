@@ -11,7 +11,7 @@ import UIKit
 class TableViewDataSource: NSObject, UITableViewDataSource {
     
     var sections: [CollectionSection] = []
-
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -27,6 +27,13 @@ class TableViewDataSource: NSObject, UITableViewDataSource {
         
         var item = self.sections[(indexPath as NSIndexPath).section].items[(indexPath as NSIndexPath).row]
         item.indexPath = indexPath
+        
+        if let cellStyle = item.cellStyle {
+            
+            let cell = UITableViewCell(style: cellStyle, reuseIdentifier: String(describing: cellStyle.self))
+            item.bindingAction?(cell, item)
+            return cell;
+        }
         
         if let cellClass = item.cellClass {
             

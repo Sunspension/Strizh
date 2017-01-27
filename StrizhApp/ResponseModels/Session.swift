@@ -7,19 +7,20 @@
 //
 
 import ObjectMapper
+import RealmSwift
 
-struct Session: Mappable {
+class Session: Object, Mappable {
 
-    var sid = ""
+    dynamic var sid = ""
     
-    var userId = 0
+    dynamic var userId = 0
     
-    
-    init?(map: Map) {
+    required convenience init?(map: Map) {
         
+        self.init()
     }
     
-    mutating func mapping(map: Map) {
+    func mapping(map: Map) {
         
         sid <- map["sid"]
         userId <- map["user_id"]

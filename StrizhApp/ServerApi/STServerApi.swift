@@ -63,7 +63,9 @@ struct STServerApi: PRemoteServerApi {
         
         let p = Promise<Registration, STAuthorizationError>()
         
-        request(method: .post, remotePath: serverBaseUrlString + "/api/code")
+        let params: [String: Any] = ["phone" : phoneNumber, "device_type" : deviceType, "device_token" : deviceToken];
+        
+        request(method: .post, remotePath: serverBaseUrlString + "/api/code", params: params)
         .responseJSON(completionHandler: { response in
             
             if let error = response.result.error {
@@ -72,7 +74,7 @@ struct STServerApi: PRemoteServerApi {
             }
             else {
                 
-                if let statusCode = response.response?.statusCode {
+                if let statusCode = response.response?.statusCode, statusCode != 200 {
                     
                     switch statusCode {
                         
@@ -83,13 +85,16 @@ struct STServerApi: PRemoteServerApi {
                             p.failure(.requiredParameters(json: result))
                         }
                         
+                        break
+                        
                     case 400:
                         
                         p.failure(.toManyRequests)
                         
-                    default:
+                        break
                         
-                        p.failure(.undefinedError(error: response.result.error!))
+                    default:
+                        break
                     }
                 }
                 
@@ -135,7 +140,7 @@ struct STServerApi: PRemoteServerApi {
                                      "system_version" : systemVersion,
                                      "application_version" : applicationVersion ?? ""]
         
-        request(method: .post, remotePath: serverBaseUrlString + "/api/auth", parameters: params)
+        request(method: .post, remotePath: serverBaseUrlString + "/api/auth", params: params)
             .responseJSON(completionHandler: { response in
                 
                 if let error = response.result.error {
@@ -217,25 +222,21 @@ struct STServerApi: PRemoteServerApi {
         }
     }
     
-    fileprivate func request(method: HTTPMethod, remotePath: URLConvertible) -> DataRequest {
+    
+    fileprivate func request(method: HTTPMethod, remotePath: URLConvertible, params: [String : Any]? = nil) -> DataRequest {
         
-        return self.request(method: method, remotePath: remotePath, parameters: nil)
+        return self.request(method: method, remotePath: remotePath, params: params, headers: nil);
     }
     
-    fileprivate func request(method: HTTPMethod, remotePath: URLConvertible, parameters: [String : Any]?) -> DataRequest {
-        
-        return self.request(method: method, remotePath: remotePath, parameters: parameters, headers: nil);
-    }
-    
-    fileprivate func request(method: HTTPMethod, remotePath: URLConvertible, parameters: Parameters?, headers: [String : String]?) -> DataRequest {
+    fileprivate func request(method: HTTPMethod, remotePath: URLConvertible, params: Parameters?, headers: [String : String]?) -> DataRequest {
         
         let request = STServerApi.alamofireManager.request(remotePath,
                                                            method: method,
-                                                           parameters: parameters,
+                                                           parameters: params,
                                                            encoding: method != .post ? URLEncoding.default : JSONEncoding.default,
                                                            headers: headers)
         
-        print("request: \(request)\n parameters: \(parameters)")
+        print("request: \(request)\n parameters: \(params)")
         return request
     }
 }

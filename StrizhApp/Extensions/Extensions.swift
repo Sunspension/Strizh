@@ -40,6 +40,7 @@ extension UITableView {
     }
 }
 
+
 extension UIColor {
     
     class var stBrightBlue: UIColor {
@@ -80,6 +81,16 @@ extension UIColor {
     class var stWhite: UIColor { 
         
         return UIColor(white: 228.0 / 255.0, alpha: 1.0)
+    }
+    
+    class var stWhite20Opacity: UIColor {
+        
+        return UIColor(white: 1, alpha: 0.2)
+    }
+    
+    class var stWhite70Opacity: UIColor {
+        
+        return UIColor(white: 1, alpha: 0.7)
     }
 }
 
