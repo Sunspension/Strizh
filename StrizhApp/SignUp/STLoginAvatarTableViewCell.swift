@@ -15,7 +15,7 @@ class STLoginAvatarTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.avatarButton.imageView?.contentMode = .scaleAspectFit
+        self.avatarButton.imageView?.contentMode = .scaleAspectFill
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

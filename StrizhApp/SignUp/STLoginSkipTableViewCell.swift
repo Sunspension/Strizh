@@ -1,24 +1,21 @@
 //
-//  STLoginSeparatorTableViewCell.swift
+//  STLoginSkipTableViewCell.swift
 //  StrizhApp
 //
-//  Created by Vladimir Kokhanevich on 28/01/2017.
+//  Created by Vladimir Kokhanevich on 29/01/2017.
 //  Copyright © 2017 Vladimir Kokhanevich. All rights reserved.
 //
 
 import UIKit
 
-class STLoginSeparatorTableViewCell: UITableViewCell {
+class STLoginSkipTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var separator: UIView!
-    
-    @IBOutlet weak var separatorHeight: NSLayoutConstraint!
+    @IBOutlet weak var title: UILabel!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        separator.backgroundColor = UIColor(white: 1, alpha: 0.3)
+        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

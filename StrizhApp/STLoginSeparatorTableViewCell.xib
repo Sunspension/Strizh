@@ -36,6 +36,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="separator" destination="Qrh-Ds-SzU" id="ptN-U3-6AD"/>
+                <outlet property="separatorHeight" destination="TWc-DQ-Gbf" id="nRq-Zr-YqK"/>
             </connections>
         </tableViewCell>
     </objects>
