@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct GenericCollectionSectionItem<TItem: Any> {
+class GenericCollectionSectionItem<TItem: Any> {
     
     var item: TItem?
     
@@ -23,6 +23,8 @@ struct GenericCollectionSectionItem<TItem: Any> {
     var cellHeight: CGFloat?
     
     var validation: (() -> Bool)?
+    
+    var allowAction = true
     
     
     init(item: TItem?) {

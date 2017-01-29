@@ -17,4 +17,5 @@ target 'StrizhApp' do
     pod 'SHSPhoneComponent'
 #    pod 'Mortar'
     pod 'NVActivityIndicatorView'
+    pod 'EmitterKit'
 end

@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct CollectionSection {
+class CollectionSection {
     
     var title: String?
     
@@ -26,7 +26,7 @@ struct CollectionSection {
         self.title = title;
     }
     
-    mutating func addItem(nibClass: AnyClass, item: Any? = nil,
+    func addItem(nibClass: AnyClass, item: Any? = nil,
                           itemType: Any? = nil, bindingAction: BindingAction? = nil) {
         
         let item = CollectionSectionItem(nibClass: nibClass,
@@ -36,8 +36,8 @@ struct CollectionSection {
         self.items.append(item)
     }
     
-    mutating func addItem(cellStyle: UITableViewCellStyle, item: Any? = nil,
-                          itemType: Any? = nil, bindingAction: BindingAction?) {
+    func addItem(cellStyle: UITableViewCellStyle, item: Any? = nil,
+                          itemType: Any? = nil, bindingAction: BindingAction? = nil) {
         
         let item = CollectionSectionItem(cellStyle: cellStyle,
                                          item: item,

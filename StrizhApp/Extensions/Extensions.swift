@@ -13,10 +13,7 @@ extension UIViewController {
     
     var api: PRemoteServerApi {
         
-        get {
-            
-            return AppDelegate.appSettings.api
-        }
+        return AppDelegate.appSettings.api
     }
     
     func setCustomBackButton() {
@@ -24,6 +21,34 @@ extension UIViewController {
         let back = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         back.tintColor = UIColor.white
         self.navigationItem.backBarButtonItem = back
+    }
+    
+    func showOkAlert(title: String?, message: String?) {
+        
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        alert.addAction(action)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showOkCancellAlert(title: String?, message: String?,
+                            okTitle: String?, okAction: ((UIAlertAction) -> Void)?,
+                            cancelTitle: String?, cancelAction: ((UIAlertAction) -> Void)? ) {
+        
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        let okAction = UIAlertAction(title: okTitle ?? "Ok", style: .default, handler: okAction)
+        
+        let cancelAction = UIAlertAction(title: cancelTitle ?? "Cancel", style: .cancel, handler: cancelAction)
+        
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

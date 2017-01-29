@@ -10,7 +10,7 @@ import UIKit
 
 typealias BindingAction = ((_ cell: UITableViewCell, _ item: CollectionSectionItem) -> Void)
 
-struct CollectionSectionItem {
+class CollectionSectionItem {
     
     var item: Any?
     
@@ -21,6 +21,8 @@ struct CollectionSectionItem {
     var validation: (() -> Bool)?
     
     var selected = false
+    
+    var allowAction = true
     
     var indexPath: IndexPath!
     

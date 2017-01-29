@@ -23,9 +23,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        // register for notifications
+        let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil);
+        application.registerUserNotificationSettings(settings)
+        application.registerForRemoteNotifications()
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        
         AppDelegate.appSettings.dbConfig.configure()
         
         FIRApp.configure()
+        
+        if let session = Session.objects(by: Session.self).first {
+            
+        }
+        else {
+            
+            let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
+            let navi = STSingUpNavigationController(rootViewController: controller)
+            self.window?.rootViewController = navi
+            self.window?.makeKeyAndVisible()
+        }
         
         return true
     }
@@ -51,5 +69,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+        let token =  deviceToken.map { String(format: "%02.2hhx", arguments: [$0]) }.joined()
+        AppDelegate.appSettings.deviceToken = token
+    }
+    
+    // MARK: Private methods
+    
 }
 

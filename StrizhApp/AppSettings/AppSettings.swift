@@ -11,6 +11,7 @@ import RealmSwift
 
 let deviceType = "ios"
 let kSTLastSessionPhone = "kSTLastSessionPhone"
+let kSTDeviceToken = "kSTDeviceToken"
 
 struct AppSettings {
     
@@ -32,6 +33,22 @@ struct AppSettings {
             
             let defauls = UserDefaults.standard
             defauls.setValue(newValue, forKey: kSTLastSessionPhone)
+            defauls.synchronize()
+        }
+    }
+    
+    var deviceToken: String? {
+        
+        get {
+            
+            let defaults = UserDefaults.standard
+            return defaults.object(forKey: kSTDeviceToken) as? String
+        }
+        
+        set(newValue) {
+            
+            let defauls = UserDefaults.standard
+            defauls.setValue(newValue, forKey: kSTDeviceToken)
             defauls.synchronize()
         }
     }

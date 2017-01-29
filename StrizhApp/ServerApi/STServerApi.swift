@@ -149,7 +149,7 @@ struct STServerApi: PRemoteServerApi {
                 }
                 else {
                     
-                    if let statusCode = response.response?.statusCode {
+                    if let statusCode = response.response?.statusCode, statusCode != 200 {
                         
                         switch statusCode {
                             
@@ -160,13 +160,16 @@ struct STServerApi: PRemoteServerApi {
                                 p.failure(.requiredParameters(json: result))
                             }
                             
+                            break
+                            
                         case 400:
                             
                             p.failure(.codeNotFound)
                             
-                        default:
+                            break
                             
-                            p.failure(.undefinedError(error: response.result.error!))
+                        default:
+                            break
                         }
                     }
                     

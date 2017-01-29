@@ -17,13 +17,18 @@ protocol AppDBObject {
 
 extension Object: AppDBObject {
     
+    static let realm = try! Realm()
+    
     func writeToDB(update: Bool = true) {
         
-        let realm = try! Realm()
-        
-        try! realm.write({
+        try! Object.realm.write({
             
-            realm.add(self, update: update)
+            Object.realm.add(self, update: update)
         })
+    }
+    
+    static func objects<T: Object>(by: T.Type) -> Results<T> {
+        
+        return realm.objects(T.self)
     }
 }

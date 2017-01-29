@@ -12,6 +12,10 @@ class TableViewDataSource: NSObject, UITableViewDataSource {
     
     var sections: [CollectionSection] = []
     
+    func item(by: IndexPath) -> CollectionSectionItem {
+        
+        return sections[by.section].items[by.row]
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -25,7 +29,7 @@ class TableViewDataSource: NSObject, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var item = self.sections[(indexPath as NSIndexPath).section].items[(indexPath as NSIndexPath).row]
+        let item = self.sections[(indexPath as NSIndexPath).section].items[(indexPath as NSIndexPath).row]
         item.indexPath = indexPath
         
         if let cellStyle = item.cellStyle {

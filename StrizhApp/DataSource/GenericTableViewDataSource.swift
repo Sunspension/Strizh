@@ -36,7 +36,7 @@ class GenericTableViewDataSource<TTableViewCell: UITableViewCell, TTableItem: An
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var item = self.sections[(indexPath as NSIndexPath).section].items[(indexPath as NSIndexPath).row]
+        let item = self.sections[(indexPath as NSIndexPath).section].items[(indexPath as NSIndexPath).row]
         item.indexPath = indexPath
         
         if let identifier = self.reusableIdentifierOrNibName {
