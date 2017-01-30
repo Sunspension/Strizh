@@ -18,8 +18,7 @@ extension UIViewController {
     
     func st_Router_SigUpFinish() {
         
-        let controller = AppDelegate.appSettings.storyBoard.instantiateViewController(withIdentifier:
-            String(describing: STSingUpPersonalInfoViewController.self))
+        let controller = STSingUpTableViewController(signupStep: .signupThirdStep)
         self.navigationController?.pushViewController(controller, animated: true)
     }
     

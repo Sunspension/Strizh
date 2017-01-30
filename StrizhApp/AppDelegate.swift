@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FIRApp.configure()
         
-        if let session = Session.objects(by: Session.self).first {
+        if let session = STSession.objects(by: STSession.self).first {
             
         }
         else {

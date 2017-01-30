@@ -10,6 +10,7 @@ import UIKit
 import SHSPhoneComponent
 import NVActivityIndicatorView
 import EmitterKit
+import BrightFutures
 
 enum STSignUpStateEnum {
     
@@ -20,7 +21,7 @@ enum STSignUpStateEnum {
     case signupThirdStep
 }
 
-class STSingUpTableViewController: UITableViewController, NVActivityIndicatorViewable {
+class STSingUpTableViewController: UITableViewController, NVActivityIndicatorViewable, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     private let dataSource = TableViewDataSource()
     
@@ -33,6 +34,16 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
     private var phoneNumber: String?
     
     private var countDownTimer: CountdownTimer?
+    
+    private var imageEmitter = Event<UIImage>()
+    
+    private var imageListener: EventListener<UIImage>?
+    
+    private var textFieldEmitter = Event<Bool>()
+    
+    private var textFieldListener: EventListener<Bool>?
+    
+    private var userImage: UIImage?
     
     
     deinit {
@@ -63,16 +74,14 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         self.tableView.bounces = false
         self.tableView.separatorStyle = .none
         
-        let rigthItem = UIBarButtonItem(title: "Далее", style: .plain, target: self, action: #selector(self.actionNext))
+        let text = self.signupStep == .signupThirdStep ? "Готово" : "Далее"
+        let rigthItem = UIBarButtonItem(title: text, style: .plain, target: self, action: #selector(self.actionNext))
         rigthItem.tintColor = UIColor.white
         rigthItem.isEnabled = false
         
         self.navigationItem.rightBarButtonItem = rigthItem
         
         self.setCustomBackButton()
-        
-//        self.tableView.register(nibClass: STLoginTableViewCell.self)
-//        self.tableView.register(nibClass: STLoginLogoTableViewCell.self)
         
         let section = self.createDataSection()
         self.dataSource.sections.append(section)
@@ -125,6 +134,32 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         default:
             return
         }
+    }
+    
+    // MARK: UITextFieldDelegate implementation
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        switch self.signupStep {
+            
+        case .signupThirdStep:
+            
+            if textField.tag == 1 {
+                
+                self.textFieldEmitter.emit(true)
+            }
+            else {
+                
+                self.view.endEditing(true)
+            }
+            
+            break
+            
+        default:
+            break
+        }
+        
+        return true
     }
     
     // MARK: Private methods
@@ -186,10 +221,22 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
             self.st_Router_SigUpFinish()
             break
             
-        default:
+        case .signupThirdStep:
+            
+            self.submitUserInfo() { error in
+                
+                guard error == nil else {
+                    
+                    return
+                }
+                
+                self.st_Router_OpenMainController()
+            }
+            
             break
         }
     }
+    
     
     func createDataSection() -> CollectionSection {
         
@@ -323,11 +370,166 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
             }
             
             break
+        
+        case .signupThirdStep:
             
-        default:
+            section.addItem(cellStyle: .default) { (cell, item) in
+                
+                cell.selectionStyle = .none
+                cell.textLabel?.numberOfLines = 0
+                cell.backgroundColor = UIColor.clear
+                cell.textLabel?.textAlignment = .center
+                
+                let title = NSMutableAttributedString(string: "Осталось немного!\n\n",
+                                                      attributes: [NSForegroundColorAttributeName : UIColor.white,
+                                                                   NSFontAttributeName : UIFont.systemFont(ofSize: 16)])
+                
+                let text = "Выберите картинку для профиля и заполните поля."
+                
+                let subtitle = NSAttributedString(string: text, attributes: [NSForegroundColorAttributeName : UIColor.white, NSFontAttributeName : UIFont.systemFont(ofSize: 13)])
+                
+                title.append(subtitle)
+                cell.textLabel?.attributedText = title
+            }
+            
+            section.addItem(nibClass: STLoginAvatarTableViewCell.self) { [unowned self] (cell, item) in
+                
+                let viewCell = cell as! STLoginAvatarTableViewCell
+                viewCell.avatarButton.makeCircular()
+                viewCell.avatarButton.addTarget(self, action: #selector(self.choosePhoto(_:)), for: .touchUpInside)
+                
+                self.imageListener = self.imageEmitter.on({ [unowned viewCell] image in
+                    
+                    viewCell.avatarButton.setImage(image, for: .normal)
+                })
+            }
+            
+            section.addItem(nibClass: STLoginTextTableViewCell.self) { [unowned self] (cell, item) in
+                
+                let viewCell = cell as! STLoginTextTableViewCell
+                viewCell.selectionStyle = .none
+                viewCell.contentView.backgroundColor = UIColor.stWhite20Opacity
+                viewCell.title.text = "Имя"
+                viewCell.title.textColor = UIColor.white
+                viewCell.value.attributedPlaceholder = NSAttributedString(string: "Введите имя", attributes: [NSForegroundColorAttributeName : UIColor.stWhite70Opacity])
+                viewCell.value.textColor = UIColor.white
+                viewCell.value.tag = 1
+                viewCell.value.delegate = self
+            }
+            
+            section.addItem(nibClass: STLoginSeparatorTableViewCell.self)
+            
+            section.addItem(nibClass: STLoginTextTableViewCell.self) { [unowned self] (cell, item) in
+                
+                let viewCell = cell as! STLoginTextTableViewCell
+                viewCell.selectionStyle = .none
+                viewCell.title.text = "Фамилия"
+                viewCell.title.textColor = UIColor.white
+                viewCell.value.attributedPlaceholder = NSAttributedString(string: "Введите фамилию", attributes: [NSForegroundColorAttributeName : UIColor.stWhite70Opacity])
+                
+                viewCell.value.textColor = UIColor.white
+                viewCell.contentView.backgroundColor = UIColor.stWhite20Opacity
+                viewCell.value.tag = 2
+                viewCell.value.delegate = self
+                
+                self.textFieldListener = self.textFieldEmitter.on({ [unowned viewCell] _ in
+                    
+                    viewCell.value.becomeFirstResponder()
+                })
+            }
+            
             break
         }
         
         return section
+    }
+    
+    func choosePhoto(_ sender: UIButton) {
+        
+        let alert = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        
+        let choosePhotoAction = UIAlertAction(title: "Выбрать фото", style: .default) { [unowned self] action in
+            
+            if !UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                
+                self.showOkAlert(title: "Нет доступа к Фото",
+                                 message: "Не удалось получить доступ к Фото на вашем устройстве")
+            }
+            
+            let pickerController = UIImagePickerController()
+            pickerController.sourceType = .photoLibrary
+            pickerController.allowsEditing = true
+            pickerController.delegate = self
+            
+            self.present(pickerController, animated: true, completion: nil)
+        }
+        
+        let takePhotoAction = UIAlertAction(title: "Сделать фото", style: .default) { [unowned self] action in
+            
+            if !UIImagePickerController.isSourceTypeAvailable(.camera) {
+                
+                self.showOkAlert(title: "Нет доступа к Камере",
+                                 message: "Не удалось получить доступ к Камере на вашем устройстве")
+                
+            }
+            
+            let pickerController = UIImagePickerController()
+            pickerController.sourceType = .camera
+            pickerController.allowsEditing = true
+            pickerController.delegate = self
+            
+            self.present(pickerController, animated: true, completion: nil)
+        }
+        
+        alert.addAction(choosePhotoAction)
+        alert.addAction(takePhotoAction)
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+        self.presentedViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        let originalImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
+        let rectValue = info["UIImagePickerControllerCropRect"] as? NSValue
+        
+        if let cropRect = rectValue?.cgRectValue {
+            
+            let croppedImage = originalImage.cgImage!.cropping(to: cropRect)
+            
+            if let cropped = croppedImage {
+                
+                let image = UIImage(cgImage: cropped)
+                self.userImage = image
+                self.imageEmitter.emit(image)
+            }
+        }
+        
+        self.presentedViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    func submitUserInfo(callBack: (_ error: Error?) -> Void) {
+        
+        if let image = self.userImage {
+            
+            api.uploadImage(image: image).onSuccess(callback: { imageResponse in
+                
+                let imageUrlString = imageResponse.url
+                
+                print(imageUrlString)
+                
+                
+            })
+        }
+        
     }
 }

@@ -35,15 +35,15 @@ struct STServerApi: PRemoteServerApi {
         self.socket = SocketIOClient(socketURL: URL(string: serverBaseUrlString)!, config: config)
     }
     
-    func checkSession() -> Future<Session, STAuthorizationError> {
+    func checkSession() -> Future<STSession, STAuthorizationError> {
         
-        let p = Promise<Session, STAuthorizationError>()
+        let p = Promise<STSession, STAuthorizationError>()
         
         request(method: .get, remotePath: serverBaseUrlString + "/api/auth")
         .responseJSON(completionHandler: self.printJSON)
         .validate()
         .responseObject(keyPath: "data",
-                        completionHandler: { (response: DataResponse<Session>) in
+                        completionHandler: { (response: DataResponse<STSession>) in
                             
                             guard response.result.error == nil else {
                                 
@@ -59,9 +59,9 @@ struct STServerApi: PRemoteServerApi {
     
     func registration(phoneNumber: String,
                       deviceType: String,
-                      deviceToken: String) -> Future<Registration, STAuthorizationError> {
+                      deviceToken: String) -> Future<STRegistration, STAuthorizationError> {
         
-        let p = Promise<Registration, STAuthorizationError>()
+        let p = Promise<STRegistration, STAuthorizationError>()
         
         let params: [String: Any] = ["phone" : phoneNumber, "device_type" : deviceType, "device_token" : deviceToken];
         
@@ -102,7 +102,7 @@ struct STServerApi: PRemoteServerApi {
             }
         })
         .responseObject(keyPath: "data",
-                        completionHandler: { (response: DataResponse<Registration>) in
+                        completionHandler: { (response: DataResponse<STRegistration>) in
                             
                             guard response.result.error == nil else {
                                 
@@ -121,9 +121,9 @@ struct STServerApi: PRemoteServerApi {
                        type: String,
                        application: String,
                        systemVersion: String,
-                       applicationVersion: String) -> Future<Session, STAuthorizationError> {
+                       applicationVersion: String) -> Future<STSession, STAuthorizationError> {
         
-        let p = Promise<Session, STAuthorizationError>()
+        let p = Promise<STSession, STAuthorizationError>()
         
         let systemVersion = UIDevice.current.systemVersion;
         let info = Bundle.main.infoDictionary
@@ -177,7 +177,7 @@ struct STServerApi: PRemoteServerApi {
                 }
             })
             .responseObject(keyPath: "data",
-                            completionHandler: { (response: DataResponse<Session>) in
+                            completionHandler: { (response: DataResponse<STSession>) in
                                 
                                 guard response.result.error == nil else {
                                     
@@ -190,15 +190,15 @@ struct STServerApi: PRemoteServerApi {
         return p.future
     }
     
-    func logout() -> Future<Session, STAuthorizationError> {
+    func logout() -> Future<STSession, STAuthorizationError> {
         
-        let p = Promise<Session, STAuthorizationError>()
+        let p = Promise<STSession, STAuthorizationError>()
         
         request(method: .delete, remotePath: serverBaseUrlString + "/api/auth")
             .responseJSON(completionHandler: self.printJSON)
             .validate()
             .responseObject(keyPath: "data",
-                            completionHandler: { (response: DataResponse<Session>) in
+                            completionHandler: { (response: DataResponse<STSession>) in
                                 
                                 guard response.result.error == nil else {
                                     
@@ -211,6 +211,74 @@ struct STServerApi: PRemoteServerApi {
         
         return p.future
     }
+    
+    func uploadImage(image: UIImage) -> Future<STImage, STImageUploadError> {
+
+        let p = Promise<STImage, STImageUploadError>()
+        
+        STServerApi.alamofireManager.upload(multipartFormData: { multipartFormData in
+            
+            if let data = UIImageJPEGRepresentation(image, 0.85) {
+                
+                multipartFormData.append(data, withName: "file", fileName: "jpg", mimeType: "image/jpeg")
+            }
+            
+        }, to: serverBaseUrlString + "/image") { encodingResult in
+            
+            switch encodingResult {
+                
+            case .success(let upload, _, _):
+                
+                upload
+                    .responseJSON { response in
+                        
+                        if let error = response.result.error {
+                            
+                            print("Response error: \(error)")
+                        }
+                        else {
+                            
+                            if let statusCode = response.response?.statusCode, statusCode != 200 {
+                                
+                                switch statusCode {
+                                    
+                                case 400:
+                                    
+                                    if let result = response.result.value as? [String : Any] {
+                                        
+                                        p.failure(.invalidJSON(json: result))
+                                    }
+                                    
+                                    break
+                                    
+                                default:
+                                    break
+                                }
+                            }
+                            
+                            print("Response result: \(response.result.value)")
+                        }
+                    }
+                    .responseObject(keyPath: "data") { (response: DataResponse<STImage>) in
+                        
+                        guard response.result.error == nil else {
+                            
+                            return
+                        }
+                        
+                        p.success(response.result.value!)
+                }
+                
+            case .failure(let encodingError):
+                
+                p.failure(.encodingError(message: encodingError.localizedDescription))
+                print(encodingError)
+            }
+        }
+        
+        return p.future
+    }
+    
     
     // MARK: - Private methods
     fileprivate func printJSON(_ response: DataResponse<Any>) {

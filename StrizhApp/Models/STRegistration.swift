@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-struct Registration: Mappable {
+struct STRegistration: Mappable {
     
     var phone = ""
     

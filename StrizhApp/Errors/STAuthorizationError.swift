@@ -31,7 +31,7 @@ enum STAuthorizationError: Error {
             
             if let errors = json["errors"] as? [String : Any] {
                 
-                return errors["message"] as? String ?? ""
+                return errors["message"] as? String ?? "Неизвестная ошибка"
             }
             
             return "Неизвестная ошибка"

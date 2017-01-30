@@ -10,7 +10,6 @@
 		0D4712BF056042E4491062F2 /* Pods_StrizhApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 277E51B2F6F272FF051A01F5 /* Pods_StrizhApp.framework */; };
 		D40A6BE61E3AA7DB00F1D218 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40A6BE51E3AA7DB00F1D218 /* Router.swift */; };
 		D40A6BE81E3AA7FB00F1D218 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40A6BE71E3AA7FB00F1D218 /* Extensions.swift */; };
-		D491AD731E33AD3B00B258C6 /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D491AD721E33AD3B00B258C6 /* Registration.swift */; };
 		D49545CC1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49545CA1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift */; };
 		D49545CD1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D49545CB1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.xib */; };
 		D49545D01E3D064700EDCF01 /* STLoginTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49545CE1E3D064700EDCF01 /* STLoginTextTableViewCell.swift */; };
@@ -29,7 +28,6 @@
 		D497271B1E32D9BD0076B7A1 /* STServerApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497271A1E32D9BD0076B7A1 /* STServerApi.swift */; };
 		D497271E1E32DC700076B7A1 /* PDBConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497271D1E32DC700076B7A1 /* PDBConfiguration.swift */; };
 		D49727201E32DCAC0076B7A1 /* STRealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497271F1E32DCAC0076B7A1 /* STRealmConfiguration.swift */; };
-		D49727221E32DF300076B7A1 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49727211E32DF300076B7A1 /* Session.swift */; };
 		D49727241E32E3CC0076B7A1 /* STAuthorizationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49727231E32E3CC0076B7A1 /* STAuthorizationError.swift */; };
 		D497AB4C1E3BE53A006A393D /* CollectionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497AB461E3BE53A006A393D /* CollectionSection.swift */; };
 		D497AB4D1E3BE53A006A393D /* CollectionSectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497AB471E3BE53A006A393D /* CollectionSectionItem.swift */; };
@@ -40,7 +38,6 @@
 		D497AB531E3BE7C0006A393D /* CountdownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497AB521E3BE7C0006A393D /* CountdownTimer.swift */; };
 		D4C60A811E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C60A7F1E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift */; };
 		D4C60A821E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4C60A801E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib */; };
-		D4C60A841E3E924A00040C53 /* STSingUpPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C60A831E3E924A00040C53 /* STSingUpPersonalInfoViewController.swift */; };
 		E53185DE1E35DF8600BC6C9A /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185DD1E35DF8600BC6C9A /* AppSettings.swift */; };
 		E53185E21E35E5A200BC6C9A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E53185E11E35E5A200BC6C9A /* GoogleService-Info.plist */; };
 		E53185E41E35E71900BC6C9A /* strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json in Resources */ = {isa = PBXBuildFile; fileRef = E53185E31E35E71900BC6C9A /* strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json */; };
@@ -53,6 +50,11 @@
 		E53F37C01E3A6ADD00393BAD /* STSingUpNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53F37BF1E3A6ADD00393BAD /* STSingUpNavigationController.swift */; };
 		E53F37C31E3A75F900393BAD /* KeyboardNotificationListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53F37C21E3A75F900393BAD /* KeyboardNotificationListener.swift */; };
 		E54D88F41E3BB579005233DB /* RealmExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54D88F31E3BB579005233DB /* RealmExtensions.swift */; };
+		E59A1B141E3F89A7009EE669 /* STImageUploadError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B131E3F89A7009EE669 /* STImageUploadError.swift */; };
+		E59A1B181E3F9388009EE669 /* STImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B151E3F9388009EE669 /* STImage.swift */; };
+		E59A1B191E3F9388009EE669 /* STRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B161E3F9388009EE669 /* STRegistration.swift */; };
+		E59A1B1A1E3F9388009EE669 /* STSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B171E3F9388009EE669 /* STSession.swift */; };
+		E59A1B1C1E3F9716009EE669 /* STUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B1B1E3F9716009EE669 /* STUser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,7 +62,6 @@
 		3E8A8787F4373C051854C7D5 /* Pods-StrizhApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp.debug.xcconfig"; sourceTree = "<group>"; };
 		D40A6BE51E3AA7DB00F1D218 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Router.swift; path = Extensions/Router.swift; sourceTree = "<group>"; };
 		D40A6BE71E3AA7FB00F1D218 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Extensions/Extensions.swift; sourceTree = "<group>"; };
-		D491AD721E33AD3B00B258C6 /* Registration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Registration.swift; path = ResponseModels/Registration.swift; sourceTree = "<group>"; };
 		D49545CA1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginAvatarTableViewCell.swift; path = SignUp/STLoginAvatarTableViewCell.swift; sourceTree = "<group>"; };
 		D49545CB1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STLoginAvatarTableViewCell.xib; path = SignUp/STLoginAvatarTableViewCell.xib; sourceTree = "<group>"; };
 		D49545CE1E3D064700EDCF01 /* STLoginTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginTextTableViewCell.swift; path = SignUp/STLoginTextTableViewCell.swift; sourceTree = "<group>"; };
@@ -81,7 +82,6 @@
 		D497271A1E32D9BD0076B7A1 /* STServerApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STServerApi.swift; path = ServerApi/STServerApi.swift; sourceTree = "<group>"; };
 		D497271D1E32DC700076B7A1 /* PDBConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PDBConfiguration.swift; path = DataBase/PDBConfiguration.swift; sourceTree = "<group>"; };
 		D497271F1E32DCAC0076B7A1 /* STRealmConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STRealmConfiguration.swift; path = DataBase/STRealmConfiguration.swift; sourceTree = "<group>"; };
-		D49727211E32DF300076B7A1 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Session.swift; path = ResponseModels/Session.swift; sourceTree = "<group>"; };
 		D49727231E32E3CC0076B7A1 /* STAuthorizationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STAuthorizationError.swift; path = Errors/STAuthorizationError.swift; sourceTree = "<group>"; };
 		D497AB461E3BE53A006A393D /* CollectionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionSection.swift; path = DataSource/CollectionSection.swift; sourceTree = "<group>"; };
 		D497AB471E3BE53A006A393D /* CollectionSectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionSectionItem.swift; path = DataSource/CollectionSectionItem.swift; sourceTree = "<group>"; };
@@ -92,7 +92,6 @@
 		D497AB521E3BE7C0006A393D /* CountdownTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownTimer.swift; sourceTree = "<group>"; };
 		D4C60A7F1E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginSkipTableViewCell.swift; path = SignUp/STLoginSkipTableViewCell.swift; sourceTree = "<group>"; };
 		D4C60A801E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STLoginSkipTableViewCell.xib; path = SignUp/STLoginSkipTableViewCell.xib; sourceTree = "<group>"; };
-		D4C60A831E3E924A00040C53 /* STSingUpPersonalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpPersonalInfoViewController.swift; path = SignUp/STSingUpPersonalInfoViewController.swift; sourceTree = "<group>"; };
 		E53185DD1E35DF8600BC6C9A /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSettings.swift; path = AppSettings/AppSettings.swift; sourceTree = "<group>"; };
 		E53185E11E35E5A200BC6C9A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E53185E31E35E71900BC6C9A /* strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json"; sourceTree = "<group>"; };
@@ -105,6 +104,11 @@
 		E53F37BF1E3A6ADD00393BAD /* STSingUpNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpNavigationController.swift; path = SignUp/STSingUpNavigationController.swift; sourceTree = "<group>"; };
 		E53F37C21E3A75F900393BAD /* KeyboardNotificationListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardNotificationListener.swift; sourceTree = "<group>"; };
 		E54D88F31E3BB579005233DB /* RealmExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmExtensions.swift; path = Extensions/RealmExtensions.swift; sourceTree = "<group>"; };
+		E59A1B131E3F89A7009EE669 /* STImageUploadError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STImageUploadError.swift; path = Errors/STImageUploadError.swift; sourceTree = "<group>"; };
+		E59A1B151E3F9388009EE669 /* STImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STImage.swift; path = Models/STImage.swift; sourceTree = "<group>"; };
+		E59A1B161E3F9388009EE669 /* STRegistration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STRegistration.swift; path = Models/STRegistration.swift; sourceTree = "<group>"; };
+		E59A1B171E3F9388009EE669 /* STSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSession.swift; path = Models/STSession.swift; sourceTree = "<group>"; };
+		E59A1B1B1E3F9716009EE669 /* STUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STUser.swift; path = Models/STUser.swift; sourceTree = "<group>"; };
 		F00E8042FB9C8BEBFEB8BA5E /* Pods-StrizhApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -156,7 +160,7 @@
 				D49727251E32F34F0076B7A1 /* Extensions */,
 				D497271C1E32DC380076B7A1 /* DataBase */,
 				D49727151E32D21C0076B7A1 /* ServerApi */,
-				D49727141E32CF5B0076B7A1 /* ResponseModels */,
+				D49727141E32CF5B0076B7A1 /* Models */,
 				D49727111E32CA4B0076B7A1 /* Errors */,
 				D497270E1E32C7E20076B7A1 /* WebSocket */,
 				D49726FA1E32BDA50076B7A1 /* AppDelegate.swift */,
@@ -186,17 +190,20 @@
 			children = (
 				D49727121E32CA8B0076B7A1 /* STError.swift */,
 				D49727231E32E3CC0076B7A1 /* STAuthorizationError.swift */,
+				E59A1B131E3F89A7009EE669 /* STImageUploadError.swift */,
 			);
 			name = Errors;
 			sourceTree = "<group>";
 		};
-		D49727141E32CF5B0076B7A1 /* ResponseModels */ = {
+		D49727141E32CF5B0076B7A1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				D49727211E32DF300076B7A1 /* Session.swift */,
-				D491AD721E33AD3B00B258C6 /* Registration.swift */,
+				E59A1B151E3F9388009EE669 /* STImage.swift */,
+				E59A1B161E3F9388009EE669 /* STRegistration.swift */,
+				E59A1B171E3F9388009EE669 /* STSession.swift */,
+				E59A1B1B1E3F9716009EE669 /* STUser.swift */,
 			);
-			name = ResponseModels;
+			name = Models;
 			sourceTree = "<group>";
 		};
 		D49727151E32D21C0076B7A1 /* ServerApi */ = {
@@ -262,7 +269,6 @@
 			children = (
 				E53185E71E3609B700BC6C9A /* STSingUpTableViewController.swift */,
 				E53F37BF1E3A6ADD00393BAD /* STSingUpNavigationController.swift */,
-				D4C60A831E3E924A00040C53 /* STSingUpPersonalInfoViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -456,24 +462,26 @@
 				D40A6BE81E3AA7FB00F1D218 /* Extensions.swift in Sources */,
 				D49727201E32DCAC0076B7A1 /* STRealmConfiguration.swift in Sources */,
 				D497AB531E3BE7C0006A393D /* CountdownTimer.swift in Sources */,
+				E59A1B141E3F89A7009EE669 /* STImageUploadError.swift in Sources */,
 				D49726FF1E32BDA50076B7A1 /* SecondViewController.swift in Sources */,
 				D49727171E32D2750076B7A1 /* PRemoteServerApi.swift in Sources */,
 				D40A6BE61E3AA7DB00F1D218 /* Router.swift in Sources */,
 				E53185FE1E364AE700BC6C9A /* STLoginTableViewCell.swift in Sources */,
 				E53185E81E3609B700BC6C9A /* STSingUpTableViewController.swift in Sources */,
 				D49726FB1E32BDA50076B7A1 /* AppDelegate.swift in Sources */,
+				E59A1B1C1E3F9716009EE669 /* STUser.swift in Sources */,
 				D49727131E32CA8B0076B7A1 /* STError.swift in Sources */,
 				D497271B1E32D9BD0076B7A1 /* STServerApi.swift in Sources */,
 				E53F37C01E3A6ADD00393BAD /* STSingUpNavigationController.swift in Sources */,
+				E59A1B191E3F9388009EE669 /* STRegistration.swift in Sources */,
 				D497271E1E32DC700076B7A1 /* PDBConfiguration.swift in Sources */,
 				D49727241E32E3CC0076B7A1 /* STAuthorizationError.swift in Sources */,
+				E59A1B181E3F9388009EE669 /* STImage.swift in Sources */,
 				D497AB4F1E3BE53A006A393D /* GenericCollectionSectionItem.swift in Sources */,
 				E53F37BD1E3A632C00393BAD /* STLoginLogoTableViewCell.swift in Sources */,
 				D497AB4C1E3BE53A006A393D /* CollectionSection.swift in Sources */,
 				D4C60A811E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift in Sources */,
 				E54D88F41E3BB579005233DB /* RealmExtensions.swift in Sources */,
-				D49727221E32DF300076B7A1 /* Session.swift in Sources */,
-				D4C60A841E3E924A00040C53 /* STSingUpPersonalInfoViewController.swift in Sources */,
 				D49727101E32C8210076B7A1 /* STWebSocket.swift in Sources */,
 				E53F37C31E3A75F900393BAD /* KeyboardNotificationListener.swift in Sources */,
 				E53185F71E3612EF00BC6C9A /* STLoadingStatusEnum.swift in Sources */,
@@ -483,7 +491,7 @@
 				D49726FD1E32BDA50076B7A1 /* FirstViewController.swift in Sources */,
 				D497AB4D1E3BE53A006A393D /* CollectionSectionItem.swift in Sources */,
 				D497AB511E3BE53A006A393D /* TableViewDataSource.swift in Sources */,
-				D491AD731E33AD3B00B258C6 /* Registration.swift in Sources */,
+				E59A1B1A1E3F9388009EE669 /* STSession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

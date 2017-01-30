@@ -8,14 +8,15 @@
 
 import UIKit
 import BrightFutures
+import Alamofire
 
 protocol PRemoteServerApi {
     
-    func checkSession() -> Future<Session, STAuthorizationError>
+    func checkSession() -> Future<STSession, STAuthorizationError>
     
     func registration(phoneNumber: String,
                       deviceType: String,
-                      deviceToken: String) -> Future<Registration, STAuthorizationError>
+                      deviceToken: String) -> Future<STRegistration, STAuthorizationError>
     
     func authorization(phoneNumber: String,
                        deviceToken: String,
@@ -23,7 +24,11 @@ protocol PRemoteServerApi {
                        type: String,
                        application: String,
                        systemVersion: String,
-                       applicationVersion: String) -> Future<Session, STAuthorizationError>
+                       applicationVersion: String) -> Future<STSession, STAuthorizationError>
     
-    func logout() -> Future<Session, STAuthorizationError>
+    func logout() -> Future<STSession, STAuthorizationError>
+    
+    func uploadImage(image: UIImage) -> Future<STImage, STImageUploadError>
+    
+//    func applyUserImage(userId: Int, imageId: Int) -> Future<STUser, TargoError>
 }

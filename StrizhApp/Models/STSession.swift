@@ -9,7 +9,7 @@
 import ObjectMapper
 import RealmSwift
 
-class Session: Object, Mappable {
+class STSession: Object, Mappable {
 
     dynamic var sid = ""
     
