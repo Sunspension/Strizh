@@ -9,7 +9,6 @@
 import UIKit
 import RealmSwift
 
-let deviceType = "ios"
 let kSTLastSessionPhone = "kSTLastSessionPhone"
 let kSTDeviceToken = "kSTDeviceToken"
 
@@ -20,6 +19,16 @@ struct AppSettings {
     var dbConfig: PDBConfiguration
     
     var api: PRemoteServerApi
+    
+    var type = "code"
+    
+    var deviceType = "ios"
+    
+    let systemVersion = UIDevice.current.systemVersion;
+    
+    let bundleId = Bundle.main.bundleIdentifier
+    
+    let applicationVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     
     var lastSessionPhoneNumber: String? {
         

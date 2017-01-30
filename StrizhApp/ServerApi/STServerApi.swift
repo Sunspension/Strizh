@@ -280,6 +280,54 @@ struct STServerApi: PRemoteServerApi {
     }
     
     
+    func updateUserInformation(userId: Int,
+                               firstName: String? = nil,
+                               lastName: String? = nil,
+                               email: String? = nil,
+                               imageId: Int? = nil) -> Future<STUser, STError>{
+        
+        var params = [String : Any]()
+        
+        if let firstName = firstName {
+            
+            params["first_name"] = firstName
+        }
+        
+        if let lastName = lastName {
+            
+            params["last_name"] = lastName
+        }
+        
+        if let email = email {
+            
+            params["email"] = email
+        }
+
+        if let image = imageId {
+            
+            params["imaged_id"] = image
+        }
+        
+        let p = Promise<STUser, STError>()
+        
+        request(method: .put, remotePath: serverBaseUrlString + "/api/user", params: params)
+            .responseJSON(completionHandler: self.printJSON)
+            .responseObject(keyPath: "data",
+                            completionHandler: { (response: DataResponse<STUser>) in
+                                
+                                guard response.result.error == nil else {
+                                    
+                                    p.failure(.undefinedError(error: response.result.error!))
+                                    return
+                                }
+                                
+                                p.success(response.value!)
+            })
+        
+        return p.future
+    }
+    
+    
     // MARK: - Private methods
     fileprivate func printJSON(_ response: DataResponse<Any>) {
         

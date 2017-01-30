@@ -30,5 +30,9 @@ protocol PRemoteServerApi {
     
     func uploadImage(image: UIImage) -> Future<STImage, STImageUploadError>
     
-//    func applyUserImage(userId: Int, imageId: Int) -> Future<STUser, TargoError>
+    func updateUserInformation(userId: Int,
+                               firstName: String?,
+                               lastName: String?,
+                               email: String?,
+                               imageId: Int?) -> Future<STUser, STError>
 }

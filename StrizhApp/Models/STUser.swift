@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import ObjectMapper
 
-class STUser: Object {
+class STUser: Object, Mappable {
 
     dynamic var id = 0
     
@@ -44,6 +44,8 @@ class STUser: Object {
     
     dynamic var imageId = 0
     
+    dynamic var imageUrl: String?
+    
     
     required convenience init?(map: Map) {
         
@@ -73,5 +75,6 @@ class STUser: Object {
         email <- map["email"]
         isEmailConfirmed <- map["is_email_confirmed"]
         imageId <- map["image_id"]
+        imageUrl <- map["image_url"]
     }
 }

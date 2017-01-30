@@ -33,6 +33,8 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
     
     private var phoneNumber: String?
     
+    private var password: String?
+    
     private var countDownTimer: CountdownTimer?
     
     private var imageEmitter = Event<UIImage>()
@@ -45,6 +47,10 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
     
     private var userImage: UIImage?
     
+    private var userFirstName: String?
+    
+    private var userLastName: String?
+
     
     deinit {
         
@@ -98,9 +104,9 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
             naviHeight += barHeight
         }
         
-        let offset = (self.tableView.frame.height - self.tableView.contentSize.height) / 2 - naviHeight
+        let offset = (self.tableView.frame.height - (self.tableView.contentSize.height + naviHeight)) / 2
         
-        guard offset > 0 else {
+        guard offset > 64 else {
             
             return
         }
@@ -123,13 +129,8 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 return
             }
             
-            let phone = AppDelegate.appSettings.lastSessionPhoneNumber
+            let phone = AppDelegate.appSettings.lastSessionPhoneNumber!
             self.makeCodeRequest(phone: phone)
-            
-//            if let phone = AppDelegate.appSettings.lastSessionPhoneNumber {
-//                
-//                self.makeCodeRequest(phone: phone)
-//            }
             
         default:
             return
@@ -162,28 +163,61 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         return true
     }
     
-    // MARK: Private methods
-    
-    func makeCodeRequest(phone: String?) {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        self.countDownTimer?.startTimer()
+        if string == "" {
+            
+            if range.location == 0 {
+                
+                self.navigationItem.rightBarButtonItem?.isEnabled = false
+            }
+            
+            return true
+        }
         
-//        startAnimating()
-//
-//        api.registration(phoneNumber: phone, deviceType: deviceType, deviceToken: "xxxxxxxxxxxxxxxx")
-//            .onSuccess(callback: {[unowned self] registration in
-//
-//                self.stopAnimating()
-//
-//                AppDelegate.appSettings.lastSessionPhoneNumber = phone
-//                self.st_Router_SigUpStepTwo()
-//
-//            })
-//            .onFailure(callback: { error in
-//
-//                print(error)
-//            })
+        // accumulate characters to fields for validation
+        
+        if !string.trimmingCharacters(in: .whitespaces).isEmpty {
+            
+            if textField.tag == 2 {
+                
+                self.navigationItem.rightBarButtonItem?.isEnabled = true
+            }
+            
+            return true
+        }
+        
+        return false
     }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+        self.presentedViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        let originalImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
+        let rectValue = info["UIImagePickerControllerCropRect"] as? NSValue
+        
+        if let cropRect = rectValue?.cgRectValue {
+            
+            let croppedImage = originalImage.cgImage!.cropping(to: cropRect)
+            
+            if let cropped = croppedImage {
+                
+                let image = UIImage(cgImage: cropped)
+                self.userImage = image
+                self.imageEmitter.emit(image)
+            }
+        }
+        
+        self.presentedViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    // MARK: Internal methods
     
     func actionNext() {
         
@@ -194,31 +228,47 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         case .signupFirstStep:
             
             if let phone = self.phoneNumber {
-            
-                self.st_Router_SigUpStepTwo()
                 
-//                startAnimating()
-//                
-//                api.registration(phoneNumber: phone, deviceType: deviceType, deviceToken: "xxxxxxxxxxxxxxxx")
-//                    .onSuccess(callback: {[unowned self] registration in
-//                        
-//                        self.stopAnimating()
-//                        
-//                        AppDelegate.appSettings.lastSessionPhoneNumber = phone
-//                        self.st_Router_SigUpStepTwo()
-//                        
-//                    })
-//                    .onFailure(callback: { error in
-//                        
-//                        print(error)
-//                    })
+                self.startAnimating()
+                self.makeCodeRequest(phone: phone)
             }
             
             break
             
         case .signupSecondStep:
             
-            self.st_Router_SigUpFinish()
+            let phone = AppDelegate.appSettings.lastSessionPhoneNumber!
+            
+            let deviceToken = AppDelegate.appSettings.deviceToken ?? "xxxxxxxxxxxxxxxx"
+            let type = AppDelegate.appSettings.type
+            let bundleId = AppDelegate.appSettings.bundleId!
+            let systemVersion = AppDelegate.appSettings.systemVersion
+            let appVersion  = AppDelegate.appSettings.applicationVersion!
+            
+            self.startAnimating()
+            
+            api.authorization(phoneNumber: phone,
+                              deviceToken: deviceToken,
+                              code: self.password!,
+                              type: type,
+                              application: bundleId,
+                              systemVersion: systemVersion,
+                              applicationVersion: appVersion)
+                
+                .onSuccess(callback: { [unowned self] session in
+                    
+                    self.stopAnimating()
+                    
+                    session.writeToDB()
+                    
+                    self.st_Router_SigUpFinish()
+                    
+                })
+                .onFailure(callback: { [unowned self] error in
+                    
+                    self.showOkAlert(title: "Ошибка", message: error.localizedDescription)
+                })
+            
             break
             
         case .signupThirdStep:
@@ -237,8 +287,95 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         }
     }
     
+    func choosePhoto(_ sender: UIButton) {
+        
+        let alert = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        
+        let choosePhotoAction = UIAlertAction(title: "Выбрать фото", style: .default) { [unowned self] action in
+            
+            if !UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                
+                self.showOkAlert(title: "Нет доступа к Фото",
+                                 message: "Не удалось получить доступ к Фото на вашем устройстве")
+            }
+            
+            let pickerController = UIImagePickerController()
+            pickerController.sourceType = .photoLibrary
+            pickerController.allowsEditing = true
+            pickerController.delegate = self
+            
+            self.present(pickerController, animated: true, completion: nil)
+        }
+        
+        let takePhotoAction = UIAlertAction(title: "Сделать фото", style: .default) { [unowned self] action in
+            
+            if !UIImagePickerController.isSourceTypeAvailable(.camera) {
+                
+                self.showOkAlert(title: "Нет доступа к Камере",
+                                 message: "Не удалось получить доступ к Камере на вашем устройстве")
+                
+            }
+            
+            let pickerController = UIImagePickerController()
+            pickerController.sourceType = .camera
+            pickerController.allowsEditing = true
+            pickerController.delegate = self
+            
+            self.present(pickerController, animated: true, completion: nil)
+        }
+        
+        alert.addAction(choosePhotoAction)
+        alert.addAction(takePhotoAction)
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
     
-    func createDataSection() -> CollectionSection {
+    
+    // MARK: Private methods
+    
+    private func makeCodeRequest(phone: String) {
+        
+        startAnimating()
+
+        let deviceToken = AppDelegate.appSettings.deviceToken ?? "xxxxxxxxxxxxxxxx"
+        let deviceType = AppDelegate.appSettings.deviceType
+        
+        api.registration(phoneNumber: phone, deviceType: deviceType, deviceToken: deviceToken)
+            .onSuccess(callback: { [unowned self] registration in
+                
+                self.stopAnimating()
+                
+                switch self.signupStep {
+                    
+                case .signupFirstStep:
+                    
+                    AppDelegate.appSettings.lastSessionPhoneNumber = phone
+                    self.st_Router_SigUpStepTwo()
+                    
+                    break
+                 
+                case .signupSecondStep:
+                    
+                    self.countDownTimer?.startTimer()
+                    
+                    break
+                    
+                default:
+                    break
+                }
+            })
+            .onFailure(callback: { [unowned self] error in
+                
+                self.stopAnimating()
+                
+                self.showOkAlert(title: "Ошибка", message: error.localizedDescription)
+                print(error)
+            })
+    }
+    
+    private func createDataSection() -> CollectionSection {
         
         let section = CollectionSection()
         
@@ -330,7 +467,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                     }
                     
                     self.navigationItem.rightBarButtonItem?.isEnabled = true
-                    self.phoneNumber = wcell.value.phoneNumber()
+                    self.password = wcell.value.phoneNumber()
                 }
                 
                 viewCell.value.attributedPlaceholder = NSAttributedString(string: "Введите пароль из SMS", attributes: [NSForegroundColorAttributeName : UIColor.stWhite70Opacity])
@@ -415,6 +552,20 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 viewCell.value.textColor = UIColor.white
                 viewCell.value.tag = 1
                 viewCell.value.delegate = self
+                
+                item.validation = { [unowned self] in
+                    
+                    if let text = viewCell.value.text {
+                        
+                        if !text.isEmpty {
+                            
+                            self.userFirstName = text
+                            return true
+                        }
+                    }
+                    
+                    return false
+                }
             }
             
             section.addItem(nibClass: STLoginSeparatorTableViewCell.self)
@@ -436,6 +587,20 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                     
                     viewCell.value.becomeFirstResponder()
                 })
+                
+                item.validation = { [unowned self] in
+                    
+                    if let text = viewCell.value.text {
+                        
+                        if !text.isEmpty {
+                            
+                            self.userLastName = text
+                            return true
+                        }
+                    }
+                    
+                    return false
+                }
             }
             
             break
@@ -444,92 +609,46 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         return section
     }
     
-    func choosePhoto(_ sender: UIButton) {
+    
+    private func submitUserInfo(callBack: (_ error: Error?) -> Void) {
         
-        let alert = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
-        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
-        
-        let choosePhotoAction = UIAlertAction(title: "Выбрать фото", style: .default) { [unowned self] action in
+        for item in self.dataSource.sections.first!.items {
             
-            if !UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                
-                self.showOkAlert(title: "Нет доступа к Фото",
-                                 message: "Не удалось получить доступ к Фото на вашем устройстве")
-            }
-            
-            let pickerController = UIImagePickerController()
-            pickerController.sourceType = .photoLibrary
-            pickerController.allowsEditing = true
-            pickerController.delegate = self
-            
-            self.present(pickerController, animated: true, completion: nil)
+            _ = item.validation?()
         }
         
-        let takePhotoAction = UIAlertAction(title: "Сделать фото", style: .default) { [unowned self] action in
+        let userInfo = self.userFirstName != nil || self.userLastName != nil
+        
+        if userInfo {
             
-            if !UIImagePickerController.isSourceTypeAvailable(.camera) {
+            if let image = self.userImage {
                 
-                self.showOkAlert(title: "Нет доступа к Камере",
-                                 message: "Не удалось получить доступ к Камере на вашем устройстве")
-                
+                api.uploadImage(image: image).onSuccess(callback: { [unowned self] imageResponse in
+                    
+                    let imageUrlString = imageResponse.url
+                    print(imageUrlString)
+                    
+                    self.updateUserInfo(firstName: self.userFirstName, lastName: self.userLastName,
+                                        imageId: imageResponse.id)
+                })
             }
-            
-            let pickerController = UIImagePickerController()
-            pickerController.sourceType = .camera
-            pickerController.allowsEditing = true
-            pickerController.delegate = self
-            
-            self.present(pickerController, animated: true, completion: nil)
-        }
-        
-        alert.addAction(choosePhotoAction)
-        alert.addAction(takePhotoAction)
-        alert.addAction(cancelAction)
-        
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        
-        self.presentedViewController?.dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        let originalImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
-        let rectValue = info["UIImagePickerControllerCropRect"] as? NSValue
-        
-        if let cropRect = rectValue?.cgRectValue {
-            
-            let croppedImage = originalImage.cgImage!.cropping(to: cropRect)
-            
-            if let cropped = croppedImage {
+            else {
                 
-                let image = UIImage(cgImage: cropped)
-                self.userImage = image
-                self.imageEmitter.emit(image)
+                self.updateUserInfo(firstName: self.userFirstName, lastName: self.userLastName)
             }
         }
-        
-        self.presentedViewController?.dismiss(animated: true, completion: nil)
     }
     
-    
-    func submitUserInfo(callBack: (_ error: Error?) -> Void) {
+    private func updateUserInfo(firstName: String? = nil, lastName: String? = nil, imageId: Int? = nil) {
         
-        if let image = self.userImage {
+        if let user = STUser.objects(by: STUser.self).first {
             
-            api.uploadImage(image: image).onSuccess(callback: { imageResponse in
+            api.updateUserInformation(userId: user.id, firstName: firstName,
+                                      lastName: lastName, email: nil, imageId: imageId)
+            .onSuccess(callback: { user in
                 
-                let imageUrlString = imageResponse.url
-                
-                print(imageUrlString)
-                
-                
+                user.writeToDB()
             })
         }
-        
     }
 }

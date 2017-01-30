@@ -20,6 +20,11 @@ class STSession: Object, Mappable {
         self.init()
     }
     
+    override static func primaryKey() -> String? {
+        
+        return "sid"
+    }
+    
     func mapping(map: Map) {
         
         sid <- map["sid"]
