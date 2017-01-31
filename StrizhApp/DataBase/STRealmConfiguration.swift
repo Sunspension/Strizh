@@ -26,4 +26,12 @@ struct STRealmConfiguration: PDBConfiguration {
         
         Realm.Configuration.defaultConfiguration = config;
     }
+    
+    func onLogout() {
+        
+      try! realm.write {
+            
+           realm.deleteAll()
+        }
+    }
 }

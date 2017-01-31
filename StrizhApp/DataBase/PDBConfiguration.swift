@@ -13,4 +13,6 @@ import ObjectMapper
 protocol PDBConfiguration {
     
     func configure()
+    
+    func onLogout()
 }
