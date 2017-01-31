@@ -35,4 +35,6 @@ protocol PRemoteServerApi {
                                lastName: String?,
                                email: String?,
                                imageId: Int?) -> Future<STUser, STError>
+    
+    func loadUser(userId: Int) -> Future<STUser, STError>
 }

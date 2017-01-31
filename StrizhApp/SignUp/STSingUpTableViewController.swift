@@ -275,12 +275,30 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 
                 .onSuccess(callback: { [unowned self] session in
                     
-                    self.stopAnimating()
-                    
                     session.writeToDB()
                     
-                    self.st_Router_SigUpFinish()
+                    // check user
                     
+                    self.api.loadUser(userId: session.userId)
+                        
+                        .onSuccess(callback: { [unowned self] user in
+                            
+                            self.stopAnimating()
+                            
+                            if user.firstName.isEmpty {
+                                
+                                self.st_Router_SigUpFinish()
+                                return
+                            }
+                            
+                            self.st_Router_OpenMainController()
+                        })
+                        .onFailure(callback: { error in
+                            
+                            self.stopAnimating()
+                            
+                            self.showError(error: error)
+                        })
                 })
                 .onFailure(callback: { [unowned self] error in
                     
@@ -291,10 +309,15 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
             
         case .signupThirdStep:
             
+            self.startAnimating()
+            
             self.submitUserInfo() { error in
+                
+                self.stopAnimating()
                 
                 guard error == nil else {
                     
+                    self.showError(error: error!)
                     return
                 }
                 
@@ -627,12 +650,14 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         return section
     }
     
-    private func submitUserInfo(callBack: (_ error: Error?) -> Void) {
+    private func submitUserInfo(callBack: @escaping (_ error: Error?) -> Void) {
         
         for item in self.dataSource.sections.first!.items {
             
             _ = item.validation?()
         }
+        
+        self.startAnimating()
         
         if let image = self.userImage {
             
@@ -644,20 +669,24 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                     print(imageUrlString)
                     
                     self.updateUserInfo(firstName: self.userFirstName, lastName: self.userLastName,
-                                        imageId: imageResponse.id)
+                                        imageId: imageResponse.id, callBack: callBack)
                 })
                 .onFailure(callback: { error in
                     
-                    self.showError(error: error)
+                    callBack(error)
                 })
         }
         else {
             
-            self.updateUserInfo(firstName: self.userFirstName, lastName: self.userLastName)
+            self.updateUserInfo(firstName: self.userFirstName, lastName: self.userLastName,
+                                callBack: callBack)
         }
     }
     
-    private func updateUserInfo(firstName: String? = nil, lastName: String? = nil, imageId: Int? = nil) {
+    private func updateUserInfo(firstName: String? = nil,
+                                lastName: String? = nil,
+                                imageId: Int? = nil,
+                                callBack: @escaping (_ error: Error?) -> Void) {
         
         if let session = STSession.objects(by: STSession.self).first {
             
@@ -666,12 +695,17 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 .onSuccess(callback: { user in
                     
                     user.writeToDB()
-                    self.st_Router_OpenMainController()
+                    callBack(nil)
                 })
-                .onFailure(callback: { [unowned self] error in
+                .onFailure(callback: { error in
                     
-                    self.showError(error: error)
+                    callBack(error)
                 })
+        }
+        else {
+         
+            // no session
+            fatalError()
         }
     }
 }

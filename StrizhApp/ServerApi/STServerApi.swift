@@ -328,6 +328,27 @@ struct STServerApi: PRemoteServerApi {
     }
     
     
+    func loadUser(userId: Int) -> Future<STUser, STError> {
+        
+        let p = Promise<STUser, STError>()
+        
+        request(method: .get, remotePath: serverBaseUrlString + "/api/user/\(userId)")
+            .responseJSON(completionHandler: self.printJSON)
+            .responseObject(keyPath: "data",
+                            completionHandler: { (response: DataResponse<STUser>) in
+                                
+                                guard response.result.error == nil else {
+                                    
+                                    p.failure(.undefinedError(error: response.result.error!))
+                                    return
+                                }
+                                
+                                p.success(response.value!)
+            })
+        
+        return p.future
+    }
+    
     // MARK: - Private methods
     fileprivate func printJSON(_ response: DataResponse<Any>) {
         
