@@ -47,9 +47,9 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
     
     private var userImage: UIImage?
     
-    private var userFirstName: String?
+    private var userFirstName = ""
     
-    private var userLastName: String?
+    private var userLastName = ""
 
     
     deinit {
@@ -167,6 +167,16 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         
         if string == "" {
             
+            if textField.tag == 2 {
+                
+                self.userLastName = String(self.userLastName.characters.dropLast())
+            }
+            
+            if textField.tag == 1 {
+                
+                self.userFirstName = String(self.userFirstName.characters.dropLast())
+            }
+            
             if range.location == 0 {
                 
                 self.navigationItem.rightBarButtonItem?.isEnabled = false
@@ -175,11 +185,19 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
             return true
         }
         
-        // accumulate characters to fields for validation
-        
         if !string.trimmingCharacters(in: .whitespaces).isEmpty {
             
             if textField.tag == 2 {
+                
+                self.userLastName += string
+            }
+            
+            if textField.tag == 1 {
+                
+                self.userFirstName += string
+            }
+            
+            if self.userFirstName.characters.count > 0 && self.userLastName.characters.count > 0  {
                 
                 self.navigationItem.rightBarButtonItem?.isEnabled = true
             }
@@ -266,7 +284,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 })
                 .onFailure(callback: { [unowned self] error in
                     
-                    self.showOkAlert(title: "Ошибка", message: error.localizedDescription)
+                    self.showError(error: error)
                 })
             
             break
@@ -370,7 +388,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 
                 self.stopAnimating()
                 
-                self.showOkAlert(title: "Ошибка", message: error.localizedDescription)
+                self.showError(error: error)
                 print(error)
             })
     }
@@ -609,7 +627,6 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         return section
     }
     
-    
     private func submitUserInfo(callBack: (_ error: Error?) -> Void) {
         
         for item in self.dataSource.sections.first!.items {
@@ -617,13 +634,11 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
             _ = item.validation?()
         }
         
-        let userInfo = self.userFirstName != nil || self.userLastName != nil
-        
-        if userInfo {
+        if let image = self.userImage {
             
-            if let image = self.userImage {
+            api.uploadImage(image: image)
                 
-                api.uploadImage(image: image).onSuccess(callback: { [unowned self] imageResponse in
+                .onSuccess(callback: { [unowned self] imageResponse in
                     
                     let imageUrlString = imageResponse.url
                     print(imageUrlString)
@@ -631,24 +646,32 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                     self.updateUserInfo(firstName: self.userFirstName, lastName: self.userLastName,
                                         imageId: imageResponse.id)
                 })
-            }
-            else {
-                
-                self.updateUserInfo(firstName: self.userFirstName, lastName: self.userLastName)
-            }
+                .onFailure(callback: { error in
+                    
+                    self.showError(error: error)
+                })
+        }
+        else {
+            
+            self.updateUserInfo(firstName: self.userFirstName, lastName: self.userLastName)
         }
     }
     
     private func updateUserInfo(firstName: String? = nil, lastName: String? = nil, imageId: Int? = nil) {
         
-        if let user = STUser.objects(by: STUser.self).first {
+        if let session = STSession.objects(by: STSession.self).first {
             
-            api.updateUserInformation(userId: user.id, firstName: firstName,
+            api.updateUserInformation(userId: session.userId, firstName: firstName,
                                       lastName: lastName, email: nil, imageId: imageId)
-            .onSuccess(callback: { user in
-                
-                user.writeToDB()
-            })
+                .onSuccess(callback: { user in
+                    
+                    user.writeToDB()
+                    self.st_Router_OpenMainController()
+                })
+                .onFailure(callback: { [unowned self] error in
+                    
+                    self.showError(error: error)
+                })
         }
     }
 }

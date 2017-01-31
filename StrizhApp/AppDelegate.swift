@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
     
     
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // register for notifications
@@ -34,12 +35,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FIRApp.configure()
         
-        if let session = STSession.objects(by: STSession.self).first {
+        if let _ = STSession.objects(by: STSession.self).first {
             
+            if let controller = AppDelegate.appSettings.storyBoard.instantiateInitialViewController() {
+                
+                self.changeRootViewController(controller)
+            }
         }
         else {
             
-            let controller = STSingUpTableViewController(signupStep: .signupThirdStep)
+            let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
             let navi = STSingUpNavigationController(rootViewController: controller)
             self.window?.rootViewController = navi
             self.window?.makeKeyAndVisible()
@@ -76,7 +81,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppDelegate.appSettings.deviceToken = token
     }
     
+    // MARK: Internal methods
+    
+    func changeRootViewController(_ viewController: UIViewController) {
+        
+        UIView.transition(with: self.window!,
+                          duration: 0.5,
+                          options: .transitionCrossDissolve,
+                          animations: {
+                            
+                            let oldState = UIView.areAnimationsEnabled
+                            UIView.setAnimationsEnabled(false)
+                            self.window!.rootViewController = viewController
+                            UIView.setAnimationsEnabled(oldState)
+                            
+        }, completion: nil)
+    }
+    
     // MARK: Private methods
+    
     
 }
 

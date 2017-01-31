@@ -24,6 +24,9 @@ extension UIViewController {
     
     func st_Router_OpenMainController() {
         
-        
+        if let controller = appSettings.storyBoard.instantiateInitialViewController() {
+            
+            self.changeRootViewController(controller)
+        }
     }
 }

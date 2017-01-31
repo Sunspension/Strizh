@@ -16,6 +16,16 @@ extension UIViewController {
         return AppDelegate.appSettings.api
     }
     
+    var appSettings: AppSettings {
+        
+        return AppDelegate.appSettings
+    }
+    
+    var appDelegate: AppDelegate? {
+        
+        return UIApplication.shared.delegate as? AppDelegate
+    }
+    
     func setCustomBackButton() {
         
         let back = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
@@ -49,6 +59,16 @@ extension UIViewController {
         alert.addAction(cancelAction)
         
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showError(error: Error) {
+        
+        showOkAlert(title: "Ошибка", message: error.localizedDescription)
+    }
+    
+    func changeRootViewController(_ viewController: UIViewController) {
+        
+        self.appDelegate?.changeRootViewController(viewController)
     }
 }
 

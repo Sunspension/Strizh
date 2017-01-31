@@ -223,7 +223,7 @@ struct STServerApi: PRemoteServerApi {
                 multipartFormData.append(data, withName: "file", fileName: "jpg", mimeType: "image/jpeg")
             }
             
-        }, to: serverBaseUrlString + "/image") { encodingResult in
+        }, to: serverBaseUrlString + "/api/image") { encodingResult in
             
             switch encodingResult {
                 
@@ -310,7 +310,7 @@ struct STServerApi: PRemoteServerApi {
         
         let p = Promise<STUser, STError>()
         
-        request(method: .put, remotePath: serverBaseUrlString + "/api/user", params: params)
+        request(method: .put, remotePath: serverBaseUrlString + "/api/user/\(userId)", params: params)
             .responseJSON(completionHandler: self.printJSON)
             .responseObject(keyPath: "data",
                             completionHandler: { (response: DataResponse<STUser>) in
