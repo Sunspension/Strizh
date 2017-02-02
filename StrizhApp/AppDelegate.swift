@@ -44,6 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         else {
             
+            AppDelegate.appSettings.api.onValidSession()
+            
             let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
             let navi = STSingUpNavigationController(rootViewController: controller)
             self.window?.rootViewController = navi

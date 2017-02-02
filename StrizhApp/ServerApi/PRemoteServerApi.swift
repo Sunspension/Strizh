@@ -10,6 +10,11 @@ import UIKit
 import BrightFutures
 import Alamofire
 
+enum STServerRequestTransport {
+    
+    case http, webSocket
+}
+
 protocol PRemoteServerApi {
     
     func checkSession() -> Future<STSession, STAuthorizationError>
@@ -30,11 +35,14 @@ protocol PRemoteServerApi {
     
     func uploadImage(image: UIImage) -> Future<STImage, STImageUploadError>
     
-    func updateUserInformation(userId: Int,
+    func onValidSession() -> Void
+    
+    func updateUserInformation(transport: STServerRequestTransport,
+                               userId: Int,
                                firstName: String?,
                                lastName: String?,
                                email: String?,
                                imageId: Int?) -> Future<STUser, STError>
     
-    func loadUser(userId: Int) -> Future<STUser, STError>
+    func loadUser(transport: STServerRequestTransport, userId: Int) -> Future<STUser, STError>
 }

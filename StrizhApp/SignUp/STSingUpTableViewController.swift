@@ -279,7 +279,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                     
                     // check user
                     
-                    self.api.loadUser(userId: session.userId)
+                    self.api.loadUser(transport: .http, userId: session.userId)
                         
                         .onSuccess(callback: { [unowned self] user in
                             
@@ -690,7 +690,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         
         if let session = STSession.objects(by: STSession.self).first {
             
-            api.updateUserInformation(userId: session.userId, firstName: firstName,
+            api.updateUserInformation(transport: .http, userId: session.userId, firstName: firstName,
                                       lastName: lastName, email: nil, imageId: imageId)
                 .onSuccess(callback: { user in
                     

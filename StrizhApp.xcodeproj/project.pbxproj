@@ -10,6 +10,10 @@
 		0D4712BF056042E4491062F2 /* Pods_StrizhApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 277E51B2F6F272FF051A01F5 /* Pods_StrizhApp.framework */; };
 		D40A6BE61E3AA7DB00F1D218 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40A6BE51E3AA7DB00F1D218 /* Router.swift */; };
 		D40A6BE81E3AA7FB00F1D218 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40A6BE71E3AA7FB00F1D218 /* Extensions.swift */; };
+		D4922AA61E43DB67006FF4D5 /* STWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */; };
+		D4922AA81E43EA82006FF4D5 /* STQueryParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AA71E43EA82006FF4D5 /* STQueryParameters.swift */; };
+		D4922AAA1E43EBDD006FF4D5 /* STQueryParametersEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AA91E43EBDD006FF4D5 /* STQueryParametersEnum.swift */; };
+		D4922AAD1E43F6B9006FF4D5 /* STHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AAC1E43F6B9006FF4D5 /* STHTTPManager.swift */; };
 		D49545CC1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49545CA1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift */; };
 		D49545CD1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D49545CB1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.xib */; };
 		D49545D01E3D064700EDCF01 /* STLoginTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49545CE1E3D064700EDCF01 /* STLoginTextTableViewCell.swift */; };
@@ -22,7 +26,6 @@
 		D49727021E32BDA50076B7A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D49727001E32BDA50076B7A1 /* Main.storyboard */; };
 		D49727041E32BDA50076B7A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D49727031E32BDA50076B7A1 /* Assets.xcassets */; };
 		D49727071E32BDA50076B7A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D49727051E32BDA50076B7A1 /* LaunchScreen.storyboard */; };
-		D49727101E32C8210076B7A1 /* STWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497270F1E32C8210076B7A1 /* STWebSocket.swift */; };
 		D49727131E32CA8B0076B7A1 /* STError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49727121E32CA8B0076B7A1 /* STError.swift */; };
 		D49727171E32D2750076B7A1 /* PRemoteServerApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49727161E32D2750076B7A1 /* PRemoteServerApi.swift */; };
 		D497271B1E32D9BD0076B7A1 /* STServerApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497271A1E32D9BD0076B7A1 /* STServerApi.swift */; };
@@ -62,6 +65,10 @@
 		3E8A8787F4373C051854C7D5 /* Pods-StrizhApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp.debug.xcconfig"; sourceTree = "<group>"; };
 		D40A6BE51E3AA7DB00F1D218 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Router.swift; path = Extensions/Router.swift; sourceTree = "<group>"; };
 		D40A6BE71E3AA7FB00F1D218 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Extensions/Extensions.swift; sourceTree = "<group>"; };
+		D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STWebSocket.swift; path = WebSocket/STWebSocket.swift; sourceTree = "<group>"; };
+		D4922AA71E43EA82006FF4D5 /* STQueryParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STQueryParameters.swift; path = WebSocket/STQueryParameters.swift; sourceTree = "<group>"; };
+		D4922AA91E43EBDD006FF4D5 /* STQueryParametersEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STQueryParametersEnum.swift; path = WebSocket/STQueryParametersEnum.swift; sourceTree = "<group>"; };
+		D4922AAC1E43F6B9006FF4D5 /* STHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STHTTPManager.swift; path = HTTPManager/STHTTPManager.swift; sourceTree = "<group>"; };
 		D49545CA1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginAvatarTableViewCell.swift; path = SignUp/STLoginAvatarTableViewCell.swift; sourceTree = "<group>"; };
 		D49545CB1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STLoginAvatarTableViewCell.xib; path = SignUp/STLoginAvatarTableViewCell.xib; sourceTree = "<group>"; };
 		D49545CE1E3D064700EDCF01 /* STLoginTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginTextTableViewCell.swift; path = SignUp/STLoginTextTableViewCell.swift; sourceTree = "<group>"; };
@@ -76,7 +83,6 @@
 		D49727031E32BDA50076B7A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D49727061E32BDA50076B7A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D49727081E32BDA50076B7A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D497270F1E32C8210076B7A1 /* STWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STWebSocket.swift; path = WebSocket/STWebSocket.swift; sourceTree = "<group>"; };
 		D49727121E32CA8B0076B7A1 /* STError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STError.swift; path = Errors/STError.swift; sourceTree = "<group>"; };
 		D49727161E32D2750076B7A1 /* PRemoteServerApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PRemoteServerApi.swift; path = ServerApi/PRemoteServerApi.swift; sourceTree = "<group>"; };
 		D497271A1E32D9BD0076B7A1 /* STServerApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STServerApi.swift; path = ServerApi/STServerApi.swift; sourceTree = "<group>"; };
@@ -132,6 +138,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D4922AA41E43DAF3006FF4D5 /* WebSocket */ = {
+			isa = PBXGroup;
+			children = (
+				D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */,
+				D4922AA71E43EA82006FF4D5 /* STQueryParameters.swift */,
+				D4922AA91E43EBDD006FF4D5 /* STQueryParametersEnum.swift */,
+			);
+			name = WebSocket;
+			sourceTree = "<group>";
+		};
+		D4922AAB1E43F670006FF4D5 /* HTTPManager */ = {
+			isa = PBXGroup;
+			children = (
+				D4922AAC1E43F6B9006FF4D5 /* STHTTPManager.swift */,
+			);
+			name = HTTPManager;
+			sourceTree = "<group>";
+		};
 		D49726EE1E32BDA50076B7A1 = {
 			isa = PBXGroup;
 			children = (
@@ -162,7 +186,6 @@
 				D49727151E32D21C0076B7A1 /* ServerApi */,
 				D49727141E32CF5B0076B7A1 /* Models */,
 				D49727111E32CA4B0076B7A1 /* Errors */,
-				D497270E1E32C7E20076B7A1 /* WebSocket */,
 				D49726FA1E32BDA50076B7A1 /* AppDelegate.swift */,
 				D49726FC1E32BDA50076B7A1 /* FirstViewController.swift */,
 				D49726FE1E32BDA50076B7A1 /* SecondViewController.swift */,
@@ -175,14 +198,6 @@
 				D49727081E32BDA50076B7A1 /* Info.plist */,
 			);
 			path = StrizhApp;
-			sourceTree = "<group>";
-		};
-		D497270E1E32C7E20076B7A1 /* WebSocket */ = {
-			isa = PBXGroup;
-			children = (
-				D497270F1E32C8210076B7A1 /* STWebSocket.swift */,
-			);
-			name = WebSocket;
 			sourceTree = "<group>";
 		};
 		D49727111E32CA4B0076B7A1 /* Errors */ = {
@@ -209,6 +224,8 @@
 		D49727151E32D21C0076B7A1 /* ServerApi */ = {
 			isa = PBXGroup;
 			children = (
+				D4922AAB1E43F670006FF4D5 /* HTTPManager */,
+				D4922AA41E43DAF3006FF4D5 /* WebSocket */,
 				D49727161E32D2750076B7A1 /* PRemoteServerApi.swift */,
 				D497271A1E32D9BD0076B7A1 /* STServerApi.swift */,
 			);
@@ -468,6 +485,7 @@
 				D40A6BE61E3AA7DB00F1D218 /* Router.swift in Sources */,
 				E53185FE1E364AE700BC6C9A /* STLoginTableViewCell.swift in Sources */,
 				E53185E81E3609B700BC6C9A /* STSingUpTableViewController.swift in Sources */,
+				D4922AAA1E43EBDD006FF4D5 /* STQueryParametersEnum.swift in Sources */,
 				D49726FB1E32BDA50076B7A1 /* AppDelegate.swift in Sources */,
 				E59A1B1C1E3F9716009EE669 /* STUser.swift in Sources */,
 				D49727131E32CA8B0076B7A1 /* STError.swift in Sources */,
@@ -482,11 +500,13 @@
 				D497AB4C1E3BE53A006A393D /* CollectionSection.swift in Sources */,
 				D4C60A811E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift in Sources */,
 				E54D88F41E3BB579005233DB /* RealmExtensions.swift in Sources */,
-				D49727101E32C8210076B7A1 /* STWebSocket.swift in Sources */,
 				E53F37C31E3A75F900393BAD /* KeyboardNotificationListener.swift in Sources */,
 				E53185F71E3612EF00BC6C9A /* STLoadingStatusEnum.swift in Sources */,
 				D497AB501E3BE53A006A393D /* GenericTableViewDataSource.swift in Sources */,
+				D4922AAD1E43F6B9006FF4D5 /* STHTTPManager.swift in Sources */,
+				D4922AA81E43EA82006FF4D5 /* STQueryParameters.swift in Sources */,
 				D497AB4E1E3BE53A006A393D /* GenericCollectionSection.swift in Sources */,
+				D4922AA61E43DB67006FF4D5 /* STWebSocket.swift in Sources */,
 				D49545D01E3D064700EDCF01 /* STLoginTextTableViewCell.swift in Sources */,
 				D49726FD1E32BDA50076B7A1 /* FirstViewController.swift in Sources */,
 				D497AB4D1E3BE53A006A393D /* CollectionSectionItem.swift in Sources */,
