@@ -13,8 +13,14 @@ class FirstViewController: UIViewController {
 
     @IBAction func logout(_ sender: Any) {
     
-        appSettings.dbConfig.onLogout()
-        self.st_Router_OnLogout()
+//        self.st_Router_OnLogout()
+        
+        api.loadUser(transport: .webSocket, userId: 1571)
+            
+            .onSuccess { user in
+            
+                print(user)
+            }
     }
     
     override func viewDidLoad() {

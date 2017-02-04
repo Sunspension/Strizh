@@ -37,14 +37,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let _ = STSession.objects(by: STSession.self).first {
             
-            if let controller = AppDelegate.appSettings.storyBoard.instantiateInitialViewController() {
-                
-                self.changeRootViewController(controller)
-            }
+            self.onLogin()
         }
         else {
-            
-            AppDelegate.appSettings.api.onValidSession()
             
             let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
             let navi = STSingUpNavigationController(rootViewController: controller)
@@ -81,6 +76,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let token =  deviceToken.map { String(format: "%02.2hhx", arguments: [$0]) }.joined()
         AppDelegate.appSettings.deviceToken = token
+    }
+    
+    func onLogin() {
+        
+        AppDelegate.appSettings.api.onValidSession()
+        
+        if let controller = AppDelegate.appSettings.storyBoard.instantiateInitialViewController() {
+            
+            self.changeRootViewController(controller)
+        }
+    }
+    
+    func onLogout() {
+        
+        AppDelegate.appSettings.dbConfig.onLogout()
+        AppDelegate.appSettings.api.logout()
+            .onSuccess { session in
+                
+                print("logout")
+                print(session)
+        }
+        
+        let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
+        self.changeRootViewController(controller)
     }
     
     // MARK: Internal methods

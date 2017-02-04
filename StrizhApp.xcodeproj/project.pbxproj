@@ -39,6 +39,8 @@
 		D497AB501E3BE53A006A393D /* GenericTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497AB4A1E3BE53A006A393D /* GenericTableViewDataSource.swift */; };
 		D497AB511E3BE53A006A393D /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497AB4B1E3BE53A006A393D /* TableViewDataSource.swift */; };
 		D497AB531E3BE7C0006A393D /* CountdownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497AB521E3BE7C0006A393D /* CountdownTimer.swift */; };
+		D49EB19E1E45212F00B6F5DC /* STSocketRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49EB19D1E45212F00B6F5DC /* STSocketRequestBuilder.swift */; };
+		D49EB1A01E452B9A00B6F5DC /* STSocketRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49EB19F1E452B9A00B6F5DC /* STSocketRequest.swift */; };
 		D4C60A811E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C60A7F1E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift */; };
 		D4C60A821E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4C60A801E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib */; };
 		E53185DE1E35DF8600BC6C9A /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185DD1E35DF8600BC6C9A /* AppSettings.swift */; };
@@ -96,6 +98,8 @@
 		D497AB4A1E3BE53A006A393D /* GenericTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenericTableViewDataSource.swift; path = DataSource/GenericTableViewDataSource.swift; sourceTree = "<group>"; };
 		D497AB4B1E3BE53A006A393D /* TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewDataSource.swift; path = DataSource/TableViewDataSource.swift; sourceTree = "<group>"; };
 		D497AB521E3BE7C0006A393D /* CountdownTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownTimer.swift; sourceTree = "<group>"; };
+		D49EB19D1E45212F00B6F5DC /* STSocketRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSocketRequestBuilder.swift; path = WebSocket/STSocketRequestBuilder.swift; sourceTree = "<group>"; };
+		D49EB19F1E452B9A00B6F5DC /* STSocketRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSocketRequest.swift; path = WebSocket/STSocketRequest.swift; sourceTree = "<group>"; };
 		D4C60A7F1E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginSkipTableViewCell.swift; path = SignUp/STLoginSkipTableViewCell.swift; sourceTree = "<group>"; };
 		D4C60A801E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STLoginSkipTableViewCell.xib; path = SignUp/STLoginSkipTableViewCell.xib; sourceTree = "<group>"; };
 		E53185DD1E35DF8600BC6C9A /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSettings.swift; path = AppSettings/AppSettings.swift; sourceTree = "<group>"; };
@@ -144,6 +148,8 @@
 				D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */,
 				D4922AA71E43EA82006FF4D5 /* STQueryParameters.swift */,
 				D4922AA91E43EBDD006FF4D5 /* STQueryParametersEnum.swift */,
+				D49EB19D1E45212F00B6F5DC /* STSocketRequestBuilder.swift */,
+				D49EB19F1E452B9A00B6F5DC /* STSocketRequest.swift */,
 			);
 			name = WebSocket;
 			sourceTree = "<group>";
@@ -489,6 +495,7 @@
 				D49726FB1E32BDA50076B7A1 /* AppDelegate.swift in Sources */,
 				E59A1B1C1E3F9716009EE669 /* STUser.swift in Sources */,
 				D49727131E32CA8B0076B7A1 /* STError.swift in Sources */,
+				D49EB1A01E452B9A00B6F5DC /* STSocketRequest.swift in Sources */,
 				D497271B1E32D9BD0076B7A1 /* STServerApi.swift in Sources */,
 				E53F37C01E3A6ADD00393BAD /* STSingUpNavigationController.swift in Sources */,
 				E59A1B191E3F9388009EE669 /* STRegistration.swift in Sources */,
@@ -507,6 +514,7 @@
 				D4922AA81E43EA82006FF4D5 /* STQueryParameters.swift in Sources */,
 				D497AB4E1E3BE53A006A393D /* GenericCollectionSection.swift in Sources */,
 				D4922AA61E43DB67006FF4D5 /* STWebSocket.swift in Sources */,
+				D49EB19E1E45212F00B6F5DC /* STSocketRequestBuilder.swift in Sources */,
 				D49545D01E3D064700EDCF01 /* STLoginTextTableViewCell.swift in Sources */,
 				D49726FD1E32BDA50076B7A1 /* FirstViewController.swift in Sources */,
 				D497AB4D1E3BE53A006A393D /* CollectionSectionItem.swift in Sources */,

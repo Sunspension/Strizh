@@ -313,7 +313,7 @@ class STHTTPManager {
                                 
                                 guard response.result.error == nil else {
                                     
-                                    p.failure(.undefinedError(error: response.result.error!))
+                                    p.failure(.anyError(error: response.result.error!))
                                     return
                                 }
                                 
@@ -335,7 +335,7 @@ class STHTTPManager {
                                 
                                 guard response.result.error == nil else {
                                     
-                                    p.failure(.undefinedError(error: response.result.error!))
+                                    p.failure(.anyError(error: response.result.error!))
                                     return
                                 }
                                 

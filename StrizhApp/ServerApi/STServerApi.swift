@@ -13,16 +13,6 @@ import AlamofireObjectMapper
 
 struct STServerApi: PRemoteServerApi {
     
-    private static let alamofireManager: Alamofire.SessionManager = {
-        
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 15
-        configuration.timeoutIntervalForResource = 15
-        
-        return Alamofire.SessionManager(configuration: configuration)
-    }()
-    
-    
     private var serverBaseUrlString: String
     
     private var socket: STWebSocket

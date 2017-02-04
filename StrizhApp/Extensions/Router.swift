@@ -10,42 +10,31 @@ import UIKit
 
 extension UIViewController {
     
-    func st_Router_SigUpStepOne() {
+    func st_router_sigUpStepOne() {
         
         let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    func st_Router_SigUpStepTwo() {
+    func st_router_sigUpStepTwo() {
         
         let controller = STSingUpTableViewController(signupStep: .signupSecondStep)
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    func st_Router_SigUpFinish() {
+    func st_router_sigUpFinish() {
         
         let controller = STSingUpTableViewController(signupStep: .signupThirdStep)
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    func st_Router_OpenMainController() {
+    func st_router_openMainController() {
         
-        if let controller = appSettings.storyBoard.instantiateInitialViewController() {
-            
-            self.changeRootViewController(controller)
-        }
+        appDelegate?.onLogin()
     }
     
-    func st_Router_OnLogout() {
+    func st_router_onLogout() {
         
-        api.logout()
-            .onSuccess { session in
-         
-                print("logout")
-                print(session)
-            }
-        
-        let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
-        self.changeRootViewController(controller)
+        appDelegate?.onLogout()
     }
 }

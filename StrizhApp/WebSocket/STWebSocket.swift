@@ -11,67 +11,108 @@ import Foundation
 import BrightFutures
 import ObjectMapper
 
-private enum HTTPMethod : String {
-    
-    case get, post, put, delete
-}
-
-
 class STWebSocket {
     
-    private var socket: SocketIOClient
+    private var socket: SocketIOClient?
     
     private var socketConnected = false
+    
+    private var serverUrlString: String
     
     
     init(serverUrlString: String) {
         
-        let config: SocketIOClientConfiguration = [.log(true), .forcePolling(true), .path("/websocket")]
-        self.socket = SocketIOClient(socketURL: URL(string: serverUrlString)!, config: config)
+        self.serverUrlString = serverUrlString
     }
     
     func connect() {
         
-        self.socket.connect()
+        self.socketSetup()
+        self.socket?.connect()
     }
     
     func loadUser(userId: Int) -> Future<STUser, STError> {
         
         let p = Promise<STUser, STError>()
         
+        let request = STSocketRequestBuilder.loadUser(id: userId).request
+        
+        self.sendRequest(request: request) { json in
+            
+            if let user = STUser(JSON: json) {
+                
+                p.success(user)
+            }
+            else {
+                
+//                p.failure(STError.anyError(error: <#T##Error#>))
+            }
+        }
+        
         return p.future
+    }
+    
+    
+    // MARK: Private methods
+    
+    fileprivate func sendRequest(request: STSocketRequest,
+                                 callback: @escaping (_ json: [String : Any]) -> Void) {
+        
+        self.socket?.emit("request", request.payLoad)
+        
+        self.socket?.on("response") { (data, ack) in
+            
+            // converting data to json
+            guard let responseString = data[0] as? String else {
+                
+                return
+            }
+            
+            let responseData = responseString.data(using: String.Encoding.utf8)
+            
+            var json = [String : AnyObject]()
+            
+            do {
+                
+                json = try JSONSerialization.jsonObject(with: responseData!, options: []) as! [String : AnyObject]
+            }
+            catch let error {
+                
+                print(error)
+            }
+            
+            print(json)
+            
+            if let requestId = json["request_id"] as? String,
+                requestId == request.requestId {
+                
+                if let data = json["data"] as? [String : Any] {
+                    
+                    callback(data)
+                }
+            }
+        }
     }
     
     fileprivate func socketSetup() {
         
-        self.socket.on("connect") { [unowned self] (data, ack) in
-            
-            self.socketConnected = true
+        let config: SocketIOClientConfiguration = [.log(true),
+                                                   .forceWebsockets(true),
+                                                   .path("/websocket"),
+                                                   SocketIOClientOption.cookies(HTTPCookieStorage.shared.cookies!)]
+        
+        self.socket = SocketIOClient(socketURL: URL(string: serverUrlString)!, config: config)
+        
+        self.socket?.on("connect") { (data, ack) in
             
             print("===============\n")
-            print("socket conneted")
+            print("socket connected")
             print("===============\n")
         }
         
-        self.socket.on("response") { (data, ack) in
+        self.socket?.on("event") { (data, ack) in
             
-            
+            print(data)
         }
-    }
-    
-//    fileprivate func makePayload() -> [String : Any] {
-//        
-//    }
-    
-    fileprivate func makeQueryParameters() -> [String : Any] {
-        
-        let params = STQueryParameters()
-        
-        params
-            .add(type: .conditions, params: ["ff" : "ff"])
-            .add(type: .page, params: 20)
-            .add(type: .filters, params: ["feed" : "true"])
-        
-        return params.params
     }
 }

@@ -287,11 +287,11 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                             
                             if user.firstName.isEmpty {
                                 
-                                self.st_Router_SigUpFinish()
+                                self.st_router_sigUpFinish()
                                 return
                             }
                             
-                            self.st_Router_OpenMainController()
+                            self.st_router_openMainController()
                         })
                         .onFailure(callback: { error in
                             
@@ -321,7 +321,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                     return
                 }
                 
-                self.st_Router_OpenMainController()
+                self.st_router_openMainController()
             }
             
             break
@@ -393,7 +393,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 case .signupFirstStep:
                     
                     AppDelegate.appSettings.lastSessionPhoneNumber = phone
-                    self.st_Router_SigUpStepTwo()
+                    self.st_router_sigUpStepTwo()
                     
                     break
                  

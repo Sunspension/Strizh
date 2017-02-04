@@ -10,14 +10,14 @@ import UIKit
 
 enum STError: Error {
 
-    case undefinedError(error: Error)
+    case anyError(error: Error)
     
     
     var localizedDescription: String {
         
         switch self {
             
-        case .undefinedError(let error):
+        case .anyError(let error):
             
             return error.localizedDescription
         }
