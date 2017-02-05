@@ -14,6 +14,12 @@ protocol AppDBObject {
     func writeToDB(update: Bool)
 }
 
+protocol RealmCustomObject {
+    
+    associatedtype ObjectType
+    
+    var value: ObjectType { get set }
+}
 
 extension Object: AppDBObject {
     

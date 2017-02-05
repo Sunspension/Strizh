@@ -44,7 +44,6 @@ class GenericTableViewDataSource<TTableViewCell: UITableViewCell, TTableItem: An
             if let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? TTableViewCell {
                 
                 self.bindingAction(cell, item)
-                
                 return cell
             }
             

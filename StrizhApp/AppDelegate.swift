@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else {
             
             let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
-            let navi = STSingUpNavigationController(rootViewController: controller)
+            let navi = STSignUpNavigationController(rootViewController: controller)
             self.window?.rootViewController = navi
             self.window?.makeKeyAndVisible()
         }

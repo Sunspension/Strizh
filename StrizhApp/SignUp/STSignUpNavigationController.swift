@@ -8,7 +8,7 @@
 
 import UIKit
 
-class STSingUpNavigationController: UINavigationController {
+class STSignUpNavigationController: UINavigationController {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         

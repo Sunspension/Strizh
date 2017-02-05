@@ -52,6 +52,26 @@ class STWebSocket {
         return p.future
     }
     
+    func loadFeed(page: Int, pageSize: Int) -> Future<[STPost], STError> {
+        
+        let p = Promise<[STPost], STError>()
+        
+        let request = STSocketRequestBuilder.loadFeed(page: page, pageSize: pageSize).request
+        
+        self.sendRequest(request: request) { json in
+            
+            if let post = json["post"] as? [[String : Any]] {
+                
+                if let feed = Mapper<STPost>().mapArray(JSONArray: post) {
+                    
+                    p.success(feed)
+                }
+            }
+        }
+        
+        return p.future
+    }
+    
     
     // MARK: Private methods
     
