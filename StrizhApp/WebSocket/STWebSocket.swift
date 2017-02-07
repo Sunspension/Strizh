@@ -48,9 +48,9 @@ class STWebSocket {
         return p.future
     }
     
-    func loadFeed(page: Int, pageSize: Int) -> Future<[STPost], STError> {
+    func loadFeed(page: Int, pageSize: Int) -> Future<([STPost], [STUser]), STError> {
         
-        let p = Promise<[STPost], STError>()
+        let p = Promise<([STPost], [STUser]), STError>()
         
         let request = STSocketRequestBuilder.loadFeed(page: page, pageSize: pageSize).request
         
@@ -58,9 +58,15 @@ class STWebSocket {
             
             if let post = json["post"] as? [[String : Any]] {
                 
-                if let feed = Mapper<STPost>().mapArray(JSONArray: post) {
+                if let posts = Mapper<STPost>().mapArray(JSONArray: post) {
                     
-                    p.success(feed)
+                    if let user = json["user"] as? [[String : Any]] {
+                        
+                        if let users = Mapper<STUser>().mapArray(JSONArray: user) {
+                            
+                            p.success((posts, users))
+                        }
+                    }
                 }
             }
         }

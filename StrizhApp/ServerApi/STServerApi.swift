@@ -111,7 +111,7 @@ struct STServerApi: PRemoteServerApi {
         }
     }
     
-    func loadFeed(page: Int, pageSize: Int) -> Future<[STPost], STError> {
+    func loadFeed(page: Int, pageSize: Int) -> Future<([STPost], [STUser]), STError> {
         
         return self.socket.loadFeed(page: page, pageSize: pageSize)
     }

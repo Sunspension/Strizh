@@ -13,11 +13,14 @@ class STFeedTableViewController: UITableViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!
     
-    private var dataSource: GenericTableViewDataSource<STPostTableViewCell, STPost>?
+//    private var dataSource: GenericTableViewDataSource<STPostTableViewCell, STPost>?
+//    
+//    private let tableSection = GenericCollectionSection<STPost>()
+//    
+//    private var users = Set<STUser>()
+
+    private var feedDataSource: STFeedDataSourceWrapper?
     
-    private let tableSection = GenericCollectionSection<STPost>()
-    
-    private var users = Set<STUser>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,56 +32,54 @@ class STFeedTableViewController: UITableViewController {
         self.tableView.separatorStyle = .none
         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
         
-        self.dataSource = GenericTableViewDataSource(nibClass: STPostTableViewCell.self) { [unowned self] (cell, item) in
+        self.feedDataSource = STFeedDataSourceWrapper(onCollectionChanged: { [unowned self] in
             
-            let post = item.item
-            
-            cell.selectionStyle = .none
-            cell.postTitle.text = post.title
-            cell.postDetails.text = post.postDescription
-            
-            if let user = self.users.first(where: { $0.id == post.userId }) {
-                
-                cell.userName.text = user.lastName + " " + user.firstName
-                
-                var filters = [ImageFilter]()
-                
-                filters.append(AspectScaledToFillSizeFilter(size: cell.userIcon.bounds.size))
-                filters.append(RoundedCornersFilter(radius: cell.userIcon.bounds.size.width))
-                let compositeFilter = DynamicCompositeImageFilter(filters)
-                
-                cell.userIcon.af_setImage(withURL: URL(string: user.imageUrl!)!,
-                                          filter: compositeFilter, completion: nil)
-            }
-            else {
-                
-                self.api.loadUser(transport: .webSocket, userId: post.userId)
-                    .onSuccess(callback: { [unowned self] user in
-                        
-                        self.users.insert(user)
-                        cell.userName.text = user.lastName + " " + user.firstName
-                        
-                        var filters = [ImageFilter]()
-                        
-                        filters.append(AspectScaledToFillSizeFilter(size: cell.userIcon.bounds.size))
-                        filters.append(RoundedCornersFilter(radius: cell.userIcon.bounds.size.width))
-                        let compositeFilter = DynamicCompositeImageFilter(filters)
-                        
-                        cell.userIcon.af_setImage(withURL: URL(string: user.imageUrl!)!,
-                                                  filter: compositeFilter, completion: nil)
-                    })
-            }
-        }
-        
-        self.dataSource!.sections.append(self.tableSection)
-        
-        self.tableView.dataSource = self.dataSource
-        
-        api.loadFeed(page: 0, pageSize: 20).onSuccess { [unowned self] feed in
-            
-            self.createDataSource(feed: feed)
             self.tableView.reloadData()
-        }
+        })
+        
+        self.feedDataSource!.initialize()
+        
+        self.tableView.dataSource = self.feedDataSource!.dataSource
+        
+        self.feedDataSource?.loadFeed()
+        
+//        self.dataSource = GenericTableViewDataSource(nibClass: STPostTableViewCell.self) { [unowned self] (cell, item) in
+//            
+//            let post = item.item
+//            
+//            cell.selectionStyle = .none
+//            cell.postTitle.text = post.title
+//            cell.postDetails.text = post.postDescription
+//            
+//            if let user = self.users.first(where: { $0.id == post.userId }) {
+//                
+//                cell.userName.text = user.lastName + " " + user.firstName
+//                
+//                var filters = [ImageFilter]()
+//                
+//                filters.append(AspectScaledToFillSizeFilter(size: cell.userIcon.bounds.size))
+//                filters.append(RoundedCornersFilter(radius: cell.userIcon.bounds.size.width))
+//                let compositeFilter = DynamicCompositeImageFilter(filters)
+//                
+//                cell.userIcon.af_setImage(withURL: URL(string: user.imageUrl!)!,
+//                                          filter: compositeFilter, completion: nil)
+//            }
+//        }
+//        
+//        self.dataSource!.sections.append(self.tableSection)
+//        
+//        self.tableView.dataSource = self.dataSource
+//        
+//        api.loadFeed(page: 0, pageSize: 20).onSuccess { [unowned self] (posts, users) in
+//            
+//            users.forEach({ user in
+//                
+//                self.users.insert(user)
+//            })
+//            
+//            self.createDataSource(feed: posts)
+//            self.tableView.reloadData()
+//        }
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -95,13 +96,13 @@ class STFeedTableViewController: UITableViewController {
     
     // MARK: Private methods
     
-    private func createDataSource(feed: [STPost]) {
-        
-        feed.forEach { post in
-            
-            self.tableSection.add(item: post)
-        }
-    }
+//    private func createDataSource(feed: [STPost]) {
+//        
+//        feed.forEach { post in
+//            
+//            self.tableSection.add(item: post)
+//        }
+//    }
     
     
     /*

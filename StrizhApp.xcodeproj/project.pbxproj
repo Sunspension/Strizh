@@ -66,6 +66,7 @@
 		E59A1B191E3F9388009EE669 /* STRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B161E3F9388009EE669 /* STRegistration.swift */; };
 		E59A1B1A1E3F9388009EE669 /* STSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B171E3F9388009EE669 /* STSession.swift */; };
 		E59A1B1C1E3F9716009EE669 /* STUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B1B1E3F9716009EE669 /* STUser.swift */; };
+		E5BE9E251E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE9E241E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -131,6 +132,7 @@
 		E59A1B161E3F9388009EE669 /* STRegistration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STRegistration.swift; path = Models/STRegistration.swift; sourceTree = "<group>"; };
 		E59A1B171E3F9388009EE669 /* STSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSession.swift; path = Models/STSession.swift; sourceTree = "<group>"; };
 		E59A1B1B1E3F9716009EE669 /* STUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STUser.swift; path = Models/STUser.swift; sourceTree = "<group>"; };
+		E5BE9E241E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedDataSourceWrapper.swift; path = Feed/STFeedDataSourceWrapper.swift; sourceTree = "<group>"; };
 		F00E8042FB9C8BEBFEB8BA5E /* Pods-StrizhApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -300,6 +302,7 @@
 			children = (
 				D4AD43B51E47A991006F13DE /* Controllers */,
 				D4AD43B41E47A980006F13DE /* Views */,
+				E5BE9E241E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -573,6 +576,7 @@
 				E59A1B181E3F9388009EE669 /* STImage.swift in Sources */,
 				D4194A171E46028F00D0B189 /* RealmString.swift in Sources */,
 				D497AB4F1E3BE53A006A393D /* GenericCollectionSectionItem.swift in Sources */,
+				E5BE9E251E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift in Sources */,
 				E53F37BD1E3A632C00393BAD /* STLoginLogoTableViewCell.swift in Sources */,
 				D497AB4C1E3BE53A006A393D /* CollectionSection.swift in Sources */,
 				D4AD43C11E47DB7B006F13DE /* STNavigationController.swift in Sources */,

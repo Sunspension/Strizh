@@ -24,6 +24,7 @@ private enum QueryParametersEnum : String {
     case sortingOrder = "order"
     case conditions = "conditions"
     case filters = "filters"
+    case extend = "extend"
 }
 
 enum STSocketRequestBuilder {
@@ -56,6 +57,7 @@ enum STSocketRequestBuilder {
             self.addToQuery(&query, type: .pageSize, value: pageSize)
             self.addToQuery(&query, type: .sortingOrder, value: ["id" : "desc"])
             self.addToQuery(&query, type: .filters, value: ["feed" : "true"])
+            self.addToQuery(&query, type: .extend, value: "user")
 //            self.addToQuery(&query, type: .conditions, value: ["id" : [">" : 0]])
             
             // payload
