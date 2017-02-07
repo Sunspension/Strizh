@@ -29,7 +29,7 @@ class TableViewDataSource: NSObject, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let item = self.sections[(indexPath as NSIndexPath).section].items[(indexPath as NSIndexPath).row]
+        let item = self.sections[indexPath.section].items[indexPath.row]
         item.indexPath = indexPath
         
         if let cellStyle = item.cellStyle {

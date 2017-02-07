@@ -8,21 +8,35 @@
 
 import UIKit
 
-class GenericTableViewDataSource<TTableViewCell: UITableViewCell, TTableItem: Any>: NSObject, UITableViewDataSource {
+class GenericTableViewDataSource<TableViewCell: UITableViewCell, TableItem: Any>: NSObject, UITableViewDataSource {
 
-    var sections: [GenericCollectionSection<TTableItem>] = []
+    var sections: [GenericCollectionSection<TableItem>] = []
     
-    var bindingAction: (_ cell: TTableViewCell, _ item: GenericCollectionSectionItem<TTableItem>) -> Void
+    var bindingAction: ((_ cell: TableViewCell, _ item: GenericCollectionSectionItem<TableItem>) -> Void)
     
-    var reusableIdentifierOrNibName: String?
+    var cellClass: AnyClass?
     
-    init(reusableIdentifierOrNibName: String? = nil, bindingAction: @escaping (_ cell: TTableViewCell, _ item: GenericCollectionSectionItem<TTableItem>) -> Void) {
+    var nibClass: AnyClass?
+    
+    
+    init(nibClass: AnyClass,
+         binding: @escaping (_ cell: TableViewCell, _ item: GenericCollectionSectionItem<TableItem>) -> Void) {
         
-        self.bindingAction = bindingAction
-        self.reusableIdentifierOrNibName = reusableIdentifierOrNibName
+        self.nibClass = nibClass
+        self.bindingAction = binding
         
         super.init()
     }
+    
+    init(cellClass: AnyClass,
+         binding: @escaping (_ cell: TableViewCell, _ item: GenericCollectionSectionItem<TableItem>) -> Void) {
+        
+        self.cellClass = cellClass
+        self.bindingAction = binding
+        
+        super.init()
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -36,25 +50,26 @@ class GenericTableViewDataSource<TTableViewCell: UITableViewCell, TTableItem: An
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let item = self.sections[(indexPath as NSIndexPath).section].items[(indexPath as NSIndexPath).row]
+        let item = self.sections[indexPath.section].items[indexPath.row]
         item.indexPath = indexPath
         
-        if let identifier = self.reusableIdentifierOrNibName {
+        if let cellClass = self.cellClass {
             
-            if let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? TTableViewCell {
-                
-                self.bindingAction(cell, item)
-                return cell
-            }
-            
-            if let cell = Bundle.main.loadNibNamed(self.reusableIdentifierOrNibName!, owner: self, options: nil)!.last as? TTableViewCell {
-                
-                self.bindingAction(cell, item)
-                return cell
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: cellClass),
+                                                     for: indexPath) as! TableViewCell
+            self.bindingAction(cell, item)
+            return cell
         }
         
-        let cell =  UITableViewCell() as! TTableViewCell
+        if let nibClass = self.nibClass {
+            
+            let cell = Bundle.main.loadNibNamed(String(describing: nibClass), owner: self, options: nil)!.last as! TableViewCell
+            
+            self.bindingAction(cell, item)
+            return cell
+        }
+        
+        let cell =  UITableViewCell() as! TableViewCell
         self.bindingAction(cell, item)
         
         return cell;

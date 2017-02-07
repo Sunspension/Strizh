@@ -15,10 +15,7 @@ class STWebSocket {
     
     private var socket: SocketIOClient?
     
-    private var socketConnected = false
-    
     private var serverUrlString: String
-    
     
     init(serverUrlString: String) {
         
@@ -28,7 +25,6 @@ class STWebSocket {
     func connect() {
         
         self.socketSetup()
-        self.socket?.connect()
     }
     
     func loadUser(userId: Int) -> Future<STUser, STError> {
@@ -78,37 +74,40 @@ class STWebSocket {
     fileprivate func sendRequest(request: STSocketRequest,
                                  callback: @escaping (_ json: [String : Any]) -> Void) {
         
-        self.socket?.emit("request", request.payLoad)
-        
-        self.socket?.on("response") { (data, ack) in
+        _ = self.socketConnect().andThen { _ in
             
-            // converting data to json
-            guard let responseString = data[0] as? String else {
+            self.socket?.emit("request", request.payLoad)
+            
+            self.socket?.on("response") { (data, ack) in
                 
-                return
-            }
-            
-            let responseData = responseString.data(using: String.Encoding.utf8)
-            
-            var json = [String : AnyObject]()
-            
-            do {
-                
-                json = try JSONSerialization.jsonObject(with: responseData!, options: []) as! [String : AnyObject]
-            }
-            catch let error {
-                
-                print(error)
-            }
-            
-            print(json)
-            
-            if let requestId = json["request_id"] as? String,
-                requestId == request.requestId {
-                
-                if let data = json["data"] as? [String : Any] {
+                // converting data to json
+                guard let responseString = data[0] as? String else {
                     
-                    callback(data)
+                    return
+                }
+                
+                let responseData = responseString.data(using: String.Encoding.utf8)
+                
+                var json = [String : AnyObject]()
+                
+                do {
+                    
+                    json = try JSONSerialization.jsonObject(with: responseData!, options: []) as! [String : AnyObject]
+                }
+                catch let error {
+                    
+                    print(error)
+                }
+                
+                print(json)
+                
+                if let requestId = json["request_id"] as? String,
+                    requestId == request.requestId {
+                    
+                    if let data = json["data"] as? [String : Any] {
+                        
+                        callback(data)
+                    }
                 }
             }
         }
@@ -123,16 +122,34 @@ class STWebSocket {
         
         self.socket = SocketIOClient(socketURL: URL(string: serverUrlString)!, config: config)
         
-        self.socket?.on("connect") { (data, ack) in
-            
-            print("===============\n")
-            print("socket connected")
-            print("===============\n")
-        }
-        
         self.socket?.on("event") { (data, ack) in
             
             print(data)
         }
+    }
+    
+    fileprivate func socketConnect() -> Future<Bool, STError> {
+        
+        let p = Promise<Bool, STError>()
+        
+        if self.socket?.status != .connected {
+            
+            self.socket!.connect()
+            
+            self.socket?.on("connect") { (data, ack) in
+                
+                print("===============\n")
+                print("socket connected")
+                print("===============\n")
+                
+                p.trySuccess(true)
+            }
+        }
+        else {
+            
+            p.success(true)
+        }
+        
+        return p.future
     }
 }

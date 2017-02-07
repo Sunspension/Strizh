@@ -35,12 +35,33 @@ class STPostTableViewCell: UITableViewCell {
     
     @IBOutlet weak var locations: UIButton!
     
+    @IBOutlet weak var separator: UIView!
+    
+    @IBOutlet weak var header: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        container.layer.cornerRadius = 5
+        container.layer.masksToBounds = true
+        container.layer.shouldRasterize = true
+        container.layer.rasterizationScale = UIScreen.main.scale
+        container.layer.contentsScale = UIScreen.main.scale
+        
+        separator.layer.shouldRasterize = true
+        
+        header.layer.shouldRasterize = true
+        header.layer.rasterizationScale = UIScreen.main.scale
+        header.layer.contentsScale = UIScreen.main.scale
+        
+        userName.text = ""
     }
 
+    override func prepareForReuse() {
+        
+        userIcon.image = nil
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

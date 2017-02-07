@@ -8,9 +8,9 @@
 
 import UIKit
 
-class GenericCollectionSectionItem<TItem: Any> {
+class GenericCollectionSectionItem<TItem> {
     
-    var item: TItem?
+    var item: TItem
     
     var itemType: Any?
     
@@ -27,7 +27,7 @@ class GenericCollectionSectionItem<TItem: Any> {
     var allowAction = true
     
     
-    init(item: TItem?) {
+    init(item: TItem) {
         
         self.item = item
     }

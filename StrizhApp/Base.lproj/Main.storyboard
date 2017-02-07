@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
+        <!--Лента-->
         <scene sceneID="XJY-MO-f88">
             <objects>
                 <tableViewController id="eKo-1R-3uV" customClass="STFeedTableViewController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -32,7 +32,7 @@
                             <outlet property="delegate" destination="eKo-1R-3uV" id="yhp-6B-GBt"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="Y53-z1-ZpI"/>
+                    <navigationItem key="navigationItem" title="Лента" id="Y53-z1-ZpI"/>
                     <connections>
                         <outlet property="searchBar" destination="Y0k-wc-bey" id="ApL-ml-IMh"/>
                     </connections>
