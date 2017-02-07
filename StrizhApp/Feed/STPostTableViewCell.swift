@@ -21,7 +21,7 @@ class STPostTableViewCell: UITableViewCell {
     
     @IBOutlet weak var postType: UIImageView!
     
-    @IBOutlet weak var iconFavorite: UIImageView!
+    @IBOutlet weak var iconFavorite: UIButton!
     
     @IBOutlet weak var postTitle: UILabel!
     
@@ -55,6 +55,9 @@ class STPostTableViewCell: UITableViewCell {
         header.layer.contentsScale = UIScreen.main.scale
         
         userName.text = ""
+        
+        iconFavorite.setImage(UIImage(named: "icon-star"), for: .normal)
+        iconFavorite.setImage(UIImage(named: "icon-star-selected"), for: .selected)
     }
 
     override func prepareForReuse() {

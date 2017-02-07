@@ -54,10 +54,16 @@ class STFeedDataSourceWrapper {
             cell.selectionStyle = .none
             cell.postTitle.text = post.title
             cell.postDetails.text = post.postDescription
+            cell.iconFavorite.isSelected = post.isFavorite
             
             if let user = self.users.first(where: { $0.id == post.userId }) {
                 
                 cell.userName.text = user.lastName + " " + user.firstName
+                
+                guard !user.imageUrl.isEmpty else {
+                    
+                    return
+                }
                 
                 var filters = [ImageFilter]()
                 
@@ -65,7 +71,7 @@ class STFeedDataSourceWrapper {
                 filters.append(RoundedCornersFilter(radius: cell.userIcon.bounds.size.width))
                 let compositeFilter = DynamicCompositeImageFilter(filters)
                 
-                cell.userIcon.af_setImage(withURL: URL(string: user.imageUrl!)!,
+                cell.userIcon.af_setImage(withURL: URL(string: user.imageUrl)!,
                                           filter: compositeFilter, completion: nil)
             }
         }
@@ -97,7 +103,10 @@ class STFeedDataSourceWrapper {
                 
                 self.status = .loaded
                 
-                self.onCollectionChanged?()
+                DispatchQueue.main.async {
+                    
+                    self.onCollectionChanged?()
+                }
             }
             .onFailure { [unowned self] error in
                 

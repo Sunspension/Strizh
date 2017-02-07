@@ -44,7 +44,7 @@ class STUser: Object, Mappable {
     
     dynamic var imageId = 0
     
-    dynamic var imageUrl: String?
+    dynamic var imageUrl = ""
     
     
     required convenience init?(map: Map) {

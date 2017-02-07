@@ -52,19 +52,25 @@ class STWebSocket {
         
         let p = Promise<([STPost], [STUser]), STError>()
         
-        let request = STSocketRequestBuilder.loadFeed(page: page, pageSize: pageSize).request
-        
-        self.sendRequest(request: request) { json in
+        DispatchQueue.global().async {
             
-            if let post = json["post"] as? [[String : Any]] {
+            let request = STSocketRequestBuilder.loadFeed(page: page, pageSize: pageSize).request
+            
+            self.sendRequest(request: request) { json in
                 
-                if let posts = Mapper<STPost>().mapArray(JSONArray: post) {
+                if let post = json["post"] as? [[String : Any]] {
                     
-                    if let user = json["user"] as? [[String : Any]] {
+                    if let posts = Mapper<STPost>().mapArray(JSONArray: post) {
                         
-                        if let users = Mapper<STUser>().mapArray(JSONArray: user) {
+                        if let user = json["user"] as? [[String : Any]] {
                             
-                            p.success((posts, users))
+                            if let users = Mapper<STUser>().mapArray(JSONArray: user) {
+                                
+                                DispatchQueue.main.async {
+                                    
+                                    p.success((posts, users))
+                                }
+                            }
                         }
                     }
                 }
@@ -80,7 +86,7 @@ class STWebSocket {
     fileprivate func sendRequest(request: STSocketRequest,
                                  callback: @escaping (_ json: [String : Any]) -> Void) {
         
-        _ = self.socketConnect().andThen { _ in
+        self.socketConnect {
             
             self.socket?.emit("request", request.payLoad)
             
@@ -134,9 +140,7 @@ class STWebSocket {
         }
     }
     
-    fileprivate func socketConnect() -> Future<Bool, STError> {
-        
-        let p = Promise<Bool, STError>()
+    fileprivate func socketConnect(callback:@escaping () -> Void) {
         
         if self.socket?.status != .connected {
             
@@ -148,14 +152,12 @@ class STWebSocket {
                 print("socket connected")
                 print("===============\n")
                 
-                p.trySuccess(true)
+                callback()
             }
         }
         else {
             
-            p.success(true)
+            callback()
         }
-        
-        return p.future
     }
 }

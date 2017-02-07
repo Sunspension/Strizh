@@ -9,14 +9,17 @@
 import UIKit
 import RealmSwift
 
-struct STRealmConfiguration: PDBConfiguration {
+class STRealmConfiguration: PDBConfiguration {
     
-    let realm = try! Realm()
+    lazy var realm: Realm = {
+        
+        return try! Realm()
+    }()
     
     func configure() {
         
         var config = Realm.Configuration()
-        config.schemaVersion = 1
+        config.schemaVersion = 2
         config.migrationBlock = { (migration: Migration, oldSchemaVersion: UInt64) in
             
             if oldSchemaVersion < 1 {
