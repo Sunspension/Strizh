@@ -62,6 +62,51 @@ class STFeedDataSourceWrapper {
             cell.postDetails.text = post.postDescription
             cell.iconFavorite.isSelected = post.isFavorite
             cell.postType.isSelected = post.type == 2 ? true : false
+            cell.postTime.text = post.createdAt?.elapsedInterval()
+            
+            if post.dateFrom != nil && post.dateTo != nil {
+                
+                cell.durationDate.isHidden = false
+                let period = post.dateFrom!.shortLocalizedFormat + " - " + post.dateTo!.shortLocalizedFormat
+                cell.durationDate.setTitle(period , for: .normal)
+            }
+            else {
+                
+                cell.durationDate.isHidden = true
+            }
+            
+            if post.fileIds.count > 0 {
+                
+                cell.documents.isEnabled = true
+                cell.documents.setTitle("\(post.fileIds.count)", for: .normal)
+            }
+            else {
+                
+                cell.documents.isEnabled = false
+                cell.documents.setTitle("\(0)", for: .normal)
+            }
+            
+            if post.imageIds.count > 0 {
+                
+                cell.images.isEnabled = true
+                cell.images.setTitle("\(post.imageIds.count)", for: .normal)
+            }
+            else {
+                
+                cell.images.isEnabled = false
+                cell.images.setTitle("\(0)", for: .normal)
+            }
+            
+            if post.locationIds.count > 0 {
+                
+                cell.locations.isEnabled = true
+                cell.locations.setTitle("\(post.locationIds.count)", for: .normal)
+            }
+            else {
+                
+                cell.locations.isEnabled = false
+                cell.locations.setTitle("\(0)", for: .normal)
+            }
             
             if let user = self.users.first(where: { $0.id == post.userId }) {
                 

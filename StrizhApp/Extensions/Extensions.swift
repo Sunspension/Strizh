@@ -156,6 +156,11 @@ extension Date {
         return DateFormatter.localizedString(from: self, dateStyle: .medium, timeStyle: .none)
     }
     
+    var shortLocalizedFormat: String {
+        
+        return DateFormatter.localizedString(from: self, dateStyle: .short, timeStyle: .none)
+    }
+    
     func elapsedInterval() -> String {
         
         let componets = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: self, to: Date())

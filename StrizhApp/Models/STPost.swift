@@ -20,9 +20,9 @@ class STPost : Object, Mappable {
     
     dynamic var price = ""
     
-    dynamic var dateFrom: String?
+    dynamic var dateFrom: Date?
     
-    dynamic var dateTo: String?
+    dynamic var dateTo: Date?
     
     dynamic var type = 0
     
@@ -30,9 +30,9 @@ class STPost : Object, Mappable {
     
     dynamic var userId = 0
     
-    dynamic var createdAt = "" // "2015-05-07 23:36:38.907042",
+    dynamic var createdAt: Date? // "2015-05-07 23:36:38.907042",
     
-    dynamic var updatedAt = "" // "2016-10-18 19:55:26.952469",
+    dynamic var updatedAt: Date? // "2016-10-18 19:55:26.952469",
     
     dynamic var deleted = false
     
@@ -69,13 +69,13 @@ class STPost : Object, Mappable {
         title <- map["title"]
         postDescription <- map["description"]
         price <- map["price"]
-        dateFrom <- map["date_from"]
-        dateTo <- map["date_to"]
+        dateFrom <- (map["date_from"], DateFormatterTransform(dateFormatter: self.fromToFormatter()))
+        dateTo <- (map["date_to"], DateFormatterTransform(dateFormatter: self.fromToFormatter()))
         type <- map["type"]
         isArchived <- map["is_archived"]
         userId <- map["user_id"]
-        createdAt <- map["created_at"]
-        updatedAt <- map["updated_at"]
+        createdAt <- (map["created_at"], DateFormatterTransform(dateFormatter: self.formatter()))
+        updatedAt <- (map["updated_at"], DateFormatterTransform(dateFormatter: self.formatter()))
         deleted <- map["deleted"]
         deletedAt <- map["deleted_at"]
         dialogCount <- map["dialog_count"]
@@ -85,27 +85,19 @@ class STPost : Object, Mappable {
         fileIds <- (map["file_ids"], ArrayOfCustomRealmObjectsTransform<RealmInt>())
         locationIds <- (map["location_ids"], ArrayOfCustomRealmObjectsTransform<RealmInt>())
         imageUrls <- (map["image_urls"], ArrayOfCustomRealmObjectsTransform<RealmString>())
+    }
+    
+    private func formatter() -> DateFormatter {
         
-//        imageIds.append(objectsIn: imIds.map({ RealmInt(value: [$0]) }))
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return formatter
+    }
+    
+    private func fromToFormatter() -> DateFormatter {
         
-//        let transform = TransformOf(fromJSON: { (value: [Int]?) -> List<RealmInt>? in
-//            
-//            let list = List<RealmInt>()
-//            
-//            list.append(value.map({ RealmInt(value: $0) })!)
-//            
-//            return list
-//            
-//        }, toJSON: { (value: List<RealmInt>?) -> [Int]? in
-//            
-//            if let value = value {
-//                
-//                let ids = Array(value.map({ $0.value }))
-//                return ids
-//            }
-//            return nil
-//        })
-//        
-//        imageIds <- (map["image_ids"], transform)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
     }
 }

@@ -17,15 +17,28 @@ class STWebSocket {
     
     private var serverUrlString: String
     
+    
     init(serverUrlString: String) {
         
         self.serverUrlString = serverUrlString
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onApplicationDidBecomeActiveNotification),
+                                               name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onApplicationDidEnterBackgroundNotification),
+                                               name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+    }
+    
+    deinit {
+        
+        NotificationCenter.default.removeObserver(self)
     }
     
     func connect() {
         
         self.socketSetup()
     }
+    
     
     func loadUser(userId: Int) -> Future<STUser, STError> {
         
@@ -74,6 +87,27 @@ class STWebSocket {
         return p.future
     }
     
+    @objc func onApplicationDidBecomeActiveNotification() {
+        
+        if let socket = self.socket {
+            
+            if socket.status != .connected {
+                
+                socket.connect()
+            }
+        }
+    }
+    
+    @objc func onApplicationDidEnterBackgroundNotification() {
+        
+        if let socket = self.socket {
+            
+            if socket.status == .connected {
+                
+                socket.disconnect()
+            }
+        }
+    }
     
     // MARK: Private methods
     
@@ -84,7 +118,7 @@ class STWebSocket {
             
             self.socket?.emit("request", request.payLoad)
             
-            self.socket?.on("response") { (data, ack) in
+            self.socket?.once("response") { (data, ack) in
                 
                 // converting data to json
                 guard let responseString = data[0] as? String else {
@@ -138,9 +172,9 @@ class STWebSocket {
         
         if self.socket?.status != .connected {
             
-            self.socket!.connect()
+            self.socket?.connect()
             
-            self.socket?.on("connect") { (data, ack) in
+            self.socket?.once("connect") { (data, ack) in
                 
                 print("===============\n")
                 print("socket connected")
