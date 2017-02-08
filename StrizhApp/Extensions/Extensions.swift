@@ -148,3 +148,89 @@ extension UIColor {
     }
 }
 
+
+extension Date {
+
+    var mediumLocalizedFormat: String {
+        
+        return DateFormatter.localizedString(from: self, dateStyle: .medium, timeStyle: .none)
+    }
+    
+    func elapsedInterval() -> String {
+        
+        let componets = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: self, to: Date())
+        
+        guard componets.year == nil || componets.month == nil else {
+            
+            return mediumLocalizedFormat
+        }
+        
+        if let days = componets.day {
+            
+            switch days {
+                
+            case 1:
+                
+                return "вчера"
+                
+            case 2:
+                
+                return "позавчера"
+                
+            default:
+                
+                return mediumLocalizedFormat
+            }
+        }
+        
+        var result = "только что"
+        
+        if let minutes = componets.minute {
+            
+            var min = ""
+            
+            switch minutes {
+                
+            case 1, 21, 31, 41, 51:
+                
+                min = "минута"
+                break
+                
+            case 2, 3, 4, 22, 23, 24, 32, 33, 34, 42, 43, 44, 52, 53, 54:
+                
+                min = "минуты"
+                break
+                
+            default:
+                min = "минут"
+            }
+            
+            result = "\(minutes)" + " " + min
+        }
+        
+        if let hours = componets.hour {
+            
+            var h = ""
+            
+            switch hours {
+                
+            case 1, 21:
+                
+                h = "час"
+                break
+                
+            case 2, 3, 4, 22, 23:
+                
+                h = "часа"
+                break
+                
+            default:
+                h = "часов"
+            }
+            
+            result += "\(hours)" + " " + h + " " + result
+        }
+
+        return result
+    }
+}

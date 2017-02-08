@@ -19,7 +19,7 @@ class STPostTableViewCell: UITableViewCell {
     
     @IBOutlet weak var postTime: UILabel!
     
-    @IBOutlet weak var postType: UIImageView!
+    @IBOutlet weak var postType: UIButton!
     
     @IBOutlet weak var iconFavorite: UIButton!
     
@@ -58,6 +58,9 @@ class STPostTableViewCell: UITableViewCell {
         
         iconFavorite.setImage(UIImage(named: "icon-star"), for: .normal)
         iconFavorite.setImage(UIImage(named: "icon-star-selected"), for: .selected)
+        
+        postType.setImage(UIImage(named: "icon-offer"), for: .normal)
+        postType.setImage(UIImage(named: "icon-search"), for: .selected)
     }
 
     override func prepareForReuse() {

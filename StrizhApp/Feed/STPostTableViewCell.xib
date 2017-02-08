@@ -37,13 +37,6 @@
                                         <color key="textColor" red="0.5725490196078431" green="0.58039215686274503" blue="0.58823529411764708" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-offer" translatesAutoresizingMaskIntoConstraints="NO" id="pVD-6d-scz">
-                                        <rect key="frame" x="234" y="16" width="28" height="28"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="28" id="0MC-9W-Z0w"/>
-                                            <constraint firstAttribute="width" constant="28" id="Wkw-K5-BXp"/>
-                                        </constraints>
-                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 часа 12 минут" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5gd-45-L2y">
                                         <rect key="frame" x="64" y="34" width="162" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -58,21 +51,29 @@
                                         </constraints>
                                         <state key="normal" image="icon-star"/>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHp-K6-enH">
+                                        <rect key="frame" x="234" y="16" width="28" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="28" id="FpV-iV-2f3"/>
+                                            <constraint firstAttribute="height" constant="28" id="Nl8-IB-RwT"/>
+                                        </constraints>
+                                        <state key="normal" title="Button" image="icon-offer"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="Ask-BF-Iu4" firstAttribute="leading" secondItem="y1e-ug-ez8" secondAttribute="leading" constant="12" id="Dl2-M8-KHy"/>
                                     <constraint firstItem="gmI-Zq-d4E" firstAttribute="top" secondItem="Ask-BF-Iu4" secondAttribute="top" id="FDs-pj-fYc"/>
-                                    <constraint firstItem="MA2-AF-jWM" firstAttribute="leading" secondItem="pVD-6d-scz" secondAttribute="trailing" constant="8" id="KEf-4w-9Bh"/>
-                                    <constraint firstItem="pVD-6d-scz" firstAttribute="centerY" secondItem="y1e-ug-ez8" secondAttribute="centerY" id="MLF-6G-xLF"/>
-                                    <constraint firstItem="MA2-AF-jWM" firstAttribute="centerY" secondItem="pVD-6d-scz" secondAttribute="centerY" id="Qu1-PS-G2A"/>
-                                    <constraint firstItem="pVD-6d-scz" firstAttribute="leading" secondItem="gmI-Zq-d4E" secondAttribute="trailing" constant="8" id="Slp-Hx-sUN"/>
+                                    <constraint firstItem="MA2-AF-jWM" firstAttribute="centerY" secondItem="dHp-K6-enH" secondAttribute="centerY" id="Gf0-5v-ZSQ"/>
+                                    <constraint firstItem="dHp-K6-enH" firstAttribute="centerY" secondItem="y1e-ug-ez8" secondAttribute="centerY" id="LwQ-Uu-2WO"/>
                                     <constraint firstAttribute="trailing" secondItem="MA2-AF-jWM" secondAttribute="trailing" constant="6" id="ZSk-NY-zoR"/>
+                                    <constraint firstItem="dHp-K6-enH" firstAttribute="leading" secondItem="5gd-45-L2y" secondAttribute="trailing" constant="8" id="emq-o0-smL"/>
                                     <constraint firstItem="Ask-BF-Iu4" firstAttribute="centerY" secondItem="y1e-ug-ez8" secondAttribute="centerY" id="exU-4T-qvt"/>
                                     <constraint firstAttribute="height" constant="60" id="gAi-v5-8UU"/>
                                     <constraint firstItem="gmI-Zq-d4E" firstAttribute="leading" secondItem="Ask-BF-Iu4" secondAttribute="trailing" constant="12" id="gOY-97-AaB"/>
                                     <constraint firstItem="5gd-45-L2y" firstAttribute="trailing" secondItem="gmI-Zq-d4E" secondAttribute="trailing" id="mAB-aF-aKP"/>
                                     <constraint firstItem="5gd-45-L2y" firstAttribute="bottom" secondItem="Ask-BF-Iu4" secondAttribute="bottom" id="n2j-of-gXk"/>
+                                    <constraint firstItem="MA2-AF-jWM" firstAttribute="leading" secondItem="dHp-K6-enH" secondAttribute="trailing" constant="8" id="qNg-MU-JQc"/>
                                     <constraint firstItem="5gd-45-L2y" firstAttribute="leading" secondItem="gmI-Zq-d4E" secondAttribute="leading" id="twh-Qp-tHm"/>
                                 </constraints>
                             </view>
@@ -183,7 +184,7 @@
                 <outlet property="postDetails" destination="lLQ-ob-zbN" id="QQq-JP-xm2"/>
                 <outlet property="postTime" destination="5gd-45-L2y" id="VTM-e3-ddl"/>
                 <outlet property="postTitle" destination="kPW-Ry-ys8" id="17Q-ES-R4B"/>
-                <outlet property="postType" destination="pVD-6d-scz" id="8Qv-Jo-w76"/>
+                <outlet property="postType" destination="dHp-K6-enH" id="1lE-Zb-LUj"/>
                 <outlet property="separator" destination="KHJ-iJ-1Tc" id="foG-Fp-CSw"/>
                 <outlet property="userIcon" destination="Ask-BF-Iu4" id="3Vc-vt-3yE"/>
                 <outlet property="userName" destination="gmI-Zq-d4E" id="rWh-3o-fJe"/>

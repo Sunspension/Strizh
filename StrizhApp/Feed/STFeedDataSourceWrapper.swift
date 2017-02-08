@@ -61,6 +61,7 @@ class STFeedDataSourceWrapper {
             cell.postTitle.text = post.title
             cell.postDetails.text = post.postDescription
             cell.iconFavorite.isSelected = post.isFavorite
+            cell.postType.isSelected = post.type == 2 ? true : false
             
             if let user = self.users.first(where: { $0.id == post.userId }) {
                 
