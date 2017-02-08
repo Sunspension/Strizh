@@ -52,25 +52,19 @@ class STWebSocket {
         
         let p = Promise<([STPost], [STUser]), STError>()
         
-        DispatchQueue.global().async {
+        let request = STSocketRequestBuilder.loadFeed(page: page, pageSize: pageSize).request
+        
+        self.sendRequest(request: request) { json in
             
-            let request = STSocketRequestBuilder.loadFeed(page: page, pageSize: pageSize).request
-            
-            self.sendRequest(request: request) { json in
+            if let post = json["post"] as? [[String : Any]] {
                 
-                if let post = json["post"] as? [[String : Any]] {
+                if let posts = Mapper<STPost>().mapArray(JSONArray: post) {
                     
-                    if let posts = Mapper<STPost>().mapArray(JSONArray: post) {
+                    if let user = json["user"] as? [[String : Any]] {
                         
-                        if let user = json["user"] as? [[String : Any]] {
+                        if let users = Mapper<STUser>().mapArray(JSONArray: user) {
                             
-                            if let users = Mapper<STUser>().mapArray(JSONArray: user) {
-                                
-                                DispatchQueue.main.async {
-                                    
-                                    p.success((posts, users))
-                                }
-                            }
+                            p.success((posts, users))
                         }
                     }
                 }

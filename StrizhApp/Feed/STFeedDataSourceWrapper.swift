@@ -18,7 +18,7 @@ class STFeedDataSourceWrapper {
     
     private var page = 1
     
-    private var pageSize: Int?
+    private var pageSize: Int
     
     private let section = GenericCollectionSection<STPost>()
     
@@ -26,7 +26,9 @@ class STFeedDataSourceWrapper {
     
     private var hasMore = false
     
-    private var onCollectionChanged:(() -> Void)?
+    private var onDataSourceChanged:(() -> Void)?
+    
+    private var isFavorite: Bool
     
     
     var canLoadNext: Bool {
@@ -34,19 +36,23 @@ class STFeedDataSourceWrapper {
         return hasMore && status != .loading
     }
     
-    init(pageSize: Int? = 20, onCollectionChanged:(() -> Void)? = nil) {
+    init(pageSize: Int = 20, isFavorite: Bool = false, onDataSourceChanged:(() -> Void)? = nil) {
         
         self.pageSize = pageSize
-        self.onCollectionChanged = onCollectionChanged
+        self.isFavorite = isFavorite
+        self.onDataSourceChanged = onDataSourceChanged
     }
     
     func initialize() {
         
-        self.dataSource = GenericTableViewDataSource(nibClass: STPostTableViewCell.self) { [unowned self] (cell, item) in
+        self.dataSource = GenericTableViewDataSource(cellClass: STPostTableViewCell.self) { [unowned self] (cell, item) in
             
             if item.indexPath.row + 10 > self.section.items.count && self.canLoadNext {
                 
-                self.loadFeed()
+                DispatchQueue.global().async {
+                    
+                    self.loadFeed()
+                }
             }
             
             let post = item.item
@@ -65,14 +71,17 @@ class STFeedDataSourceWrapper {
                     return
                 }
                 
-                var filters = [ImageFilter]()
+                let width = Int(cell.userIcon.bounds.size.width * UIScreen.main.scale)
+                let height = Int(cell.userIcon.bounds.size.height * UIScreen.main.scale)
                 
-                filters.append(AspectScaledToFillSizeFilter(size: cell.userIcon.bounds.size))
-                filters.append(RoundedCornersFilter(radius: cell.userIcon.bounds.size.width))
-                let compositeFilter = DynamicCompositeImageFilter(filters)
+                let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
                 
-                cell.userIcon.af_setImage(withURL: URL(string: user.imageUrl)!,
-                                          filter: compositeFilter, completion: nil)
+                let urlString = user.imageUrl + queryResize
+                
+                let filter = RoundedCornersFilter(radius: cell.userIcon.bounds.size.width)
+                cell.userIcon.af_setImage(withURL: URL(string: urlString)!,
+                                          filter: filter,
+                                          completion: nil)
             }
         }
         
@@ -83,7 +92,7 @@ class STFeedDataSourceWrapper {
         
         self.status = .loading
         
-        AppDelegate.appSettings.api.loadFeed(page: page, pageSize: pageSize ?? 20)
+        AppDelegate.appSettings.api.loadFeed(page: page, pageSize: pageSize)
             
             .onSuccess { [unowned self] (posts, users) in
                 
@@ -103,10 +112,7 @@ class STFeedDataSourceWrapper {
                 
                 self.status = .loaded
                 
-                DispatchQueue.main.async {
-                    
-                    self.onCollectionChanged?()
-                }
+                self.onDataSourceChanged?()
             }
             .onFailure { [unowned self] error in
                 

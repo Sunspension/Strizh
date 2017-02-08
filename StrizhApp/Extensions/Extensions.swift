@@ -88,9 +88,9 @@ extension UITableView {
         self.register(cellClass, forCellReuseIdentifier: String(describing: cellClass.self))
     }
     
-    func register(nibClass: AnyClass) {
+    func register(cell: AnyClass) {
         
-        self.register(UINib(nibName: String(describing: nibClass), bundle: nil), forCellReuseIdentifier: String(describing: nibClass))
+        self.register(UINib(nibName: String(describing: cell), bundle: nil), forCellReuseIdentifier: String(describing: cell))
     }
 }
 

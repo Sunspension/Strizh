@@ -26,9 +26,14 @@ class STFeedTableViewController: UITableViewController {
         self.tableView.separatorStyle = .none
         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
         
-        self.feedDataSource = STFeedDataSourceWrapper(onCollectionChanged: { [unowned self] in
+        self.tableView.register(cell: STPostTableViewCell.self)
+        
+        self.feedDataSource = STFeedDataSourceWrapper(onDataSourceChanged: { [unowned self] in
             
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                
+                self.tableView.reloadData()
+            }
         })
         
         self.feedDataSource!.initialize()
