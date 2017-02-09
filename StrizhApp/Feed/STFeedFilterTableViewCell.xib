@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" rowHeight="59" id="KGk-i7-Jjw" customClass="STFeedFilterTableViewCell" customModule="StrizhApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="281" height="58"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hty-nr-OAy">
+                        <rect key="frame" x="16" y="12" width="28" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="28" id="dpU-im-ZsV"/>
+                            <constraint firstAttribute="height" constant="28" id="vQR-fO-gqL"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v3U-RR-9iE">
+                        <rect key="frame" x="52" y="16" width="213" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="hty-nr-OAy" secondAttribute="bottom" priority="750" constant="4" id="HOE-Fa-94Z"/>
+                    <constraint firstItem="v3U-RR-9iE" firstAttribute="leading" secondItem="hty-nr-OAy" secondAttribute="trailing" constant="8" id="ZKx-Fm-gzO"/>
+                    <constraint firstItem="hty-nr-OAy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="4" id="ag3-pV-EwL"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="v3U-RR-9iE" secondAttribute="trailing" constant="8" id="daM-Bb-4KZ"/>
+                    <constraint firstItem="v3U-RR-9iE" firstAttribute="centerY" secondItem="hty-nr-OAy" secondAttribute="centerY" id="dbz-SX-18w"/>
+                    <constraint firstItem="hty-nr-OAy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="ybm-Rh-H8g"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="icon" destination="hty-nr-OAy" id="EHj-Q2-ZKz"/>
+                <outlet property="title" destination="v3U-RR-9iE" id="Rn0-YY-F2P"/>
+            </connections>
+            <point key="canvasLocation" x="34" y="61.5"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -12,6 +12,20 @@ class TableViewDataSource: NSObject, UITableViewDataSource {
     
     var sections: [CollectionSection] = []
     
+    subscript(index: Int) -> CollectionSection {
+        
+        get {
+            
+            return sections[index]
+        }
+        
+        set {
+            
+            sections.insert(newValue, at: index)
+        }
+    }
+    
+    
     func item(by: IndexPath) -> CollectionSectionItem {
         
         return sections[by.section].items[by.row]
@@ -44,15 +58,6 @@ class TableViewDataSource: NSObject, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: cellClass), for: indexPath)
             item.bindingAction?(cell, item)
             return cell
-        }
-        
-        if let nibClass = item.nibClass {
-            
-            if let cell = Bundle.main.loadNibNamed(String(describing: nibClass), owner: self, options: nil)!.last as? UITableViewCell {
-                
-                item.bindingAction?(cell, item)
-                return cell
-            }
         }
         
         let cell =  UITableViewCell()

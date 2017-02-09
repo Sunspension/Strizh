@@ -20,16 +20,29 @@ class CollectionSection {
     
     var selected = false
     
+    subscript(index: Int) -> CollectionSectionItem {
+        
+        get {
+            
+            return items[index]
+        }
+        
+        set {
+            
+            items.insert(newValue, at: index)
+        }
+    }
+    
     
     init(title: String? = "") {
         
         self.title = title;
     }
     
-    func addItem(nibClass: AnyClass, item: Any? = nil,
+    func addItem(cellClass: AnyClass, item: Any? = nil,
                           itemType: Any? = nil, bindingAction: BindingAction? = nil) {
         
-        let item = CollectionSectionItem(nibClass: nibClass,
+        let item = CollectionSectionItem(cellClass: cellClass,
                                          item: item,
                                          itemType: itemType,
                                          bindingAction: bindingAction)

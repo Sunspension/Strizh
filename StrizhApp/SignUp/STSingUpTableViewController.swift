@@ -424,9 +424,9 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
             
         case .signupFirstStep:
             
-            section.addItem(nibClass: STLoginLogoTableViewCell.self)
+            section.addItem(cellClass: STLoginLogoTableViewCell.self)
             
-            section.addItem(nibClass: STLoginTableViewCell.self) { [unowned self] (cell, item) in
+            section.addItem(cellClass: STLoginTableViewCell.self) { [unowned self] (cell, item) in
                 
                 let viewCell = cell as! STLoginTableViewCell
                 viewCell.selectionStyle = .none
@@ -466,9 +466,9 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
             
         case .signupSecondStep:
             
-            section.addItem(nibClass: STLoginLogoTableViewCell.self)
+            section.addItem(cellClass: STLoginLogoTableViewCell.self)
             
-            section.addItem(nibClass: STLoginTableViewCell.self) { (cell, item) in
+            section.addItem(cellClass: STLoginTableViewCell.self) { (cell, item) in
                 
                 let viewCell = cell as! STLoginTableViewCell
                 viewCell.selectionStyle = .none
@@ -484,7 +484,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 }
             }
             
-            section.addItem(nibClass: STLoginTableViewCell.self) { [unowned self] (cell, item) in
+            section.addItem(cellClass: STLoginTableViewCell.self) { [unowned self] (cell, item) in
                 
                 let viewCell = cell as! STLoginTableViewCell
                 viewCell.selectionStyle = .none
@@ -570,7 +570,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 cell.textLabel?.attributedText = title
             }
             
-            section.addItem(nibClass: STLoginAvatarTableViewCell.self) { [unowned self] (cell, item) in
+            section.addItem(cellClass: STLoginAvatarTableViewCell.self) { [unowned self] (cell, item) in
                 
                 let viewCell = cell as! STLoginAvatarTableViewCell
                 viewCell.avatarButton.makeCircular()
@@ -582,7 +582,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 })
             }
             
-            section.addItem(nibClass: STLoginTextTableViewCell.self) { [unowned self] (cell, item) in
+            section.addItem(cellClass: STLoginTextTableViewCell.self) { [unowned self] (cell, item) in
                 
                 let viewCell = cell as! STLoginTextTableViewCell
                 viewCell.selectionStyle = .none
@@ -609,9 +609,9 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 }
             }
             
-            section.addItem(nibClass: STLoginSeparatorTableViewCell.self)
+            section.addItem(cellClass: STLoginSeparatorTableViewCell.self)
             
-            section.addItem(nibClass: STLoginTextTableViewCell.self) { [unowned self] (cell, item) in
+            section.addItem(cellClass: STLoginTextTableViewCell.self) { [unowned self] (cell, item) in
                 
                 let viewCell = cell as! STLoginTextTableViewCell
                 viewCell.selectionStyle = .none

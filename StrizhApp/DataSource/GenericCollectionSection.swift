@@ -16,6 +16,18 @@ class GenericCollectionSection<TItem>: NSObject {
     
     var sectionType: Any?
     
+    subscript(index: Int) -> GenericCollectionSectionItem<TItem> {
+        
+        get {
+            
+            return items[index]
+        }
+        
+        set {
+            
+            items.insert(newValue, at: index)
+        }
+    }
     
     init(title: String? = nil) {
         

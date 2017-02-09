@@ -46,5 +46,5 @@ protocol PRemoteServerApi {
     
     func loadUser(transport: STServerRequestTransport, userId: Int) -> Future<STUser, STError>
     
-    func loadFeed(page: Int, pageSize: Int) -> Future<([STPost], [STUser]), STError>
+    func loadFeed(page: Int, pageSize: Int, isFavorite: Bool) -> Future<([STPost], [STUser]), STError>
 }

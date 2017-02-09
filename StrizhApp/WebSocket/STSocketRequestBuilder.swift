@@ -31,7 +31,7 @@ enum STSocketRequestBuilder {
     
     case loadUser(id: Int)
     
-    case loadFeed(page: Int, pageSize: Int)
+    case loadFeed(page: Int, pageSize: Int, isFavorite: Bool)
     
     
     var request: STSocketRequest {
@@ -50,14 +50,27 @@ enum STSocketRequestBuilder {
             
             break
             
-        case .loadFeed(let page, let pageSize):
+        case .loadFeed(let page, let pageSize, let isFavorite):
             
             // query
             self.addToQuery(&query, type: .page, value: page)
             self.addToQuery(&query, type: .pageSize, value: pageSize)
             self.addToQuery(&query, type: .sortingOrder, value: ["id" : "desc"])
-            self.addToQuery(&query, type: .filters, value: ["feed" : "true"])
+            
+            var filters: [String : Any] = [:]
+            
+            if isFavorite {
+                
+                filters["is_favorite"] = true
+            }
+            else {
+                
+                 filters["feed"] = true
+            }
+            
+            self.addToQuery(&query, type: .filters, value: filters)
             self.addToQuery(&query, type: .extend, value: "user")
+            
 //            self.addToQuery(&query, type: .conditions, value: ["id" : [">" : 0]])
             
             // payload

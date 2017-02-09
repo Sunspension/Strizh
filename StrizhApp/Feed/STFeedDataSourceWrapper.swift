@@ -134,11 +134,19 @@ class STFeedDataSourceWrapper {
         self.dataSource!.sections.append(self.section)
     }
     
+    func loadFeedIfNotYet() {
+        
+        if self.section.items.count == 0 && self.status == .idle {
+            
+            loadFeed()
+        }
+    }
+    
     func loadFeed() {
         
         self.status = .loading
         
-        AppDelegate.appSettings.api.loadFeed(page: page, pageSize: pageSize)
+        AppDelegate.appSettings.api.loadFeed(page: page, pageSize: pageSize, isFavorite: self.isFavorite)
             
             .onSuccess { [unowned self] (posts, users) in
                 

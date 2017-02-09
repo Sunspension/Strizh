@@ -61,11 +61,11 @@ class STWebSocket {
         return p.future
     }
     
-    func loadFeed(page: Int, pageSize: Int) -> Future<([STPost], [STUser]), STError> {
+    func loadFeed(page: Int, pageSize: Int, isFavorite: Bool) -> Future<([STPost], [STUser]), STError> {
         
         let p = Promise<([STPost], [STUser]), STError>()
         
-        let request = STSocketRequestBuilder.loadFeed(page: page, pageSize: pageSize).request
+        let request = STSocketRequestBuilder.loadFeed(page: page, pageSize: pageSize, isFavorite: isFavorite).request
         
         self.sendRequest(request: request) { json in
             

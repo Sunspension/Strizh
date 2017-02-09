@@ -32,17 +32,15 @@ class CollectionSectionItem {
     
     var cellClass: AnyClass?
     
-    var nibClass: AnyClass?
-    
     var cellStyle: UITableViewCellStyle?
     
     
-    init(nibClass: AnyClass,
+    init(cellClass: AnyClass,
          item: Any? = nil,
          itemType: Any? = nil,
          bindingAction: BindingAction? = nil) {
         
-        self.nibClass = nibClass
+        self.cellClass = cellClass
         self.item = item
         self.itemType = itemType
         self.bindingAction = bindingAction

@@ -12,6 +12,19 @@ class GenericTableViewDataSource<TableViewCell: UITableViewCell, TableItem: Any>
 
     var sections: [GenericCollectionSection<TableItem>] = []
     
+    subscript(index: Int) -> GenericCollectionSection<TableItem> {
+        
+        get {
+            
+            return sections[index]
+        }
+        
+        set {
+            
+            sections.insert(newValue, at: index)
+        }
+    }
+    
     var bindingAction: ((_ cell: TableViewCell, _ item: GenericCollectionSectionItem<TableItem>) -> Void)
     
     var cellClass: AnyClass
@@ -45,5 +58,10 @@ class GenericTableViewDataSource<TableViewCell: UITableViewCell, TableItem: Any>
                                                  for: indexPath) as! TableViewCell
         self.bindingAction(cell, item)
         return cell
+    }
+    
+    func item(by: IndexPath) -> GenericCollectionSectionItem<TableItem> {
+        
+        return sections[by.section].items[by.row]
     }
 }
