@@ -80,6 +80,10 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         self.tableView.bounces = false
         self.tableView.separatorStyle = .none
         
+        self.tableView.register(cell: STLoginLogoTableViewCell.self)
+        self.tableView.register(cell: STLoginTableViewCell.self)
+        self.tableView.register(cell: STLoginAvatarTableViewCell.self)
+        
         let text = self.signupStep == .signupThirdStep ? "Готово" : "Далее"
         let rigthItem = UIBarButtonItem(title: text, style: .plain, target: self, action: #selector(self.actionNext))
         rigthItem.tintColor = UIColor.white
