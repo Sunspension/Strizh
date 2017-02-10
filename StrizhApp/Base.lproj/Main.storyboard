@@ -28,6 +28,53 @@
             </objects>
             <point key="canvasLocation" x="1642" y="-331"/>
         </scene>
+        <!--Feed Details Table View Controller-->
+        <scene sceneID="C4w-SC-0z6">
+            <objects>
+                <viewController storyboardIdentifier="STFeedDetailsTableViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ccw-Bo-caB" customClass="STFeedDetailsTableViewController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Y9q-7d-UcO"/>
+                        <viewControllerLayoutGuide type="bottom" id="Wfq-td-Fc6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jNh-tb-eGG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="icQ-BL-6St">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c3b-Gb-ce1">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <color key="backgroundColor" red="0.27058823529411763" green="0.47450980392156861" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="KJo-1G-Hh2"/>
+                                </constraints>
+                                <state key="normal" title="Написать сообщение">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="icQ-BL-6St" secondAttribute="trailing" id="BqK-M2-du4"/>
+                            <constraint firstAttribute="trailing" secondItem="c3b-Gb-ce1" secondAttribute="trailing" id="fR3-kD-PDL"/>
+                            <constraint firstItem="c3b-Gb-ce1" firstAttribute="top" secondItem="icQ-BL-6St" secondAttribute="bottom" id="kLL-d0-4dS"/>
+                            <constraint firstAttribute="bottom" secondItem="c3b-Gb-ce1" secondAttribute="bottom" id="keA-8w-aZ6"/>
+                            <constraint firstItem="c3b-Gb-ce1" firstAttribute="leading" secondItem="jNh-tb-eGG" secondAttribute="leading" id="lea-T4-CYU"/>
+                            <constraint firstItem="icQ-BL-6St" firstAttribute="leading" secondItem="jNh-tb-eGG" secondAttribute="leading" id="nHi-w7-aDo"/>
+                            <constraint firstItem="icQ-BL-6St" firstAttribute="top" secondItem="jNh-tb-eGG" secondAttribute="top" id="put-c5-4QX"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="actionWrite" destination="c3b-Gb-ce1" id="5Bf-9a-cTu"/>
+                        <outlet property="tableView" destination="icQ-BL-6St" id="x7G-PC-At2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Q0-du-cgB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2584.8000000000002" y="-331.48425787106447"/>
+        </scene>
         <!--Лента-->
         <scene sceneID="QDT-5B-ZiH">
             <objects>

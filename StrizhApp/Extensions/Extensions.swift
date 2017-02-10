@@ -21,6 +21,11 @@ extension UIViewController {
         return AppDelegate.appSettings
     }
     
+    var storyBoard: UIStoryboard {
+        
+        return appSettings.storyBoard
+    }
+    
     var appDelegate: AppDelegate? {
         
         return UIApplication.shared.delegate as? AppDelegate

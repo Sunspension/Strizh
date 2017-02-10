@@ -22,6 +22,8 @@ class STFeedDataSourceWrapper {
     
     private let section = GenericCollectionSection<STPost>()
     
+    private var filter: STFeedFilter?
+    
     private var users = Set<STUser>()
     
     private var hasMore = false
@@ -29,12 +31,13 @@ class STFeedDataSourceWrapper {
     private var onDataSourceChanged:(() -> Void)?
     
     private var isFavorite: Bool
-    
+
     
     var canLoadNext: Bool {
         
         return hasMore && status != .loading
     }
+    
     
     init(pageSize: Int = 20, isFavorite: Bool = false, onDataSourceChanged:(() -> Void)? = nil) {
         
@@ -49,10 +52,7 @@ class STFeedDataSourceWrapper {
             
             if item.indexPath.row + 10 > self.section.items.count && self.canLoadNext {
                 
-                DispatchQueue.global().async {
-                    
-                    self.loadFeed()
-                }
+                self.loadFeed()
             }
             
             let post = item.item
@@ -132,6 +132,8 @@ class STFeedDataSourceWrapper {
         }
         
         self.dataSource!.sections.append(self.section)
+        
+        self.filter = AppDelegate.appSettings.feedFilter
     }
     
     func loadFeedIfNotYet() {
@@ -142,11 +144,21 @@ class STFeedDataSourceWrapper {
         }
     }
     
-    func loadFeed() {
+    
+    func reloadFilter(notify: Bool) {
+        
+        self.filter = AppDelegate.appSettings.feedFilter
+        self.section.items.removeAll()
+        self.page = 1
+        self.loadFeed(notify: notify)
+    }
+    
+    
+    func loadFeed(notify: Bool = true) {
         
         self.status = .loading
         
-        AppDelegate.appSettings.api.loadFeed(page: page, pageSize: pageSize, isFavorite: self.isFavorite)
+        AppDelegate.appSettings.api.loadFeed(filter: self.filter!, page: page, pageSize: pageSize, isFavorite: self.isFavorite)
             
             .onSuccess { [unowned self] (posts, users) in
                 
@@ -166,7 +178,10 @@ class STFeedDataSourceWrapper {
                 
                 self.status = .loaded
                 
-                self.onDataSourceChanged?()
+                if notify {
+                    
+                    self.onDataSourceChanged?()
+                }
             }
             .onFailure { [unowned self] error in
                 

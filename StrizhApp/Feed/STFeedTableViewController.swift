@@ -38,27 +38,22 @@ class STFeedTableViewController: UITableViewController {
         self.navigationItem.titleView = self.dataSourceSwitch
         
         let rigthItem = UIBarButtonItem(image: UIImage(named: "icon-filter"), landscapeImagePhone: UIImage(named: "icon-filter"), style: .plain, target: self, action: #selector(self.openFilter))
-        rigthItem.tintColor = UIColor.stBrightBlue
+        
+        self.setCustomBackButton()
         
         self.navigationItem.rightBarButtonItem = rigthItem
         
         // setup data sources
         self.feedDataSource = STFeedDataSourceWrapper(onDataSourceChanged: { [unowned self] in
             
-            DispatchQueue.main.async {
-                
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
         })
         
         self.feedDataSource!.initialize()
         
         self.favoritesFeedDataSource = STFeedDataSourceWrapper(isFavorite: true, onDataSourceChanged: { [unowned self] in
             
-            DispatchQueue.main.async {
-                
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
         })
         
         self.favoritesFeedDataSource?.initialize()
@@ -68,19 +63,15 @@ class STFeedTableViewController: UITableViewController {
         self.feedDataSource!.loadFeed()
         
         self.dataSourceSwitch.selectedSegmentIndex = 0
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        let dataSource = self.tableView.dataSource as! GenericTableViewDataSource<STPostTableViewCell, STPost>
+        let post = dataSource.item(by: indexPath).item
+        
+        self.st_router_openPostDetails(post: post)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     
     func switchDataSource(control: UISegmentedControl) {
         
@@ -106,15 +97,15 @@ class STFeedTableViewController: UITableViewController {
     
     func openFilter() {
         
-        let controller = STFeedFilterTableViewController(filter: self.filter) { [unowned self] filter in
+        let controller = STFeedFilterTableViewController() { [unowned self] in
             
-            self.filter = filter
+            self.feedDataSource?.reloadFilter(notify: true)
+            self.favoritesFeedDataSource?.reloadFilter(notify: true)
+            self.tableView.reloadData()
         }
         
         let navi = STNavigationController(rootViewController: controller)
         
         self.present(navi, animated: true, completion: nil)
     }
-    
-    // MARK: Private methods
 }

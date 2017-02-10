@@ -7,12 +7,21 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct STFeedFilter {
+class STFeedFilter: Object {
     
-    var offer = false
+    dynamic var id = 0
     
-    var search = false
+    dynamic var offer = true
     
-    var showArchived = false
+    dynamic var search = true
+    
+    dynamic var showArchived = false
+    
+    
+    override static func primaryKey() -> String? {
+        
+        return "id"
+    }
 }

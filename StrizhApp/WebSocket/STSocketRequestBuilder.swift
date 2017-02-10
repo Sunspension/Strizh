@@ -31,7 +31,7 @@ enum STSocketRequestBuilder {
     
     case loadUser(id: Int)
     
-    case loadFeed(page: Int, pageSize: Int, isFavorite: Bool)
+    case loadFeed(filter: STFeedFilter, page: Int, pageSize: Int, isFavorite: Bool)
     
     
     var request: STSocketRequest {
@@ -50,7 +50,7 @@ enum STSocketRequestBuilder {
             
             break
             
-        case .loadFeed(let page, let pageSize, let isFavorite):
+        case .loadFeed(let filter, let page, let pageSize, let isFavorite):
             
             // query
             self.addToQuery(&query, type: .page, value: page)
@@ -67,6 +67,36 @@ enum STSocketRequestBuilder {
                 
                  filters["feed"] = true
             }
+            
+            
+            // archived
+            var archived = [Bool]()
+            
+            if filter.showArchived {
+                
+                archived.append(contentsOf: [true, false])
+            }
+            else {
+                
+                archived.append(false)
+            }
+            
+            filters["is_archived"] = archived
+            
+            // post types
+            var types = [Int]()
+            
+            if filter.offer {
+                
+                types.append(1)
+            }
+            
+            if filter.search {
+                
+                types.append(2)
+            }
+            
+            filters["type"] = types
             
             self.addToQuery(&query, type: .filters, value: filters)
             self.addToQuery(&query, type: .extend, value: "user")

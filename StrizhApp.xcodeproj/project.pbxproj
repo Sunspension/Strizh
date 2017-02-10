@@ -73,6 +73,9 @@
 		E5BE9E2F1E4C90680022B157 /* STFeedFilterSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE9E2D1E4C90680022B157 /* STFeedFilterSwitchTableViewCell.swift */; };
 		E5BE9E301E4C90680022B157 /* STFeedFilterSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5BE9E2E1E4C90680022B157 /* STFeedFilterSwitchTableViewCell.xib */; };
 		E5BE9E321E4C99C00022B157 /* STFeedFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE9E311E4C99C00022B157 /* STFeedFilter.swift */; };
+		E5BE9E341E4E181E0022B157 /* STFeedDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE9E331E4E181E0022B157 /* STFeedDetailsTableViewController.swift */; };
+		E5BE9E371E4E23A40022B157 /* STPostDetailsMainInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE9E351E4E23A40022B157 /* STPostDetailsMainInfoCell.swift */; };
+		E5BE9E381E4E23A40022B157 /* STPostDetailsMainInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5BE9E361E4E23A40022B157 /* STPostDetailsMainInfoCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -145,6 +148,9 @@
 		E5BE9E2D1E4C90680022B157 /* STFeedFilterSwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedFilterSwitchTableViewCell.swift; path = Feed/STFeedFilterSwitchTableViewCell.swift; sourceTree = "<group>"; };
 		E5BE9E2E1E4C90680022B157 /* STFeedFilterSwitchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STFeedFilterSwitchTableViewCell.xib; path = Feed/STFeedFilterSwitchTableViewCell.xib; sourceTree = "<group>"; };
 		E5BE9E311E4C99C00022B157 /* STFeedFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedFilter.swift; path = Feed/STFeedFilter.swift; sourceTree = "<group>"; };
+		E5BE9E331E4E181E0022B157 /* STFeedDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedDetailsTableViewController.swift; path = Feed/STFeedDetailsTableViewController.swift; sourceTree = "<group>"; };
+		E5BE9E351E4E23A40022B157 /* STPostDetailsMainInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPostDetailsMainInfoCell.swift; path = Feed/STPostDetailsMainInfoCell.swift; sourceTree = "<group>"; };
+		E5BE9E361E4E23A40022B157 /* STPostDetailsMainInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPostDetailsMainInfoCell.xib; path = Feed/STPostDetailsMainInfoCell.xib; sourceTree = "<group>"; };
 		F00E8042FB9C8BEBFEB8BA5E /* Pods-StrizhApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -339,6 +345,8 @@
 				E5BE9E2A1E4C8F000022B157 /* STFeedFilterTableViewCell.xib */,
 				E5BE9E2D1E4C90680022B157 /* STFeedFilterSwitchTableViewCell.swift */,
 				E5BE9E2E1E4C90680022B157 /* STFeedFilterSwitchTableViewCell.xib */,
+				E5BE9E351E4E23A40022B157 /* STPostDetailsMainInfoCell.swift */,
+				E5BE9E361E4E23A40022B157 /* STPostDetailsMainInfoCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -348,6 +356,7 @@
 			children = (
 				D4AD43B61E47A9C2006F13DE /* STFeedTableViewController.swift */,
 				E5BE9E271E4C8D680022B157 /* STFeedFilterTableViewController.swift */,
+				E5BE9E331E4E181E0022B157 /* STFeedDetailsTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -489,6 +498,7 @@
 				D49545D51E3D0B8800EDCF01 /* STLoginSeparatorTableViewCell.xib in Resources */,
 				E5BE9E2C1E4C8F000022B157 /* STFeedFilterTableViewCell.xib in Resources */,
 				E5BE9E301E4C90680022B157 /* STFeedFilterSwitchTableViewCell.xib in Resources */,
+				E5BE9E381E4E23A40022B157 /* STPostDetailsMainInfoCell.xib in Resources */,
 				E53185E21E35E5A200BC6C9A /* GoogleService-Info.plist in Resources */,
 				D49727041E32BDA50076B7A1 /* Assets.xcassets in Resources */,
 				D4C60A821E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib in Resources */,
@@ -577,6 +587,7 @@
 				D49545D41E3D0B8800EDCF01 /* STLoginSeparatorTableViewCell.swift in Sources */,
 				D40A6BE81E3AA7FB00F1D218 /* Extensions.swift in Sources */,
 				D49727201E32DCAC0076B7A1 /* STRealmConfiguration.swift in Sources */,
+				E5BE9E371E4E23A40022B157 /* STPostDetailsMainInfoCell.swift in Sources */,
 				D497AB531E3BE7C0006A393D /* CountdownTimer.swift in Sources */,
 				E5BE9E281E4C8D690022B157 /* STFeedFilterTableViewController.swift in Sources */,
 				E59A1B141E3F89A7009EE669 /* STImageUploadError.swift in Sources */,
@@ -618,6 +629,7 @@
 				D49EB19E1E45212F00B6F5DC /* STSocketRequestBuilder.swift in Sources */,
 				D49545D01E3D064700EDCF01 /* STLoginTextTableViewCell.swift in Sources */,
 				D497AB4D1E3BE53A006A393D /* CollectionSectionItem.swift in Sources */,
+				E5BE9E341E4E181E0022B157 /* STFeedDetailsTableViewController.swift in Sources */,
 				D497AB511E3BE53A006A393D /* TableViewDataSource.swift in Sources */,
 				E59A1B1A1E3F9388009EE669 /* STSession.swift in Sources */,
 			);

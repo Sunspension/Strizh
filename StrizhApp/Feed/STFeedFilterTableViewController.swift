@@ -17,11 +17,12 @@ private enum FilterFields : Int {
 
 class STFeedFilterTableViewController: UITableViewController {
     
+    
     private let dataSource = TableViewDataSource()
     
-    private var filter: STFeedFilter?
+    private var filter = STFeedFilter()
     
-    private var filterCallback: ((_ filter: STFeedFilter) -> Void)?
+    private var filterCallback: (() -> Void)?
     
     private var toggleListener: EventListener<Bool>?
     
@@ -33,11 +34,11 @@ class STFeedFilterTableViewController: UITableViewController {
         super.init(coder: aDecoder)
     }
 
-    init(filter: STFeedFilter?, applyFilterCallback: ((_ filter: STFeedFilter) -> Void)?) {
+    init(applyFilterCallback: (() -> Void)?) {
         
         super.init(style: .grouped)
         
-        self.filter = filter
+        self.filter = AppDelegate.appSettings.feedFilter
         self.filterCallback = applyFilterCallback
     }
     
@@ -80,7 +81,7 @@ class STFeedFilterTableViewController: UITableViewController {
                                 item.selected = isOn
                             })
                             
-                            if let filter = self.filter, filter.showArchived {
+                            if self.filter.showArchived {
                                 
                                 viewCell.toggle.setOn(true, animated: false)
                                 item.selected = true
@@ -98,7 +99,7 @@ class STFeedFilterTableViewController: UITableViewController {
                             viewCell.title.text = "Предложения"
                             viewCell.icon.image = UIImage(named: "icon-offer")
                             
-                            if let filter = self.filter, filter.offer {
+                            if self.filter.offer {
                                 
                                 self.tableView.selectRow(at: item.indexPath, animated: false, scrollPosition: .none)
                                 item.selected = true
@@ -113,7 +114,7 @@ class STFeedFilterTableViewController: UITableViewController {
                             viewCell.title.text = "Запросы/Поиск"
                             viewCell.icon.image = UIImage(named: "icon-search")
                             
-                            if let filter = self.filter, filter.search {
+                            if self.filter.search {
                                 
                                 self.tableView.selectRow(at: item.indexPath, animated: false, scrollPosition: .none)
                                 item.selected = true
@@ -140,7 +141,7 @@ class STFeedFilterTableViewController: UITableViewController {
     
     func applyFilter() {
         
-        var filter = STFeedFilter()
+        let filter = STFeedFilter()
         
         self.dataSource.sections.flatMap({ $0.items }).forEach { item in
             
@@ -166,7 +167,9 @@ class STFeedFilterTableViewController: UITableViewController {
             }
         }
         
-        self.filterCallback?(filter)
+        filter.writeToDB()
+        
+        self.filterCallback?()
         self.dismiss(animated: true, completion: nil)
     }
     

@@ -30,6 +30,19 @@ struct AppSettings {
     
     let applicationVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     
+    var feedFilter: STFeedFilter {
+        
+        var filter = STFeedFilter.objects(by: STFeedFilter.self).first
+        
+        if filter == nil {
+            
+            filter = STFeedFilter()
+            filter!.writeToDB()
+        }
+        
+        return filter!
+    }
+    
     var lastSessionPhoneNumber: String? {
         
         get {
