@@ -38,10 +38,11 @@ extension UIViewController {
         appDelegate?.onLogout()
     }
     
-    func st_router_openPostDetails(post: STPost) -> Void {
+    func st_router_openPostDetails(post: STPost, user: STUser) -> Void {
         
         let controller = storyBoard.instantiateViewController(withIdentifier: String(describing: STFeedDetailsTableViewController.self)) as! STFeedDetailsTableViewController
         controller.post = post
+        controller.user = user
         
         self.navigationController?.pushViewController(controller, animated: true)
     }

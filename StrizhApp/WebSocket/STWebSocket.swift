@@ -61,26 +61,17 @@ class STWebSocket {
         return p.future
     }
     
-    func loadFeed(filter: STFeedFilter, page: Int, pageSize: Int, isFavorite: Bool) -> Future<([STPost], [STUser]), STError> {
+    func loadFeed(filter: STFeedFilter, page: Int, pageSize: Int, isFavorite: Bool) -> Future<STFeed, STError> {
         
-        let p = Promise<([STPost], [STUser]), STError>()
+        let p = Promise<STFeed, STError>()
         
         let request = STSocketRequestBuilder.loadFeed(filter: filter, page: page, pageSize: pageSize, isFavorite: isFavorite).request
         
         self.sendRequest(request: request) { json in
             
-            if let post = json["post"] as? [[String : Any]] {
+            if let feed = STFeed(JSON: json) {
                 
-                if let posts = Mapper<STPost>().mapArray(JSONArray: post) {
-                    
-                    if let user = json["user"] as? [[String : Any]] {
-                        
-                        if let users = Mapper<STUser>().mapArray(JSONArray: user) {
-                            
-                            p.success((posts, users))
-                        }
-                    }
-                }
+                p.success(feed)
             }
         }
         
@@ -122,7 +113,7 @@ class STWebSocket {
             
             self.socket?.emit("request", request.payLoad)
             
-            self.socket?.once("response") { (data, ack) in
+            self.socket?.on("response") { (data, ack) in
                 
                 // converting data to json
                 guard let responseString = data[0] as? String else {

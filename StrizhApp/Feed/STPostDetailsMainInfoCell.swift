@@ -10,8 +10,7 @@ import UIKit
 
 class STPostDetailsMainInfoCell: UITableViewCell {
 
-    
-    @IBOutlet weak var iconUser: UIImageView!
+    @IBOutlet weak var userIcon: UIImageView!
 
     @IBOutlet weak var userName: UILabel!
     
@@ -32,7 +31,12 @@ class STPostDetailsMainInfoCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        favorite.setImage(UIImage(named: "icon-star"), for: .normal)
+        favorite.setImage(UIImage(named: "icon-star-selected"), for: .selected)
+        
+        postType.setImage(UIImage(named: "icon-offer"), for: .normal)
+        postType.setImage(UIImage(named: "icon-search"), for: .selected)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

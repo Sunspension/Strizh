@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class STFeedDetailsTableViewController: UIViewController {
 
@@ -19,6 +20,7 @@ class STFeedDetailsTableViewController: UIViewController {
     
     private let section = CollectionSection()
     
+    var user: STUser?
     
     var post: STPost?
     
@@ -31,31 +33,60 @@ class STFeedDetailsTableViewController: UIViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.separatorStyle = .none
         
+        self.tableView.dataSource = self.dataSource
+        
         self.tableView.register(cell: STPostDetailsMainInfoCell.self)
+        self.tableView.register(cell: STPostDetailsMapsCell.self)
         
         self.navigationItem.title = "Информация"
     
         self.dataSource.sections.append(self.section)
         
+        self.createDataSource()
+    }
+
+    private func createDataSource() {
         
+        self.section.addItem(cellClass: STPostDetailsMainInfoCell.self,
+                             item: self.post) { [unowned self] (cell, item) in
+                                
+                                cell.selectionStyle = .none
+                                
+                                let viewCell = cell as! STPostDetailsMainInfoCell
+                                
+                                if let post = item.item as? STPost {
+                                    
+                                    viewCell.postTitle.text = post.title
+                                    viewCell.postDetails.text = post.postDescription
+                                    viewCell.favorite.isSelected = post.isFavorite
+                                    viewCell.postType.isSelected = post.type == 2 ? true : false
+                                    viewCell.postTime.text = post.createdAt?.elapsedInterval()
+                                    
+                                    if let user = self.user {
+                                        
+                                        viewCell.userName.text = user.lastName + " " + user.firstName
+                                        
+                                        guard !user.imageUrl.isEmpty else {
+                                            
+                                            return
+                                        }
+                                        
+                                        let width = Int(viewCell.userIcon.bounds.size.width * UIScreen.main.scale)
+                                        let height = Int(viewCell.userIcon.bounds.size.height * UIScreen.main.scale)
+                                        
+                                        let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
+                                        
+                                        let urlString = user.imageUrl + queryResize
+                                        
+                                        let filter = RoundedCornersFilter(radius: viewCell.userIcon.bounds.size.width)
+                                        viewCell.userIcon.af_setImage(withURL: URL(string: urlString)!,
+                                                                  filter: filter,
+                                                                  completion: nil)
+                                    }
+                                }
+        }
         
-        // Do any additional setup after loading the view.
+//        self.section.addItem(cellClass: STPostDetailsMapsCell.self,
+//                             item: <#T##Any?#>, itemType: <#T##Any?#>, bindingAction: <#T##BindingAction?##BindingAction?##(UITableViewCell, CollectionSectionItem) -> Void#>)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

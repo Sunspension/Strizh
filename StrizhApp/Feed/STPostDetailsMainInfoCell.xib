@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="226"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="225.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="225"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jB3-Hh-Kuh">
@@ -123,13 +123,13 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="favorite" destination="xcI-3K-GXI" id="j67-fQ-Pqo"/>
-                <outlet property="iconUser" destination="jB3-Hh-Kuh" id="cVr-i4-JGK"/>
                 <outlet property="payment" destination="o0W-io-pQM" id="tDi-2z-J6V"/>
                 <outlet property="postDetails" destination="MDL-oF-DAE" id="brc-f1-gyz"/>
                 <outlet property="postDuration" destination="MfW-Lr-s4d" id="M9d-bE-fhA"/>
                 <outlet property="postTime" destination="Mkd-Pe-kKp" id="lEg-fd-tAj"/>
                 <outlet property="postTitle" destination="UJI-my-rTx" id="yum-K8-UGe"/>
                 <outlet property="postType" destination="TDK-Ye-Wt5" id="Pa4-Ck-G5A"/>
+                <outlet property="userIcon" destination="jB3-Hh-Kuh" id="Cxt-SN-0tF"/>
                 <outlet property="userName" destination="SS5-lJ-LXs" id="9Az-Gv-vcd"/>
             </connections>
             <point key="canvasLocation" x="34" y="145"/>

@@ -24,19 +24,25 @@ class STFeedDataSourceWrapper {
     
     private var filter: STFeedFilter?
     
-    private var users = Set<STUser>()
-    
     private var hasMore = false
     
     private var onDataSourceChanged:(() -> Void)?
     
     private var isFavorite: Bool
 
+    var users = Set<STUser>()
+    
+    var locations = [STLocation]()
+    
+    var images = Set<STImage>()
+    
+    var files = Set<STFile>()
     
     var canLoadNext: Bool {
         
         return hasMore && status != .loading
     }
+    
     
     
     init(pageSize: Int = 20, isFavorite: Bool = false, onDataSourceChanged:(() -> Void)? = nil) {
@@ -136,6 +142,11 @@ class STFeedDataSourceWrapper {
         self.filter = AppDelegate.appSettings.feedFilter
     }
     
+    func userBy(post: STPost) -> STUser? {
+        
+        return self.users.first(where: { $0.id == post.userId })
+    }
+    
     func loadFeedIfNotYet() {
         
         if self.section.items.count == 0 && self.status == .idle {
@@ -160,19 +171,32 @@ class STFeedDataSourceWrapper {
         
         AppDelegate.appSettings.api.loadFeed(filter: self.filter!, page: page, pageSize: pageSize, isFavorite: self.isFavorite)
             
-            .onSuccess { [unowned self] (posts, users) in
+            .onSuccess { [unowned self] feed in
                 
-                users.forEach({ user in
+                feed.users.forEach({ user in
                     
                     self.users.insert(user)
                 })
                 
-                posts.forEach { post in
+                feed.posts.forEach { post in
                     
                     self.section.add(item: post)
                 }
                 
-                self.hasMore = posts.count == self.pageSize
+                feed.images.forEach({ image in
+                    
+                    self.images.insert(image)
+                })
+                
+                feed.files.forEach({ file in
+                    
+                    self.files.insert(file)
+                })
+                
+                
+                self.locations.append(contentsOf: feed.locations)
+                
+                self.hasMore = feed.posts.count == self.pageSize
                 
                 self.page += 1
                 

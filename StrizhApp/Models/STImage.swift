@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-struct STImage: Mappable {
+struct STImage: Mappable, Hashable, Equatable {
 
     var id = 0
     
@@ -18,6 +18,11 @@ struct STImage: Mappable {
     var path = ""
     
     var url = ""
+    
+    var hashValue: Int {
+        
+        return id.hashValue ^ userId.hashValue
+    }
     
     init?(map: Map) {
     
@@ -29,5 +34,10 @@ struct STImage: Mappable {
         userId <- map["user_id"]
         path <- map["path"]
         url <- map["url"]
+    }
+    
+    static func ==(lhs: STImage, rhs: STImage) -> Bool {
+        
+        return lhs.id == rhs.id
     }
 }

@@ -18,4 +18,5 @@ target 'StrizhApp' do
 #    pod 'Mortar'
     pod 'NVActivityIndicatorView'
     pod 'EmitterKit'
+    pod 'GoogleMaps'
 end

@@ -99,7 +99,7 @@ enum STSocketRequestBuilder {
             filters["type"] = types
             
             self.addToQuery(&query, type: .filters, value: filters)
-            self.addToQuery(&query, type: .extend, value: "user")
+            self.addToQuery(&query, type: .extend, value: "user, file, location, image")
             
 //            self.addToQuery(&query, type: .conditions, value: ["id" : [">" : 0]])
             

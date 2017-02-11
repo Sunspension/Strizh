@@ -26,7 +26,7 @@ class STFeedTableViewController: UITableViewController {
 
         self.tableView.tableFooterView = UIView()
         self.tableView.backgroundColor = UIColor.stLightBlueGrey
-        self.tableView.estimatedRowHeight = 171
+        self.tableView.estimatedRowHeight = 176
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.separatorStyle = .none
         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
@@ -37,7 +37,9 @@ class STFeedTableViewController: UITableViewController {
         self.dataSourceSwitch.addTarget(self, action: #selector(self.switchDataSource(control:)), for: .valueChanged)
         self.navigationItem.titleView = self.dataSourceSwitch
         
-        let rigthItem = UIBarButtonItem(image: UIImage(named: "icon-filter"), landscapeImagePhone: UIImage(named: "icon-filter"), style: .plain, target: self, action: #selector(self.openFilter))
+        let rigthItem = UIBarButtonItem(image: UIImage(named: "icon-filter"),
+                                        landscapeImagePhone: UIImage(named: "icon-filter"),
+                                        style: .plain, target: self, action: #selector(self.openFilter))
         
         self.setCustomBackButton()
         
@@ -67,10 +69,13 @@ class STFeedTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let dataSource = self.tableView.dataSource as! GenericTableViewDataSource<STPostTableViewCell, STPost>
-        let post = dataSource.item(by: indexPath).item
+        let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ? self.feedDataSource : self.favoritesFeedDataSource
+        let post = dataSource!.dataSource!.item(by: indexPath).item
         
-        self.st_router_openPostDetails(post: post)
+        if let user = dataSource?.userBy(post: post) {
+            
+            self.st_router_openPostDetails(post: post, user: user)
+        }
     }
     
     func switchDataSource(control: UISegmentedControl) {
@@ -99,8 +104,8 @@ class STFeedTableViewController: UITableViewController {
         
         let controller = STFeedFilterTableViewController() { [unowned self] in
             
-            self.feedDataSource?.reloadFilter(notify: true)
-            self.favoritesFeedDataSource?.reloadFilter(notify: true)
+            self.feedDataSource?.reloadFilter(notify: self.dataSourceSwitch.selectedSegmentIndex == 0)
+            self.favoritesFeedDataSource?.reloadFilter(notify: self.dataSourceSwitch.selectedSegmentIndex == 1)
             self.tableView.reloadData()
         }
         
