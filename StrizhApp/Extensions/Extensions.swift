@@ -99,6 +99,18 @@ extension UITableView {
     }
 }
 
+extension UICollectionView {
+    
+    func register(cellClass: AnyClass) {
+        
+        self.register(cellClass, forCellWithReuseIdentifier: String(describing: cellClass.self))
+    }
+    
+    func register(cell: AnyClass) {
+        
+        self.register(UINib(nibName: String(describing: cell), bundle: nil), forCellWithReuseIdentifier: String(describing: cell))
+    }
+}
 
 extension UIColor {
     

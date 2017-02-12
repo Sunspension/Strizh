@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="STPostDetailsPhotoCell" customModule="StrizhApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="73" height="57"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="73" height="57"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qBi-ww-LtD">
+                        <rect key="frame" x="0.0" y="0.0" width="73" height="57"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="73" id="VAZ-XR-EVo"/>
+                            <constraint firstAttribute="height" constant="57" id="iYh-46-mj3"/>
+                        </constraints>
+                    </imageView>
+                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="zpV-5k-jqk">
+                        <rect key="frame" x="26" y="18" width="20" height="20"/>
+                    </activityIndicatorView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="zpV-5k-jqk" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="Gft-T5-bEn"/>
+                <constraint firstItem="qBi-ww-LtD" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="IDE-vJ-hmW"/>
+                <constraint firstItem="zpV-5k-jqk" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="k6c-vp-hj6"/>
+                <constraint firstItem="qBi-ww-LtD" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="kkD-ZY-XKa"/>
+            </constraints>
+            <size key="customSize" width="73" height="57"/>
+            <connections>
+                <outlet property="busy" destination="zpV-5k-jqk" id="yMw-ln-k5D"/>
+                <outlet property="image" destination="qBi-ww-LtD" id="koV-8R-AwH"/>
+            </connections>
+            <point key="canvasLocation" x="36.5" y="55.5"/>
+        </collectionViewCell>
+    </objects>
+</document>

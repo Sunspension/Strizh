@@ -27,13 +27,13 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Смирнова Надежда" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SS5-lJ-LXs">
-                        <rect key="frame" x="50" y="18" width="174" height="12"/>
+                        <rect key="frame" x="50" y="18" width="170" height="12"/>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" red="0.5725490196078431" green="0.58039215686274503" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TDK-Ye-Wt5">
-                        <rect key="frame" x="276" y="16" width="28" height="28"/>
+                        <rect key="frame" x="272" y="16" width="28" height="28"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="28" id="9RT-fm-nC7"/>
                             <constraint firstAttribute="width" constant="28" id="tdA-T5-u4u"/>
@@ -41,7 +41,7 @@
                         <state key="normal" image="icon-offer"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xcI-3K-GXI">
-                        <rect key="frame" x="232" y="16" width="28" height="28"/>
+                        <rect key="frame" x="228" y="16" width="28" height="28"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="28" id="RIh-Mb-RSb"/>
                             <constraint firstAttribute="width" constant="28" id="ZBt-OW-j32"/>
@@ -49,32 +49,32 @@
                         <state key="normal" image="icon-star-selected"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 часа 12 минут" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mkd-Pe-kKp">
-                        <rect key="frame" x="50" y="31" width="174" height="12"/>
+                        <rect key="frame" x="50" y="31" width="170" height="12"/>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" red="0.5725490196078431" green="0.58039215686274503" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0he-Qo-IvZ">
-                        <rect key="frame" x="20" y="54" width="284" height="1"/>
+                        <rect key="frame" x="20" y="54" width="280" height="1"/>
                         <color key="backgroundColor" red="0.83529411764705885" green="0.85490196078431369" blue="0.88235294117647056" alpha="0.51000000000000001" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="Ddb-7R-AUO"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Экскаватор Doosan 22551 85" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJI-my-rTx">
-                        <rect key="frame" x="20" y="71" width="284" height="22"/>
+                        <rect key="frame" x="20" y="71" width="280" height="22"/>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вознаграждение 100 000 рублей за нахождение покупателя." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MDL-oF-DAE">
-                        <rect key="frame" x="20" y="105" width="284" height="31.5"/>
+                        <rect key="frame" x="20" y="105" width="280" height="31.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.34509803921568627" green="0.34901960784313724" blue="0.35686274509803922" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MfW-Lr-s4d">
-                        <rect key="frame" x="20" y="160.5" width="284" height="18"/>
+                        <rect key="frame" x="20" y="160.5" width="280" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <inset key="imageEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <state key="normal" title="25 апр 16 — 25 мая 16" image="icon-time">
@@ -82,7 +82,7 @@
                         </state>
                     </button>
                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o0W-io-pQM">
-                        <rect key="frame" x="20" y="194.5" width="284" height="16"/>
+                        <rect key="frame" x="20" y="194.5" width="280" height="23"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <state key="normal" title="5 000 000 руб." image="icon-rub">
@@ -112,11 +112,11 @@
                     <constraint firstItem="Mkd-Pe-kKp" firstAttribute="leading" secondItem="SS5-lJ-LXs" secondAttribute="leading" id="esh-in-0AL"/>
                     <constraint firstItem="0he-Qo-IvZ" firstAttribute="trailing" secondItem="TDK-Ye-Wt5" secondAttribute="trailing" id="fFF-wl-CsP"/>
                     <constraint firstItem="jB3-Hh-Kuh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="12" id="hdd-0A-HGg"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="o0W-io-pQM" secondAttribute="bottom" priority="750" constant="8" id="o3g-FV-2S8"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="o0W-io-pQM" secondAttribute="bottom" priority="750" id="o3g-FV-2S8"/>
                     <constraint firstItem="UJI-my-rTx" firstAttribute="top" secondItem="0he-Qo-IvZ" secondAttribute="bottom" constant="16" id="oOj-ke-tAa"/>
                     <constraint firstItem="SS5-lJ-LXs" firstAttribute="leading" secondItem="jB3-Hh-Kuh" secondAttribute="trailing" constant="8" id="sD8-8b-h4d"/>
                     <constraint firstItem="o0W-io-pQM" firstAttribute="trailing" secondItem="MfW-Lr-s4d" secondAttribute="trailing" id="uPo-Ql-pTk"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="TDK-Ye-Wt5" secondAttribute="trailing" constant="8" id="uqN-lG-KTy"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="TDK-Ye-Wt5" secondAttribute="trailing" constant="12" id="uqN-lG-KTy"/>
                     <constraint firstItem="0he-Qo-IvZ" firstAttribute="leading" secondItem="jB3-Hh-Kuh" secondAttribute="leading" id="wNk-I5-M46"/>
                     <constraint firstItem="TDK-Ye-Wt5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="xPd-2L-G8V"/>
                 </constraints>

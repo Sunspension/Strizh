@@ -72,9 +72,16 @@ class STFeedTableViewController: UITableViewController {
         let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ? self.feedDataSource : self.favoritesFeedDataSource
         let post = dataSource!.dataSource!.item(by: indexPath).item
         
+        let images = dataSource!.imagesBy(post: post)
+        
+        let files = dataSource!.filesBy(post: post)
+        
+        let locations = dataSource!.locationsBy(post: post)
+        
         if let user = dataSource?.userBy(post: post) {
             
-            self.st_router_openPostDetails(post: post, user: user)
+            self.st_router_openPostDetails(post: post, user: user, images: images,
+                                           files: files, locations: locations)
         }
     }
     

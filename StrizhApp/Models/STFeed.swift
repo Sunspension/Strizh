@@ -29,7 +29,7 @@ struct STFeed : Mappable {
         
         posts <- map["post"]
         users <- map["user"]
-        images <- map["user"]
+        images <- map["image"]
         locations <- map["location"]
         files <- map["file"]
     }

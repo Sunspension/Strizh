@@ -21,9 +21,9 @@ struct STLocation: Mappable {
     
     var updatedAt: Date?
     
-    var lat = ""
+    var lat = 0.0
     
-    var lon = ""
+    var lon = 0.0
     
     var title = ""
     

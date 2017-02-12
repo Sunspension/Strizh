@@ -147,6 +147,30 @@ class STFeedDataSourceWrapper {
         return self.users.first(where: { $0.id == post.userId })
     }
     
+    func imagesBy(post: STPost) -> [STImage]? {
+        
+        return self.images.filter { image -> Bool in
+            
+            return post.imageIds.contains(where: { $0.value == image.id })
+        }
+    }
+    
+    func locationsBy(post: STPost) -> [STLocation]? {
+        
+        return self.locations.filter({ location -> Bool in
+            
+            return post.locationIds.contains(where: { $0.value == location.id })
+        })
+    }
+    
+    func filesBy(post: STPost) -> [STFile]? {
+        
+        return self.files.filter({ file -> Bool in
+            
+            return post.fileIds.contains(where: { $0.value == file.id })
+        })
+    }
+    
     func loadFeedIfNotYet() {
         
         if self.section.items.count == 0 && self.status == .idle {

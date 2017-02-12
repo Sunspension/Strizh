@@ -20,6 +20,14 @@
 		D43A75631E4E6A3B00DB0850 /* STFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43A75621E4E6A3B00DB0850 /* STFile.swift */; };
 		D43A75651E4E6EBE00DB0850 /* STLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43A75641E4E6EBE00DB0850 /* STLocation.swift */; };
 		D43A75671E4E883700DB0850 /* STFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43A75661E4E883700DB0850 /* STFeed.swift */; };
+		D44AB4EB1E4FCC210013A972 /* GenericCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AB4EA1E4FCC210013A972 /* GenericCollectionViewDataSource.swift */; };
+		D44AB4EE1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AB4EC1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift */; };
+		D44AB4EF1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44AB4ED1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib */; };
+		D44AB4F21E4FD1670013A972 /* STPostDetailsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AB4F01E4FD1670013A972 /* STPostDetailsCollectionViewCell.swift */; };
+		D44AB4F31E4FD1680013A972 /* STPostDetailsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44AB4F11E4FD1670013A972 /* STPostDetailsCollectionViewCell.xib */; };
+		D44AB4F61E4FD54D0013A972 /* STFeedDetailsCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AB4F51E4FD54D0013A972 /* STFeedDetailsCollectionLayout.swift */; };
+		D44AB4FA1E4FF8C80013A972 /* STPostDetailsFileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AB4F81E4FF8C80013A972 /* STPostDetailsFileCell.swift */; };
+		D44AB4FB1E4FF8C80013A972 /* STPostDetailsFileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44AB4F91E4FF8C80013A972 /* STPostDetailsFileCell.xib */; };
 		D4922AA61E43DB67006FF4D5 /* STWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */; };
 		D4922AAD1E43F6B9006FF4D5 /* STHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AAC1E43F6B9006FF4D5 /* STHTTPManager.swift */; };
 		D49545CC1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49545CA1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift */; };
@@ -97,6 +105,14 @@
 		D43A75621E4E6A3B00DB0850 /* STFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFile.swift; path = Models/STFile.swift; sourceTree = "<group>"; };
 		D43A75641E4E6EBE00DB0850 /* STLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLocation.swift; path = Models/STLocation.swift; sourceTree = "<group>"; };
 		D43A75661E4E883700DB0850 /* STFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeed.swift; path = Models/STFeed.swift; sourceTree = "<group>"; };
+		D44AB4EA1E4FCC210013A972 /* GenericCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		D44AB4EC1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPostDetailsPhotoCell.swift; path = Feed/STPostDetailsPhotoCell.swift; sourceTree = "<group>"; };
+		D44AB4ED1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPostDetailsPhotoCell.xib; path = Feed/STPostDetailsPhotoCell.xib; sourceTree = "<group>"; };
+		D44AB4F01E4FD1670013A972 /* STPostDetailsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPostDetailsCollectionViewCell.swift; path = Feed/STPostDetailsCollectionViewCell.swift; sourceTree = "<group>"; };
+		D44AB4F11E4FD1670013A972 /* STPostDetailsCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPostDetailsCollectionViewCell.xib; path = Feed/STPostDetailsCollectionViewCell.xib; sourceTree = "<group>"; };
+		D44AB4F51E4FD54D0013A972 /* STFeedDetailsCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedDetailsCollectionLayout.swift; path = Feed/STFeedDetailsCollectionLayout.swift; sourceTree = "<group>"; };
+		D44AB4F81E4FF8C80013A972 /* STPostDetailsFileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPostDetailsFileCell.swift; path = Feed/STPostDetailsFileCell.swift; sourceTree = "<group>"; };
+		D44AB4F91E4FF8C80013A972 /* STPostDetailsFileCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPostDetailsFileCell.xib; path = Feed/STPostDetailsFileCell.xib; sourceTree = "<group>"; };
 		D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STWebSocket.swift; path = WebSocket/STWebSocket.swift; sourceTree = "<group>"; };
 		D4922AAC1E43F6B9006FF4D5 /* STHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STHTTPManager.swift; path = HTTPManager/STHTTPManager.swift; sourceTree = "<group>"; };
 		D49545CA1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginAvatarTableViewCell.swift; path = SignUp/STLoginAvatarTableViewCell.swift; sourceTree = "<group>"; };
@@ -332,6 +348,7 @@
 				D4AD43B41E47A980006F13DE /* Views */,
 				E5BE9E241E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift */,
 				E5BE9E311E4C99C00022B157 /* STFeedFilter.swift */,
+				D44AB4F51E4FD54D0013A972 /* STFeedDetailsCollectionLayout.swift */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -359,6 +376,12 @@
 				E5BE9E361E4E23A40022B157 /* STPostDetailsMainInfoCell.xib */,
 				D43A755E1E4E610700DB0850 /* STPostDetailsMapsCell.swift */,
 				D43A755F1E4E610700DB0850 /* STPostDetailsMapsCell.xib */,
+				D44AB4EC1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift */,
+				D44AB4ED1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib */,
+				D44AB4F01E4FD1670013A972 /* STPostDetailsCollectionViewCell.swift */,
+				D44AB4F11E4FD1670013A972 /* STPostDetailsCollectionViewCell.xib */,
+				D44AB4F81E4FF8C80013A972 /* STPostDetailsFileCell.swift */,
+				D44AB4F91E4FF8C80013A972 /* STPostDetailsFileCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -391,6 +414,7 @@
 				D497AB481E3BE53A006A393D /* GenericCollectionSection.swift */,
 				D497AB491E3BE53A006A393D /* GenericCollectionSectionItem.swift */,
 				D497AB4A1E3BE53A006A393D /* GenericTableViewDataSource.swift */,
+				D44AB4EA1E4FCC210013A972 /* GenericCollectionViewDataSource.swift */,
 			);
 			name = DataSource;
 			sourceTree = "<group>";
@@ -506,13 +530,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				D49727071E32BDA50076B7A1 /* LaunchScreen.storyboard in Resources */,
+				D44AB4FB1E4FF8C80013A972 /* STPostDetailsFileCell.xib in Resources */,
 				D49545CD1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.xib in Resources */,
+				D44AB4F31E4FD1680013A972 /* STPostDetailsCollectionViewCell.xib in Resources */,
 				D49545D51E3D0B8800EDCF01 /* STLoginSeparatorTableViewCell.xib in Resources */,
 				E5BE9E2C1E4C8F000022B157 /* STFeedFilterTableViewCell.xib in Resources */,
 				E5BE9E301E4C90680022B157 /* STFeedFilterSwitchTableViewCell.xib in Resources */,
 				E5BE9E381E4E23A40022B157 /* STPostDetailsMainInfoCell.xib in Resources */,
 				E53185E21E35E5A200BC6C9A /* GoogleService-Info.plist in Resources */,
 				D49727041E32BDA50076B7A1 /* Assets.xcassets in Resources */,
+				D44AB4EF1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib in Resources */,
 				D4C60A821E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib in Resources */,
 				D49545D11E3D064700EDCF01 /* STLoginTextTableViewCell.xib in Resources */,
 				E53185E41E35E71900BC6C9A /* strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json in Resources */,
@@ -633,17 +660,22 @@
 				E53F37C31E3A75F900393BAD /* KeyboardNotificationListener.swift in Sources */,
 				E53185F71E3612EF00BC6C9A /* STLoadingStatusEnum.swift in Sources */,
 				D4194A111E4600F000D0B189 /* STPost.swift in Sources */,
+				D44AB4F61E4FD54D0013A972 /* STFeedDetailsCollectionLayout.swift in Sources */,
 				D497AB501E3BE53A006A393D /* GenericTableViewDataSource.swift in Sources */,
 				D43A75631E4E6A3B00DB0850 /* STFile.swift in Sources */,
 				D4922AAD1E43F6B9006FF4D5 /* STHTTPManager.swift in Sources */,
+				D44AB4FA1E4FF8C80013A972 /* STPostDetailsFileCell.swift in Sources */,
 				D497AB4E1E3BE53A006A393D /* GenericCollectionSection.swift in Sources */,
 				D4922AA61E43DB67006FF4D5 /* STWebSocket.swift in Sources */,
 				D4194A1A1E460D4400D0B189 /* ArrayTransform.swift in Sources */,
 				D4AD43BC1E47B504006F13DE /* STPostTableViewCell.swift in Sources */,
+				D44AB4EE1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift in Sources */,
 				D49EB19E1E45212F00B6F5DC /* STSocketRequestBuilder.swift in Sources */,
+				D44AB4F21E4FD1670013A972 /* STPostDetailsCollectionViewCell.swift in Sources */,
 				D49545D01E3D064700EDCF01 /* STLoginTextTableViewCell.swift in Sources */,
 				D43A75671E4E883700DB0850 /* STFeed.swift in Sources */,
 				D497AB4D1E3BE53A006A393D /* CollectionSectionItem.swift in Sources */,
+				D44AB4EB1E4FCC210013A972 /* GenericCollectionViewDataSource.swift in Sources */,
 				E5BE9E341E4E181E0022B157 /* STFeedDetailsTableViewController.swift in Sources */,
 				D497AB511E3BE53A006A393D /* TableViewDataSource.swift in Sources */,
 				D43A75601E4E610700DB0850 /* STPostDetailsMapsCell.swift in Sources */,
