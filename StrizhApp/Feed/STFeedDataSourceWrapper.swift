@@ -11,12 +11,12 @@ import BrightFutures
 import AlamofireImage
 
 class STFeedDataSourceWrapper {
-
-    var dataSource: GenericTableViewDataSource<STPostTableViewCell, STPost>?
     
     private var status = STLoadingStatusEnum.idle
     
     private var page = 1
+    
+    private var searchPage = 1
     
     private var pageSize: Int
     
@@ -30,6 +30,8 @@ class STFeedDataSourceWrapper {
     
     private var isFavorite: Bool
 
+    var dataSource: GenericTableViewDataSource<STPostTableViewCell, STPost>?
+    
     var users = Set<STUser>()
     
     var locations = [STLocation]()
@@ -42,7 +44,6 @@ class STFeedDataSourceWrapper {
         
         return hasMore && status != .loading
     }
-    
     
     
     init(pageSize: Int = 20, isFavorite: Bool = false, onDataSourceChanged:(() -> Void)? = nil) {
@@ -188,12 +189,17 @@ class STFeedDataSourceWrapper {
         self.loadFeed(notify: notify)
     }
     
+    func reset() {
+        
+        self.page = 1
+        self.section.items.removeAll()
+    }
     
-    func loadFeed(notify: Bool = true) {
+    func loadFeed(notify: Bool = true, searchString: String? = nil) {
         
         self.status = .loading
         
-        AppDelegate.appSettings.api.loadFeed(filter: self.filter!, page: page, pageSize: pageSize, isFavorite: self.isFavorite)
+        AppDelegate.appSettings.api.loadFeed(filter: self.filter!, page: page, pageSize: pageSize, isFavorite: self.isFavorite, searchString: searchString)
             
             .onSuccess { [unowned self] feed in
                 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class STPostDetailsFileCell: UITableViewCell {
+class STCommonButtonCell: UITableViewCell {
 
     @IBOutlet weak var title: UIButton!
     

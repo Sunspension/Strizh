@@ -23,8 +23,19 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Лента" id="Y53-z1-ZpI"/>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="jdG-iA-O7o" id="yuf-p4-QCO"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jq0-Zf-2nm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="jdG-iA-O7o">
+                    <connections>
+                        <outlet property="delegate" destination="eKo-1R-3uV" id="ayj-ph-8JH"/>
+                        <outlet property="searchContentsController" destination="eKo-1R-3uV" id="sU5-3z-Dly"/>
+                        <outlet property="searchResultsDataSource" destination="eKo-1R-3uV" id="tIF-50-lQa"/>
+                        <outlet property="searchResultsDelegate" destination="eKo-1R-3uV" id="d2t-RN-67b"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1642" y="-331"/>
         </scene>

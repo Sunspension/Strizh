@@ -26,8 +26,8 @@
 		D44AB4F21E4FD1670013A972 /* STPostDetailsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AB4F01E4FD1670013A972 /* STPostDetailsCollectionViewCell.swift */; };
 		D44AB4F31E4FD1680013A972 /* STPostDetailsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44AB4F11E4FD1670013A972 /* STPostDetailsCollectionViewCell.xib */; };
 		D44AB4F61E4FD54D0013A972 /* STFeedDetailsCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AB4F51E4FD54D0013A972 /* STFeedDetailsCollectionLayout.swift */; };
-		D44AB4FA1E4FF8C80013A972 /* STPostDetailsFileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AB4F81E4FF8C80013A972 /* STPostDetailsFileCell.swift */; };
-		D44AB4FB1E4FF8C80013A972 /* STPostDetailsFileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44AB4F91E4FF8C80013A972 /* STPostDetailsFileCell.xib */; };
+		D44AB4FA1E4FF8C80013A972 /* STCommonButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AB4F81E4FF8C80013A972 /* STCommonButtonCell.swift */; };
+		D44AB4FB1E4FF8C80013A972 /* STCommonButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44AB4F91E4FF8C80013A972 /* STCommonButtonCell.xib */; };
 		D4922AA61E43DB67006FF4D5 /* STWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */; };
 		D4922AAD1E43F6B9006FF4D5 /* STHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AAC1E43F6B9006FF4D5 /* STHTTPManager.swift */; };
 		D49545CC1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49545CA1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift */; };
@@ -111,8 +111,8 @@
 		D44AB4F01E4FD1670013A972 /* STPostDetailsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPostDetailsCollectionViewCell.swift; path = Feed/STPostDetailsCollectionViewCell.swift; sourceTree = "<group>"; };
 		D44AB4F11E4FD1670013A972 /* STPostDetailsCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPostDetailsCollectionViewCell.xib; path = Feed/STPostDetailsCollectionViewCell.xib; sourceTree = "<group>"; };
 		D44AB4F51E4FD54D0013A972 /* STFeedDetailsCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedDetailsCollectionLayout.swift; path = Feed/STFeedDetailsCollectionLayout.swift; sourceTree = "<group>"; };
-		D44AB4F81E4FF8C80013A972 /* STPostDetailsFileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPostDetailsFileCell.swift; path = Feed/STPostDetailsFileCell.swift; sourceTree = "<group>"; };
-		D44AB4F91E4FF8C80013A972 /* STPostDetailsFileCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPostDetailsFileCell.xib; path = Feed/STPostDetailsFileCell.xib; sourceTree = "<group>"; };
+		D44AB4F81E4FF8C80013A972 /* STCommonButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STCommonButtonCell.swift; path = Feed/STCommonButtonCell.swift; sourceTree = "<group>"; };
+		D44AB4F91E4FF8C80013A972 /* STCommonButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STCommonButtonCell.xib; path = Feed/STCommonButtonCell.xib; sourceTree = "<group>"; };
 		D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STWebSocket.swift; path = WebSocket/STWebSocket.swift; sourceTree = "<group>"; };
 		D4922AAC1E43F6B9006FF4D5 /* STHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STHTTPManager.swift; path = HTTPManager/STHTTPManager.swift; sourceTree = "<group>"; };
 		D49545CA1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginAvatarTableViewCell.swift; path = SignUp/STLoginAvatarTableViewCell.swift; sourceTree = "<group>"; };
@@ -380,8 +380,8 @@
 				D44AB4ED1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib */,
 				D44AB4F01E4FD1670013A972 /* STPostDetailsCollectionViewCell.swift */,
 				D44AB4F11E4FD1670013A972 /* STPostDetailsCollectionViewCell.xib */,
-				D44AB4F81E4FF8C80013A972 /* STPostDetailsFileCell.swift */,
-				D44AB4F91E4FF8C80013A972 /* STPostDetailsFileCell.xib */,
+				D44AB4F81E4FF8C80013A972 /* STCommonButtonCell.swift */,
+				D44AB4F91E4FF8C80013A972 /* STCommonButtonCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -530,7 +530,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D49727071E32BDA50076B7A1 /* LaunchScreen.storyboard in Resources */,
-				D44AB4FB1E4FF8C80013A972 /* STPostDetailsFileCell.xib in Resources */,
+				D44AB4FB1E4FF8C80013A972 /* STCommonButtonCell.xib in Resources */,
 				D49545CD1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.xib in Resources */,
 				D44AB4F31E4FD1680013A972 /* STPostDetailsCollectionViewCell.xib in Resources */,
 				D49545D51E3D0B8800EDCF01 /* STLoginSeparatorTableViewCell.xib in Resources */,
@@ -664,7 +664,7 @@
 				D497AB501E3BE53A006A393D /* GenericTableViewDataSource.swift in Sources */,
 				D43A75631E4E6A3B00DB0850 /* STFile.swift in Sources */,
 				D4922AAD1E43F6B9006FF4D5 /* STHTTPManager.swift in Sources */,
-				D44AB4FA1E4FF8C80013A972 /* STPostDetailsFileCell.swift in Sources */,
+				D44AB4FA1E4FF8C80013A972 /* STCommonButtonCell.swift in Sources */,
 				D497AB4E1E3BE53A006A393D /* GenericCollectionSection.swift in Sources */,
 				D4922AA61E43DB67006FF4D5 /* STWebSocket.swift in Sources */,
 				D4194A1A1E460D4400D0B189 /* ArrayTransform.swift in Sources */,

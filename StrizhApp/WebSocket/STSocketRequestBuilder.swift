@@ -25,13 +25,14 @@ private enum QueryParametersEnum : String {
     case conditions = "conditions"
     case filters = "filters"
     case extend = "extend"
+    case query = "query"
 }
 
 enum STSocketRequestBuilder {
     
     case loadUser(id: Int)
     
-    case loadFeed(filter: STFeedFilter, page: Int, pageSize: Int, isFavorite: Bool)
+    case loadFeed(filter: STFeedFilter, page: Int, pageSize: Int, isFavorite: Bool, searchString: String?)
     
     
     var request: STSocketRequest {
@@ -50,12 +51,17 @@ enum STSocketRequestBuilder {
             
             break
             
-        case .loadFeed(let filter, let page, let pageSize, let isFavorite):
+        case .loadFeed(let filter, let page, let pageSize, let isFavorite, let searchString):
             
             // query
             self.addToQuery(&query, type: .page, value: page)
             self.addToQuery(&query, type: .pageSize, value: pageSize)
             self.addToQuery(&query, type: .sortingOrder, value: ["id" : "desc"])
+            
+            if let queryString = searchString {
+                
+                self.addToQuery(&query, type: .query, value: queryString)
+            }
             
             var filters: [String : Any] = [:]
             

@@ -24,10 +24,6 @@ class STPostDetailsMainInfoCell: UITableViewCell {
     
     @IBOutlet weak var postDetails: UILabel!
     
-    @IBOutlet weak var postDuration: UIButton!
-    
-    @IBOutlet weak var payment: UIButton!
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()

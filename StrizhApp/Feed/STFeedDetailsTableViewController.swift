@@ -58,7 +58,7 @@ class STFeedDetailsTableViewController: UIViewController {
         self.tableView.register(cell: STPostDetailsMainInfoCell.self)
         self.tableView.register(cell: STPostDetailsMapsCell.self)
         self.tableView.register(cell: STPostDetailsCollectionViewCell.self)
-        self.tableView.register(cell: STPostDetailsFileCell.self)
+        self.tableView.register(cell: STCommonButtonCell.self)
         
         self.navigationItem.title = "Информация"
     
@@ -69,6 +69,11 @@ class STFeedDetailsTableViewController: UIViewController {
 
     private func createDataSource() {
         
+        guard let post = self.post else {
+            
+            return
+        }
+        
         self.tableSection.addItem(cellClass: STPostDetailsMainInfoCell.self,
                              item: self.post) { [unowned self] (cell, item) in
                                 
@@ -76,36 +81,68 @@ class STFeedDetailsTableViewController: UIViewController {
                                 
                                 let viewCell = cell as! STPostDetailsMainInfoCell
                                 
-                                if let post = item.item as? STPost {
+                                viewCell.postTitle.text = post.title
+                                viewCell.postDetails.text = post.postDescription
+                                viewCell.favorite.isSelected = post.isFavorite
+                                viewCell.postType.isSelected = post.type == 2 ? true : false
+                                viewCell.postTime.text = post.createdAt?.elapsedInterval()
+                                
+                                if let user = self.user {
                                     
-                                    viewCell.postTitle.text = post.title
-                                    viewCell.postDetails.text = post.postDescription
-                                    viewCell.favorite.isSelected = post.isFavorite
-                                    viewCell.postType.isSelected = post.type == 2 ? true : false
-                                    viewCell.postTime.text = post.createdAt?.elapsedInterval()
+                                    viewCell.userName.text = user.lastName + " " + user.firstName
                                     
-                                    if let user = self.user {
+                                    guard !user.imageUrl.isEmpty else {
                                         
-                                        viewCell.userName.text = user.lastName + " " + user.firstName
-                                        
-                                        guard !user.imageUrl.isEmpty else {
-                                            
-                                            return
-                                        }
-                                        
-                                        let width = Int(viewCell.userIcon.bounds.size.width * UIScreen.main.scale)
-                                        let height = Int(viewCell.userIcon.bounds.size.height * UIScreen.main.scale)
-                                        
-                                        let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
-                                        
-                                        let urlString = user.imageUrl + queryResize
-                                        
-                                        let filter = RoundedCornersFilter(radius: viewCell.userIcon.bounds.size.width)
-                                        viewCell.userIcon.af_setImage(withURL: URL(string: urlString)!,
+                                        return
+                                    }
+                                    
+                                    let width = Int(viewCell.userIcon.bounds.size.width * UIScreen.main.scale)
+                                    let height = Int(viewCell.userIcon.bounds.size.height * UIScreen.main.scale)
+                                    
+                                    let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
+                                    
+                                    let urlString = user.imageUrl + queryResize
+                                    
+                                    let filter = RoundedCornersFilter(radius: viewCell.userIcon.bounds.size.width)
+                                    viewCell.userIcon.af_setImage(withURL: URL(string: urlString)!,
                                                                   filter: filter,
                                                                   completion: nil)
-                                    }
                                 }
+        }
+        
+        if post.dateFrom != nil && post.dateTo != nil {
+            
+            self.tableSection.addItem(cellClass: STCommonButtonCell.self,
+                                      item: post) { (cell, item) in
+                                        
+                                        let viewCell = cell as! STCommonButtonCell
+                                        let post = item.item as! STPost
+                                        
+                                        viewCell.title.setImage(UIImage(named: "icon-time"), for: .normal)
+                                        
+                                        let period = post.dateFrom!.mediumLocalizedFormat +
+                                            " - " + post.dateTo!.mediumLocalizedFormat
+                                        
+                                        viewCell.title.setTitle(period, for: .normal)
+                                        viewCell.title.titleEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0)
+                                        viewCell.title.setTitleColor(UIColor.black, for: .normal)
+            }
+        }
+        
+        if !post.price.isEmpty {
+            
+            self.tableSection.addItem(cellClass: STCommonButtonCell.self,
+                                      item: post) { (cell, item) in
+                                        
+                                        let viewCell = cell as! STCommonButtonCell
+                                        let post = item.item as! STPost
+                                        
+                                        viewCell.title.setImage(UIImage(named: "icon-rub"), for: .normal)
+                                        viewCell.title.setTitle(post.price + " " + "руб.", for: .normal)
+                                        viewCell.title.imageEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0)
+                                        viewCell.title.titleEdgeInsets = UIEdgeInsetsMake(0, 12, 0, 0)
+                                        viewCell.title.setTitleColor(UIColor.black, for: .normal)
+            }
         }
         
         if let locations = self.locations, locations.count > 0 {
@@ -186,16 +223,17 @@ class STFeedDetailsTableViewController: UIViewController {
             
             files.forEach({ file in
                 
-                tableSection.addItem(cellClass: STPostDetailsFileCell.self,
+                tableSection.addItem(cellClass: STCommonButtonCell.self,
                                      item: file,
                                      bindingAction: { (cell, item) in
                                         
-                                        let viewCell = cell as! STPostDetailsFileCell
+                                        let viewCell = cell as! STCommonButtonCell
                                         viewCell.selectionStyle = .none
                                         
                                         let file = item.item as! STFile
                                         
                                         viewCell.title.setTitle(file.title, for: .normal)
+                                        viewCell.title.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 0)
                 })
             })
         }
