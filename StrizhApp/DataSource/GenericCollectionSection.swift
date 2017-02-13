@@ -14,6 +14,10 @@ class GenericCollectionSection<TItem>: NSObject {
     
     var items: [GenericCollectionSectionItem<TItem>] = []
     
+    var headerItem: CollectionSectionHeaderFooter?
+    
+    var footerItem: CollectionSectionHeaderFooter?
+    
     var sectionType: Any?
     
     subscript(index: Int) -> GenericCollectionSectionItem<TItem> {
@@ -40,5 +44,23 @@ class GenericCollectionSection<TItem>: NSObject {
         item.itemType = itemType
         
         self.items.append(item)
+    }
+    
+    func header(headerClass: AnyClass,  item: Any? = nil, bindingAction: BindingHeaderFooterAction? = nil) {
+        
+        let header = CollectionSectionHeaderFooter()
+        header.item = item
+        header.bindingAction = bindingAction
+        
+        self.headerItem = header
+    }
+    
+    func footer(headerClass: AnyClass,  item: Any? = nil, bindingAction: BindingHeaderFooterAction? = nil) {
+        
+        let footer = CollectionSectionHeaderFooter()
+        footer.item = item
+        footer.bindingAction = bindingAction
+        
+        self.footerItem = footer
     }
 }

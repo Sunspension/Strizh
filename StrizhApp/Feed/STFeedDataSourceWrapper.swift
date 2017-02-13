@@ -30,6 +30,8 @@ class STFeedDataSourceWrapper {
     
     private var isFavorite: Bool
 
+    private var isPersonal: Bool
+    
     var dataSource: GenericTableViewDataSource<STPostTableViewCell, STPost>?
     
     var users = Set<STUser>()
@@ -46,10 +48,12 @@ class STFeedDataSourceWrapper {
     }
     
     
-    init(pageSize: Int = 20, isFavorite: Bool = false, onDataSourceChanged:(() -> Void)? = nil) {
+    init(pageSize: Int = 20, isFavorite: Bool = false,
+         isPersonal: Bool = false, onDataSourceChanged:(() -> Void)? = nil) {
         
         self.pageSize = pageSize
         self.isFavorite = isFavorite
+        self.isPersonal = isPersonal
         self.onDataSourceChanged = onDataSourceChanged
     }
     
@@ -199,7 +203,9 @@ class STFeedDataSourceWrapper {
         
         self.status = .loading
         
-        AppDelegate.appSettings.api.loadFeed(filter: self.filter!, page: page, pageSize: pageSize, isFavorite: self.isFavorite, searchString: searchString)
+        AppDelegate.appSettings.api.loadFeed(filter: self.filter!, page: page,
+                                             pageSize: pageSize, isFavorite: self.isFavorite,
+                                             isPersonal: self.isPersonal, searchString: searchString)
             
             .onSuccess { [unowned self] feed in
                 

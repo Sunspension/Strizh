@@ -84,6 +84,11 @@ extension UIView {
         self.layer.cornerRadius = min(self.frame.size.height, self.frame.size.width) / 2.0
         self.clipsToBounds = true
     }
+    
+    static func loadFromNib<T: UIView>(view: T.Type) -> T? {
+        
+        return Bundle.main.loadNibNamed(String(describing: T.self), owner: self, options: nil)?.first as? T
+    }
 }
 
 extension UITableView {
