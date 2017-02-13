@@ -130,7 +130,6 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         //
         //        let token = Operation()
         //        self.cancellationTokens.append(token)
-        
     }
 
     

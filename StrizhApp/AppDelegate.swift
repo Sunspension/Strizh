@@ -38,7 +38,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GMSServices.provideAPIKey("AIzaSyB9Xe2_0osvR8RC8nBkRttpIEWOQuUbdI8")
         
-        if let _ = STSession.objects(by: STSession.self).first {
+        if let session = STSession.objects(by: STSession.self).first {
+            
+            AppDelegate.appSettings.api.onValidSession()
+            
+            // load user
+            AppDelegate.appSettings.api.loadUser(transport: .webSocket, userId: session.userId)
+                .onSuccess(callback: { user in
+                    
+                    user.updateUserImage()
+                })
             
             self.onLogin()
         }
@@ -82,8 +91,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func onLogin() {
-        
-        AppDelegate.appSettings.api.onValidSession()
         
         if let controller = AppDelegate.appSettings.storyBoard.instantiateInitialViewController() {
             

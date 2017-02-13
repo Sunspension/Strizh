@@ -34,7 +34,7 @@ class STWebSocket {
         NotificationCenter.default.removeObserver(self)
     }
     
-    func connect() {
+    func setup() {
         
         self.socketSetup()
     }

@@ -39,6 +39,35 @@
             </objects>
             <point key="canvasLocation" x="1642" y="-331"/>
         </scene>
+        <!--Profile Table View Controller-->
+        <scene sceneID="y4d-Dt-Nwq">
+            <objects>
+                <tableViewController id="zJ6-TH-7M7" customClass="STProfileTableViewController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ybd-ER-XkS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="zvF-Nh-qxT">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zvF-Nh-qxT" id="bfX-27-lbh">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="zJ6-TH-7M7" id="ham-9k-1lu"/>
+                            <outlet property="delegate" destination="zJ6-TH-7M7" id="Gak-hP-TiR"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="MWf-62-QfT"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X1M-st-eHZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1641" y="337"/>
+        </scene>
         <!--Feed Details Table View Controller-->
         <scene sceneID="C4w-SC-0z6">
             <objects>
@@ -91,7 +120,7 @@
             <objects>
                 <navigationController id="y8a-4d-R7j" customClass="STNavigationController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Лента" image="icon-feed" id="1vh-bf-t6H"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Jhj-Ko-WV5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Jhj-Ko-WV5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -115,14 +144,35 @@
                     </tabBar>
                     <connections>
                         <segue destination="y8a-4d-R7j" kind="relationship" relationship="viewControllers" id="BDh-Jk-sBv"/>
+                        <segue destination="ibQ-gp-xhM" kind="relationship" relationship="viewControllers" id="TLD-eI-Yid"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
+        <!--Кабинет-->
+        <scene sceneID="cgH-Wg-9kZ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="ibQ-gp-xhM" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Кабинет" image="icon-profile" id="2FL-tE-lSs"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QE0-AY-KGJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="zJ6-TH-7M7" kind="relationship" relationship="rootViewController" id="VdJ-p2-gR4"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cSm-3S-bsf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="801" y="337"/>
+        </scene>
     </scenes>
     <resources>
         <image name="icon-feed" width="25" height="25"/>
+        <image name="icon-profile" width="25" height="25"/>
     </resources>
 </document>

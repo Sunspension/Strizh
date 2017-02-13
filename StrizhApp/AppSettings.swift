@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import AlamofireImage
 
 let kSTLastSessionPhone = "kSTLastSessionPhone"
 let kSTDeviceToken = "kSTDeviceToken"
@@ -74,6 +75,11 @@ struct AppSettings {
             defauls.synchronize()
         }
     }
+    
+    lazy var imageDownloader: ImageDownloader = {
+        
+        return ImageDownloader()
+    }()
     
     init(dbConfig: PDBConfiguration, serverApi: PRemoteServerApi) {
         

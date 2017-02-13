@@ -97,6 +97,17 @@ extension UITableView {
         
         self.register(UINib(nibName: String(describing: cell), bundle: nil), forCellReuseIdentifier: String(describing: cell))
     }
+    
+    func register(headerFooterCellClass: AnyClass) {
+        
+        self.register(headerFooterCellClass, forHeaderFooterViewReuseIdentifier: String(describing: headerFooterCellClass))
+    }
+    
+    func register(headerFooterCell: AnyClass) {
+        
+        self.register(UINib(nibName: String(describing: headerFooterCell), bundle: nil),
+                      forHeaderFooterViewReuseIdentifier: String(describing: headerFooterCell))
+    }
 }
 
 extension UICollectionView {

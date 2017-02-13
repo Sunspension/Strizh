@@ -16,6 +16,10 @@ class CollectionSection {
     
     var selectedItems: [CollectionSectionItem] = []
     
+    var headerItem: CollectionSectionHeaderFooter?
+    
+    var footerItem: CollectionSectionHeaderFooter?
+    
     var sectionType: Any?
     
     var selected = false
@@ -58,5 +62,23 @@ class CollectionSection {
                                          bindingAction: bindingAction)
         self.items.append(item)
         
+    }
+    
+    func header(headerClass: AnyClass,  item: Any? = nil, bindingAction: BindingHeaderFooterAction? = nil) {
+        
+        let header = CollectionSectionHeaderFooter()
+        header.item = item
+        header.bindingAction = bindingAction
+        
+        self.headerItem = header
+    }
+    
+    func footer(headerClass: AnyClass,  item: Any? = nil, bindingAction: BindingHeaderFooterAction? = nil) {
+        
+        let footer = CollectionSectionHeaderFooter()
+        footer.item = item
+        footer.bindingAction = bindingAction
+        
+        self.footerItem = footer
     }
 }

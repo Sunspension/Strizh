@@ -9,11 +9,6 @@
 import Foundation
 import RealmSwift
 
-protocol AppDBObject {
-    
-    func writeToDB(update: Bool)
-}
-
 protocol RealmCustomObject {
     
     associatedtype ObjectType
@@ -21,7 +16,7 @@ protocol RealmCustomObject {
     var value: ObjectType { get set }
 }
 
-extension Object: AppDBObject {
+extension Object {
     
     static let realm = try! Realm()
     
@@ -33,8 +28,13 @@ extension Object: AppDBObject {
         })
     }
     
-    static func objects<T: Object>(by: T.Type) -> Results<T> {
+    static func objects<T: Object>(by: T.Type) -> [T] {
         
-        return realm.objects(T.self)
+        return Array(realm.objects(T.self))
+    }
+    
+    static func object<T: Object>(by: T.Type) -> T? {
+        
+        return realm.object(ofType: T.self, forPrimaryKey: T.primaryKey())
     }
 }

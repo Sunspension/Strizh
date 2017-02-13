@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TableViewDataSource: NSObject, UITableViewDataSource {
+class TableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     
     var sections: [CollectionSection] = []
     
@@ -69,5 +69,57 @@ class TableViewDataSource: NSObject, UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         return self.sections[section].title
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let section = self.sections[section]
+        
+        if let header = section.headerItem {
+            
+            if let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: section.header)) {
+                
+                header.bindingAction?(view, header)
+                return view
+            }
+        }
+        
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        let section = self.sections[section]
+        
+        if let footer = section.footerItem {
+            
+            if let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: section.header)) {
+             
+                footer.bindingAction?(view, footer)
+                return view
+            }
+        }
+        
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        guard let header = self.sections[section].headerItem else {
+            
+            return 0.01
+        }
+        
+        return header.cellHeight ?? 0.01
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        
+        guard let footer = self.sections[section].footerItem else {
+            
+            return 0.01
+        }
+        
+        return footer.cellHeight ?? 0.01
     }
 }

@@ -73,7 +73,7 @@ struct STServerApi: PRemoteServerApi {
     
     func onValidSession() {
         
-        self.socket.connect()
+        self.socket.setup()
     }
     
     
