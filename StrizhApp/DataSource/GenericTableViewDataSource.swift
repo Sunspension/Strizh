@@ -66,7 +66,7 @@ class GenericTableViewDataSource<TableViewCell: UITableViewCell, TableItem: Any>
         
         if let header = section.headerItem {
             
-            if let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: section.header)) {
+            if let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: header.headerFooterClass.self)) {
                 
                 header.bindingAction?(view, header)
                 return view
@@ -82,7 +82,7 @@ class GenericTableViewDataSource<TableViewCell: UITableViewCell, TableItem: Any>
         
         if let footer = section.footerItem {
             
-            if let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: section.header)) {
+            if let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: footer.headerFooterClass.self)) {
                 
                 footer.bindingAction?(view, footer)
                 return view

@@ -18,5 +18,13 @@ class CollectionSectionHeaderFooter {
     
     var bindingAction: BindingHeaderFooterAction?
     
-    var headerClass: AnyClass?
+    var headerFooterClass: AnyClass
+    
+    
+    init(headerFooterNibClass: AnyClass, item: Any?, binding: BindingHeaderFooterAction?) {
+        
+        self.headerFooterClass = headerFooterNibClass
+        self.item = item
+        self.bindingAction = binding
+    }
 }

@@ -46,21 +46,15 @@ class GenericCollectionSection<TItem>: NSObject {
         self.items.append(item)
     }
     
-    func header(headerClass: AnyClass,  item: Any? = nil, bindingAction: BindingHeaderFooterAction? = nil) {
+    func header(headerNibClass: AnyClass, item: Any? = nil, bindingAction: BindingHeaderFooterAction? = nil) {
         
-        let header = CollectionSectionHeaderFooter()
-        header.item = item
-        header.bindingAction = bindingAction
-        
+        let header = CollectionSectionHeaderFooter(headerFooterNibClass: headerNibClass, item: item, binding: bindingAction)
         self.headerItem = header
     }
     
-    func footer(headerClass: AnyClass,  item: Any? = nil, bindingAction: BindingHeaderFooterAction? = nil) {
+    func footer(footerNibClass: AnyClass, item: Any? = nil, bindingAction: BindingHeaderFooterAction? = nil) {
         
-        let footer = CollectionSectionHeaderFooter()
-        footer.item = item
-        footer.bindingAction = bindingAction
-        
+        let footer = CollectionSectionHeaderFooter(headerFooterNibClass: footerNibClass, item: item, binding: bindingAction)
         self.footerItem = footer
     }
 }

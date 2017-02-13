@@ -30,7 +30,6 @@ class STProfileTableViewController: UITableViewController {
         
         self.tableView.register(cell: STProfileHeaderCell.self)
         self.tableView.register(cell: STPostTableViewCell.self)
-        self.tableView.register(headerFooterCell: STProfilePostHeader.self)
         
         self.setupDataSource()
         
@@ -68,12 +67,6 @@ class STProfileTableViewController: UITableViewController {
         
         self.tableView.dataSource = self.dataSource!.dataSource
         self.dataSource!.loadFeed()
-    }
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        return tableView.dequeueReusableHeaderFooterView(withIdentifier:
-            String(describing: STProfilePostHeader.self))
     }
     
     private func createTableViewHeader() {

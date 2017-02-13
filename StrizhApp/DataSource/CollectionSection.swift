@@ -66,19 +66,13 @@ class CollectionSection {
     
     func header(headerClass: AnyClass,  item: Any? = nil, bindingAction: BindingHeaderFooterAction? = nil) {
         
-        let header = CollectionSectionHeaderFooter()
-        header.item = item
-        header.bindingAction = bindingAction
-        
+        let header = CollectionSectionHeaderFooter(headerFooterNibClass: headerClass, item: item, binding: bindingAction)
         self.headerItem = header
     }
     
-    func footer(headerClass: AnyClass,  item: Any? = nil, bindingAction: BindingHeaderFooterAction? = nil) {
+    func footer(footerClass: AnyClass,  item: Any? = nil, bindingAction: BindingHeaderFooterAction? = nil) {
         
-        let footer = CollectionSectionHeaderFooter()
-        footer.item = item
-        footer.bindingAction = bindingAction
-        
+        let footer = CollectionSectionHeaderFooter(headerFooterNibClass: footerClass, item: item, binding: bindingAction)
         self.footerItem = footer
     }
 }
