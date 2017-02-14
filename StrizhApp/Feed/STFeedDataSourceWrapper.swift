@@ -204,8 +204,7 @@ class STFeedDataSourceWrapper {
         self.status = .loading
         
         AppDelegate.appSettings.api.loadFeed(filter: self.filter!, page: page,
-                                             pageSize: pageSize, isFavorite: self.isFavorite,
-                                             isPersonal: self.isPersonal, searchString: searchString)
+                                             pageSize: pageSize, isFavorite: self.isFavorite, searchString: searchString)
             
             .onSuccess { [unowned self] feed in
                 

@@ -148,6 +148,7 @@
                             <constraint firstAttribute="trailing" secondItem="0mD-Cq-He2" secondAttribute="trailing" id="v04-N6-2NY"/>
                         </constraints>
                     </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LDb-Ix-gWd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -158,7 +159,7 @@
             <objects>
                 <navigationController id="y8a-4d-R7j" customClass="STNavigationController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Лента" image="icon-feed" id="1vh-bf-t6H"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Jhj-Ko-WV5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Jhj-Ko-WV5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -195,7 +196,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="ibQ-gp-xhM" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Кабинет" image="icon-profile" id="2FL-tE-lSs"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QE0-AY-KGJ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="QE0-AY-KGJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

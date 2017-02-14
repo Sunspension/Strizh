@@ -33,7 +33,9 @@ enum STSocketRequestBuilder {
     case loadUser(id: Int)
     
     case loadFeed(filter: STFeedFilter, page: Int, pageSize: Int,
-        isFavorite: Bool, isPersonal: Bool, searchString: String?)
+        isFavorite: Bool, searchString: String?)
+    
+    case loadPersonalPosts(page: Int, pageSize: Int)
     
     
     var request: STSocketRequest {
@@ -52,7 +54,21 @@ enum STSocketRequestBuilder {
             
             break
             
-        case .loadFeed(let filter, let page, let pageSize, let isFavorite, let isPersonal, let searchString):
+        case .loadPersonalPosts(let page, let pageSize):
+            
+            // query
+            self.addToQuery(&query, type: .page, value: page)
+            self.addToQuery(&query, type: .pageSize, value: pageSize)
+            self.addToQuery(&query, type: .sortingOrder, value: ["id" : "desc"])
+            
+            // payload
+            self.addToPayload(&payLoad, type: .path, value: "/api/post")
+            self.addToPayload(&payLoad, type: .method, value: "GET")
+            self.addToPayload(&payLoad, type: .query, value: query)
+            
+            break
+            
+        case .loadFeed(let filter, let page, let pageSize, let isFavorite, let searchString):
             
             // query
             self.addToQuery(&query, type: .page, value: page)
@@ -66,16 +82,13 @@ enum STSocketRequestBuilder {
             
             var filters: [String : Any] = [:]
             
-            if !isPersonal {
+            if isFavorite {
                 
-                if isFavorite {
-                    
-                    filters["is_favorite"] = true
-                }
-                else {
-                    
-                    filters["feed"] = true
-                }
+                filters["is_favorite"] = true
+            }
+            else {
+                
+                filters["feed"] = true
             }
             
             // archived

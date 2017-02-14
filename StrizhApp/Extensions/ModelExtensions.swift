@@ -13,14 +13,31 @@ extension STUser {
     
     func updateUserImage() {
         
-        if let url = URL(string: self.imageUrl) {
+        if !self.imageUrl.isEmpty {
+            
+            let width = 60 * UIScreen.main.scale
+            
+            let queryResize = "?resize=w[\(width)]h[\(width)]q[100]e[true]"
+            
+            let urlString = self.imageUrl + queryResize
+            
+            let url = URL(string: urlString)!
             
             AppDelegate.appSettings.imageDownloader.download(URLRequest(url: url)) { resposne in
                 
                 if let image = resposne.value {
                     
+                    STUser.realm.beginWrite()
                     self.imageData = UIImageJPEGRepresentation(image, 1)
-                    self.writeToDB()
+                    
+                    do {
+                        
+                        try STUser.realm.commitWrite()
+                    }
+                    catch {
+                        
+                        print("Caught an error when was trying to make commit to Realm")
+                    }
                 }
             }
         }

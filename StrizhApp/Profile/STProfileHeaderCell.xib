@@ -45,30 +45,22 @@
                         <state key="normal" image="icon-settings"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Грачева Александра " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kOO-Ns-yao">
-                        <rect key="frame" x="16" y="88" width="288" height="20"/>
+                        <rect key="frame" x="16" y="88" width="288" height="69.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="МОИ ТЕМЫ:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSi-Uj-B7G">
-                        <rect key="frame" x="16" y="138" width="288" height="27.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="3YN-6X-tPL" firstAttribute="centerY" secondItem="1IH-Hj-6Ra" secondAttribute="centerY" id="1n2-5v-Azz"/>
                     <constraint firstItem="6D4-i4-Bc4" firstAttribute="centerY" secondItem="1IH-Hj-6Ra" secondAttribute="centerY" id="520-Rb-fCP"/>
                     <constraint firstItem="1IH-Hj-6Ra" firstAttribute="leading" secondItem="6D4-i4-Bc4" secondAttribute="trailing" constant="22" id="88u-98-D3g"/>
-                    <constraint firstItem="qSi-Uj-B7G" firstAttribute="trailing" secondItem="kOO-Ns-yao" secondAttribute="trailing" id="B3n-7A-AMT"/>
                     <constraint firstItem="kOO-Ns-yao" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="UjE-fY-55c"/>
-                    <constraint firstItem="qSi-Uj-B7G" firstAttribute="leading" secondItem="kOO-Ns-yao" secondAttribute="leading" id="VL2-mu-3Mh"/>
                     <constraint firstItem="3YN-6X-tPL" firstAttribute="leading" secondItem="1IH-Hj-6Ra" secondAttribute="trailing" constant="22" id="X2B-mZ-JI8"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="kOO-Ns-yao" secondAttribute="bottom" priority="750" id="ble-tf-pA3"/>
                     <constraint firstItem="1IH-Hj-6Ra" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="eFr-b1-saX"/>
-                    <constraint firstItem="qSi-Uj-B7G" firstAttribute="top" secondItem="kOO-Ns-yao" secondAttribute="bottom" constant="30" id="fmq-SZ-Y9u"/>
                     <constraint firstItem="kOO-Ns-yao" firstAttribute="top" secondItem="1IH-Hj-6Ra" secondAttribute="bottom" constant="12" id="gTz-vx-ewB"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="qSi-Uj-B7G" secondAttribute="bottom" priority="750" constant="-8" id="kqe-rR-Sfu"/>
                     <constraint firstAttribute="trailingMargin" secondItem="kOO-Ns-yao" secondAttribute="trailing" constant="8" id="wQt-eM-AQl"/>
                     <constraint firstItem="1IH-Hj-6Ra" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="yoS-vz-h1c"/>
                 </constraints>

@@ -111,9 +111,15 @@ struct STServerApi: PRemoteServerApi {
         }
     }
     
-    func loadFeed(filter: STFeedFilter, page: Int, pageSize: Int, isFavorite: Bool, isPersonal: Bool, searchString: String?) -> Future<STFeed, STError> {
+    func loadFeed(filter: STFeedFilter, page: Int, pageSize: Int,
+                  isFavorite: Bool, searchString: String?) -> Future<STFeed, STError> {
         
         return self.socket.loadFeed(filter: filter, page: page, pageSize: pageSize,
-                                    isFavorite: isFavorite, isPersonal: isPersonal, searchString: searchString)
+                                    isFavorite: isFavorite, searchString: searchString)
+    }
+    
+    func loadPersonalPosts(page: Int, pageSize: Int) -> Future<STFeed, STError> {
+        
+        return self.socket.loadPersonalPosts(page: page, pageSize: pageSize)
     }
 }

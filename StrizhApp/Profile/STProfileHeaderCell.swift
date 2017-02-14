@@ -19,6 +19,7 @@ class STProfileHeaderCell: UITableViewCell {
     
     @IBOutlet weak var userName: UILabel!
     
+    var binded = false
     
     override func awakeFromNib() {
         super.awakeFromNib()

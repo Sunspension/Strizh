@@ -165,9 +165,19 @@ extension UIColor {
         return UIColor(red: 211.0 / 255.0, green: 218.0 / 255.0, blue: 230.0 / 255.0, alpha: 1.0)
     }
     
-    class var stWhite: UIColor { 
+    class var stWhite: UIColor {
         
         return UIColor(white: 228.0 / 255.0, alpha: 1.0)
+    }
+    
+    class var stGreyblue: UIColor {
+        
+        return UIColor(red: 124.0 / 255.0, green: 152.0 / 255.0, blue: 191.0 / 255.0, alpha: 1.0)
+    }
+    
+    class var stGreyishBrown: UIColor { 
+        
+        return UIColor(white: 74.0 / 255.0, alpha: 1.0)
     }
     
     class var stWhite20Opacity: UIColor {
@@ -225,50 +235,41 @@ extension Date {
         
         if let minutes = componets.minute {
             
-            var min = ""
-            
-            switch minutes {
-                
-            case 1, 21, 31, 41, 51:
-                
-                min = "минута"
-                break
-                
-            case 2, 3, 4, 22, 23, 24, 32, 33, 34, 42, 43, 44, 52, 53, 54:
-                
-                min = "минуты"
-                break
-                
-            default:
-                min = "минут"
-            }
-            
-            result = "\(minutes)" + " " + min
+            let ending = minutes.ending(yabloko: "минута", yabloka: "минуты", yablok: "минут")
+            result = "\(minutes)" + " " + ending
         }
         
         if let hours = componets.hour {
             
-            var h = ""
-            
-            switch hours {
-                
-            case 1, 21:
-                
-                h = "час"
-                break
-                
-            case 2, 3, 4, 22, 23:
-                
-                h = "часа"
-                break
-                
-            default:
-                h = "часов"
-            }
-            
-            result += "\(hours)" + " " + h + " " + result
+            let ending = hours.ending(yabloko: "час", yabloka: "часа", yablok: "часов")
+            result += "\(hours)" + " " + ending + " " + result
         }
 
         return result
+    }
+}
+
+extension Int {
+    
+    func ending(yabloko: String, yabloka: String, yablok: String) -> String {
+    
+        let number = self % 100
+        
+        if number >= 11 && number <= 19 {
+            
+            return yablok
+        }
+        
+        switch number % 10 {
+            
+        case 1:
+            return yabloko
+            
+        case 2...4:
+            return yabloka
+            
+        default:
+            return yablok
+        }
     }
 }
