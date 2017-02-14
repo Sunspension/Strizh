@@ -86,20 +86,18 @@ class STProfileTableViewController: UITableViewController {
                 }
                 else {
                     
-                    guard !user.imageUrl.isEmpty else {
+                    if !user.imageUrl.isEmpty {
                         
-                        return
+                        let width = Int(header.userImage.bounds.size.width * UIScreen.main.scale)
+                        let height = Int(header.userImage.bounds.size.height * UIScreen.main.scale)
+                        
+                        let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
+                        
+                        let urlString = user.imageUrl + queryResize
+                        
+                        let filter = RoundedCornersFilter(radius: header.userImage.bounds.size.width)
+                        header.userImage.af_setImage(withURL: URL(string: urlString)!, filter: filter)
                     }
-                    
-                    let width = Int(header.userImage.bounds.size.width * UIScreen.main.scale)
-                    let height = Int(header.userImage.bounds.size.height * UIScreen.main.scale)
-                    
-                    let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
-                    
-                    let urlString = user.imageUrl + queryResize
-                    
-                    let filter = RoundedCornersFilter(radius: header.userImage.bounds.size.width)
-                    header.userImage.af_setImage(withURL: URL(string: urlString)!, filter: filter)
                 }
                 
                 let height = header.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height

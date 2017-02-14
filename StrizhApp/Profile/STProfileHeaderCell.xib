@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="165"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1IH-Hj-6Ra">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar" translatesAutoresizingMaskIntoConstraints="NO" id="1IH-Hj-6Ra">
                         <rect key="frame" x="130" y="16" width="60" height="60"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="60" id="3YH-uL-6d2"/>
@@ -84,6 +84,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="avatar" width="90" height="90"/>
         <image name="icon-edit" width="20" height="20"/>
         <image name="icon-settings" width="20" height="20"/>
     </resources>

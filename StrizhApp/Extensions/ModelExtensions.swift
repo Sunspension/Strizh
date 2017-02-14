@@ -31,6 +31,7 @@ extension STUser {
         AppDelegate.appSettings.api.loadUser(transport: .webSocket, userId: self.id)
             .onSuccess(callback: { user in
                 
+                user.writeToDB()
                 user.updateUserImage()
             })
     }

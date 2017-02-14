@@ -25,7 +25,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="cR7-eC-Y0w">
-                                <rect key="frame" x="146.5" y="299.5" width="81" height="67"/>
+                                <rect key="frame" x="147" y="300" width="81" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="67" id="QqT-o7-dVg"/>
                                     <constraint firstAttribute="width" constant="81" id="Zr1-SG-Zbe"/>
@@ -49,7 +49,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="background" width="320" height="568"/>
+        <image name="background" width="375" height="667"/>
         <image name="logo" width="140" height="115"/>
     </resources>
 </document>

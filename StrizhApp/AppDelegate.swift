@@ -45,17 +45,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // load user
             AppDelegate.appSettings.api.loadUser(transport: .webSocket, userId: session.userId)
                 .onSuccess(callback: { user in
+                  
+                    if user.firstName.isEmpty || user.lastName.isEmpty {
+                        
+                        let controller = STSingUpTableViewController(signupStep: .signupThirdStep)
+                        let navi = STSignUpNavigationController(rootViewController: controller)
+                        
+                        self.changeRootViewController(navi)
+                    }
+                    else {
+                        
+                        self.onLogin()
+                    }
                     
+                    user.writeToDB()
                     user.updateUserImage()
                 })
-            
-            self.onLogin()
         }
         else {
             
             let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
             let navi = STSignUpNavigationController(rootViewController: controller)
             self.window?.rootViewController = navi
+            self.window?.makeKeyAndVisible()
+        }
+        
+        if self.window?.rootViewController == nil {
+            
+            let splash = AppDelegate.appSettings.storyBoard.instantiateViewController(withIdentifier: "Splash")
+            self.window?.rootViewController = splash
             self.window?.makeKeyAndVisible()
         }
         

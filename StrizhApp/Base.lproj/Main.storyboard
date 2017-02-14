@@ -115,12 +115,50 @@
             </objects>
             <point key="canvasLocation" x="2584.8000000000002" y="-331.48425787106447"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="PyR-Xa-JvP">
+            <objects>
+                <viewController storyboardIdentifier="Splash" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NxM-Ue-2hF" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="e2W-R3-eBy"/>
+                        <viewControllerLayoutGuide type="bottom" id="0Gk-N3-msC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eKq-P4-Dvx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="0mD-Cq-He2">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="gb0-kq-qtK">
+                                <rect key="frame" x="147" y="300" width="81" height="67"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="67" id="AxF-q6-qyM"/>
+                                    <constraint firstAttribute="width" constant="81" id="f7G-Au-RQY"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0mD-Cq-He2" firstAttribute="leading" secondItem="eKq-P4-Dvx" secondAttribute="leading" id="3Ug-HQ-hD1"/>
+                            <constraint firstItem="gb0-kq-qtK" firstAttribute="centerY" secondItem="eKq-P4-Dvx" secondAttribute="centerY" id="6Cs-9M-rbX"/>
+                            <constraint firstItem="gb0-kq-qtK" firstAttribute="centerX" secondItem="eKq-P4-Dvx" secondAttribute="centerX" id="Now-eA-NjB"/>
+                            <constraint firstItem="0mD-Cq-He2" firstAttribute="bottom" secondItem="0Gk-N3-msC" secondAttribute="top" id="fpc-gK-uon"/>
+                            <constraint firstItem="0mD-Cq-He2" firstAttribute="top" secondItem="eKq-P4-Dvx" secondAttribute="top" id="tJy-eP-Vbj"/>
+                            <constraint firstAttribute="trailing" secondItem="0mD-Cq-He2" secondAttribute="trailing" id="v04-N6-2NY"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LDb-Ix-gWd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="801" y="-1074"/>
+        </scene>
         <!--Лента-->
         <scene sceneID="QDT-5B-ZiH">
             <objects>
                 <navigationController id="y8a-4d-R7j" customClass="STNavigationController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Лента" image="icon-feed" id="1vh-bf-t6H"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Jhj-Ko-WV5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Jhj-Ko-WV5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -172,7 +210,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="background" width="375" height="667"/>
         <image name="icon-feed" width="25" height="25"/>
         <image name="icon-profile" width="25" height="25"/>
+        <image name="logo" width="140" height="115"/>
     </resources>
 </document>

@@ -83,6 +83,8 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         self.tableView.register(cell: STLoginLogoTableViewCell.self)
         self.tableView.register(cell: STLoginTableViewCell.self)
         self.tableView.register(cell: STLoginAvatarTableViewCell.self)
+        self.tableView.register(cell: STLoginTextTableViewCell.self)
+        self.tableView.register(cell: STLoginSeparatorTableViewCell.self)
         
         let text = self.signupStep == .signupThirdStep ? "Готово" : "Далее"
         let rigthItem = UIBarButtonItem(title: text, style: .plain, target: self, action: #selector(self.actionNext))
@@ -279,15 +281,14 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 
                 .onSuccess(callback: { [unowned self] session in
                     
-                    session.writeToDB()
-                    
                     // check user
-                    
                     self.api.loadUser(transport: .http, userId: session.userId)
                         
                         .onSuccess(callback: { [unowned self] user in
                             
                             self.stopAnimating()
+                            
+                            session.writeToDB()
                             
                             if user.firstName.isEmpty {
                                 
