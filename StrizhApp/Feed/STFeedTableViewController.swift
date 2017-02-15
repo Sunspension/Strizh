@@ -56,6 +56,8 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         
         // set data source
         self.tableView.dataSource = self.feedDataSource!.dataSource
+        
+        self.tableView.showBusy()
         self.feedDataSource!.loadFeed()
         
         self.dataSourceSwitch.selectedSegmentIndex = 0
@@ -89,6 +91,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         
         self.tableView.dataSource = dataSource!.dataSource
         self.tableView.reloadData()
+        self.tableView.hideBusy()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -97,6 +100,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         
         self.tableView.dataSource = dataSource!.dataSource
         self.tableView.reloadData()
+        self.tableView.hideBusy()
     }
     
     //MARK: - UISearchResultUpdating delegate implementation
@@ -122,14 +126,6 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
                 dataSource!.loadFeed(searchString: query)
             }
         }
-        
-        //        for token in self.cancellationTokens {
-        //
-        //            token.cancel()
-        //        }
-        //
-        //        let token = Operation()
-        //        self.cancellationTokens.append(token)
     }
 
     
@@ -172,32 +168,24 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     private func setupDataSources() {
         
         // setup data sources
-        self.feedDataSource = STFeedDataSourceWrapper(onDataSourceChanged: { [unowned self] in
-            
-            self.tableView.reloadData()
-        })
-        
+        self.feedDataSource = STFeedDataSourceWrapper(onDataSourceChanged: self.onDataSourceChanged)
+        self.feedDataSource!.onStartLoading = self.onStartLoading
+        self.feedDataSource!.onStopLoading = self.onStopLoading
         self.feedDataSource!.initialize()
         
-        self.favoritesFeedDataSource = STFeedDataSourceWrapper(isFavorite: true, onDataSourceChanged: { [unowned self] in
-            
-            self.tableView.reloadData()
-        })
-        
+        self.favoritesFeedDataSource = STFeedDataSourceWrapper(isFavorite: true, onDataSourceChanged: self.onDataSourceChanged)
+        self.favoritesFeedDataSource!.onStartLoading = self.onStartLoading
+        self.favoritesFeedDataSource!.onStopLoading = self.onStopLoading
         self.favoritesFeedDataSource!.initialize()
         
-        self.searchFeedDataSource = STFeedDataSourceWrapper(onDataSourceChanged: { [unowned self] in
-            
-            self.tableView.reloadData()
-        })
-        
+        self.searchFeedDataSource = STFeedDataSourceWrapper(onDataSourceChanged: self.onDataSourceChanged)
+        self.searchFeedDataSource!.onStartLoading = self.onStartLoading
+        self.searchFeedDataSource!.onStopLoading = self.onStopLoading
         self.searchFeedDataSource!.initialize()
         
-        self.searchFavoriteDataSource = STFeedDataSourceWrapper(isFavorite: true, onDataSourceChanged: { [unowned self] in
-            
-            self.tableView.reloadData()
-        })
-        
+        self.searchFavoriteDataSource = STFeedDataSourceWrapper(isFavorite: true, onDataSourceChanged: self.onDataSourceChanged)
+        self.searchFavoriteDataSource!.onStartLoading = self.onStartLoading
+        self.searchFeedDataSource!.onStopLoading = self.onStopLoading
         self.searchFavoriteDataSource!.initialize()
     }
     
@@ -215,5 +203,21 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         self.definesPresentationContext = true
         
         tableView.tableHeaderView = searchController.searchBar
+    }
+    
+    private func onDataSourceChanged() {
+        
+        self.tableView.hideBusy()
+        self.tableView.reloadData()
+    }
+    
+    private func onStartLoading() {
+        
+        self.tableView.showBusy()
+    }
+    
+    private func onStopLoading() {
+        
+        self.tableView.hideBusy()
     }
 }

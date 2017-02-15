@@ -33,7 +33,7 @@ extension UIViewController {
         appDelegate?.onLogin()
     }
     
-    func st_router_onLogout() {
+    func st_router_logout() {
         
         appDelegate?.onLogout()
     }
@@ -48,5 +48,13 @@ extension UIViewController {
         controller.locations = locations
         
         self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func st_router_openSettings() {
+        
+        let controller = STSettingsController()
+        
+        let navi = STNavigationController(rootViewController: controller)
+        self.navigationController?.present(navi, animated: true, completion: nil)
     }
 }

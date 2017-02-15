@@ -55,7 +55,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                     else {
                         
-                        self.onLogin()
+                        if let controller = AppDelegate.appSettings.storyBoard.instantiateInitialViewController() {
+                            
+                            self.changeRootViewController(controller)
+                        }
                     }
                     
                     user.writeToDB()
@@ -110,6 +113,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func onLogin() {
         
+        AppDelegate.appSettings.api.onValidSession()
+        
         if let controller = AppDelegate.appSettings.storyBoard.instantiateInitialViewController() {
             
             self.changeRootViewController(controller)
@@ -127,7 +132,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
-        self.changeRootViewController(controller)
+        let navi = STSignUpNavigationController(rootViewController: controller)
+        self.changeRootViewController(navi)
     }
     
     // MARK: Internal methods

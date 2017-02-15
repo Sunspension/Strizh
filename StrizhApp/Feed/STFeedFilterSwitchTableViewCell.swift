@@ -19,6 +19,7 @@ class STFeedFilterSwitchTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         self.selectionStyle = .none
+        toggle.onTintColor = UIColor.stBrightBlue
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

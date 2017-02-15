@@ -62,6 +62,11 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         super.init(style: .plain)
         
         self.signupStep = signupStep
+        
+        if signupStep == .signupThirdStep {
+            
+            self.navigationItem.hidesBackButton = true
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

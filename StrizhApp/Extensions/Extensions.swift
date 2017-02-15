@@ -113,6 +113,20 @@ extension UITableView {
         self.register(UINib(nibName: String(describing: headerFooterCell), bundle: nil),
                       forHeaderFooterViewReuseIdentifier: String(describing: headerFooterCell))
     }
+    
+    func showBusy() {
+        
+        let busy = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        busy.frame = CGRect(x: 0, y: 0, width: 300, height: 60)
+        busy.hidesWhenStopped = true
+        busy.startAnimating()
+        self.tableFooterView = busy
+    }
+    
+    func hideBusy() {
+        
+        self.tableFooterView = UIView()
+    }
 }
 
 extension UICollectionView {
@@ -178,6 +192,11 @@ extension UIColor {
     class var stGreyishBrown: UIColor { 
         
         return UIColor(white: 74.0 / 255.0, alpha: 1.0)
+    }
+    
+    class var stBrick: UIColor {
+     
+        return UIColor(red: 194.0 / 255.0, green: 41.0 / 255.0, blue: 41.0 / 255.0, alpha: 1.0)
     }
     
     class var stWhite20Opacity: UIColor {

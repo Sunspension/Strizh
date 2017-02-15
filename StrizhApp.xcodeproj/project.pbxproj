@@ -15,6 +15,7 @@
 		D4194A171E46028F00D0B189 /* RealmString.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4194A151E46028F00D0B189 /* RealmString.swift */; };
 		D4194A1A1E460D4400D0B189 /* ArrayTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4194A191E460D4400D0B189 /* ArrayTransform.swift */; };
 		D4194A1E1E463F4300D0B189 /* ArrayOfCustomRealmObjectsTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4194A1D1E463F4300D0B189 /* ArrayOfCustomRealmObjectsTransform.swift */; };
+		D433D1041E54F56900974AB1 /* STSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D433D1031E54F56900974AB1 /* STSettingsController.swift */; };
 		D43A75601E4E610700DB0850 /* STPostDetailsMapsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43A755E1E4E610700DB0850 /* STPostDetailsMapsCell.swift */; };
 		D43A75611E4E610700DB0850 /* STPostDetailsMapsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D43A755F1E4E610700DB0850 /* STPostDetailsMapsCell.xib */; };
 		D43A75631E4E6A3B00DB0850 /* STFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43A75621E4E6A3B00DB0850 /* STFile.swift */; };
@@ -109,6 +110,7 @@
 		D4194A151E46028F00D0B189 /* RealmString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmString.swift; sourceTree = "<group>"; };
 		D4194A191E460D4400D0B189 /* ArrayTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayTransform.swift; sourceTree = "<group>"; };
 		D4194A1D1E463F4300D0B189 /* ArrayOfCustomRealmObjectsTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayOfCustomRealmObjectsTransform.swift; sourceTree = "<group>"; };
+		D433D1031E54F56900974AB1 /* STSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSettingsController.swift; path = Profile/STSettingsController.swift; sourceTree = "<group>"; };
 		D43A755E1E4E610700DB0850 /* STPostDetailsMapsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPostDetailsMapsCell.swift; path = Feed/STPostDetailsMapsCell.swift; sourceTree = "<group>"; };
 		D43A755F1E4E610700DB0850 /* STPostDetailsMapsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPostDetailsMapsCell.xib; path = Feed/STPostDetailsMapsCell.xib; sourceTree = "<group>"; };
 		D43A75621E4E6A3B00DB0850 /* STFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFile.swift; path = Models/STFile.swift; sourceTree = "<group>"; };
@@ -490,6 +492,7 @@
 			isa = PBXGroup;
 			children = (
 				E55906711E51A60800F8E20E /* STProfileTableViewController.swift */,
+				D433D1031E54F56900974AB1 /* STSettingsController.swift */,
 			);
 			name = Controlllers;
 			sourceTree = "<group>";
@@ -730,6 +733,7 @@
 				D4194A1A1E460D4400D0B189 /* ArrayTransform.swift in Sources */,
 				D4AD43BC1E47B504006F13DE /* STPostTableViewCell.swift in Sources */,
 				D44AB4EE1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift in Sources */,
+				D433D1041E54F56900974AB1 /* STSettingsController.swift in Sources */,
 				D49EB19E1E45212F00B6F5DC /* STSocketRequestBuilder.swift in Sources */,
 				D44AB4F21E4FD1670013A972 /* STPostDetailsCollectionViewCell.swift in Sources */,
 				D49545D01E3D064700EDCF01 /* STLoginTextTableViewCell.swift in Sources */,

@@ -32,6 +32,11 @@ class STFeedDataSourceWrapper {
 
     private var isPersonal: Bool
     
+    private var canLoadNext: Bool {
+        
+        return hasMore && status != .loading
+    }
+    
     var dataSource: GenericTableViewDataSource<STPostTableViewCell, STPost>?
     
     var users = Set<STUser>()
@@ -42,11 +47,9 @@ class STFeedDataSourceWrapper {
     
     var files = Set<STFile>()
     
-    var canLoadNext: Bool {
-        
-        return hasMore && status != .loading
-    }
+    var onStartLoading:(() -> Void)?
     
+    var onStopLoading:(() -> Void)?
     
     init(pageSize: Int = 20, isFavorite: Bool = false,
          isPersonal: Bool = false, onDataSourceChanged:(() -> Void)? = nil) {
@@ -201,12 +204,16 @@ class STFeedDataSourceWrapper {
     
     func loadFeed(notify: Bool = true, searchString: String? = nil) {
         
+        self.onStartLoading?()
+        
         self.status = .loading
         
         AppDelegate.appSettings.api.loadFeed(filter: self.filter!, page: page,
                                              pageSize: pageSize, isFavorite: self.isFavorite, searchString: searchString)
             
             .onSuccess { [unowned self] feed in
+                
+                self.onStopLoading?()
                 
                 feed.users.forEach({ user in
                     
@@ -243,6 +250,14 @@ class STFeedDataSourceWrapper {
                 }
             }
             .onFailure { [unowned self] error in
+                
+                self.onStopLoading?()
+                print(error.localizedDescription)
+                
+                if notify {
+                    
+                    self.onDataSourceChanged?()
+                }
                 
                 self.status = .failed
             }

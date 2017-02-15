@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import AlamofireImage
+import Bond
 
 class STProfileTableViewController: UITableViewController {
     
@@ -94,7 +95,12 @@ class STProfileTableViewController: UITableViewController {
                 
                 viewCell.userName.text = user.firstName + " " + user.lastName
                 viewCell.edit.makeCircular()
+                
                 viewCell.settings.makeCircular()
+                _ = viewCell.settings.reactive.tap.observe { [unowned self] _ in
+                    
+                    self.st_router_openSettings()
+                }
                 
                 if let imageData = user.imageData {
                     
@@ -163,7 +169,7 @@ class STProfileTableViewController: UITableViewController {
                                             
                                             viewCell.dialogsCount.isHidden = false
                                             viewCell.openDialogsTitle.isHidden = false
-                                            viewCell.openDialogsTitle.text = post.dialogCount == 1 ? "Открыт" : "Открыто"
+                                            viewCell.openDialogsTitle.text = post.dialogCount == 1 ? "Открыт:" : "Открыто:"
                                             
                                             let ending = post.dialogCount.ending(yabloko: "диалог", yabloka: "диалога", yablok: "диалогов")
                                             
@@ -186,9 +192,13 @@ class STProfileTableViewController: UITableViewController {
     
     private func loadFeed() {
         
+        self.tableView.showBusy()
+        
         self.status = .loading
         api.loadPersonalPosts(page: self.page, pageSize: self.pageSize)
             .onSuccess { [unowned self] feed in
+                
+                self.tableView.hideBusy()
                 
                 self.hasMore = feed.posts.count == self.pageSize
                 self.page += 1
@@ -198,6 +208,7 @@ class STProfileTableViewController: UITableViewController {
             }
             .onFailure { [unowned self] error in
                 
+                self.tableView.hideBusy()
                 self.status = .failed
         }
     }
