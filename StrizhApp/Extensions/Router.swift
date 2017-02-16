@@ -57,4 +57,12 @@ extension UIViewController {
         let navi = STNavigationController(rootViewController: controller)
         self.navigationController?.present(navi, animated: true, completion: nil)
     }
+    
+    func st_router_openProfileEditing() {
+        
+        let controller = STEditProfileController()
+        
+        let navi = STNavigationController(rootViewController: controller)
+        self.navigationController?.present(navi, animated: true, completion: nil)
+    }
 }

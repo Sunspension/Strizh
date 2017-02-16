@@ -15,7 +15,7 @@ extension STUser {
         
         if !self.imageUrl.isEmpty {
             
-            let width = 60 * UIScreen.main.scale
+            let width = Int(90 * UIScreen.main.scale)
             
             let queryResize = "?resize=w[\(width)]h[\(width)]q[100]e[true]"
             
@@ -23,11 +23,17 @@ extension STUser {
             
             let url = URL(string: urlString)!
             
-            AppDelegate.appSettings.imageDownloader.download(URLRequest(url: url)) { resposne in
+            AppDelegate.appSettings.imageDownloader.download(URLRequest(url: url)) { [unowned self] response in
                 
-                if let image = resposne.value {
+                if let error = response.result.error {
+                    
+                    print("image error: \(error.localizedDescription)")
+                }
+                
+                if let image = response.value {
                     
                     STUser.realm.beginWrite()
+                    
                     self.imageData = UIImageJPEGRepresentation(image, 1)
                     
                     do {

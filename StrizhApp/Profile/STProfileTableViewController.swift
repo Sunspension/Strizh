@@ -93,6 +93,8 @@ class STProfileTableViewController: UITableViewController {
                     return
                 }
                 
+                viewCell.selectionStyle = .none
+                
                 viewCell.userName.text = user.firstName + " " + user.lastName
                 viewCell.edit.makeCircular()
                 
@@ -100,6 +102,11 @@ class STProfileTableViewController: UITableViewController {
                 _ = viewCell.settings.reactive.tap.observe { [unowned self] _ in
                     
                     self.st_router_openSettings()
+                }
+                
+                _ = viewCell.edit.reactive.tap.observe { [unowned self] _ in
+                    
+                    self.st_router_openProfileEditing()
                 }
                 
                 if let imageData = user.imageData {
