@@ -35,7 +35,6 @@ class STSettingsController: UITableViewController {
         self.tableView.backgroundColor = UIColor.stLightBlueGrey
         self.tableView.estimatedRowHeight = 44
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.separatorInset = UIEdgeInsets.zero
         
         self.dataSource.sections.append(self.section1)
         self.dataSource.sections.append(self.section2)

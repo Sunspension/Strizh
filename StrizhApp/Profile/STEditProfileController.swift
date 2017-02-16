@@ -45,7 +45,6 @@ class STEditProfileController: UITableViewController, UITextFieldDelegate {
         self.tableView.backgroundColor = UIColor.stLightBlueGrey
         self.tableView.estimatedRowHeight = 44
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.separatorInset = UIEdgeInsets.zero
         
         self.dataSource.sections.append(self.userImageSection)
         self.dataSource.sections.append(self.userInfoSection)
