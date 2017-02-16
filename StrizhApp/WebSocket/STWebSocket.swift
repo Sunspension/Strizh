@@ -96,6 +96,27 @@ class STWebSocket {
         return p.future
     }
     
+    func favorite(postId: Int, favorite: Bool) -> Future<STPost, STError> {
+        
+        let p = Promise<STPost, STError>()
+        
+        let request = STSocketRequestBuilder.favorite(postId: postId, favorite: favorite).request
+        
+        self.sendRequest(request: request) { json in
+            
+            if let post = STPost(JSON: json) {
+                
+                p.success(post)
+            }
+            else {
+                
+                p.failure(.favoriteFailure)
+            }
+        }
+        
+        return p.future
+    }
+    
     @objc func onApplicationDidBecomeActiveNotification() {
         
         if let socket = self.socket {

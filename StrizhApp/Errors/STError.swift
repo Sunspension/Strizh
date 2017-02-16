@@ -10,6 +10,8 @@ import UIKit
 
 enum STError: Error {
 
+    case favoriteFailure
+    
     case anyError(error: Error)
     
     
@@ -20,6 +22,10 @@ enum STError: Error {
         case .anyError(let error):
             
             return error.localizedDescription
+            
+        case .favoriteFailure:
+            
+            return "Error has occurred when was trying to add to favorite or remove from favorite"
         }
     }
 }

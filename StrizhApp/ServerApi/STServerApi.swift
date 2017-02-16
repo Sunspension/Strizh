@@ -122,4 +122,9 @@ struct STServerApi: PRemoteServerApi {
         
         return self.socket.loadPersonalPosts(page: page, pageSize: pageSize)
     }
+    
+    func favorite(postId: Int, favorite: Bool) -> Future<STPost, STError> {
+        
+        return self.socket.favorite(postId: postId, favorite: favorite)
+    }
 }

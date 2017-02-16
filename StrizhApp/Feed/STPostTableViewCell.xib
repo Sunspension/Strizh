@@ -19,11 +19,19 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4HC-zN-2oG">
-                        <rect key="frame" x="8" y="8" width="304" height="185"/>
+                        <rect key="frame" x="8" y="8" width="304" height="184"/>
                         <subviews>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y1e-ug-ez8">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y1e-ug-ez8">
                                 <rect key="frame" x="0.0" y="0.0" width="304" height="47"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MA2-AF-jWM">
+                                        <rect key="frame" x="268" y="10" width="28" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="AYd-kH-92N"/>
+                                            <constraint firstAttribute="width" constant="28" id="iyz-KA-ohz"/>
+                                        </constraints>
+                                        <state key="normal" image="icon-star"/>
+                                    </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ask-BF-Iu4">
                                         <rect key="frame" x="12" y="12" width="24" height="24"/>
                                         <constraints>
@@ -43,14 +51,6 @@
                                         <color key="textColor" red="0.5725490196078431" green="0.58039215686274503" blue="0.58823529411764708" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MA2-AF-jWM">
-                                        <rect key="frame" x="268" y="10" width="28" height="28"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="28" id="AYd-kH-92N"/>
-                                            <constraint firstAttribute="width" constant="28" id="iyz-KA-ohz"/>
-                                        </constraints>
-                                        <state key="normal" image="icon-star"/>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHp-K6-enH">
                                         <rect key="frame" x="232" y="10" width="28" height="28"/>
                                         <constraints>
@@ -100,7 +100,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ltC-Rn-jCT">
-                                <rect key="frame" x="12" y="143.5" width="134" height="33.5"/>
+                                <rect key="frame" x="12" y="143.5" width="134" height="32.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <inset key="titleEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="-8" minY="0.0" maxX="0.0" maxY="0.0"/>

@@ -37,6 +37,8 @@ enum STSocketRequestBuilder {
     
     case loadPersonalPosts(page: Int, pageSize: Int)
     
+    case favorite(postId: Int, favorite: Bool)
+    
     
     var request: STSocketRequest {
         
@@ -64,7 +66,6 @@ enum STSocketRequestBuilder {
             // payload
             self.addToPayload(&payLoad, type: .path, value: "/api/post")
             self.addToPayload(&payLoad, type: .method, value: "GET")
-            self.addToPayload(&payLoad, type: .query, value: query)
             
             break
             
@@ -128,11 +129,24 @@ enum STSocketRequestBuilder {
             // payload
             self.addToPayload(&payLoad, type: .path, value: "/api/post")
             self.addToPayload(&payLoad, type: .method, value: "GET")
-            self.addToPayload(&payLoad, type: .query, value: query)
+            
+            break
+            
+        case .favorite(let postId, let favorite):
+            
+            // payload
+            self.addToPayload(&payLoad, type: .path, value: "/api/post/\(postId)")
+            self.addToPayload(&payLoad, type: .method, value: "PUT")
+            self.addToPayload(&payLoad, type: .body, value: ["is_favorite" : favorite])
             
             break
         }
      
+        if query.count > 0 {
+            
+            self.addToPayload(&payLoad, type: .query, value: query)
+        }
+        
         let requestId = UUID().uuidString
         self.addToPayload(&payLoad, type: .requestId, value: requestId)
         

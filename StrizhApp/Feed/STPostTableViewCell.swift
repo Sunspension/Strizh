@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReactiveKit
 
 class STPostTableViewCell: UITableViewCell {
 
@@ -38,6 +39,8 @@ class STPostTableViewCell: UITableViewCell {
     @IBOutlet weak var separator: UIView!
     
     @IBOutlet weak var header: UIView!
+    
+    var bag = DisposeBag()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -72,6 +75,7 @@ class STPostTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         
         userIcon.image = nil
+        bag.dispose()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

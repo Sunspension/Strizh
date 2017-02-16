@@ -9,8 +9,11 @@
 import UIKit
 import BrightFutures
 import AlamofireImage
+import ReactiveKit
 
 class STFeedDataSourceWrapper {
+    
+    private var itemFavoriteNotification = "itemFavoriteNotification"
     
     private var status = STLoadingStatusEnum.idle
     
@@ -26,7 +29,7 @@ class STFeedDataSourceWrapper {
     
     private var hasMore = false
     
-    private var onDataSourceChanged:(() -> Void)?
+    private var onDataSourceChanged:((_ animation: Bool) -> Void)?
     
     private var isFavorite: Bool
 
@@ -47,17 +50,56 @@ class STFeedDataSourceWrapper {
     
     var files = Set<STFile>()
     
+    var posts = [STPost]()
+    
     var onStartLoading:(() -> Void)?
     
     var onStopLoading:(() -> Void)?
     
+    var bag = DisposeBag()
+    
+    
+    deinit {
+        
+        bag.dispose()
+    }
+    
+    
     init(pageSize: Int = 20, isFavorite: Bool = false,
-         isPersonal: Bool = false, onDataSourceChanged:(() -> Void)? = nil) {
+         isPersonal: Bool = false, onDataSourceChanged:((_ animation: Bool) -> Void)? = nil) {
         
         self.pageSize = pageSize
         self.isFavorite = isFavorite
         self.isPersonal = isPersonal
         self.onDataSourceChanged = onDataSourceChanged
+        
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(self.itemFavoriteNotification), object: nil).observeNext { [unowned self] notification in
+            
+            let post = notification.object as! STPost
+            
+            if self.isFavorite {
+                
+                if post.isFavorite {
+                    
+                    self.section.insert(at: 0, item: post)
+                }
+                else {
+                    
+                    self.section.items = self.section.items.filter({ $0.item.id != post.id })
+                }
+                
+                self.onDataSourceChanged?(false)
+            }
+            else {
+                
+                if let item = self.section.items.filter({ $0.item.id == post.id }).first {
+                    
+                    item.item.isFavorite = post.isFavorite
+                    self.onDataSourceChanged?(false)
+                }
+            }
+            
+        }.dispose(in: self.bag)
     }
     
     func initialize() {
@@ -77,6 +119,21 @@ class STFeedDataSourceWrapper {
             cell.iconFavorite.isSelected = post.isFavorite
             cell.postType.isSelected = post.type == 2 ? true : false
             cell.postTime.text = post.createdAt?.elapsedInterval()
+            
+            cell.iconFavorite.reactive.tap.observe {_ in
+                
+                let favorite = !cell.iconFavorite.isSelected
+                cell.iconFavorite.isSelected = favorite
+                
+                AppDelegate.appSettings.api.favorite(postId: post.id, favorite: favorite)
+                    .onSuccess(callback: { [unowned self] postResponse in
+                        
+                        post.isFavorite = postResponse.isFavorite
+                        
+                        NotificationCenter.default.post(name: NSNotification.Name(self.itemFavoriteNotification), object: postResponse)
+                    })
+                
+            }.dispose(in: cell.bag)
             
             if post.dateFrom != nil && post.dateTo != nil {
                 
@@ -220,6 +277,8 @@ class STFeedDataSourceWrapper {
                     self.users.insert(user)
                 })
                 
+                self.posts.append(contentsOf: feed.posts)
+                
                 feed.posts.forEach { post in
                     
                     self.section.add(item: post)
@@ -246,17 +305,18 @@ class STFeedDataSourceWrapper {
                 
                 if notify {
                     
-                    self.onDataSourceChanged?()
+                    self.onDataSourceChanged?(false)
                 }
             }
             .onFailure { [unowned self] error in
                 
                 self.onStopLoading?()
+                
                 print(error.localizedDescription)
                 
                 if notify {
                     
-                    self.onDataSourceChanged?()
+                    self.onDataSourceChanged?(false)
                 }
                 
                 self.status = .failed

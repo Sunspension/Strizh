@@ -205,10 +205,18 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         tableView.tableHeaderView = searchController.searchBar
     }
     
-    private func onDataSourceChanged() {
+    private func onDataSourceChanged(animation: Bool) {
         
         self.tableView.hideBusy()
-        self.tableView.reloadData()
+        
+        if animation {
+            
+            self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        }
+        else {
+            
+            self.tableView.reloadData()
+        }
     }
     
     private func onStartLoading() {
