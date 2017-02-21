@@ -33,16 +33,16 @@ protocol PRemoteServerApi {
     
     func logout() -> Future<STSession, STAuthorizationError>
     
-    func uploadImage(image: UIImage) -> Future<STImage, STImageUploadError>
+    func uploadImage(image: UIImage) -> Future<STFile, STImageUploadError>
     
     func onValidSession() -> Void
     
     func updateUserInformation(transport: STServerRequestTransport,
                                userId: Int,
-                               firstName: String?,
-                               lastName: String?,
+                               firstName: String,
+                               lastName: String,
                                email: String?,
-                               imageId: Int?) -> Future<STUser, STError>
+                               imageId: Int64?) -> Future<STUser, STError>
     
     func loadUser(transport: STServerRequestTransport, userId: Int) -> Future<STUser, STError>
     

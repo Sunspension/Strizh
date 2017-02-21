@@ -65,7 +65,7 @@ struct STServerApi: PRemoteServerApi {
         return self.httpManager.logout()
     }
     
-    func uploadImage(image: UIImage) -> Future<STImage, STImageUploadError> {
+    func uploadImage(image: UIImage) -> Future<STFile, STImageUploadError> {
 
         return self.httpManager.uploadImage(image: image)
     }
@@ -79,10 +79,10 @@ struct STServerApi: PRemoteServerApi {
     
     func updateUserInformation(transport: STServerRequestTransport,
                                userId: Int,
-                               firstName: String? = nil,
-                               lastName: String? = nil,
+                               firstName: String,
+                               lastName: String,
                                email: String? = nil,
-                               imageId: Int? = nil) -> Future<STUser, STError>{
+                               imageId: Int64? = nil) -> Future<STUser, STError>{
         
         if transport == .http {
             
@@ -94,7 +94,11 @@ struct STServerApi: PRemoteServerApi {
         }
         else {
             
-            fatalError()
+            return self.socket.updateUserInformation(userId: userId,
+                                                     firstName: firstName,
+                                                     lastName: lastName,
+                                                     email: email,
+                                                     imageId: imageId)
         }
     }
     

@@ -7,18 +7,31 @@
 //
 
 import UIKit
+import ReactiveKit
 
 class STEditProfileHeaderCell: UITableViewCell {
 
-    @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var userImage: UIButton!
     
-    @IBOutlet weak var deleteAvater: UIButton!
+    @IBOutlet weak var deleteAvatar: UIButton!
+
+    var bag = DisposeBag()
     
+    deinit {
+        
+        bag.dispose()
+    }
+    
+    override func prepareForReuse() {
+        
+        bag.dispose()
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        deleteAvater.setTitleColor(UIColor.stBrick, for: .normal)
+        deleteAvatar.setTitleColor(UIColor.stBrick, for: .normal)
+        userImage.imageView?.contentMode = .scaleAspectFill
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

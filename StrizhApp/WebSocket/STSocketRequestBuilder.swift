@@ -39,6 +39,11 @@ enum STSocketRequestBuilder {
     
     case favorite(postId: Int, favorite: Bool)
     
+    case updateUserInformation(userId: Int,
+        firstName: String?,
+        lastName: String?,
+        email: String?,
+        imageId: Int64?)
     
     var request: STSocketRequest {
         
@@ -53,6 +58,30 @@ enum STSocketRequestBuilder {
             
             self.addToPayload(&payLoad, type: .path, value: "/api/user/\(id)")
             self.addToPayload(&payLoad, type: .method, value: "GET")
+            
+            break
+            
+        case .updateUserInformation(let userId, let firstName, let lastName, let email, let imageId):
+            
+            self.addToPayload(&payLoad, type: .path, value: "/api/user/\(userId)")
+            self.addToPayload(&payLoad, type: .method, value: "PUT")
+            
+            var body = [String : Any]()
+            
+            body["first_name"] = firstName
+            body["last_name"] = lastName
+            
+            if let email = email {
+                
+                body["email"] = email
+            }
+            
+            if let imageId = imageId {
+                
+                body["image_id"] = imageId
+            }
+            
+            self.addToPayload(&payLoad, type: .body, value: body)
             
             break
             

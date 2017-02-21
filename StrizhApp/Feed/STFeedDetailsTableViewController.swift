@@ -59,6 +59,7 @@ class STFeedDetailsTableViewController: UIViewController {
         self.tableView.register(cell: STPostDetailsMapsCell.self)
         self.tableView.register(cell: STPostDetailsCollectionViewCell.self)
         self.tableView.register(cell: STCommonButtonCell.self)
+        self.tableView.register(cell: STCommonLabelCell.self)
         
         self.navigationItem.title = "Информация"
     
@@ -82,7 +83,6 @@ class STFeedDetailsTableViewController: UIViewController {
                                 let viewCell = cell as! STPostDetailsMainInfoCell
                                 
                                 viewCell.postTitle.text = post.title
-                                viewCell.postDetails.text = post.postDescription
                                 viewCell.favorite.isSelected = post.isFavorite
                                 viewCell.postType.isSelected = post.type == 2 ? true : false
                                 viewCell.postTime.text = post.createdAt?.elapsedInterval()
@@ -236,6 +236,19 @@ class STFeedDetailsTableViewController: UIViewController {
                                         viewCell.title.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 0)
                 })
             })
+        }
+        
+        if post.postDescription.isEmpty {
+            
+           return
+        }
+        
+        self.tableSection.addItem(cellClass: STCommonLabelCell.self, item: post) { (cell, item) in
+            
+            let viewCell = cell as! STCommonLabelCell
+            let post = item.item as! STPost
+            
+            viewCell.value.text = post.postDescription
         }
     }
 }

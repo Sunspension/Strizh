@@ -693,9 +693,9 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         }
     }
     
-    private func updateUserInfo(firstName: String? = nil,
-                                lastName: String? = nil,
-                                imageId: Int? = nil,
+    private func updateUserInfo(firstName: String,
+                                lastName: String,
+                                imageId: Int64? = nil,
                                 callBack: @escaping (_ error: Error?) -> Void) {
         
         if let session = STSession.objects(by: STSession.self).first {

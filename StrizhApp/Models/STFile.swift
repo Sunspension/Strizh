@@ -11,7 +11,7 @@ import ObjectMapper
 
 struct STFile: Mappable, Hashable, Equatable {
     
-    var id = 0
+    var id: Int64 = 0
     
     var createdAt = Date()
     

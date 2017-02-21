@@ -61,6 +61,32 @@ class STWebSocket {
         return p.future
     }
     
+    func updateUserInformation(userId: Int,
+                               firstName: String,
+                               lastName: String,
+                               email: String? = nil,
+                               imageId: Int64? = nil) -> Future<STUser, STError>{
+    
+        let p = Promise<STUser, STError>()
+        
+        let request = STSocketRequestBuilder.updateUserInformation(userId: userId,
+                                                                   firstName: firstName,
+                                                                   lastName: lastName,
+                                                                   email: email,
+                                                                   imageId: imageId).request
+        
+        self.sendRequest(request: request) { json in
+            
+            if let user = STUser(JSON: json) {
+                
+                p.success(user)
+            }
+        }
+        
+        return p.future
+    }
+    
+    
     func loadFeed(filter: STFeedFilter, page: Int, pageSize: Int,
                   isFavorite: Bool, searchString: String?) -> Future<STFeed, STError> {
         
