@@ -86,10 +86,12 @@ enum STSocketRequestBuilder {
             if isFavorite {
                 
                 filters["is_favorite"] = true
+//                self.addToQuery(&query, type: .sortingOrder, value: ["updated_at" : "desc"])
             }
             else {
                 
                 filters["feed"] = true
+//                self.addToQuery(&query, type: .sortingOrder, value: ["id" : "desc"])
             }
             
             // archived
@@ -123,8 +125,6 @@ enum STSocketRequestBuilder {
             
             self.addToQuery(&query, type: .filters, value: filters)
             self.addToQuery(&query, type: .extend, value: "user, file, location, image")
-            
-//            self.addToQuery(&query, type: .conditions, value: ["id" : [">" : 0]])
             
             // payload
             self.addToPayload(&payLoad, type: .path, value: "/api/post")
