@@ -16,24 +16,24 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Показывать архивные темы" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bdf-8T-G0v">
-                        <rect key="frame" x="16" y="13" width="239" height="21"/>
+                        <rect key="frame" x="16" y="13" width="231" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LDy-0G-oKU">
-                        <rect key="frame" x="263" y="8" width="51" height="31"/>
+                        <rect key="frame" x="255" y="8" width="51" height="31"/>
                     </switch>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="LDy-0G-oKU" secondAttribute="bottom" priority="750" constant="8" id="1z4-ba-Od0"/>
                     <constraint firstItem="bdf-8T-G0v" firstAttribute="centerY" secondItem="LDy-0G-oKU" secondAttribute="centerY" id="3df-l9-zUw"/>
                     <constraint firstItem="LDy-0G-oKU" firstAttribute="leading" secondItem="bdf-8T-G0v" secondAttribute="trailing" constant="8" id="5Ie-u0-Baj"/>
-                    <constraint firstAttribute="trailing" secondItem="LDy-0G-oKU" secondAttribute="trailing" constant="8" id="ffr-pr-Mt4"/>
+                    <constraint firstAttribute="trailing" secondItem="LDy-0G-oKU" secondAttribute="trailing" constant="16" id="ffr-pr-Mt4"/>
                     <constraint firstItem="bdf-8T-G0v" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="lu8-kd-Q82"/>
                     <constraint firstItem="LDy-0G-oKU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="rhN-bs-Sq8"/>
                 </constraints>

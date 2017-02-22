@@ -10,6 +10,7 @@ import UIKit
 import RealmSwift
 import AlamofireImage
 import Bond
+import ReactiveKit
 
 class STProfileTableViewController: UITableViewController {
     
@@ -33,7 +34,14 @@ class STProfileTableViewController: UITableViewController {
         
         return hasMore && status != .loading
     }
+
+    private var bag = DisposeBag()
     
+    
+    deinit {
+        
+        bag.dispose()
+    }
     
     override func viewDidLoad() {
         
@@ -78,6 +86,16 @@ class STProfileTableViewController: UITableViewController {
                     })
             }
         }
+        
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kUserUpdatedNotification),
+                                                         object: nil).observeNext { [unowned self] notification in
+                                                            
+                                                            if let user = STUser.objects(by: STUser.self).first {
+                                                                
+                                                                self.user = user
+                                                                self.tableView.reloadSections(IndexSet(integer: 0), with: .none)
+                                                            }
+            }.dispose(in: bag)
     }
     
     private func createHeader() {
@@ -111,14 +129,8 @@ class STProfileTableViewController: UITableViewController {
                 
                 if let imageData = user.imageData {
                     
-                    DispatchQueue.global().async {
-                        
-                        DispatchQueue.main.async {
-                            
-                            viewCell.userImage.image = UIImage(data: imageData)
-                            viewCell.userImage.makeCircular()
-                        }
-                    }
+                    viewCell.userImage.image = UIImage(data: imageData)
+                    viewCell.userImage.makeCircular()
                 }
                 else {
                     

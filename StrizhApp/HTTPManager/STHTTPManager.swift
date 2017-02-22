@@ -208,15 +208,15 @@ class STHTTPManager {
         return p.future
     }
     
-    func uploadImage(image: UIImage) -> Future<STImage, STImageUploadError> {
+    func uploadImage(image: UIImage) -> Future<STFile, STImageUploadError> {
         
-        let p = Promise<STImage, STImageUploadError>()
+        let p = Promise<STFile, STImageUploadError>()
         
         STHTTPManager.alamofireManager.upload(multipartFormData: { multipartFormData in
             
             if let data = UIImageJPEGRepresentation(image, 0.85) {
                 
-                multipartFormData.append(data, withName: "file", fileName: "jpg", mimeType: "image/jpeg")
+                multipartFormData.append(data, withName: "file", fileName: UUID().uuidString + ".jpg", mimeType: "image/jpeg")
             }
             
         }, to: serverBaseUrlString + "/api/image") { encodingResult in
@@ -255,7 +255,7 @@ class STHTTPManager {
                             print("Response result: \(response.result.value)")
                         }
                     }
-                    .responseObject(keyPath: "data") { (response: DataResponse<STImage>) in
+                    .responseObject(keyPath: "data") { (response: DataResponse<STFile>) in
                         
                         guard response.result.error == nil else {
                             
@@ -277,22 +277,15 @@ class STHTTPManager {
     
     
     func updateUserInformation(userId: Int,
-                               firstName: String? = nil,
-                               lastName: String? = nil,
+                               firstName: String,
+                               lastName: String,
                                email: String? = nil,
-                               imageId: Int? = nil) -> Future<STUser, STError>{
+                               imageId: Int64? = nil) -> Future<STUser, STError> {
         
         var params = [String : Any]()
         
-        if let firstName = firstName {
-            
-            params["first_name"] = firstName
-        }
-        
-        if let lastName = lastName {
-            
-            params["last_name"] = lastName
-        }
+        params["first_name"] = firstName
+        params["last_name"] = lastName
         
         if let email = email {
             
@@ -301,7 +294,7 @@ class STHTTPManager {
         
         if let image = imageId {
             
-            params["imaged_id"] = image
+            params["image_id"] = image
         }
         
         let p = Promise<STUser, STError>()

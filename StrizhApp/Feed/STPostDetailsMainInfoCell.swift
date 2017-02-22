@@ -22,8 +22,6 @@ class STPostDetailsMainInfoCell: UITableViewCell {
     
     @IBOutlet weak var postTitle: UILabel!
     
-    @IBOutlet weak var postDetails: UILabel!
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -232,7 +232,7 @@ class STFeedDataSourceWrapper {
         
         return self.files.filter({ file -> Bool in
             
-            return post.fileIds.contains(where: { $0.value == file.id })
+            return post.fileIds.contains(where: { Int64($0.value) == file.id })
         })
     }
     

@@ -8,14 +8,19 @@
 
 import UIKit
 import AlamofireImage
+import SHSPhoneComponent
+import ReactiveKit
+import Bond
+import NVActivityIndicatorView
 
 private enum EditProfileFieldsEnum {
     
     case firstName, lastName, email
 }
 
-class STEditProfileController: UITableViewController, UITextFieldDelegate {
-
+class STEditProfileController: UITableViewController, UITextFieldDelegate,
+UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndicatorViewable {
+    
     private let dataSource = TableViewDataSource()
     
     private var userImageSection = CollectionSection()
@@ -23,6 +28,16 @@ class STEditProfileController: UITableViewController, UITextFieldDelegate {
     private var userInfoSection = CollectionSection()
     
     private var user: STUser?
+    
+    private var observableImage = Observable(UIImage())
+    
+    private var userImage: UIImage?
+    
+    private var firstName: String?
+    
+    private var lastName: String?
+    
+    private var email: String?
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,7 +55,7 @@ class STEditProfileController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.tableView.tableFooterView = UIView()
         self.tableView.backgroundColor = UIColor.stLightBlueGrey
         self.tableView.estimatedRowHeight = 44
@@ -66,6 +81,24 @@ class STEditProfileController: UITableViewController, UITextFieldDelegate {
         self.createDataSource()
     }
     
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+        self.presentedViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+//        let originalImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
+        
+        let croppedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
+        
+        self.userImage = croppedImage
+        self.observableImage.value = croppedImage
+        
+        self.presentedViewController?.dismiss(animated: true, completion: nil)
+    }
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -73,6 +106,11 @@ class STEditProfileController: UITableViewController, UITextFieldDelegate {
     }
     
     func save() {
+        
+        guard self.user != nil else {
+            
+            return
+        }
         
         var errors = [String]()
         
@@ -103,11 +141,22 @@ class STEditProfileController: UITableViewController, UITextFieldDelegate {
             return
         }
         
-//        api.updateUserInformation(transport: .webSocket,
-//                                  userId: self.user!.id,
-//                                  firstName: <#T##String?#>, lastName: <#T##String?#>, email: <#T##String?#>, imageId: <#T##Int?#>)
+        self.startAnimating()
         
-        self.dismiss(animated: true, completion: nil)
+        self.submitUserInfo() { error in
+            
+            self.stopAnimating()
+            
+            guard error == nil else {
+                
+                self.showError(error: error!)
+                return
+            }
+            
+            NotificationCenter.default.post(Notification(name: Notification.Name(kUserUpdatedNotification)))
+            
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     func close() {
@@ -123,17 +172,80 @@ class STEditProfileController: UITableViewController, UITextFieldDelegate {
                 
                 let viewCell = cell as! STEditProfileHeaderCell
                 viewCell.selectionStyle = .none
+                viewCell.layoutMargins = UIEdgeInsets.zero
+                viewCell.separatorInset = UIEdgeInsets.zero
+                
+                viewCell.userImage.reactive.tap.observe {[unowned viewCell, unowned self] _ in
+                
+                    let alert = UIAlertController(title: "Фото", message: "", preferredStyle: .actionSheet)
+                    let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+                    
+                    self.observableImage.observeNext{ image in
+                        
+                        guard image.cgImage?.width != nil, image.cgImage?.height != nil else {
+                            
+                            return
+                        }
+                        
+                        viewCell.userImage.setImage(image, for: .normal)
+                        
+                    }.dispose(in: viewCell.bag)
+                    
+                    let choosePhotoAction = UIAlertAction(title: "Выбрать фото", style: .default) { [unowned self] action in
+                        
+                        if !UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                            
+                            self.showOkAlert(title: "Нет доступа к Фото",
+                                             message: "Не удалось получить доступ к Фото на вашем устройстве")
+                            return
+                        }
+                        
+                        let pickerController = UIImagePickerController()
+                        pickerController.sourceType = .photoLibrary
+                        pickerController.allowsEditing = true
+                        pickerController.delegate = self
+                        
+                        self.present(pickerController, animated: true, completion: nil)
+                    }
+                    
+                    let takePhotoAction = UIAlertAction(title: "Сделать фото", style: .default) { [unowned self] action in
+                        
+                        if !UIImagePickerController.isSourceTypeAvailable(.camera) {
+                            
+                            self.showOkAlert(title: "Нет доступа к Камере",
+                                             message: "Не удалось получить доступ к Камере на вашем устройстве")
+                            
+                            return
+                        }
+                        
+                        let pickerController = UIImagePickerController()
+                        pickerController.sourceType = .camera
+                        pickerController.allowsEditing = true
+                        pickerController.delegate = self
+                        
+                        self.present(pickerController, animated: true, completion: nil)
+                    }
+                    
+                    alert.addAction(choosePhotoAction)
+                    alert.addAction(takePhotoAction)
+                    alert.addAction(cancelAction)
+                    
+                    self.present(alert, animated: true, completion: nil)
+                    
+                }.dispose(in: viewCell.bag)
+                
+                viewCell.deleteAvatar.reactive.tap.observe { [unowned viewCell, unowned self] _ in
+                    
+                    viewCell.userImage.setImage(UIImage(named: "avatar"), for: .normal)
+                    self.userImage = nil
+                    self.observableImage.value = UIImage()
+                    
+                }.dispose(in: viewCell.bag)
                 
                 if let data = user.imageData {
                     
-                    DispatchQueue.global().async {
-                        
-                        DispatchQueue.main.async {
-                            
-                            viewCell.userImage.image = UIImage(data: data)
-                            viewCell.userImage.makeCircular()
-                        }
-                    }
+                    viewCell.userImage.setImage(UIImage(data: data), for: .normal)
+                    viewCell.userImage.makeCircular()
                 }
                 else {
                     
@@ -147,7 +259,7 @@ class STEditProfileController: UITableViewController, UITextFieldDelegate {
                         let urlString = user.imageUrl + queryResize
                         
                         let filter = RoundedCornersFilter(radius: viewCell.userImage.bounds.size.width)
-                        viewCell.userImage.af_setImage(withURL: URL(string: urlString)!, filter: filter)
+                        viewCell.userImage.af_setImage(for: .normal, url: URL(string: urlString)!, filter: filter)
                     }
                 }
             }
@@ -156,56 +268,181 @@ class STEditProfileController: UITableViewController, UITextFieldDelegate {
         self.userInfoSection.addItem(cellClass: STEditProfileTextCell.self,
                                      item: self.user,
                                      itemType: EditProfileFieldsEnum.firstName) { (cell, item) in
-            
-            if let user = self.user {
-                
-                let viewCell = cell as! STEditProfileTextCell
-                
-                viewCell.title.text = "Имя"
-                viewCell.value.placeholder = "Введите имя"
-                viewCell.value.text = user.firstName
-                viewCell.selectionStyle = .none
-                
-                item.validation = {
-                
-                    return !viewCell.value.text!.isEmpty
-                }
-            }
+                                        
+                                        if let user = self.user {
+                                            
+                                            let viewCell = cell as! STEditProfileTextCell
+                                            
+                                            viewCell.title.text = "Имя"
+                                            viewCell.value.placeholder = "Введите имя"
+                                            viewCell.value.text = user.firstName
+                                            viewCell.selectionStyle = .none
+                                            viewCell.layoutMargins = UIEdgeInsets.zero
+                                            viewCell.separatorInset = UIEdgeInsets.zero
+                                            
+                                            viewCell.value.reactive.text.observeNext { [unowned self] text in
+                                                
+                                                self.firstName = text
+                                                
+                                                }.dispose(in: viewCell.bag)
+                                            
+                                            item.validation = {
+                                                
+                                                return !viewCell.value.text!.isEmpty
+                                            }
+                                        }
         }
         
         self.userInfoSection.addItem(cellClass: STEditProfileTextCell.self,
                                      item: self.user,
                                      itemType: EditProfileFieldsEnum.lastName) { (cell, item) in
-            
-            if let user = self.user {
-                
-                let viewCell = cell as! STEditProfileTextCell
-                
-                viewCell.title.text = "Фамилия"
-                viewCell.value.placeholder = "Введите фамилию"
-                viewCell.value.text = user.lastName
-                viewCell.selectionStyle = .none
-                
-                item.validation = {
-                    
-                    return !viewCell.value.text!.isEmpty
-                }
-            }
+                                        
+                                        if let user = self.user {
+                                            
+                                            let viewCell = cell as! STEditProfileTextCell
+                                            
+                                            viewCell.title.text = "Фамилия"
+                                            viewCell.value.placeholder = "Введите фамилию"
+                                            viewCell.value.text = user.lastName
+                                            viewCell.selectionStyle = .none
+                                            viewCell.layoutMargins = UIEdgeInsets.zero
+                                            viewCell.separatorInset = UIEdgeInsets.zero
+                                            
+                                            viewCell.value.reactive.text.observeNext { [unowned self] text in
+                                                
+                                                self.lastName = text
+                                                
+                                            }.dispose(in: viewCell.bag)
+                                            
+                                            item.validation = {
+                                                
+                                                return !viewCell.value.text!.isEmpty
+                                            }
+                                        }
         }
         
         self.userInfoSection.addItem(cellClass: STEditProfileTextCell.self,
                                      item: self.user,
                                      itemType: EditProfileFieldsEnum.email) { (cell, item) in
+                                        
+                                        if let user = self.user {
+                                            
+                                            let viewCell = cell as! STEditProfileTextCell
+                                            
+                                            viewCell.title.text = "Почта"
+                                            viewCell.value.placeholder = "Введите e-mail"
+                                            viewCell.value.text = user.email
+                                            viewCell.selectionStyle = .none
+                                            viewCell.layoutMargins = UIEdgeInsets.zero
+                                            viewCell.separatorInset = UIEdgeInsets.zero
+                                            
+                                            viewCell.value.reactive.text.observeNext { [unowned self] text in
+                                                
+                                                self.email = text
+                                                
+                                            }.dispose(in: viewCell.bag)
+                                        }
+        }
+        
+        self.userInfoSection.addItem(cellClass: STEditProfileTextCell.self,
+                                     item: self.user,
+                                     itemType: EditProfileFieldsEnum.email) { (cell, item) in
+                                        
+                                        if let user = self.user {
+                                            
+                                            let viewCell = cell as! STEditProfileTextCell
+                                            
+                                            viewCell.title.text = "Телефон"
+                                            viewCell.value.placeholder = ""
+                                            viewCell.selectionStyle = .none
+                                            viewCell.layoutMargins = UIEdgeInsets.zero
+                                            viewCell.separatorInset = UIEdgeInsets.zero
+                                            
+                                            let formatter = SHSPhoneNumberFormatter()
+                                            
+                                            formatter.prefix = "+7"
+                                            formatter.setDefaultOutputPattern(" (###) ### ## ##")
+                                            
+                                            let phone = String(user.phone.characters.dropFirst())
+                                            viewCell.value.text = formatter.formattedPhone(phone: phone)
+                                            viewCell.value.isUserInteractionEnabled = false
+                                            viewCell.title.textColor = UIColor.stPinkishGreyTwo
+                                            viewCell.value.textColor = UIColor.stPinkishGreyTwo
+                                            viewCell.contentView.backgroundColor = UIColor.stWhiteTwo
+                                        }
+        }
+    }
+    
+    private func submitUserInfo(callBack: @escaping (_ error: Error?) -> Void) {
+        
+        if let image = self.userImage {
             
-            if let user = self.user {
+            api.uploadImage(image: image)
                 
-                let viewCell = cell as! STEditProfileTextCell
+                .onSuccess(callback: { [unowned self] imageResponse in
+                    
+                    let firstName = self.firstName ?? self.user!.firstName
+                    let lastName = self.lastName ?? self.user!.lastName
+                    let email = self.email ?? self.user!.email
+                    
+                    self.updateUserInfo(firstName: firstName,
+                                        lastName: lastName,
+                                        email: email,
+                                        imageId: imageResponse.id,
+                                        callBack: callBack)
+                })
+                .onFailure(callback: { error in
+                    
+                    callBack(error)
+                })
+        }
+        else {
+            
+            if self.firstName == nil && self.lastName == nil && self.email == nil {
                 
-                viewCell.title.text = "Почта"
-                viewCell.value.placeholder = "Введите e-mail"
-                viewCell.value.text = user.email
-                viewCell.selectionStyle = .none
+                return
             }
+            
+            let firstName = self.firstName ?? self.user!.firstName
+            let lastName = self.lastName ?? self.user!.lastName
+            let email = self.email ?? self.user!.email
+            
+            self.updateUserInfo(firstName: firstName,
+                                lastName: lastName,
+                                email: email,
+                                callBack: callBack)
+        }
+    }
+    
+    private func updateUserInfo(firstName: String,
+                                lastName: String,
+                                email: String? = nil,
+                                imageId: Int64? = nil,
+                                callBack: @escaping (_ error: Error?) -> Void) {
+        
+        if let session = STSession.objects(by: STSession.self).first {
+            
+            api.updateUserInformation(transport: .webSocket, userId: session.userId, firstName: firstName,
+                                      lastName: lastName, email: nil, imageId: imageId)
+                .onSuccess(callback: { user in
+                    
+                    if let image = self.userImage {
+                        
+                        user.updateUserImageInDB(image: image)
+                    }
+                    
+                    user.writeToDB()
+                    callBack(nil)
+                })
+                .onFailure(callback: { error in
+                    
+                    callBack(error)
+                })
+        }
+        else {
+            
+            // no session
+            fatalError()
         }
     }
 }

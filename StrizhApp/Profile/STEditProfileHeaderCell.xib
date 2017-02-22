@@ -19,13 +19,18 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="153"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZjS-aZ-ovL">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cCO-qH-EY9">
+                        <rect key="frame" x="111" y="132" width="98" height="5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <state key="normal" title="Удалить аватар"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R4t-Qu-IlA">
                         <rect key="frame" x="115" y="30" width="90" height="90"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="90" id="aZZ-4n-gTO"/>
-                            <constraint firstAttribute="height" constant="90" id="zvj-Rd-b9q"/>
+                            <constraint firstAttribute="width" constant="90" id="ifj-iw-ezN"/>
+                            <constraint firstAttribute="height" constant="90" id="jKb-sV-PpB"/>
                         </constraints>
-                    </imageView>
+                    </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-photo-edit" translatesAutoresizingMaskIntoConstraints="NO" id="3Qk-Tc-V40">
                         <rect key="frame" x="183" y="98" width="22" height="22"/>
                         <constraints>
@@ -33,26 +38,21 @@
                             <constraint firstAttribute="height" constant="22" id="aMI-fd-iyy"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cCO-qH-EY9">
-                        <rect key="frame" x="111" y="132" width="98" height="5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <state key="normal" title="Удалить аватар"/>
-                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="3Qk-Tc-V40" firstAttribute="bottom" secondItem="ZjS-aZ-ovL" secondAttribute="bottom" id="4yr-te-Rq3"/>
+                    <constraint firstItem="cCO-qH-EY9" firstAttribute="top" secondItem="R4t-Qu-IlA" secondAttribute="bottom" constant="12" id="Af1-Fk-okQ"/>
                     <constraint firstItem="cCO-qH-EY9" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="BNI-NA-YcD"/>
-                    <constraint firstItem="ZjS-aZ-ovL" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Fe4-ZA-dFy"/>
-                    <constraint firstItem="cCO-qH-EY9" firstAttribute="top" secondItem="ZjS-aZ-ovL" secondAttribute="bottom" constant="12" id="Mgk-5c-lrb"/>
+                    <constraint firstItem="3Qk-Tc-V40" firstAttribute="trailing" secondItem="R4t-Qu-IlA" secondAttribute="trailing" id="QTQ-qW-wkW"/>
                     <constraint firstAttribute="bottomMargin" secondItem="cCO-qH-EY9" secondAttribute="bottom" constant="8" id="cqH-Wf-3QS"/>
-                    <constraint firstItem="ZjS-aZ-ovL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="22" id="gvW-31-Snj"/>
-                    <constraint firstItem="3Qk-Tc-V40" firstAttribute="trailing" secondItem="ZjS-aZ-ovL" secondAttribute="trailing" id="nGt-Sd-PQh"/>
+                    <constraint firstItem="3Qk-Tc-V40" firstAttribute="bottom" secondItem="R4t-Qu-IlA" secondAttribute="bottom" id="i9u-Xs-ojb"/>
+                    <constraint firstItem="R4t-Qu-IlA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="22" id="rF4-qd-Wp8"/>
+                    <constraint firstItem="R4t-Qu-IlA" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="xRM-ZX-A3P"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
-                <outlet property="deleteAvater" destination="cCO-qH-EY9" id="CBt-xA-ok1"/>
-                <outlet property="userImage" destination="ZjS-aZ-ovL" id="hls-9i-w4v"/>
+                <outlet property="deleteAvatar" destination="cCO-qH-EY9" id="YMp-We-jZB"/>
+                <outlet property="userImage" destination="R4t-Qu-IlA" id="3mn-VH-al6"/>
             </connections>
             <point key="canvasLocation" x="34" y="109"/>
         </tableViewCell>

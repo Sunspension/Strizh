@@ -11,6 +11,22 @@ import AlamofireImage
 
 extension STUser {
     
+    func updateUserImageInDB(image: UIImage) {
+        
+        STUser.realm.beginWrite()
+        
+        self.imageData = UIImageJPEGRepresentation(image, 1)
+        
+        do {
+            
+            try STUser.realm.commitWrite()
+        }
+        catch {
+            
+            print("Caught an error when was trying to make commit to Realm")
+        }
+    }
+    
     func updateUserImage() {
         
         if !self.imageUrl.isEmpty {

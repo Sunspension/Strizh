@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReactiveKit
 
 class STEditProfileTextCell: UITableViewCell {
 
@@ -14,10 +15,24 @@ class STEditProfileTextCell: UITableViewCell {
     
     @IBOutlet weak var value: UITextField!
     
+    var bag = DisposeBag()
+    
+    
+    deinit {
+        
+        bag.dispose()
+    }
+    
+    override func prepareForReuse() {
+        
+        bag.dispose()
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        title.text = ""
+        value.text = ""
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
