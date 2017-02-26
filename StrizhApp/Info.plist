@@ -24,6 +24,8 @@
 	<string>Разрешение на доступ к Камере для съемки фотографий</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Разрешение на доступ к Фото для использования фотографий.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Разрешение на доступ к контактам</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

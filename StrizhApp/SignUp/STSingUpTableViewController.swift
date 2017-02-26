@@ -11,6 +11,7 @@ import SHSPhoneComponent
 import NVActivityIndicatorView
 import EmitterKit
 import BrightFutures
+import Bond
 
 enum STSignUpStateEnum {
     
@@ -37,9 +38,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
     
     private var countDownTimer: CountdownTimer?
     
-    private var imageEmitter = Event<UIImage>()
-    
-    private var imageListener: EventListener<UIImage>?
+    private var observableImage = Observable(UIImage())
     
     private var textFieldEmitter = Event<Bool>()
     
@@ -227,20 +226,10 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        let originalImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
-        let rectValue = info["UIImagePickerControllerCropRect"] as? NSValue
+        let croppedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
         
-        if let cropRect = rectValue?.cgRectValue {
-            
-            let croppedImage = originalImage.cgImage!.cropping(to: cropRect)
-            
-            if let cropped = croppedImage {
-                
-                let image = UIImage(cgImage: cropped)
-                self.userImage = image
-                self.imageEmitter.emit(image)
-            }
-        }
+        self.userImage = croppedImage
+        self.observableImage.value = croppedImage
         
         self.presentedViewController?.dismiss(animated: true, completion: nil)
     }
@@ -586,10 +575,16 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 viewCell.avatarButton.makeCircular()
                 viewCell.avatarButton.addTarget(self, action: #selector(self.choosePhoto(_:)), for: .touchUpInside)
                 
-                self.imageListener = self.imageEmitter.on({ [unowned viewCell] image in
+                self.observableImage.observeNext{ image in
+                    
+                    guard image.cgImage?.width != nil, image.cgImage?.height != nil else {
+                        
+                        return
+                    }
                     
                     viewCell.avatarButton.setImage(image, for: .normal)
-                })
+                    
+                    }.dispose(in: viewCell.bag)
             }
             
             section.addItem(cellClass: STLoginTextTableViewCell.self) { [unowned self] (cell, item) in
@@ -675,9 +670,6 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 
                 .onSuccess(callback: { [unowned self] imageResponse in
                     
-                    let imageUrlString = imageResponse.url
-                    print(imageUrlString)
-                    
                     self.updateUserInfo(firstName: self.userFirstName, lastName: self.userLastName,
                                         imageId: imageResponse.id, callBack: callBack)
                 })
@@ -700,9 +692,14 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         
         if let session = STSession.objects(by: STSession.self).first {
             
-            api.updateUserInformation(transport: .http, userId: session.userId, firstName: firstName,
+            api.updateUserInformation(transport: .webSocket, userId: session.userId, firstName: firstName,
                                       lastName: lastName, email: nil, imageId: imageId)
                 .onSuccess(callback: { user in
+                    
+                    if let image = self.userImage {
+                        
+                        user.updateUserImageInDB(image: image)
+                    }
                     
                     user.writeToDB()
                     callBack(nil)

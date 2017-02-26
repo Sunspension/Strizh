@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import BrightFutures
 import AlamofireObjectMapper
+import Contacts
 
 struct STServerApi: PRemoteServerApi {
     
@@ -102,7 +103,6 @@ struct STServerApi: PRemoteServerApi {
         }
     }
     
-    
     func loadUser(transport: STServerRequestTransport, userId: Int) -> Future<STUser, STError> {
         
         if transport == .http {
@@ -130,5 +130,15 @@ struct STServerApi: PRemoteServerApi {
     func favorite(postId: Int, favorite: Bool) -> Future<STPost, STError> {
         
         return self.socket.favorite(postId: postId, favorite: favorite)
+    }
+    
+    func loadContacts() -> Future<[STContact], STError> {
+        
+        return self.socket.loadContacts()
+    }
+    
+    func uploadContacts(contacts: [CNContact]) -> Future<[STContact], STError> {
+        
+        return self.socket.uploadContacts(contacts: contacts)
     }
 }

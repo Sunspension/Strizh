@@ -12,6 +12,8 @@ enum STError: Error {
 
     case favoriteFailure
     
+    case loadContactsFailure
+    
     case anyError(error: Error)
     
     
@@ -26,6 +28,10 @@ enum STError: Error {
         case .favoriteFailure:
             
             return "Error has occurred when was trying to add to favorite or remove from favorite"
+            
+        case .loadContactsFailure:
+            
+            return "Error has occurred when was trying to load contacts"
         }
     }
 }

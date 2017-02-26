@@ -7,10 +7,23 @@
 //
 
 import UIKit
+import ReactiveKit
 
 class STLoginAvatarTableViewCell: UITableViewCell {
 
     @IBOutlet weak var avatarButton: UIButton!
+
+    var bag = DisposeBag()
+    
+    deinit {
+        
+        bag.dispose()
+    }
+    
+    override func prepareForReuse() {
+        
+        bag.dispose()
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

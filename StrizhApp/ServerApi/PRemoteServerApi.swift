@@ -9,6 +9,7 @@
 import UIKit
 import BrightFutures
 import Alamofire
+import Contacts
 
 enum STServerRequestTransport {
     
@@ -52,4 +53,8 @@ protocol PRemoteServerApi {
     func loadPersonalPosts(page: Int, pageSize: Int) -> Future<STFeed, STError>
     
     func favorite(postId: Int, favorite: Bool) -> Future<STPost, STError>
+    
+    func loadContacts() -> Future<[STContact], STError>
+    
+    func uploadContacts(contacts: [CNContact]) -> Future<[STContact], STError>
 }

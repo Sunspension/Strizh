@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Contacts
 
 private enum PayLoadParametersEnum : String {
     
@@ -44,6 +45,11 @@ enum STSocketRequestBuilder {
         lastName: String?,
         email: String?,
         imageId: Int64?)
+    
+    case loadContacts
+    
+    case uploadContacts(contacts: [CNContact])
+    
     
     var request: STSocketRequest {
         
@@ -167,6 +173,50 @@ enum STSocketRequestBuilder {
             self.addToPayload(&payLoad, type: .path, value: "/api/post/\(postId)")
             self.addToPayload(&payLoad, type: .method, value: "PUT")
             self.addToPayload(&payLoad, type: .body, value: ["is_favorite" : favorite])
+            
+            break
+            
+        case .loadContacts:
+            
+            self.addToPayload(&payLoad, type: .path, value: "/api/contact")
+            self.addToPayload(&payLoad, type: .method, value: "GET")
+            
+            break
+            
+        case .uploadContacts(let contacts):
+            
+            self.addToPayload(&payLoad, type: .path, value: "/api/contact")
+            self.addToPayload(&payLoad, type: .method, value: "POST")
+            
+            var body = [[String : Any]]()
+            
+            contacts.forEach({ contact in
+                
+                var cn = [String: Any]()
+                
+                if let phone = contact.phoneNumbers.first {
+                    
+                    var phoneNumber = phone.value.stringValue.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+                    
+                    if phoneNumber.characters.first == "8" {
+                        
+                       phoneNumber = "7" + String(phoneNumber.characters.dropFirst())
+                    }
+                    
+                    if phoneNumber.characters.count != 11 {
+                        
+                        return
+                    }
+                    
+                    cn["phone"] = phoneNumber
+                    cn["first_name"] = contact.givenName
+                    cn["last_name"] = contact.familyName
+                    
+                    body.append(cn)
+                }
+            })
+            
+            self.addToPayload(&payLoad, type: .body, value: body)
             
             break
         }

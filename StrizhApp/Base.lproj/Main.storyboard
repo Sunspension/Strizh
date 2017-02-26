@@ -39,6 +39,25 @@
             </objects>
             <point key="canvasLocation" x="1642" y="-331"/>
         </scene>
+        <!--Контакты-->
+        <scene sceneID="o5O-IN-nHs">
+            <objects>
+                <tableViewController id="Nb8-qI-Yjt" customClass="STContactsController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="lyb-z0-OPT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="Nb8-qI-Yjt" id="hPU-Sc-bR5"/>
+                            <outlet property="delegate" destination="Nb8-qI-Yjt" id="MmV-mp-WAH"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Контакты" id="aUF-J8-Jig"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8aS-fV-KHn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1641" y="349"/>
+        </scene>
         <!--Profile Table View Controller-->
         <scene sceneID="y4d-Dt-Nwq">
             <objects>
@@ -47,16 +66,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="zvF-Nh-qxT">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zvF-Nh-qxT" id="bfX-27-lbh">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="zJ6-TH-7M7" id="ham-9k-1lu"/>
                             <outlet property="delegate" destination="zJ6-TH-7M7" id="Gak-hP-TiR"/>
@@ -66,7 +75,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X1M-st-eHZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1641" y="337"/>
+            <point key="canvasLocation" x="1641" y="1026"/>
         </scene>
         <!--Feed Details Table View Controller-->
         <scene sceneID="C4w-SC-0z6">
@@ -113,7 +122,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Q0-du-cgB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2584.8000000000002" y="-331.48425787106447"/>
+            <point key="canvasLocation" x="2695" y="-331"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="PyR-Xa-JvP">
@@ -183,12 +192,13 @@
                     </tabBar>
                     <connections>
                         <segue destination="y8a-4d-R7j" kind="relationship" relationship="viewControllers" id="BDh-Jk-sBv"/>
+                        <segue destination="8hU-3R-Ujc" kind="relationship" relationship="viewControllers" id="goK-O1-TxE"/>
                         <segue destination="ibQ-gp-xhM" kind="relationship" relationship="viewControllers" id="TLD-eI-Yid"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.0" y="0.0"/>
+            <point key="canvasLocation" x="-2" y="349"/>
         </scene>
         <!--Кабинет-->
         <scene sceneID="cgH-Wg-9kZ">
@@ -207,11 +217,31 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cSm-3S-bsf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="801" y="337"/>
+            <point key="canvasLocation" x="801" y="1026"/>
+        </scene>
+        <!--Контакты-->
+        <scene sceneID="XdG-kI-5uk">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8hU-3R-Ujc" customClass="STNavigationController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Контакты" image="icon-contacts" id="rhd-M2-bI2"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zhg-1V-xPv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Nb8-qI-Yjt" kind="relationship" relationship="rootViewController" id="6cY-xk-Klu"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rvl-zM-Sn2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="801" y="349"/>
         </scene>
     </scenes>
     <resources>
         <image name="background" width="375" height="667"/>
+        <image name="icon-contacts" width="25" height="25"/>
         <image name="icon-feed" width="25" height="25"/>
         <image name="icon-profile" width="25" height="25"/>
         <image name="logo" width="140" height="115"/>

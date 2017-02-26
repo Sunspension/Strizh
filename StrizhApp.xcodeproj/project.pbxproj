@@ -20,6 +20,11 @@
 		D4194A171E46028F00D0B189 /* RealmString.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4194A151E46028F00D0B189 /* RealmString.swift */; };
 		D4194A1A1E460D4400D0B189 /* ArrayTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4194A191E460D4400D0B189 /* ArrayTransform.swift */; };
 		D4194A1E1E463F4300D0B189 /* ArrayOfCustomRealmObjectsTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4194A1D1E463F4300D0B189 /* ArrayOfCustomRealmObjectsTransform.swift */; };
+		D4227F461E61C48900BCB8B1 /* STContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4227F451E61C48900BCB8B1 /* STContact.swift */; };
+		D4227F4B1E61D0FE00BCB8B1 /* STContactsDataSourceWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4227F4A1E61D0FE00BCB8B1 /* STContactsDataSourceWrapper.swift */; };
+		D4227F4E1E61FE7600BCB8B1 /* STContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4227F4C1E61FE7600BCB8B1 /* STContactCell.swift */; };
+		D4227F4F1E61FE7600BCB8B1 /* STContactCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4227F4D1E61FE7600BCB8B1 /* STContactCell.xib */; };
+		D4227F511E62126D00BCB8B1 /* STContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4227F501E62126D00BCB8B1 /* STContactsController.swift */; };
 		D433D1041E54F56900974AB1 /* STSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D433D1031E54F56900974AB1 /* STSettingsController.swift */; };
 		D43A75601E4E610700DB0850 /* STPostDetailsMapsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43A755E1E4E610700DB0850 /* STPostDetailsMapsCell.swift */; };
 		D43A75611E4E610700DB0850 /* STPostDetailsMapsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D43A755F1E4E610700DB0850 /* STPostDetailsMapsCell.xib */; };
@@ -123,6 +128,11 @@
 		D4194A151E46028F00D0B189 /* RealmString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmString.swift; sourceTree = "<group>"; };
 		D4194A191E460D4400D0B189 /* ArrayTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayTransform.swift; sourceTree = "<group>"; };
 		D4194A1D1E463F4300D0B189 /* ArrayOfCustomRealmObjectsTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayOfCustomRealmObjectsTransform.swift; sourceTree = "<group>"; };
+		D4227F451E61C48900BCB8B1 /* STContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STContact.swift; path = Models/STContact.swift; sourceTree = "<group>"; };
+		D4227F4A1E61D0FE00BCB8B1 /* STContactsDataSourceWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STContactsDataSourceWrapper.swift; path = Contacts/STContactsDataSourceWrapper.swift; sourceTree = "<group>"; };
+		D4227F4C1E61FE7600BCB8B1 /* STContactCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STContactCell.swift; path = Contacts/STContactCell.swift; sourceTree = "<group>"; };
+		D4227F4D1E61FE7600BCB8B1 /* STContactCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STContactCell.xib; path = Contacts/STContactCell.xib; sourceTree = "<group>"; };
+		D4227F501E62126D00BCB8B1 /* STContactsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STContactsController.swift; path = Contacts/STContactsController.swift; sourceTree = "<group>"; };
 		D433D1031E54F56900974AB1 /* STSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSettingsController.swift; path = Profile/STSettingsController.swift; sourceTree = "<group>"; };
 		D43A755E1E4E610700DB0850 /* STPostDetailsMapsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPostDetailsMapsCell.swift; path = Feed/STPostDetailsMapsCell.swift; sourceTree = "<group>"; };
 		D43A755F1E4E610700DB0850 /* STPostDetailsMapsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPostDetailsMapsCell.xib; path = Feed/STPostDetailsMapsCell.xib; sourceTree = "<group>"; };
@@ -256,6 +266,7 @@
 				D43A75621E4E6A3B00DB0850 /* STFile.swift */,
 				D43A75641E4E6EBE00DB0850 /* STLocation.swift */,
 				D43A75661E4E883700DB0850 /* STFeed.swift */,
+				D4227F451E61C48900BCB8B1 /* STContact.swift */,
 			);
 			name = Response;
 			sourceTree = "<group>";
@@ -276,6 +287,33 @@
 				D4194A1D1E463F4300D0B189 /* ArrayOfCustomRealmObjectsTransform.swift */,
 			);
 			name = ObjectMapper;
+			sourceTree = "<group>";
+		};
+		D4227F471E61D07100BCB8B1 /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				D4227F491E61D08800BCB8B1 /* Views */,
+				D4227F481E61D07F00BCB8B1 /* Controllers */,
+				D4227F4A1E61D0FE00BCB8B1 /* STContactsDataSourceWrapper.swift */,
+			);
+			name = Contacts;
+			sourceTree = "<group>";
+		};
+		D4227F481E61D07F00BCB8B1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D4227F501E62126D00BCB8B1 /* STContactsController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		D4227F491E61D08800BCB8B1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D4227F4C1E61FE7600BCB8B1 /* STContactCell.swift */,
+				D4227F4D1E61FE7600BCB8B1 /* STContactCell.xib */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		D4922AA41E43DAF3006FF4D5 /* WebSocket */ = {
@@ -406,6 +444,7 @@
 		D4AD43B11E47A8F8006F13DE /* Pages */ = {
 			isa = PBXGroup;
 			children = (
+				D4227F471E61D07100BCB8B1 /* Contacts */,
 				E55906701E51A5B900F8E20E /* Profile */,
 				E53185E61E36097100BC6C9A /* SingUp */,
 				D4AD43B01E47A8D5006F13DE /* Feed */,
@@ -628,6 +667,7 @@
 				E53185E21E35E5A200BC6C9A /* GoogleService-Info.plist in Resources */,
 				D49727041E32BDA50076B7A1 /* Assets.xcassets in Resources */,
 				D40BC8601E5B60DF0045F327 /* STCommonButtonCell.xib in Resources */,
+				D4227F4F1E61FE7600BCB8B1 /* STContactCell.xib in Resources */,
 				D44AB4EF1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib in Resources */,
 				D4C60A821E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib in Resources */,
 				D49545D11E3D064700EDCF01 /* STLoginTextTableViewCell.xib in Resources */,
@@ -734,10 +774,13 @@
 				E53185E81E3609B700BC6C9A /* STSingUpTableViewController.swift in Sources */,
 				D49726FB1E32BDA50076B7A1 /* AppDelegate.swift in Sources */,
 				E59A1B1C1E3F9716009EE669 /* STUser.swift in Sources */,
+				D4227F461E61C48900BCB8B1 /* STContact.swift in Sources */,
+				D4227F4B1E61D0FE00BCB8B1 /* STContactsDataSourceWrapper.swift in Sources */,
 				D49727131E32CA8B0076B7A1 /* STError.swift in Sources */,
 				D49EB1A01E452B9A00B6F5DC /* STSocketRequest.swift in Sources */,
 				D497271B1E32D9BD0076B7A1 /* STServerApi.swift in Sources */,
 				E5BE9E2B1E4C8F000022B157 /* STFeedFilterTableViewCell.swift in Sources */,
+				D4227F4E1E61FE7600BCB8B1 /* STContactCell.swift in Sources */,
 				D4AD43B31E47A970006F13DE /* AppSettings.swift in Sources */,
 				E59A1B191E3F9388009EE669 /* STRegistration.swift in Sources */,
 				E5FF312A1E55E7DD0013B713 /* STEditProfileTextCell.swift in Sources */,
@@ -757,6 +800,7 @@
 				E5BE9E321E4C99C00022B157 /* STFeedFilter.swift in Sources */,
 				D4AD43C11E47DB7B006F13DE /* STNavigationController.swift in Sources */,
 				D4C60A811E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift in Sources */,
+				D4227F511E62126D00BCB8B1 /* STContactsController.swift in Sources */,
 				E54D88F41E3BB579005233DB /* RealmExtensions.swift in Sources */,
 				E53F37C31E3A75F900393BAD /* KeyboardNotificationListener.swift in Sources */,
 				D4C2AD841E5395C7009CD55A /* STPersonalPostCell.swift in Sources */,

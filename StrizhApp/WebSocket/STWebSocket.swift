@@ -10,6 +10,7 @@ import SocketIO
 import Foundation
 import BrightFutures
 import ObjectMapper
+import Contacts
 
 class STWebSocket {
     
@@ -137,6 +138,54 @@ class STWebSocket {
             else {
                 
                 p.failure(.favoriteFailure)
+            }
+        }
+        
+        return p.future
+    }
+    
+    func loadContacts() -> Future<[STContact], STError> {
+        
+        let p = Promise<[STContact], STError>()
+        
+        let request = STSocketRequestBuilder.loadContacts.request
+        
+        self.sendRequest(request: request) { json in
+            
+            if let contacts = json["contact"] as? [[String : Any]] {
+                
+                if let remoteContacts = Mapper<STContact>().mapArray(JSONArray: contacts) {
+                    
+                    p.success(remoteContacts)
+                }
+            }
+            else {
+                
+                p.failure(.loadContactsFailure)
+            }
+        }
+        
+        return p.future
+    }
+    
+    func uploadContacts(contacts: [CNContact]) -> Future<[STContact], STError> {
+        
+        let p = Promise<[STContact], STError>()
+        
+        let request = STSocketRequestBuilder.uploadContacts(contacts: contacts).request
+        
+        self.sendRequest(request: request) { json in
+            
+            if let contacts = json["contact"] as? [[String : Any]] {
+                
+                if let remoteContacts = Mapper<STContact>().mapArray(JSONArray: contacts) {
+                    
+                    p.success(remoteContacts)
+                }
+            }
+            else {
+                
+                p.failure(.loadContactsFailure)
             }
         }
         
