@@ -10,6 +10,13 @@ import UIKit
 import AlamofireImage
 import GoogleMaps
 
+
+enum STPostDetailsReasonEnum {
+    
+    case feedDetails, personalPostDetails
+}
+
+
 class STFeedDetailsTableViewController: UIViewController {
 
     
@@ -22,6 +29,8 @@ class STFeedDetailsTableViewController: UIViewController {
     private let collectionSection = GenericCollectionSection<STImage>()
     
     private var coordinateBounds = GMSCoordinateBounds()
+    
+    var reason = STPostDetailsReasonEnum.feedDetails
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -42,8 +51,9 @@ class STFeedDetailsTableViewController: UIViewController {
     
     deinit {
         
-        print("")
+        print("deinit \(String(describing: self))")
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
