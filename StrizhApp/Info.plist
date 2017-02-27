@@ -17,15 +17,15 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Разрешение на доступ к Камере для съемки фотографий</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Разрешение на доступ к Фото для использования фотографий.</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Разрешение на доступ к контактам</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Разрешение на доступ к Фото для использования фотографий.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
