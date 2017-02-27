@@ -116,16 +116,23 @@ extension UITableView {
     
     func showBusy() {
         
-        let busy = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        busy.frame = CGRect(x: 0, y: 0, width: 300, height: 60)
-        busy.hidesWhenStopped = true
-        busy.startAnimating()
-        self.tableFooterView = busy
+        // Sometimes it possible to call this method from not UI thread, for example when you asking access to Address Book
+        DispatchQueue.main.async {
+            
+            let busy = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+            busy.frame = CGRect(x: 0, y: 0, width: 300, height: 60)
+            busy.hidesWhenStopped = true
+            busy.startAnimating()
+            self.tableFooterView = busy
+        }
     }
     
     func hideBusy() {
         
-        self.tableFooterView = UIView()
+        DispatchQueue.main.async {
+            
+            self.tableFooterView = UIView()
+        }
     }
 }
 

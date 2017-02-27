@@ -284,9 +284,11 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                             
                             session.writeToDB()
                             
+                            self.st_router_onAuthorized()
+                            
                             if user.firstName.isEmpty {
                                 
-                                self.st_router_sigUpFinish()
+                                self.st_router_singUpPersonalInfo()
                                 return
                             }
                             

@@ -9,6 +9,7 @@
 import Foundation
 import Contacts
 import AlamofireImage
+import Bond
 
 class STContactsDataSourceWrapper {
     
@@ -19,6 +20,14 @@ class STContactsDataSourceWrapper {
     var dataSource = TableViewDataSource()
     
     var loadingStatusChanged: ((_ loadigStatus: STLoadingStatusEnum) -> Void)?
+    
+    var viewController: UIViewController?
+    
+    
+    init(viewController: UIViewController? = nil) {
+        
+        self.viewController = viewController
+    }
     
     
     func synchronizeContacts() {
@@ -170,6 +179,18 @@ class STContactsDataSourceWrapper {
         viewCell.addContact.isHidden = contact.isRegistered
         viewCell.layoutMargins = UIEdgeInsets.zero
         viewCell.separatorInset = UIEdgeInsets.zero
+        
+        if !contact.isRegistered {
+            
+            let textToShare = "Приглашаю в приложение StrizhApp, которое можно скачать в App Store"
+            
+            viewCell.addContact.reactive.tap.observe { [unowned self] _ in
+                
+                let activity = UIActivityViewController(activityItems: [textToShare], applicationActivities: nil)
+                self.viewController?.present(activity, animated: true, completion: nil)
+                
+            }.dispose(in: viewCell.bag)
+        }
         
         if contact.imageUrl.isEmpty {
             

@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let session = STSession.objects(by: STSession.self).first {
             
-            AppDelegate.appSettings.api.onValidSession()
+            self.onAuthorized()
             
             // load user
             AppDelegate.appSettings.api.loadUser(transport: .webSocket, userId: session.userId)
@@ -111,14 +111,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppDelegate.appSettings.deviceToken = token
     }
     
-    func onLogin() {
-        
-        AppDelegate.appSettings.api.onValidSession()
+    func openMainController() {
         
         if let controller = AppDelegate.appSettings.storyBoard.instantiateInitialViewController() {
             
             self.changeRootViewController(controller)
         }
+    }
+    
+    func onAuthorized() {
+        
+        AppDelegate.appSettings.api.onValidSession()
     }
     
     func onLogout() {

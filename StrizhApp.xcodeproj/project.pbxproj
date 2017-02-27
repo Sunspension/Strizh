@@ -632,7 +632,7 @@
 				TargetAttributes = {
 					D49726F61E32BDA50076B7A1 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = HUZ4W96296;
+						DevelopmentTeam = 5KSEC35F26;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -957,7 +957,7 @@
 			baseConfigurationReference = 3E8A8787F4373C051854C7D5 /* Pods-StrizhApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = HUZ4W96296;
+				DEVELOPMENT_TEAM = 5KSEC35F26;
 				INFOPLIST_FILE = StrizhApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -973,7 +973,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = HUZ4W96296;
+				DEVELOPMENT_TEAM = 5KSEC35F26;
 				INFOPLIST_FILE = StrizhApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

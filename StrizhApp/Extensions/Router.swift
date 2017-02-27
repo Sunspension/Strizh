@@ -22,15 +22,20 @@ extension UIViewController {
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    func st_router_sigUpFinish() {
+    func st_router_singUpPersonalInfo() {
         
         let controller = STSingUpTableViewController(signupStep: .signupThirdStep)
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
+    func st_router_onAuthorized() {
+        
+        appDelegate?.onAuthorized()
+    }
+    
     func st_router_openMainController() {
         
-        appDelegate?.onLogin()
+        appDelegate?.openMainController()
     }
     
     func st_router_logout() {

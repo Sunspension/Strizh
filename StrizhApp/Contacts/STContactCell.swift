@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReactiveKit
 
 class STContactCell: UITableViewCell {
 
@@ -16,6 +17,14 @@ class STContactCell: UITableViewCell {
     
     @IBOutlet weak var addContact: UIButton!
     
+    var bag = DisposeBag()
+    
+    
+    deinit {
+        
+        bag.dispose()
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -23,7 +32,8 @@ class STContactCell: UITableViewCell {
 
     override func prepareForReuse() {
         
-        self.contactImage.image = UIImage(named: "avatar")
+        bag.dispose()
+        contactImage.image = UIImage(named: "avatar")
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

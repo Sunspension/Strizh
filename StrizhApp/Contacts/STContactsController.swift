@@ -10,9 +10,10 @@ import UIKit
 
 class STContactsController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating {
 
-    private var itemsSource = STContactsDataSourceWrapper()
+    private var itemsSource: STContactsDataSourceWrapper?
     
     private let searchController = UISearchController(searchResultsController: nil)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +27,9 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         self.tableView.register(cell: STContactCell.self)
         self.tableView.register(headerFooterCell: STContactHeaderCell.self)
         
-        self.itemsSource.loadingStatusChanged = { loadingStatus in
+        self.itemsSource = STContactsDataSourceWrapper(viewController: self)
+        
+        self.itemsSource!.loadingStatusChanged = { loadingStatus in
         
             switch loadingStatus {
                 
@@ -41,10 +44,10 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
             }
         }
         
-        self.tableView.dataSource = self.itemsSource.dataSource
-        self.tableView.delegate = self.itemsSource.dataSource
+        self.tableView.dataSource = self.itemsSource!.dataSource
+        self.tableView.delegate = self.itemsSource!.dataSource
         
-        self.itemsSource.synchronizeContacts()
+        self.itemsSource!.synchronizeContacts()
         
         self.setupSearchController()
     }
