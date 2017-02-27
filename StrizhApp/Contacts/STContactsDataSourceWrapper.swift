@@ -26,6 +26,15 @@ class STContactsDataSourceWrapper {
         // hack for table footer
         self.dataSource.sections.append(CollectionSection())
         
+        self.notRelatedContactsSection.header(headerClass: STContactHeaderCell.self, bindingAction: { (cell, item) in
+            
+            let header = cell as! STContactHeaderCell
+            header.title.text = "ЕЩЕ НЕ ПРИСОЕДИНИЛИСЬ К STRIZHAPP"
+            header.title.textColor = UIColor.stSteelGrey
+        })
+        
+        self.notRelatedContactsSection.headerItem?.cellHeight = 30
+        
         let store = CNContactStore()
         
         if CNContactStore.authorizationStatus(for: .contacts) == .notDetermined {
@@ -115,8 +124,18 @@ class STContactsDataSourceWrapper {
                 
                 if section == nil {
                     
-                    section = CollectionSection()
+                    section = CollectionSection(title: letter)
                     section!.sectionType = letter
+                    
+                    section!.header(headerClass: STContactHeaderCell.self, item: letter, bindingAction: { (cell, item) in
+                        
+                        let header = cell as! STContactHeaderCell
+                        let title = item.item as! String
+                        
+                        header.title.text = title
+                    })
+                    
+                    section!.headerItem!.cellHeight = 30
                     
                     self.dataSource.sections.append(section!)
                 }
@@ -152,16 +171,21 @@ class STContactsDataSourceWrapper {
         viewCell.layoutMargins = UIEdgeInsets.zero
         viewCell.separatorInset = UIEdgeInsets.zero
         
-//        let width = Int(viewCell.contactImage.bounds.size.width * UIScreen.main.scale)
-//        let height = Int(viewCell.contactImage.bounds.size.height * UIScreen.main.scale)
-//        
-//        let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
-//        
-//        let urlString = contact + queryResize
-//        
-//        let filter = RoundedCornersFilter(radius: cell.userIcon.bounds.size.width)
-//        viewCell.contactImage.af_setImage(withURL: URL(string: urlString)!,
-//                                          filter: filter,
-//                                          completion: nil)
+        if contact.imageUrl.isEmpty {
+            
+            return
+        }
+        
+        let width = Int(viewCell.contactImage.bounds.size.width * UIScreen.main.scale)
+        let height = Int(viewCell.contactImage.bounds.size.height * UIScreen.main.scale)
+        
+        let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
+        
+        let urlString = contact.imageUrl + queryResize
+        
+        let filter = RoundedCornersFilter(radius: viewCell.contactImage.bounds.size.width)
+        viewCell.contactImage.af_setImage(withURL: URL(string: urlString)!,
+                                          filter: filter,
+                                          completion: nil)
     }
 }

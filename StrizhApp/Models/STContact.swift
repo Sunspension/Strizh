@@ -41,6 +41,8 @@ struct STContact: Mappable {
     
     var imageId = 0
     
+    var imageUrl = ""
+    
     
     init?(map: Map) {
         
@@ -63,6 +65,7 @@ struct STContact: Mappable {
         userFirstName <- map["user_first_name"]
         userLastName <- map["user_last_name"]
         imageId <- map["image_id"]
+        imageUrl <- map["image_url"]
     }
     
     private func formatter() -> DateFormatter {

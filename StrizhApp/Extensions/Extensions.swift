@@ -219,6 +219,11 @@ extension UIColor {
         return UIColor(white: 231.0 / 255.0, alpha: 1.0)
     }
     
+    class var stSteelGrey: UIColor {
+     
+        return UIColor(red: 113.0 / 255.0, green: 125.0 / 255.0, blue: 136.0 / 255.0, alpha: 1.0)
+    }
+    
     class var stWhite20Opacity: UIColor {
         
         return UIColor(white: 1, alpha: 0.2)

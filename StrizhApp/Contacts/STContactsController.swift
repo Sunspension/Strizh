@@ -24,6 +24,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         self.tableView.allowsSelection = false
         
         self.tableView.register(cell: STContactCell.self)
+        self.tableView.register(headerFooterCell: STContactHeaderCell.self)
         
         self.itemsSource.loadingStatusChanged = { loadingStatus in
         
@@ -41,6 +42,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         }
         
         self.tableView.dataSource = self.itemsSource.dataSource
+        self.tableView.delegate = self.itemsSource.dataSource
         
         self.itemsSource.synchronizeContacts()
         

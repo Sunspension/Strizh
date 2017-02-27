@@ -21,6 +21,11 @@ class STContactCell: UITableViewCell {
         // Initialization code
     }
 
+    override func prepareForReuse() {
+        
+        self.contactImage.image = UIImage(named: "avatar")
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
