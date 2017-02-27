@@ -79,6 +79,7 @@ class STProfileTableViewController: UITableViewController {
                     .onSuccess(callback: { [unowned self] user in
                         
                         self.user = user
+                        user.writeToDB()
                         user.updateUserImage()
                         
                         self.createHeader()
