@@ -13,6 +13,7 @@ import AlamofireImage
 let kSTLastSessionPhone = "kSTLastSessionPhone"
 let kSTDeviceToken = "kSTDeviceToken"
 let kUserUpdatedNotification = "kUserUpdatedNotification"
+let kItemFavoriteNotification = "kItemFavoriteNotification"
 
 struct AppSettings {
     

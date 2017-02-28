@@ -13,7 +13,6 @@ import ReactiveKit
 
 class STFeedDataSourceWrapper {
     
-    private var itemFavoriteNotification = "itemFavoriteNotification"
     
     private var status = STLoadingStatusEnum.idle
     
@@ -73,7 +72,7 @@ class STFeedDataSourceWrapper {
         self.isPersonal = isPersonal
         self.onDataSourceChanged = onDataSourceChanged
         
-        NotificationCenter.default.reactive.notification(name: NSNotification.Name(self.itemFavoriteNotification), object: nil).observeNext { [unowned self] notification in
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kItemFavoriteNotification), object: nil).observeNext { [unowned self] notification in
             
             let post = notification.object as! STPost
             
@@ -126,11 +125,11 @@ class STFeedDataSourceWrapper {
                 cell.iconFavorite.isSelected = favorite
                 
                 AppDelegate.appSettings.api.favorite(postId: post.id, favorite: favorite)
-                    .onSuccess(callback: { [unowned self] postResponse in
+                    .onSuccess(callback: { postResponse in
                         
                         post.isFavorite = postResponse.isFavorite
                         
-                        NotificationCenter.default.post(name: NSNotification.Name(self.itemFavoriteNotification), object: postResponse)
+                        NotificationCenter.default.post(name: NSNotification.Name(kItemFavoriteNotification), object: postResponse)
                     })
                 
             }.dispose(in: cell.bag)

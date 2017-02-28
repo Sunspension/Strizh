@@ -13,6 +13,6 @@ class STNavigationController: UINavigationController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-//        self.navigationBar.tintColor = UIColor.white
+        self.view.backgroundColor = UIColor.white
     }
 }

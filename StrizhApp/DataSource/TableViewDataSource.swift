@@ -12,6 +12,8 @@ class TableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelegate 
     
     var sections: [CollectionSection] = []
     
+    var onDidSelectRowAtIndexPath: ((_ tableView: UITableView, _ indexPath: IndexPath) -> Void)?
+    
     subscript(index: Int) -> CollectionSection {
         
         get {
@@ -64,6 +66,11 @@ class TableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelegate 
         item.bindingAction?(cell, item)
         
         return cell;
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        self.onDidSelectRowAtIndexPath?(tableView, indexPath)
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

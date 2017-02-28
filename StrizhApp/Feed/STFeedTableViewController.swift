@@ -67,7 +67,10 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ? self.feedDataSource : self.favoritesFeedDataSource
+        let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ?
+            (self.shouldShowSearchResults ? self.searchFeedDataSource : self.feedDataSource) :
+            (self.shouldShowSearchResults ? self.searchFavoriteDataSource : self.favoritesFeedDataSource)
+        
         let post = dataSource!.dataSource!.item(by: indexPath).item
         
         let images = dataSource!.imagesBy(post: post)
@@ -87,6 +90,8 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         
+        self.shouldShowSearchResults = true
+        
         let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ? self.searchFeedDataSource : self.searchFavoriteDataSource
         
         self.tableView.dataSource = dataSource!.dataSource
@@ -95,6 +100,8 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+        self.shouldShowSearchResults = false
         
         let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ? self.feedDataSource : self.favoritesFeedDataSource
         

@@ -38,9 +38,23 @@ class STProfileTableViewController: UITableViewController {
     private var bag = DisposeBag()
     
     
+    var images = Set<STImage>()
+    
+    var files = Set<STFile>()
+    
+    var locations = [STLocation]()
+    
+    
     deinit {
         
         bag.dispose()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     override func viewDidLoad() {
@@ -64,6 +78,34 @@ class STProfileTableViewController: UITableViewController {
         
         self.tableView.dataSource = dataSource
         self.tableView.delegate = dataSource
+        
+        self.setCustomBackButton()
+        
+        self.dataSource.onDidSelectRowAtIndexPath = { [unowned self] (tableView, indexPath) in
+            
+            let post = self.dataSource.item(by: indexPath).item as! STPost
+            
+            if let user = self.user {
+                
+                let images = self.images.filter { image -> Bool in
+                    
+                    return post.imageIds.contains(where: { $0.value == image.id })
+                }
+                
+                let files = self.files.filter({ file -> Bool in
+                    
+                    return post.fileIds.contains(where: { Int64($0.value) == file.id })
+                })
+                
+                let locations = self.locations.filter({ location -> Bool in
+                    
+                    return post.locationIds.contains(where: { $0.value == location.id })
+                })
+                
+                self.st_router_openPostDetails(personal: true, post: post, user: user, images: images,
+                                               files: files, locations: locations)
+            }
+        }
         
         if let user = STUser.objects(by: STUser.self).first {
             
@@ -224,6 +266,19 @@ class STProfileTableViewController: UITableViewController {
                 self.page += 1
                 self.status = .loaded
                 self.createDataSource(posts: feed.posts)
+                
+                feed.images.forEach({ image in
+                    
+                    self.images.insert(image)
+                })
+                
+                feed.files.forEach({ file in
+                    
+                    self.files.insert(file)
+                })
+                
+                self.locations.append(contentsOf: feed.locations)
+                
                 self.tableView.reloadData()
             }
             .onFailure { [unowned self] error in

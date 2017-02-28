@@ -38,7 +38,7 @@ class STContactsDataSourceWrapper {
         self.notRelatedContactsSection.header(headerClass: STContactHeaderCell.self, bindingAction: { (cell, item) in
             
             let header = cell as! STContactHeaderCell
-            header.title.text = "ЕЩЕ НЕ ПРИСОЕДИНИЛИСЬ К STRIZHAPP"
+            header.title.text = "НЕ ИСПОЛЬЗУЮТ STRIZHAPP"
             header.title.textColor = UIColor.stSteelGrey
         })
         
@@ -141,6 +141,7 @@ class STContactsDataSourceWrapper {
                         let header = cell as! STContactHeaderCell
                         let title = item.item as! String
                         
+                        header.title.textColor = UIColor.black
                         header.title.text = title
                     })
                     

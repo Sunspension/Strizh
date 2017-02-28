@@ -54,6 +54,10 @@ class STFeedDetailsTableViewController: UIViewController {
         print("deinit \(String(describing: self))")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        self.navigationController?.isNavigationBarHidden = false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,10 +74,22 @@ class STFeedDetailsTableViewController: UIViewController {
         self.tableView.register(cell: STPostDetailsCollectionViewCell.self)
         self.tableView.register(cell: STCommonButtonCell.self)
         self.tableView.register(cell: STCommonLabelCell.self)
+        self.tableView.register(cell: STPersonalPostDetailsMainInfoCell.self)
         
         self.navigationItem.title = "Информация"
     
         self.dataSource.sections.append(self.tableSection)
+        
+        if self.reason == .personalPostDetails {
+            
+            let moreButton = UIBarButtonItem(image: UIImage(named: "icon-more"),
+                                             style: .plain,
+                                             target: self,
+                                             action: #selector(self.contextActions))
+            
+            moreButton.tintColor = UIColor.stGreyblue
+            self.navigationItem.rightBarButtonItem = moreButton
+        }
         
         self.createDataSource()
     }
@@ -85,45 +101,95 @@ class STFeedDetailsTableViewController: UIViewController {
             return
         }
         
-        self.tableSection.addItem(cellClass: STPostDetailsMainInfoCell.self,
-                             item: self.post) { [unowned self] (cell, item) in
-                                
-                                cell.selectionStyle = .none
-                                
-                                let viewCell = cell as! STPostDetailsMainInfoCell
-                                
-                                viewCell.postTitle.text = post.title
-                                viewCell.favorite.isSelected = post.isFavorite
-                                viewCell.postType.isSelected = post.type == 2 ? true : false
-                                viewCell.postTime.text = post.createdAt?.elapsedInterval()
-                                
-                                if let user = self.user {
-                                    
-                                    viewCell.userName.text = user.lastName + " " + user.firstName
-                                    
-                                    guard !user.imageUrl.isEmpty else {
+        if self.reason == .feedDetails {
+            
+            self.tableSection.addItem(cellClass: STPostDetailsMainInfoCell.self,
+                                      item: self.post) { [unowned self] (cell, item) in
                                         
-                                        return
-                                    }
-                                    
-                                    let width = Int(viewCell.userIcon.bounds.size.width * UIScreen.main.scale)
-                                    let height = Int(viewCell.userIcon.bounds.size.height * UIScreen.main.scale)
-                                    
-                                    let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
-                                    
-                                    let urlString = user.imageUrl + queryResize
-                                    
-                                    let filter = RoundedCornersFilter(radius: viewCell.userIcon.bounds.size.width)
-                                    viewCell.userIcon.af_setImage(withURL: URL(string: urlString)!,
-                                                                  filter: filter,
-                                                                  completion: nil)
-                                }
+                                        cell.selectionStyle = .none
+                                        
+                                        let viewCell = cell as! STPostDetailsMainInfoCell
+                                        
+                                        viewCell.postTitle.text = post.title
+                                        viewCell.favorite.isSelected = post.isFavorite
+                                        viewCell.postType.isSelected = post.type == 2 ? true : false
+                                        viewCell.postTime.text = post.createdAt?.elapsedInterval()
+                                        
+                                        viewCell.favorite.reactive.tap.observe {_ in
+                                            
+                                            let favorite = !viewCell.favorite.isSelected
+                                            viewCell.favorite.isSelected = favorite
+                                            
+                                            AppDelegate.appSettings.api.favorite(postId: post.id, favorite: favorite)
+                                                .onSuccess(callback: { postResponse in
+                                                    
+                                                    post.isFavorite = postResponse.isFavorite
+                                                    
+                                                    NotificationCenter.default.post(name: NSNotification.Name(kItemFavoriteNotification), object: postResponse)
+                                                })
+                                            
+                                            }.dispose(in: viewCell.bag)
+                                        
+                                        if let user = self.user {
+                                            
+                                            viewCell.userName.text = user.lastName + " " + user.firstName
+                                            
+                                            guard !user.imageUrl.isEmpty else {
+                                                
+                                                return
+                                            }
+                                            
+                                            let width = Int(viewCell.userIcon.bounds.size.width * UIScreen.main.scale)
+                                            let height = Int(viewCell.userIcon.bounds.size.height * UIScreen.main.scale)
+                                            
+                                            let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
+                                            
+                                            let urlString = user.imageUrl + queryResize
+                                            
+                                            let filter = RoundedCornersFilter(radius: viewCell.userIcon.bounds.size.width)
+                                            viewCell.userIcon.af_setImage(withURL: URL(string: urlString)!,
+                                                                          filter: filter,
+                                                                          completion: nil)
+                                        }
+            }
+        }
+        else {
+            
+            self.tableSection.addItem(cellClass: STPersonalPostDetailsMainInfoCell.self,
+                                      item: self.post) { (cell, item) in
+                                        
+                                        cell.selectionStyle = .none
+                                        
+                                        let viewCell = cell as! STPersonalPostDetailsMainInfoCell
+                                        
+                                        viewCell.postTitle.text = post.title
+                                        viewCell.postType.isSelected = post.type == 2 ? true : false
+                                        viewCell.createdAt.text = post.createdAt?.mediumLocalizedFormat
+                                        
+                                        if post.dialogCount == 0 {
+                                            
+                                            viewCell.dialogsCount.isHidden = true
+                                            viewCell.openedDialogs.isHidden = true
+                                        }
+                                        else {
+                                            
+                                            viewCell.dialogsCount.isHidden = false
+                                            viewCell.openedDialogs.isHidden = false
+                                            viewCell.openedDialogs.text = post.dialogCount == 1 ? "Открыт:" : "Открыто:"
+                                            
+                                            let ending = post.dialogCount.ending(yabloko: "диалог", yabloka: "диалога", yablok: "диалогов")
+                                            
+                                            viewCell.dialogsCount.text = "\(post.dialogCount)" + " " + ending
+                                        }
+            }
         }
         
         if post.dateFrom != nil && post.dateTo != nil {
             
             self.tableSection.addItem(cellClass: STCommonButtonCell.self,
                                       item: post) { (cell, item) in
+                                        
+                                        cell.selectionStyle = .none
                                         
                                         let viewCell = cell as! STCommonButtonCell
                                         let post = item.item as! STPost
@@ -143,6 +209,8 @@ class STFeedDetailsTableViewController: UIViewController {
             
             self.tableSection.addItem(cellClass: STCommonButtonCell.self,
                                       item: post) { (cell, item) in
+                                        
+                                        cell.selectionStyle = .none
                                         
                                         let viewCell = cell as! STCommonButtonCell
                                         let post = item.item as! STPost
@@ -255,10 +323,17 @@ class STFeedDetailsTableViewController: UIViewController {
         
         self.tableSection.addItem(cellClass: STCommonLabelCell.self, item: post) { (cell, item) in
             
+            cell.selectionStyle = .none
+            
             let viewCell = cell as! STCommonLabelCell
             let post = item.item as! STPost
             
             viewCell.value.text = post.postDescription
         }
+    }
+    
+    func contextActions() {
+        
+        
     }
 }

@@ -97,6 +97,7 @@ enum STSocketRequestBuilder {
             self.addToQuery(&query, type: .page, value: page)
             self.addToQuery(&query, type: .pageSize, value: pageSize)
             self.addToQuery(&query, type: .sortingOrder, value: ["id" : "desc"])
+            self.addToQuery(&query, type: .extend, value: "user, file, location, image")
             
             // payload
             self.addToPayload(&payLoad, type: .path, value: "/api/post")

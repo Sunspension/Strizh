@@ -203,10 +203,10 @@
         <!--Кабинет-->
         <scene sceneID="cgH-Wg-9kZ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="ibQ-gp-xhM" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="ibQ-gp-xhM" customClass="STNavigationController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Кабинет" image="icon-profile" id="2FL-tE-lSs"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="QE0-AY-KGJ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QE0-AY-KGJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -225,7 +225,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8hU-3R-Ujc" customClass="STNavigationController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Контакты" image="icon-contacts" id="rhd-M2-bI2"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zhg-1V-xPv">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Zhg-1V-xPv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

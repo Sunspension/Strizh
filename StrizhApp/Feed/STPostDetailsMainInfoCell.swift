@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReactiveKit
 
 class STPostDetailsMainInfoCell: UITableViewCell {
 
@@ -22,6 +23,18 @@ class STPostDetailsMainInfoCell: UITableViewCell {
     
     @IBOutlet weak var postTitle: UILabel!
     
+    var bag = DisposeBag()
+    
+
+    deinit {
+        
+        bag.dispose()
+    }
+    
+    override func prepareForReuse() {
+        
+        bag.dispose()
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
