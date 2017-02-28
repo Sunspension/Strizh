@@ -12,6 +12,8 @@ enum STError: Error {
 
     case favoriteFailure
     
+    case archiveFailure
+    
     case loadContactsFailure
     
     case anyError(error: Error)
@@ -32,6 +34,10 @@ enum STError: Error {
         case .loadContactsFailure:
             
             return "Error has occurred when was trying to load contacts"
+            
+        case .archiveFailure:
+            
+            return "Error has occurred when was trying to archive post"
         }
     }
 }

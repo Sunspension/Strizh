@@ -132,6 +132,16 @@ struct STServerApi: PRemoteServerApi {
         return self.socket.favorite(postId: postId, favorite: favorite)
     }
     
+    func archivePost(postId: Int, isArchived: Bool) -> Future<STPost, STError> {
+        
+        return self.socket.archivePost(postId: postId, isArchived: isArchived)
+    }
+    
+    func deletePost(postId: Int) -> Future<STPost, STError> {
+        
+        return self.socket.deletePost(postId: postId)
+    }
+    
     func loadContacts() -> Future<[STContact], STError> {
         
         return self.socket.loadContacts()

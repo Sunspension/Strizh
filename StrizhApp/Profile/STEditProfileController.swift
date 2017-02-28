@@ -177,7 +177,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                 
                 viewCell.userImage.reactive.tap.observe {[unowned viewCell, unowned self] _ in
                 
-                    let alert = UIAlertController(title: "Фото", message: "", preferredStyle: .actionSheet)
+                    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
                     let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
                     
                     self.observableImage.observeNext{ image in

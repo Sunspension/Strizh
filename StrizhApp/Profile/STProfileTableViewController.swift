@@ -221,6 +221,7 @@ class STProfileTableViewController: UITableViewController {
                                         viewCell.postTitle.text = post.title
                                         viewCell.postDetails.text = post.postDescription
                                         viewCell.createdAt.text = post.createdAt?.mediumLocalizedFormat
+                                        viewCell.isArchived.isHidden = !post.isArchived
                                         
                                         if post.dialogCount == 0 {
                                             
@@ -248,6 +249,61 @@ class STProfileTableViewController: UITableViewController {
                                             
                                             viewCell.duration.isHidden = true
                                         }
+                                        
+                                        viewCell.more.reactive.tap.observe { _ in
+                                            
+                                            let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+                                            
+                                            let cancel = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+                                            
+                                            if !post.isArchived {
+                                                
+                                                let actionEdit = UIAlertAction(title: "Редактировать", style: .default, handler: { action in
+                                                    
+                                                    // open edit controller
+                                                })
+                                                
+                                                actionController.addAction(actionEdit)
+                                                
+                                                let actionArchive = UIAlertAction(title: "В архив", style: .default,
+                                                                                  handler: { [unowned self, unowned viewCell] action in
+                                                    
+                                                    self.api.archivePost(postId: post.id, isArchived: true)
+                                                        .onSuccess(callback: { _ in
+                                                            
+                                                            post.isArchived = true
+                                                            viewCell.isArchived.isHidden = false
+                                                        })
+                                                        .onFailure(callback: { error in
+                                                            
+                                                            self.showError(error: error)
+                                                        })
+                                                })
+                                                
+                                                actionController.addAction(actionArchive)
+                                            }
+                                            
+                                            let actionDelete = UIAlertAction(title: "Удалить", style: .default, handler: { action in
+                                                
+                                                self.api.deletePost(postId: post.id)
+                                                    .onSuccess(callback: { [unowned self] _ in
+                                                        
+                                                        self.userPostsSection.items = self.userPostsSection.items
+                                                                .filter({ ($0.item! as! STPost).id != (item.item! as! STPost).id })
+                                                        self.tableView.reloadSections(IndexSet(integer: item.indexPath.section) , with: .automatic)
+                                                    })
+                                                    .onFailure(callback: { error in
+                                                        
+                                                        self.showError(error: error)
+                                                    })
+                                            })
+                                            
+                                            actionController.addAction(cancel)
+                                            actionController.addAction(actionDelete)
+                                            
+                                            self.present(actionController, animated: true, completion: nil)
+                                            
+                                        }.dispose(in: viewCell.bag)
             })
         }
     }

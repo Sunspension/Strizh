@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReactiveKit
 
 class STPersonalPostCell: UITableViewCell {
 
@@ -34,6 +35,23 @@ class STPersonalPostCell: UITableViewCell {
     
     @IBOutlet weak var separator: UIView!
     
+    @IBOutlet weak var isArchived: UIButton!
+    
+    
+    var bag = DisposeBag()
+    
+    
+    deinit {
+        
+        bag.dispose()
+    }
+    
+    
+    override func prepareForReuse() {
+        
+        bag.dispose()
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -51,6 +69,9 @@ class STPersonalPostCell: UITableViewCell {
         
         postType.setImage(UIImage(named: "icon-offer"), for: .normal)
         postType.setImage(UIImage(named: "icon-search"), for: .selected)
+        
+        isArchived.layer.cornerRadius = 5
+        isArchived.layer.masksToBounds = true
         
         more.tintColor = UIColor.stGreyblue
     }

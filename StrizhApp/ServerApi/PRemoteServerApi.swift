@@ -54,6 +54,10 @@ protocol PRemoteServerApi {
     
     func favorite(postId: Int, favorite: Bool) -> Future<STPost, STError>
     
+    func archivePost(postId: Int, isArchived: Bool) -> Future<STPost, STError>
+    
+    func deletePost(postId: Int) -> Future<STPost, STError>
+    
     func loadContacts() -> Future<[STContact], STError>
     
     func uploadContacts(contacts: [CNContact]) -> Future<[STContact], STError>

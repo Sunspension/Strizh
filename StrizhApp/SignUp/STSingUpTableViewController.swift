@@ -331,7 +331,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
     
     func choosePhoto(_ sender: UIButton) {
         
-        let alert = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
         
         let choosePhotoAction = UIAlertAction(title: "Выбрать фото", style: .default) { [unowned self] action in

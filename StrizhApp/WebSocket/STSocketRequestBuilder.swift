@@ -46,6 +46,10 @@ enum STSocketRequestBuilder {
         email: String?,
         imageId: Int64?)
     
+    case archivePost(postId: Int, isArchived: Bool)
+    
+    case deletePost(postId: Int)
+    
     case loadContacts
     
     case uploadContacts(contacts: [CNContact])
@@ -174,6 +178,23 @@ enum STSocketRequestBuilder {
             self.addToPayload(&payLoad, type: .path, value: "/api/post/\(postId)")
             self.addToPayload(&payLoad, type: .method, value: "PUT")
             self.addToPayload(&payLoad, type: .body, value: ["is_favorite" : favorite])
+            
+            break
+            
+        case .archivePost(let postId, let isArchived):
+            
+            // payload
+            self.addToPayload(&payLoad, type: .path, value: "/api/post/\(postId)")
+            self.addToPayload(&payLoad, type: .method, value: "PUT")
+            self.addToPayload(&payLoad, type: .body, value: ["is_archived" : isArchived])
+            
+            break
+            
+        case .deletePost(let postId):
+            
+            // payload
+            self.addToPayload(&payLoad, type: .path, value: "/api/post/\(postId)")
+            self.addToPayload(&payLoad, type: .method, value: "DELETE")
             
             break
             

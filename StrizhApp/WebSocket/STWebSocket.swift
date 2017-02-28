@@ -144,6 +144,48 @@ class STWebSocket {
         return p.future
     }
     
+    func archivePost(postId: Int, isArchived: Bool) -> Future<STPost, STError> {
+        
+        let p = Promise<STPost, STError>()
+        
+        let request = STSocketRequestBuilder.archivePost(postId: postId, isArchived: isArchived).request
+        
+        self.sendRequest(request: request) { json in
+            
+            if let post = STPost(JSON: json) {
+                
+                p.success(post)
+            }
+            else {
+                
+                p.failure(.archiveFailure)
+            }
+        }
+        
+        return p.future
+    }
+    
+    func deletePost(postId: Int) -> Future<STPost, STError> {
+        
+        let p = Promise<STPost, STError>()
+        
+        let request = STSocketRequestBuilder.deletePost(postId: postId).request
+        
+        self.sendRequest(request: request) { json in
+            
+            if let post = STPost(JSON: json) {
+                
+                p.success(post)
+            }
+            else {
+                
+                p.failure(.archiveFailure)
+            }
+        }
+        
+        return p.future
+    }
+    
     func loadContacts() -> Future<[STContact], STError> {
         
         let p = Promise<[STContact], STError>()
