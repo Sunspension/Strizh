@@ -17,11 +17,17 @@ class STContactsDataSourceWrapper {
     
     private var notRelatedContactsSection = CollectionSection()
     
+    private var searchSection = CollectionSection()
+    
     var dataSource = TableViewDataSource()
+    
+    var searchDataSource = TableViewDataSource()
     
     var loadingStatusChanged: ((_ loadigStatus: STLoadingStatusEnum) -> Void)?
     
     var viewController: UIViewController?
+    
+    var searchString = ""
     
     
     init(viewController: UIViewController? = nil) {
@@ -34,6 +40,8 @@ class STContactsDataSourceWrapper {
     
         // hack for table footer
         self.dataSource.sections.append(CollectionSection())
+        
+        self.searchDataSource.sections.append(self.searchSection)
         
         self.notRelatedContactsSection.header(headerClass: STContactHeaderCell.self, bindingAction: { (cell, item) in
             
@@ -59,6 +67,28 @@ class STContactsDataSourceWrapper {
         else if CNContactStore.authorizationStatus(for: .contacts) == .authorized {
             
             self.retrieveContatcsWithStore(store: store)
+        }
+    }
+    
+    func searchContacts(searchString: String) {
+        
+        self.searchSection.items.removeAll()
+        
+        let items = dataSource.sections.flatMap({ $0.items }).filter { item -> Bool in
+            
+            let contact = item.item as! STContact
+            
+            if contact.firstName.contains(searchString) || contact.lastName.contains(searchString) {
+                
+                return true
+            }
+            
+            return false
+        }
+        
+        items.forEach { item in
+            
+            self.searchSection.addItem(cellClass: STContactCell.self, item: item.item, bindingAction: self.binding)
         }
     }
     

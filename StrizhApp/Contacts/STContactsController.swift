@@ -10,9 +10,12 @@ import UIKit
 
 class STContactsController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating {
 
+    
     private var itemsSource: STContactsDataSourceWrapper?
     
     private let searchController = UISearchController(searchResultsController: nil)
+    
+    private var shouldShowSearchResults = false
     
     
     override func viewDidLoad() {
@@ -56,45 +59,40 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         
-//        let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ? self.searchFeedDataSource : self.searchFavoriteDataSource
-//        
-//        self.tableView.dataSource = dataSource!.dataSource
-//        self.tableView.reloadData()
-//        self.tableView.hideBusy()
+        self.tableView.dataSource = self.itemsSource?.searchDataSource
+        self.tableView.delegate = self.itemsSource?.searchDataSource
+        self.tableView.reloadData()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
-//        let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ? self.feedDataSource : self.favoritesFeedDataSource
-//        
-//        self.tableView.dataSource = dataSource!.dataSource
-//        self.tableView.reloadData()
-//        self.tableView.hideBusy()
+        self.tableView.dataSource = self.itemsSource?.dataSource
+        self.tableView.delegate = self.itemsSource?.dataSource
+        self.tableView.reloadData()
     }
     
     //MARK: - UISearchResultUpdating delegate implementation
     
     func updateSearchResults(for searchController: UISearchController) {
         
-//        let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ? self.searchFeedDataSource : self.searchFavoriteDataSource
-//        
-//        if let string = searchController.searchBar.text {
-//            
-//            let query = string
-//            
-//            let time = DispatchTime.now() + 0.5
-//            
-//            DispatchQueue.main.asyncAfter(deadline: time) {
-//                
-//                guard searchController.searchBar.text == query else {
-//                    
-//                    return
-//                }
-//                
-//                dataSource!.reset()
-//                dataSource!.loadFeed(searchString: query)
-//            }
-//        }
+        
+        if let string = searchController.searchBar.text {
+            
+            let query = string
+            
+            let time = DispatchTime.now() + 0.3
+            
+            DispatchQueue.main.asyncAfter(deadline: time) {
+                
+                guard searchController.searchBar.text == query else {
+                    
+                    return
+                }
+                
+                self.itemsSource?.searchContacts(searchString: query)
+                self.tableView.reloadData()
+            }
+        }
     }
     
     private func setupSearchController() {
