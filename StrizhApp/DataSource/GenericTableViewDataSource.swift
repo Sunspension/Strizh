@@ -12,6 +12,8 @@ class GenericTableViewDataSource<TableViewCell: UITableViewCell, TableItem: Any>
 
     var sections: [GenericCollectionSection<TableItem>] = []
     
+    var onDidSelectRowAtIndexPath: ((_ tableView: UITableView, _ indexPath: IndexPath, _ item: GenericCollectionSectionItem<TableItem>) -> Void)?
+    
     subscript(index: Int) -> GenericCollectionSection<TableItem> {
         
         get {
@@ -58,6 +60,11 @@ class GenericTableViewDataSource<TableViewCell: UITableViewCell, TableItem: Any>
                                                  for: indexPath) as! TableViewCell
         self.bindingAction(cell, item)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        self.onDidSelectRowAtIndexPath?(tableView, indexPath, self.item(by: indexPath))
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

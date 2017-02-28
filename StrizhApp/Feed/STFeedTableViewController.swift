@@ -28,6 +28,8 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     
     private var filter: STFeedFilter?
     
+    private var searchQueryString = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,13 +126,14 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
             
             DispatchQueue.main.asyncAfter(deadline: time) {
                 
-                guard searchController.searchBar.text == query else {
+                guard searchController.searchBar.text == query, self.searchQueryString != query else {
                     
                     return
                 }
                 
                 dataSource!.reset()
                 dataSource!.loadFeed(searchString: query)
+                self.searchQueryString = query
             }
         }
     }
@@ -180,19 +183,19 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         self.feedDataSource!.onStopLoading = self.onStopLoading
         self.feedDataSource!.initialize()
         
-        self.favoritesFeedDataSource = STFeedDataSourceWrapper(isFavorite: true, onDataSourceChanged: self.onDataSourceChanged)
-        self.favoritesFeedDataSource!.onStartLoading = self.onStartLoading
-        self.favoritesFeedDataSource!.onStopLoading = self.onStopLoading
-        self.favoritesFeedDataSource!.initialize()
-        
         self.searchFeedDataSource = STFeedDataSourceWrapper(onDataSourceChanged: self.onDataSourceChanged)
         self.searchFeedDataSource!.onStartLoading = self.onStartLoading
         self.searchFeedDataSource!.onStopLoading = self.onStopLoading
         self.searchFeedDataSource!.initialize()
         
+        self.favoritesFeedDataSource = STFeedDataSourceWrapper(isFavorite: true, onDataSourceChanged: self.onDataSourceChanged)
+        self.favoritesFeedDataSource!.onStartLoading = self.onStartLoading
+        self.favoritesFeedDataSource!.onStopLoading = self.onStopLoading
+        self.favoritesFeedDataSource!.initialize()
+        
         self.searchFavoriteDataSource = STFeedDataSourceWrapper(isFavorite: true, onDataSourceChanged: self.onDataSourceChanged)
         self.searchFavoriteDataSource!.onStartLoading = self.onStartLoading
-        self.searchFeedDataSource!.onStopLoading = self.onStopLoading
+        self.searchFavoriteDataSource!.onStopLoading = self.onStopLoading
         self.searchFavoriteDataSource!.initialize()
     }
     

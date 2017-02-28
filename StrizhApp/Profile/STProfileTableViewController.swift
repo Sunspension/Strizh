@@ -81,9 +81,9 @@ class STProfileTableViewController: UITableViewController {
         
         self.setCustomBackButton()
         
-        self.dataSource.onDidSelectRowAtIndexPath = { [unowned self] (tableView, indexPath) in
+        self.dataSource.onDidSelectRowAtIndexPath = { [unowned self] (tableView, indexPath, item) in
             
-            let post = self.dataSource.item(by: indexPath).item as! STPost
+            let post = item.item as! STPost
             
             if let user = self.user {
                 
