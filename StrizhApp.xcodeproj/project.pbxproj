@@ -95,6 +95,7 @@
 		E55906781E51A74500F8E20E /* STProfileHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E55906761E51A74500F8E20E /* STProfileHeaderCell.xib */; };
 		E559067A1E51FF5900F8E20E /* CollectionSectionHeaderFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55906791E51FF5900F8E20E /* CollectionSectionHeaderFooter.swift */; };
 		E55906801E520D7B00F8E20E /* ModelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E559067F1E520D7B00F8E20E /* ModelExtensions.swift */; };
+		E59448891E66D8AD002B2989 /* STTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59448881E66D8AD002B2989 /* STTabBarViewController.swift */; };
 		E59A1B141E3F89A7009EE669 /* STImageUploadError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B131E3F89A7009EE669 /* STImageUploadError.swift */; };
 		E59A1B181E3F9388009EE669 /* STImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B151E3F9388009EE669 /* STImage.swift */; };
 		E59A1B191E3F9388009EE669 /* STRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B161E3F9388009EE669 /* STRegistration.swift */; };
@@ -209,6 +210,7 @@
 		E55906761E51A74500F8E20E /* STProfileHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STProfileHeaderCell.xib; path = Profile/STProfileHeaderCell.xib; sourceTree = "<group>"; };
 		E55906791E51FF5900F8E20E /* CollectionSectionHeaderFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionSectionHeaderFooter.swift; path = DataSource/CollectionSectionHeaderFooter.swift; sourceTree = "<group>"; };
 		E559067F1E520D7B00F8E20E /* ModelExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelExtensions.swift; path = Extensions/ModelExtensions.swift; sourceTree = "<group>"; };
+		E59448881E66D8AD002B2989 /* STTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTabBarViewController.swift; sourceTree = "<group>"; };
 		E59A1B131E3F89A7009EE669 /* STImageUploadError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STImageUploadError.swift; path = Errors/STImageUploadError.swift; sourceTree = "<group>"; };
 		E59A1B151E3F9388009EE669 /* STImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STImage.swift; path = Models/STImage.swift; sourceTree = "<group>"; };
 		E59A1B161E3F9388009EE669 /* STRegistration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STRegistration.swift; path = Models/STRegistration.swift; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 				E53185E61E36097100BC6C9A /* SingUp */,
 				D4AD43B01E47A8D5006F13DE /* Feed */,
 				D4AD43C01E47DB7B006F13DE /* STNavigationController.swift */,
+				E59448881E66D8AD002B2989 /* STTabBarViewController.swift */,
 			);
 			name = Pages;
 			sourceTree = "<group>";
@@ -838,6 +841,7 @@
 				D44AB4F21E4FD1670013A972 /* STPostDetailsCollectionViewCell.swift in Sources */,
 				D49545D01E3D064700EDCF01 /* STLoginTextTableViewCell.swift in Sources */,
 				D43A75671E4E883700DB0850 /* STFeed.swift in Sources */,
+				E59448891E66D8AD002B2989 /* STTabBarViewController.swift in Sources */,
 				D497AB4D1E3BE53A006A393D /* CollectionSectionItem.swift in Sources */,
 				D44AB4EB1E4FCC210013A972 /* GenericCollectionViewDataSource.swift in Sources */,
 				E5BE9E341E4E181E0022B157 /* STFeedDetailsTableViewController.swift in Sources */,

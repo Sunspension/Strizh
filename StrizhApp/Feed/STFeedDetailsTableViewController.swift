@@ -334,6 +334,58 @@ class STFeedDetailsTableViewController: UIViewController {
     
     func contextActions() {
         
+        guard let post = self.post, post.deleted == false else {
+            
+            return
+        }
         
+        let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let cancel = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        
+        if !post.isArchived {
+            
+            let actionEdit = UIAlertAction(title: "Редактировать", style: .default, handler: { action in
+                
+                // open edit controller
+            })
+            
+            actionController.addAction(actionEdit)
+            
+            let actionArchive = UIAlertAction(title: "В архив", style: .default,
+                                              handler: { [unowned self] action in
+                                                
+                                                self.api.archivePost(postId: post.id, isArchived: true)
+                                                    .onSuccess(callback: { _ in
+                                                        
+                                                        post.isArchived = true
+                                                        NotificationCenter.default.post(name: NSNotification.Name(kPostAddedToArchiveNotification), object: post)
+                                                    })
+                                                    .onFailure(callback: { error in
+                                                        
+                                                        self.showError(error: error)
+                                                    })
+            })
+            
+            actionController.addAction(actionArchive)
+        }
+        
+        let actionDelete = UIAlertAction(title: "Удалить", style: .default, handler: { action in
+            
+            self.api.deletePost(postId: post.id)
+                .onSuccess(callback: { _ in
+                    
+                    NotificationCenter.default.post(name: NSNotification.Name(kPostDeleteNotification), object: post)
+                })
+                .onFailure(callback: { error in
+                    
+                    self.showError(error: error)
+                })
+        })
+        
+        actionController.addAction(cancel)
+        actionController.addAction(actionDelete)
+        
+        self.present(actionController, animated: true, completion: nil)
     }
 }

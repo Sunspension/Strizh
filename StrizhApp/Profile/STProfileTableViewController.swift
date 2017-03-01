@@ -14,6 +14,7 @@ import ReactiveKit
 
 class STProfileTableViewController: UITableViewController {
     
+    
     private var dataSource = TableViewDataSource()
     
     private var userInfoSection = CollectionSection()
@@ -53,7 +54,6 @@ class STProfileTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
-        
         self.navigationController?.isNavigationBarHidden = true
     }
     
@@ -137,6 +137,36 @@ class STProfileTableViewController: UITableViewController {
                                                                 
                                                                 self.user = user
                                                                 self.tableView.reloadSections(IndexSet(integer: 0), with: .none)
+                                                            }
+            }.dispose(in: bag)
+        
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostAddedToArchiveNotification),
+                                                         object: nil).observeNext { [unowned self] notification in
+                                                            
+                                                            let post = notification.object as! STPost
+                                                            
+                                                            for item in self.userPostsSection.items {
+                                                                
+                                                                let p =  item.item as! STPost
+                                                                
+                                                                if p.id == post.id {
+                                                                    
+                                                                    p.isArchived = true
+                                                                    self.tableView.reloadRows(at: [item.indexPath], with: .none)
+                                                                    break
+                                                                }
+                                                            }
+            }.dispose(in: bag)
+        
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostDeleteNotification),
+                                                         object: nil).observeNext { [unowned self] notification in
+                                                            
+                                                            for item in self.userPostsSection.items {
+                                                                
+                                                                self.userPostsSection.items = self.userPostsSection.items
+                                                                    .filter({ ($0.item! as! STPost).id != (item.item! as! STPost).id })
+                                                                
+                                                                self.tableView.reloadSections(IndexSet(integer: item.indexPath.section) , with: .none)
                                                             }
             }.dispose(in: bag)
     }
@@ -290,6 +320,7 @@ class STProfileTableViewController: UITableViewController {
                                                         
                                                         self.userPostsSection.items = self.userPostsSection.items
                                                                 .filter({ ($0.item! as! STPost).id != (item.item! as! STPost).id })
+                                                        
                                                         self.tableView.reloadSections(IndexSet(integer: item.indexPath.section) , with: .automatic)
                                                     })
                                                     .onFailure(callback: { error in

@@ -14,6 +14,8 @@ let kSTLastSessionPhone = "kSTLastSessionPhone"
 let kSTDeviceToken = "kSTDeviceToken"
 let kUserUpdatedNotification = "kUserUpdatedNotification"
 let kItemFavoriteNotification = "kItemFavoriteNotification"
+let kPostAddedToArchiveNotification = "kPostAddedToArchiveNotification"
+let kPostDeleteNotification = "kPostDeleteNotification"
 
 struct AppSettings {
     
