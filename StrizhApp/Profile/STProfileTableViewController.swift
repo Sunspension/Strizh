@@ -25,7 +25,7 @@ class STProfileTableViewController: UITableViewController {
     
     private var status = STLoadingStatusEnum.idle
     
-    private var page = 1
+    private var minId = 0
     
     private var pageSize = 20
     
@@ -165,6 +165,9 @@ class STProfileTableViewController: UITableViewController {
                                                                 
                                                                 self.userPostsSection.items = self.userPostsSection.items
                                                                     .filter({ ($0.item! as! STPost).id != (item.item! as! STPost).id })
+                                                                
+                                                                // save last item id for loading next objects
+                                                                self.minId = (self.userPostsSection.items.last!.item as! STPost).id
                                                                 
                                                                 self.tableView.reloadSections(IndexSet(integer: item.indexPath.section) , with: .none)
                                                             }
@@ -321,6 +324,9 @@ class STProfileTableViewController: UITableViewController {
                                                         self.userPostsSection.items = self.userPostsSection.items
                                                                 .filter({ ($0.item! as! STPost).id != (item.item! as! STPost).id })
                                                         
+                                                        // save last item id for loading next objects
+                                                        self.minId = (self.userPostsSection.items.last!.item as! STPost).id
+                                                        
                                                         self.tableView.reloadSections(IndexSet(integer: item.indexPath.section) , with: .automatic)
                                                     })
                                                     .onFailure(callback: { error in
@@ -344,13 +350,13 @@ class STProfileTableViewController: UITableViewController {
         self.tableView.showBusy()
         
         self.status = .loading
-        api.loadPersonalPosts(page: self.page, pageSize: self.pageSize)
+        api.loadPersonalPosts(minId: self.minId, pageSize: self.pageSize)
             .onSuccess { [unowned self] feed in
                 
                 self.tableView.hideBusy()
                 
                 self.hasMore = feed.posts.count == self.pageSize
-                self.page += 1
+                self.minId = feed.posts.last!.id
                 self.status = .loaded
                 self.createDataSource(posts: feed.posts)
                 

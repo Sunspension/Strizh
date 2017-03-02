@@ -36,7 +36,7 @@ enum STSocketRequestBuilder {
     case loadFeed(filter: STFeedFilter, page: Int, pageSize: Int,
         isFavorite: Bool, searchString: String?)
     
-    case loadPersonalPosts(page: Int, pageSize: Int)
+    case loadPersonalPosts(minId: Int, pageSize: Int)
     
     case favorite(postId: Int, favorite: Bool)
     
@@ -95,10 +95,14 @@ enum STSocketRequestBuilder {
             
             break
             
-        case .loadPersonalPosts(let page, let pageSize):
+        case .loadPersonalPosts(let minId, let pageSize):
             
             // query
-            self.addToQuery(&query, type: .page, value: page)
+            if minId > 0 {
+                
+                self.addToQuery(&query, type: .conditions, value: ["id" : ["<" : minId]])
+            }
+            
             self.addToQuery(&query, type: .pageSize, value: pageSize)
             self.addToQuery(&query, type: .sortingOrder, value: ["id" : "desc"])
             self.addToQuery(&query, type: .extend, value: "user, file, location, image")

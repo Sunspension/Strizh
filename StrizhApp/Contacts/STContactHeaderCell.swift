@@ -17,7 +17,13 @@ class STContactHeaderCell: UITableViewHeaderFooterView {
     override func awakeFromNib() {
         
         super.awakeFromNib()
-        self.contentView.backgroundColor = UIColor.stLightBlueGrey
+        
+        if backgroundView == nil {
+            
+            backgroundView = UIView()
+        }
+        
+        self.backgroundView?.backgroundColor = UIColor.stLightBlueGrey
         title.textColor = UIColor.black
     }
 }

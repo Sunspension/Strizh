@@ -50,7 +50,7 @@ protocol PRemoteServerApi {
     func loadFeed(filter: STFeedFilter, page: Int, pageSize: Int,
                   isFavorite: Bool, searchString: String?) -> Future<STFeed, STError>
     
-    func loadPersonalPosts(page: Int, pageSize: Int) -> Future<STFeed, STError>
+    func loadPersonalPosts(minId: Int, pageSize: Int) -> Future<STFeed, STError>
     
     func favorite(postId: Int, favorite: Bool) -> Future<STPost, STError>
     

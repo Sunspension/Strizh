@@ -318,7 +318,6 @@
 		D4227F471E61D07100BCB8B1 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
-				E53185E61E36097100BC6C9A /* SingUp */,
 				D4227F491E61D08800BCB8B1 /* Views */,
 				D4227F481E61D07F00BCB8B1 /* Controllers */,
 				D4227F4A1E61D0FE00BCB8B1 /* STContactsDataSourceWrapper.swift */,
@@ -474,6 +473,7 @@
 		D4AD43B11E47A8F8006F13DE /* Pages */ = {
 			isa = PBXGroup;
 			children = (
+				E53185E61E36097100BC6C9A /* SingUp */,
 				E594488C1E680735002B2989 /* NewPost */,
 				D4227F471E61D07100BCB8B1 /* Contacts */,
 				E55906701E51A5B900F8E20E /* Profile */,
