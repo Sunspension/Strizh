@@ -20,6 +20,10 @@ class STPost : Object, Mappable {
     
     dynamic var price = ""
     
+    dynamic var priceDescription = ""
+    
+    dynamic var profitDescription = ""
+    
     dynamic var dateFrom: Date?
     
     dynamic var dateTo: Date?
@@ -30,9 +34,9 @@ class STPost : Object, Mappable {
     
     dynamic var userId = 0
     
-    dynamic var createdAt: Date? // "2015-05-07 23:36:38.907042",
+    dynamic var createdAt: Date? // "2015-05-07 23:36:38"
     
-    dynamic var updatedAt: Date? // "2016-10-18 19:55:26.952469",
+    dynamic var updatedAt: Date? // "2016-10-18 19:55:26"
     
     dynamic var deleted = false
     
@@ -69,6 +73,8 @@ class STPost : Object, Mappable {
         title <- map["title"]
         postDescription <- map["description"]
         price <- map["price"]
+        priceDescription <- map["price_description"]
+        profitDescription <- map["profit_description"]
         dateFrom <- (map["date_from"], DateFormatterTransform(dateFormatter: self.fromToFormatter()))
         dateTo <- (map["date_to"], DateFormatterTransform(dateFormatter: self.fromToFormatter()))
         type <- map["type"]

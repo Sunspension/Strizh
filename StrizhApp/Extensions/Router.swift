@@ -72,6 +72,14 @@ extension UIViewController {
         self.navigationController?.present(navi, animated: true, completion: nil)
     }
     
+    func st_router_openNewPostController() {
+        
+        let controller = STNewPostController()
+        let navi = STNewPostNavigationController(rootViewController: controller)
+        
+        self.present(navi, animated: true, completion: nil)
+    }
+    
     func st_router_openPersonalPostAction(post: STPost) {
         
 //        let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)

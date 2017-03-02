@@ -57,11 +57,9 @@ class STFeedFilterTableViewController: UITableViewController {
         self.tableView.register(cell: STFeedFilterSwitchTableViewCell.self)
         
         let leftItem = UIBarButtonItem(title: "Отмена", style: .plain, target: self, action: #selector(self.cancel))
-        leftItem.tintColor = UIColor.stBrightBlue
         self.navigationItem.leftBarButtonItem = leftItem
         
         let rightItem = UIBarButtonItem(title: "Применить", style: .plain, target: self, action: #selector(self.applyFilter))
-        rightItem.tintColor = UIColor.stBrightBlue
         self.navigationItem.rightBarButtonItem = rightItem
         
         self.navigationItem.title = "Фильтр"

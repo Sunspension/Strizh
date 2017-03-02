@@ -12,6 +12,7 @@ class STContactHeaderCell: UITableViewHeaderFooterView {
 
     @IBOutlet weak var title: UILabel!
     
+    @IBOutlet weak var topSpace: NSLayoutConstraint!
     
     override func awakeFromNib() {
         

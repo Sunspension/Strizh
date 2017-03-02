@@ -8,7 +8,7 @@
 
 import UIKit
 
-class STTabBarViewController: UITabBarController {
+class STTabBarViewController: UITabBarController, UITabBarControllerDelegate {
 
     private var newPostButton: UIButton?
     
@@ -16,70 +16,18 @@ class STTabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.newPostButton = UIBarButtonItem(image: UIImage(named: "icon-new-post"), style: .plain, target: self, action: #selector(self.openNewPostController))
-        
-        self.newPostButton = UIButton(type: .custom)
-        self.newPostButton?.setImage(UIImage(named: "icon-new-post"), for: .normal)
-        self.newPostButton?.sizeToFit()
-        
-//        let button = UIButton(type: .custom)
-//        
-//        self.newPostButton?.setImage(UIImage(named: "icon-new-post"), for: .normal)
-//        self.newPostButton?.sizeToFit()
-
-        
-        self.tabBar.insertSubview(self.newPostButton!, at: 2)
-        
-        // Do any additional setup after loading the view.
+        self.delegate = self
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-    func openNewPostController() {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         
-        
-    }
-    
-    override func viewDidLayoutSubviews() {
-        
-        super.viewDidLayoutSubviews()
-        
-        let tabFrame = self.tabBar.frame
-        
-        let spaceBetween: CGFloat = 4
-        
-//        let totalWidth = self.tabBar.subviews.reduce(CGFloat(0.0), { $0.0 + $0.1.frame.size.width })
-        
-        let buttonWidth: CGFloat = (tabFrame.size.width - (CGFloat(self.tabBar.subviews.count) * spaceBetween)) / CGFloat(self.tabBar.subviews.count - 1)
-        
-        var x: CGFloat = 2
-        
-        self.tabBar.subviews.forEach { view in
+        if viewController is STDummyNavigationController {
             
-            let viewFrame = view.frame
-            
-            let y: CGFloat = (tabFrame.size.height - viewFrame.size.height) / 2
-            
-            let newFrame = CGRect(x: x, y: y, width: buttonWidth, height: viewFrame.size.height)
-            
-            view.frame = newFrame
-            
-            x += (buttonWidth + spaceBetween)
+            self.st_router_openNewPostController()
+            return false
         }
+        
+        return true
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
