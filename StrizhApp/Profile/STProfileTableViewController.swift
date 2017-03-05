@@ -167,7 +167,14 @@ class STProfileTableViewController: UITableViewController {
                                                                     .filter({ ($0.item! as! STPost).id != (item.item! as! STPost).id })
                                                                 
                                                                 // save last item id for loading next objects
-                                                                self.minId = (self.userPostsSection.items.last!.item as! STPost).id
+                                                                if let lastPost = self.userPostsSection.items.last {
+                                                                    
+                                                                    self.minId = (lastPost.item as! STPost).id
+                                                                }
+                                                                else {
+                                                                    
+                                                                    self.minId = 0
+                                                                }
                                                                 
                                                                 self.tableView.reloadSections(IndexSet(integer: item.indexPath.section) , with: .none)
                                                             }
@@ -325,7 +332,14 @@ class STProfileTableViewController: UITableViewController {
                                                                 .filter({ ($0.item! as! STPost).id != (item.item! as! STPost).id })
                                                         
                                                         // save last item id for loading next objects
-                                                        self.minId = (self.userPostsSection.items.last!.item as! STPost).id
+                                                        if let lastPost = self.userPostsSection.items.last {
+                                                            
+                                                            self.minId = (lastPost.item as! STPost).id
+                                                        }
+                                                        else {
+                                                            
+                                                            self.minId = 0
+                                                        }
                                                         
                                                         self.tableView.reloadSections(IndexSet(integer: item.indexPath.section) , with: .automatic)
                                                     })
@@ -356,7 +370,12 @@ class STProfileTableViewController: UITableViewController {
                 self.tableView.hideBusy()
                 
                 self.hasMore = feed.posts.count == self.pageSize
-                self.minId = feed.posts.last!.id
+                
+                if let lastPost = feed.posts.last {
+                    
+                    self.minId = lastPost.id
+                }
+                
                 self.status = .loaded
                 self.createDataSource(posts: feed.posts)
                 

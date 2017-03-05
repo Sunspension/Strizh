@@ -76,7 +76,7 @@ class STNewPostController: UITableViewController {
             }
         }
         
-        self.requiredFieldsSection.header(headerClass: STContactHeaderCell.self, item: nil) { (view, section) in
+        self.requiredFieldsSection.header(headerClass: STContactHeaderCell.self) { (view, section) in
             
             let header = view as! STContactHeaderCell
             
@@ -88,14 +88,14 @@ class STNewPostController: UITableViewController {
         
         self.requiredFieldsSection.headerItem?.cellHeight = 46
         
-        self.requiredFieldsSection.addItem(cellClass: STPostButtonsCell.self, item: nil) { (cell, item) in
+        self.requiredFieldsSection.addItem(cellClass: STPostButtonsCell.self) { (cell, item) in
             
             let viewCell = cell as! STPostButtonsCell
             
             viewCell.offerButtonSelected(selected: true)
             viewCell.title.text = "Вид темы"
             
-            viewCell.offer.reactive.tap.observe {[unowned viewCell] _ in
+            viewCell.offer.reactive.tap.observe { [unowned viewCell] _ in
                 
                 viewCell.offerButtonSelected(selected: !viewCell.offer.isSelected)
                 
@@ -114,6 +114,14 @@ class STNewPostController: UITableViewController {
             
             viewCell.title.text = "Название"
             viewCell.value.placeholder = "Введите название проекта"
+            viewCell.value.reactive.text.observeNext { text in
+                
+                if var postObject = self.postObject {
+                    
+                    postObject.title = text ?? ""
+                }
+                
+            }.dispose(in: viewCell.bag)
         }
         
         self.requiredFieldsSection.addItem(cellClass: STTextFieldCell.self) { (cell, item) in
@@ -122,6 +130,15 @@ class STNewPostController: UITableViewController {
             
             viewCell.title.text = "Описание"
             viewCell.value.placeholder = "Введите описание темы"
+            
+            viewCell.value.reactive.text.observeNext { text in
+                
+                if var postObject = self.postObject {
+                    
+                    postObject.details = text ?? ""
+                }
+                
+            }.dispose(in: viewCell.bag)
         }
         
         self.requiredFieldsSection.addItem(cellClass: STTextFieldCell.self) { (cell, item) in
@@ -129,11 +146,11 @@ class STNewPostController: UITableViewController {
             let viewCell = cell as! STTextFieldCell
             
             viewCell.title.text = "Срок действия"
-            viewCell.value.placeholder = "Выбрите срок действия"
+            viewCell.value.placeholder = "Выбирете срок действия"
         }
         
         // optional
-        self.optionalFieldsSection.header(headerClass: STContactHeaderCell.self, item: nil) { (view, section) in
+        self.optionalFieldsSection.header(headerClass: STContactHeaderCell.self) { (view, section) in
             
             let header = view as! STContactHeaderCell
             
@@ -152,6 +169,15 @@ class STNewPostController: UITableViewController {
             viewCell.title.text = "Цена"
             viewCell.value.placeholder = "0.00 руб."
             viewCell.value.keyboardType = .numberPad
+            
+            viewCell.value.reactive.text.observeNext { text in
+                
+                if var postObject = self.postObject {
+                    
+                    postObject.price = Double(text ?? "") ?? 0.0
+                }
+                
+            }.dispose(in: viewCell.bag)
         }
         
         self.optionalFieldsSection.addItem(cellClass: STTextFieldCell.self) { (cell, item) in
@@ -160,6 +186,15 @@ class STNewPostController: UITableViewController {
             
             viewCell.title.text = "Комментарий к цене"
             viewCell.value.placeholder = "Например: Торг возможен, ниже рыночной цены"
+            
+            viewCell.value.reactive.text.observeNext { text in
+                
+                if var postObject = self.postObject {
+                    
+                    postObject.priceDescription = text ?? ""
+                }
+                
+            }.dispose(in: viewCell.bag)
         }
         
         self.optionalFieldsSection.addItem(cellClass: STTextFieldCell.self) { (cell, item) in
@@ -168,6 +203,15 @@ class STNewPostController: UITableViewController {
             
             viewCell.title.text = "Агентское вознаграждение"
             viewCell.value.placeholder = "Опишите профит для адресатов"
+            
+            viewCell.value.reactive.text.observeNext { text in
+                
+                if var postObject = self.postObject {
+                    
+                    postObject.profitDescription = text ?? ""
+                }
+                
+            }.dispose(in: viewCell.bag)
         }
     }
 }

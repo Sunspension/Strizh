@@ -7,12 +7,21 @@
 //
 
 import UIKit
+import ReactiveKit
 
 class STTextFieldCell: UITableViewCell {
 
     @IBOutlet weak var title: UILabel!
     
     @IBOutlet weak var value: UITextField!
+    
+    var bag = DisposeBag()
+    
+    
+    deinit {
+        
+        bag.dispose()
+    }
     
     
     override func awakeFromNib() {
@@ -31,6 +40,8 @@ class STTextFieldCell: UITableViewCell {
         value.placeholder = ""
         value.text = ""
         value.keyboardType = .default
+        
+        bag.dispose()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
