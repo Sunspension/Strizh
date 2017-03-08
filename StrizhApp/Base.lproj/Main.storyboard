@@ -257,6 +257,56 @@
             </objects>
             <point key="canvasLocation" x="801" y="1055"/>
         </scene>
+        <!--Date Picker View Controller-->
+        <scene sceneID="qpv-he-LdN">
+            <objects>
+                <viewController storyboardIdentifier="DatePickerViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3KY-hw-PdF" customClass="DatePickerViewController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="76d-Hc-2pV"/>
+                        <viewControllerLayoutGuide type="bottom" id="wdg-gw-DVs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="j7c-g9-ccT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fbt-fv-Nym">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Срок действия" id="DuN-A1-exc">
+                                        <barButtonItem key="leftBarButtonItem" title="Закрыть" id="KKa-JO-gve"/>
+                                        <barButtonItem key="rightBarButtonItem" title="Выбрать" id="2FI-Qe-u46"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="80b-8g-nza">
+                                <rect key="frame" x="0.0" y="44" width="375" height="172"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="172" id="7LB-b7-Rl7"/>
+                                </constraints>
+                                <date key="date" timeIntervalSinceReferenceDate="510699386.97821498">
+                                    <!--2017-03-08 20:56:26 +0000-->
+                                </date>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="80b-8g-nza" secondAttribute="trailing" id="3Ri-T2-XkP"/>
+                            <constraint firstAttribute="trailing" secondItem="Fbt-fv-Nym" secondAttribute="trailing" id="92W-Gc-dpC"/>
+                            <constraint firstItem="Fbt-fv-Nym" firstAttribute="top" secondItem="j7c-g9-ccT" secondAttribute="top" id="INr-PB-xte"/>
+                            <constraint firstItem="Fbt-fv-Nym" firstAttribute="leading" secondItem="j7c-g9-ccT" secondAttribute="leading" id="J5r-FU-eBy"/>
+                            <constraint firstItem="80b-8g-nza" firstAttribute="leading" secondItem="j7c-g9-ccT" secondAttribute="leading" id="UTt-61-77Z"/>
+                            <constraint firstItem="80b-8g-nza" firstAttribute="top" secondItem="Fbt-fv-Nym" secondAttribute="bottom" id="hWg-sJ-lhF"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="datePicker" destination="80b-8g-nza" id="HO8-eI-GtX"/>
+                        <outlet property="navigationBar" destination="Fbt-fv-Nym" id="PsC-Xt-Rku"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s09-qO-L3W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1647" y="1051"/>
+        </scene>
     </scenes>
     <resources>
         <image name="background" width="375" height="667"/>

@@ -15,6 +15,8 @@ class STTextFieldCell: UITableViewCell {
     
     @IBOutlet weak var value: UITextField!
     
+    var onErrorHandler: (() -> Void)?
+    
     var bag = DisposeBag()
     
     
@@ -22,7 +24,6 @@ class STTextFieldCell: UITableViewCell {
         
         bag.dispose()
     }
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,7 +41,6 @@ class STTextFieldCell: UITableViewCell {
         value.placeholder = ""
         value.text = ""
         value.keyboardType = .default
-        
         bag.dispose()
     }
     
@@ -48,5 +48,26 @@ class STTextFieldCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func showError() {
+        
+        let button = UIButton(type: .custom)
+        button.bounds = CGRect(x: 0, y: 0, width: 16, height: 16)
+        button.setImage(UIImage(named: "icon-error"), for: .normal)
+        
+        button.reactive.tap.observeNext { [unowned self] _ in
+            
+            self.onErrorHandler?()
+            
+        }.dispose(in: bag)
+        
+        self.value.rightView = button
+        self.value.rightViewMode = .always
+    }
+    
+    func hideError() {
+        
+        self.value.rightView = nil
     }
 }

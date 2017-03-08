@@ -10,6 +10,41 @@ import UIKit
 
 typealias BindingAction = ((_ cell: UITableViewCell, _ item: CollectionSectionItem) -> Void)
 
+
+enum ValidationResult {
+    
+    case onSuccess
+    
+    case onError(errorMessage: String)
+    
+    var valid: Bool {
+        
+        switch self {
+            
+        case .onSuccess:
+            
+            return true
+            
+        default:
+            return false
+        }
+    }
+    
+    var errorDescription: String? {
+        
+        switch self {
+            
+        case .onError(let errorMessage):
+            
+            return errorMessage
+            
+        default:
+            return nil
+        }
+    }
+}
+
+
 class CollectionSectionItem {
     
     var item: Any?
@@ -18,7 +53,7 @@ class CollectionSectionItem {
     
     var userData: Any?
     
-    var validation: (() -> Bool)?
+    var validation: (() -> ValidationResult)?
     
     var selected = false
     

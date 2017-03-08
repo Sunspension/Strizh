@@ -66,8 +66,8 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
         
         self.tableView.dataSource = self.dataSource
         
-        self.tableView.register(cell: STEditProfileHeaderCell.self)
-        self.tableView.register(cell: STEditProfileTextCell.self)
+        self.tableView.register(nib: STEditProfileHeaderCell.self)
+        self.tableView.register(nib: STEditProfileTextCell.self)
         
         let rigthItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(self.save))
         
@@ -116,7 +116,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
         
         self.userInfoSection.items.forEach { item in
             
-            if item.validation?() == false {
+            if let valid = item.validation?().valid, valid == false {
                 
                 let itemType = item.itemType as! EditProfileFieldsEnum
                 errors.append(itemType == .firstName ? "Имя" : "Фамилия")
@@ -288,7 +288,12 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                                             
                                             item.validation = {
                                                 
-                                                return !viewCell.value.text!.isEmpty
+                                                if !viewCell.value.text!.isEmpty {
+                                                    
+                                                    return ValidationResult.onSuccess
+                                                }
+                                                
+                                                return ValidationResult.onError(errorMessage: "Поле Имя не должно быть пустым")
                                             }
                                         }
         }
@@ -316,7 +321,12 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                                             
                                             item.validation = {
                                                 
-                                                return !viewCell.value.text!.isEmpty
+                                                if !viewCell.value.text!.isEmpty {
+                                                    
+                                                    return ValidationResult.onSuccess
+                                                }
+                                                
+                                                return ValidationResult.onError(errorMessage: "Поле Фамилия не должно быть пустым")
                                             }
                                         }
         }

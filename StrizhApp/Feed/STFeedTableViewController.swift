@@ -41,7 +41,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         self.tableView.separatorStyle = .none
         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
         
-        self.tableView.register(cell: STPostTableViewCell.self)
+        self.tableView.register(nib: STPostTableViewCell.self)
         
         self.dataSourceSwitch.tintColor = UIColor.stBrightBlue
         self.dataSourceSwitch.addTarget(self, action: #selector(self.switchDataSource(control:)), for: .valueChanged)

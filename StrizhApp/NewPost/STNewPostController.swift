@@ -27,7 +27,7 @@ class STNewPostController: UITableViewController {
         let leftItem = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(self.cancel))
         self.navigationItem.leftBarButtonItem = leftItem
         
-        let rightItem = UIBarButtonItem(title: "Далее", style: .plain, target: self, action: #selector(self.cancel))
+        let rightItem = UIBarButtonItem(title: "Далее", style: .plain, target: self, action: #selector(self.nextAction))
         self.navigationItem.rightBarButtonItem = rightItem
         
         self.title = "Новая тема"
@@ -36,11 +36,12 @@ class STNewPostController: UITableViewController {
         self.tableView.backgroundColor = UIColor.stLightBlueGrey
         self.tableView.estimatedRowHeight = 50
         self.tableView.rowHeight = UITableViewAutomaticDimension
+//        self.tableView.separatorInset = UIEdgeInsets.zero
         
-        self.tableView.register(cell: STTextFieldCell.self)
-        self.tableView.register(cell: STPostButtonsCell.self)
+        self.tableView.register(nib: STTextFieldCell.self)
+        self.tableView.register(nib: STPostButtonsCell.self)
+        self.tableView.register(nib: STTextFieldsCell.self)
         self.tableView.register(headerFooterCell: STContactHeaderCell.self)
-        self.tableView.separatorInset = UIEdgeInsets.zero
         
         self.dataSource.sections.append(self.requiredFieldsSection)
         self.dataSource.sections.append(self.optionalFieldsSection)
@@ -64,6 +65,16 @@ class STNewPostController: UITableViewController {
     func cancel() {
         
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func nextAction() {
+        
+        self.view.endEditing(true)
+        
+        self.requiredFieldsSection.items.forEach { item in
+            
+            _ = item.validation?()
+        }
     }
     
     private func createDataSource() {
@@ -114,14 +125,34 @@ class STNewPostController: UITableViewController {
             
             viewCell.title.text = "Название"
             viewCell.value.placeholder = "Введите название проекта"
-            viewCell.value.reactive.text.observeNext { text in
+            viewCell.value.reactive.text.observeNext { [unowned viewCell, unowned self] text in
                 
-                if var postObject = self.postObject {
+                if self.postObject != nil {
                     
-                    postObject.title = text ?? ""
+                    self.postObject!.title = text ?? ""
+                    viewCell.hideError()
                 }
                 
             }.dispose(in: viewCell.bag)
+            
+            viewCell.onErrorHandler = { [unowned self] in
+                
+                self.showValidationAlert()
+            }
+            
+            item.validation = {
+                
+                if !self.postObject!.title.isEmpty {
+                    
+                    return ValidationResult.onSuccess
+                }
+                else {
+                    
+                    viewCell.showError()
+                    
+                    return ValidationResult.onError(errorMessage: "")
+                }
+            }
         }
         
         self.requiredFieldsSection.addItem(cellClass: STTextFieldCell.self) { (cell, item) in
@@ -131,22 +162,108 @@ class STNewPostController: UITableViewController {
             viewCell.title.text = "Описание"
             viewCell.value.placeholder = "Введите описание темы"
             
-            viewCell.value.reactive.text.observeNext { text in
+            viewCell.value.reactive.text.observeNext { [unowned viewCell] text in
                 
-                if var postObject = self.postObject {
-                    
-                    postObject.details = text ?? ""
+                if self.postObject != nil {
+                 
+                    viewCell.hideError()
+                    self.postObject!.details = text ?? ""
                 }
                 
             }.dispose(in: viewCell.bag)
+            
+            viewCell.onErrorHandler = { [unowned self] in
+                
+                self.showValidationAlert()
+            }
+            
+            item.validation = {
+                
+                if !self.postObject!.details.isEmpty {
+                    
+                    return ValidationResult.onSuccess
+                }
+                else {
+                    
+                    viewCell.showError()
+                    return ValidationResult.onError(errorMessage: "")
+                }
+            }
         }
         
-        self.requiredFieldsSection.addItem(cellClass: STTextFieldCell.self) { (cell, item) in
+        self.requiredFieldsSection.addItem(cellClass: STTextFieldsCell.self) { (cell, item) in
             
-            let viewCell = cell as! STTextFieldCell
+            let viewCell = cell as! STTextFieldsCell
             
             viewCell.title.text = "Срок действия"
-            viewCell.value.placeholder = "Выбирете срок действия"
+            viewCell.leftValue.placeholder = "Начало"
+            viewCell.rightValue.placeholder = "Конец"
+            
+            viewCell.leftValue.reactive.text.observeCompleted {
+                
+                print("")
+                
+            }.dispose(in: viewCell.bag)
+            
+            viewCell.leftValue.reactive.text.observeNext { [unowned viewCell, unowned self] text in
+                
+                viewCell.hideLeftError()
+                
+                let controller = DatePickerViewController.instance()
+                self.present(controller, animated: true, completion: nil)
+                
+                if var postObject = self.postObject {
+                    
+//                    postObject.fromDate = text ?? ""
+                }
+                
+            }.dispose(in: viewCell.bag)
+            
+            viewCell.rightValue.reactive.text.observeNext { [unowned viewCell, unowned self] text in
+                
+                viewCell.hideRightError()
+                
+                let controller = DatePickerViewController.instance()
+                self.present(controller, animated: true, completion: nil)
+                
+                if var postObject = self.postObject {
+                    
+                    //                    postObject.fromDate = text ?? ""
+                }
+                
+            }.dispose(in: viewCell.bag)
+            
+            viewCell.onLeftErrorHandler = { [unowned self] in
+                
+                self.showValidationAlert()
+            }
+            
+            viewCell.onRightErrorHandler = { [unowned self] in
+                
+                self.showValidationAlert()
+            }
+            
+            item.validation = {
+                
+                if self.postObject!.fromDate != nil {
+                    
+                    
+                }
+                else {
+                    
+                    viewCell.showLeftError()
+                }
+                
+                if self.postObject!.tillDate != nil {
+                    
+                }
+                else {
+                    
+                    viewCell.showRightError()
+                }
+                
+                return ValidationResult.onSuccess
+            }
         }
         
         // optional
@@ -166,8 +283,8 @@ class STNewPostController: UITableViewController {
             
             let viewCell = cell as! STTextFieldCell
             
-            viewCell.title.text = "Цена"
-            viewCell.value.placeholder = "0.00 руб."
+            viewCell.title.text = "Цена руб."
+            viewCell.value.placeholder = "0.00"
             viewCell.value.keyboardType = .numberPad
             
             viewCell.value.reactive.text.observeNext { text in
@@ -185,7 +302,7 @@ class STNewPostController: UITableViewController {
             let viewCell = cell as! STTextFieldCell
             
             viewCell.title.text = "Комментарий к цене"
-            viewCell.value.placeholder = "Например: Торг возможен, ниже рыночной цены"
+            viewCell.value.placeholder = "Торг возможен, ниже рыночной цены и т.д."
             
             viewCell.value.reactive.text.observeNext { text in
                 
@@ -213,5 +330,10 @@ class STNewPostController: UITableViewController {
                 
             }.dispose(in: viewCell.bag)
         }
+    }
+    
+    private func showValidationAlert() {
+        
+        self.showOkAlert(title: "Ошибка", message: "Это поле не может быть пустым")
     }
 }

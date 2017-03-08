@@ -98,9 +98,9 @@ extension UITableView {
         self.register(cellClass, forCellReuseIdentifier: String(describing: cellClass.self))
     }
     
-    func register(cell: AnyClass) {
+    func register(nib: AnyClass) {
         
-        self.register(UINib(nibName: String(describing: cell), bundle: nil), forCellReuseIdentifier: String(describing: cell))
+        self.register(UINib(nibName: String(describing: nib), bundle: nil), forCellReuseIdentifier: String(describing: nib))
     }
     
     func register(headerFooterCellClass: AnyClass) {
@@ -143,9 +143,9 @@ extension UICollectionView {
         self.register(cellClass, forCellWithReuseIdentifier: String(describing: cellClass.self))
     }
     
-    func register(cell: AnyClass) {
+    func register(nib: AnyClass) {
         
-        self.register(UINib(nibName: String(describing: cell), bundle: nil), forCellWithReuseIdentifier: String(describing: cell))
+        self.register(UINib(nibName: String(describing: nib), bundle: nil), forCellWithReuseIdentifier: String(describing: nib))
     }
 }
 

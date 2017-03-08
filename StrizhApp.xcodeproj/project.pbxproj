@@ -33,6 +33,12 @@
 		D43A75631E4E6A3B00DB0850 /* STFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43A75621E4E6A3B00DB0850 /* STFile.swift */; };
 		D43A75651E4E6EBE00DB0850 /* STLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43A75641E4E6EBE00DB0850 /* STLocation.swift */; };
 		D43A75671E4E883700DB0850 /* STFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43A75661E4E883700DB0850 /* STFeed.swift */; };
+		D43BED661E70570500683D5C /* STTextFieldsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43BED641E70570500683D5C /* STTextFieldsCell.swift */; };
+		D43BED671E70570500683D5C /* STTextFieldsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D43BED651E70570500683D5C /* STTextFieldsCell.xib */; };
+		D43BED6A1E70897200683D5C /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43BED691E70897200683D5C /* DatePickerViewController.swift */; };
+		D43BED6C1E708A1000683D5C /* STBottomPopupPresentationAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43BED6B1E708A1000683D5C /* STBottomPopupPresentationAnimation.swift */; };
+		D43BED6E1E708D4100683D5C /* DatePickerPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43BED6D1E708D4100683D5C /* DatePickerPresentationController.swift */; };
+		D43BED711E70A72D00683D5C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D43BED6F1E70A72D00683D5C /* Main.storyboard */; };
 		D44AB4EB1E4FCC210013A972 /* GenericCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AB4EA1E4FCC210013A972 /* GenericCollectionViewDataSource.swift */; };
 		D44AB4EE1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AB4EC1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift */; };
 		D44AB4EF1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44AB4ED1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib */; };
@@ -48,7 +54,6 @@
 		D49545D41E3D0B8800EDCF01 /* STLoginSeparatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49545D21E3D0B8800EDCF01 /* STLoginSeparatorTableViewCell.swift */; };
 		D49545D51E3D0B8800EDCF01 /* STLoginSeparatorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D49545D31E3D0B8800EDCF01 /* STLoginSeparatorTableViewCell.xib */; };
 		D49726FB1E32BDA50076B7A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49726FA1E32BDA50076B7A1 /* AppDelegate.swift */; };
-		D49727021E32BDA50076B7A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D49727001E32BDA50076B7A1 /* Main.storyboard */; };
 		D49727041E32BDA50076B7A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D49727031E32BDA50076B7A1 /* Assets.xcassets */; };
 		D49727071E32BDA50076B7A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D49727051E32BDA50076B7A1 /* LaunchScreen.storyboard */; };
 		D49727131E32CA8B0076B7A1 /* STError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49727121E32CA8B0076B7A1 /* STError.swift */; };
@@ -154,6 +159,12 @@
 		D43A75621E4E6A3B00DB0850 /* STFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFile.swift; path = Models/STFile.swift; sourceTree = "<group>"; };
 		D43A75641E4E6EBE00DB0850 /* STLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLocation.swift; path = Models/STLocation.swift; sourceTree = "<group>"; };
 		D43A75661E4E883700DB0850 /* STFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeed.swift; path = Models/STFeed.swift; sourceTree = "<group>"; };
+		D43BED641E70570500683D5C /* STTextFieldsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STTextFieldsCell.swift; path = NewPost/STTextFieldsCell.swift; sourceTree = "<group>"; };
+		D43BED651E70570500683D5C /* STTextFieldsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STTextFieldsCell.xib; path = NewPost/STTextFieldsCell.xib; sourceTree = "<group>"; };
+		D43BED691E70897200683D5C /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DatePickerViewController.swift; path = CommonUI/DatePickerViewController.swift; sourceTree = "<group>"; };
+		D43BED6B1E708A1000683D5C /* STBottomPopupPresentationAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STBottomPopupPresentationAnimation.swift; path = CommonUI/STBottomPopupPresentationAnimation.swift; sourceTree = "<group>"; };
+		D43BED6D1E708D4100683D5C /* DatePickerPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DatePickerPresentationController.swift; path = CommonUI/DatePickerPresentationController.swift; sourceTree = "<group>"; };
+		D43BED701E70A72D00683D5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D44AB4EA1E4FCC210013A972 /* GenericCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		D44AB4EC1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPostDetailsPhotoCell.swift; path = Feed/STPostDetailsPhotoCell.swift; sourceTree = "<group>"; };
 		D44AB4ED1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPostDetailsPhotoCell.xib; path = Feed/STPostDetailsPhotoCell.xib; sourceTree = "<group>"; };
@@ -170,7 +181,6 @@
 		D49545D31E3D0B8800EDCF01 /* STLoginSeparatorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STLoginSeparatorTableViewCell.xib; sourceTree = "<group>"; };
 		D49726F71E32BDA50076B7A1 /* StrizhApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StrizhApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D49726FA1E32BDA50076B7A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D49727011E32BDA50076B7A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D49727031E32BDA50076B7A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D49727061E32BDA50076B7A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D49727081E32BDA50076B7A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -273,6 +283,7 @@
 		D40BC85C1E5B605F0045F327 /* CommonUI */ = {
 			isa = PBXGroup;
 			children = (
+				D43BED681E70894A00683D5C /* DatePickerController */,
 				D40BC85D1E5B60DF0045F327 /* STCommonButtonCell.swift */,
 				D40BC85E1E5B60DF0045F327 /* STCommonButtonCell.xib */,
 				D40BC8611E5B61120045F327 /* STCommonLabelCell.swift */,
@@ -344,6 +355,16 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		D43BED681E70894A00683D5C /* DatePickerController */ = {
+			isa = PBXGroup;
+			children = (
+				D43BED691E70897200683D5C /* DatePickerViewController.swift */,
+				D43BED6B1E708A1000683D5C /* STBottomPopupPresentationAnimation.swift */,
+				D43BED6D1E708D4100683D5C /* DatePickerPresentationController.swift */,
+			);
+			name = DatePickerController;
+			sourceTree = "<group>";
+		};
 		D4922AA41E43DAF3006FF4D5 /* WebSocket */ = {
 			isa = PBXGroup;
 			children = (
@@ -398,8 +419,8 @@
 				D49726FA1E32BDA50076B7A1 /* AppDelegate.swift */,
 				E53185E11E35E5A200BC6C9A /* GoogleService-Info.plist */,
 				E53185E31E35E71900BC6C9A /* strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json */,
-				D49727001E32BDA50076B7A1 /* Main.storyboard */,
 				D49727031E32BDA50076B7A1 /* Assets.xcassets */,
+				D43BED6F1E70A72D00683D5C /* Main.storyboard */,
 				D49727051E32BDA50076B7A1 /* LaunchScreen.storyboard */,
 				D49727081E32BDA50076B7A1 /* Info.plist */,
 			);
@@ -640,6 +661,8 @@
 				E59448921E680B83002B2989 /* STTextFieldCell.xib */,
 				E59448951E680C98002B2989 /* STPostButtonsCell.swift */,
 				E59448961E680C98002B2989 /* STPostButtonsCell.xib */,
+				D43BED641E70570500683D5C /* STTextFieldsCell.swift */,
+				D43BED651E70570500683D5C /* STTextFieldsCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -736,6 +759,7 @@
 				D4C60A821E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib in Resources */,
 				D4227F551E6270F600BCB8B1 /* STContactHeaderCell.xib in Resources */,
 				D49545D11E3D064700EDCF01 /* STLoginTextTableViewCell.xib in Resources */,
+				D43BED671E70570500683D5C /* STTextFieldsCell.xib in Resources */,
 				E537712F1E64941C00BBADEA /* STPersonalPostDetailsMainInfoCell.xib in Resources */,
 				E55906781E51A74500F8E20E /* STProfileHeaderCell.xib in Resources */,
 				E53185E41E35E71900BC6C9A /* strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json in Resources */,
@@ -743,9 +767,9 @@
 				E5FF31271E55D3FA0013B713 /* STEditProfileHeaderCell.xib in Resources */,
 				D4AD43BD1E47B504006F13DE /* STPostTableViewCell.xib in Resources */,
 				E53185FF1E364AE700BC6C9A /* STLoginTableViewCell.xib in Resources */,
-				D49727021E32BDA50076B7A1 /* Main.storyboard in Resources */,
 				D43A75611E4E610700DB0850 /* STPostDetailsMapsCell.xib in Resources */,
 				E59448981E680C98002B2989 /* STPostButtonsCell.xib in Resources */,
+				D43BED711E70A72D00683D5C /* Main.storyboard in Resources */,
 				E53F37BE1E3A632C00393BAD /* STLoginLogoTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -822,6 +846,7 @@
 				D49545CC1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift in Sources */,
 				D4AD43B71E47A9C2006F13DE /* STFeedTableViewController.swift in Sources */,
 				D43A75651E4E6EBE00DB0850 /* STLocation.swift in Sources */,
+				D43BED6A1E70897200683D5C /* DatePickerViewController.swift in Sources */,
 				D4194A1E1E463F4300D0B189 /* ArrayOfCustomRealmObjectsTransform.swift in Sources */,
 				E5BE9E2F1E4C90680022B157 /* STFeedFilterSwitchTableViewCell.swift in Sources */,
 				D49545D41E3D0B8800EDCF01 /* STLoginSeparatorTableViewCell.swift in Sources */,
@@ -874,9 +899,11 @@
 				E50FA39D1E68510E00CAA4D7 /* STNewPostNavigationController.swift in Sources */,
 				D4C60A811E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift in Sources */,
 				D4227F511E62126D00BCB8B1 /* STContactsController.swift in Sources */,
+				D43BED6E1E708D4100683D5C /* DatePickerPresentationController.swift in Sources */,
 				E54D88F41E3BB579005233DB /* RealmExtensions.swift in Sources */,
 				E53F37C31E3A75F900393BAD /* KeyboardNotificationListener.swift in Sources */,
 				D4C2AD841E5395C7009CD55A /* STPersonalPostCell.swift in Sources */,
+				D43BED6C1E708A1000683D5C /* STBottomPopupPresentationAnimation.swift in Sources */,
 				E53185F71E3612EF00BC6C9A /* STLoadingStatusEnum.swift in Sources */,
 				D4194A111E4600F000D0B189 /* STPost.swift in Sources */,
 				D44AB4F61E4FD54D0013A972 /* STFeedDetailsCollectionLayout.swift in Sources */,
@@ -891,6 +918,7 @@
 				D4194A1A1E460D4400D0B189 /* ArrayTransform.swift in Sources */,
 				D4AD43BC1E47B504006F13DE /* STPostTableViewCell.swift in Sources */,
 				D44AB4EE1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift in Sources */,
+				D43BED661E70570500683D5C /* STTextFieldsCell.swift in Sources */,
 				D433D1041E54F56900974AB1 /* STSettingsController.swift in Sources */,
 				D49EB19E1E45212F00B6F5DC /* STSocketRequestBuilder.swift in Sources */,
 				E5FF31231E55D29C0013B713 /* STEditProfileController.swift in Sources */,
@@ -910,10 +938,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		D49727001E32BDA50076B7A1 /* Main.storyboard */ = {
+		D43BED6F1E70A72D00683D5C /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D49727011E32BDA50076B7A1 /* Base */,
+				D43BED701E70A72D00683D5C /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

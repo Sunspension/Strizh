@@ -19,7 +19,7 @@ class STPostDetailsCollectionViewCell: UITableViewCell {
         
         self.flowLayout.estimatedItemSize = flowLayout.itemSize
         
-        self.collectionView.register(cell: STPostDetailsPhotoCell.self)
+        self.collectionView.register(nib: STPostDetailsPhotoCell.self)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

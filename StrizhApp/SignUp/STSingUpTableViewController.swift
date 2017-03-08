@@ -84,11 +84,11 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         self.tableView.bounces = false
         self.tableView.separatorStyle = .none
         
-        self.tableView.register(cell: STLoginLogoTableViewCell.self)
-        self.tableView.register(cell: STLoginTableViewCell.self)
-        self.tableView.register(cell: STLoginAvatarTableViewCell.self)
-        self.tableView.register(cell: STLoginTextTableViewCell.self)
-        self.tableView.register(cell: STLoginSeparatorTableViewCell.self)
+        self.tableView.register(nib: STLoginLogoTableViewCell.self)
+        self.tableView.register(nib: STLoginTableViewCell.self)
+        self.tableView.register(nib: STLoginAvatarTableViewCell.self)
+        self.tableView.register(nib: STLoginTextTableViewCell.self)
+        self.tableView.register(nib: STLoginSeparatorTableViewCell.self)
         
         let text = self.signupStep == .signupThirdStep ? "Готово" : "Далее"
         let rigthItem = UIBarButtonItem(title: text, style: .plain, target: self, action: #selector(self.actionNext))
@@ -608,11 +608,11 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                         if !text.isEmpty {
                             
                             self.userFirstName = text
-                            return true
+                            return ValidationResult.onSuccess
                         }
                     }
                     
-                    return false
+                    return ValidationResult.onError(errorMessage: "")
                 }
             }
             
@@ -643,11 +643,11 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                         if !text.isEmpty {
                             
                             self.userLastName = text
-                            return true
+                            return ValidationResult.onSuccess
                         }
                     }
                     
-                    return false
+                    return ValidationResult.onError(errorMessage: "")
                 }
             }
             

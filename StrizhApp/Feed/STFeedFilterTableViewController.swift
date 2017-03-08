@@ -53,8 +53,8 @@ class STFeedFilterTableViewController: UITableViewController {
         
         self.tableView.dataSource = self.dataSource
         
-        self.tableView.register(cell: STFeedFilterTableViewCell.self)
-        self.tableView.register(cell: STFeedFilterSwitchTableViewCell.self)
+        self.tableView.register(nib: STFeedFilterTableViewCell.self)
+        self.tableView.register(nib: STFeedFilterSwitchTableViewCell.self)
         
         let leftItem = UIBarButtonItem(title: "Отмена", style: .plain, target: self, action: #selector(self.cancel))
         self.navigationItem.leftBarButtonItem = leftItem
