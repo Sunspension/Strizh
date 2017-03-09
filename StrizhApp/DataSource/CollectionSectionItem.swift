@@ -55,6 +55,8 @@ class CollectionSectionItem {
     
     var validation: (() -> ValidationResult)?
     
+    var hasError = false
+    
     var selected = false
     
     var allowAction = true

@@ -10,9 +10,16 @@ import UIKit
 
 class DatePickerViewController: UIViewController, UIViewControllerTransitioningDelegate {
 
+    private var selectedDate: Date?
+    
     @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBOutlet weak var navigationBar: UINavigationBar!
+    
+    var navigationTitle: String?
+    
+    var onDidSelectDate: ((_ date: Date) -> Void)?
+    
     
     class func instance() -> DatePickerViewController {
         
@@ -29,17 +36,37 @@ class DatePickerViewController: UIViewController, UIViewControllerTransitioningD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationBar.topItem?.title = "Срок действия"
+        let now = Date()
+        
+        self.selectedDate = now
+        
+        self.datePicker.minimumDate = now
+        self.navigationBar.topItem?.title = navigationTitle
         self.navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(title: "Закрыть", style: .plain, target: self, action: #selector(self.close))
         
-        self.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Выбрать", style: .plain, target: nil, action: nil)
-        
-        // Do any additional setup after loading the view.
+        self.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Выбрать", style: .plain, target: self, action: #selector(self.selectDate))
+     
+        self.datePicker.addTarget(self, action: #selector(self.didSelectDate(_:)), for: .valueChanged)
     }
     
     func close() {
         
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func selectDate() {
+        
+        if let selectedDate = self.selectedDate {
+            
+            self.onDidSelectDate?(selectedDate)
+        }
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func didSelectDate(_ sender: UIDatePicker) {
+        
+        selectedDate = sender.date
     }
     
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {

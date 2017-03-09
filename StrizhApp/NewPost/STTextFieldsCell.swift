@@ -9,7 +9,7 @@
 import UIKit
 import ReactiveKit
 
-class STTextFieldsCell: UITableViewCell {
+class STTextFieldsCell: UITableViewCell, UITextFieldDelegate {
 
     @IBOutlet weak var title: UILabel!
     
@@ -20,6 +20,10 @@ class STTextFieldsCell: UITableViewCell {
     var onLeftErrorHandler: (() -> Void)?
     
     var onRightErrorHandler: (() -> Void)?
+    
+    var onLeftValueShouldBeginEditing: (() -> Void)?
+    
+    var onRightValueShouldBeginEditing: (() -> Void)?
     
     var bag = DisposeBag()
     
@@ -37,6 +41,9 @@ class STTextFieldsCell: UITableViewCell {
         rightValue.placeholder = ""
         
         selectionStyle = .none
+        
+        leftValue.delegate = self
+        rightValue.delegate = self
     }
     
     override func prepareForReuse() {
@@ -48,6 +55,21 @@ class STTextFieldsCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        if textField == leftValue {
+            
+            onLeftValueShouldBeginEditing?()
+        }
+        
+        if textField == rightValue {
+            
+            onRightValueShouldBeginEditing?()
+        }
+        
+        return false
     }
     
     func showLeftError() {

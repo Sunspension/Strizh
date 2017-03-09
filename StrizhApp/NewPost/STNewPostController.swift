@@ -20,6 +20,14 @@ class STNewPostController: UITableViewController {
     
     private var postObject: STNewPostObject?
     
+    private var fromDate: Date?
+    
+    private var tillDate: Date?
+    
+    private var fromDateError: Bool = false
+    
+    private var tillDateError: Bool = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +44,7 @@ class STNewPostController: UITableViewController {
         self.tableView.backgroundColor = UIColor.stLightBlueGrey
         self.tableView.estimatedRowHeight = 50
         self.tableView.rowHeight = UITableViewAutomaticDimension
-//        self.tableView.separatorInset = UIEdgeInsets.zero
+        self.tableView.separatorInset = UIEdgeInsets.zero
         
         self.tableView.register(nib: STTextFieldCell.self)
         self.tableView.register(nib: STPostButtonsCell.self)
@@ -71,9 +79,24 @@ class STNewPostController: UITableViewController {
         
         self.view.endEditing(true)
         
+        var error = false
+        
         self.requiredFieldsSection.items.forEach { item in
             
-            _ = item.validation?()
+            if let valid = item.validation {
+                
+                let result = valid().valid
+                
+                if result == false && error == false {
+                    
+                    error = true
+                }
+            }
+        }
+        
+        if error {
+            
+            return
         }
     }
     
@@ -140,16 +163,22 @@ class STNewPostController: UITableViewController {
                 self.showValidationAlert()
             }
             
-            item.validation = {
+            if item.hasError {
+                
+                viewCell.showError()
+            }
+            
+            item.validation = { [unowned item] in
                 
                 if !self.postObject!.title.isEmpty {
                     
+                    item.hasError = false
                     return ValidationResult.onSuccess
                 }
                 else {
                     
                     viewCell.showError()
-                    
+                    item.hasError = true
                     return ValidationResult.onError(errorMessage: "")
                 }
             }
@@ -177,15 +206,22 @@ class STNewPostController: UITableViewController {
                 self.showValidationAlert()
             }
             
-            item.validation = {
+            if item.hasError {
+                
+                viewCell.showError()
+            }
+            
+            item.validation = { [unowned item] in
                 
                 if !self.postObject!.details.isEmpty {
                     
+                    item.hasError = false
                     return ValidationResult.onSuccess
                 }
                 else {
                     
                     viewCell.showError()
+                    item.hasError = true
                     return ValidationResult.onError(errorMessage: "")
                 }
             }
@@ -199,39 +235,51 @@ class STNewPostController: UITableViewController {
             viewCell.leftValue.placeholder = "Начало"
             viewCell.rightValue.placeholder = "Конец"
             
-            viewCell.leftValue.reactive.text.observeCompleted {
+            if let postObject = self.postObject {
                 
-                print("")
-                
-            }.dispose(in: viewCell.bag)
-            
-            viewCell.leftValue.reactive.text.observeNext { [unowned viewCell, unowned self] text in
-                
-                viewCell.hideLeftError()
-                
-                let controller = DatePickerViewController.instance()
-                self.present(controller, animated: true, completion: nil)
-                
-                if var postObject = self.postObject {
+                if postObject.fromDate != nil {
                     
-//                    postObject.fromDate = text ?? ""
+                    viewCell.leftValue.text = postObject.fromDate!.mediumLocalizedFormat
                 }
                 
-            }.dispose(in: viewCell.bag)
+                if postObject.tillDate != nil {
+                    
+                    viewCell.rightValue.text = postObject.tillDate!.mediumLocalizedFormat
+                }
+            }
             
-            viewCell.rightValue.reactive.text.observeNext { [unowned viewCell, unowned self] text in
-                
-                viewCell.hideRightError()
+            viewCell.onLeftValueShouldBeginEditing = { [unowned viewCell] in
                 
                 let controller = DatePickerViewController.instance()
-                self.present(controller, animated: true, completion: nil)
-                
-                if var postObject = self.postObject {
+                controller.navigationTitle = "Начало"
+                controller.onDidSelectDate = { [unowned viewCell, unowned self] selectedDate in
                     
-                    //                    postObject.fromDate = text ?? ""
+                    self.postObject!.fromDate = selectedDate
+                    self.fromDateError = false
+                    
+                    viewCell.leftValue.text = self.postObject!.fromDate!.mediumLocalizedFormat
+                    viewCell.hideLeftError()
                 }
                 
-            }.dispose(in: viewCell.bag)
+                self.present(controller, animated: true, completion: nil)
+            }
+            
+            viewCell.onRightValueShouldBeginEditing = { [unowned viewCell, unowned self] in
+                
+                let controller = DatePickerViewController.instance()
+                controller.navigationTitle = "Конец"
+                
+                controller.onDidSelectDate = { [unowned viewCell, unowned self] selectedDate in
+                    
+                    self.postObject!.tillDate = selectedDate
+                    self.tillDateError = false
+                    
+                    viewCell.rightValue.text = self.postObject!.tillDate!.mediumLocalizedFormat
+                    viewCell.hideRightError()
+                }
+                
+                self.present(controller, animated: true, completion: nil)
+            }
             
             viewCell.onLeftErrorHandler = { [unowned self] in
                 
@@ -245,24 +293,21 @@ class STNewPostController: UITableViewController {
             
             item.validation = {
                 
-                if self.postObject!.fromDate != nil {
+                var error = false
+                
+                if self.postObject!.fromDate == nil {
                     
-                    
-                }
-                else {
-                    
+                    error = true
                     viewCell.showLeftError()
                 }
                 
-                if self.postObject!.tillDate != nil {
+                if self.postObject!.tillDate == nil {
                     
-                }
-                else {
-                    
+                    error = true
                     viewCell.showRightError()
                 }
                 
-                return ValidationResult.onSuccess
+                return error == true ? ValidationResult.onError(errorMessage: "") : ValidationResult.onSuccess
             }
         }
         
