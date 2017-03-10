@@ -41,7 +41,7 @@ class STSettingsController: UITableViewController {
         
         self.tableView.dataSource = self.dataSource
         
-        self.tableView.register(nib: STFeedFilterSwitchTableViewCell.self)
+        self.tableView.register(nibClass: STFeedFilterSwitchTableViewCell.self)
         
         self.title = "Настройки"
         

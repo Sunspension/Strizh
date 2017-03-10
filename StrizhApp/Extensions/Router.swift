@@ -80,6 +80,12 @@ extension UIViewController {
         self.present(navi, animated: true, completion: nil)
     }
     
+    func st_router_openPostAttachmentsController() {
+        
+        let controller = STPostAttachmentsController()
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
     func st_router_openPersonalPostAction(post: STPost) {
         
 //        let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)

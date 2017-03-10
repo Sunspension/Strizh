@@ -19,4 +19,5 @@ target 'StrizhApp' do
     pod 'NVActivityIndicatorView'
     pod 'EmitterKit'
     pod 'GoogleMaps'
+    pod 'DKImagePickerController'
 end

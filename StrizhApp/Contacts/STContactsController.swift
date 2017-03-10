@@ -27,8 +27,8 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.allowsSelection = false
         
-        self.tableView.register(nib: STContactCell.self)
-        self.tableView.register(headerFooterCell: STContactHeaderCell.self)
+        self.tableView.register(nibClass: STContactCell.self)
+        self.tableView.register(headerFooterNibClass: STContactHeaderCell.self)
         
         self.itemsSource = STContactsDataSourceWrapper(viewController: self)
         

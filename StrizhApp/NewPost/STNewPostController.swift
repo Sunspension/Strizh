@@ -46,16 +46,18 @@ class STNewPostController: UITableViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.separatorInset = UIEdgeInsets.zero
         
-        self.tableView.register(nib: STTextFieldCell.self)
-        self.tableView.register(nib: STPostButtonsCell.self)
-        self.tableView.register(nib: STTextFieldsCell.self)
-        self.tableView.register(headerFooterCell: STContactHeaderCell.self)
+        self.tableView.register(nibClass: STTextFieldCell.self)
+        self.tableView.register(nibClass: STPostButtonsCell.self)
+        self.tableView.register(nibClass: STTextFieldsCell.self)
+        self.tableView.register(headerFooterNibClass: STContactHeaderCell.self)
         
         self.dataSource.sections.append(self.requiredFieldsSection)
         self.dataSource.sections.append(self.optionalFieldsSection)
         
         self.tableView.dataSource = self.dataSource
         self.tableView.delegate = self.dataSource
+        
+        setCustomBackButton()
         
         self.createDataSource()
     }
@@ -98,9 +100,14 @@ class STNewPostController: UITableViewController {
             
             return
         }
+        
+        self.st_router_openPostAttachmentsController()
     }
     
     private func createDataSource() {
+        
+        // set by default
+        self.postObject?.type = 1
         
         self.dataSource.onDidSelectRowAtIndexPath = { (tableView, indexPath, item) in
             
@@ -129,14 +136,16 @@ class STNewPostController: UITableViewController {
             viewCell.offerButtonSelected(selected: true)
             viewCell.title.text = "Вид темы"
             
-            viewCell.offer.reactive.tap.observe { [unowned viewCell] _ in
+            viewCell.offer.reactive.tap.observe { [unowned viewCell, unowned self] _ in
                 
+                self.postObject?.type = 1
                 viewCell.offerButtonSelected(selected: !viewCell.offer.isSelected)
                 
                 }.dispose(in: viewCell.bag)
             
             viewCell.search.reactive.tap.observe {[unowned viewCell] _ in
                 
+                self.postObject?.type = 2
                 viewCell.searchButtonSelected(selected: !viewCell.search.isSelected)
                 
                 }.dispose(in: viewCell.bag)

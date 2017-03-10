@@ -102,6 +102,9 @@
 		E55906781E51A74500F8E20E /* STProfileHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E55906761E51A74500F8E20E /* STProfileHeaderCell.xib */; };
 		E559067A1E51FF5900F8E20E /* CollectionSectionHeaderFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55906791E51FF5900F8E20E /* CollectionSectionHeaderFooter.swift */; };
 		E55906801E520D7B00F8E20E /* ModelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E559067F1E520D7B00F8E20E /* ModelExtensions.swift */; };
+		E561F5671E72FA4000C7407C /* STPostAttachmentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561F5661E72FA4000C7407C /* STPostAttachmentsController.swift */; };
+		E561F56A1E72FCD300C7407C /* STAttachmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561F5681E72FCD300C7407C /* STAttachmentCell.swift */; };
+		E561F56B1E72FCD300C7407C /* STAttachmentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E561F5691E72FCD300C7407C /* STAttachmentCell.xib */; };
 		E59448891E66D8AD002B2989 /* STTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59448881E66D8AD002B2989 /* STTabBarViewController.swift */; };
 		E594488B1E68062A002B2989 /* STDummyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E594488A1E68062A002B2989 /* STDummyNavigationController.swift */; };
 		E59448901E680797002B2989 /* STNewPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E594488F1E680797002B2989 /* STNewPostController.swift */; };
@@ -230,6 +233,9 @@
 		E55906761E51A74500F8E20E /* STProfileHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STProfileHeaderCell.xib; path = Profile/STProfileHeaderCell.xib; sourceTree = "<group>"; };
 		E55906791E51FF5900F8E20E /* CollectionSectionHeaderFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionSectionHeaderFooter.swift; path = DataSource/CollectionSectionHeaderFooter.swift; sourceTree = "<group>"; };
 		E559067F1E520D7B00F8E20E /* ModelExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelExtensions.swift; path = Extensions/ModelExtensions.swift; sourceTree = "<group>"; };
+		E561F5661E72FA4000C7407C /* STPostAttachmentsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPostAttachmentsController.swift; path = NewPost/STPostAttachmentsController.swift; sourceTree = "<group>"; };
+		E561F5681E72FCD300C7407C /* STAttachmentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STAttachmentCell.swift; path = NewPost/STAttachmentCell.swift; sourceTree = "<group>"; };
+		E561F5691E72FCD300C7407C /* STAttachmentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STAttachmentCell.xib; path = NewPost/STAttachmentCell.xib; sourceTree = "<group>"; };
 		E59448881E66D8AD002B2989 /* STTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTabBarViewController.swift; sourceTree = "<group>"; };
 		E594488A1E68062A002B2989 /* STDummyNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STDummyNavigationController.swift; sourceTree = "<group>"; };
 		E594488F1E680797002B2989 /* STNewPostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STNewPostController.swift; path = NewPost/STNewPostController.swift; sourceTree = "<group>"; };
@@ -650,6 +656,7 @@
 			isa = PBXGroup;
 			children = (
 				E594488F1E680797002B2989 /* STNewPostController.swift */,
+				E561F5661E72FA4000C7407C /* STPostAttachmentsController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -663,6 +670,8 @@
 				E59448961E680C98002B2989 /* STPostButtonsCell.xib */,
 				D43BED641E70570500683D5C /* STTextFieldsCell.swift */,
 				D43BED651E70570500683D5C /* STTextFieldsCell.xib */,
+				E561F5681E72FCD300C7407C /* STAttachmentCell.swift */,
+				E561F5691E72FCD300C7407C /* STAttachmentCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -761,6 +770,7 @@
 				D49545D11E3D064700EDCF01 /* STLoginTextTableViewCell.xib in Resources */,
 				D43BED671E70570500683D5C /* STTextFieldsCell.xib in Resources */,
 				E537712F1E64941C00BBADEA /* STPersonalPostDetailsMainInfoCell.xib in Resources */,
+				E561F56B1E72FCD300C7407C /* STAttachmentCell.xib in Resources */,
 				E55906781E51A74500F8E20E /* STProfileHeaderCell.xib in Resources */,
 				E53185E41E35E71900BC6C9A /* strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json in Resources */,
 				D4C2AD851E5395C7009CD55A /* STPersonalPostCell.xib in Resources */,
@@ -847,6 +857,7 @@
 				D4AD43B71E47A9C2006F13DE /* STFeedTableViewController.swift in Sources */,
 				D43A75651E4E6EBE00DB0850 /* STLocation.swift in Sources */,
 				D43BED6A1E70897200683D5C /* DatePickerViewController.swift in Sources */,
+				E561F56A1E72FCD300C7407C /* STAttachmentCell.swift in Sources */,
 				D4194A1E1E463F4300D0B189 /* ArrayOfCustomRealmObjectsTransform.swift in Sources */,
 				E5BE9E2F1E4C90680022B157 /* STFeedFilterSwitchTableViewCell.swift in Sources */,
 				D49545D41E3D0B8800EDCF01 /* STLoginSeparatorTableViewCell.swift in Sources */,
@@ -921,6 +932,7 @@
 				D43BED661E70570500683D5C /* STTextFieldsCell.swift in Sources */,
 				D433D1041E54F56900974AB1 /* STSettingsController.swift in Sources */,
 				D49EB19E1E45212F00B6F5DC /* STSocketRequestBuilder.swift in Sources */,
+				E561F5671E72FA4000C7407C /* STPostAttachmentsController.swift in Sources */,
 				E5FF31231E55D29C0013B713 /* STEditProfileController.swift in Sources */,
 				D44AB4F21E4FD1670013A972 /* STPostDetailsCollectionViewCell.swift in Sources */,
 				D49545D01E3D064700EDCF01 /* STLoginTextTableViewCell.swift in Sources */,

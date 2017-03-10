@@ -98,9 +98,9 @@ extension UITableView {
         self.register(cellClass, forCellReuseIdentifier: String(describing: cellClass.self))
     }
     
-    func register(nib: AnyClass) {
+    func register(nibClass: AnyClass) {
         
-        self.register(UINib(nibName: String(describing: nib), bundle: nil), forCellReuseIdentifier: String(describing: nib))
+        self.register(UINib(nibName: String(describing: nibClass), bundle: nil), forCellReuseIdentifier: String(describing: nibClass))
     }
     
     func register(headerFooterCellClass: AnyClass) {
@@ -108,10 +108,10 @@ extension UITableView {
         self.register(headerFooterCellClass, forHeaderFooterViewReuseIdentifier: String(describing: headerFooterCellClass))
     }
     
-    func register(headerFooterCell: AnyClass) {
+    func register(headerFooterNibClass: AnyClass) {
         
-        self.register(UINib(nibName: String(describing: headerFooterCell), bundle: nil),
-                      forHeaderFooterViewReuseIdentifier: String(describing: headerFooterCell))
+        self.register(UINib(nibName: String(describing: headerFooterNibClass), bundle: nil),
+                      forHeaderFooterViewReuseIdentifier: String(describing: headerFooterNibClass))
     }
     
     func showBusy() {

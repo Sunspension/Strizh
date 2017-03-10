@@ -66,8 +66,8 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
         
         self.tableView.dataSource = self.dataSource
         
-        self.tableView.register(nib: STEditProfileHeaderCell.self)
-        self.tableView.register(nib: STEditProfileTextCell.self)
+        self.tableView.register(nibClass: STEditProfileHeaderCell.self)
+        self.tableView.register(nibClass: STEditProfileTextCell.self)
         
         let rigthItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(self.save))
         

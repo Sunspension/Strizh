@@ -84,11 +84,11 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         self.tableView.bounces = false
         self.tableView.separatorStyle = .none
         
-        self.tableView.register(nib: STLoginLogoTableViewCell.self)
-        self.tableView.register(nib: STLoginTableViewCell.self)
-        self.tableView.register(nib: STLoginAvatarTableViewCell.self)
-        self.tableView.register(nib: STLoginTextTableViewCell.self)
-        self.tableView.register(nib: STLoginSeparatorTableViewCell.self)
+        self.tableView.register(nibClass: STLoginLogoTableViewCell.self)
+        self.tableView.register(nibClass: STLoginTableViewCell.self)
+        self.tableView.register(nibClass: STLoginAvatarTableViewCell.self)
+        self.tableView.register(nibClass: STLoginTextTableViewCell.self)
+        self.tableView.register(nibClass: STLoginSeparatorTableViewCell.self)
         
         let text = self.signupStep == .signupThirdStep ? "Готово" : "Далее"
         let rigthItem = UIBarButtonItem(title: text, style: .plain, target: self, action: #selector(self.actionNext))

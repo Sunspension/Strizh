@@ -68,10 +68,10 @@ class STProfileTableViewController: UITableViewController {
         self.tableView.separatorStyle = .none
         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
         
-        self.tableView.register(nib: STProfileHeaderCell.self)
-        self.tableView.register(nib: STPostTableViewCell.self)
-        self.tableView.register(nib: STPersonalPostCell.self)
-        self.tableView.register(headerFooterCell: STProfileFooterCell.self)
+        self.tableView.register(nibClass: STProfileHeaderCell.self)
+        self.tableView.register(nibClass: STPostTableViewCell.self)
+        self.tableView.register(nibClass: STPersonalPostCell.self)
+        self.tableView.register(headerFooterNibClass: STProfileFooterCell.self)
         
         self.dataSource.sections.append(self.userInfoSection)
         self.dataSource.sections.append(self.userPostsSection)

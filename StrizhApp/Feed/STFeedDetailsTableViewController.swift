@@ -69,12 +69,12 @@ class STFeedDetailsTableViewController: UIViewController {
         
         self.tableView.dataSource = self.dataSource
         
-        self.tableView.register(nib: STPostDetailsMainInfoCell.self)
-        self.tableView.register(nib: STPostDetailsMapsCell.self)
-        self.tableView.register(nib: STPostDetailsCollectionViewCell.self)
-        self.tableView.register(nib: STCommonButtonCell.self)
-        self.tableView.register(nib: STCommonLabelCell.self)
-        self.tableView.register(nib: STPersonalPostDetailsMainInfoCell.self)
+        self.tableView.register(nibClass: STPostDetailsMainInfoCell.self)
+        self.tableView.register(nibClass: STPostDetailsMapsCell.self)
+        self.tableView.register(nibClass: STPostDetailsCollectionViewCell.self)
+        self.tableView.register(nibClass: STCommonButtonCell.self)
+        self.tableView.register(nibClass: STCommonLabelCell.self)
+        self.tableView.register(nibClass: STPersonalPostDetailsMainInfoCell.self)
         
         self.navigationItem.title = "Информация"
     
