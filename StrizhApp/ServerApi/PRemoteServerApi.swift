@@ -34,7 +34,7 @@ protocol PRemoteServerApi {
     
     func logout() -> Future<STSession, STAuthorizationError>
     
-    func uploadImage(image: UIImage) -> Future<STFile, STImageUploadError>
+    func uploadImage(image: Data, uploadProgress: ((_ progress: Double) -> Void)?) -> Future<STFile, STImageUploadError>
     
     func onValidSession() -> Void
     

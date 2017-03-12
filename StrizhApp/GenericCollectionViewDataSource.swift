@@ -51,6 +51,7 @@ class GenericCollectionViewDataSource<CollectionViewCell: UICollectionViewCell, 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let item = self.sections[indexPath.section].items[indexPath.row]
+        item.indexPath = indexPath
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: cellClass),
                                                       for: indexPath) as! CollectionViewCell
         

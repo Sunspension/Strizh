@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8qw-dy-2nP">
-                        <rect key="frame" x="18" y="8" width="284" height="28"/>
+                        <rect key="frame" x="18" y="8" width="284" height="27"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <state key="normal" title="dogovor-privatizachiya.docx" image="icon-file-attached">
                             <color key="titleColor" red="0.043137254901960784" green="0.31372549019607843" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>

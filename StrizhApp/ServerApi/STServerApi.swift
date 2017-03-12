@@ -66,9 +66,9 @@ struct STServerApi: PRemoteServerApi {
         return self.httpManager.logout()
     }
     
-    func uploadImage(image: UIImage) -> Future<STFile, STImageUploadError> {
+    func uploadImage(image: Data, uploadProgress: ((_ progress: Double) -> Void)? = nil) -> Future<STFile, STImageUploadError> {
 
-        return self.httpManager.uploadImage(image: image)
+        return self.httpManager.uploadImage(image: image, uploadProgress: uploadProgress)
     }
     
     

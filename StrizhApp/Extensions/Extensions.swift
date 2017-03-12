@@ -240,6 +240,16 @@ extension UIColor {
         
         return UIColor(white: 1, alpha: 0.7)
     }
+    
+    class var stCloudyBlue: UIColor {
+     
+        return UIColor(red: 166.0 / 255.0, green: 174.0 / 255.0, blue: 210.0 / 255.0, alpha: 0.9)
+    }
+    
+    class var stBrownish: UIColor {
+     
+        return UIColor(red: 161.0 / 255.0, green: 101.0 / 255.0, blue: 101.0 / 255.0, alpha: 0.9)
+    }
 }
 
 

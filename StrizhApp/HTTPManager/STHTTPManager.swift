@@ -16,8 +16,8 @@ class STHTTPManager {
     private static let alamofireManager: Alamofire.SessionManager = {
         
         let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 15
-        configuration.timeoutIntervalForResource = 15
+        configuration.timeoutIntervalForRequest = 180
+        configuration.timeoutIntervalForResource = 600
         
         return Alamofire.SessionManager(configuration: configuration)
     }()
@@ -208,16 +208,13 @@ class STHTTPManager {
         return p.future
     }
     
-    func uploadImage(image: UIImage) -> Future<STFile, STImageUploadError> {
+    func uploadImage(image: Data, uploadProgress: ((_ progress: Double) -> Void)?) -> Future<STFile, STImageUploadError> {
         
         let p = Promise<STFile, STImageUploadError>()
         
         STHTTPManager.alamofireManager.upload(multipartFormData: { multipartFormData in
             
-            if let data = UIImageJPEGRepresentation(image, 0.85) {
-                
-                multipartFormData.append(data, withName: "file", fileName: UUID().uuidString + ".jpg", mimeType: "image/jpeg")
-            }
+            multipartFormData.append(image, withName: "file", fileName: UUID().uuidString + ".jpg", mimeType: "image/jpeg")
             
         }, to: serverBaseUrlString + "/api/image") { encodingResult in
             
@@ -263,7 +260,11 @@ class STHTTPManager {
                         }
                         
                         p.success(response.result.value!)
-                }
+                    }
+                    .uploadProgress(closure: { progress in
+                        
+                        uploadProgress?(progress.fractionCompleted)
+                    })
                 
             case .failure(let encodingError):
                 

@@ -666,9 +666,9 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         
         self.startAnimating()
         
-        if let image = self.userImage {
+        if let image = self.userImage, let data = UIImageJPEGRepresentation(image, 1) {
             
-            api.uploadImage(image: image)
+            api.uploadImage(image: data, uploadProgress: nil)
                 
                 .onSuccess(callback: { [unowned self] imageResponse in
                     

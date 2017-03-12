@@ -20,6 +20,8 @@ class GenericCollectionSection<TItem>: NSObject {
     
     var sectionType: Any?
     
+    var sectionChanged: (() -> Void)?
+    
     subscript(index: Int) -> GenericCollectionSectionItem<TItem> {
         
         get {

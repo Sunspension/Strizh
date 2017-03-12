@@ -39,12 +39,16 @@
 		D43BED6C1E708A1000683D5C /* STBottomPopupPresentationAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43BED6B1E708A1000683D5C /* STBottomPopupPresentationAnimation.swift */; };
 		D43BED6E1E708D4100683D5C /* DatePickerPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43BED6D1E708D4100683D5C /* DatePickerPresentationController.swift */; };
 		D43BED711E70A72D00683D5C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D43BED6F1E70A72D00683D5C /* Main.storyboard */; };
+		D4427E661E757C8F0002BCCF /* STCommonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4427E641E757C8F0002BCCF /* STCommonCollectionViewCell.swift */; };
+		D4427E671E757C8F0002BCCF /* STCommonCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4427E651E757C8F0002BCCF /* STCommonCollectionViewCell.xib */; };
 		D44AB4EB1E4FCC210013A972 /* GenericCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AB4EA1E4FCC210013A972 /* GenericCollectionViewDataSource.swift */; };
 		D44AB4EE1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AB4EC1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift */; };
 		D44AB4EF1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44AB4ED1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib */; };
-		D44AB4F21E4FD1670013A972 /* STPostDetailsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AB4F01E4FD1670013A972 /* STPostDetailsCollectionViewCell.swift */; };
-		D44AB4F31E4FD1680013A972 /* STPostDetailsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44AB4F11E4FD1670013A972 /* STPostDetailsCollectionViewCell.xib */; };
 		D44AB4F61E4FD54D0013A972 /* STFeedDetailsCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AB4F51E4FD54D0013A972 /* STFeedDetailsCollectionLayout.swift */; };
+		D44E33941E749FCD006F4709 /* STAttachmentPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44E33921E749FCD006F4709 /* STAttachmentPhotoCell.swift */; };
+		D44E33951E749FCD006F4709 /* STAttachmentPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44E33931E749FCD006F4709 /* STAttachmentPhotoCell.xib */; };
+		D44E33991E74B50C006F4709 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44E33981E74B50C006F4709 /* ImageUploader.swift */; };
+		D44E339B1E74B9B8006F4709 /* ImageUploadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44E339A1E74B9B8006F4709 /* ImageUploadOperation.swift */; };
 		D4922AA61E43DB67006FF4D5 /* STWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */; };
 		D4922AAD1E43F6B9006FF4D5 /* STHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AAC1E43F6B9006FF4D5 /* STHTTPManager.swift */; };
 		D49545CC1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49545CA1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift */; };
@@ -168,12 +172,16 @@
 		D43BED6B1E708A1000683D5C /* STBottomPopupPresentationAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STBottomPopupPresentationAnimation.swift; path = CommonUI/STBottomPopupPresentationAnimation.swift; sourceTree = "<group>"; };
 		D43BED6D1E708D4100683D5C /* DatePickerPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DatePickerPresentationController.swift; path = CommonUI/DatePickerPresentationController.swift; sourceTree = "<group>"; };
 		D43BED701E70A72D00683D5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D4427E641E757C8F0002BCCF /* STCommonCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STCommonCollectionViewCell.swift; path = CommonUI/STCommonCollectionViewCell.swift; sourceTree = "<group>"; };
+		D4427E651E757C8F0002BCCF /* STCommonCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STCommonCollectionViewCell.xib; path = CommonUI/STCommonCollectionViewCell.xib; sourceTree = "<group>"; };
 		D44AB4EA1E4FCC210013A972 /* GenericCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		D44AB4EC1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPostDetailsPhotoCell.swift; path = Feed/STPostDetailsPhotoCell.swift; sourceTree = "<group>"; };
 		D44AB4ED1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPostDetailsPhotoCell.xib; path = Feed/STPostDetailsPhotoCell.xib; sourceTree = "<group>"; };
-		D44AB4F01E4FD1670013A972 /* STPostDetailsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPostDetailsCollectionViewCell.swift; path = Feed/STPostDetailsCollectionViewCell.swift; sourceTree = "<group>"; };
-		D44AB4F11E4FD1670013A972 /* STPostDetailsCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPostDetailsCollectionViewCell.xib; path = Feed/STPostDetailsCollectionViewCell.xib; sourceTree = "<group>"; };
 		D44AB4F51E4FD54D0013A972 /* STFeedDetailsCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedDetailsCollectionLayout.swift; path = Feed/STFeedDetailsCollectionLayout.swift; sourceTree = "<group>"; };
+		D44E33921E749FCD006F4709 /* STAttachmentPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STAttachmentPhotoCell.swift; path = NewPost/STAttachmentPhotoCell.swift; sourceTree = "<group>"; };
+		D44E33931E749FCD006F4709 /* STAttachmentPhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STAttachmentPhotoCell.xib; path = NewPost/STAttachmentPhotoCell.xib; sourceTree = "<group>"; };
+		D44E33981E74B50C006F4709 /* ImageUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
+		D44E339A1E74B9B8006F4709 /* ImageUploadOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploadOperation.swift; sourceTree = "<group>"; };
 		D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STWebSocket.swift; path = WebSocket/STWebSocket.swift; sourceTree = "<group>"; };
 		D4922AAC1E43F6B9006FF4D5 /* STHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STHTTPManager.swift; path = HTTPManager/STHTTPManager.swift; sourceTree = "<group>"; };
 		D49545CA1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginAvatarTableViewCell.swift; path = SignUp/STLoginAvatarTableViewCell.swift; sourceTree = "<group>"; };
@@ -290,6 +298,8 @@
 			isa = PBXGroup;
 			children = (
 				D43BED681E70894A00683D5C /* DatePickerController */,
+				D4427E641E757C8F0002BCCF /* STCommonCollectionViewCell.swift */,
+				D4427E651E757C8F0002BCCF /* STCommonCollectionViewCell.xib */,
 				D40BC85D1E5B60DF0045F327 /* STCommonButtonCell.swift */,
 				D40BC85E1E5B60DF0045F327 /* STCommonButtonCell.xib */,
 				D40BC8611E5B61120045F327 /* STCommonLabelCell.swift */,
@@ -420,7 +430,6 @@
 				D49727151E32D21C0076B7A1 /* ServerApi */,
 				D49727141E32CF5B0076B7A1 /* Models */,
 				D49727111E32CA4B0076B7A1 /* Errors */,
-				E53185F01E3612EF00BC6C9A /* STLoadingStatusEnum.swift */,
 				D4AD43B21E47A970006F13DE /* AppSettings.swift */,
 				D49726FA1E32BDA50076B7A1 /* AppDelegate.swift */,
 				E53185E11E35E5A200BC6C9A /* GoogleService-Info.plist */,
@@ -527,8 +536,6 @@
 				D43A755F1E4E610700DB0850 /* STPostDetailsMapsCell.xib */,
 				D44AB4EC1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift */,
 				D44AB4ED1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib */,
-				D44AB4F01E4FD1670013A972 /* STPostDetailsCollectionViewCell.swift */,
-				D44AB4F11E4FD1670013A972 /* STPostDetailsCollectionViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -600,6 +607,9 @@
 			children = (
 				D497AB521E3BE7C0006A393D /* CountdownTimer.swift */,
 				E53F37C21E3A75F900393BAD /* KeyboardNotificationListener.swift */,
+				D44E33981E74B50C006F4709 /* ImageUploader.swift */,
+				D44E339A1E74B9B8006F4709 /* ImageUploadOperation.swift */,
+				E53185F01E3612EF00BC6C9A /* STLoadingStatusEnum.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -672,6 +682,8 @@
 				D43BED651E70570500683D5C /* STTextFieldsCell.xib */,
 				E561F5681E72FCD300C7407C /* STAttachmentCell.swift */,
 				E561F5691E72FCD300C7407C /* STAttachmentCell.xib */,
+				D44E33921E749FCD006F4709 /* STAttachmentPhotoCell.swift */,
+				D44E33931E749FCD006F4709 /* STAttachmentPhotoCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -751,9 +763,9 @@
 			files = (
 				D49727071E32BDA50076B7A1 /* LaunchScreen.storyboard in Resources */,
 				D4C2AD811E538FC6009CD55A /* STProfileFooterCell.xib in Resources */,
+				D4427E671E757C8F0002BCCF /* STCommonCollectionViewCell.xib in Resources */,
 				D49545CD1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.xib in Resources */,
 				D40BC8641E5B61120045F327 /* STCommonLabelCell.xib in Resources */,
-				D44AB4F31E4FD1680013A972 /* STPostDetailsCollectionViewCell.xib in Resources */,
 				E5FF312B1E55E7DD0013B713 /* STEditProfileTextCell.xib in Resources */,
 				D49545D51E3D0B8800EDCF01 /* STLoginSeparatorTableViewCell.xib in Resources */,
 				E5BE9E2C1E4C8F000022B157 /* STFeedFilterTableViewCell.xib in Resources */,
@@ -769,6 +781,7 @@
 				D4227F551E6270F600BCB8B1 /* STContactHeaderCell.xib in Resources */,
 				D49545D11E3D064700EDCF01 /* STLoginTextTableViewCell.xib in Resources */,
 				D43BED671E70570500683D5C /* STTextFieldsCell.xib in Resources */,
+				D44E33951E749FCD006F4709 /* STAttachmentPhotoCell.xib in Resources */,
 				E537712F1E64941C00BBADEA /* STPersonalPostDetailsMainInfoCell.xib in Resources */,
 				E561F56B1E72FCD300C7407C /* STAttachmentCell.xib in Resources */,
 				E55906781E51A74500F8E20E /* STProfileHeaderCell.xib in Resources */,
@@ -867,8 +880,10 @@
 				E5BE9E371E4E23A40022B157 /* STPostDetailsMainInfoCell.swift in Sources */,
 				D497AB531E3BE7C0006A393D /* CountdownTimer.swift in Sources */,
 				E5BE9E281E4C8D690022B157 /* STFeedFilterTableViewController.swift in Sources */,
+				D4427E661E757C8F0002BCCF /* STCommonCollectionViewCell.swift in Sources */,
 				E59A1B141E3F89A7009EE669 /* STImageUploadError.swift in Sources */,
 				E55906771E51A74500F8E20E /* STProfileHeaderCell.swift in Sources */,
+				D44E33991E74B50C006F4709 /* ImageUploader.swift in Sources */,
 				D40BC85F1E5B60DF0045F327 /* STCommonButtonCell.swift in Sources */,
 				D49727171E32D2750076B7A1 /* PRemoteServerApi.swift in Sources */,
 				E559067A1E51FF5900F8E20E /* CollectionSectionHeaderFooter.swift in Sources */,
@@ -894,6 +909,7 @@
 				D49727241E32E3CC0076B7A1 /* STAuthorizationError.swift in Sources */,
 				D4227F531E6270E200BCB8B1 /* STContactHeaderCell.swift in Sources */,
 				D4C2AD7F1E538FAE009CD55A /* STProfileFooterCell.swift in Sources */,
+				D44E33941E749FCD006F4709 /* STAttachmentPhotoCell.swift in Sources */,
 				D40BC8631E5B61120045F327 /* STCommonLabelCell.swift in Sources */,
 				E59A1B181E3F9388009EE669 /* STImage.swift in Sources */,
 				D40BC8661E5B706D0045F327 /* SHSPhoneComponentExtensions.swift in Sources */,
@@ -929,12 +945,12 @@
 				D4194A1A1E460D4400D0B189 /* ArrayTransform.swift in Sources */,
 				D4AD43BC1E47B504006F13DE /* STPostTableViewCell.swift in Sources */,
 				D44AB4EE1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift in Sources */,
+				D44E339B1E74B9B8006F4709 /* ImageUploadOperation.swift in Sources */,
 				D43BED661E70570500683D5C /* STTextFieldsCell.swift in Sources */,
 				D433D1041E54F56900974AB1 /* STSettingsController.swift in Sources */,
 				D49EB19E1E45212F00B6F5DC /* STSocketRequestBuilder.swift in Sources */,
 				E561F5671E72FA4000C7407C /* STPostAttachmentsController.swift in Sources */,
 				E5FF31231E55D29C0013B713 /* STEditProfileController.swift in Sources */,
-				D44AB4F21E4FD1670013A972 /* STPostDetailsCollectionViewCell.swift in Sources */,
 				D49545D01E3D064700EDCF01 /* STLoginTextTableViewCell.swift in Sources */,
 				D43A75671E4E883700DB0850 /* STFeed.swift in Sources */,
 				E59448891E66D8AD002B2989 /* STTabBarViewController.swift in Sources */,

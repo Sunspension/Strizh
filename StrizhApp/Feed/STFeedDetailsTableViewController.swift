@@ -71,7 +71,7 @@ class STFeedDetailsTableViewController: UIViewController {
         
         self.tableView.register(nibClass: STPostDetailsMainInfoCell.self)
         self.tableView.register(nibClass: STPostDetailsMapsCell.self)
-        self.tableView.register(nibClass: STPostDetailsCollectionViewCell.self)
+        self.tableView.register(nibClass: STCommonCollectionViewCell.self)
         self.tableView.register(nibClass: STCommonButtonCell.self)
         self.tableView.register(nibClass: STCommonLabelCell.self)
         self.tableView.register(nibClass: STPersonalPostDetailsMainInfoCell.self)
@@ -260,7 +260,7 @@ class STFeedDetailsTableViewController: UIViewController {
             // collection view data source
             self.imageDataSource = GenericCollectionViewDataSource(cellClass: STPostDetailsPhotoCell.self, binding: { (cell, item) in
                 
-                cell.busy.stopAnimating()
+                cell.busy.startAnimating()
                 
                 let width = Int(cell.image.bounds.size.width * UIScreen.main.scale)
                 let height = Int(cell.image.bounds.size.height * UIScreen.main.scale)
@@ -283,14 +283,15 @@ class STFeedDetailsTableViewController: UIViewController {
                 self.collectionSection.add(item: image)
             })
             
-            tableSection.addItem(cellClass: STPostDetailsCollectionViewCell.self,
+            tableSection.addItem(cellClass: STCommonCollectionViewCell.self,
                             item: self.imageDataSource,
                             bindingAction: { (cell, item) in
             
-                                let viewCell = cell as! STPostDetailsCollectionViewCell
+                                let viewCell = cell as! STCommonCollectionViewCell
                                 viewCell.selectionStyle = .none
                                 let dataSource = item.item as! GenericCollectionViewDataSource<STPostDetailsPhotoCell, STImage>
                                 
+                                viewCell.collectionView.register(nib: STPostDetailsPhotoCell.self)
                                 viewCell.collectionView.dataSource = dataSource
                                 viewCell.collectionView.delegate = dataSource
                                 viewCell.collectionView.reloadData()

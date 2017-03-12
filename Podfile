@@ -20,4 +20,5 @@ target 'StrizhApp' do
     pod 'EmitterKit'
     pod 'GoogleMaps'
     pod 'DKImagePickerController'
+    pod 'KDCircularProgress'
 end
