@@ -49,6 +49,7 @@ class STNewPostController: UITableViewController {
         self.tableView.register(nibClass: STTextFieldCell.self)
         self.tableView.register(nibClass: STPostButtonsCell.self)
         self.tableView.register(nibClass: STTextFieldsCell.self)
+        self.tableView.register(nibClass: STTextViewCell.self)
         self.tableView.register(headerFooterNibClass: STContactHeaderCell.self)
         
         self.dataSource.sections.append(self.requiredFieldsSection)
@@ -156,7 +157,7 @@ class STNewPostController: UITableViewController {
             let viewCell = cell as! STTextFieldCell
             
             viewCell.title.text = "Название"
-            viewCell.value.placeholder = "Введите название проекта"
+            viewCell.value.placeholder = "Введите название темы"
             viewCell.value.reactive.text.observeNext { [unowned viewCell, unowned self] text in
                 
                 if self.postObject != nil {
@@ -193,49 +194,103 @@ class STNewPostController: UITableViewController {
             }
         }
         
-        self.requiredFieldsSection.addItem(cellClass: STTextFieldCell.self) { (cell, item) in
+        self.requiredFieldsSection.addItem(cellClass: STTextViewCell.self) { (cell, item) in
             
-            let viewCell = cell as! STTextFieldCell
+            let viewCell = cell as! STTextViewCell
             
             viewCell.title.text = "Описание"
-            viewCell.value.placeholder = "Введите описание темы"
+            viewCell.value.attributedText = NSAttributedString(string: "Введите описание темы", attributes: [NSForegroundColorAttributeName : UIColor.lightGray, NSFontAttributeName : UIFont.systemFont(ofSize: 14)]);
             
-            viewCell.value.reactive.text.observeNext { [unowned viewCell] text in
+            viewCell.value.reactive.text.observeNext { [unowned viewCell, unowned self] text in
+                
+                let offset = self.tableView.contentOffset
+                
+                UIView.setAnimationsEnabled(false)
+                
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+                
+                UIView.setAnimationsEnabled(true)
+                
+                self.tableView.contentOffset = offset
                 
                 if self.postObject != nil {
-                 
-                    viewCell.hideError()
-                    self.postObject!.details = text ?? ""
+                    
+                    self.postObject!.title = text ?? ""
+                    //                    viewCell.hideError()
                 }
                 
-            }.dispose(in: viewCell.bag)
+                }.dispose(in: viewCell.bag)
             
-            viewCell.onErrorHandler = { [unowned self] in
-                
-                self.showValidationAlert()
-            }
+            //            viewCell.onErrorHandler = { [unowned self] in
+            //
+            //                self.showValidationAlert()
+            //            }
             
             if item.hasError {
                 
-                viewCell.showError()
+                //                viewCell.showError()
             }
             
             item.validation = { [unowned item] in
                 
-                if !self.postObject!.details.isEmpty {
+                if !self.postObject!.title.isEmpty {
                     
                     item.hasError = false
                     return ValidationResult.onSuccess
                 }
                 else {
                     
-                    viewCell.showError()
+                    //                    viewCell.showError()
                     item.hasError = true
                     return ValidationResult.onError(errorMessage: "")
                 }
             }
         }
         
+//        self.requiredFieldsSection.addItem(cellClass: STTextFieldCell.self) { (cell, item) in
+//            
+//            let viewCell = cell as! STTextFieldCell
+//            
+//            viewCell.title.text = "Описание"
+//            viewCell.value.placeholder = "Введите описание темы"
+//            
+//            viewCell.value.reactive.text.observeNext { [unowned viewCell] text in
+//                
+//                if self.postObject != nil {
+//                 
+//                    viewCell.hideError()
+//                    self.postObject!.details = text ?? ""
+//                }
+//                
+//            }.dispose(in: viewCell.bag)
+//            
+//            viewCell.onErrorHandler = { [unowned self] in
+//                
+//                self.showValidationAlert()
+//            }
+//            
+//            if item.hasError {
+//                
+//                viewCell.showError()
+//            }
+//            
+//            item.validation = { [unowned item] in
+//                
+//                if !self.postObject!.details.isEmpty {
+//                    
+//                    item.hasError = false
+//                    return ValidationResult.onSuccess
+//                }
+//                else {
+//                    
+//                    viewCell.showError()
+//                    item.hasError = true
+//                    return ValidationResult.onError(errorMessage: "")
+//                }
+//            }
+//        }
+//        
         self.requiredFieldsSection.addItem(cellClass: STTextFieldsCell.self) { (cell, item) in
             
             let viewCell = cell as! STTextFieldsCell

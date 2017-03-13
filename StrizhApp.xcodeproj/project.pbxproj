@@ -87,6 +87,8 @@
 		D4C2AD851E5395C7009CD55A /* STPersonalPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4C2AD831E5395C7009CD55A /* STPersonalPostCell.xib */; };
 		D4C60A811E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C60A7F1E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift */; };
 		D4C60A821E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4C60A801E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib */; };
+		E50DBEAF1E76FD8D000C38E4 /* STTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50DBEAD1E76FD8D000C38E4 /* STTextViewCell.swift */; };
+		E50DBEB01E76FD8D000C38E4 /* STTextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50DBEAE1E76FD8D000C38E4 /* STTextViewCell.xib */; };
 		E50FA39A1E6842CE00CAA4D7 /* STNewPostObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50FA3991E6842CD00CAA4D7 /* STNewPostObject.swift */; };
 		E50FA39D1E68510E00CAA4D7 /* STNewPostNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50FA39C1E68510E00CAA4D7 /* STNewPostNavigationController.swift */; };
 		E53185E21E35E5A200BC6C9A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E53185E11E35E5A200BC6C9A /* GoogleService-Info.plist */; };
@@ -222,6 +224,8 @@
 		D4C2AD831E5395C7009CD55A /* STPersonalPostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPersonalPostCell.xib; path = Profile/STPersonalPostCell.xib; sourceTree = "<group>"; };
 		D4C60A7F1E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginSkipTableViewCell.swift; path = SignUp/STLoginSkipTableViewCell.swift; sourceTree = "<group>"; };
 		D4C60A801E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STLoginSkipTableViewCell.xib; path = SignUp/STLoginSkipTableViewCell.xib; sourceTree = "<group>"; };
+		E50DBEAD1E76FD8D000C38E4 /* STTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STTextViewCell.swift; path = NewPost/STTextViewCell.swift; sourceTree = "<group>"; };
+		E50DBEAE1E76FD8D000C38E4 /* STTextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STTextViewCell.xib; path = NewPost/STTextViewCell.xib; sourceTree = "<group>"; };
 		E50FA3991E6842CD00CAA4D7 /* STNewPostObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STNewPostObject.swift; path = Models/STNewPostObject.swift; sourceTree = "<group>"; };
 		E50FA39C1E68510E00CAA4D7 /* STNewPostNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STNewPostNavigationController.swift; path = NewPost/STNewPostNavigationController.swift; sourceTree = "<group>"; };
 		E53185E11E35E5A200BC6C9A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -684,6 +688,8 @@
 				E561F5691E72FCD300C7407C /* STAttachmentCell.xib */,
 				D44E33921E749FCD006F4709 /* STAttachmentPhotoCell.swift */,
 				D44E33931E749FCD006F4709 /* STAttachmentPhotoCell.xib */,
+				E50DBEAD1E76FD8D000C38E4 /* STTextViewCell.swift */,
+				E50DBEAE1E76FD8D000C38E4 /* STTextViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -777,6 +783,7 @@
 				E59448941E680B83002B2989 /* STTextFieldCell.xib in Resources */,
 				D4227F4F1E61FE7600BCB8B1 /* STContactCell.xib in Resources */,
 				D44AB4EF1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib in Resources */,
+				E50DBEB01E76FD8D000C38E4 /* STTextViewCell.xib in Resources */,
 				D4C60A821E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib in Resources */,
 				D4227F551E6270F600BCB8B1 /* STContactHeaderCell.xib in Resources */,
 				D49545D11E3D064700EDCF01 /* STLoginTextTableViewCell.xib in Resources */,
@@ -919,6 +926,7 @@
 				D4194A171E46028F00D0B189 /* RealmString.swift in Sources */,
 				D497AB4F1E3BE53A006A393D /* GenericCollectionSectionItem.swift in Sources */,
 				E5BE9E251E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift in Sources */,
+				E50DBEAF1E76FD8D000C38E4 /* STTextViewCell.swift in Sources */,
 				E53F37BD1E3A632C00393BAD /* STLoginLogoTableViewCell.swift in Sources */,
 				D497AB4C1E3BE53A006A393D /* CollectionSection.swift in Sources */,
 				E5BE9E321E4C99C00022B157 /* STFeedFilter.swift in Sources */,
