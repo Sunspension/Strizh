@@ -17,6 +17,8 @@ class STTextFieldCell: UITableViewCell {
     
     var onErrorHandler: (() -> Void)?
     
+    var onTextDidChange: ((_ text: String) -> Void)?
+    
     var bag = DisposeBag()
     
     
@@ -32,16 +34,18 @@ class STTextFieldCell: UITableViewCell {
         value.placeholder = ""
         value.text = ""
         
+        value.addTarget(self, action: #selector(self.textDidChange), for: .editingChanged)
+        
         selectionStyle = .none
     }
 
     override func prepareForReuse() {
         
+        bag.dispose()
         title.text = ""
         value.placeholder = ""
         value.text = ""
         value.keyboardType = .default
-        bag.dispose()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -69,5 +73,13 @@ class STTextFieldCell: UITableViewCell {
     func hideError() {
         
         self.value.rightView = nil
+    }
+    
+    func textDidChange() {
+        
+        if let text = value.text {
+            
+            onTextDidChange?(text)
+        }
     }
 }

@@ -37,8 +37,7 @@ class STAttachmentPhotoCell: UICollectionViewCell {
         
         self.image.layer.cornerRadius = 5
         self.image.clipsToBounds = true
-        
-        self.reset()
+        self.initialize()
     }
     
     override func layoutSubviews() {
@@ -50,8 +49,7 @@ class STAttachmentPhotoCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         
-        self.angle = 0.0
-        self.reset()
+        self.initialize()
         self.bag.dispose()
     }
     
@@ -62,11 +60,6 @@ class STAttachmentPhotoCell: UICollectionViewCell {
         self.angle = toAngle
         
         self.progress.animate(fromAngle: fromAngle, toAngle: toAngle, duration: 0.5, completion: nil)
-    }
-    
-    func waiting() {
-        
-        self.loadingLabel.text = "Ожидание"
     }
     
     func uploading() {
@@ -90,13 +83,15 @@ class STAttachmentPhotoCell: UICollectionViewCell {
         self.coloredLayer.removeFromSuperlayer()
     }
     
-    private func reset() {
+    private func initialize() {
         
         if self.coloredLayer.superlayer == nil {
             
             self.image.layer.addSublayer(self.coloredLayer)
         }
         
+        self.loadingLabel.text = "Ожидание"
+        self.angle = 0.0
         self.coloredLayer.backgroundColor = UIColor.stCloudyBlue.cgColor
         self.delete.isHidden = true
         self.progress.isHidden = false

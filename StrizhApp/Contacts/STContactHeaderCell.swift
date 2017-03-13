@@ -23,7 +23,7 @@ class STContactHeaderCell: UITableViewHeaderFooterView {
             backgroundView = UIView()
         }
         
-        self.backgroundView?.backgroundColor = UIColor.stLightBlueGrey
+        self.backgroundView!.backgroundColor = UIColor.stLightBlueGrey
         title.textColor = UIColor.black
     }
 }

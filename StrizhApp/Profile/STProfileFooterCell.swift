@@ -19,6 +19,6 @@ class STProfileFooterCell: UITableViewHeaderFooterView {
             backgroundView = UIView()
         }
         
-        self.backgroundView?.backgroundColor = UIColor.clear
+        self.backgroundView!.backgroundColor = UIColor.clear
     }
 }

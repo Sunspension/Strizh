@@ -9,7 +9,7 @@
 import UIKit
 import Bond
 
-class STNewPostController: UITableViewController {
+class STNewPostController: UITableViewController, UITextViewDelegate {
 
     
     private var dataSource = TableViewDataSource()
@@ -42,7 +42,7 @@ class STNewPostController: UITableViewController {
     
         self.tableView.tableFooterView = UIView()
         self.tableView.backgroundColor = UIColor.stLightBlueGrey
-        self.tableView.estimatedRowHeight = 50
+        self.tableView.estimatedRowHeight = 60
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.separatorInset = UIEdgeInsets.zero
         
@@ -102,6 +102,11 @@ class STNewPostController: UITableViewController {
             return
         }
         
+        if let navi = self.navigationController as? STNewPostNavigationController {
+            
+            navi.postObject = self.postObject!
+        }
+        
         self.st_router_openPostAttachmentsController()
     }
     
@@ -137,6 +142,11 @@ class STNewPostController: UITableViewController {
             viewCell.offerButtonSelected(selected: true)
             viewCell.title.text = "Вид темы"
             
+            if let postObject = self.postObject {
+                
+                viewCell.setType(type: postObject.type)
+            }
+            
             viewCell.offer.reactive.tap.observe { [unowned viewCell, unowned self] _ in
                 
                 self.postObject?.type = 1
@@ -158,15 +168,13 @@ class STNewPostController: UITableViewController {
             
             viewCell.title.text = "Название"
             viewCell.value.placeholder = "Введите название темы"
-            viewCell.value.reactive.text.observeNext { [unowned viewCell, unowned self] text in
+            viewCell.value.text = self.postObject?.title
+            
+            viewCell.onTextDidChange = { [unowned viewCell, unowned self] text in
                 
-                if self.postObject != nil {
-                    
-                    self.postObject!.title = text ?? ""
-                    viewCell.hideError()
-                }
-                
-            }.dispose(in: viewCell.bag)
+                self.postObject?.title = text
+                viewCell.hideError()
+            }
             
             viewCell.onErrorHandler = { [unowned self] in
                 
@@ -199,28 +207,22 @@ class STNewPostController: UITableViewController {
             let viewCell = cell as! STTextViewCell
             
             viewCell.title.text = "Описание"
-            viewCell.value.attributedText = NSAttributedString(string: "Введите описание темы", attributes: [NSForegroundColorAttributeName : UIColor.lightGray, NSFontAttributeName : UIFont.systemFont(ofSize: 14)]);
+            viewCell.placeHolder.placeholder = "Введите описание темы"
+            viewCell.textValue = self.postObject?.details
             
-            viewCell.value.reactive.text.observeNext { [unowned viewCell, unowned self] text in
+            viewCell.onReturn = { [unowned self] in
                 
-                let offset = self.tableView.contentOffset
+                self.view.endEditing(true)
+            }
+            
+            viewCell.onTextViewDidChange = { [unowned self] textView in
                 
-                UIView.setAnimationsEnabled(false)
+                self.postObject?.details = textView.text ?? ""
+//                viewCell.hideError()
                 
-                self.tableView.beginUpdates()
-                self.tableView.endUpdates()
-                
-                UIView.setAnimationsEnabled(true)
-                
-                self.tableView.contentOffset = offset
-                
-                if self.postObject != nil {
-                    
-                    self.postObject!.title = text ?? ""
-                    //                    viewCell.hideError()
-                }
-                
-                }.dispose(in: viewCell.bag)
+                self.refreshTableView()
+            }
+            
             
             //            viewCell.onErrorHandler = { [unowned self] in
             //
@@ -248,49 +250,6 @@ class STNewPostController: UITableViewController {
             }
         }
         
-//        self.requiredFieldsSection.addItem(cellClass: STTextFieldCell.self) { (cell, item) in
-//            
-//            let viewCell = cell as! STTextFieldCell
-//            
-//            viewCell.title.text = "Описание"
-//            viewCell.value.placeholder = "Введите описание темы"
-//            
-//            viewCell.value.reactive.text.observeNext { [unowned viewCell] text in
-//                
-//                if self.postObject != nil {
-//                 
-//                    viewCell.hideError()
-//                    self.postObject!.details = text ?? ""
-//                }
-//                
-//            }.dispose(in: viewCell.bag)
-//            
-//            viewCell.onErrorHandler = { [unowned self] in
-//                
-//                self.showValidationAlert()
-//            }
-//            
-//            if item.hasError {
-//                
-//                viewCell.showError()
-//            }
-//            
-//            item.validation = { [unowned item] in
-//                
-//                if !self.postObject!.details.isEmpty {
-//                    
-//                    item.hasError = false
-//                    return ValidationResult.onSuccess
-//                }
-//                else {
-//                    
-//                    viewCell.showError()
-//                    item.hasError = true
-//                    return ValidationResult.onError(errorMessage: "")
-//                }
-//            }
-//        }
-//        
         self.requiredFieldsSection.addItem(cellClass: STTextFieldsCell.self) { (cell, item) in
             
             let viewCell = cell as! STTextFieldsCell
@@ -299,18 +258,8 @@ class STNewPostController: UITableViewController {
             viewCell.leftValue.placeholder = "Начало"
             viewCell.rightValue.placeholder = "Конец"
             
-            if let postObject = self.postObject {
-                
-                if postObject.fromDate != nil {
-                    
-                    viewCell.leftValue.text = postObject.fromDate!.mediumLocalizedFormat
-                }
-                
-                if postObject.tillDate != nil {
-                    
-                    viewCell.rightValue.text = postObject.tillDate!.mediumLocalizedFormat
-                }
-            }
+            viewCell.leftValue.text = self.postObject?.fromDate?.mediumLocalizedFormat
+            viewCell.rightValue.text = self.postObject?.tillDate?.mediumLocalizedFormat
             
             viewCell.onLeftValueShouldBeginEditing = { [unowned viewCell] in
                 
@@ -318,7 +267,7 @@ class STNewPostController: UITableViewController {
                 controller.navigationTitle = "Начало"
                 controller.onDidSelectDate = { [unowned viewCell, unowned self] selectedDate in
                     
-                    self.postObject!.fromDate = selectedDate
+                    self.postObject?.fromDate = selectedDate
                     self.fromDateError = false
                     
                     viewCell.leftValue.text = self.postObject!.fromDate!.mediumLocalizedFormat
@@ -335,7 +284,7 @@ class STNewPostController: UITableViewController {
                 
                 controller.onDidSelectDate = { [unowned viewCell, unowned self] selectedDate in
                     
-                    self.postObject!.tillDate = selectedDate
+                    self.postObject?.tillDate = selectedDate
                     self.tillDateError = false
                     
                     viewCell.rightValue.text = self.postObject!.tillDate!.mediumLocalizedFormat
@@ -396,53 +345,73 @@ class STNewPostController: UITableViewController {
             viewCell.value.placeholder = "0.00"
             viewCell.value.keyboardType = .numberPad
             
+            if let postObject = self.postObject {
+                
+                viewCell.value.text = postObject.price > 0 ? String(postObject.price) : ""
+            }
+            
             viewCell.value.reactive.text.observeNext { text in
                 
-                if var postObject = self.postObject {
-                    
-                    postObject.price = Double(text ?? "") ?? 0.0
-                }
+                self.postObject?.price = Double(text ?? "") ?? 0.0
                 
             }.dispose(in: viewCell.bag)
         }
         
-        self.optionalFieldsSection.addItem(cellClass: STTextFieldCell.self) { (cell, item) in
+        self.optionalFieldsSection.addItem(cellClass: STTextViewCell.self) { (cell, item) in
             
-            let viewCell = cell as! STTextFieldCell
+            let viewCell = cell as! STTextViewCell
             
             viewCell.title.text = "Комментарий к цене"
-            viewCell.value.placeholder = "Торг возможен, ниже рыночной цены и т.д."
+            viewCell.placeHolder.placeholder = "Торг возможен, ниже рыночной цены и т.д."
+            viewCell.textValue = self.postObject?.priceDescription
             
-            viewCell.value.reactive.text.observeNext { text in
+            viewCell.onReturn = { [unowned self] in
                 
-                if var postObject = self.postObject {
-                    
-                    postObject.priceDescription = text ?? ""
-                }
+                self.view.endEditing(true)
+            }
+            
+            viewCell.onTextViewDidChange = { [unowned self] textView in
                 
-            }.dispose(in: viewCell.bag)
+                self.postObject?.priceDescription = textView.text ?? ""
+                self.refreshTableView()
+            }
         }
         
-        self.optionalFieldsSection.addItem(cellClass: STTextFieldCell.self) { (cell, item) in
+        self.optionalFieldsSection.addItem(cellClass: STTextViewCell.self) { (cell, item) in
             
-            let viewCell = cell as! STTextFieldCell
+            let viewCell = cell as! STTextViewCell
             
             viewCell.title.text = "Агентское вознаграждение"
-            viewCell.value.placeholder = "Опишите профит для адресатов"
+            viewCell.placeHolder.placeholder = "Опишите выгоду для адресатов"
+            viewCell.textValue = self.postObject?.profitDescription
             
-            viewCell.value.reactive.text.observeNext { text in
+            viewCell.onReturn = { [unowned self] in
                 
-                if var postObject = self.postObject {
-                    
-                    postObject.profitDescription = text ?? ""
-                }
+                self.view.endEditing(true)
+            }
+            
+            viewCell.onTextViewDidChange = { [unowned self] textView in
                 
-            }.dispose(in: viewCell.bag)
+                self.postObject?.profitDescription = textView.text ?? ""
+                self.refreshTableView()
+            }
         }
     }
     
     private func showValidationAlert() {
         
         self.showOkAlert(title: "Ошибка", message: "Это поле не может быть пустым")
+    }
+    
+    func refreshTableView() {
+        
+        let currentOffset = tableView.contentOffset
+        
+        UIView.setAnimationsEnabled(false)
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        UIView.setAnimationsEnabled(true)
+        
+        tableView.setContentOffset(currentOffset, animated: false)
     }
 }

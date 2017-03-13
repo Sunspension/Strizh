@@ -71,7 +71,6 @@ class STPostAttachmentsController: UITableViewController {
             item.item.fetchImageWithSize(size) { (image, info) in
                 
                 cell.image.image = image
-                cell.waiting()
                 
                 cell.delete.reactive.tap.observeNext { [unowned self] in
                  
@@ -156,9 +155,6 @@ class STPostAttachmentsController: UITableViewController {
                     break
                     
                 default:
-                    
-                    cell.waiting()
-                    
                     break
                 }
             }

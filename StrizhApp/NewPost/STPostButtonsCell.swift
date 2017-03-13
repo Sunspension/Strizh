@@ -61,6 +61,18 @@ class STPostButtonsCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func setType(type: Int) {
+        
+        if type == 1 {
+            
+            self.offerButtonSelected(selected: true)
+        }
+        else if type == 2 {
+            
+            self.searchButtonSelected(selected: true)
+        }
+    }
+    
     func offerButtonSelected(selected: Bool) {
         
         self.offer.isSelected = selected
