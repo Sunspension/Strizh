@@ -12,36 +12,36 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="STAttachmentPhotoCell" customModule="StrizhApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="88" height="68"/>
+            <rect key="frame" x="0.0" y="0.0" width="92" height="72"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="88" height="68"/>
+                <rect key="frame" x="0.0" y="0.0" width="92" height="72"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v5K-g9-v3k">
-                        <rect key="frame" x="0.0" y="0.0" width="88" height="68"/>
+                        <rect key="frame" x="0.0" y="0.0" width="92" height="72"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SHZ-Hg-Wci">
-                                <rect key="frame" x="6" y="6" width="76" height="56"/>
+                                <rect key="frame" x="8" y="8" width="76" height="56"/>
                                 <color key="backgroundColor" red="0.65098039215686276" green="0.68235294117647061" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="76" id="5Cl-Lc-yem"/>
-                                    <constraint firstAttribute="height" constant="56" id="jSI-Hm-OFW"/>
+                                    <constraint firstAttribute="height" constant="56" id="hgY-xH-lRT"/>
+                                    <constraint firstAttribute="width" constant="76" id="vmK-gY-2bJ"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gk0-Hg-T94">
-                                <rect key="frame" x="68" y="0.0" width="20" height="20"/>
+                                <rect key="frame" x="68" y="0.0" width="24" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="20" id="kgw-Yl-iEg"/>
-                                    <constraint firstAttribute="height" constant="20" id="or1-DW-Jfb"/>
+                                    <constraint firstAttribute="width" constant="24" id="kgw-Yl-iEg"/>
+                                    <constraint firstAttribute="height" constant="24" id="or1-DW-Jfb"/>
                                 </constraints>
                                 <state key="normal" image="icon-attachment-delete"/>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="N5j-6j-wUt">
-                                <rect key="frame" x="12" y="12" width="64" height="44"/>
+                                <rect key="frame" x="10" y="14" width="72" height="44"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OWv-Ye-rn2" customClass="KDCircularProgress" customModule="KDCircularProgress">
-                                        <rect key="frame" x="20.5" y="0.0" width="23" height="23"/>
+                                        <rect key="frame" x="24.5" y="0.0" width="23" height="23"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="23" id="2JM-dM-77p"/>
@@ -70,7 +70,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Загрузка..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZaX-PF-aZd">
-                                        <rect key="frame" x="5" y="23" width="54.5" height="21"/>
+                                        <rect key="frame" x="9" y="23" width="54.5" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -80,15 +80,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="N5j-6j-wUt" firstAttribute="top" secondItem="v5K-g9-v3k" secondAttribute="top" constant="12" id="6fL-Wa-JUO"/>
+                            <constraint firstItem="SHZ-Hg-Wci" firstAttribute="centerX" secondItem="v5K-g9-v3k" secondAttribute="centerX" id="3iT-gF-FoL"/>
+                            <constraint firstItem="N5j-6j-wUt" firstAttribute="top" secondItem="v5K-g9-v3k" secondAttribute="top" constant="14" id="6fL-Wa-JUO"/>
                             <constraint firstAttribute="trailing" secondItem="Gk0-Hg-T94" secondAttribute="trailing" id="A8f-sF-vtY"/>
-                            <constraint firstAttribute="trailing" secondItem="SHZ-Hg-Wci" secondAttribute="trailing" constant="6" id="GSu-qB-9m7"/>
-                            <constraint firstAttribute="trailing" secondItem="N5j-6j-wUt" secondAttribute="trailing" constant="12" id="O32-eV-8BJ"/>
-                            <constraint firstAttribute="bottom" secondItem="SHZ-Hg-Wci" secondAttribute="bottom" constant="6" id="SoY-dJ-KSA"/>
-                            <constraint firstItem="SHZ-Hg-Wci" firstAttribute="leading" secondItem="v5K-g9-v3k" secondAttribute="leading" constant="6" id="Ugk-2M-lms"/>
-                            <constraint firstItem="N5j-6j-wUt" firstAttribute="leading" secondItem="v5K-g9-v3k" secondAttribute="leading" constant="12" id="ZQd-Nq-XZJ"/>
-                            <constraint firstItem="SHZ-Hg-Wci" firstAttribute="top" secondItem="v5K-g9-v3k" secondAttribute="top" constant="6" id="fuZ-wt-48g"/>
-                            <constraint firstAttribute="bottom" secondItem="N5j-6j-wUt" secondAttribute="bottom" constant="12" id="sCn-kB-9HX"/>
+                            <constraint firstAttribute="trailing" secondItem="N5j-6j-wUt" secondAttribute="trailing" constant="10" id="O32-eV-8BJ"/>
+                            <constraint firstItem="N5j-6j-wUt" firstAttribute="leading" secondItem="v5K-g9-v3k" secondAttribute="leading" constant="10" id="ZQd-Nq-XZJ"/>
+                            <constraint firstItem="SHZ-Hg-Wci" firstAttribute="centerY" secondItem="v5K-g9-v3k" secondAttribute="centerY" id="iuo-gS-lEF"/>
+                            <constraint firstAttribute="bottom" secondItem="N5j-6j-wUt" secondAttribute="bottom" constant="14" id="sCn-kB-9HX"/>
                             <constraint firstItem="Gk0-Hg-T94" firstAttribute="top" secondItem="v5K-g9-v3k" secondAttribute="top" id="yiZ-ju-wR0"/>
                         </constraints>
                     </view>

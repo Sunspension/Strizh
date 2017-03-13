@@ -19,13 +19,7 @@ class STPostAttachmentsController: UITableViewController {
 
     private var dataSource = TableViewDataSource()
     
-    private var photoSection = CollectionSection()
-    
-    private var selectedPhotosSection = CollectionSection()
-    
-    private var locationSection = CollectionSection()
-    
-    private var selectedLocationsSection = CollectionSection()
+    private var section = CollectionSection()
     
     private var imageDataSource: GenericCollectionViewDataSource<STAttachmentPhotoCell, DKAsset>?
     
@@ -59,10 +53,7 @@ class STPostAttachmentsController: UITableViewController {
     
     private func setupDataSource() {
         
-        self.dataSource.sections.append(self.photoSection)
-        self.dataSource.sections.append(self.selectedPhotosSection)
-        self.dataSource.sections.append(self.locationSection)
-        self.dataSource.sections.append(self.selectedLocationsSection)
+        self.dataSource.sections.append(self.section)
         
         self.tableView.register(headerFooterNibClass: STContactHeaderCell.self)
         self.tableView.register(nibClass: STAttachmentCell.self)
@@ -85,11 +76,12 @@ class STPostAttachmentsController: UITableViewController {
                 cell.delete.reactive.tap.observeNext { [unowned self] in
                  
                     self.imagesCollectionSection.items = self.imagesCollectionSection.items.filter({ $0.item != item.item })
+                    
                     self.imagesCollectionSection.sectionChanged?()
                     
                     if self.imagesCollectionSection.items.count == 0 {
                         
-                        self.tableView.reloadData()
+                        self.refreshTableView()
                     }
                     
                 }.dispose(in: cell.bag)
@@ -172,6 +164,11 @@ class STPostAttachmentsController: UITableViewController {
             }
         })
         
+        self.imagesCollectionSection.sectionChanged = { [unowned self] in
+            
+            self.refreshTableView()
+        }
+        
         self.imageDataSource?.sections.append(self.imagesCollectionSection)
     }
     
@@ -187,12 +184,25 @@ class STPostAttachmentsController: UITableViewController {
                 photoController.assetType = .allPhotos
                 photoController.didSelectAssets = { [unowned self] assets in
                     
+                    let cell = self.tableView.cellForRow(at: indexPath) as! STAttachmentCell
+                    
+                    if assets.count == 0 {
+                        
+                        cell.expandCellIfNeeded()
+                        self.refreshTableView()
+                        
+                        return
+                    }
+                    
                     self.imagesCollectionSection.items.removeAll()
                     
                     assets.forEach({ asset in
                         
                         self.imagesCollectionSection.add(item: asset)
                     })
+                    
+                    cell.expandCellIfNeeded()
+                    self.refreshTableView()
                     
                     DispatchQueue.global().async {
                         
@@ -209,42 +219,16 @@ class STPostAttachmentsController: UITableViewController {
                         
                         DispatchQueue.main.async {
                             
-                            self.tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
+                            self.tableView.reloadRows(at: [indexPath], with: .automatic)
                         }
                     }
-                    
-                    self.selectedPhotosSection.items.removeAll()
-                    self.selectedPhotosSection.addItem(cellClass: STCommonCollectionViewCell.self,
-                                                       item: self.imageDataSource,
-                                                       bindingAction: { [unowned self] (cell, item) in
-                                                        
-                                                        let dataSource = item.item as! GenericCollectionViewDataSource<STAttachmentPhotoCell, DKAsset>
-                                                        
-                                                        let viewCell = cell as! STCommonCollectionViewCell
-                                                        
-                                                        self.imagesCollectionSection.sectionChanged = {
-                                                            
-                                                            viewCell.collectionView.reloadData()
-                                                        }
-                                                        
-                                                        viewCell.leftMargin.constant = 16
-                                                        viewCell.rightMargin.constant = 16
-                                                        viewCell.itemSize = CGSize(width: 88, height: 68)
-                                                        viewCell.collectionViewHeight.constant = 68
-                                                        viewCell.collectionView.register(nib: STAttachmentPhotoCell.self)
-                                                        viewCell.collectionView.dataSource = dataSource
-                                                        viewCell.collectionView.delegate = dataSource
-                                                        viewCell.collectionView.reloadData()
-                    })
-                    
-                    self.tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
                 }
                 
                 self.present(photoController, animated: true, completion: nil)
             }
         }
         
-        self.photoSection.header(headerClass: STContactHeaderCell.self) { (view, section) in
+        self.section.header(headerClass: STContactHeaderCell.self) { (view, section) in
             
             let header = view as! STContactHeaderCell
             
@@ -254,22 +238,45 @@ class STPostAttachmentsController: UITableViewController {
             header.topSpace.constant = 16
         }
         
-        self.photoSection.headerItem?.cellHeight = 46
+        self.section.headerItem?.cellHeight = 46
         
-        self.photoSection.addItem(cellClass: STAttachmentCell.self, itemType: STAttachmentItemsEnum.photo) { (cell, item) in
+        self.section.addItem(cellClass: STAttachmentCell.self, itemType: STAttachmentItemsEnum.photo) { (cell, item) in
             
             let viewCell = cell as! STAttachmentCell
             viewCell.icon.image = UIImage(named: "icon-attachment-image")
             viewCell.title.text = "Фотографии"
             viewCell.subtitle.text = "Выбрать фотографии"
+            viewCell.collectionView.dataSource = self.imageDataSource
+            viewCell.collectionView.delegate = self.imageDataSource
+            
+            self.imagesCollectionSection.sectionChanged = { [unowned viewCell] in
+                
+                viewCell.collectionView.reloadData()
+                viewCell.expandCellIfNeeded()
+            }
+            
+            viewCell.collectionView.reloadData()
+            viewCell.expandCellIfNeeded()
         }
         
-        self.locationSection.addItem(cellClass: STAttachmentCell.self, itemType: STAttachmentItemsEnum.location) { (cell, item) in
+        self.section.addItem(cellClass: STAttachmentCell.self, itemType: STAttachmentItemsEnum.location) { (cell, item) in
             
             let viewCell = cell as! STAttachmentCell
             viewCell.icon.image = UIImage(named: "icon-attachment-location")
             viewCell.title.text = "Адрес"
             viewCell.subtitle.text = "Добавить адрес"
         }
+    }
+    
+    func refreshTableView() {
+        
+        UIView.animate(withDuration: 0.3, animations: { [unowned self] in
+            
+            self.tableView.setNeedsLayout()
+            self.tableView.layoutIfNeeded()
+        })
+        
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
     }
 }
