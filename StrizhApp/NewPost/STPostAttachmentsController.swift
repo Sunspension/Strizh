@@ -25,7 +25,9 @@ class STPostAttachmentsController: UITableViewController {
     
     private let imagesCollectionSection = GenericCollectionSection<DKAsset>()
     
-    private let imageUploader = ImageUploader()
+    private var imageUploader = ImageUploader()
+    
+    private var postObject: STNewPostObject?
     
     
     override func viewDidLoad() {
@@ -44,6 +46,16 @@ class STPostAttachmentsController: UITableViewController {
         
         self.setupDataSource()
         self.createDataSource()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        if let navi = self.navigationController as? STNewPostNavigationController {
+            
+            self.postObject = navi.postObject
+        }
     }
     
     func nextAction() {
@@ -180,15 +192,12 @@ class STPostAttachmentsController: UITableViewController {
                 photoController.assetType = .allPhotos
                 photoController.didSelectAssets = { [unowned self] assets in
                     
-                    let cell = self.tableView.cellForRow(at: indexPath) as! STAttachmentCell
-                    
                     if assets.count == 0 {
-                        
-                        cell.expandCellIfNeeded()
-                        self.refreshTableView()
                         
                         return
                     }
+                    
+                    let cell = self.tableView.cellForRow(at: indexPath) as! STAttachmentCell
                     
                     self.imagesCollectionSection.items.removeAll()
                     
@@ -199,6 +208,8 @@ class STPostAttachmentsController: UITableViewController {
                     
                     cell.expandCellIfNeeded()
                     self.refreshTableView()
+                    
+                    self.navigationItem.rightBarButtonItem?.isEnabled = false
                     
                     DispatchQueue.global().async {
                         
@@ -212,6 +223,19 @@ class STPostAttachmentsController: UITableViewController {
                                 }
                             })
                         })
+                        
+                        if self.imageUploader.operations.count > assets.count {
+                            
+                            DispatchQueue.main.async {
+                                
+                                self.imageUploader.startWaitingTasks()
+                            }
+                        }
+                        
+                        self.imageUploader.completeAllTasks = { [unowned self] in
+                            
+                            self.navigationItem.rightBarButtonItem?.isEnabled = true
+                        }
                         
                         DispatchQueue.main.async {
                             

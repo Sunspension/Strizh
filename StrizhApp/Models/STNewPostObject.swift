@@ -25,4 +25,8 @@ struct STNewPostObject {
     var priceDescription = ""
     
     var profitDescription = ""
+    
+    var imageIds: [Int64]?
+    
+    var locationIds: [Int64]?
 }

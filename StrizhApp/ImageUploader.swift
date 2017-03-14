@@ -19,6 +19,9 @@ struct ImageUploader {
         return uploadQueue.operations
     }
     
+    var completeAllTasks: (() -> Void)?
+    
+    
     init() {
         
         uploadQueue.maxConcurrentOperationCount = 3
@@ -33,7 +36,14 @@ struct ImageUploader {
         uploadQueue.addOperation(uploadOperation)
     }
     
+    func waitUntilDone() {
+        
+        uploadQueue.waitUntilAllOperationsAreFinished()
+    }
+    
     func startWaitingTasks() {
+        
+        var complete = true
         
         for operation in self.operations {
             
@@ -42,8 +52,18 @@ struct ImageUploader {
             if task.state == .ready {
                 
                 task.start()
+                complete = false
                 break
             }
+            else if task.state == .executing {
+                
+                complete = false
+            }
+        }
+        
+        if complete {
+            
+            completeAllTasks?()
         }
     }
 }
