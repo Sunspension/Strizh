@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReactiveKit
 
 class STTextViewCell: UITableViewCell, UITextViewDelegate {
 
@@ -16,9 +17,16 @@ class STTextViewCell: UITableViewCell, UITextViewDelegate {
     
     @IBOutlet weak var placeHolder: UITextField!
     
+    @IBOutlet weak var error: UIButton!
+    
+    
     var onTextViewDidChange: ((_ textView: UITextView) -> Void)?
     
     var onReturn: (() -> Void)?
+    
+    var onErrorHandler: (() -> Void)?
+    
+    var bag = DisposeBag()
     
     var textValue: String? {
         
@@ -34,13 +42,21 @@ class STTextViewCell: UITableViewCell, UITextViewDelegate {
         }
     }
     
-    override func prepareForReuse() {
+    
+    deinit {
         
+        bag.dispose()
+    }
+    
+    override func prepareForReuse() {
+
+        bag.dispose()
         title.text = ""
         value.text = ""
         placeHolder.isHidden = false
         onTextViewDidChange = nil
         onReturn = nil
+        error.isHidden = true
     }
     
     override func awakeFromNib() {
@@ -51,6 +67,7 @@ class STTextViewCell: UITableViewCell, UITextViewDelegate {
         value.delegate = self
         value.textContainerInset = UIEdgeInsets(top: 2, left: -4, bottom: 4, right: 0)
         selectionStyle = .none
+        error.isHidden = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -69,6 +86,22 @@ class STTextViewCell: UITableViewCell, UITextViewDelegate {
         
         self.placeHolder.isHidden = !textView.text.isEmpty
         return true
+    }
+    
+    func showError() {
+        
+        error.isHidden = false
+        
+        error.reactive.tap.observeNext { [unowned self] _ in
+            
+            self.onErrorHandler?()
+            
+        }.dispose(in: bag)
+    }
+    
+    func hideError() {
+        
+        error.isHidden = true
     }
     
     func textViewDidChange(_ textView: UITextView) {

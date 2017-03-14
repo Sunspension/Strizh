@@ -75,8 +75,9 @@ class STTextFieldsCell: UITableViewCell, UITextFieldDelegate {
     func showLeftError() {
         
         let button = UIButton(type: .custom)
-        button.bounds = CGRect(x: 0, y: 0, width: 16, height: 16)
         button.setImage(UIImage(named: "icon-error"), for: .normal)
+        button.bounds = CGRect(x: 0, y: 0, width: 16, height: 16)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -1, bottom: 0, right: 1)
         
         button.reactive.tap.observeNext { [unowned self] _ in
             
@@ -85,14 +86,15 @@ class STTextFieldsCell: UITableViewCell, UITextFieldDelegate {
         }.dispose(in: bag)
         
         self.leftValue.rightView = button
-        self.leftValue.rightViewMode = .unlessEditing
+        self.leftValue.rightViewMode = .always
     }
     
     func showRightError() {
         
         let button = UIButton(type: .custom)
-        button.bounds = CGRect(x: 0, y: 0, width: 16, height: 16)
         button.setImage(UIImage(named: "icon-error"), for: .normal)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -1, bottom: 0, right: 1)
+        button.bounds = CGRect(x: 0, y: 0, width: 16, height: 16)
         
         button.reactive.tap.observeNext { [unowned self] _ in
             
@@ -101,7 +103,7 @@ class STTextFieldsCell: UITableViewCell, UITextFieldDelegate {
         }.dispose(in: bag)
         
         self.rightValue.rightView = button
-        self.rightValue.rightViewMode = .unlessEditing
+        self.rightValue.rightViewMode = .always
     }
     
     func hideLeftError() {

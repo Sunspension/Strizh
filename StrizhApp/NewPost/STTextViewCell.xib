@@ -44,9 +44,19 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eci-Bg-e1W">
+                        <rect key="frame" x="346" y="38" width="16" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="K3i-mk-kM9"/>
+                            <constraint firstAttribute="width" constant="16" id="Sb5-S8-Ght"/>
+                        </constraints>
+                        <state key="normal" image="icon-error"/>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="zV4-SG-ht2" firstAttribute="trailing" secondItem="FcG-2Q-2RN" secondAttribute="trailing" id="4QN-Uu-Xt6"/>
+                    <constraint firstItem="eci-Bg-e1W" firstAttribute="centerY" secondItem="zV4-SG-ht2" secondAttribute="centerY" id="7qT-O5-yxd"/>
+                    <constraint firstItem="eci-Bg-e1W" firstAttribute="trailing" secondItem="FcG-2Q-2RN" secondAttribute="trailing" id="9DK-eg-OLb"/>
                     <constraint firstItem="pbp-5a-gui" firstAttribute="trailing" secondItem="FcG-2Q-2RN" secondAttribute="trailing" id="Co8-wH-s5z"/>
                     <constraint firstAttribute="bottomMargin" secondItem="pbp-5a-gui" secondAttribute="bottom" id="Faq-m4-HM3"/>
                     <constraint firstItem="zV4-SG-ht2" firstAttribute="leading" secondItem="FcG-2Q-2RN" secondAttribute="leading" id="Hku-5S-BvK"/>
@@ -59,6 +69,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="error" destination="eci-Bg-e1W" id="0c9-YI-fmb"/>
                 <outlet property="placeHolder" destination="zV4-SG-ht2" id="mTo-7Y-WPk"/>
                 <outlet property="title" destination="FcG-2Q-2RN" id="17Z-cC-s6X"/>
                 <outlet property="value" destination="pbp-5a-gui" id="9Z3-j6-A8b"/>
@@ -66,4 +77,7 @@
             <point key="canvasLocation" x="54" y="26"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon-error" width="64" height="64"/>
+    </resources>
 </document>

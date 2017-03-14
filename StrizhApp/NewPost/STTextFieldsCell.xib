@@ -20,40 +20,43 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Заголовок" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WDA-KO-GD7">
-                        <rect key="frame" x="16" y="8" width="288" height="20"/>
+                        <rect key="frame" x="16" y="8" width="288" height="30"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Начало" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3RO-e2-djh">
-                        <rect key="frame" x="16" y="36" width="140" height="31"/>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Начало" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h82-pk-za4">
+                        <rect key="frame" x="16" y="45.5" width="140" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="pwe-po-mTx"/>
+                        </constraints>
                         <nil key="textColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                        <textInputTraits key="textInputTraits"/>
                     </textField>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Конец" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kvX-en-u2f">
-                        <rect key="frame" x="164" y="43" width="140" height="17"/>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Конец" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zCe-hK-3bz">
+                        <rect key="frame" x="164" y="48" width="140" height="17"/>
                         <nil key="textColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                        <textInputTraits key="textInputTraits"/>
                     </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="kvX-en-u2f" firstAttribute="leading" secondItem="3RO-e2-djh" secondAttribute="trailing" constant="8" id="0Tw-gK-AdA"/>
-                    <constraint firstItem="kvX-en-u2f" firstAttribute="centerY" secondItem="3RO-e2-djh" secondAttribute="centerY" id="2Z5-8V-N0v"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="3RO-e2-djh" secondAttribute="bottom" priority="750" id="4eS-Ed-p8y"/>
-                    <constraint firstItem="kvX-en-u2f" firstAttribute="trailing" secondItem="WDA-KO-GD7" secondAttribute="trailing" id="8DD-A9-xmG"/>
-                    <constraint firstItem="3RO-e2-djh" firstAttribute="top" secondItem="WDA-KO-GD7" secondAttribute="bottom" constant="8" id="Mot-p6-An4"/>
+                    <constraint firstItem="h82-pk-za4" firstAttribute="top" secondItem="WDA-KO-GD7" secondAttribute="bottom" constant="8" id="FMB-WK-6ad"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="h82-pk-za4" secondAttribute="bottom" priority="750" id="Ias-CZ-KoA"/>
+                    <constraint firstItem="zCe-hK-3bz" firstAttribute="leading" secondItem="h82-pk-za4" secondAttribute="trailing" constant="8" id="OlU-fo-Ib3"/>
                     <constraint firstItem="WDA-KO-GD7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="PLV-vq-egD"/>
                     <constraint firstAttribute="trailingMargin" secondItem="WDA-KO-GD7" secondAttribute="trailing" constant="8" id="RDJ-Rg-wgM"/>
+                    <constraint firstItem="h82-pk-za4" firstAttribute="width" secondItem="zCe-hK-3bz" secondAttribute="width" id="SvM-l1-iUZ"/>
                     <constraint firstItem="WDA-KO-GD7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="efR-YS-I1e"/>
-                    <constraint firstItem="3RO-e2-djh" firstAttribute="width" secondItem="kvX-en-u2f" secondAttribute="width" id="jsP-Qm-hdr"/>
-                    <constraint firstItem="3RO-e2-djh" firstAttribute="leading" secondItem="WDA-KO-GD7" secondAttribute="leading" id="rH1-kU-uzg"/>
+                    <constraint firstItem="zCe-hK-3bz" firstAttribute="trailing" secondItem="WDA-KO-GD7" secondAttribute="trailing" id="rmC-nF-rDR"/>
+                    <constraint firstItem="h82-pk-za4" firstAttribute="leading" secondItem="WDA-KO-GD7" secondAttribute="leading" id="shG-bi-shj"/>
+                    <constraint firstItem="zCe-hK-3bz" firstAttribute="centerY" secondItem="h82-pk-za4" secondAttribute="centerY" id="vEM-9z-ciV"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="leftValue" destination="3RO-e2-djh" id="H6X-wm-kjh"/>
-                <outlet property="rightValue" destination="kvX-en-u2f" id="kRl-bW-Pi4"/>
+                <outlet property="leftValue" destination="h82-pk-za4" id="GqJ-y4-j4n"/>
+                <outlet property="rightValue" destination="zCe-hK-3bz" id="bWr-q7-jrq"/>
                 <outlet property="title" destination="WDA-KO-GD7" id="5jV-eZ-4sn"/>
             </connections>
             <point key="canvasLocation" x="25" y="67.5"/>

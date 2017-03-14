@@ -218,20 +218,20 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             viewCell.onTextViewDidChange = { [unowned self] textView in
                 
                 self.postObject?.details = textView.text ?? ""
-//                viewCell.hideError()
+                viewCell.hideError()
                 
                 self.refreshTableView()
             }
             
             
-            //            viewCell.onErrorHandler = { [unowned self] in
-            //
-            //                self.showValidationAlert()
-            //            }
+            viewCell.onErrorHandler = { [unowned self] in
+
+                self.showValidationAlert()
+            }
             
             if item.hasError {
                 
-                //                viewCell.showError()
+                viewCell.showError()
             }
             
             item.validation = { [unowned item] in
@@ -243,7 +243,7 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
                 }
                 else {
                     
-                    //                    viewCell.showError()
+                    viewCell.showError()
                     item.hasError = true
                     return ValidationResult.onError(errorMessage: "")
                 }
