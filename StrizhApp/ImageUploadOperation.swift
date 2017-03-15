@@ -20,11 +20,36 @@ class ImageUploadOperation : Operation {
     
     private let image: Data
     
-    var state = State.ready {
+    private let concurrentBarrierQueue = DispatchQueue(label: "com.strizhApp.concurrentBarrierQueue",
+                                                       attributes: DispatchQueue.Attributes.concurrent)
+    
+    private var _state = State.ready
+    
+    var state: State {
         
-        willSet {
+        get {
             
-            self.didChangeState?(newValue)
+            var gettingState = State.ready
+            
+            concurrentBarrierQueue.sync {
+                
+                gettingState = _state
+            }
+            
+            return gettingState
+        }
+        
+        set {
+            
+            concurrentBarrierQueue.async(flags: .barrier) {
+                
+                self._state = newValue
+            }
+            
+            DispatchQueue.main.async {
+                
+                self.didChangeState?(newValue)
+            }
         }
     }
     
@@ -62,11 +87,11 @@ class ImageUploadOperation : Operation {
         
         if self.isCancelled {
             
-            state = .finished
+            self.state = .finished
         }
         else {
             
-            state = .ready
+            self.state = .ready
             main()
         }
     }
@@ -75,11 +100,12 @@ class ImageUploadOperation : Operation {
         
         if self.isCancelled {
             
-            state = .finished
+            self.state = .finished
+            
         }
         else {
             
-            state = .executing
+            self.state = .executing
         }
         
         AppDelegate.appSettings.api.uploadImage(image: self.image, uploadProgress: self.progressChanged)
@@ -89,11 +115,16 @@ class ImageUploadOperation : Operation {
                 self.file = file
                 self.state = .finished
             }
-            .onFailure { error in
+            .onFailure { [unowned self] error in
                 
                 self.error = error
                 self.state = .finished
             }
+    }
+    
+    override var description: String {
+        
+        return String("state: \(self.state)")
     }
     
     private func progressChanged(progress: Double) {

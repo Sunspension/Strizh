@@ -30,6 +30,11 @@ class STPostAttachmentsController: UITableViewController {
     private var postObject: STNewPostObject?
     
     
+    deinit {
+        
+        print("")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -75,7 +80,7 @@ class STPostAttachmentsController: UITableViewController {
         self.tableView.delegate = self.dataSource
         
         // collection view data source
-        self.imageDataSource = GenericCollectionViewDataSource(cellClass: STAttachmentPhotoCell.self, binding: { (cell, item) in
+        self.imageDataSource = GenericCollectionViewDataSource(cellClass: STAttachmentPhotoCell.self, binding: { [unowned self] (cell, item) in
             
             let size = CGSize(width: cell.image.frame.size.width * UIScreen.main.scale,
                               height: cell.image.frame.size.height * UIScreen.main.scale)
@@ -112,35 +117,32 @@ class STPostAttachmentsController: UITableViewController {
                 
                 operation.didChangeState = { [unowned operation, unowned self] state in
                 
-                    DispatchQueue.main.async {
-                    
-                        switch state {
+                    switch state {
+                        
+                    case .finished:
+                        
+                        self.imageUploader.startWaitingTasks()
+                        
+                        if operation.error != nil {
                             
-                        case .finished:
-                            
-                            self.imageUploader.startWaitingTasks()
-                            
-                            if operation.error != nil {
-                                
-                                cell.error()
-                            }
-                            else {
-                                
-                                cell.uploaded()
-                            }
-                            
-                            break
-                            
-                        case .executing:
-                            
-                            cell.uploading()
-                            cell.setProgress(progress: operation.uploadProgress)
-                            
-                            break
-                            
-                        default:
-                            break
+                            cell.error()
                         }
+                        else {
+                            
+                            cell.uploaded()
+                        }
+                        
+                        break
+                        
+                    case .executing:
+                        
+                        cell.uploading()
+                        cell.setProgress(progress: operation.uploadProgress)
+                        
+                        break
+                        
+                    default:
+                        break
                     }
                 }
                 
@@ -172,7 +174,7 @@ class STPostAttachmentsController: UITableViewController {
             }
         })
         
-        self.imagesCollectionSection.sectionChanged = { [unowned self] in
+        self.imagesCollectionSection.sectionChanged = {
             
             self.refreshTableView()
         }
@@ -182,12 +184,18 @@ class STPostAttachmentsController: UITableViewController {
     
     private func createDataSource() {
     
-        self.dataSource.onDidSelectRowAtIndexPath = { (tableView, indexPath, item) in
+        self.dataSource.onDidSelectRowAtIndexPath = { [unowned self] (tableView, indexPath, item) in
             
-            if item.itemType as? STAttachmentItemsEnum == .photo {
+            self.imageUploader.operations.forEach({ op in
+                
+                print(op)
+            })
+            
+            if item.itemType as? STAttachmentItemsEnum == .photo &&
+                self.imagesCollectionSection.items.count < 10 {
                 
                 let photoController = DKImagePickerController()
-                photoController.maxSelectableCount = 10
+                photoController.maxSelectableCount = 10 - self.imagesCollectionSection.items.count
                 photoController.sourceType = .photo
                 photoController.assetType = .allPhotos
                 photoController.didSelectAssets = { [unowned self] assets in
@@ -199,13 +207,12 @@ class STPostAttachmentsController: UITableViewController {
                     
                     let cell = self.tableView.cellForRow(at: indexPath) as! STAttachmentCell
                     
-                    self.imagesCollectionSection.items.removeAll()
-                    
                     assets.forEach({ asset in
                         
                         self.imagesCollectionSection.add(item: asset)
                     })
                     
+                    self.imagesCollectionSection.sectionChanged?()
                     cell.expandCellIfNeeded()
                     self.refreshTableView()
                     
@@ -226,10 +233,7 @@ class STPostAttachmentsController: UITableViewController {
                         
                         if self.imageUploader.operations.count > assets.count {
                             
-                            DispatchQueue.main.async {
-                                
-                                self.imageUploader.startWaitingTasks()
-                            }
+                            self.imageUploader.startWaitingTasks()
                         }
                         
                         self.imageUploader.completeAllTasks = { [unowned self] in
@@ -260,7 +264,7 @@ class STPostAttachmentsController: UITableViewController {
         
         self.section.headerItem?.cellHeight = 46
         
-        self.section.addItem(cellClass: STAttachmentCell.self, itemType: STAttachmentItemsEnum.photo) { (cell, item) in
+        self.section.addItem(cellClass: STAttachmentCell.self, itemType: STAttachmentItemsEnum.photo) { [unowned self] (cell, item) in
             
             let viewCell = cell as! STAttachmentCell
             viewCell.icon.image = UIImage(named: "icon-attachment-image")
