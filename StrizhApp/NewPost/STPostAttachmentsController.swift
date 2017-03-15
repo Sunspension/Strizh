@@ -115,6 +115,18 @@ class STPostAttachmentsController: UITableViewController {
                     cell.setProgress(progress: progress)
                 }
                 
+                operation.completionBlock = {
+                    
+                    if operation.error != nil {
+                        
+                        cell.error()
+                    }
+                    else {
+                        
+                        cell.uploaded()
+                    }
+                }
+                
                 operation.didChangeState = { [unowned operation, unowned self] state in
                 
                     switch state {
@@ -231,10 +243,10 @@ class STPostAttachmentsController: UITableViewController {
                             })
                         })
                         
-                        if self.imageUploader.operations.count > assets.count {
-                            
-                            self.imageUploader.startWaitingTasks()
-                        }
+//                        if self.imageUploader.operations.count > assets.count {
+//                            
+//                            self.imageUploader.startWaitingTasks()
+//                        }
                         
                         self.imageUploader.completeAllTasks = { [unowned self] in
                             
