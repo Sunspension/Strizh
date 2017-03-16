@@ -39,6 +39,7 @@
 		D43BED6C1E708A1000683D5C /* STBottomPopupPresentationAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43BED6B1E708A1000683D5C /* STBottomPopupPresentationAnimation.swift */; };
 		D43BED6E1E708D4100683D5C /* DatePickerPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43BED6D1E708D4100683D5C /* DatePickerPresentationController.swift */; };
 		D43BED711E70A72D00683D5C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D43BED6F1E70A72D00683D5C /* Main.storyboard */; };
+		D440F8FF1E79CA380011C22D /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D440F8FE1E79CA380011C22D /* AsyncOperation.swift */; };
 		D4427E661E757C8F0002BCCF /* STCommonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4427E641E757C8F0002BCCF /* STCommonCollectionViewCell.swift */; };
 		D4427E671E757C8F0002BCCF /* STCommonCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4427E651E757C8F0002BCCF /* STCommonCollectionViewCell.xib */; };
 		D44AB4EB1E4FCC210013A972 /* GenericCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AB4EA1E4FCC210013A972 /* GenericCollectionViewDataSource.swift */; };
@@ -174,6 +175,7 @@
 		D43BED6B1E708A1000683D5C /* STBottomPopupPresentationAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STBottomPopupPresentationAnimation.swift; path = CommonUI/STBottomPopupPresentationAnimation.swift; sourceTree = "<group>"; };
 		D43BED6D1E708D4100683D5C /* DatePickerPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DatePickerPresentationController.swift; path = CommonUI/DatePickerPresentationController.swift; sourceTree = "<group>"; };
 		D43BED701E70A72D00683D5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D440F8FE1E79CA380011C22D /* AsyncOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		D4427E641E757C8F0002BCCF /* STCommonCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STCommonCollectionViewCell.swift; path = CommonUI/STCommonCollectionViewCell.swift; sourceTree = "<group>"; };
 		D4427E651E757C8F0002BCCF /* STCommonCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STCommonCollectionViewCell.xib; path = CommonUI/STCommonCollectionViewCell.xib; sourceTree = "<group>"; };
 		D44AB4EA1E4FCC210013A972 /* GenericCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericCollectionViewDataSource.swift; sourceTree = "<group>"; };
@@ -614,6 +616,7 @@
 				D44E33981E74B50C006F4709 /* ImageUploader.swift */,
 				D44E339A1E74B9B8006F4709 /* ImageUploadOperation.swift */,
 				E53185F01E3612EF00BC6C9A /* STLoadingStatusEnum.swift */,
+				D440F8FE1E79CA380011C22D /* AsyncOperation.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -935,6 +938,7 @@
 				D4C60A811E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift in Sources */,
 				D4227F511E62126D00BCB8B1 /* STContactsController.swift in Sources */,
 				D43BED6E1E708D4100683D5C /* DatePickerPresentationController.swift in Sources */,
+				D440F8FF1E79CA380011C22D /* AsyncOperation.swift in Sources */,
 				E54D88F41E3BB579005233DB /* RealmExtensions.swift in Sources */,
 				E53F37C31E3A75F900393BAD /* KeyboardNotificationListener.swift in Sources */,
 				D4C2AD841E5395C7009CD55A /* STPersonalPostCell.swift in Sources */,

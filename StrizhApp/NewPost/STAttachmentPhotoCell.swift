@@ -8,15 +8,14 @@
 
 import UIKit
 import KDCircularProgress
-import ReactiveKit
 
 class STAttachmentPhotoCell: UICollectionViewCell {
     
     private var angle = 0.0
     
     private let coloredLayer = CALayer()
-
-    var bag = DisposeBag()
+    
+    var onDeleteAction: (() -> Void)?
     
     @IBOutlet weak var image: UIImageView!
 
@@ -27,16 +26,12 @@ class STAttachmentPhotoCell: UICollectionViewCell {
     @IBOutlet weak var loadingLabel: UILabel!
     
     
-    deinit {
-        
-        self.bag.dispose()
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         self.image.layer.cornerRadius = 5
         self.image.clipsToBounds = true
+        self.delete.addTarget(self, action: #selector(self.deleteAction), for: .touchUpInside)
         self.initialize()
     }
     
@@ -50,7 +45,8 @@ class STAttachmentPhotoCell: UICollectionViewCell {
     override func prepareForReuse() {
         
         self.initialize()
-        self.bag.dispose()
+        self.image.image = nil
+        self.onDeleteAction = nil
     }
     
     func setProgress(progress: Double) {
@@ -81,6 +77,11 @@ class STAttachmentPhotoCell: UICollectionViewCell {
         self.progress.isHidden = true
         self.loadingLabel.text = ""
         self.coloredLayer.removeFromSuperlayer()
+    }
+    
+    func deleteAction() {
+        
+        self.onDeleteAction?()
     }
     
     private func initialize() {

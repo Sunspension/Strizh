@@ -11,77 +11,9 @@ import UIKit
 import BrightFutures
 import Alamofire
 
-class ImageUploadOperation : Operation {
-    
-    enum State: String {
-        
-        case ready, executing, finished
-        
-        var keyPath: String {
-        
-            switch self {
-                
-            case .executing:
-                
-                return "isExecuting"
-                
-            case .finished:
-                
-                return "isFinished"
-                
-            case .ready:
-                
-                return "isReady"
-            }
-        }
-    }
+class ImageUploadOperation : AsyncOperation {
     
     private let image: Data
-    
-    private let concurrentBarrierQueue: DispatchQueue
-
-    var state = State.ready {
-        
-        willSet {
-            
-            willChangeValue(forKey: newValue.keyPath)
-        }
-        
-        didSet {
-            
-            didChangeValue(forKey: oldValue.keyPath)
-        }
-    }
-    
-//    private var _state = State.ready
-//    
-//    var state: State {
-//        
-//        get {
-//            
-//            var gettingState = State.ready
-//            
-//            concurrentBarrierQueue.sync {
-//                
-//                gettingState = _state
-//            }
-//            
-//            return gettingState
-//        }
-//        
-//        set {
-//            
-//            concurrentBarrierQueue.async(flags: .barrier) {
-//                
-//                self._state = newValue
-//            }
-//            
-//            DispatchQueue.main.async {
-//                
-//                self.didChangeState?(newValue)
-//            }
-//        }
-//    }
     
     var file: STFile?
     
@@ -89,82 +21,35 @@ class ImageUploadOperation : Operation {
     
     var uploadProgressChanged: ((Double) -> Void)?
     
-    var didChangeState: ((State) -> Void)?
-    
     var uploadProgress = 0.0
     
-    override var isAsynchronous: Bool {
-        
-        return true
-    }
-    
-    override var isExecuting: Bool {
-        
-        return state == .executing
-    }
-    
-    override var isFinished: Bool {
-        
-        return state == .finished
-    }
-    
-    override var isReady: Bool{
-        
-        return state == .ready
-    }
-    
-    init(image: Data, concurrentQueue: DispatchQueue) {
-        
-        self.image = image
-        self.concurrentBarrierQueue = concurrentQueue
-    }
-    
-    override func start() {
-        
-        if self.isCancelled {
-            
-            self.state = .finished
-        }
-        else {
-            
-            self.state = .ready
-            main()
-        }
-    }
-    
-    override func main() {
-        
-        if self.isCancelled {
-            
-            self.state = .finished
-        }
-        else {
-            
-            self.state = .executing
-            
-            AppDelegate.appSettings.api.uploadImage(image: self.image, uploadProgress: self.progressChanged)
-                
-                .onSuccess { [unowned self] file in
-                    
-                    self.file = file
-                    self.state = .finished
-                    
-                    DispatchQueue.main.async {
-                        
-                        self.completionBlock?()
-                    }
-                }
-                .onFailure { [unowned self] error in
-                    
-                    self.error = error
-                    self.state = .finished
-                }
-        }
-    }
     
     override var description: String {
         
-        return String("state: \(self.state)")
+        return String("state: \(self.state.stateDescription)")
+    }
+    
+    init(image: Data) {
+        
+        self.image = image
+    }
+    
+    override func execute() {
+        
+        AppDelegate.appSettings.api.uploadImage(image: self.image, uploadProgress: self.progressChanged)
+            
+            .onSuccess { [unowned self] file in
+                
+                self.file = file
+                self.finish()
+                
+                self.completionBlock?()
+            }
+            .onFailure { [unowned self] error in
+                
+                self.error = error
+                self.finish()
+        }
     }
     
     private func progressChanged(progress: Double) {

@@ -88,19 +88,17 @@ class STPostAttachmentsController: UITableViewController {
             item.item.fetchImageWithSize(size) { (image, info) in
                 
                 cell.image.image = image
-                
-                cell.delete.reactive.tap.observeNext { [unowned self] in
-                 
-                    self.imagesCollectionSection.items = self.imagesCollectionSection.items.filter({ $0.item != item.item })
+                cell.onDeleteAction = { [unowned self] in
                     
+                    self.imagesCollectionSection.items = self.imagesCollectionSection.items.filter({ $0.item != item.item })
                     self.imagesCollectionSection.sectionChanged?()
+                    self.imageUploader.operations.remove(at: item.indexPath.row)
                     
                     if self.imagesCollectionSection.items.count == 0 {
                         
                         self.refreshTableView()
                     }
-                    
-                }.dispose(in: cell.bag)
+                }
                 
                 // setup for operation
                 guard self.imageUploader.operations.count > item.indexPath.row else {
@@ -108,32 +106,16 @@ class STPostAttachmentsController: UITableViewController {
                     return
                 }
                 
-                let operation = self.imageUploader.operations[item.indexPath.row] as! ImageUploadOperation
+                let operation = self.imageUploader.operations[item.indexPath.row]
                 
                 operation.uploadProgressChanged = { progress in
                     
                     cell.setProgress(progress: progress)
                 }
                 
-                operation.completionBlock = {
+                operation.completionBlock = { [unowned operation] in
                     
-                    if operation.error != nil {
-                        
-                        cell.error()
-                    }
-                    else {
-                        
-                        cell.uploaded()
-                    }
-                }
-                
-                operation.didChangeState = { [unowned operation, unowned self] state in
-                
-                    switch state {
-                        
-                    case .finished:
-                        
-                        self.imageUploader.startWaitingTasks()
+                    DispatchQueue.main.async {
                         
                         if operation.error != nil {
                             
@@ -143,18 +125,6 @@ class STPostAttachmentsController: UITableViewController {
                             
                             cell.uploaded()
                         }
-                        
-                        break
-                        
-                    case .executing:
-                        
-                        cell.uploading()
-                        cell.setProgress(progress: operation.uploadProgress)
-                        
-                        break
-                        
-                    default:
-                        break
                     }
                 }
                 
@@ -164,19 +134,28 @@ class STPostAttachmentsController: UITableViewController {
                     
                     if operation.error != nil {
                         
-                        cell.error()
+                        DispatchQueue.main.async {
+                            
+                            cell.error()
+                        }
                     }
                     else {
                         
-                        cell.uploaded()
+                        DispatchQueue.main.async {
+                            
+                            cell.uploaded()
+                        }
                     }
                     
                     break
                     
                 case .executing:
                     
-                    cell.uploading()
-                    cell.setProgress(progress: operation.uploadProgress)
+                    DispatchQueue.main.async {
+                        
+                        cell.uploading()
+                        cell.setProgress(progress: operation.uploadProgress)
+                    }
                     
                     break
                     
@@ -198,10 +177,7 @@ class STPostAttachmentsController: UITableViewController {
     
         self.dataSource.onDidSelectRowAtIndexPath = { [unowned self] (tableView, indexPath, item) in
             
-            self.imageUploader.operations.forEach({ op in
-                
-                print(op)
-            })
+            print("operations count: \(self.imageUploader.operations.count)")
             
             if item.itemType as? STAttachmentItemsEnum == .photo &&
                 self.imagesCollectionSection.items.count < 10 {
@@ -232,21 +208,20 @@ class STPostAttachmentsController: UITableViewController {
                     
                     DispatchQueue.global().async {
                         
+                        var images = [Data]()
+                        
                         assets.forEach({ asset in
                             
                             asset.fetchImageDataForAsset(true, completeBlock: { (data, info) in
                                 
                                 if let image = data {
                                     
-                                    self.imageUploader.uploadImage(image: image)
+                                    images.append(image)
                                 }
                             })
                         })
                         
-//                        if self.imageUploader.operations.count > assets.count {
-//                            
-//                            self.imageUploader.startWaitingTasks()
-//                        }
+                        self.imageUploader.uploadImages(images: images)
                         
                         self.imageUploader.completeAllTasks = { [unowned self] in
                             

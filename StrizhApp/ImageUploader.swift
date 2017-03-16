@@ -14,14 +14,16 @@ struct ImageUploader {
     
     private let uploadQueue = OperationQueue()
     
-    private let concurrentBarrierQueue = DispatchQueue(label: "com.strizhApp.concurrentBarrierQueue",
-                                                       attributes: DispatchQueue.Attributes.concurrent)
+    private let operationsLimit = 3
     
-    private let operationsLimit = 1
+    var operations = [ImageUploadOperation]()
     
-    var operations: [Operation] {
+    var description: String {
         
-        return uploadQueue.operations
+        return self.operations.reduce("") { (result, operation) -> String in
+            
+            return result + operation.state.stateDescription + "\n"
+        }
     }
     
     var completeAllTasks: (() -> Void)?
@@ -32,57 +34,20 @@ struct ImageUploader {
         uploadQueue.maxConcurrentOperationCount = operationsLimit
     }
     
-    func uploadImage(image: Data) {
+    mutating func uploadImages(images: [Data]) {
         
-        let uploadOperation = ImageUploadOperation(image: image, concurrentQueue: self.concurrentBarrierQueue)
-//        uploadOperation.queuePriority = .low
-//        uploadOperation.qualityOfService = .background
+        var operations = [ImageUploadOperation]()
         
-        uploadOperation.completionBlock = {
+        for image in images {
             
-            print("operation complete")
+            let uploadOperation = ImageUploadOperation(image: image)
+            
+            uploadOperation.queuePriority = .low
+            uploadOperation.qualityOfService = .background
+            operations.append(uploadOperation)
         }
         
-        uploadQueue.addOperation(uploadOperation)
-    }
-    
-    func startWaitingTasks() {
-        
-        concurrentBarrierQueue.async(flags: .barrier) {
-            
-            var complete = true
-            
-            var limit = self.operationsLimit
-            
-            for operation in self.operations {
-                
-                let task = operation as! ImageUploadOperation
-                
-                if task.state == .ready {
-                    
-                    task.start()
-                    complete = false
-                    
-                    limit -= limit
-                    
-                    if limit == 0 {
-                        
-                        break
-                    }
-                }
-                else if task.state == .executing {
-                    
-                    complete = false
-                }
-            }
-            
-            if complete {
-                
-                DispatchQueue.main.async {
-                    
-                    self.completeAllTasks?()
-                }
-            }
-        }
+        self.operations.append(contentsOf: operations)
+        self.uploadQueue.addOperations(operations, waitUntilFinished: false)
     }
 }

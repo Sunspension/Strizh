@@ -10,7 +10,7 @@ target 'StrizhApp' do
     pod 'AlamofireObjectMapper', '~> 4.0'
     pod 'AlamofireImage', '~> 3.1'
     pod 'BrightFutures'
-    pod 'Bond', '~> 6.0-beta'
+    pod 'Bond', '~> 6.0'
     pod 'Socket.IO-Client-Swift'
     pod 'Firebase/Crash'
 #    pod 'PhoneNumberKit', '~> 1.2'
