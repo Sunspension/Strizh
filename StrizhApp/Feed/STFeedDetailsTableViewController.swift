@@ -344,32 +344,32 @@ class STFeedDetailsTableViewController: UIViewController {
         
         let cancel = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
         
-        if !post.isArchived {
+        let actionEdit = UIAlertAction(title: "Редактировать", style: .default, handler: { action in
             
-            let actionEdit = UIAlertAction(title: "Редактировать", style: .default, handler: { action in
-                
-                // open edit controller
-            })
-            
-            actionController.addAction(actionEdit)
-            
-            let actionArchive = UIAlertAction(title: "В архив", style: .default,
-                                              handler: { [unowned self] action in
-                                                
-                                                self.api.archivePost(postId: post.id, isArchived: true)
-                                                    .onSuccess(callback: { _ in
-                                                        
-                                                        post.isArchived = true
-                                                        NotificationCenter.default.post(name: NSNotification.Name(kPostAddedToArchiveNotification), object: post)
-                                                    })
-                                                    .onFailure(callback: { error in
-                                                        
-                                                        self.showError(error: error)
-                                                    })
-            })
-            
-            actionController.addAction(actionArchive)
-        }
+            // open edit controller
+        })
+        
+        actionController.addAction(actionEdit)
+        
+//        if !post.isArchived {
+//            
+//            let actionArchive = UIAlertAction(title: "В архив", style: .default,
+//                                              handler: { [unowned self] action in
+//                                                
+//                                                self.api.archivePost(postId: post.id, isArchived: true)
+//                                                    .onSuccess(callback: { _ in
+//                                                        
+//                                                        post.isArchived = true
+//                                                        NotificationCenter.default.post(name: NSNotification.Name(kPostAddedToArchiveNotification), object: post)
+//                                                    })
+//                                                    .onFailure(callback: { error in
+//                                                        
+//                                                        self.showError(error: error)
+//                                                    })
+//            })
+//            
+//            actionController.addAction(actionArchive)
+//        }
         
         let actionDelete = UIAlertAction(title: "Удалить", style: .default, handler: { action in
             

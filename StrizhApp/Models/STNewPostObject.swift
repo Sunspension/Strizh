@@ -20,7 +20,7 @@ struct STNewPostObject {
     
     var tillDate: Date?
     
-    var price = 0.0
+    var price = ""
     
     var priceDescription = ""
     

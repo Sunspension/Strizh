@@ -69,9 +69,10 @@ class STPersonalPostCell: UITableViewCell {
         
         postType.setImage(UIImage(named: "icon-offer"), for: .normal)
         postType.setImage(UIImage(named: "icon-search"), for: .selected)
-        
-        isArchived.layer.cornerRadius = 5
-        isArchived.layer.masksToBounds = true
+
+        isArchived.isHidden = true
+//        isArchived.layer.cornerRadius = 5
+//        isArchived.layer.masksToBounds = true
         
         more.tintColor = UIColor.stGreyblue
     }

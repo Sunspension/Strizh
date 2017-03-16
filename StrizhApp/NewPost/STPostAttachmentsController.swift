@@ -287,13 +287,13 @@ class STPostAttachmentsController: UITableViewController {
             viewCell.expandCellIfNeeded()
         }
         
-        self.section.addItem(cellClass: STAttachmentCell.self, itemType: STAttachmentItemsEnum.location) { (cell, item) in
-            
-            let viewCell = cell as! STAttachmentCell
-            viewCell.icon.image = UIImage(named: "icon-attachment-location")
-            viewCell.title.text = "Адрес"
-            viewCell.subtitle.text = "Неограниченное кол-во"
-        }
+//        self.section.addItem(cellClass: STAttachmentCell.self, itemType: STAttachmentItemsEnum.location) { (cell, item) in
+//            
+//            let viewCell = cell as! STAttachmentCell
+//            viewCell.icon.image = UIImage(named: "icon-attachment-location")
+//            viewCell.title.text = "Адрес"
+//            viewCell.subtitle.text = "Неограниченное кол-во"
+//        }
     }
     
     func refreshTableView() {

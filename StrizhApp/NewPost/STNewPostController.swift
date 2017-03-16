@@ -250,7 +250,20 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             }
         }
         
-        self.requiredFieldsSection.addItem(cellClass: STTextFieldsCell.self) { (cell, item) in
+        // optional
+        self.optionalFieldsSection.header(headerClass: STContactHeaderCell.self) { (view, section) in
+            
+            let header = view as! STContactHeaderCell
+            
+            header.title.text = "ДОПОЛНИТЕЛЬНЫЕ ПОЛЯ:"
+            header.title.font = UIFont.systemFont(ofSize: 12)
+            header.title.textColor = UIColor.stSteelGrey
+            header.topSpace.constant = 16
+        }
+        
+        self.optionalFieldsSection.headerItem?.cellHeight = 46
+        
+        self.optionalFieldsSection.addItem(cellClass: STTextFieldsCell.self) { (cell, item) in
             
             let viewCell = cell as! STTextFieldsCell
             
@@ -268,10 +281,7 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
                 controller.onDidSelectDate = { [unowned viewCell, unowned self] selectedDate in
                     
                     self.postObject?.fromDate = selectedDate
-                    self.fromDateError = false
-                    
                     viewCell.leftValue.text = self.postObject!.fromDate!.mediumLocalizedFormat
-                    viewCell.hideLeftError()
                 }
                 
                 self.present(controller, animated: true, completion: nil)
@@ -285,74 +295,29 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
                 controller.onDidSelectDate = { [unowned viewCell, unowned self] selectedDate in
                     
                     self.postObject?.tillDate = selectedDate
-                    self.tillDateError = false
-                    
                     viewCell.rightValue.text = self.postObject!.tillDate!.mediumLocalizedFormat
-                    viewCell.hideRightError()
                 }
                 
                 self.present(controller, animated: true, completion: nil)
             }
-            
-            viewCell.onLeftErrorHandler = { [unowned self] in
-                
-                self.showValidationAlert()
-            }
-            
-            viewCell.onRightErrorHandler = { [unowned self] in
-                
-                self.showValidationAlert()
-            }
-            
-            item.validation = {
-                
-                var error = false
-                
-                if self.postObject!.fromDate == nil {
-                    
-                    error = true
-                    viewCell.showLeftError()
-                }
-                
-                if self.postObject!.tillDate == nil {
-                    
-                    error = true
-                    viewCell.showRightError()
-                }
-                
-                return error == true ? ValidationResult.onError(errorMessage: "") : ValidationResult.onSuccess
-            }
         }
-        
-        // optional
-        self.optionalFieldsSection.header(headerClass: STContactHeaderCell.self) { (view, section) in
-            
-            let header = view as! STContactHeaderCell
-            
-            header.title.text = "ДОПОЛНИТЕЛЬНЫЕ ПОЛЯ:"
-            header.title.font = UIFont.systemFont(ofSize: 12)
-            header.title.textColor = UIColor.stSteelGrey
-            header.topSpace.constant = 16
-        }
-        
-        self.optionalFieldsSection.headerItem?.cellHeight = 46
         
         self.optionalFieldsSection.addItem(cellClass: STTextFieldCell.self) { (cell, item) in
             
             let viewCell = cell as! STTextFieldCell
             
-            viewCell.title.text = "Цена руб."
-            viewCell.value.placeholder = "0.00"
-            viewCell.value.keyboardType = .numberPad
+            viewCell.title.text = "Цена"
+            viewCell.value.placeholder = "5000 руб. за штуку"
+            viewCell.value.keyboardType = .numbersAndPunctuation
             
             if let postObject = self.postObject {
                 
-                viewCell.value.text = postObject.price > 0 ? String(postObject.price) : ""
+                viewCell.value.text = postObject.price
             }
             
             viewCell.value.reactive.text.observeNext { text in
                 
-                self.postObject?.price = Double(text ?? "") ?? 0.0
+                self.postObject?.price = text ?? ""
                 
             }.dispose(in: viewCell.bag)
         }

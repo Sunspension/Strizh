@@ -140,44 +140,43 @@ class STProfileTableViewController: UITableViewController {
                                                             }
             }.dispose(in: bag)
         
-        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostAddedToArchiveNotification),
-                                                         object: nil).observeNext { [unowned self] notification in
-                                                            
-                                                            let post = notification.object as! STPost
-                                                            
-                                                            for item in self.userPostsSection.items {
-                                                                
-                                                                let p =  item.item as! STPost
-                                                                
-                                                                if p.id == post.id {
-                                                                    
-                                                                    p.isArchived = true
-                                                                    self.tableView.reloadRows(at: [item.indexPath], with: .none)
-                                                                    break
-                                                                }
-                                                            }
-            }.dispose(in: bag)
+//        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostAddedToArchiveNotification),
+//                                                         object: nil).observeNext { [unowned self] notification in
+//                                                            
+//                                                            let post = notification.object as! STPost
+//                                                            
+//                                                            for item in self.userPostsSection.items {
+//                                                                
+//                                                                let p =  item.item as! STPost
+//                                                                
+//                                                                if p.id == post.id {
+//                                                                    
+//                                                                    p.isArchived = true
+//                                                                    self.tableView.reloadRows(at: [item.indexPath], with: .none)
+//                                                                    break
+//                                                                }
+//                                                            }
+//            }.dispose(in: bag)
         
         NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostDeleteNotification),
                                                          object: nil).observeNext { [unowned self] notification in
                                                             
-                                                            for item in self.userPostsSection.items {
+                                                            let post = notification.object as! STPost
+                                                            
+                                                            self.userPostsSection.items = self.userPostsSection.items
+                                                                .filter({ ($0.item! as! STPost).id != post.id })
+                                                            
+                                                            // save last item id for loading next objects
+                                                            if let lastPost = self.userPostsSection.items.last {
                                                                 
-                                                                self.userPostsSection.items = self.userPostsSection.items
-                                                                    .filter({ ($0.item! as! STPost).id != (item.item! as! STPost).id })
-                                                                
-                                                                // save last item id for loading next objects
-                                                                if let lastPost = self.userPostsSection.items.last {
-                                                                    
-                                                                    self.minId = (lastPost.item as! STPost).id
-                                                                }
-                                                                else {
-                                                                    
-                                                                    self.minId = 0
-                                                                }
-                                                                
-                                                                self.tableView.reloadSections(IndexSet(integer: item.indexPath.section) , with: .none)
+                                                                self.minId = (lastPost.item as! STPost).id
                                                             }
+                                                            else {
+                                                                
+                                                                self.minId = 0
+                                                            }
+                                                            
+                                                            self.tableView.reloadSections(IndexSet(integer: 1) , with: .none)
             }.dispose(in: bag)
     }
     
@@ -261,7 +260,7 @@ class STProfileTableViewController: UITableViewController {
                                         viewCell.postTitle.text = post.title
                                         viewCell.postDetails.text = post.postDescription
                                         viewCell.createdAt.text = post.createdAt?.mediumLocalizedFormat
-                                        viewCell.isArchived.isHidden = !post.isArchived
+//                                        viewCell.isArchived.isHidden = !post.isArchived
                                         
                                         if post.dialogCount == 0 {
                                             
@@ -296,32 +295,33 @@ class STProfileTableViewController: UITableViewController {
                                             
                                             let cancel = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
                                             
-                                            if !post.isArchived {
+                                            let actionEdit = UIAlertAction(title: "Редактировать", style: .default, handler: { action in
                                                 
-                                                let actionEdit = UIAlertAction(title: "Редактировать", style: .default, handler: { action in
-                                                    
-                                                    // open edit controller
-                                                })
-                                                
-                                                actionController.addAction(actionEdit)
-                                                
-                                                let actionArchive = UIAlertAction(title: "В архив", style: .default,
-                                                                                  handler: { [unowned self, unowned viewCell] action in
-                                                    
-                                                    self.api.archivePost(postId: post.id, isArchived: true)
-                                                        .onSuccess(callback: { _ in
-                                                            
-                                                            post.isArchived = true
-                                                            viewCell.isArchived.isHidden = false
-                                                        })
-                                                        .onFailure(callback: { error in
-                                                            
-                                                            self.showError(error: error)
-                                                        })
-                                                })
-                                                
-                                                actionController.addAction(actionArchive)
-                                            }
+                                                // open edit controller
+                                            })
+                                            
+                                            actionController.addAction(actionEdit)
+
+                                            
+//                                            if !post.isArchived {
+//                                                
+//                                                let actionArchive = UIAlertAction(title: "В архив", style: .default,
+//                                                                                  handler: { [unowned self, unowned viewCell] action in
+//                                                    
+//                                                    self.api.archivePost(postId: post.id, isArchived: true)
+//                                                        .onSuccess(callback: { _ in
+//                                                            
+//                                                            post.isArchived = true
+//                                                            viewCell.isArchived.isHidden = false
+//                                                        })
+//                                                        .onFailure(callback: { error in
+//                                                            
+//                                                            self.showError(error: error)
+//                                                        })
+//                                                })
+//                                                
+//                                                actionController.addAction(actionArchive)
+//                                            }
                                             
                                             let actionDelete = UIAlertAction(title: "Удалить", style: .default, handler: { action in
                                                 

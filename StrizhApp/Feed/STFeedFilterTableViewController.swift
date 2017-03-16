@@ -24,9 +24,9 @@ class STFeedFilterTableViewController: UITableViewController {
     
     private var filterCallback: (() -> Void)?
     
-    private var toggleListener: EventListener<Bool>?
-    
-    private var toggleEmitter = Event<Bool>()
+//    private var toggleListener: EventListener<Bool>?
+//    
+//    private var toggleEmitter = Event<Bool>()
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,7 +36,7 @@ class STFeedFilterTableViewController: UITableViewController {
 
     init(applyFilterCallback: (() -> Void)?) {
         
-        super.init(style: .grouped)
+        super.init(style: .plain)
         
         self.filter = AppDelegate.appSettings.feedFilter
         self.filterCallback = applyFilterCallback
@@ -54,7 +54,7 @@ class STFeedFilterTableViewController: UITableViewController {
         self.tableView.dataSource = self.dataSource
         
         self.tableView.register(nibClass: STFeedFilterTableViewCell.self)
-        self.tableView.register(nibClass: STFeedFilterSwitchTableViewCell.self)
+//        self.tableView.register(nibClass: STFeedFilterSwitchTableViewCell.self)
         
         let leftItem = UIBarButtonItem(title: "Отмена", style: .plain, target: self, action: #selector(self.cancel))
         self.navigationItem.leftBarButtonItem = leftItem
@@ -64,27 +64,27 @@ class STFeedFilterTableViewController: UITableViewController {
         
         self.navigationItem.title = "Фильтр"
         
-        let section1 = CollectionSection()
-        self.dataSource.sections.append(section1)
-        
-        section1.addItem(cellClass: STFeedFilterSwitchTableViewCell.self,
-                         itemType: FilterFields.archived) { [unowned self] (cell, item) in
-                            
-                            let viewCell = cell as! STFeedFilterSwitchTableViewCell
-                            
-                            viewCell.toggle.addTarget(self, action: #selector(self.toggleAction(sender:)), for: .valueChanged)
-                            
-                            self.toggleListener = self.toggleEmitter.on({ isOn in
-                                
-                                item.selected = isOn
-                            })
-                            
-                            if self.filter.showArchived {
-                                
-                                viewCell.toggle.setOn(true, animated: false)
-                                item.selected = true
-                            }
-        }
+//        let section1 = CollectionSection()
+//        self.dataSource.sections.append(section1)
+//        
+//        section1.addItem(cellClass: STFeedFilterSwitchTableViewCell.self,
+//                         itemType: FilterFields.archived) { [unowned self] (cell, item) in
+//                            
+//                            let viewCell = cell as! STFeedFilterSwitchTableViewCell
+//                            
+//                            viewCell.toggle.addTarget(self, action: #selector(self.toggleAction(sender:)), for: .valueChanged)
+//                            
+//                            self.toggleListener = self.toggleEmitter.on({ isOn in
+//                                
+//                                item.selected = isOn
+//                            })
+//                            
+//                            if self.filter.showArchived {
+//                                
+//                                viewCell.toggle.setOn(true, animated: false)
+//                                item.selected = true
+//                            }
+//        }
         
         let section2 = CollectionSection()
         self.dataSource.sections.append(section2)
@@ -171,8 +171,8 @@ class STFeedFilterTableViewController: UITableViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func toggleAction(sender: UISwitch) {
-        
-        self.toggleEmitter.emit(sender.isOn)
-    }
+//    func toggleAction(sender: UISwitch) {
+//        
+//        self.toggleEmitter.emit(sender.isOn)
+//    }
 }
