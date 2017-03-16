@@ -83,6 +83,12 @@ class STPostAttachmentsController: UITableViewController {
         }
         
         self.postObject!.imageIds = imageIds
+        
+        let contacts = STContactsProvider.sharedInstance
+        _ = contacts.contacts.andThen { result in
+            
+            let count = result.value?.count
+        }
     }
     
     private func setupDataSource() {

@@ -10,6 +10,11 @@ import UIKit
 
 class STContactsController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating {
 
+//    enum STContatsControllerReasonEnum {
+//        
+//        
+//    }
+    
     
     private var itemsSource: STContactsDataSourceWrapper?
     
@@ -43,8 +48,21 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
             default:
                 
                 self.tableView.hideBusy()
-                self.tableView.reloadData()
             }
+        }
+        
+        self.itemsSource!.onDataSourceChanged = {
+            
+            self.tableView.reloadData()
+        }
+        
+        self.itemsSource!.dataSource.onDidSelectRowAtIndexPath = {
+            
+            (_ tableView: UITableView, _ indexPath: IndexPath, _ item: CollectionSectionItem) in
+        
+            let contact = item.item as! STContact
+            
+            
         }
         
         self.tableView.dataSource = self.itemsSource!.dataSource
@@ -74,7 +92,6 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
     //MARK: - UISearchResultUpdating delegate implementation
     
     func updateSearchResults(for searchController: UISearchController) {
-        
         
         if let string = searchController.searchBar.text {
             

@@ -13,11 +13,14 @@ import Bond
 
 class STContactsDataSourceWrapper {
     
-    private var loadingStatus = STLoadingStatusEnum.idle
-    
     private var notRelatedContactsSection = CollectionSection()
     
     private var searchSection = CollectionSection()
+    
+    private var contactsProvider = STContactsProvider.sharedInstance
+    
+    
+    var onDataSourceChanged: (() -> Void)?
     
     var dataSource = TableViewDataSource()
     
@@ -33,11 +36,7 @@ class STContactsDataSourceWrapper {
     init(viewController: UIViewController? = nil) {
         
         self.viewController = viewController
-    }
-    
-    
-    func synchronizeContacts() {
-    
+        
         // hack for table footer
         self.dataSource.sections.append(CollectionSection())
         
@@ -51,22 +50,20 @@ class STContactsDataSourceWrapper {
         })
         
         self.notRelatedContactsSection.headerItem?.cellHeight = 30
+    }
+    
+    func synchronizeContacts() {
         
-        let store = CNContactStore()
+        self.contactsProvider.loadingStatusChanged = self.loadingStatusChanged
         
-        if CNContactStore.authorizationStatus(for: .contacts) == .notDetermined {
+        _ = self.contactsProvider.contacts.andThen { result in
             
-            store.requestAccess(for: .contacts, completionHandler: { (authorized, error) in
+            if let contacts = result.value {
                 
-                if authorized {
-                    
-                    self.retrieveContatcsWithStore(store: store)
-                }
-            })
-        }
-        else if CNContactStore.authorizationStatus(for: .contacts) == .authorized {
-            
-            self.retrieveContatcsWithStore(store: store)
+                self.dataSource.sections.removeAll()
+                self.createDataSource(contacts: contacts)
+                self.onDataSourceChanged?()
+            }
         }
     }
     
@@ -90,65 +87,6 @@ class STContactsDataSourceWrapper {
             
             self.searchSection.addItem(cellClass: STContactCell.self, item: item.item, bindingAction: self.binding)
         }
-    }
-    
-    private func retrieveContatcsWithStore(store: CNContactStore) {
-        
-        
-        var containers = [CNContainer]()
-        
-        do {
-            
-            containers = try store.containers(matching: nil)
-        }
-        catch {
-            
-            print("Error fetching containers")
-        }
-        
-        var contacts = [CNContact]()
-        
-        containers.forEach { container in
-            
-            do {
-                
-                let predicate = CNContact.predicateForContactsInContainer(withIdentifier: container.identifier)
-                
-                let keysToFetch = [CNContactPhoneNumbersKey, CNContactGivenNameKey, CNContactFamilyNameKey]
-                
-                let con = try store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch as [CNKeyDescriptor])
-                
-                contacts.append(contentsOf: con)
-            }
-            catch {
-                
-                print(error)
-            }
-        }
-        
-        self.uploadContacts(contacts: contacts)
-    }
-    
-    private func uploadContacts(contacts: [CNContact]) {
-        
-        self.loadingStatus = .loading
-        self.loadingStatusChanged?(self.loadingStatus)
-        
-        AppDelegate.appSettings.api.uploadContacts(contacts: contacts)
-            .onSuccess { [unowned self] contacts in
-                
-                self.loadingStatus = .loaded
-                
-                self.dataSource.sections.removeAll()
-                self.createDataSource(contacts: contacts)
-                
-                self.loadingStatusChanged?(self.loadingStatus)
-            }
-            .onFailure { [unowned self] error in
-            
-                self.loadingStatus = .failed
-                self.loadingStatusChanged?(self.loadingStatus)
-            }
     }
     
     private func createDataSource(contacts: [STContact]) {

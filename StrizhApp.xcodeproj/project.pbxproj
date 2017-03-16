@@ -134,6 +134,7 @@
 		E5BE9E341E4E181E0022B157 /* STFeedDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE9E331E4E181E0022B157 /* STFeedDetailsTableViewController.swift */; };
 		E5BE9E371E4E23A40022B157 /* STPostDetailsMainInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE9E351E4E23A40022B157 /* STPostDetailsMainInfoCell.swift */; };
 		E5BE9E381E4E23A40022B157 /* STPostDetailsMainInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5BE9E361E4E23A40022B157 /* STPostDetailsMainInfoCell.xib */; };
+		E5E334B81E7AD64A00EA274A /* STContactsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E334B71E7AD64A00EA274A /* STContactsProvider.swift */; };
 		E5FF31231E55D29C0013B713 /* STEditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF31221E55D29C0013B713 /* STEditProfileController.swift */; };
 		E5FF31261E55D3FA0013B713 /* STEditProfileHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF31241E55D3FA0013B713 /* STEditProfileHeaderCell.swift */; };
 		E5FF31271E55D3FA0013B713 /* STEditProfileHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5FF31251E55D3FA0013B713 /* STEditProfileHeaderCell.xib */; };
@@ -272,6 +273,7 @@
 		E5BE9E331E4E181E0022B157 /* STFeedDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedDetailsTableViewController.swift; path = Feed/STFeedDetailsTableViewController.swift; sourceTree = "<group>"; };
 		E5BE9E351E4E23A40022B157 /* STPostDetailsMainInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPostDetailsMainInfoCell.swift; path = Feed/STPostDetailsMainInfoCell.swift; sourceTree = "<group>"; };
 		E5BE9E361E4E23A40022B157 /* STPostDetailsMainInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPostDetailsMainInfoCell.xib; path = Feed/STPostDetailsMainInfoCell.xib; sourceTree = "<group>"; };
+		E5E334B71E7AD64A00EA274A /* STContactsProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STContactsProvider.swift; path = Contacts/STContactsProvider.swift; sourceTree = "<group>"; };
 		E5FF31221E55D29C0013B713 /* STEditProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STEditProfileController.swift; path = Profile/STEditProfileController.swift; sourceTree = "<group>"; };
 		E5FF31241E55D3FA0013B713 /* STEditProfileHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STEditProfileHeaderCell.swift; path = Profile/STEditProfileHeaderCell.swift; sourceTree = "<group>"; };
 		E5FF31251E55D3FA0013B713 /* STEditProfileHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STEditProfileHeaderCell.xib; path = Profile/STEditProfileHeaderCell.xib; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				D4227F501E62126D00BCB8B1 /* STContactsController.swift */,
+				E5E334B71E7AD64A00EA274A /* STContactsProvider.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -875,6 +878,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5E334B81E7AD64A00EA274A /* STContactsProvider.swift in Sources */,
 				D4AD43BF1E47DB52006F13DE /* STSignUpNavigationController.swift in Sources */,
 				D49545CC1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift in Sources */,
 				D4AD43B71E47A9C2006F13DE /* STFeedTableViewController.swift in Sources */,
