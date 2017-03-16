@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReactiveKit
 
 class STAttachmentCell: UITableViewCell {
 
@@ -22,11 +23,28 @@ class STAttachmentCell: UITableViewCell {
     
     @IBOutlet weak var bottomIconMargin: NSLayoutConstraint!
     
+    @IBOutlet weak var actionButton: UIButton!
+    
+    var bag = DisposeBag()
+    
+    deinit {
+        
+        bag.dispose()
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         (self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout).itemSize = CGSize(width: 92, height: 72)
         self.collectionView.register(nib: STAttachmentPhotoCell.self)
+        
+        self.actionButton.layer.borderWidth = 1
+        self.actionButton.layer.borderColor = UIColor.stLightishBlue.cgColor
+        self.actionButton.layer.cornerRadius = 5
+        self.actionButton.clipsToBounds = true
+        
+        self.actionButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        
         selectionStyle = .none
     }
     
@@ -34,6 +52,7 @@ class STAttachmentCell: UITableViewCell {
         
         collectionViewHeight.constant = 0
         bottomIconMargin.constant = 0
+        bag.dispose()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

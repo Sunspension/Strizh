@@ -250,6 +250,11 @@ extension UIColor {
      
         return UIColor(red: 161.0 / 255.0, green: 101.0 / 255.0, blue: 101.0 / 255.0, alpha: 0.9)
     }
+    
+    class var stLightishBlue: UIColor {
+     
+        return UIColor(red: 69.0 / 255.0, green: 121.0 / 255.0, blue: 251.0 / 255.0, alpha: 1.0)
+    }
 }
 
 

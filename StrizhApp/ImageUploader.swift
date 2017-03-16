@@ -9,8 +9,9 @@
 import Foundation
 import UIKit
 import BrightFutures
+import ReactiveKit
 
-struct ImageUploader {
+class ImageUploader {
     
     private let uploadQueue = OperationQueue()
     
@@ -26,15 +27,29 @@ struct ImageUploader {
         }
     }
     
-    var completeAllTasks: (() -> Void)?
+    var completeAllOperations: (() -> Void)?
+    
+    var bag = DisposeBag()
     
     
     init() {
         
         uploadQueue.maxConcurrentOperationCount = operationsLimit
+        
+        uploadQueue.reactive.keyPath("operations", ofType: [Operation].self).observeNext { operations in
+            
+            if operations.count == 0 {
+                
+                DispatchQueue.main.async {
+                    
+                    self.completeAllOperations?()
+                }
+            }
+            
+        }.dispose(in: bag)
     }
     
-    mutating func uploadImages(images: [Data]) {
+    func uploadImages(images: [Data]) {
         
         var operations = [ImageUploadOperation]()
         

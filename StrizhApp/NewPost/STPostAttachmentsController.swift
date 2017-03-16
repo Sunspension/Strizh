@@ -45,9 +45,16 @@ class STPostAttachmentsController: UITableViewController {
         self.tableView.separatorInset = UIEdgeInsets.zero
         
         let rightItem = UIBarButtonItem(title: "Далее", style: .plain, target: self, action: #selector(self.nextAction))
+        rightItem.isEnabled = false
+        
         self.navigationItem.rightBarButtonItem = rightItem
         
         title = "Прикрепить к теме"
+        
+        self.imageUploader.completeAllOperations = { [unowned self] in
+            
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+        }
         
         self.setupDataSource()
         self.createDataSource()
@@ -64,8 +71,18 @@ class STPostAttachmentsController: UITableViewController {
     }
     
     func nextAction() {
-    
         
+        var imageIds = [Int64]()
+        
+        for operation in self.imageUploader.operations {
+            
+            if let file = operation.file {
+                
+                imageIds.append(file.id)
+            }
+        }
+        
+        self.postObject!.imageIds = imageIds
     }
     
     private func setupDataSource() {
@@ -174,70 +191,6 @@ class STPostAttachmentsController: UITableViewController {
     }
     
     private func createDataSource() {
-    
-        self.dataSource.onDidSelectRowAtIndexPath = { [unowned self] (tableView, indexPath, item) in
-            
-            print("operations count: \(self.imageUploader.operations.count)")
-            
-            if item.itemType as? STAttachmentItemsEnum == .photo &&
-                self.imagesCollectionSection.items.count < 10 {
-                
-                let photoController = DKImagePickerController()
-                photoController.maxSelectableCount = 10 - self.imagesCollectionSection.items.count
-                photoController.sourceType = .photo
-                photoController.assetType = .allPhotos
-                photoController.didSelectAssets = { [unowned self] assets in
-                    
-                    if assets.count == 0 {
-                        
-                        return
-                    }
-                    
-                    let cell = self.tableView.cellForRow(at: indexPath) as! STAttachmentCell
-                    
-                    assets.forEach({ asset in
-                        
-                        self.imagesCollectionSection.add(item: asset)
-                    })
-                    
-                    self.imagesCollectionSection.sectionChanged?()
-                    cell.expandCellIfNeeded()
-                    self.refreshTableView()
-                    
-                    self.navigationItem.rightBarButtonItem?.isEnabled = false
-                    
-                    DispatchQueue.global().async {
-                        
-                        var images = [Data]()
-                        
-                        assets.forEach({ asset in
-                            
-                            asset.fetchImageDataForAsset(true, completeBlock: { (data, info) in
-                                
-                                if let image = data {
-                                    
-                                    images.append(image)
-                                }
-                            })
-                        })
-                        
-                        self.imageUploader.uploadImages(images: images)
-                        
-                        self.imageUploader.completeAllTasks = { [unowned self] in
-                            
-                            self.navigationItem.rightBarButtonItem?.isEnabled = true
-                        }
-                        
-                        DispatchQueue.main.async {
-                            
-                            self.tableView.reloadRows(at: [indexPath], with: .automatic)
-                        }
-                    }
-                }
-                
-                self.present(photoController, animated: true, completion: nil)
-            }
-        }
         
         self.section.header(headerClass: STContactHeaderCell.self) { (view, section) in
             
@@ -256,9 +209,67 @@ class STPostAttachmentsController: UITableViewController {
             let viewCell = cell as! STAttachmentCell
             viewCell.icon.image = UIImage(named: "icon-attachment-image")
             viewCell.title.text = "Фотографии"
-            viewCell.subtitle.text = "Выбрать фотографии"
+            viewCell.subtitle.text = "До 10 фотографий"
             viewCell.collectionView.dataSource = self.imageDataSource
             viewCell.collectionView.delegate = self.imageDataSource
+            
+            viewCell.actionButton.reactive.tap.observeNext {
+                
+                print("operations count: \(self.imageUploader.operations.count)")
+                
+                if item.itemType as? STAttachmentItemsEnum == .photo &&
+                    self.imagesCollectionSection.items.count < 10 {
+                    
+                    let photoController = DKImagePickerController()
+                    photoController.maxSelectableCount = 10 - self.imagesCollectionSection.items.count
+                    photoController.sourceType = .photo
+                    photoController.assetType = .allPhotos
+                    photoController.didSelectAssets = { [unowned viewCell, unowned self] assets in
+                        
+                        if assets.count == 0 {
+                            
+                            return
+                        }
+                        
+                        assets.forEach({ asset in
+                            
+                            self.imagesCollectionSection.add(item: asset)
+                        })
+                        
+                        self.imagesCollectionSection.sectionChanged?()
+                        viewCell.expandCellIfNeeded()
+                        self.refreshTableView()
+                        
+                        self.navigationItem.rightBarButtonItem?.isEnabled = false
+                        
+                        DispatchQueue.global().async {
+                            
+                            var images = [Data]()
+                            
+                            assets.forEach({ asset in
+                                
+                                asset.fetchImageDataForAsset(true, completeBlock: { (data, info) in
+                                    
+                                    if let image = data {
+                                        
+                                        images.append(image)
+                                    }
+                                })
+                            })
+                            
+                            self.imageUploader.uploadImages(images: images)
+                            
+                            DispatchQueue.main.async {
+                                
+                                self.tableView.reloadRows(at: [item.indexPath], with: .automatic)
+                            }
+                        }
+                    }
+                    
+                    self.present(photoController, animated: true, completion: nil)
+                }
+                
+            }.dispose(in: viewCell.bag)
             
             self.imagesCollectionSection.sectionChanged = { [unowned viewCell] in
                 
@@ -275,7 +286,7 @@ class STPostAttachmentsController: UITableViewController {
             let viewCell = cell as! STAttachmentCell
             viewCell.icon.image = UIImage(named: "icon-attachment-location")
             viewCell.title.text = "Адрес"
-            viewCell.subtitle.text = "Добавить адрес"
+            viewCell.subtitle.text = "Неограниченное кол-во"
         }
     }
     
