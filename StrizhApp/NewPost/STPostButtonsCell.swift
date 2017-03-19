@@ -43,6 +43,7 @@ class STPostButtonsCell: UITableViewCell {
         
         offer.setTitleColor(UIColor.white, for: .selected)
         offer.setTitleColor(UIColor.stDarkMint, for: .normal)
+        offer.tintColor = UIColor.white
         
         search.layer.cornerRadius = 5
         search.layer.masksToBounds = true
@@ -51,6 +52,7 @@ class STPostButtonsCell: UITableViewCell {
         
         search.setTitleColor(UIColor.white, for: .selected)
         search.setTitleColor(UIColor.stIris, for: .normal)
+        search.tintColor = UIColor.white
         
         selectionStyle = .none
     }

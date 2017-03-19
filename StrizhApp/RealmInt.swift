@@ -10,7 +10,7 @@ import RealmSwift
 
 class RealmInt: Object, RealmCustomObject {
     
-    typealias ObjectType = Int
+    typealias ObjectType = Int64
     
-    var value = 0
+    var value: Int64 = 0
 }

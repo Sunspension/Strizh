@@ -11,7 +11,7 @@ import ObjectMapper
 
 struct STImage: Mappable, Hashable, Equatable {
 
-    var id = 0
+    var id: Int64 = 0
     
     var userId = 0
     
@@ -30,7 +30,7 @@ struct STImage: Mappable, Hashable, Equatable {
     
     mutating func mapping(map: Map) {
         
-        id <- map["id"]
+        id <- (map["id"], NSNumberToInt64Transform())
         userId <- map["user_id"]
         path <- map["path"]
         url <- map["url"]

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0D4712BF056042E4491062F2 /* Pods_StrizhApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 277E51B2F6F272FF051A01F5 /* Pods_StrizhApp.framework */; };
+		D402C2341E7DFEE700237EB9 /* RealmDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = D402C2331E7DFEE700237EB9 /* RealmDouble.swift */; };
 		D40A6BE61E3AA7DB00F1D218 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40A6BE51E3AA7DB00F1D218 /* Router.swift */; };
 		D40A6BE81E3AA7FB00F1D218 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40A6BE71E3AA7FB00F1D218 /* Extensions.swift */; };
 		D40BC85F1E5B60DF0045F327 /* STCommonButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40BC85D1E5B60DF0045F327 /* STCommonButtonCell.swift */; };
@@ -50,6 +51,7 @@
 		D44E33951E749FCD006F4709 /* STAttachmentPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44E33931E749FCD006F4709 /* STAttachmentPhotoCell.xib */; };
 		D44E33991E74B50C006F4709 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44E33981E74B50C006F4709 /* ImageUploader.swift */; };
 		D44E339B1E74B9B8006F4709 /* ImageUploadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44E339A1E74B9B8006F4709 /* ImageUploadOperation.swift */; };
+		D459437C1E7E15EE00139D16 /* NSNumberToInt64Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = D459437B1E7E15EE00139D16 /* NSNumberToInt64Transform.swift */; };
 		D4922AA61E43DB67006FF4D5 /* STWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */; };
 		D4922AAD1E43F6B9006FF4D5 /* STHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AAC1E43F6B9006FF4D5 /* STHTTPManager.swift */; };
 		D49545CC1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49545CA1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift */; };
@@ -145,6 +147,7 @@
 /* Begin PBXFileReference section */
 		277E51B2F6F272FF051A01F5 /* Pods_StrizhApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StrizhApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E8A8787F4373C051854C7D5 /* Pods-StrizhApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp.debug.xcconfig"; sourceTree = "<group>"; };
+		D402C2331E7DFEE700237EB9 /* RealmDouble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmDouble.swift; sourceTree = "<group>"; };
 		D40A6BE51E3AA7DB00F1D218 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Router.swift; path = Extensions/Router.swift; sourceTree = "<group>"; };
 		D40A6BE71E3AA7FB00F1D218 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Extensions/Extensions.swift; sourceTree = "<group>"; };
 		D40BC85D1E5B60DF0045F327 /* STCommonButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STCommonButtonCell.swift; path = CommonUI/STCommonButtonCell.swift; sourceTree = "<group>"; };
@@ -187,6 +190,7 @@
 		D44E33931E749FCD006F4709 /* STAttachmentPhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STAttachmentPhotoCell.xib; path = NewPost/STAttachmentPhotoCell.xib; sourceTree = "<group>"; };
 		D44E33981E74B50C006F4709 /* ImageUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		D44E339A1E74B9B8006F4709 /* ImageUploadOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploadOperation.swift; sourceTree = "<group>"; };
+		D459437B1E7E15EE00139D16 /* NSNumberToInt64Transform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSNumberToInt64Transform.swift; sourceTree = "<group>"; };
 		D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STWebSocket.swift; path = WebSocket/STWebSocket.swift; sourceTree = "<group>"; };
 		D4922AAC1E43F6B9006FF4D5 /* STHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STHTTPManager.swift; path = HTTPManager/STHTTPManager.swift; sourceTree = "<group>"; };
 		D49545CA1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginAvatarTableViewCell.swift; path = SignUp/STLoginAvatarTableViewCell.swift; sourceTree = "<group>"; };
@@ -337,6 +341,7 @@
 			children = (
 				D4194A141E46028F00D0B189 /* RealmInt.swift */,
 				D4194A151E46028F00D0B189 /* RealmString.swift */,
+				D402C2331E7DFEE700237EB9 /* RealmDouble.swift */,
 			);
 			name = Realm;
 			sourceTree = "<group>";
@@ -346,6 +351,7 @@
 			children = (
 				D4194A191E460D4400D0B189 /* ArrayTransform.swift */,
 				D4194A1D1E463F4300D0B189 /* ArrayOfCustomRealmObjectsTransform.swift */,
+				D459437B1E7E15EE00139D16 /* NSNumberToInt64Transform.swift */,
 			);
 			name = ObjectMapper;
 			sourceTree = "<group>";
@@ -913,6 +919,7 @@
 				D49EB1A01E452B9A00B6F5DC /* STSocketRequest.swift in Sources */,
 				D497271B1E32D9BD0076B7A1 /* STServerApi.swift in Sources */,
 				E5BE9E2B1E4C8F000022B157 /* STFeedFilterTableViewCell.swift in Sources */,
+				D459437C1E7E15EE00139D16 /* NSNumberToInt64Transform.swift in Sources */,
 				D4227F4E1E61FE7600BCB8B1 /* STContactCell.swift in Sources */,
 				D4AD43B31E47A970006F13DE /* AppSettings.swift in Sources */,
 				E59A1B191E3F9388009EE669 /* STRegistration.swift in Sources */,
@@ -965,6 +972,7 @@
 				D43BED661E70570500683D5C /* STTextFieldsCell.swift in Sources */,
 				D433D1041E54F56900974AB1 /* STSettingsController.swift in Sources */,
 				D49EB19E1E45212F00B6F5DC /* STSocketRequestBuilder.swift in Sources */,
+				D402C2341E7DFEE700237EB9 /* RealmDouble.swift in Sources */,
 				E561F5671E72FA4000C7407C /* STPostAttachmentsController.swift in Sources */,
 				E5FF31231E55D29C0013B713 /* STEditProfileController.swift in Sources */,
 				D49545D01E3D064700EDCF01 /* STLoginTextTableViewCell.swift in Sources */,

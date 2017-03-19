@@ -71,6 +71,10 @@ struct STServerApi: PRemoteServerApi {
         return self.httpManager.uploadImage(image: image, uploadProgress: uploadProgress)
     }
     
+    func createPost(post: STNewPostObject) -> Future<STPost, STError> {
+        
+        return self.socket.createPost(post: post)
+    }
     
     func onValidSession() {
         

@@ -45,7 +45,9 @@ enum ValidationResult {
 }
 
 
-class CollectionSectionItem {
+class CollectionSectionItem: Equatable {
+    
+    let id = UUID()
     
     var item: Any?
     
@@ -71,6 +73,11 @@ class CollectionSectionItem {
     
     var cellStyle: UITableViewCellStyle?
     
+    
+    public static func ==(lhs: CollectionSectionItem, rhs: CollectionSectionItem) -> Bool {
+        
+        return lhs.id == rhs.id
+    }
     
     init(cellClass: AnyClass,
          item: Any? = nil,

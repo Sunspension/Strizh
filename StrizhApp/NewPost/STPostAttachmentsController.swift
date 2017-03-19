@@ -45,9 +45,9 @@ class STPostAttachmentsController: UITableViewController {
         self.tableView.separatorInset = UIEdgeInsets.zero
         
         let rightItem = UIBarButtonItem(title: "Далее", style: .plain, target: self, action: #selector(self.nextAction))
-        rightItem.isEnabled = false
-        
         self.navigationItem.rightBarButtonItem = rightItem
+        
+        self.setCustomBackButton()
         
         title = "Прикрепить к теме"
         
@@ -82,13 +82,17 @@ class STPostAttachmentsController: UITableViewController {
             }
         }
         
-        self.postObject!.imageIds = imageIds
-        
-        let contacts = STContactsProvider.sharedInstance
-        _ = contacts.contacts.andThen { result in
+        if imageIds.count > 0 {
             
-            let count = result.value?.count
+            self.postObject!.imageIds = imageIds
+            
+            if let navi = self.navigationController as? STNewPostNavigationController {
+                
+                navi.postObject = self.postObject!
+            }
         }
+        
+        self.st_router_openContactsController()
     }
     
     private func setupDataSource() {

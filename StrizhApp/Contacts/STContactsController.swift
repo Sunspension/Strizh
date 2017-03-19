@@ -7,14 +7,16 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
+import ReactiveKit
+import Bond
 
-class STContactsController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating {
-
-//    enum STContatsControllerReasonEnum {
-//        
-//        
-//    }
+class STContactsController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating, NVActivityIndicatorViewable {
     
+    enum OpenContactsReasonEnum {
+        
+        case usual, newPost
+    }
     
     private var itemsSource: STContactsDataSourceWrapper?
     
@@ -22,6 +24,19 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
     
     private var shouldShowSearchResults = false
     
+    private var postObject: STNewPostObject?
+    
+    private let selectedItems = MutableObservableArray([Int]())
+    
+    var bag: Disposable?
+    
+    var reason = OpenContactsReasonEnum.usual
+    
+    
+    deinit {
+        
+        bag?.dispose()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,12 +45,35 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         self.tableView.backgroundColor = UIColor.stLightBlueGrey
         self.tableView.estimatedRowHeight = 50
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.allowsSelection = false
-        
         self.tableView.register(nibClass: STContactCell.self)
         self.tableView.register(headerFooterNibClass: STContactHeaderCell.self)
         
+        self.title = "Контакты"
+        
+        if self.reason == .newPost {
+            
+            let rightItem = UIBarButtonItem(title: "Создать", style: .plain, target: self, action: #selector(self.nextAction))
+            rightItem.isEnabled = false
+            self.navigationItem.rightBarButtonItem = rightItem
+            
+            self.bag = self.selectedItems.observeNext(with: { event in
+                
+                rightItem.isEnabled = event.dataSource.count != 0
+            })
+        }
+        
         self.itemsSource = STContactsDataSourceWrapper(viewController: self)
+        
+        if self.reason == .newPost {
+            
+            self.tableView.allowsMultipleSelection = true
+            self.itemsSource!.allowsSelection = true
+            self.itemsSource!.showOnlyRegistered = true
+        }
+        else {
+            
+            self.tableView.allowsSelection = false
+        }
         
         self.itemsSource!.loadingStatusChanged = { loadingStatus in
         
@@ -60,9 +98,16 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
             
             (_ tableView: UITableView, _ indexPath: IndexPath, _ item: CollectionSectionItem) in
         
-            let contact = item.item as! STContact
+            self.selectedItems.append((item.item as! STContact).contactUserId)
+        }
+        
+        self.itemsSource!.dataSource.onDidDeselectRowAtIndexPath = {
             
+            (_ tableView: UITableView, _ indexPath: IndexPath, _ item: CollectionSectionItem) in
             
+            let contactId = (item.item as! STContact).contactUserId
+            let index = self.selectedItems.index(of: (contactId))!
+            self.selectedItems.remove(at: index)
         }
         
         self.tableView.dataSource = self.itemsSource!.dataSource
@@ -71,6 +116,42 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         self.itemsSource!.synchronizeContacts()
         
         self.setupSearchController()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        if let navi = self.navigationController as? STNewPostNavigationController {
+            
+            self.postObject = navi.postObject
+        }
+    }
+    
+    func nextAction() {
+        
+        self.postObject!.userIds.append(contentsOf: self.selectedItems)
+        
+        startAnimating()
+        
+        api.createPost(post: self.postObject!)
+            
+            .onSuccess(callback: { [unowned self] post in
+                
+                self.stopAnimating()
+                
+                NotificationCenter.default.post(name: NSNotification.Name(kPostCreatedNotification), object: post)
+                
+                self.showOkAlert(title: "Успешно", message:"Вы успешно создали новую тему", okAction: {
+                    
+                    action in self.navigationController?.dismiss(animated: true, completion: nil)
+                })
+            })
+            .onFailure(callback: { [unowned self] error in
+                
+                self.stopAnimating()
+                self.showError(error: error)
+            })
     }
     
     //MARK: - UISearchBar delegate implementation

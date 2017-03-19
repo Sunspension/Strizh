@@ -139,6 +139,7 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             
             let viewCell = cell as! STPostButtonsCell
             
+            self.postObject?.type = 1
             viewCell.offerButtonSelected(selected: true)
             viewCell.title.text = "Вид темы"
             
@@ -150,14 +151,14 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             viewCell.offer.reactive.tap.observe { [unowned viewCell, unowned self] _ in
                 
                 self.postObject?.type = 1
-                viewCell.offerButtonSelected(selected: !viewCell.offer.isSelected)
+                viewCell.offerButtonSelected(selected: true)
                 
                 }.dispose(in: viewCell.bag)
             
             viewCell.search.reactive.tap.observe {[unowned viewCell] _ in
                 
                 self.postObject?.type = 2
-                viewCell.searchButtonSelected(selected: !viewCell.search.isSelected)
+                viewCell.searchButtonSelected(selected: true)
                 
                 }.dispose(in: viewCell.bag)
         }

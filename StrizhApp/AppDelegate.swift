@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import GoogleMaps
+import NVActivityIndicatorView
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -79,6 +80,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = splash
             self.window?.makeKeyAndVisible()
         }
+        
+        // Busy indicator setup
+        NVActivityIndicatorView.DEFAULT_TYPE = .ballClipRotateMultiple
         
         return true
     }

@@ -11,7 +11,7 @@ import ObjectMapper
 
 struct STLocation: Mappable {
     
-    var id = 0
+    var id: Int64 = 0
     
     var deleted = false
     

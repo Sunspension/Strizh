@@ -27,7 +27,13 @@ class STContactCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        self.selectionStyle = .none
+        
+        if self.backgroundView == nil {
+            
+            self.backgroundView = UIView()
+        }
     }
 
     override func prepareForReuse() {
@@ -39,7 +45,7 @@ class STContactCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+        self.tintColor = selected ? UIColor.stBrightBlue : UIColor.lightGray
+        self.backgroundView?.backgroundColor = selected ? UIColor.stLightGreenGrey : UIColor.clear
     }
-    
 }

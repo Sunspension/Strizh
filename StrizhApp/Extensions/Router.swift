@@ -86,18 +86,10 @@ extension UIViewController {
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    func st_router_openPersonalPostAction(post: STPost) {
-        
-//        let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-//        
-//        let cancell = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
-//        
-//        let actionEdit = UIAlertAction(title: "Редактировать", style: .default, handler: { action in
-//            
-//            // open edit controller
-//        })
-//
-//        
-//        let actionDelete
-    }
+    func st_router_openContactsController() {
+    
+        let controller = STContactsController()
+        controller.reason = .newPost
+        self.navigationController?.pushViewController(controller, animated: true)
+    }    
 }

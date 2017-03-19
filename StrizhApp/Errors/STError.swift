@@ -16,6 +16,8 @@ enum STError: Error {
     
     case loadContactsFailure
     
+    case createPostError
+    
     case anyError(error: Error)
     
     
@@ -37,7 +39,11 @@ enum STError: Error {
             
         case .archiveFailure:
             
-            return "Error has occurred when was trying to archive post"
+            return "Error has occurred when was trying to archive a post"
+            
+        case .createPostError:
+            
+            return "Error has occurred when was trying to create a post"
         }
     }
 }

@@ -54,6 +54,8 @@ enum STSocketRequestBuilder {
     
     case uploadContacts(contacts: [CNContact])
     
+    case createPost(post: STNewPostObject)
+    
     
     var request: STSocketRequest {
         
@@ -241,6 +243,52 @@ enum STSocketRequestBuilder {
                     body.append(cn)
                 }
             })
+            
+            self.addToPayload(&payLoad, type: .body, value: body)
+            
+            break
+            
+        case .createPost(let post):
+            
+            // payload
+            self.addToPayload(&payLoad, type: .path, value: "/api/post")
+            self.addToPayload(&payLoad, type: .method, value: "POST")
+            
+            var body = [String : Any]()
+            
+            body["title"] = post.title
+            body["description"] = post.details
+            body["type"] = post.type
+            
+            if !post.price.isEmpty {
+                
+                body["price"] = post.price
+            }
+            
+            if !post.priceDescription.isEmpty {
+                
+                body["price_description"] = post.priceDescription
+            }
+            
+            if !post.profitDescription.isEmpty {
+                
+                body["profit_description"] = post.profitDescription
+            }
+            
+            if post.imageIds != nil {
+                
+                body["image_ids"] = post.imageIds!
+            }
+            
+            if post.userIds.count > 0 {
+                
+                body["user_ids"] = post.userIds
+            }
+            
+            if post.locationIds != nil {
+                
+                body["location_ids"] = post.locationIds!
+            }
             
             self.addToPayload(&payLoad, type: .body, value: body)
             

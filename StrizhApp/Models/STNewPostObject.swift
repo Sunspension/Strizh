@@ -28,5 +28,7 @@ struct STNewPostObject {
     
     var imageIds: [Int64]?
     
-    var locationIds: [Int64]?
+    var locationIds: [Int]?
+    
+    var userIds = [Int]()
 }

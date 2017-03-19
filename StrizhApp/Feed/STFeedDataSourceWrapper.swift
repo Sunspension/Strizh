@@ -72,7 +72,8 @@ class STFeedDataSourceWrapper {
         self.isPersonal = isPersonal
         self.onDataSourceChanged = onDataSourceChanged
         
-        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kItemFavoriteNotification), object: nil).observeNext { [unowned self] notification in
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kItemFavoriteNotification), object: nil)
+            .observeNext { [unowned self] notification in
             
             let post = notification.object as! STPost
             
@@ -99,6 +100,42 @@ class STFeedDataSourceWrapper {
             }
             
         }.dispose(in: self.bag)
+        
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostDeleteFromDetailsNotification),
+                                                         object: nil)
+            .observeNext { [unowned self] notification in
+                
+                let post = notification.object as! STPost
+                
+                let count = self.section.items.count
+                
+                self.section.items = self.section.items
+                    .filter({ $0.item.id != post.id })
+                
+                if count != self.section.items.count {
+                    
+                    self.onDataSourceChanged?(false)
+                }
+                
+            }.dispose(in: bag)
+        
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostDeleteNotification),
+                                                         object: nil)
+            .observeNext { [unowned self] notification in
+                
+                let post = notification.object as! STPost
+                
+                let count = self.section.items.count
+                
+                self.section.items = self.section.items
+                    .filter({ $0.item.id != post.id })
+                
+                if count != self.section.items.count {
+                    
+                    self.onDataSourceChanged?(false)
+                }
+                
+            }.dispose(in: bag)
     }
     
     func initialize() {
@@ -109,6 +146,8 @@ class STFeedDataSourceWrapper {
                 
                 self.loadFeed()
             }
+            
+            item.cellHeight = cell.frame.height
             
             let post = item.item
             
@@ -231,7 +270,7 @@ class STFeedDataSourceWrapper {
         
         return self.files.filter({ file -> Bool in
             
-            return post.fileIds.contains(where: { Int64($0.value) == file.id })
+            return post.fileIds.contains(where: { $0.value == file.id })
         })
     }
     
@@ -242,7 +281,6 @@ class STFeedDataSourceWrapper {
             loadFeed()
         }
     }
-    
     
     func reloadFilter(notify: Bool) {
         
@@ -320,5 +358,5 @@ class STFeedDataSourceWrapper {
                 
                 self.status = .failed
             }
-        }
+    }
 }

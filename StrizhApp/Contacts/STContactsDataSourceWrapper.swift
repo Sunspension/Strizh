@@ -19,6 +19,9 @@ class STContactsDataSourceWrapper {
     
     private var contactsProvider = STContactsProvider.sharedInstance
     
+    var allowsSelection = false
+    
+    var showOnlyRegistered = false
     
     var onDataSourceChanged: (() -> Void)?
     
@@ -42,14 +45,17 @@ class STContactsDataSourceWrapper {
         
         self.searchDataSource.sections.append(self.searchSection)
         
-        self.notRelatedContactsSection.header(headerClass: STContactHeaderCell.self, bindingAction: { (cell, item) in
+        if !showOnlyRegistered {
             
-            let header = cell as! STContactHeaderCell
-            header.title.text = "НЕ ИСПОЛЬЗУЮТ STRIZHAPP"
-            header.title.textColor = UIColor.stSteelGrey
-        })
-        
-        self.notRelatedContactsSection.headerItem?.cellHeight = 30
+            self.notRelatedContactsSection.header(headerClass: STContactHeaderCell.self, bindingAction: { (cell, item) in
+                
+                let header = cell as! STContactHeaderCell
+                header.title.text = "НЕ ИСПОЛЬЗУЮТ STRIZHAPP"
+                header.title.textColor = UIColor.stSteelGrey
+            })
+            
+            self.notRelatedContactsSection.headerItem?.cellHeight = 30
+        }
     }
     
     func synchronizeContacts() {
@@ -122,7 +128,7 @@ class STContactsDataSourceWrapper {
                                  item: contact,
                                  bindingAction: self.binding)
             }
-            else {
+            else if !showOnlyRegistered {
                 
                 self.notRelatedContactsSection.addItem(cellClass: STContactCell.self,
                                                        item: contact,
@@ -136,7 +142,10 @@ class STContactsDataSourceWrapper {
             return (oneSection.sectionType as! String) < (otherSection.sectionType as! String)
         }
         
-        self.dataSource.sections.append(self.notRelatedContactsSection)
+        if !showOnlyRegistered {
+            
+            self.dataSource.sections.append(self.notRelatedContactsSection)
+        }
     }
     
     private func binding(cell: UITableViewCell, item: CollectionSectionItem) {
@@ -148,6 +157,7 @@ class STContactsDataSourceWrapper {
         viewCell.addContact.isHidden = contact.isRegistered
         viewCell.layoutMargins = UIEdgeInsets.zero
         viewCell.separatorInset = UIEdgeInsets.zero
+        viewCell.accessoryType = allowsSelection ? .checkmark : .none
         
         if !contact.isRegistered {
             

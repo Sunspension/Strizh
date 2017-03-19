@@ -94,7 +94,7 @@ class STProfileTableViewController: UITableViewController {
                 
                 let files = self.files.filter({ file -> Bool in
                     
-                    return post.fileIds.contains(where: { Int64($0.value) == file.id })
+                    return post.fileIds.contains(where: { $0.value == file.id })
                 })
                 
                 let locations = self.locations.filter({ location -> Bool in
@@ -158,7 +158,7 @@ class STProfileTableViewController: UITableViewController {
 //                                                            }
 //            }.dispose(in: bag)
         
-        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostDeleteNotification),
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostDeleteFromDetailsNotification),
                                                          object: nil).observeNext { [unowned self] notification in
                                                             
                                                             let post = notification.object as! STPost
@@ -178,6 +178,34 @@ class STProfileTableViewController: UITableViewController {
                                                             
                                                             self.tableView.reloadSections(IndexSet(integer: 1) , with: .none)
             }.dispose(in: bag)
+        
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostCreatedNotification),
+                                                         object: nil)
+            .observeNext { [unowned self] notification in
+                
+                // temporary
+                self.minId = 0
+                self.userPostsSection.items.removeAll()
+                self.loadFeed()
+                
+            }.dispose(in: bag)
+        
+        
+        // refresh control setup
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.reactive.refreshing.observeNext(with: { refreshing in
+            
+            if !refreshing {
+                
+                return
+            }
+            
+            // temporary
+            self.minId = 0
+            self.userPostsSection.items.removeAll()
+            self.loadFeed()
+            
+        }).dispose(in: bag)
     }
     
     private func createHeader() {
@@ -331,6 +359,8 @@ class STProfileTableViewController: UITableViewController {
                                                         self.userPostsSection.items = self.userPostsSection.items
                                                                 .filter({ ($0.item! as! STPost).id != (item.item! as! STPost).id })
                                                         
+                                                        NotificationCenter.default.post(name: NSNotification.Name(kPostDeleteNotification), object: post)
+                                                        
                                                         // save last item id for loading next objects
                                                         if let lastPost = self.userPostsSection.items.last {
                                                             
@@ -368,6 +398,7 @@ class STProfileTableViewController: UITableViewController {
             .onSuccess { [unowned self] feed in
                 
                 self.tableView.hideBusy()
+                self.refreshControl?.endRefreshing()
                 
                 self.hasMore = feed.posts.count == self.pageSize
                 

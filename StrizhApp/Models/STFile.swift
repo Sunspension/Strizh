@@ -44,7 +44,7 @@ struct STFile: Mappable, Hashable, Equatable {
     
     mutating func mapping(map: Map) {
         
-        id <- map["id"]
+        id <- (map["id"], NSNumberToInt64Transform())
         deleted <- map["deleted"]
         createdAt <- (map["created_at"], DateFormatterTransform(dateFormatter: formatter()))
         deletedAt <- (map["deleted_at"], DateFormatterTransform(dateFormatter: formatter()))

@@ -38,12 +38,12 @@ extension UIViewController {
         self.navigationItem.backBarButtonItem = back
     }
     
-    func showOkAlert(title: String?, message: String?) {
+    func showOkAlert(title: String?, message: String?, okAction: ((UIAlertAction) -> Void)? = nil) {
         
         let alert = UIAlertController(title: title,
                                       message: message,
                                       preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        let action = UIAlertAction(title: "Ok", style: .cancel, handler: okAction)
         alert.addAction(action)
         
         self.present(alert, animated: true, completion: nil)
@@ -254,6 +254,10 @@ extension UIColor {
     class var stLightishBlue: UIColor {
      
         return UIColor(red: 69.0 / 255.0, green: 121.0 / 255.0, blue: 251.0 / 255.0, alpha: 1.0)
+    }
+    class var stLightGreenGrey: UIColor {
+     
+        return UIColor(red: 233.0 / 255.0, green: 242.0 / 255.0, blue: 233.0 / 255.0, alpha: 1.0)
     }
 }
 

@@ -376,7 +376,7 @@ class STFeedDetailsTableViewController: UIViewController {
             self.api.deletePost(postId: post.id)
                 .onSuccess(callback: { _ in
                     
-                    NotificationCenter.default.post(name: NSNotification.Name(kPostDeleteNotification), object: post)
+                    NotificationCenter.default.post(name: NSNotification.Name(kPostDeleteFromDetailsNotification), object: post)
                 })
                 .onFailure(callback: { error in
                     

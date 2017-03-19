@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReactiveKit
 
 class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating {
 
@@ -30,6 +31,13 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     
     private var searchQueryString = ""
     
+    private let bag = DisposeBag()
+    
+    
+    deinit {
+        
+        bag.dispose()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +64,9 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         self.setCustomBackButton()
         self.setupDataSources()
         
+        // refresh control setup
+        self.createRefreshControl()
+        
         // set data source
         self.tableView.dataSource = self.feedDataSource!.dataSource
         
@@ -65,6 +76,16 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         self.dataSourceSwitch.selectedSegmentIndex = 0
         
         self.setupSearchController()
+        
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostCreatedNotification),
+                                                         object: nil)
+            .observeNext { [unowned self] notification in
+                
+                // temporary
+                self.feedDataSource?.reset()
+                self.feedDataSource?.loadFeed()
+                
+            }.dispose(in: bag)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -94,6 +115,8 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         
         self.shouldShowSearchResults = true
         
+        self.refreshControl = nil
+        
         let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ? self.searchFeedDataSource : self.searchFavoriteDataSource
         
         self.tableView.dataSource = dataSource!.dataSource
@@ -104,6 +127,8 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
         self.shouldShowSearchResults = false
+        
+        self.createRefreshControl()
         
         let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ? self.feedDataSource : self.favoritesFeedDataSource
         
@@ -218,6 +243,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     private func onDataSourceChanged(animation: Bool) {
         
         self.tableView.hideBusy()
+        self.refreshControl?.endRefreshing()
         
         if animation {
             
@@ -237,5 +263,24 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     private func onStopLoading() {
         
         self.tableView.hideBusy()
+    }
+    
+    private func createRefreshControl() {
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.reactive.refreshing.observeNext(with: { refreshing in
+            
+            if !refreshing {
+                
+                return
+            }
+            
+            let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ?
+                self.feedDataSource : self.favoritesFeedDataSource
+            
+            dataSource?.reset()
+            dataSource?.loadFeed()
+            
+        }).dispose(in: bag)
     }
 }
