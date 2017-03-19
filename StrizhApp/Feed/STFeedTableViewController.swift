@@ -82,8 +82,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
             .observeNext { [unowned self] notification in
                 
                 // temporary
-                self.feedDataSource?.reset()
-                self.feedDataSource?.loadFeed()
+                self.feedDataSource?.loadFeed(isRefresh: true)
                 
             }.dispose(in: bag)
     }
@@ -285,8 +284,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
             let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ?
                 self.feedDataSource : self.favoritesFeedDataSource
             
-            dataSource?.reset()
-            dataSource?.loadFeed()
+            dataSource?.loadFeed(isRefresh: true)
             
         }).dispose(in: bag)
     }

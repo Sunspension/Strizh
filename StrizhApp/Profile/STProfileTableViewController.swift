@@ -185,8 +185,7 @@ class STProfileTableViewController: UITableViewController {
                 
                 // temporary
                 self.minId = 0
-                self.userPostsSection.items.removeAll()
-                self.loadFeed()
+                self.loadFeed(isRefresh: true)
                 
             }.dispose(in: bag)
         
@@ -202,8 +201,7 @@ class STProfileTableViewController: UITableViewController {
             
             // temporary
             self.minId = 0
-            self.userPostsSection.items.removeAll()
-            self.loadFeed()
+            self.loadFeed(isRefresh: true)
             
         }).dispose(in: bag)
     }
@@ -389,7 +387,7 @@ class STProfileTableViewController: UITableViewController {
         }
     }
     
-    private func loadFeed() {
+    private func loadFeed(isRefresh: Bool = false) {
         
         self.tableView.showBusy()
         
@@ -415,6 +413,12 @@ class STProfileTableViewController: UITableViewController {
                 }
                 
                 self.status = .loaded
+                
+                if isRefresh {
+                    
+                    self.userPostsSection.items.removeAll()
+                }
+                
                 self.createDataSource(posts: feed.posts)
                 
                 feed.images.forEach({ image in

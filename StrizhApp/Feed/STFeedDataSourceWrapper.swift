@@ -291,10 +291,11 @@ class STFeedDataSourceWrapper {
     func reset() {
         
         self.page = 1
+        self.posts.removeAll()
         self.section.items.removeAll()
     }
     
-    func loadFeed(notify: Bool = true, searchString: String? = nil) {
+    func loadFeed(isRefresh: Bool = false, notify: Bool = true, searchString: String? = nil) {
         
         self.onStartLoading?()
         
@@ -312,6 +313,12 @@ class STFeedDataSourceWrapper {
                     self.users.insert(user)
                 })
                 
+                if isRefresh {
+                    
+                    self.posts.removeAll()
+                    self.section.items.removeAll()
+                }
+                
                 self.posts.append(contentsOf: feed.posts)
                 
                 feed.posts.forEach { post in
@@ -328,7 +335,6 @@ class STFeedDataSourceWrapper {
                     
                     self.files.insert(file)
                 })
-                
                 
                 self.locations.append(contentsOf: feed.locations)
                 
