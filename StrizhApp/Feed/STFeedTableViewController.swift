@@ -243,7 +243,14 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     private func onDataSourceChanged(animation: Bool) {
         
         self.tableView.hideBusy()
-        self.refreshControl?.endRefreshing()
+        
+        if let refresh = self.refreshControl, refresh.isRefreshing {
+            
+            DispatchQueue.main.async {
+                
+                refresh.endRefreshing()
+            }
+        }
         
         if animation {
             

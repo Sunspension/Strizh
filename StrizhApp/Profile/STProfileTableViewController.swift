@@ -398,7 +398,14 @@ class STProfileTableViewController: UITableViewController {
             .onSuccess { [unowned self] feed in
                 
                 self.tableView.hideBusy()
-                self.refreshControl?.endRefreshing()
+                
+                if let refresh = self.refreshControl, refresh.isRefreshing {
+                    
+                    DispatchQueue.main.async {
+                        
+                        refresh.endRefreshing()
+                    }
+                }
                 
                 self.hasMore = feed.posts.count == self.pageSize
                 

@@ -147,8 +147,6 @@ class STFeedDataSourceWrapper {
                 self.loadFeed()
             }
             
-            item.cellHeight = cell.frame.height
-            
             let post = item.item
             
             cell.selectionStyle = .none
