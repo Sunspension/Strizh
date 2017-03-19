@@ -301,6 +301,11 @@ class STFeedDataSourceWrapper {
         
         self.status = .loading
         
+        if isRefresh {
+            
+            self.page = 1
+        }
+        
         AppDelegate.appSettings.api.loadFeed(filter: self.filter!, page: page,
                                              pageSize: pageSize, isFavorite: self.isFavorite, searchString: searchString)
             
