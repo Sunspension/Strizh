@@ -43,7 +43,8 @@ extension UIViewController {
         appDelegate?.onLogout()
     }
     
-    func st_router_openPostDetails(personal: Bool = false, post: STPost, user: STUser, images: [STImage]?, files: [STFile]?, locations: [STLocation]?) -> Void {
+    func st_router_openPostDetails(personal: Bool = false, post: STPost, user: STUser,
+                                   images: [STImage]?, files: [STFile]?, locations: [STLocation]?) -> Void {
         
         let controller = storyBoard.instantiateViewController(withIdentifier: String(describing: STFeedDetailsTableViewController.self)) as! STFeedDetailsTableViewController
         controller.post = post
@@ -72,13 +73,14 @@ extension UIViewController {
         self.navigationController?.present(navi, animated: true, completion: nil)
     }
     
-    func st_router_openNewPostController() {
+    func st_router_openPostController(postObject: STNewPostObject? = nil) {
         
         let controller = STNewPostController()
-        let navi = STNewPostNavigationController(rootViewController: controller)
+        let navi = STNewPostNavigationController(rootViewController: controller, postObject: postObject ?? STNewPostObject())
         
         self.present(navi, animated: true, completion: nil)
     }
+    
     
     func st_router_openPostAttachmentsController() {
         

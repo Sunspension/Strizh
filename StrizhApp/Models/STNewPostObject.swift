@@ -31,4 +31,24 @@ struct STNewPostObject {
     var locationIds: [Int]?
     
     var userIds = [Int]()
+    
+    
+    init() {
+        
+        
+    }
+    
+    init(post: STPost) {
+        
+        self.type = post.type
+        self.title = post.title
+        self.details = post.postDescription
+        self.price = post.price
+        self.priceDescription = post.priceDescription
+        self.profitDescription = post.profitDescription
+        self.fromDate = post.dateFrom
+        self.tillDate = post.dateTo
+        self.imageIds = post.imageIds.map({ $0.value })
+        self.locationIds = post.locationIds.map({ Int($0.value) })
+    }
 }

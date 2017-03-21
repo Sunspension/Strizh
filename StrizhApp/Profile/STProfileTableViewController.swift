@@ -324,6 +324,8 @@ class STProfileTableViewController: UITableViewController {
                                             let actionEdit = UIAlertAction(title: "Редактировать", style: .default, handler: { action in
                                                 
                                                 // open edit controller
+                                                let postObject = STNewPostObject(post: post)
+                                                self.st_router_openPostController(postObject: postObject)
                                             })
                                             
                                             actionController.addAction(actionEdit)

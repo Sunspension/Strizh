@@ -24,7 +24,7 @@ class STTabBarViewController: UITabBarController, UITabBarControllerDelegate {
         
         if viewController is STDummyNavigationController {
             
-            self.st_router_openNewPostController()
+            self.st_router_openPostController()
             
 //            let controller = STPostAttachmentsController()
 //            let navi = STNewPostNavigationController(rootViewController: controller)

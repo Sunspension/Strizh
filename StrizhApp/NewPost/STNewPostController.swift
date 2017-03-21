@@ -37,8 +37,6 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
         
         let rightItem = UIBarButtonItem(title: "Далее", style: .plain, target: self, action: #selector(self.nextAction))
         self.navigationItem.rightBarButtonItem = rightItem
-        
-        self.title = "Новая тема"
     
         self.tableView.tableFooterView = UIView()
         self.tableView.backgroundColor = UIColor.stLightBlueGrey
@@ -70,6 +68,8 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
         if let navi = self.navigationController as? STNewPostNavigationController {
             
             self.postObject = navi.postObject
+            
+            self.title = !self.postObject!.title.isEmpty ? self.postObject!.title : "Новая тема"
         }
     }
     

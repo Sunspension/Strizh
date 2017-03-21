@@ -443,7 +443,6 @@
 			isa = PBXGroup;
 			children = (
 				E5E4E9BF1E81135C00B77102 /* CustomControls */,
-				E5E4E9BE1E81105000B77102 /* StrizhApp.entitlements */,
 				D40BC85C1E5B605F0045F327 /* CommonUI */,
 				D4AD43B11E47A8F8006F13DE /* Pages */,
 				D4194A181E460CB700D0B189 /* ObjectMapper */,
@@ -457,6 +456,7 @@
 				D4AD43B21E47A970006F13DE /* AppSettings.swift */,
 				D49726FA1E32BDA50076B7A1 /* AppDelegate.swift */,
 				E53185E11E35E5A200BC6C9A /* GoogleService-Info.plist */,
+				E5E4E9BE1E81105000B77102 /* StrizhApp.entitlements */,
 				E53185E31E35E71900BC6C9A /* strizhapp-78ed2-firebase-crashreporting-fglbu-7f0e978c0f.json */,
 				D49727031E32BDA50076B7A1 /* Assets.xcassets */,
 				D43BED6F1E70A72D00683D5C /* Main.storyboard */,
