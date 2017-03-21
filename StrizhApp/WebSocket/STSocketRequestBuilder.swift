@@ -260,6 +260,16 @@ enum STSocketRequestBuilder {
             body["description"] = post.details
             body["type"] = post.type
             
+            if post.fromDate != nil {
+                
+                body["date_from"] = post.fromDate!
+            }
+            
+            if post.tillDate != nil {
+                
+                body["date_to"] = post.tillDate!
+            }
+            
             if !post.price.isEmpty {
                 
                 body["price"] = post.price
