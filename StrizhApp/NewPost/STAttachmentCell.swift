@@ -61,6 +61,12 @@ class STAttachmentCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func exapandCell() {
+        
+        collectionViewHeight.constant = 68
+        bottomIconMargin.constant = 8
+    }
+    
     func expandCellIfNeeded() {
         
         if (collectionView.numberOfItems(inSection: 0) > 0) {

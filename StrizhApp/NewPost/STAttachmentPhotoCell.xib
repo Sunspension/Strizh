@@ -37,6 +37,9 @@
                                 </constraints>
                                 <state key="normal" image="icon-attachment-delete"/>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fxk-zw-TIj">
+                                <rect key="frame" x="36" y="26" width="20" height="20"/>
+                            </activityIndicatorView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="N5j-6j-wUt">
                                 <rect key="frame" x="10" y="14" width="72" height="44"/>
                                 <subviews>
@@ -84,7 +87,9 @@
                             <constraint firstItem="N5j-6j-wUt" firstAttribute="top" secondItem="v5K-g9-v3k" secondAttribute="top" constant="14" id="6fL-Wa-JUO"/>
                             <constraint firstAttribute="trailing" secondItem="Gk0-Hg-T94" secondAttribute="trailing" id="A8f-sF-vtY"/>
                             <constraint firstAttribute="trailing" secondItem="N5j-6j-wUt" secondAttribute="trailing" constant="10" id="O32-eV-8BJ"/>
+                            <constraint firstItem="fxk-zw-TIj" firstAttribute="centerX" secondItem="v5K-g9-v3k" secondAttribute="centerX" id="TGZ-1y-khW"/>
                             <constraint firstItem="N5j-6j-wUt" firstAttribute="leading" secondItem="v5K-g9-v3k" secondAttribute="leading" constant="10" id="ZQd-Nq-XZJ"/>
+                            <constraint firstItem="fxk-zw-TIj" firstAttribute="centerY" secondItem="v5K-g9-v3k" secondAttribute="centerY" id="aQK-jk-xA7"/>
                             <constraint firstItem="SHZ-Hg-Wci" firstAttribute="centerY" secondItem="v5K-g9-v3k" secondAttribute="centerY" id="iuo-gS-lEF"/>
                             <constraint firstAttribute="bottom" secondItem="N5j-6j-wUt" secondAttribute="bottom" constant="14" id="sCn-kB-9HX"/>
                             <constraint firstItem="Gk0-Hg-T94" firstAttribute="top" secondItem="v5K-g9-v3k" secondAttribute="top" id="yiZ-ju-wR0"/>
@@ -100,6 +105,7 @@
             </constraints>
             <size key="customSize" width="162" height="122"/>
             <connections>
+                <outlet property="busyIndicator" destination="fxk-zw-TIj" id="0Gw-2j-3j7"/>
                 <outlet property="delete" destination="Gk0-Hg-T94" id="nFG-xe-1ii"/>
                 <outlet property="image" destination="SHZ-Hg-Wci" id="CLJ-pM-bi4"/>
                 <outlet property="loadingLabel" destination="ZaX-PF-aZd" id="NRF-5z-3dn"/>

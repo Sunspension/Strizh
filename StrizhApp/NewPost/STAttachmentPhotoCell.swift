@@ -25,6 +25,7 @@ class STAttachmentPhotoCell: UICollectionViewCell {
     
     @IBOutlet weak var loadingLabel: UILabel!
     
+    @IBOutlet weak var busyIndicator: UIActivityIndicatorView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

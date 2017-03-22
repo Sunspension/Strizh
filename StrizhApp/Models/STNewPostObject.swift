@@ -32,6 +32,8 @@ struct STNewPostObject {
     
     var userIds = [Int]()
     
+    var images: Set<STImage>?
+    
     
     init() {
         
