@@ -45,7 +45,7 @@ class STPostAttachmentsController: UITableViewController {
     
     private var imageUploader = ImageUploader()
     
-    private var postObject: STNewPostObject?
+    var postObject: STUserPostObject?
     
     
     deinit {
@@ -78,31 +78,31 @@ class STPostAttachmentsController: UITableViewController {
         self.createDataSource()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-        super.viewWillAppear(animated)
-        
-        if let navi = self.navigationController as? STNewPostNavigationController {
-            
-            self.postObject = navi.postObject
-            
-            // if we have images
-            if let postObject = self.postObject, let imageIds = postObject.imageIds {
-                
-                if imageIds.count > 0 {
-                    
-                    self.imagesCollectionSection.items.removeAll()
-                    
-                    for imageId in imageIds {
-                        
-                        self.imagesCollectionSection.add(item: ImageAsset(imageId: imageId))
-                    }
-                    
-                    self.imagesCollectionSection.sectionChanged?()
-                }
-            }
-        }
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        
+//        super.viewWillAppear(animated)
+//        
+//        if let navi = self.navigationController as? STNewPostNavigationController {
+//            
+//            self.postObject = navi.postObject
+//            
+//            // if we have images
+//            if let postObject = self.postObject, let imageIds = postObject.imageIds {
+//                
+//                if imageIds.count > 0 {
+//                    
+//                    self.imagesCollectionSection.items.removeAll()
+//                    
+//                    for imageId in imageIds {
+//                        
+//                        self.imagesCollectionSection.add(item: ImageAsset(imageId: imageId))
+//                    }
+//                    
+//                    self.imagesCollectionSection.sectionChanged?()
+//                }
+//            }
+//        }
+//    }
     
     func nextAction() {
         
@@ -120,10 +120,10 @@ class STPostAttachmentsController: UITableViewController {
             
             self.postObject!.imageIds = imageIds
             
-            if let navi = self.navigationController as? STNewPostNavigationController {
-                
-                navi.postObject = self.postObject!
-            }
+//            if let navi = self.navigationController as? STNewPostNavigationController {
+//                
+//                navi.postObject = self.postObject!
+//            }
         }
         
         self.st_router_openContactsController()
@@ -247,9 +247,11 @@ class STPostAttachmentsController: UITableViewController {
                             let url = URL(string: image.url + queryResize)!
                             
                             cell.image.af_setImage(withURL: url, imageTransition: .crossDissolve(0.3),
-                                                   runImageTransitionIfCached: true, completion: { [weak cell] image in
+                                                   runImageTransitionIfCached: true, completion: { [unowned cell] image in
                                                     
-                                                    cell?.busyIndicator.stopAnimating()
+                                                    cell.busyIndicator.stopAnimating()
+                                                    cell.uploaded()
+                                                    
                             })
                         }
                     }
@@ -355,6 +357,22 @@ class STPostAttachmentsController: UITableViewController {
             
             viewCell.collectionView.reloadData()
             viewCell.expandCellIfNeeded()
+        }
+        
+        // if we have images
+        if let postObject = self.postObject, let imageIds = postObject.imageIds {
+            
+            if imageIds.count > 0 {
+                
+                self.imagesCollectionSection.items.removeAll()
+                
+                for imageId in imageIds {
+                    
+                    self.imagesCollectionSection.add(item: ImageAsset(imageId: imageId))
+                }
+                
+//                self.imagesCollectionSection.sectionChanged?()
+            }
         }
         
 //        self.section.addItem(cellClass: STAttachmentCell.self, itemType: STAttachmentItemsEnum.location) { (cell, item) in

@@ -21,4 +21,6 @@ target 'StrizhApp' do
     pod 'GoogleMaps'
     pod 'DKImagePickerController'
     pod 'KDCircularProgress'
+    pod 'Dip'
+    pod 'Dip-UI'
 end

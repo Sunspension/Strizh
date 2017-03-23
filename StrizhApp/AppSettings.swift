@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import AlamofireImage
+import Dip
 
 let kSTLastSessionPhone = "kSTLastSessionPhone"
 let kSTDeviceToken = "kSTDeviceToken"
@@ -85,6 +86,13 @@ struct AppSettings {
     lazy var imageDownloader: ImageDownloader = {
         
         return ImageDownloader()
+        
+    }()
+    
+    lazy var dependencyContainer: DependencyContainer = {
+        
+        return DependencyContainer()
+        
     }()
     
     init(dbConfig: PDBConfiguration, serverApi: PRemoteServerApi) {

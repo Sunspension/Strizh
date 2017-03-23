@@ -7,28 +7,10 @@
 //
 
 import UIKit
+import Dip
+import Dip_UI
 
 class STNewPostNavigationController: UINavigationController {
-
-    var postObject: STNewPostObject?
-    
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
-    init(rootViewController: UIViewController, postObject: STNewPostObject) {
-        
-        super.init(rootViewController: rootViewController)
-        
-        self.postObject = postObject
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        
-        super.init(coder: aDecoder)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

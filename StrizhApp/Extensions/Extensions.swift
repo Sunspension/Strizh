@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Dip
 
 extension UIViewController {
     
@@ -29,6 +30,11 @@ extension UIViewController {
     var appDelegate: AppDelegate? {
         
         return UIApplication.shared.delegate as? AppDelegate
+    }
+    
+    var dependencyContainer: DependencyContainer {
+        
+        return AppDelegate.appSettings.dependencyContainer
     }
     
     func setCustomBackButton() {

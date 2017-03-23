@@ -234,7 +234,7 @@ class STWebSocket {
         return p.future
     }
     
-    func createPost(post: STNewPostObject) -> Future<STPost, STError> {
+    func createPost(post: STUserPostObject) -> Future<STPost, STError> {
         
         let p = Promise<STPost, STError>()
         

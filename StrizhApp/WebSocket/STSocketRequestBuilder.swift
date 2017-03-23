@@ -54,7 +54,7 @@ enum STSocketRequestBuilder {
     
     case uploadContacts(contacts: [CNContact])
     
-    case createPost(post: STNewPostObject)
+    case createPost(post: STUserPostObject)
     
     
     var request: STSocketRequest {

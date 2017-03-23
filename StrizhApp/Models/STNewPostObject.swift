@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct STNewPostObject {
+class STUserPostObject {
     
     var type = 0
     

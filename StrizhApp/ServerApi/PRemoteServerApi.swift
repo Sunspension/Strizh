@@ -62,5 +62,5 @@ protocol PRemoteServerApi {
     
     func uploadContacts(contacts: [CNContact]) -> Future<[STContact], STError>
     
-    func createPost(post: STNewPostObject) -> Future<STPost, STError>
+    func createPost(post: STUserPostObject) -> Future<STPost, STError>
 }

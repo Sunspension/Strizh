@@ -73,10 +73,11 @@ extension UIViewController {
         self.navigationController?.present(navi, animated: true, completion: nil)
     }
     
-    func st_router_openPostController(postObject: STNewPostObject? = nil) {
+    func st_router_openPostController(postObject: STUserPostObject? = nil) {
         
-        let controller = STNewPostController()
-        let navi = STNewPostNavigationController(rootViewController: controller, postObject: postObject ?? STNewPostObject())
+        self.dependencyContainer.register { postObject ?? STUserPostObject() }
+
+        let navi = STNewPostNavigationController(rootViewController: STNewPostController())
         
         self.present(navi, animated: true, completion: nil)
     }

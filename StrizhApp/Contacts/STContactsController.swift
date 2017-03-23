@@ -24,9 +24,9 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
     
     private var shouldShowSearchResults = false
     
-    private var postObject: STNewPostObject?
-    
     private let selectedItems = MutableObservableArray([Int]())
+    
+    var postObject: STUserPostObject?
     
     var bag: Disposable?
     
@@ -118,40 +118,44 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         self.setupSearchController()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-        super.viewWillAppear(animated)
-        
-        if let navi = self.navigationController as? STNewPostNavigationController {
-            
-            self.postObject = navi.postObject
-        }
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        
+//        super.viewWillAppear(animated)
+//        
+//        if let navi = self.navigationController as? STNewPostNavigationController {
+//            
+//            self.postObject = navi.postObject
+//        }
+//    }
     
     func nextAction() {
         
-        self.postObject!.userIds.append(contentsOf: self.selectedItems)
-        
-        startAnimating()
-        
-        api.createPost(post: self.postObject!)
+        if let postObject = self.postObject {
             
-            .onSuccess(callback: { [unowned self] post in
+            postObject.userIds.append(contentsOf: self.selectedItems)
+            
+            startAnimating()
+            
+            api.createPost(post: postObject)
                 
-                self.stopAnimating()
-                
-                NotificationCenter.default.post(name: NSNotification.Name(kPostCreatedNotification), object: post)
-                
-                self.showOkAlert(title: "Успешно", message:"Вы успешно создали новую тему", okAction: {
+                .onSuccess(callback: { [unowned self] post in
                     
-                    action in self.navigationController?.dismiss(animated: true, completion: nil)
+                    self.stopAnimating()
+                    
+                    NotificationCenter.default.post(name: NSNotification.Name(kPostCreatedNotification), object: post)
+                    
+                    self.showOkAlert(title: "Успешно", message:"Вы успешно создали новую тему", okAction: {
+                        
+                        action in self.navigationController?.dismiss(animated: true, completion: nil)
+                    })
                 })
-            })
-            .onFailure(callback: { [unowned self] error in
-                
-                self.stopAnimating()
-                self.showError(error: error)
-            })
+                .onFailure(callback: { [unowned self] error in
+                    
+                    self.stopAnimating()
+                    self.showError(error: error)
+                })
+
+        }
     }
     
     //MARK: - UISearchBar delegate implementation
