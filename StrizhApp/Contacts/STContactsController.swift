@@ -118,16 +118,6 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         self.setupSearchController()
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        
-//        super.viewWillAppear(animated)
-//        
-//        if let navi = self.navigationController as? STNewPostNavigationController {
-//            
-//            self.postObject = navi.postObject
-//        }
-//    }
-    
     func nextAction() {
         
         if let postObject = self.postObject {

@@ -10,6 +10,11 @@ import Foundation
 
 class STUserPostObject {
     
+    enum PostObjectType {
+        
+        case new, old
+    }
+    
     var type = 0
     
     var title = ""
@@ -34,6 +39,7 @@ class STUserPostObject {
     
     var images: Set<STImage>?
     
+    var objectType = PostObjectType.new
     
     init() {
         
@@ -52,5 +58,6 @@ class STUserPostObject {
         self.tillDate = post.dateTo
         self.imageIds = post.imageIds.map({ $0.value })
         self.locationIds = post.locationIds.map({ Int($0.value) })
+        self.objectType = .old
     }
 }

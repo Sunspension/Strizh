@@ -8,7 +8,9 @@
 
 import UIKit
 
-class GenericCollectionSectionItem<TItem> {
+class GenericCollectionSectionItem<TItem>: Equatable {
+    
+    let id = UUID()
     
     var item: TItem
     
@@ -30,5 +32,10 @@ class GenericCollectionSectionItem<TItem> {
     init(item: TItem) {
         
         self.item = item
+    }
+    
+    public static func ==(lhs: GenericCollectionSectionItem<TItem>, rhs: GenericCollectionSectionItem<TItem>) -> Bool {
+        
+        return lhs.id == rhs.id
     }
 }

@@ -44,7 +44,7 @@
                                 <rect key="frame" x="10" y="14" width="72" height="44"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OWv-Ye-rn2" customClass="KDCircularProgress" customModule="KDCircularProgress">
-                                        <rect key="frame" x="25" y="0.0" width="23" height="23"/>
+                                        <rect key="frame" x="24.5" y="0.0" width="23" height="23"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="23" id="2JM-dM-77p"/>
@@ -73,7 +73,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Загрузка..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZaX-PF-aZd">
-                                        <rect key="frame" x="9" y="23" width="55" height="21"/>
+                                        <rect key="frame" x="9" y="23" width="54.5" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>

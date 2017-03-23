@@ -17,15 +17,7 @@ class ImageUploader {
     
     private let operationsLimit = 3
     
-    var operations = [ImageUploadOperation]()
-    
-    var description: String {
-        
-        return self.operations.reduce("") { (result, operation) -> String in
-            
-            return result + operation.state.stateDescription + "\n"
-        }
-    }
+    var operations = [String : ImageUploadOperation]()
     
     var completeAllOperations: (() -> Void)?
     
@@ -49,20 +41,17 @@ class ImageUploader {
         }.dispose(in: bag)
     }
     
-    func uploadImages(images: [Data]) {
+    func uploadImages(images: [(Data, String)]) {
         
-        var operations = [ImageUploadOperation]()
-        
-        for image in images {
+        for (image, id) in images {
             
-            let uploadOperation = ImageUploadOperation(image: image)
+            let uploadOperation = ImageUploadOperation(image: image, identifier: id)
             
             uploadOperation.queuePriority = .low
             uploadOperation.qualityOfService = .background
-            operations.append(uploadOperation)
+            self.operations[id] = uploadOperation
         }
         
-        self.operations.append(contentsOf: operations)
-        self.uploadQueue.addOperations(operations, waitUntilFinished: false)
+        self.uploadQueue.addOperations(self.operations.map({ $0.value }), waitUntilFinished: false)
     }
 }

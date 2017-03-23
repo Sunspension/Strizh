@@ -8,6 +8,7 @@
 
 import UIKit
 import DKImagePickerController
+import Dip
 
 private enum STAttachmentItemsEnum {
     
@@ -45,8 +46,11 @@ class STPostAttachmentsController: UITableViewController {
     
     private var imageUploader = ImageUploader()
     
-    var postObject: STUserPostObject?
-    
+    private lazy var postObject: STUserPostObject = {
+        
+        return try! self.dependencyContainer.resolve(STUserPostObject.self) as! STUserPostObject
+        
+    }()
     
     deinit {
         
@@ -78,37 +82,11 @@ class STPostAttachmentsController: UITableViewController {
         self.createDataSource()
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        
-//        super.viewWillAppear(animated)
-//        
-//        if let navi = self.navigationController as? STNewPostNavigationController {
-//            
-//            self.postObject = navi.postObject
-//            
-//            // if we have images
-//            if let postObject = self.postObject, let imageIds = postObject.imageIds {
-//                
-//                if imageIds.count > 0 {
-//                    
-//                    self.imagesCollectionSection.items.removeAll()
-//                    
-//                    for imageId in imageIds {
-//                        
-//                        self.imagesCollectionSection.add(item: ImageAsset(imageId: imageId))
-//                    }
-//                    
-//                    self.imagesCollectionSection.sectionChanged?()
-//                }
-//            }
-//        }
-//    }
-    
     func nextAction() {
         
         var imageIds = [Int64]()
         
-        for operation in self.imageUploader.operations {
+        for operation in self.imageUploader.operations.map({ $0.value }) {
             
             if let file = operation.file {
                 
@@ -118,12 +96,14 @@ class STPostAttachmentsController: UITableViewController {
         
         if imageIds.count > 0 {
             
-            self.postObject!.imageIds = imageIds
-            
-//            if let navi = self.navigationController as? STNewPostNavigationController {
-//                
-//                navi.postObject = self.postObject!
-//            }
+            if self.postObject.imageIds == nil {
+                
+                self.postObject.imageIds = imageIds
+            }
+            else {
+                
+                self.postObject.imageIds!.append(contentsOf: imageIds)
+            }
         }
         
         self.st_router_openContactsController()
@@ -143,6 +123,26 @@ class STPostAttachmentsController: UITableViewController {
         // collection view data source
         self.imageDataSource = GenericCollectionViewDataSource(cellClass: STAttachmentPhotoCell.self, binding: { [unowned self] (cell, item) in
             
+            cell.onDeleteAction = { [unowned self] in
+                
+                self.imagesCollectionSection.items.remove(object: item)
+                self.imagesCollectionSection.sectionChanged?()
+            
+                if item.item.imageAsset != nil {
+                    
+                    self.imageUploader.operations.removeValue(forKey: item.item.imageAsset!.localIdentifier)
+                }
+                else {
+                    
+                    self.postObject.imageIds?.remove(object: item.item.imageId!)
+                }
+                
+                if self.imagesCollectionSection.items.count == 0 {
+                    
+                    self.refreshTableView()
+                }
+            }
+            
             if item.item.imageAsset != nil {
                 
                 let size = CGSize(width: cell.image.frame.size.width * UIScreen.main.scale,
@@ -151,45 +151,10 @@ class STPostAttachmentsController: UITableViewController {
                 item.item.imageAsset!.fetchImageWithSize(size) { (image, info) in
                     
                     cell.image.image = image
-                    cell.onDeleteAction = { [unowned self] in
-                        
-                        self.imagesCollectionSection.items = self.imagesCollectionSection.items.filter({ $0.item.imageAsset! != item.item.imageAsset! })
-                        self.imagesCollectionSection.sectionChanged?()
-                        self.imageUploader.operations.remove(at: item.indexPath.row)
-                        
-                        if self.imagesCollectionSection.items.count == 0 {
-                            
-                            self.refreshTableView()
-                        }
-                    }
                     
-                    // setup for operation
-                    guard self.imageUploader.operations.count > item.indexPath.row else {
-                        
-                        return
-                    }
+                    let upOperation = self.imageUploader.operations[item.item.imageAsset!.localIdentifier]
                     
-                    let operation = self.imageUploader.operations[item.indexPath.row]
-                    
-                    operation.uploadProgressChanged = { progress in
-                        
-                        cell.setProgress(progress: progress)
-                    }
-                    
-                    operation.completionBlock = { [unowned operation] in
-                        
-                        DispatchQueue.main.async {
-                            
-                            if operation.error != nil {
-                                
-                                cell.error()
-                            }
-                            else {
-                                
-                                cell.uploaded()
-                            }
-                        }
-                    }
+                    guard let operation = upOperation else { return }
                     
                     switch operation.state {
                         
@@ -218,6 +183,26 @@ class STPostAttachmentsController: UITableViewController {
                             
                             cell.uploading()
                             cell.setProgress(progress: operation.uploadProgress)
+                            
+                            operation.uploadProgressChanged = { progress in
+                                
+                                cell.setProgress(progress: progress)
+                            }
+                            
+                            operation.completionBlock = { [unowned operation] in
+                                
+                                DispatchQueue.main.async {
+                                    
+                                    if operation.error != nil {
+                                        
+                                        cell.error()
+                                    }
+                                    else {
+                                        
+                                        cell.uploaded()
+                                    }
+                                }
+                            }
                         }
                         
                         break
@@ -231,29 +216,26 @@ class STPostAttachmentsController: UITableViewController {
                 
                 let imageId = item.item.imageId!
                 
-                if let postObject = self.postObject {
+                if let images = self.postObject.images {
                     
-                    if let images = postObject.images {
+                    if let image = images.filter({ $0.id == imageId }).first {
                         
-                        if let image = images.filter({ $0.id == imageId }).first {
-                            
-                            cell.busyIndicator.startAnimating()
-                            
-                            let width = Int(cell.image.bounds.size.width * UIScreen.main.scale)
-                            let height = Int(cell.image.bounds.size.height * UIScreen.main.scale)
-                            
-                            let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
-                            
-                            let url = URL(string: image.url + queryResize)!
-                            
-                            cell.image.af_setImage(withURL: url, imageTransition: .crossDissolve(0.3),
-                                                   runImageTransitionIfCached: true, completion: { [unowned cell] image in
-                                                    
-                                                    cell.busyIndicator.stopAnimating()
-                                                    cell.uploaded()
-                                                    
-                            })
-                        }
+                        cell.busyIndicator.startAnimating()
+                        cell.uploaded()
+                        
+                        let width = Int(cell.image.bounds.size.width * UIScreen.main.scale)
+                        let height = Int(cell.image.bounds.size.height * UIScreen.main.scale)
+                        
+                        let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
+                        
+                        let url = URL(string: image.url + queryResize)!
+                        
+                        cell.image.af_setImage(withURL: url, imageTransition: .crossDissolve(0.3),
+                                               runImageTransitionIfCached: true, completion: { [unowned cell] image in
+                                                
+                                                cell.busyIndicator.stopAnimating()
+                                                
+                        })
                     }
                 }
             }
@@ -293,8 +275,6 @@ class STPostAttachmentsController: UITableViewController {
             
             viewCell.actionButton.reactive.tap.observeNext {
                 
-                print("operations count: \(self.imageUploader.operations.count)")
-                
                 if item.itemType as? STAttachmentItemsEnum == .photo &&
                     self.imagesCollectionSection.items.count < 10 {
                     
@@ -322,7 +302,7 @@ class STPostAttachmentsController: UITableViewController {
                         
                         DispatchQueue.global().async {
                             
-                            var images = [Data]()
+                            var images = [(Data, String)]()
                             
                             assets.forEach({ asset in
                                 
@@ -330,7 +310,7 @@ class STPostAttachmentsController: UITableViewController {
                                     
                                     if let image = data {
                                         
-                                        images.append(image)
+                                        images.append((image, asset.localIdentifier))
                                     }
                                 })
                             })
@@ -360,18 +340,11 @@ class STPostAttachmentsController: UITableViewController {
         }
         
         // if we have images
-        if let postObject = self.postObject, let imageIds = postObject.imageIds {
+        if let imageIds = postObject.imageIds, imageIds.count > 0 {
             
-            if imageIds.count > 0 {
+            for imageId in imageIds {
                 
-                self.imagesCollectionSection.items.removeAll()
-                
-                for imageId in imageIds {
-                    
-                    self.imagesCollectionSection.add(item: ImageAsset(imageId: imageId))
-                }
-                
-//                self.imagesCollectionSection.sectionChanged?()
+                self.imagesCollectionSection.add(item: ImageAsset(imageId: imageId))
             }
         }
         

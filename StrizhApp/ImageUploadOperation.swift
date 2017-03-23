@@ -23,15 +23,18 @@ class ImageUploadOperation : AsyncOperation {
     
     var uploadProgress = 0.0
     
+    var identifier: String
+    
     
     override var description: String {
         
         return String("state: \(self.state.stateDescription)")
     }
     
-    init(image: Data) {
+    init(image: Data, identifier: String = UUID().uuidString) {
         
         self.image = image
+        self.identifier = identifier
     }
     
     override func execute() {
