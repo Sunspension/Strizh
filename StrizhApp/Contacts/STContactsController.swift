@@ -10,6 +10,7 @@ import UIKit
 import NVActivityIndicatorView
 import ReactiveKit
 import Bond
+import Dip
 
 class STContactsController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating, NVActivityIndicatorViewable {
     
@@ -26,7 +27,11 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
     
     private let selectedItems = MutableObservableArray([Int]())
     
-    var postObject: STUserPostObject?
+    private lazy var postObject: STUserPostObject = {
+        
+        return try! self.dependencyContainer.resolve(STUserPostObject.self) as! STUserPostObject
+        
+    }()
     
     var bag: Disposable?
     
@@ -120,13 +125,15 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
     
     func nextAction() {
         
-        if let postObject = self.postObject {
+        self.postObject.userIds.append(contentsOf: self.selectedItems.array)
+        
+        startAnimating()
+        
+        switch self.postObject.objectType {
             
-            postObject.userIds.append(contentsOf: self.selectedItems)
-            
-            startAnimating()
-            
-            api.createPost(post: postObject)
+        case .new:
+         
+            api.createPost(post: self.postObject)
                 
                 .onSuccess(callback: { [unowned self] post in
                     
@@ -144,7 +151,32 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                     self.stopAnimating()
                     self.showError(error: error)
                 })
-
+            
+            break
+            
+        case .old:
+            
+            api.updatePost(post: self.postObject)
+                
+                .onSuccess(callback: { [unowned self] post in
+                    
+                    self.stopAnimating()
+                    
+                    // still having the same behavior
+                    NotificationCenter.default.post(name: NSNotification.Name(kPostCreatedNotification), object: post)
+                    
+                    self.showOkAlert(title: "Успешно", message:"Вы успешно обновили тему", okAction: {
+                        
+                        action in self.navigationController?.dismiss(animated: true, completion: nil)
+                    })
+                })
+                .onFailure(callback: { [unowned self] error in
+                    
+                    self.stopAnimating()
+                    self.showError(error: error)
+                })
+            
+            break
         }
     }
     

@@ -280,6 +280,14 @@ extension Date {
         return DateFormatter.localizedString(from: self, dateStyle: .short, timeStyle: .none)
     }
     
+    var defaultFormat: String {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        return formatter.string(from: self)
+    }
+    
     func elapsedInterval() -> String {
         
         let componets = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: self, to: Date())

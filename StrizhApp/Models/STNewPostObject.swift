@@ -15,6 +15,8 @@ class STUserPostObject {
         case new, old
     }
     
+    var id = 0
+    
     var type = 0
     
     var title = ""
@@ -41,13 +43,13 @@ class STUserPostObject {
     
     var objectType = PostObjectType.new
     
-    init() {
-        
-        
-    }
     
+    init() { }
+    
+
     init(post: STPost) {
         
+        self.id = post.id
         self.type = post.type
         self.title = post.title
         self.details = post.postDescription
@@ -57,7 +59,8 @@ class STUserPostObject {
         self.fromDate = post.dateFrom
         self.tillDate = post.dateTo
         self.imageIds = post.imageIds.map({ $0.value })
-        self.locationIds = post.locationIds.map({ Int($0.value) })
+        self.locationIds = post.locationIds.map({ $0.value })
+        
         self.objectType = .old
     }
 }

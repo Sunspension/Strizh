@@ -8,9 +8,9 @@
 
 import RealmSwift
 
-class RealmDouble: Object, RealmCustomObject {
+class RealmInt64: Object, RealmCustomObject {
     
-    typealias ObjectType = Double
+    typealias ObjectType = Int64
     
-    var value = 0.0
+    var value:Int64 = 0
 }

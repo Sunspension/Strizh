@@ -46,11 +46,11 @@ class STPost : Object, Mappable {
     
     dynamic var isFavorite = false
     
-    var imageIds = List<RealmInt>()
+    var imageIds = List<RealmInt64>()
     
     var userIds = List<RealmInt>()
     
-    var fileIds = List<RealmInt>()
+    var fileIds = List<RealmInt64>()
     
     var locationIds = List<RealmInt>()
     
@@ -86,9 +86,9 @@ class STPost : Object, Mappable {
         deletedAt <- map["deleted_at"]
         dialogCount <- map["dialog_count"]
         isFavorite <- map["is_favorite"]
-        imageIds <- (map["image_ids"], ArrayOfCustomRealmObjectsTransform<RealmInt>())
+        imageIds <- (map["image_ids"], ArrayOfCustomRealmObjectsTransform<RealmInt64>())
         userIds <- (map["user_ids"], ArrayOfCustomRealmObjectsTransform<RealmInt>())
-        fileIds <- (map["file_ids"], ArrayOfCustomRealmObjectsTransform<RealmInt>())
+        fileIds <- (map["file_ids"], ArrayOfCustomRealmObjectsTransform<RealmInt64>())
         locationIds <- (map["location_ids"], ArrayOfCustomRealmObjectsTransform<RealmInt>())
         imageUrls <- (map["image_urls"], ArrayOfCustomRealmObjectsTransform<RealmString>())
     }

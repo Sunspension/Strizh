@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0D4712BF056042E4491062F2 /* Pods_StrizhApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 277E51B2F6F272FF051A01F5 /* Pods_StrizhApp.framework */; };
-		D402C2341E7DFEE700237EB9 /* RealmDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = D402C2331E7DFEE700237EB9 /* RealmDouble.swift */; };
+		D402C2341E7DFEE700237EB9 /* RealmInt64.swift in Sources */ = {isa = PBXBuildFile; fileRef = D402C2331E7DFEE700237EB9 /* RealmInt64.swift */; };
 		D40A6BE61E3AA7DB00F1D218 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40A6BE51E3AA7DB00F1D218 /* Router.swift */; };
 		D40A6BE81E3AA7FB00F1D218 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40A6BE71E3AA7FB00F1D218 /* Extensions.swift */; };
 		D40BC85F1E5B60DF0045F327 /* STCommonButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40BC85D1E5B60DF0045F327 /* STCommonButtonCell.swift */; };
@@ -150,7 +150,7 @@
 /* Begin PBXFileReference section */
 		277E51B2F6F272FF051A01F5 /* Pods_StrizhApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StrizhApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E8A8787F4373C051854C7D5 /* Pods-StrizhApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp.debug.xcconfig"; sourceTree = "<group>"; };
-		D402C2331E7DFEE700237EB9 /* RealmDouble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmDouble.swift; sourceTree = "<group>"; };
+		D402C2331E7DFEE700237EB9 /* RealmInt64.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmInt64.swift; sourceTree = "<group>"; };
 		D40A6BE51E3AA7DB00F1D218 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Router.swift; path = Extensions/Router.swift; sourceTree = "<group>"; };
 		D40A6BE71E3AA7FB00F1D218 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Extensions/Extensions.swift; sourceTree = "<group>"; };
 		D40BC85D1E5B60DF0045F327 /* STCommonButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STCommonButtonCell.swift; path = CommonUI/STCommonButtonCell.swift; sourceTree = "<group>"; };
@@ -348,7 +348,7 @@
 			children = (
 				D4194A141E46028F00D0B189 /* RealmInt.swift */,
 				D4194A151E46028F00D0B189 /* RealmString.swift */,
-				D402C2331E7DFEE700237EB9 /* RealmDouble.swift */,
+				D402C2331E7DFEE700237EB9 /* RealmInt64.swift */,
 			);
 			name = Realm;
 			sourceTree = "<group>";
@@ -1023,7 +1023,7 @@
 				D43BED661E70570500683D5C /* STTextFieldsCell.swift in Sources */,
 				D433D1041E54F56900974AB1 /* STSettingsController.swift in Sources */,
 				D49EB19E1E45212F00B6F5DC /* STSocketRequestBuilder.swift in Sources */,
-				D402C2341E7DFEE700237EB9 /* RealmDouble.swift in Sources */,
+				D402C2341E7DFEE700237EB9 /* RealmInt64.swift in Sources */,
 				E561F5671E72FA4000C7407C /* STPostAttachmentsController.swift in Sources */,
 				E5FF31231E55D29C0013B713 /* STEditProfileController.swift in Sources */,
 				D49545D01E3D064700EDCF01 /* STLoginTextTableViewCell.swift in Sources */,

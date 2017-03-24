@@ -238,7 +238,28 @@ class STWebSocket {
         
         let p = Promise<STPost, STError>()
         
-        let request = STSocketRequestBuilder.createPost(post: post).request
+        let request = STSocketRequestBuilder.createPost(post: post, update: false).request
+        
+        self.sendRequest(request: request) { json in
+            
+            if let post = STPost(JSON: json) {
+                
+                p.success(post)
+            }
+            else {
+                
+                p.failure(.favoriteFailure)
+            }
+        }
+        
+        return p.future
+    }
+    
+    func updatePost(post:STUserPostObject) -> Future<STPost, STError> {
+        
+        let p = Promise<STPost, STError>()
+        
+        let request = STSocketRequestBuilder.createPost(post: post, update: true).request
         
         self.sendRequest(request: request) { json in
             

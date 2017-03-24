@@ -76,6 +76,11 @@ struct STServerApi: PRemoteServerApi {
         return self.socket.createPost(post: post)
     }
     
+    func updatePost(post:STUserPostObject) -> Future<STPost, STError> {
+        
+        return self.socket.updatePost(post: post)
+    }
+    
     func onValidSession() {
         
         self.socket.setup()

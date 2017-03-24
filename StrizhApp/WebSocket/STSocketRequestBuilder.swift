@@ -54,7 +54,7 @@ enum STSocketRequestBuilder {
     
     case uploadContacts(contacts: [CNContact])
     
-    case createPost(post: STUserPostObject)
+    case createPost(post: STUserPostObject, update: Bool)
     
     
     var request: STSocketRequest {
@@ -248,11 +248,19 @@ enum STSocketRequestBuilder {
             
             break
             
-        case .createPost(let post):
+        case .createPost(let post, let update):
             
             // payload
-            self.addToPayload(&payLoad, type: .path, value: "/api/post")
-            self.addToPayload(&payLoad, type: .method, value: "POST")
+            if update {
+                
+                self.addToPayload(&payLoad, type: .path, value: "/api/post/\(post.id)")
+                self.addToPayload(&payLoad, type: .method, value: "PUT")
+            }
+            else {
+                
+                self.addToPayload(&payLoad, type: .path, value: "/api/post")
+                self.addToPayload(&payLoad, type: .method, value: "POST")
+            }
             
             var body = [String : Any]()
             
@@ -262,12 +270,12 @@ enum STSocketRequestBuilder {
             
             if post.fromDate != nil {
                 
-                body["date_from"] = post.fromDate!
+                body["date_from"] = post.fromDate!.defaultFormat
             }
             
             if post.tillDate != nil {
                 
-                body["date_to"] = post.tillDate!
+                body["date_to"] = post.tillDate!.defaultFormat
             }
             
             if !post.price.isEmpty {
