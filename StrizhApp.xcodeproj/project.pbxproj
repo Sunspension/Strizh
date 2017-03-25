@@ -52,6 +52,7 @@
 		D44E33991E74B50C006F4709 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44E33981E74B50C006F4709 /* ImageUploader.swift */; };
 		D44E339B1E74B9B8006F4709 /* ImageUploadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44E339A1E74B9B8006F4709 /* ImageUploadOperation.swift */; };
 		D459437C1E7E15EE00139D16 /* NSNumberToInt64Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = D459437B1E7E15EE00139D16 /* NSNumberToInt64Transform.swift */; };
+		D45DC06C1E86C87400E9DB2B /* STDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45DC06B1E86C87400E9DB2B /* STDialog.swift */; };
 		D4922AA61E43DB67006FF4D5 /* STWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */; };
 		D4922AAD1E43F6B9006FF4D5 /* STHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AAC1E43F6B9006FF4D5 /* STHTTPManager.swift */; };
 		D49545CC1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49545CA1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift */; };
@@ -90,6 +91,8 @@
 		D4C2AD851E5395C7009CD55A /* STPersonalPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4C2AD831E5395C7009CD55A /* STPersonalPostCell.xib */; };
 		D4C60A811E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C60A7F1E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift */; };
 		D4C60A821E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4C60A801E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib */; };
+		D4FFDFAA1E8705590090BE5A /* STDialogsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFDFA91E8705590090BE5A /* STDialogsPage.swift */; };
+		D4FFDFAC1E8706580090BE5A /* STMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFDFAB1E8706580090BE5A /* STMessage.swift */; };
 		E50DBEAF1E76FD8D000C38E4 /* STTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50DBEAD1E76FD8D000C38E4 /* STTextViewCell.swift */; };
 		E50DBEB01E76FD8D000C38E4 /* STTextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50DBEAE1E76FD8D000C38E4 /* STTextViewCell.xib */; };
 		E50FA39A1E6842CE00CAA4D7 /* STNewPostObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50FA3991E6842CD00CAA4D7 /* STNewPostObject.swift */; };
@@ -194,6 +197,7 @@
 		D44E33981E74B50C006F4709 /* ImageUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		D44E339A1E74B9B8006F4709 /* ImageUploadOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploadOperation.swift; sourceTree = "<group>"; };
 		D459437B1E7E15EE00139D16 /* NSNumberToInt64Transform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSNumberToInt64Transform.swift; sourceTree = "<group>"; };
+		D45DC06B1E86C87400E9DB2B /* STDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialog.swift; path = Models/STDialog.swift; sourceTree = "<group>"; };
 		D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STWebSocket.swift; path = WebSocket/STWebSocket.swift; sourceTree = "<group>"; };
 		D4922AAC1E43F6B9006FF4D5 /* STHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STHTTPManager.swift; path = HTTPManager/STHTTPManager.swift; sourceTree = "<group>"; };
 		D49545CA1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginAvatarTableViewCell.swift; path = SignUp/STLoginAvatarTableViewCell.swift; sourceTree = "<group>"; };
@@ -234,6 +238,8 @@
 		D4C2AD831E5395C7009CD55A /* STPersonalPostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPersonalPostCell.xib; path = Profile/STPersonalPostCell.xib; sourceTree = "<group>"; };
 		D4C60A7F1E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginSkipTableViewCell.swift; path = SignUp/STLoginSkipTableViewCell.swift; sourceTree = "<group>"; };
 		D4C60A801E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STLoginSkipTableViewCell.xib; path = SignUp/STLoginSkipTableViewCell.xib; sourceTree = "<group>"; };
+		D4FFDFA91E8705590090BE5A /* STDialogsPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialogsPage.swift; path = Models/STDialogsPage.swift; sourceTree = "<group>"; };
+		D4FFDFAB1E8706580090BE5A /* STMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STMessage.swift; path = Models/STMessage.swift; sourceTree = "<group>"; };
 		E50DBEAD1E76FD8D000C38E4 /* STTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STTextViewCell.swift; path = NewPost/STTextViewCell.swift; sourceTree = "<group>"; };
 		E50DBEAE1E76FD8D000C38E4 /* STTextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STTextViewCell.xib; path = NewPost/STTextViewCell.xib; sourceTree = "<group>"; };
 		E50FA3991E6842CD00CAA4D7 /* STNewPostObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STNewPostObject.swift; path = Models/STNewPostObject.swift; sourceTree = "<group>"; };
@@ -339,6 +345,9 @@
 				D43A75641E4E6EBE00DB0850 /* STLocation.swift */,
 				D43A75661E4E883700DB0850 /* STFeed.swift */,
 				D4227F451E61C48900BCB8B1 /* STContact.swift */,
+				D45DC06B1E86C87400E9DB2B /* STDialog.swift */,
+				D4FFDFA91E8705590090BE5A /* STDialogsPage.swift */,
+				D4FFDFAB1E8706580090BE5A /* STMessage.swift */,
 			);
 			name = Response;
 			sourceTree = "<group>";
@@ -937,6 +946,7 @@
 				D4AD43BF1E47DB52006F13DE /* STSignUpNavigationController.swift in Sources */,
 				D49545CC1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift in Sources */,
 				D4AD43B71E47A9C2006F13DE /* STFeedTableViewController.swift in Sources */,
+				D4FFDFAA1E8705590090BE5A /* STDialogsPage.swift in Sources */,
 				D43A75651E4E6EBE00DB0850 /* STLocation.swift in Sources */,
 				D43BED6A1E70897200683D5C /* DatePickerViewController.swift in Sources */,
 				E561F56A1E72FCD300C7407C /* STAttachmentCell.swift in Sources */,
@@ -977,9 +987,11 @@
 				D4194A161E46028F00D0B189 /* RealmInt.swift in Sources */,
 				D497271E1E32DC700076B7A1 /* PDBConfiguration.swift in Sources */,
 				D49727241E32E3CC0076B7A1 /* STAuthorizationError.swift in Sources */,
+				D4FFDFAC1E8706580090BE5A /* STMessage.swift in Sources */,
 				D4227F531E6270E200BCB8B1 /* STContactHeaderCell.swift in Sources */,
 				D4C2AD7F1E538FAE009CD55A /* STProfileFooterCell.swift in Sources */,
 				D44E33941E749FCD006F4709 /* STAttachmentPhotoCell.swift in Sources */,
+				D45DC06C1E86C87400E9DB2B /* STDialog.swift in Sources */,
 				D40BC8631E5B61120045F327 /* STCommonLabelCell.swift in Sources */,
 				E59A1B181E3F9388009EE669 /* STImage.swift in Sources */,
 				D40BC8661E5B706D0045F327 /* SHSPhoneComponentExtensions.swift in Sources */,

@@ -83,6 +83,13 @@ struct AppSettings {
         }
     }
     
+    var defaultFormatter: DateFormatter {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return formatter
+    }
+    
     lazy var imageDownloader: ImageDownloader = {
         
         return ImageDownloader()

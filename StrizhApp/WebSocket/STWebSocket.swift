@@ -276,6 +276,27 @@ class STWebSocket {
         return p.future
     }
     
+    func loadDialogs(page: Int, pageSize: Int) -> Future<STDialogsPage, STError> {
+        
+        let p = Promise<STDialogsPage, STError>()
+        
+        let request = STSocketRequestBuilder.loadDialogs(page: page, pageSize: pageSize).request
+        
+        self.sendRequest(request: request) { json in
+            
+            if let post = STDialogsPage(JSON: json) {
+                
+                p.success(post)
+            }
+            else {
+                
+                p.failure(.loadDialogsError)
+            }
+        }
+        
+        return p.future
+    }
+    
     @objc func onApplicationDidBecomeActiveNotification() {
         
         if let socket = self.socket {

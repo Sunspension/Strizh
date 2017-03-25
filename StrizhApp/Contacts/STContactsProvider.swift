@@ -53,6 +53,11 @@ class STContactsProvider {
         return p.future
     }
     
+    func reset() {
+        
+        self.privateContacts.removeAll()
+        self.loadingStatus = .idle
+    }
     
     private func synchronizeContacts() -> Future<[STContact], STError> {
         

@@ -57,21 +57,14 @@ struct STContact: Mappable {
         isRegistered <- map["is_registered"]
         firstName <- map["first_name"]
         lastName <- map["last_name"]
-        createdAt <- (map["created_at"], DateFormatterTransform(dateFormatter: formatter()))
-        updatedAt <- (map["updated_at"], DateFormatterTransform(dateFormatter: formatter()))
+        createdAt <- (map["created_at"], DateFormatterTransform(dateFormatter: AppDelegate.appSettings.defaultFormatter))
+        updatedAt <- (map["updated_at"], DateFormatterTransform(dateFormatter: AppDelegate.appSettings.defaultFormatter))
         deleted <- map["deleted"]
-        deletedAt <- (map["deleted_at"], DateFormatterTransform(dateFormatter: formatter()))
+        deletedAt <- (map["deleted_at"], DateFormatterTransform(dateFormatter: AppDelegate.appSettings.defaultFormatter))
         isInvited <- map["is_invited"]
         userFirstName <- map["user_first_name"]
         userLastName <- map["user_last_name"]
         imageId <- map["image_id"]
         imageUrl <- map["image_url"]
-    }
-    
-    private func formatter() -> DateFormatter {
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        return formatter
     }
 }

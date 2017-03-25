@@ -28,8 +28,26 @@ class STDialogCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.selectionStyle = .none
+        
+        if self.backgroundView == nil {
+            
+            self.backgroundView = UIView()
+        }
+        
+        inOutIcon.setImage(UIImage(named: "icon-arrow-in"), for: .normal)
+        inOutIcon.setImage(UIImage(named: "icon-arrow-out"), for: .selected)
+        
+        message.attributedText = nil
+        message.text = ""
+        topicTitle.text = ""
         newMessageCounter.layer.cornerRadius = newMessageCounter.layer.bounds.size.height / 2
         newMessageCounter.clipsToBounds = true
+    }
+    
+    override func prepareForReuse() {
+        
+        userImage.image = UIImage(named: "avatar")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

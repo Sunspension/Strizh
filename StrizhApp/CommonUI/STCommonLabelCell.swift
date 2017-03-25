@@ -12,12 +12,22 @@ class STCommonLabelCell: UITableViewCell {
 
     @IBOutlet weak var value: UILabel!
     
+    @IBOutlet weak var topSpace: NSLayoutConstraint!
+    
+    @IBOutlet weak var bottomSpace: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
+    override func prepareForReuse() {
+        
+        topSpace.constant = 8
+        bottomSpace.constant = 8
+        value.text = ""
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

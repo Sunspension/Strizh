@@ -274,7 +274,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     private func createRefreshControl() {
         
         self.refreshControl = UIRefreshControl()
-        self.refreshControl?.reactive.refreshing.observeNext(with: { refreshing in
+        self.refreshControl?.reactive.refreshing.observeNext(with: { [unowned self] refreshing in
             
             if !refreshing {
                 

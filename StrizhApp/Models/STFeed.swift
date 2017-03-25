@@ -21,9 +21,8 @@ struct STFeed : Mappable {
     
     var files: [STFile] = []
     
-    init?(map: Map) {
-        
-    }
+    
+    init?(map: Map) { }
     
     mutating func mapping(map: Map) {
         

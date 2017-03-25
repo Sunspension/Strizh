@@ -56,6 +56,8 @@ enum STSocketRequestBuilder {
     
     case createPost(post: STUserPostObject, update: Bool)
     
+    case loadDialogs(page: Int, pageSize: Int)
+    
     
     var request: STSocketRequest {
         
@@ -309,6 +311,20 @@ enum STSocketRequestBuilder {
             }
             
             self.addToPayload(&payLoad, type: .body, value: body)
+            
+            break
+            
+        case .loadDialogs(let page, let pageSize):
+            
+            // payload
+            self.addToPayload(&payLoad, type: .path, value: "/api/dialog")
+            self.addToPayload(&payLoad, type: .method, value: "GET")
+            
+            // query
+            self.addToQuery(&query, type: .page, value: page)
+            self.addToQuery(&query, type: .pageSize, value: pageSize)
+            self.addToQuery(&query, type: .sortingOrder, value: ["id" : "desc"])
+            self.addToQuery(&query, type: .extend, value: "user, message")
             
             break
         }

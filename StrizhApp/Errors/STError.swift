@@ -18,6 +18,8 @@ enum STError: Error {
     
     case createPostError
     
+    case loadDialogsError
+    
     case anyError(error: Error)
     
     
@@ -44,6 +46,10 @@ enum STError: Error {
         case .createPostError:
             
             return "Error has occurred when was trying to create a post"
+            
+        case .loadDialogsError:
+            
+            return "Error has occurred when was trying to load dialogs"
         }
     }
 }

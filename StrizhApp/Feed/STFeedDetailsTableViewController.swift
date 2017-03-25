@@ -184,6 +184,22 @@ class STFeedDetailsTableViewController: UIViewController {
             }
         }
         
+        if !post.profitDescription.isEmpty {
+            
+            self.tableSection.addItem(cellClass: STCommonLabelCell.self, item: post) { (cell, item) in
+                
+                cell.selectionStyle = .none
+                
+                let viewCell = cell as! STCommonLabelCell
+                let post = item.item as! STPost
+                
+                viewCell.value.textColor = UIColor.stSlateGrey
+                viewCell.value.text = post.profitDescription
+                viewCell.topSpace.constant = 0
+                viewCell.bottomSpace.constant = 0
+            }
+        }
+        
         if post.dateFrom != nil && post.dateTo != nil {
             
             self.tableSection.addItem(cellClass: STCommonButtonCell.self,
@@ -216,10 +232,26 @@ class STFeedDetailsTableViewController: UIViewController {
                                         let post = item.item as! STPost
                                         
                                         viewCell.title.setImage(UIImage(named: "icon-rub"), for: .normal)
-                                        viewCell.title.setTitle(post.price + " " + "руб.", for: .normal)
+                                        viewCell.title.setTitle(post.price, for: .normal)
                                         viewCell.title.imageEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0)
                                         viewCell.title.titleEdgeInsets = UIEdgeInsetsMake(0, 12, 0, 0)
                                         viewCell.title.setTitleColor(UIColor.black, for: .normal)
+            }
+        }
+        
+        if !post.priceDescription.isEmpty {
+            
+            self.tableSection.addItem(cellClass: STCommonLabelCell.self, item: post) { (cell, item) in
+                
+                cell.selectionStyle = .none
+                
+                let viewCell = cell as! STCommonLabelCell
+                let post = item.item as! STPost
+                
+                viewCell.value.textColor = UIColor.stSlateGrey
+                viewCell.value.text = post.priceDescription
+                viewCell.topSpace.constant = 0
+                viewCell.bottomSpace.constant = 0
             }
         }
         

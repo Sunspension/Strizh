@@ -34,6 +34,8 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="bottomSpace" destination="hzK-Yw-SF9" id="ipX-8F-I1h"/>
+                <outlet property="topSpace" destination="i4y-1o-tIR" id="U9v-9U-Psz"/>
                 <outlet property="value" destination="JJt-XP-hia" id="Kyq-n8-POS"/>
             </connections>
         </tableViewCell>

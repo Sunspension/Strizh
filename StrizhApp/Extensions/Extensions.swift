@@ -261,12 +261,17 @@ extension UIColor {
      
         return UIColor(red: 69.0 / 255.0, green: 121.0 / 255.0, blue: 251.0 / 255.0, alpha: 1.0)
     }
+    
     class var stLightGreenGrey: UIColor {
      
         return UIColor(red: 233.0 / 255.0, green: 242.0 / 255.0, blue: 233.0 / 255.0, alpha: 1.0)
     }
+    
+    class var stPaleGrey: UIColor {
+     
+        return UIColor(red: 244.0 / 255.0, green: 246.0 / 255.0, blue: 251.0 / 255.0, alpha: 1.0)
+    }
 }
-
 
 extension Date {
 
@@ -367,5 +372,13 @@ extension Array where Element: Equatable {
             
             self.remove(at: index)
         }
+    }
+}
+
+extension String {
+    
+    func string(with color: UIColor) -> NSAttributedString {
+        
+        return NSAttributedString(string: self, attributes: [ NSForegroundColorAttributeName : color])
     }
 }

@@ -315,6 +315,39 @@ class STProfileTableViewController: UITableViewController {
                                             viewCell.duration.isHidden = true
                                         }
                                         
+                                        if post.fileIds.count > 0 {
+                                            
+                                            viewCell.documents.isEnabled = true
+                                            viewCell.documents.setTitle("\(post.fileIds.count)", for: .normal)
+                                        }
+                                        else {
+                                            
+                                            viewCell.documents.isEnabled = false
+                                            viewCell.documents.setTitle("\(0)", for: .normal)
+                                        }
+                                        
+                                        if post.imageIds.count > 0 {
+                                            
+                                            viewCell.images.isEnabled = true
+                                            viewCell.images.setTitle("\(post.imageIds.count)", for: .normal)
+                                        }
+                                        else {
+                                            
+                                            viewCell.images.isEnabled = false
+                                            viewCell.images.setTitle("\(0)", for: .normal)
+                                        }
+                                        
+                                        if post.locationIds.count > 0 {
+                                            
+                                            viewCell.locations.isEnabled = true
+                                            viewCell.locations.setTitle("\(post.locationIds.count)", for: .normal)
+                                        }
+                                        else {
+                                            
+                                            viewCell.locations.isEnabled = false
+                                            viewCell.locations.setTitle("\(0)", for: .normal)
+                                        }
+                                        
                                         viewCell.more.reactive.tap.observe { _ in
                                             
                                             let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)

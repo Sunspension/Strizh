@@ -23,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
     
     
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // register for notifications
@@ -125,6 +124,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func onAuthorized() {
         
+        // This must to call first
         AppDelegate.appSettings.api.onValidSession()
     }
     
@@ -138,6 +138,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print(session)
         }
         
+        // delete all contacts
+        STContactsProvider.sharedInstance.reset()
+        
+        // open sign up controller
         let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
         let navi = STSignUpNavigationController(rootViewController: controller)
         self.changeRootViewController(navi)
@@ -161,7 +165,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     // MARK: Private methods
-    
-    
 }
 

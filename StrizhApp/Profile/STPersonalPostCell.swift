@@ -35,8 +35,11 @@ class STPersonalPostCell: UITableViewCell {
     
     @IBOutlet weak var separator: UIView!
     
-    @IBOutlet weak var isArchived: UIButton!
+    @IBOutlet weak var images: UIButton!
     
+    @IBOutlet weak var documents: UIButton!
+    
+    @IBOutlet weak var locations: UIButton!
     
     var bag = DisposeBag()
     
@@ -69,10 +72,12 @@ class STPersonalPostCell: UITableViewCell {
         
         postType.setImage(UIImage(named: "icon-offer"), for: .normal)
         postType.setImage(UIImage(named: "icon-search"), for: .selected)
-
-        isArchived.isHidden = true
-//        isArchived.layer.cornerRadius = 5
-//        isArchived.layer.masksToBounds = true
+        
+        let disabledColor = UIColor(red: 211 / 255.0, green: 211 / 255.0, blue: 211 / 255.0, alpha: 1)
+        
+        images.setTitleColor(disabledColor, for: .disabled)
+        locations.setTitleColor(disabledColor, for: .disabled)
+        documents.setTitleColor(disabledColor, for: .disabled)
         
         more.tintColor = UIColor.stGreyblue
     }

@@ -160,4 +160,9 @@ struct STServerApi: PRemoteServerApi {
         
         return self.socket.uploadContacts(contacts: contacts)
     }
+    
+    func loadDialogs(page: Int, pageSize: Int) -> Future<STDialogsPage, STError> {
+        
+        return self.socket.loadDialogs(page: page, pageSize: pageSize)
+    }
 }

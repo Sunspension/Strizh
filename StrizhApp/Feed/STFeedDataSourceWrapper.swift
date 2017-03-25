@@ -174,7 +174,7 @@ class STFeedDataSourceWrapper {
             if post.dateFrom != nil && post.dateTo != nil {
                 
                 cell.durationDate.isHidden = false
-                let period = post.dateFrom!.shortLocalizedFormat + " - " + post.dateTo!.shortLocalizedFormat
+                let period = post.dateFrom!.mediumLocalizedFormat + " - " + post.dateTo!.mediumLocalizedFormat
                 cell.durationDate.setTitle(period , for: .normal)
             }
             else {

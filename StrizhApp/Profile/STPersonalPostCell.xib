@@ -97,29 +97,47 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вознаграждение 100 000 рублей за нахождение покупателя." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qf-Dj-zvI">
-                                <rect key="frame" x="12" y="88" width="322" height="33.5"/>
+                                <rect key="frame" x="12" y="88" width="322" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.34509803919999998" green="0.34901960780000002" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wyk-SI-P42">
-                                <rect key="frame" x="12" y="143.5" width="134" height="24.5"/>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wyk-SI-P42">
+                                <rect key="frame" x="12" y="144" width="218" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <inset key="titleEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="-8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="15 ноя 16 — 12 янв 17" image="icon-time">
                                     <color key="titleColor" red="0.57254901960000004" green="0.58039215690000001" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
-                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5pf-Rh-xYI">
-                                <rect key="frame" x="269" y="140" width="65" height="28"/>
-                                <color key="backgroundColor" red="0.77254901960784317" green="0.77254901960784317" blue="0.77254901960784317" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pbA-9B-r0w">
+                                <rect key="frame" x="310" y="147" width="24" height="18"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="65" id="DCh-2S-Iir"/>
-                                    <constraint firstAttribute="height" constant="28" id="jwW-xG-UwC"/>
+                                    <constraint firstAttribute="height" constant="18" id="H5m-hE-lzL"/>
                                 </constraints>
-                                <state key="normal" title="Архив">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="1" image="icon-location">
+                                    <color key="titleColor" red="0.57254901960000004" green="0.58039215690000001" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bsQ-99-NpW">
+                                <rect key="frame" x="274" y="147" width="24" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="CWl-rP-7Lz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="1" image="icon-file">
+                                    <color key="titleColor" red="0.57254901960000004" green="0.58039215690000001" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MUo-hb-gx7">
+                                <rect key="frame" x="238" y="147" width="24" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="gVy-ur-Ffl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="1" image="icon-image">
+                                    <color key="titleColor" red="0.57254901960000004" green="0.58039215690000001" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
                         </subviews>
@@ -130,16 +148,21 @@
                             <constraint firstItem="7S9-5j-rDm" firstAttribute="top" secondItem="ONK-eI-72N" secondAttribute="bottom" id="Fbu-Zd-JjZ"/>
                             <constraint firstItem="ONK-eI-72N" firstAttribute="leading" secondItem="rhr-xQ-o7H" secondAttribute="leading" id="Fhe-ex-ogu"/>
                             <constraint firstItem="NwY-y4-xP7" firstAttribute="leading" secondItem="rhr-xQ-o7H" secondAttribute="leading" constant="12" id="NGa-BC-ODa"/>
+                            <constraint firstItem="pbA-9B-r0w" firstAttribute="centerY" secondItem="wyk-SI-P42" secondAttribute="centerY" id="NdD-RW-H8U"/>
                             <constraint firstAttribute="trailing" secondItem="NwY-y4-xP7" secondAttribute="trailing" constant="12" id="Ne3-r7-fSk"/>
                             <constraint firstItem="NwY-y4-xP7" firstAttribute="top" secondItem="7S9-5j-rDm" secondAttribute="bottom" constant="12" id="Qbj-OV-Gko"/>
                             <constraint firstItem="7qf-Dj-zvI" firstAttribute="trailing" secondItem="NwY-y4-xP7" secondAttribute="trailing" id="RPx-OI-hiN"/>
+                            <constraint firstItem="MUo-hb-gx7" firstAttribute="centerY" secondItem="wyk-SI-P42" secondAttribute="centerY" id="RTp-Yf-0iN"/>
                             <constraint firstItem="wyk-SI-P42" firstAttribute="top" secondItem="7qf-Dj-zvI" secondAttribute="bottom" constant="22" id="RgX-Jh-NgJ"/>
                             <constraint firstItem="ONK-eI-72N" firstAttribute="top" secondItem="rhr-xQ-o7H" secondAttribute="top" id="U8m-K4-GLN"/>
-                            <constraint firstAttribute="bottom" secondItem="5pf-Rh-xYI" secondAttribute="bottom" constant="12" id="Yb0-jG-WWc"/>
+                            <constraint firstItem="bsQ-99-NpW" firstAttribute="centerY" secondItem="wyk-SI-P42" secondAttribute="centerY" id="d1K-PP-Def"/>
                             <constraint firstItem="7qf-Dj-zvI" firstAttribute="leading" secondItem="NwY-y4-xP7" secondAttribute="leading" id="ffe-l4-Yt1"/>
+                            <constraint firstAttribute="trailing" secondItem="pbA-9B-r0w" secondAttribute="trailing" constant="12" id="fuS-uK-gty"/>
                             <constraint firstItem="7S9-5j-rDm" firstAttribute="leading" secondItem="ONK-eI-72N" secondAttribute="leading" id="o53-Gu-m7D"/>
+                            <constraint firstItem="pbA-9B-r0w" firstAttribute="leading" secondItem="bsQ-99-NpW" secondAttribute="trailing" constant="12" id="oKD-fm-dc9"/>
+                            <constraint firstItem="bsQ-99-NpW" firstAttribute="leading" secondItem="MUo-hb-gx7" secondAttribute="trailing" constant="12" id="p71-Db-hbG"/>
                             <constraint firstAttribute="bottom" secondItem="wyk-SI-P42" secondAttribute="bottom" constant="12" id="qfU-xb-jxI"/>
-                            <constraint firstItem="5pf-Rh-xYI" firstAttribute="trailing" secondItem="7qf-Dj-zvI" secondAttribute="trailing" id="rCC-nX-wyF"/>
+                            <constraint firstItem="MUo-hb-gx7" firstAttribute="leading" secondItem="wyk-SI-P42" secondAttribute="trailing" constant="8" id="qlT-zI-XYI"/>
                             <constraint firstItem="wyk-SI-P42" firstAttribute="leading" secondItem="7qf-Dj-zvI" secondAttribute="leading" id="t7F-1b-eUC"/>
                             <constraint firstAttribute="trailing" secondItem="ONK-eI-72N" secondAttribute="trailing" id="zXm-QI-2Tz"/>
                         </constraints>
@@ -158,9 +181,11 @@
                 <outlet property="createdAt" destination="nka-TQ-yId" id="gDa-Ia-xZy"/>
                 <outlet property="createdTitle" destination="3nw-2T-3XX" id="yTY-Ce-pj6"/>
                 <outlet property="dialogsCount" destination="tZK-ei-G7P" id="DJT-8P-nKI"/>
+                <outlet property="documents" destination="bsQ-99-NpW" id="Aq3-bH-aWg"/>
                 <outlet property="duration" destination="wyk-SI-P42" id="DHg-6S-meV"/>
                 <outlet property="header" destination="ONK-eI-72N" id="Owx-go-Ndi"/>
-                <outlet property="isArchived" destination="5pf-Rh-xYI" id="3CV-iK-AZj"/>
+                <outlet property="images" destination="MUo-hb-gx7" id="Scr-KT-9xS"/>
+                <outlet property="locations" destination="pbA-9B-r0w" id="QYV-c3-Zb2"/>
                 <outlet property="more" destination="fUe-ns-GQv" id="e9n-GL-DjC"/>
                 <outlet property="openDialogsTitle" destination="SnW-f9-huR" id="TZH-tR-Td0"/>
                 <outlet property="postDetails" destination="7qf-Dj-zvI" id="cxV-Ns-2Ba"/>
@@ -172,6 +197,9 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="icon-file" width="18" height="18"/>
+        <image name="icon-image" width="18" height="18"/>
+        <image name="icon-location" width="18" height="18"/>
         <image name="icon-more" width="28" height="13"/>
         <image name="icon-offer" width="28" height="28"/>
         <image name="icon-time" width="18" height="18"/>

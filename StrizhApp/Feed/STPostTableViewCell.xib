@@ -99,11 +99,10 @@
                                     <color key="titleColor" red="0.57254901960000004" green="0.58039215690000001" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
-                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ltC-Rn-jCT">
-                                <rect key="frame" x="12" y="143.5" width="134" height="32.5"/>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ltC-Rn-jCT">
+                                <rect key="frame" x="12" y="143.5" width="176" height="32.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <inset key="titleEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="-8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="15 ноя 16 — 12 янв 17" image="icon-time">
                                     <color key="titleColor" red="0.5725490196078431" green="0.58039215686274503" blue="0.58823529411764708" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -142,6 +141,7 @@
                             <constraint firstItem="y1e-ug-ez8" firstAttribute="top" secondItem="4HC-zN-2oG" secondAttribute="top" id="2Ua-tV-GBk"/>
                             <constraint firstAttribute="trailing" secondItem="kPW-Ry-ys8" secondAttribute="trailing" constant="8" id="2kQ-qG-R7w"/>
                             <constraint firstItem="lLQ-ob-zbN" firstAttribute="trailing" secondItem="kPW-Ry-ys8" secondAttribute="trailing" id="3V0-g0-7U2"/>
+                            <constraint firstItem="sd2-bG-JYG" firstAttribute="leading" secondItem="ltC-Rn-jCT" secondAttribute="trailing" constant="8" id="A00-je-n6k"/>
                             <constraint firstItem="y1e-ug-ez8" firstAttribute="leading" secondItem="4HC-zN-2oG" secondAttribute="leading" id="ElE-bV-aGm"/>
                             <constraint firstItem="KHJ-iJ-1Tc" firstAttribute="top" secondItem="y1e-ug-ez8" secondAttribute="bottom" id="ICa-7T-p4W"/>
                             <constraint firstItem="OGC-V1-9Kc" firstAttribute="leading" secondItem="sd2-bG-JYG" secondAttribute="trailing" constant="12" id="Jzl-Gs-gxC"/>
