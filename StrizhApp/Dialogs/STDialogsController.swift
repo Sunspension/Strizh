@@ -134,6 +134,7 @@ class STDialogsController: UITableViewController {
                     viewCell.backgroundView?.backgroundColor = UIColor.stPaleGrey
                     viewCell.newMessageCounter.isHidden = false
                     viewCell.newMessageCounter.setTitle("\(dialog.unreadMessageCount)", for: .normal)
+                    viewCell.newMessageCounter.sizeToFit()
                 }
                 
                 // get user
