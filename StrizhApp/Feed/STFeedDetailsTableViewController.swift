@@ -379,12 +379,20 @@ class STFeedDetailsTableViewController: UIViewController {
         let actionEdit = UIAlertAction(title: "Редактировать", style: .default, handler: { action in
             
             // open edit controller
+            let postObject = STUserPostObject(post: post)
+            
+            if let images = self.images {
+                
+                postObject.images = Set(images)
+            }
+            
+            self.st_router_openPostController(postObject: postObject)
         })
         
         actionController.addAction(actionEdit)
         
 //        if !post.isArchived {
-//            
+//
 //            let actionArchive = UIAlertAction(title: "В архив", style: .default,
 //                                              handler: { [unowned self] action in
 //                                                
