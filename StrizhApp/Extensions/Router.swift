@@ -75,7 +75,7 @@ extension UIViewController {
     
     func st_router_openPostController(postObject: STUserPostObject? = nil) {
         
-        self.dependencyContainer.register { postObject ?? STUserPostObject() }
+        self.dependencyContainer.register(.singleton) { postObject ?? STUserPostObject() }
 
         let navi = STNewPostNavigationController(rootViewController: STNewPostController())
         

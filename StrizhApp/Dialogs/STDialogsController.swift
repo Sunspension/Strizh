@@ -138,23 +138,27 @@ class STDialogsController: UITableViewController {
                 }
                 
                 // get user
-                if let user = self.users.first(where: { $0.id == dialog.ownerUserId }) {
+                
+                if let opponentId = dialog.userIds.first(where: { $0.value != self.myUser.id }) {
                     
-                    viewCell.userName.text = user.firstName + " " + user.lastName
-                    
-                    if !user.imageUrl.isEmpty {
+                    if let user = self.users.first(where: { $0.id == opponentId.value }) {
                         
-                        let width = Int(viewCell.userImage.bounds.size.width * UIScreen.main.scale)
-                        let height = Int(viewCell.userImage.bounds.size.height * UIScreen.main.scale)
+                        viewCell.userName.text = user.firstName + " " + user.lastName
                         
-                        let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
-                        
-                        let urlString = user.imageUrl + queryResize
-                        
-                        let filter = RoundedCornersFilter(radius: CGFloat(width))
-                        viewCell.userImage.af_setImage(withURL: URL(string: urlString)!,
-                                                          filter: filter,
-                                                          completion: nil)
+                        if !user.imageUrl.isEmpty {
+                            
+                            let width = Int(viewCell.userImage.bounds.size.width * UIScreen.main.scale)
+                            let height = Int(viewCell.userImage.bounds.size.height * UIScreen.main.scale)
+                            
+                            let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
+                            
+                            let urlString = user.imageUrl + queryResize
+                            
+                            let filter = RoundedCornersFilter(radius: CGFloat(width))
+                            viewCell.userImage.af_setImage(withURL: URL(string: urlString)!,
+                                                           filter: filter,
+                                                           completion: nil)
+                        }
                     }
                 }
                 

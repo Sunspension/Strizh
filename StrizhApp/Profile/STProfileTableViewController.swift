@@ -83,6 +83,12 @@ class STProfileTableViewController: UITableViewController {
         
         self.dataSource.onDidSelectRowAtIndexPath = { [unowned self] (tableView, indexPath, item) in
             
+            // trying to avoid to tap on the info section
+            if indexPath.section == 0 {
+                
+                return
+            }
+            
             let post = item.item as! STPost
             
             if let user = self.user {
