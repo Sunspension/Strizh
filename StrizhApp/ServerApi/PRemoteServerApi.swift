@@ -67,4 +67,6 @@ protocol PRemoteServerApi {
     func updatePost(post: STUserPostObject) -> Future<STPost, STError>
     
     func loadDialogs(page: Int, pageSize: Int) -> Future<STDialogsPage, STError>
+    
+    func loadDialogMessages(dialog: STDialog, pageSize: Int, lastId: Int?) -> Future<[STMessage], STError>
 }

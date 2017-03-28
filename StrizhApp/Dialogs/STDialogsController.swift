@@ -59,6 +59,12 @@ class STDialogsController: UITableViewController {
         self.dataSource.sections.append(self.section)
         self.tableView.dataSource = self.dataSource
         self.tableView.delegate = self.dataSource
+        
+        self.dataSource.onDidSelectRowAtIndexPath = { [unowned self] (tableView, indexPath, item) in
+            
+            let dialog = item.item as! STDialog
+            self.st_router_openChatController(dialog: dialog)
+        }
     }
     
     private func loadDialogs() {

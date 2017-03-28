@@ -82,7 +82,6 @@ extension UIViewController {
         self.present(navi, animated: true, completion: nil)
     }
     
-    
     func st_router_openPostAttachmentsController() {
         
         let controller = STPostAttachmentsController()
@@ -94,5 +93,11 @@ extension UIViewController {
         let controller = STContactsController()
         controller.reason = .newPost
         self.navigationController?.pushViewController(controller, animated: true)
-    }    
+    }
+    
+    func st_router_openChatController(dialog: STDialog) {
+        
+        let controller = STChatViewController(dialog: dialog)
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
 }

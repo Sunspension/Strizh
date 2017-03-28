@@ -297,6 +297,30 @@ class STWebSocket {
         return p.future
     }
     
+    func loadDialogMessages(dialog: STDialog, pageSize: Int, lastId: Int?) -> Future<[STMessage], STError> {
+        
+        let p = Promise<[STMessage], STError>()
+        
+        let request = STSocketRequestBuilder.loadDialogMessages(dialog: dialog, pageSize: pageSize, lastId: lastId).request
+        
+        self.sendRequest(request: request) { json in
+            
+            if let messagePath = json["message"] as? [[String : Any]] {
+                
+                if let messages = Mapper<STMessage>().mapArray(JSONArray: messagePath) {
+                    
+                    p.success(messages)
+                }
+            }
+            else {
+                
+                p.failure(.loadContactsFailure)
+            }
+        }
+        
+        return p.future
+    }
+    
     @objc func onApplicationDidBecomeActiveNotification() {
         
         if let socket = self.socket {

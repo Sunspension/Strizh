@@ -58,6 +58,8 @@ enum STSocketRequestBuilder {
     
     case loadDialogs(page: Int, pageSize: Int)
     
+    case loadDialogMessages(dialog: STDialog, pageSize: Int, lastId: Int?)
+    
     
     var request: STSocketRequest {
         
@@ -325,6 +327,26 @@ enum STSocketRequestBuilder {
             self.addToQuery(&query, type: .pageSize, value: pageSize)
             self.addToQuery(&query, type: .sortingOrder, value: ["id" : "desc"])
             self.addToQuery(&query, type: .extend, value: "user, message")
+            
+            break
+            
+        case .loadDialogMessages(let dialog, let pageSize, let lastId):
+            
+            // payload
+            self.addToPayload(&payLoad, type: .path, value: "/api/message")
+            self.addToPayload(&payLoad, type: .method, value: "GET")
+            
+            // query
+            if lastId != nil {
+                
+                self.addToQuery(&query, type: .conditions, value: ["id" : ["<" : lastId]])
+            }
+            
+            self.addToQuery(&query, type: .pageSize, value: pageSize)
+            self.addToQuery(&query, type: .sortingOrder, value: ["id" : "desc"])
+            self.addToQuery(&query, type: .filters, value: ["object_id" : dialog.objectId])
+            
+            query["object_type"] = dialog.objectType
             
             break
         }
