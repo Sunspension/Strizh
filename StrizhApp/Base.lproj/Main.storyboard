@@ -57,7 +57,100 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8aS-fV-KHn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1641" y="349"/>
+            <point key="canvasLocation" x="1641" y="398"/>
+        </scene>
+        <!--Chat View Controller-->
+        <scene sceneID="v2G-BX-pAf">
+            <objects>
+                <viewController storyboardIdentifier="STChatViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Rdq-Yv-Mkq" customClass="STChatViewController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ud6-N7-VbH"/>
+                        <viewControllerLayoutGuide type="bottom" id="zl0-O9-0T1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="oyl-yw-mzR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="FYQ-B9-un8">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="614"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="neT-pO-owl">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="5Gl-tG-tYl">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cit-PM-abZ">
+                                <rect key="frame" x="0.0" y="614" width="375" height="53"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Gug-px-JuD">
+                                        <rect key="frame" x="16" y="12" width="294" height="33"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="6kX-d0-poZ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZId-E6-1Lt">
+                                        <rect key="frame" x="322" y="15" width="41" height="30"/>
+                                        <state key="normal" title="Отпр."/>
+                                    </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Введите сообщение" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bMm-Wh-7Am">
+                                        <rect key="frame" x="24" y="21" width="286" height="17"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Gug-px-JuD" firstAttribute="top" secondItem="cit-PM-abZ" secondAttribute="top" constant="12" id="2bF-XO-mK1"/>
+                                    <constraint firstAttribute="bottom" secondItem="Gug-px-JuD" secondAttribute="bottom" constant="8" id="6HS-Yh-Yve"/>
+                                    <constraint firstItem="Gug-px-JuD" firstAttribute="trailing" secondItem="bMm-Wh-7Am" secondAttribute="trailing" id="Dov-wD-RCE"/>
+                                    <constraint firstItem="bMm-Wh-7Am" firstAttribute="centerY" secondItem="Gug-px-JuD" secondAttribute="centerY" id="I3K-CF-5fr"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZId-E6-1Lt" secondAttribute="bottom" constant="8" id="IOT-Xs-3Jq"/>
+                                    <constraint firstItem="Gug-px-JuD" firstAttribute="leading" secondItem="cit-PM-abZ" secondAttribute="leading" constant="16" id="O4f-Ga-hmK"/>
+                                    <constraint firstItem="bMm-Wh-7Am" firstAttribute="leading" secondItem="Gug-px-JuD" secondAttribute="leading" constant="8" id="Pc0-z8-9zm"/>
+                                    <constraint firstItem="ZId-E6-1Lt" firstAttribute="leading" secondItem="Gug-px-JuD" secondAttribute="trailing" constant="12" id="d6c-fV-fSk"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZId-E6-1Lt" secondAttribute="trailing" constant="12" id="l4f-Qg-xSo"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cit-PM-abZ" firstAttribute="top" secondItem="FYQ-B9-un8" secondAttribute="bottom" id="6Rq-Em-0DV"/>
+                            <constraint firstItem="FYQ-B9-un8" firstAttribute="leading" secondItem="oyl-yw-mzR" secondAttribute="leading" id="7Vq-iA-5pi"/>
+                            <constraint firstAttribute="trailing" secondItem="cit-PM-abZ" secondAttribute="trailing" id="AJh-br-XHJ"/>
+                            <constraint firstItem="FYQ-B9-un8" firstAttribute="top" secondItem="oyl-yw-mzR" secondAttribute="top" id="HwZ-D6-Tyi"/>
+                            <constraint firstItem="cit-PM-abZ" firstAttribute="leading" secondItem="oyl-yw-mzR" secondAttribute="leading" id="Wxm-is-w7R"/>
+                            <constraint firstAttribute="trailing" secondItem="FYQ-B9-un8" secondAttribute="trailing" id="iuS-0Q-lMd"/>
+                            <constraint firstAttribute="bottom" secondItem="cit-PM-abZ" secondAttribute="bottom" id="kxF-1l-BA9"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="bottomToolbar" destination="cit-PM-abZ" id="ktB-g7-G16"/>
+                        <outlet property="collectionView" destination="FYQ-B9-un8" id="QWa-fC-aNy"/>
+                        <outlet property="placeHolder" destination="bMm-Wh-7Am" id="at5-Z8-Jen"/>
+                        <outlet property="sendButton" destination="ZId-E6-1Lt" id="CP3-KM-93m"/>
+                        <outlet property="textView" destination="Gug-px-JuD" id="RnN-BL-B8V"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9ZO-YR-IJA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2577" y="1881"/>
         </scene>
         <!--Profile Table View Controller-->
         <scene sceneID="y4d-Dt-Nwq">
@@ -123,7 +216,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Q0-du-cgB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2695" y="-331"/>
+            <point key="canvasLocation" x="2577" y="-331"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="PyR-Xa-JvP">
@@ -169,7 +262,7 @@
             <objects>
                 <navigationController id="y8a-4d-R7j" customClass="STNavigationController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Лента" image="icon-feed" id="1vh-bf-t6H"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Jhj-Ko-WV5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Jhj-Ko-WV5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -209,7 +302,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="ibQ-gp-xhM" customClass="STNavigationController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Кабинет" image="icon-profile" id="2FL-tE-lSs"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="QE0-AY-KGJ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QE0-AY-KGJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -228,7 +321,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8hU-3R-Ujc" customClass="STNavigationController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Контакты" image="icon-contacts" id="rhd-M2-bI2"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Zhg-1V-xPv">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zhg-1V-xPv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -249,7 +342,7 @@
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="y4b-by-Jmu">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="y4b-by-Jmu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -307,7 +400,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s09-qO-L3W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1641" y="1055"/>
+            <point key="canvasLocation" x="1641" y="1127"/>
         </scene>
         <!--Диалоги-->
         <scene sceneID="sl6-XG-5yE">
@@ -419,7 +512,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9nb-ZW-4wz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1641" y="1815"/>
+            <point key="canvasLocation" x="1641" y="1882"/>
         </scene>
         <!--Диалоги-->
         <scene sceneID="7K9-mO-dWc">
@@ -427,7 +520,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WDs-mK-VAP" customClass="STNavigationController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Диалоги" image="icon-dialogs" id="rWH-3o-7Hv"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="JdF-zd-MQe">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JdF-zd-MQe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

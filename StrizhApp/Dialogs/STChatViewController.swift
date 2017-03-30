@@ -10,46 +10,60 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class STChatViewController: UICollectionViewController {
+class STChatViewController: UIViewController {
+    
+//    private var dataSource: GenericCollectionViewDataSource?
+    
+    private
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    @IBOutlet weak var bottomToolbar: UIView!
+    
+    @IBOutlet weak var placeHolder: UITextField!
+    
+    @IBOutlet weak var textView: UITextView!
+    
+    @IBOutlet weak var sendButton: UIButton!
+    
+    
+    var dialog: STDialog?
+    
+    required init?(coder aDecoder: NSCoder) {
+        
+        super.init(coder: aDecoder)
+        
+        self.hidesBottomBarWhenPushed = true
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-    private var dialog: STDialog?
-    
-//    private var dataSource = GenericCollectionViewDataSource
-    
-    init(dialog: STDialog) {
-        
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
-        
-        self.dialog = dialog
+        guard let dialog = self.dialog else {
+            
+            return
+        }
         
         api.loadDialogMessages(dialog: dialog, pageSize: 20, lastId: nil)
             
             .onSuccess { messages in
-            
+                
                 let reverse = Array(messages.reversed())
                 
                 print(reverse)
                 
             }.onFailure { error in
-            
+                
                 self.showError(error: error)
-            }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        
-        super.init(coder: aDecoder)
-    }
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+        }
 
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+//        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
     }
@@ -71,24 +85,24 @@ class STChatViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 2
-    }
-
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 5
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
-        // Configure the cell
-    
-        return cell
-    }
+//    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+//        // #warning Incomplete implementation, return the number of sections
+//        return 2
+//    }
+//
+//
+//    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        // #warning Incomplete implementation, return the number of items
+//        return 5
+//    }
+//
+//    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+//    
+//        // Configure the cell
+//    
+//        return cell
+//    }
 
     // MARK: UICollectionViewDelegate
 

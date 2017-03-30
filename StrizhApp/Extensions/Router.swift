@@ -97,7 +97,8 @@ extension UIViewController {
     
     func st_router_openChatController(dialog: STDialog) {
         
-        let controller = STChatViewController(dialog: dialog)
+        let controller = storyBoard.instantiateViewController(withIdentifier: String(describing: STChatViewController.self)) as! STChatViewController
+        controller.dialog = dialog
         self.navigationController?.pushViewController(controller, animated: true)
     }
 }
