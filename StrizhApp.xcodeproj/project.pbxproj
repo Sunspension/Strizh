@@ -130,6 +130,8 @@
 		E59A1B191E3F9388009EE669 /* STRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B161E3F9388009EE669 /* STRegistration.swift */; };
 		E59A1B1A1E3F9388009EE669 /* STSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B171E3F9388009EE669 /* STSession.swift */; };
 		E59A1B1C1E3F9716009EE669 /* STUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B1B1E3F9716009EE669 /* STUser.swift */; };
+		E59B98C91E8E5BC10069F9C0 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59B98C81E8E5BC10069F9C0 /* Colors.swift */; };
+		E59B98CB1E8E5C9D0069F9C0 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59B98CA1E8E5C9D0069F9C0 /* Date.swift */; };
 		E5BE9E251E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE9E241E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift */; };
 		E5BE9E281E4C8D690022B157 /* STFeedFilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE9E271E4C8D680022B157 /* STFeedFilterTableViewController.swift */; };
 		E5BE9E2B1E4C8F000022B157 /* STFeedFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE9E291E4C8F000022B157 /* STFeedFilterTableViewCell.swift */; };
@@ -278,6 +280,8 @@
 		E59A1B161E3F9388009EE669 /* STRegistration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STRegistration.swift; path = Models/STRegistration.swift; sourceTree = "<group>"; };
 		E59A1B171E3F9388009EE669 /* STSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSession.swift; path = Models/STSession.swift; sourceTree = "<group>"; };
 		E59A1B1B1E3F9716009EE669 /* STUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STUser.swift; path = Models/STUser.swift; sourceTree = "<group>"; };
+		E59B98C81E8E5BC10069F9C0 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Colors.swift; path = Extensions/Colors.swift; sourceTree = "<group>"; };
+		E59B98CA1E8E5C9D0069F9C0 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Date.swift; path = Extensions/Date.swift; sourceTree = "<group>"; };
 		E5BE9E241E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedDataSourceWrapper.swift; path = Feed/STFeedDataSourceWrapper.swift; sourceTree = "<group>"; };
 		E5BE9E271E4C8D680022B157 /* STFeedFilterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedFilterTableViewController.swift; path = Feed/STFeedFilterTableViewController.swift; sourceTree = "<group>"; };
 		E5BE9E291E4C8F000022B157 /* STFeedFilterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedFilterTableViewCell.swift; path = Feed/STFeedFilterTableViewCell.swift; sourceTree = "<group>"; };
@@ -525,6 +529,8 @@
 				E54D88F31E3BB579005233DB /* RealmExtensions.swift */,
 				E559067F1E520D7B00F8E20E /* ModelExtensions.swift */,
 				D40BC8651E5B706D0045F327 /* SHSPhoneComponentExtensions.swift */,
+				E59B98C81E8E5BC10069F9C0 /* Colors.swift */,
+				E59B98CA1E8E5C9D0069F9C0 /* Date.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -966,6 +972,7 @@
 				D4427E661E757C8F0002BCCF /* STCommonCollectionViewCell.swift in Sources */,
 				E59A1B141E3F89A7009EE669 /* STImageUploadError.swift in Sources */,
 				E55906771E51A74500F8E20E /* STProfileHeaderCell.swift in Sources */,
+				E59B98CB1E8E5C9D0069F9C0 /* Date.swift in Sources */,
 				D44E33991E74B50C006F4709 /* ImageUploader.swift in Sources */,
 				D40BC85F1E5B60DF0045F327 /* STCommonButtonCell.swift in Sources */,
 				D49727171E32D2750076B7A1 /* PRemoteServerApi.swift in Sources */,
@@ -982,6 +989,7 @@
 				D49EB1A01E452B9A00B6F5DC /* STSocketRequest.swift in Sources */,
 				D497271B1E32D9BD0076B7A1 /* STServerApi.swift in Sources */,
 				E5BE9E2B1E4C8F000022B157 /* STFeedFilterTableViewCell.swift in Sources */,
+				E59B98C91E8E5BC10069F9C0 /* Colors.swift in Sources */,
 				D459437C1E7E15EE00139D16 /* NSNumberToInt64Transform.swift in Sources */,
 				D4227F4E1E61FE7600BCB8B1 /* STContactCell.swift in Sources */,
 				D4AD43B31E47A970006F13DE /* AppSettings.swift in Sources */,
