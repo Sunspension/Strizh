@@ -33,14 +33,14 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         
     }()
     
-    var bag: Disposable?
+    var disposeBag: Disposable?
     
     var reason = OpenContactsReasonEnum.usual
     
     
     deinit {
         
-        bag?.dispose()
+        disposeBag?.dispose()
     }
     
     override func viewDidLoad() {
@@ -61,7 +61,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
             rightItem.isEnabled = false
             self.navigationItem.rightBarButtonItem = rightItem
             
-            self.bag = self.selectedItems.observeNext(with: { event in
+            self.disposeBag = self.selectedItems.observeNext(with: { event in
                 
                 rightItem.isEnabled = event.dataSource.count != 0
             })

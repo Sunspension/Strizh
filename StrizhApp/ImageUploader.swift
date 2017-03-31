@@ -8,14 +8,13 @@
 
 import Foundation
 import UIKit
-import BrightFutures
 import ReactiveKit
 
 class ImageUploader {
     
-    private let uploadQueue = OperationQueue()
+    fileprivate let uploadQueue = OperationQueue()
     
-    private let operationsLimit = 3
+    fileprivate let operationsLimit = 3
     
     var operations = [String : ImageUploadOperation]()
     
@@ -23,25 +22,28 @@ class ImageUploader {
     
     var bag = DisposeBag()
     
+    let context = ExecutionContext.main
     
     init() {
         
         uploadQueue.maxConcurrentOperationCount = operationsLimit
         
-        uploadQueue.reactive.keyPath("operations", ofType: [Operation].self).observeNext { operations in
+        uploadQueue.reactive.keyPath("operations", ofType: [Operation].self, context: context)
             
-            if operations.count == 0 {
+            .observeNext { operations in
                 
-                DispatchQueue.main.async {
+                if operations.count == 0 {
                     
-                    self.completeAllOperations?()
+                    DispatchQueue.main.async {
+                        
+                        self.completeAllOperations?()
+                    }
                 }
-            }
-            
-        }.dispose(in: bag)
+                
+            }.dispose(in: bag)
     }
     
-    func uploadImages(images: [(Data, String)]) {
+    func uploadImages(_ images: [(Data, String)]) {
         
         for (image, id) in images {
             

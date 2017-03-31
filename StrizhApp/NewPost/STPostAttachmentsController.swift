@@ -36,17 +36,17 @@ struct ImageAsset {
 
 class STPostAttachmentsController: UITableViewController {
 
-    private var dataSource = TableViewDataSource()
+    fileprivate var dataSource = TableViewDataSource()
     
-    private var section = CollectionSection()
+    fileprivate var section = CollectionSection()
     
-    private var imageDataSource: GenericCollectionViewDataSource<STAttachmentPhotoCell, ImageAsset>?
+    fileprivate var imageDataSource: GenericCollectionViewDataSource<STAttachmentPhotoCell, ImageAsset>?
     
-    private let imagesCollectionSection = GenericCollectionSection<ImageAsset>()
+    fileprivate let imagesCollectionSection = GenericCollectionSection<ImageAsset>()
     
-    private var imageUploader = ImageUploader()
+    fileprivate var imageUploader = ImageUploader()
     
-    private lazy var postObject: STUserPostObject = {
+    fileprivate lazy var postObject: STUserPostObject = {
         
         return try! self.dependencyContainer.resolve(STUserPostObject.self) as! STUserPostObject
         
@@ -109,7 +109,7 @@ class STPostAttachmentsController: UITableViewController {
         self.st_router_openContactsController()
     }
     
-    private func setupDataSource() {
+    fileprivate func setupDataSource() {
         
         self.dataSource.sections.append(self.section)
         
@@ -250,7 +250,7 @@ class STPostAttachmentsController: UITableViewController {
         self.imageDataSource?.sections.append(self.imagesCollectionSection)
     }
     
-    private func createDataSource() {
+    fileprivate func createDataSource() {
         
         self.section.header(headerClass: STContactHeaderCell.self) { (view, section) in
             
@@ -315,7 +315,7 @@ class STPostAttachmentsController: UITableViewController {
                                 })
                             })
                             
-                            self.imageUploader.uploadImages(images: images)
+                            self.imageUploader.uploadImages(images)
                             
                             DispatchQueue.main.async {
                                 

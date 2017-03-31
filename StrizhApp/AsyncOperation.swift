@@ -37,11 +37,11 @@ open class AsyncOperation : Operation {
         }
     }
     
-    private let stateQueue = DispatchQueue(
+    fileprivate let stateQueue = DispatchQueue(
         label: "com.myApp.operation.state",
         attributes: .concurrent)
     
-    private var rawState = OperationState.ready
+    fileprivate var rawState = OperationState.ready
     
     var state: OperationState {
         

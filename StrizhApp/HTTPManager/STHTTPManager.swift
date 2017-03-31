@@ -13,7 +13,7 @@ import AlamofireObjectMapper
 
 class STHTTPManager {
     
-    private static let alamofireManager: Alamofire.SessionManager = {
+    fileprivate static let alamofireManager: Alamofire.SessionManager = {
         
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 180
@@ -94,7 +94,7 @@ class STHTTPManager {
                         }
                     }
                     
-                    print("Response result: \(response.result.value)")
+                    print("Response result: \(response.result.value ?? "")")
                 }
             })
             .responseObject(keyPath: "data",
@@ -169,7 +169,7 @@ class STHTTPManager {
                         }
                     }
                     
-                    print("Response result: \(response.result.value)")
+                    print("Response result: \(response.result.value ?? "")")
                 }
             })
             .responseObject(keyPath: "data",
@@ -249,7 +249,7 @@ class STHTTPManager {
                                 }
                             }
                             
-                            print("Response result: \(response.result.value)")
+                            print("Response result: \(response.result.value ?? "")")
                         }
                     }
                     .responseObject(keyPath: "data") { (response: DataResponse<STFile>) in
@@ -342,7 +342,7 @@ class STHTTPManager {
     
     
     // MARK: - Private methods
-    fileprivate func printJSON(_ response: DataResponse<Any>) {
+    fileprivate func printJSON(response: DataResponse<Any>) {
         
         if let error = response.result.error {
             
@@ -350,7 +350,7 @@ class STHTTPManager {
         }
         else {
             
-            print("Response result: \(response.result.value)")
+            print("Response result: \(response.result.value ?? "")")
         }
     }
     
@@ -368,7 +368,7 @@ class STHTTPManager {
                                                            encoding: method != .post ? URLEncoding.default : JSONEncoding.default,
                                                            headers: headers)
         
-        print("request: \(request)\n parameters: \(params)")
+        print("request: \(request)\n parameters: \(String(describing: params)))")
         return request
     }
 }

@@ -21,23 +21,23 @@ private enum EditProfileFieldsEnum {
 class STEditProfileController: UITableViewController, UITextFieldDelegate,
 UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndicatorViewable {
     
-    private let dataSource = TableViewDataSource()
+    fileprivate let dataSource = TableViewDataSource()
     
-    private var userImageSection = CollectionSection()
+    fileprivate var userImageSection = CollectionSection()
     
-    private var userInfoSection = CollectionSection()
+    fileprivate var userInfoSection = CollectionSection()
     
-    private var user: STUser?
+    fileprivate var user: STUser?
     
-    private var observableImage = Observable(UIImage())
+    fileprivate var observableImage = Observable(UIImage())
     
-    private var userImage: UIImage?
+    fileprivate var userImage: UIImage?
     
-    private var firstName: String?
+    fileprivate var firstName: String?
     
-    private var lastName: String?
+    fileprivate var lastName: String?
     
-    private var email: String?
+    fileprivate var email: String?
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -374,7 +374,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                                             formatter.setDefaultOutputPattern(" (###) ### ## ##")
                                             
                                             let phone = String(user.phone.characters.dropFirst())
-                                            viewCell.value.text = formatter.formattedPhone(phone: phone)
+                                            viewCell.value.text = formatter.formattedPhone(phone)
                                             viewCell.value.isUserInteractionEnabled = false
                                             viewCell.title.textColor = UIColor.stPinkishGreyTwo
                                             viewCell.value.textColor = UIColor.stPinkishGreyTwo

@@ -17,12 +17,12 @@ class STContactCell: UITableViewCell {
     
     @IBOutlet weak var addContact: UIButton!
     
-    var bag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     
     deinit {
         
-        bag.dispose()
+        disposeBag.dispose()
     }
     
     override func awakeFromNib() {
@@ -38,7 +38,7 @@ class STContactCell: UITableViewCell {
 
     override func prepareForReuse() {
         
-        bag.dispose()
+        disposeBag.dispose()
         contactImage.image = UIImage(named: "avatar")
     }
     

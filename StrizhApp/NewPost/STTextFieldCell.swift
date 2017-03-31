@@ -19,12 +19,12 @@ class STTextFieldCell: UITableViewCell {
     
     var onTextDidChange: ((_ text: String) -> Void)?
     
-    var bag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     
     deinit {
         
-        bag.dispose()
+        disposeBag.dispose()
     }
     
     override func awakeFromNib() {
@@ -41,7 +41,7 @@ class STTextFieldCell: UITableViewCell {
 
     override func prepareForReuse() {
         
-        bag.dispose()
+        disposeBag.dispose()
         title.text = ""
         value.placeholder = ""
         value.text = ""
@@ -64,7 +64,7 @@ class STTextFieldCell: UITableViewCell {
             
             self.onErrorHandler?()
             
-        }.dispose(in: bag)
+        }.dispose(in: disposeBag)
         
         self.value.rightView = button
         self.value.rightViewMode = .always

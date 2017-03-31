@@ -13,7 +13,7 @@ import Alamofire
 
 class ImageUploadOperation : AsyncOperation {
     
-    private let image: Data
+    fileprivate let image: Data
     
     var file: STFile?
     
@@ -55,7 +55,7 @@ class ImageUploadOperation : AsyncOperation {
         }
     }
     
-    private func progressChanged(progress: Double) {
+    fileprivate func progressChanged(_ progress: Double) {
         
         self.uploadProgress = progress
         self.uploadProgressChanged?(progress)

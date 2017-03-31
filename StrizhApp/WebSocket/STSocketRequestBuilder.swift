@@ -362,12 +362,12 @@ enum STSocketRequestBuilder {
         return STSocketRequest(payLoad: payLoad, requestId: requestId)
     }
     
-    private func addToQuery(_ params: inout [String : Any], type: QueryParametersEnum, value: Any) {
+    fileprivate func addToQuery(_ params: inout [String : Any], type: QueryParametersEnum, value: Any) {
         
         params[type.rawValue] = value
     }
     
-    private func addToPayload(_ params: inout [String : Any], type: PayLoadParametersEnum, value: Any) {
+    fileprivate func addToPayload(_ params: inout [String : Any], type: PayLoadParametersEnum, value: Any) {
         
         params[type.rawValue] = value
     }

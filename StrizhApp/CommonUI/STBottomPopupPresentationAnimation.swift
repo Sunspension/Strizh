@@ -10,7 +10,7 @@ import UIKit
 
 class STBottomPopupPresentationAnimation: NSObject, UIViewControllerAnimatedTransitioning, UINavigationControllerDelegate {
     
-    private let isPresenting: Bool
+    fileprivate let isPresenting: Bool
     
     init(isPresenting: Bool) {
         
@@ -36,7 +36,7 @@ class STBottomPopupPresentationAnimation: NSObject, UIViewControllerAnimatedTran
         }
     }
     
-    private func animatePresenation(with transitionContext: UIViewControllerContextTransitioning) {
+    fileprivate func animatePresenation(with transitionContext: UIViewControllerContextTransitioning) {
         
         guard
             
@@ -69,7 +69,7 @@ class STBottomPopupPresentationAnimation: NSObject, UIViewControllerAnimatedTran
         })
     }
     
-    private func animateDismissal(with transitionContext: UIViewControllerContextTransitioning) {
+    fileprivate func animateDismissal(with transitionContext: UIViewControllerContextTransitioning) {
         
         guard let presentedControllerView = transitionContext.view(forKey: UITransitionContextViewKey.from) else {
             

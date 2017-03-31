@@ -13,13 +13,13 @@ import Dip
 class STNewPostController: UITableViewController, UITextViewDelegate {
 
     
-    private var dataSource = TableViewDataSource()
+    fileprivate var dataSource = TableViewDataSource()
     
-    private var requiredFieldsSection = CollectionSection()
+    fileprivate var requiredFieldsSection = CollectionSection()
     
-    private var optionalFieldsSection = CollectionSection()
+    fileprivate var optionalFieldsSection = CollectionSection()
     
-    private lazy var postObject: STUserPostObject = {
+    fileprivate lazy var postObject: STUserPostObject = {
        
         return try! self.dependencyContainer.resolve(STUserPostObject.self) as! STUserPostObject
         
@@ -92,7 +92,7 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
         self.st_router_openPostAttachmentsController()
     }
     
-    private func createDataSource() {
+    fileprivate func createDataSource() {
         
         // set by default
         self.postObject.type = 1
@@ -123,7 +123,7 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             
             self.postObject.type = 1
             
-            viewCell.offerButtonSelected(selected: true)
+            viewCell.offerButtonSelected(true)
             viewCell.title.text = "Вид темы"
             viewCell.setType(type: self.postObject.type)
             
@@ -131,14 +131,14 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             viewCell.offer.reactive.tap.observe { [unowned viewCell, unowned self] _ in
                 
                 self.postObject.type = 1
-                viewCell.offerButtonSelected(selected: true)
+                viewCell.offerButtonSelected(true)
                 
                 }.dispose(in: viewCell.bag)
             
             viewCell.search.reactive.tap.observe {[unowned viewCell] _ in
                 
                 self.postObject.type = 2
-                viewCell.searchButtonSelected(selected: true)
+                viewCell.searchButtonSelected(true)
                 
                 }.dispose(in: viewCell.bag)
         }
@@ -341,7 +341,7 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
         }
     }
     
-    private func showValidationAlert() {
+    fileprivate func showValidationAlert() {
         
         self.showOkAlert(title: "Ошибка", message: "Это поле не может быть пустым")
     }

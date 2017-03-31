@@ -25,11 +25,11 @@ class STAttachmentCell: UITableViewCell {
     
     @IBOutlet weak var actionButton: UIButton!
     
-    var bag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     deinit {
         
-        bag.dispose()
+        disposeBag.dispose()
     }
     
     override func awakeFromNib() {
@@ -52,7 +52,7 @@ class STAttachmentCell: UITableViewCell {
         
         collectionViewHeight.constant = 0
         bottomIconMargin.constant = 0
-        bag.dispose()
+        disposeBag.dispose()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

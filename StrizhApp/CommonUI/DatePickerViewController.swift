@@ -10,7 +10,7 @@ import UIKit
 
 class DatePickerViewController: UIViewController, UIViewControllerTransitioningDelegate {
 
-    private var selectedDate: Date?
+    fileprivate var selectedDate: Date?
     
     @IBOutlet weak var datePicker: UIDatePicker!
     

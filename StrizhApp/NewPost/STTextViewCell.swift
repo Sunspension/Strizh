@@ -13,7 +13,7 @@ class STTextViewCell: UITableViewCell, UITextViewDelegate {
 
     @IBOutlet weak var title: UILabel!
     
-    @IBOutlet weak private var value: UITextView!
+    @IBOutlet weak fileprivate var value: UITextView!
     
     @IBOutlet weak var placeHolder: UITextField!
     
@@ -26,7 +26,7 @@ class STTextViewCell: UITableViewCell, UITextViewDelegate {
     
     var onErrorHandler: (() -> Void)?
     
-    var bag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     var textValue: String? {
         
@@ -45,12 +45,12 @@ class STTextViewCell: UITableViewCell, UITextViewDelegate {
     
     deinit {
         
-        bag.dispose()
+        disposeBag.dispose()
     }
     
     override func prepareForReuse() {
 
-        bag.dispose()
+        disposeBag.dispose()
         title.text = ""
         value.text = ""
         placeHolder.isHidden = false
@@ -96,7 +96,7 @@ class STTextViewCell: UITableViewCell, UITextViewDelegate {
             
             self.onErrorHandler?()
             
-        }.dispose(in: bag)
+        }.dispose(in: disposeBag)
     }
     
     func hideError() {

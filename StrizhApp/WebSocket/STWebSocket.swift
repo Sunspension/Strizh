@@ -14,9 +14,9 @@ import Contacts
 
 class STWebSocket {
     
-    private var socket: SocketIOClient?
+    fileprivate var socket: SocketIOClient?
     
-    private var serverUrlString: String
+    fileprivate var serverUrlString: String
     
     
     init(serverUrlString: String) {

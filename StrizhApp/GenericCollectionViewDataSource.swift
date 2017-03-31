@@ -38,7 +38,7 @@ class GenericCollectionViewDataSource<CollectionViewCell: UICollectionViewCell, 
         super.init()
     }
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         
         return self.sections.count
     }

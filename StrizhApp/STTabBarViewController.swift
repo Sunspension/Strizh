@@ -10,7 +10,7 @@ import UIKit
 
 class STTabBarViewController: UITabBarController, UITabBarControllerDelegate {
 
-    private var newPostButton: UIButton?
+    fileprivate var newPostButton: UIButton?
     
     
     override func viewDidLoad() {

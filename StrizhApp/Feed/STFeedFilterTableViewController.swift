@@ -18,11 +18,11 @@ private enum FilterFields : Int {
 class STFeedFilterTableViewController: UITableViewController {
     
     
-    private let dataSource = TableViewDataSource()
+    fileprivate let dataSource = TableViewDataSource()
     
-    private var filter = STFeedFilter()
+    fileprivate var filter = STFeedFilter()
     
-    private var filterCallback: (() -> Void)?
+    fileprivate var filterCallback: (() -> Void)?
     
 //    private var toggleListener: EventListener<Bool>?
 //    

@@ -20,7 +20,7 @@ extension Object {
     
     static let realm = try! Realm()
     
-    func writeToDB(update: Bool = true) {
+    func writeToDB(_ update: Bool = true) {
         
         try! Object.realm.write({
             

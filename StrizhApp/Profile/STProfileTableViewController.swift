@@ -15,28 +15,28 @@ import ReactiveKit
 class STProfileTableViewController: UITableViewController {
     
     
-    private var dataSource = TableViewDataSource()
+    fileprivate var dataSource = TableViewDataSource()
     
-    private var userInfoSection = CollectionSection()
+    fileprivate var userInfoSection = CollectionSection()
     
-    private var userPostsSection = CollectionSection()
+    fileprivate var userPostsSection = CollectionSection()
     
-    private var user: STUser?
+    fileprivate var user: STUser?
     
-    private var status = STLoadingStatusEnum.idle
+    fileprivate var status = STLoadingStatusEnum.idle
     
-    private var minId = 0
+    fileprivate var minId = 0
     
-    private var pageSize = 20
+    fileprivate var pageSize = 20
     
-    private var hasMore = false
+    fileprivate var hasMore = false
     
-    private var canLoadNext: Bool {
+    fileprivate var canLoadNext: Bool {
         
         return hasMore && status != .loading
     }
 
-    private var bag = DisposeBag()
+    fileprivate var disposeBag = DisposeBag()
     
     
     var images = Set<STImage>()
@@ -48,7 +48,7 @@ class STProfileTableViewController: UITableViewController {
     
     deinit {
         
-        bag.dispose()
+        disposeBag.dispose()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -144,7 +144,7 @@ class STProfileTableViewController: UITableViewController {
                                                                 self.user = user
                                                                 self.tableView.reloadSections(IndexSet(integer: 0), with: .none)
                                                             }
-            }.dispose(in: bag)
+            }.dispose(in: disposeBag)
         
 //        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostAddedToArchiveNotification),
 //                                                         object: nil).observeNext { [unowned self] notification in
@@ -183,7 +183,7 @@ class STProfileTableViewController: UITableViewController {
                                                             }
                                                             
                                                             self.tableView.reloadSections(IndexSet(integer: 1) , with: .none)
-            }.dispose(in: bag)
+            }.dispose(in: disposeBag)
         
         NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostCreatedNotification),
                                                          object: nil)
@@ -193,7 +193,7 @@ class STProfileTableViewController: UITableViewController {
                 self.minId = 0
                 self.loadFeed(isRefresh: true)
                 
-            }.dispose(in: bag)
+            }.dispose(in: disposeBag)
         
         
         // refresh control setup
@@ -209,7 +209,7 @@ class STProfileTableViewController: UITableViewController {
             self.minId = 0
             self.loadFeed(isRefresh: true)
             
-        }).dispose(in: bag)
+        }).dispose(in: disposeBag)
     }
     
     private func createHeader() {

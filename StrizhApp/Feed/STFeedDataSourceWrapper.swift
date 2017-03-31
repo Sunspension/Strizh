@@ -14,27 +14,27 @@ import ReactiveKit
 class STFeedDataSourceWrapper {
     
     
-    private var status = STLoadingStatusEnum.idle
+    fileprivate var status = STLoadingStatusEnum.idle
     
-    private var page = 1
+    fileprivate var page = 1
     
-    private var searchPage = 1
+    fileprivate var searchPage = 1
     
-    private var pageSize: Int
+    fileprivate var pageSize: Int
     
-    private let section = GenericCollectionSection<STPost>()
+    fileprivate let section = GenericCollectionSection<STPost>()
     
-    private var filter: STFeedFilter?
+    fileprivate var filter: STFeedFilter?
     
-    private var hasMore = false
+    fileprivate var hasMore = false
     
-    private var onDataSourceChanged:((_ animation: Bool) -> Void)?
+    fileprivate var onDataSourceChanged:((_ animation: Bool) -> Void)?
     
-    private var isFavorite: Bool
+    fileprivate var isFavorite: Bool
 
-    private var isPersonal: Bool
+    fileprivate var isPersonal: Bool
     
-    private var canLoadNext: Bool {
+    fileprivate var canLoadNext: Bool {
         
         return hasMore && status != .loading
     }

@@ -11,7 +11,7 @@ import SHSPhoneComponent
 
 extension SHSPhoneNumberFormatter {
     
-    func formattedPhone(phone: String) -> String? {
+    func formattedPhone(_ phone: String) -> String? {
         
         if let dictionary = self.values(for: phone) as? [String : Any] {
             

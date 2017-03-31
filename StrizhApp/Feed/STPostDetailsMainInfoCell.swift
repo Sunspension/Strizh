@@ -23,17 +23,17 @@ class STPostDetailsMainInfoCell: UITableViewCell {
     
     @IBOutlet weak var postTitle: UILabel!
     
-    var bag = DisposeBag()
+    var disposeBag = DisposeBag()
     
 
     deinit {
         
-        bag.dispose()
+        disposeBag.dispose()
     }
     
     override func prepareForReuse() {
         
-        bag.dispose()
+        disposeBag.dispose()
     }
     
     override func awakeFromNib() {

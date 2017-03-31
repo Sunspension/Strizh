@@ -14,11 +14,11 @@ import Contacts
 
 struct STServerApi: PRemoteServerApi {
     
-    private var serverBaseUrlString: String
+    fileprivate var serverBaseUrlString: String
     
-    private var socket: STWebSocket
+    fileprivate var socket: STWebSocket
     
-    private var httpManager: STHTTPManager
+    fileprivate var httpManager: STHTTPManager
     
     
     init(serverUrlString: String) {

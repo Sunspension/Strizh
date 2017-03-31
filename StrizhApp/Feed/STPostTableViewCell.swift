@@ -40,7 +40,7 @@ class STPostTableViewCell: UITableViewCell {
     
     @IBOutlet weak var header: UIView!
     
-    var bag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -75,7 +75,7 @@ class STPostTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         
         userIcon.image = nil
-        bag.dispose()
+        disposeBag.dispose()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

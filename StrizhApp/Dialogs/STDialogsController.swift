@@ -12,30 +12,30 @@ import ReactiveKit
 
 class STDialogsController: UITableViewController {
 
-    private let dataSource = TableViewDataSource()
+    fileprivate let dataSource = TableViewDataSource()
     
-    private let section = CollectionSection()
+    fileprivate let section = CollectionSection()
     
-    private var loadingStatus = STLoadingStatusEnum.idle
+    fileprivate var loadingStatus = STLoadingStatusEnum.idle
     
-    private var hasMore = false
+    fileprivate var hasMore = false
     
-    private var page = 1
+    fileprivate var page = 1
     
-    private var pageSize = 20
+    fileprivate var pageSize = 20
     
-    private var users = Set<STUser>()
+    fileprivate var users = Set<STUser>()
     
-    private var messages = [STMessage]()
+    fileprivate var messages = [STMessage]()
     
-    private var myUser: STUser!
+    fileprivate var myUser: STUser!
     
-    private let bag = DisposeBag()
+    fileprivate let disposeBag = DisposeBag()
     
     
     deinit {
         
-        bag.dispose()
+        disposeBag.dispose()
     }
     
     override func viewDidLoad() {
@@ -54,7 +54,7 @@ class STDialogsController: UITableViewController {
         self.loadDialogs()
     }
    
-    private func setupDataSource() {
+    fileprivate func setupDataSource() {
         
         self.dataSource.sections.append(self.section)
         self.tableView.dataSource = self.dataSource
@@ -67,7 +67,7 @@ class STDialogsController: UITableViewController {
         }
     }
     
-    private func loadDialogs() {
+    fileprivate func loadDialogs() {
         
         self.loadingStatus = .loading
         self.tableView.showBusy()
@@ -89,7 +89,7 @@ class STDialogsController: UITableViewController {
                 
                 self.hasMore = dialogPage.dialogs.count == self.pageSize
                 
-                self.handleResponse(dialogsPage: dialogPage)
+                self.handleResponse(dialogPage)
                 self.tableView.reloadData()
             }
             .onFailure { [unowned self] error in
@@ -106,7 +106,7 @@ class STDialogsController: UITableViewController {
             }
     }
     
-    private func handleResponse(dialogsPage: STDialogsPage) {
+    fileprivate func handleResponse(_ dialogsPage: STDialogsPage) {
         
         self.messages.append(contentsOf: dialogsPage.messages)
         
@@ -196,7 +196,7 @@ class STDialogsController: UITableViewController {
         }
     }
     
-    private func createRefreshControl() {
+    fileprivate func createRefreshControl() {
         
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.reactive.refreshing.observeNext(with: { [unowned self] refreshing in
@@ -209,7 +209,7 @@ class STDialogsController: UITableViewController {
             self.page = 1
             self.loadDialogs()
             
-        }).dispose(in: bag)
+        }).dispose(in: disposeBag)
     }
     
     /*

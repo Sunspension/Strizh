@@ -10,11 +10,11 @@ import UIKit
 
 class STSettingsController: UITableViewController {
 
-    private let dataSource = TableViewDataSource()
+    fileprivate let dataSource = TableViewDataSource()
     
-    private let section1 = CollectionSection(title: "УВЕДОМЛЕНИЯ")
+    fileprivate let section1 = CollectionSection(title: "УВЕДОМЛЕНИЯ")
     
-    private let section2 = CollectionSection()
+    fileprivate let section2 = CollectionSection()
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -70,7 +70,7 @@ class STSettingsController: UITableViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    private func createDataSource() {
+    fileprivate func createDataSource() {
         
         self.section1.addItem(cellClass: STFeedFilterSwitchTableViewCell.self) { (cell, item) in
             

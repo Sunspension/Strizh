@@ -13,11 +13,11 @@ import Bond
 
 class STContactsDataSourceWrapper {
     
-    private var notRelatedContactsSection = CollectionSection()
+    fileprivate var notRelatedContactsSection = CollectionSection()
     
-    private var searchSection = CollectionSection()
+    fileprivate var searchSection = CollectionSection()
     
-    private var contactsProvider = STContactsProvider.sharedInstance
+    fileprivate var contactsProvider = STContactsProvider.sharedInstance
     
     var allowsSelection = false
     
@@ -95,7 +95,7 @@ class STContactsDataSourceWrapper {
         }
     }
     
-    private func createDataSource(contacts: [STContact]) {
+    fileprivate func createDataSource(contacts: [STContact]) {
         
         contacts.forEach({ contact in
             
@@ -137,6 +137,7 @@ class STContactsDataSourceWrapper {
         })
         
         // sorting
+        
         self.dataSource.sections.sort { (oneSection, otherSection) -> Bool in
             
             return (oneSection.sectionType as! String) < (otherSection.sectionType as! String)
@@ -148,7 +149,7 @@ class STContactsDataSourceWrapper {
         }
     }
     
-    private func binding(cell: UITableViewCell, item: CollectionSectionItem) {
+    fileprivate func binding(_ cell: UITableViewCell, item: CollectionSectionItem) {
         
         let viewCell = cell as! STContactCell
         let contact = item.item as! STContact

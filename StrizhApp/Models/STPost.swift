@@ -93,14 +93,14 @@ class STPost : Object, Mappable {
         imageUrls <- (map["image_urls"], ArrayOfCustomRealmObjectsTransform<RealmString>())
     }
     
-    private func formatter() -> DateFormatter {
+    fileprivate func formatter() -> DateFormatter {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return formatter
     }
     
-    private func fromToFormatter() -> DateFormatter {
+    fileprivate func fromToFormatter() -> DateFormatter {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"

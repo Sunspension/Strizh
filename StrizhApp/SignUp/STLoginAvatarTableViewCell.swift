@@ -13,16 +13,16 @@ class STLoginAvatarTableViewCell: UITableViewCell {
 
     @IBOutlet weak var avatarButton: UIButton!
 
-    var bag = DisposeBag()
+    let disposeBag = DisposeBag()
     
     deinit {
         
-        bag.dispose()
+        disposeBag.dispose()
     }
     
     override func prepareForReuse() {
         
-        bag.dispose()
+        disposeBag.dispose()
     }
     
     override func awakeFromNib() {

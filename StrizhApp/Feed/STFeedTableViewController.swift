@@ -13,30 +13,30 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
 
     @IBOutlet weak var searchBar: UISearchBar!
 
-    private var feedDataSource: STFeedDataSourceWrapper?
+    fileprivate var feedDataSource: STFeedDataSourceWrapper?
     
-    private var favoritesFeedDataSource: STFeedDataSourceWrapper?
+    fileprivate var favoritesFeedDataSource: STFeedDataSourceWrapper?
     
-    private var searchFeedDataSource: STFeedDataSourceWrapper?
+    fileprivate var searchFeedDataSource: STFeedDataSourceWrapper?
     
-    private var searchFavoriteDataSource: STFeedDataSourceWrapper?
+    fileprivate var searchFavoriteDataSource: STFeedDataSourceWrapper?
     
-    private var dataSourceSwitch = UISegmentedControl(items: ["Вся Лента", "Избранное"])
+    fileprivate var dataSourceSwitch = UISegmentedControl(items: ["Вся Лента", "Избранное"])
     
-    private let searchController = UISearchController(searchResultsController: nil)
+    fileprivate let searchController = UISearchController(searchResultsController: nil)
     
-    private var shouldShowSearchResults = false
+    fileprivate var shouldShowSearchResults = false
     
-    private var filter: STFeedFilter?
+    fileprivate var filter: STFeedFilter?
     
-    private var searchQueryString = ""
+    fileprivate var searchQueryString = ""
     
-    private let bag = DisposeBag()
+    fileprivate let disposeBag = DisposeBag()
     
     
     deinit {
         
-        bag.dispose()
+        disposeBag.dispose()
     }
     
     override func viewDidLoad() {
@@ -84,7 +84,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
                 // temporary
                 self.feedDataSource?.loadFeed(isRefresh: true)
                 
-            }.dispose(in: bag)
+            }.dispose(in: disposeBag)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -286,6 +286,6 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
             
             dataSource?.loadFeed(isRefresh: true)
             
-        }).dispose(in: bag)
+        }).dispose(in: disposeBag)
     }
 }

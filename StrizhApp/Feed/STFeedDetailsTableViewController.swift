@@ -20,15 +20,15 @@ enum STPostDetailsReasonEnum {
 class STFeedDetailsTableViewController: UIViewController {
 
     
-    private let dataSource = TableViewDataSource()
+    fileprivate let dataSource = TableViewDataSource()
     
-    private var imageDataSource: GenericCollectionViewDataSource<STPostDetailsPhotoCell, STImage>?
+    fileprivate var imageDataSource: GenericCollectionViewDataSource<STPostDetailsPhotoCell, STImage>?
     
-    private let tableSection = CollectionSection()
+    fileprivate let tableSection = CollectionSection()
     
-    private let collectionSection = GenericCollectionSection<STImage>()
+    fileprivate let collectionSection = GenericCollectionSection<STImage>()
     
-    private var coordinateBounds = GMSCoordinateBounds()
+    fileprivate var coordinateBounds = GMSCoordinateBounds()
     
     var reason = STPostDetailsReasonEnum.feedDetails
     
@@ -94,7 +94,7 @@ class STFeedDetailsTableViewController: UIViewController {
         self.createDataSource()
     }
 
-    private func createDataSource() {
+    fileprivate func createDataSource() {
         
         guard let post = self.post else {
             

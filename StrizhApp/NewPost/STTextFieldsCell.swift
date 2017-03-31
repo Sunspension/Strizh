@@ -25,12 +25,12 @@ class STTextFieldsCell: UITableViewCell, UITextFieldDelegate {
     
     var onRightValueShouldBeginEditing: (() -> Void)?
     
-    var bag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     
     deinit {
         
-        bag.dispose()
+        disposeBag.dispose()
     }
     
     override func awakeFromNib() {
@@ -48,7 +48,7 @@ class STTextFieldsCell: UITableViewCell, UITextFieldDelegate {
     
     override func prepareForReuse() {
         
-        bag.dispose()
+        disposeBag.dispose()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -83,7 +83,7 @@ class STTextFieldsCell: UITableViewCell, UITextFieldDelegate {
             
             self.onLeftErrorHandler?()
             
-        }.dispose(in: bag)
+        }.dispose(in: disposeBag)
         
         self.leftValue.rightView = button
         self.leftValue.rightViewMode = .always
@@ -100,7 +100,7 @@ class STTextFieldsCell: UITableViewCell, UITextFieldDelegate {
             
             self.onRightErrorHandler?()
             
-        }.dispose(in: bag)
+        }.dispose(in: disposeBag)
         
         self.rightValue.rightView = button
         self.rightValue.rightViewMode = .always

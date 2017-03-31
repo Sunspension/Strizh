@@ -41,18 +41,18 @@ class STPersonalPostCell: UITableViewCell {
     
     @IBOutlet weak var locations: UIButton!
     
-    var bag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     
     deinit {
         
-        bag.dispose()
+        disposeBag.dispose()
     }
     
     
     override func prepareForReuse() {
         
-        bag.dispose()
+        disposeBag.dispose()
     }
     
     override func awakeFromNib() {

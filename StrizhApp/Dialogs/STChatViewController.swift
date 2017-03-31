@@ -14,7 +14,6 @@ class STChatViewController: UIViewController {
     
 //    private var dataSource: GenericCollectionViewDataSource?
     
-    private
     
     @IBOutlet weak var collectionView: UICollectionView!
     

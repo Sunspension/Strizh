@@ -24,31 +24,31 @@ enum STSignUpStateEnum {
 
 class STSingUpTableViewController: UITableViewController, NVActivityIndicatorViewable, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
-    private let dataSource = TableViewDataSource()
+    fileprivate let dataSource = TableViewDataSource()
     
-    private let logo = UIImageView(image: #imageLiteral(resourceName: "logo-login"))
+    fileprivate let logo = UIImageView(image: #imageLiteral(resourceName: "logo-login"))
     
-    private var contentInset: UIEdgeInsets?
+    fileprivate var contentInset: UIEdgeInsets?
     
-    private var signupStep: STSignUpStateEnum = .signupFirstStep
+    fileprivate var signupStep: STSignUpStateEnum = .signupFirstStep
     
-    private var phoneNumber: String?
+    fileprivate var phoneNumber: String?
     
-    private var password: String?
+    fileprivate var password: String?
     
-    private var countDownTimer: CountdownTimer?
+    fileprivate var countDownTimer: CountdownTimer?
     
-    private var observableImage = Observable(UIImage())
+    fileprivate var observableImage = Observable(UIImage())
     
-    private var textFieldEmitter = Event<Bool>()
+    fileprivate var textFieldEmitter = Event<Bool>()
     
-    private var textFieldListener: EventListener<Bool>?
+    fileprivate var textFieldListener: EventListener<Bool>?
     
-    private var userImage: UIImage?
+    fileprivate var userImage: UIImage?
     
-    private var userFirstName = ""
+    fileprivate var userFirstName = ""
     
-    private var userLastName = ""
+    fileprivate var userLastName = ""
 
     
     deinit {
@@ -377,7 +377,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
     
     // MARK: Private methods
     
-    private func makeCodeRequest(phone: String) {
+    fileprivate func makeCodeRequest(phone: String) {
         
         startAnimating()
 
@@ -417,7 +417,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
             })
     }
     
-    private func createDataSection() -> CollectionSection {
+    fileprivate func createDataSection() -> CollectionSection {
         
         let section = CollectionSection()
         
@@ -657,7 +657,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         return section
     }
     
-    private func submitUserInfo(callBack: @escaping (_ error: Error?) -> Void) {
+    fileprivate func submitUserInfo(_ callBack: @escaping (_ error: Error?) -> Void) {
         
         for item in self.dataSource.sections.first!.items {
             
@@ -687,7 +687,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         }
     }
     
-    private func updateUserInfo(firstName: String,
+    fileprivate func updateUserInfo(firstName: String,
                                 lastName: String,
                                 imageId: Int64? = nil,
                                 callBack: @escaping (_ error: Error?) -> Void) {

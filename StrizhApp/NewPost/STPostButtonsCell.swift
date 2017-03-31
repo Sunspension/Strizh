@@ -20,17 +20,17 @@ class STPostButtonsCell: UITableViewCell {
     
     @IBOutlet weak var search: UIButton!
     
-    var bag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     
     deinit {
         
-        bag.dispose()
+        disposeBag.dispose()
     }
     
     override func prepareForReuse() {
         
-        bag.dispose()
+        disposeBag.dispose()
     }
     
     override func awakeFromNib() {
@@ -67,15 +67,15 @@ class STPostButtonsCell: UITableViewCell {
         
         if type == 1 {
             
-            self.offerButtonSelected(selected: true)
+            self.offerButtonSelected(true)
         }
         else if type == 2 {
             
-            self.searchButtonSelected(selected: true)
+            self.searchButtonSelected(true)
         }
     }
     
-    func offerButtonSelected(selected: Bool) {
+    func offerButtonSelected(_ selected: Bool) {
         
         self.offer.isSelected = selected
         self.offer.backgroundColor = selected ? UIColor.stDarkMint : UIColor.white
@@ -86,7 +86,7 @@ class STPostButtonsCell: UITableViewCell {
         self.search.tintColor = !selected ? UIColor.white : UIColor.stIris
     }
     
-    func searchButtonSelected(selected: Bool) {
+    func searchButtonSelected(_ selected: Bool) {
         
         self.search.isSelected = selected
         self.search.backgroundColor = selected ? UIColor.stIris : UIColor.white
