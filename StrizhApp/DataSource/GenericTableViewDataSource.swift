@@ -10,11 +10,11 @@ import UIKit
 
 class GenericTableViewDataSource<TableViewCell: UITableViewCell, TableItem: Any>: NSObject, UITableViewDataSource, UITableViewDelegate {
 
-    var sections: [GenericCollectionSection<TableItem>] = []
+    var sections: [GenericTableSection<TableItem>] = []
     
-    var onDidSelectRowAtIndexPath: ((_ tableView: UITableView, _ indexPath: IndexPath, _ item: GenericCollectionSectionItem<TableItem>) -> Void)?
+    var onDidSelectRowAtIndexPath: ((_ tableView: UITableView, _ indexPath: IndexPath, _ item: GenericTableSectionItem<TableItem>) -> Void)?
     
-    subscript(index: Int) -> GenericCollectionSection<TableItem> {
+    subscript(index: Int) -> GenericTableSection<TableItem> {
         
         get {
             
@@ -27,13 +27,13 @@ class GenericTableViewDataSource<TableViewCell: UITableViewCell, TableItem: Any>
         }
     }
     
-    var bindingAction: ((_ cell: TableViewCell, _ item: GenericCollectionSectionItem<TableItem>) -> Void)
+    var bindingAction: ((_ cell: TableViewCell, _ item: GenericTableSectionItem<TableItem>) -> Void)
     
     var cellClass: AnyClass
     
     
     init(cellClass: AnyClass,
-         binding: @escaping (_ cell: TableViewCell, _ item: GenericCollectionSectionItem<TableItem>) -> Void) {
+         binding: @escaping (_ cell: TableViewCell, _ item: GenericTableSectionItem<TableItem>) -> Void) {
         
         self.cellClass = cellClass
         self.bindingAction = binding
@@ -119,7 +119,7 @@ class GenericTableViewDataSource<TableViewCell: UITableViewCell, TableItem: Any>
         return footer.cellHeight ?? 0.01
     }
     
-    func item(by: IndexPath) -> GenericCollectionSectionItem<TableItem> {
+    func item(by: IndexPath) -> GenericTableSectionItem<TableItem> {
         
         return sections[by.section].items[by.row]
     }

@@ -10,13 +10,13 @@ import UIKit
 
 class GenericCollectionViewDataSource<CollectionViewCell: UICollectionViewCell, CollectionItem: Any> : NSObject, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    var sections: [GenericCollectionSection<CollectionItem>] = []
+    var sections: [GenericTableSection<CollectionItem>] = []
     
-    var bindig: (CollectionViewCell, GenericCollectionSectionItem<CollectionItem>) -> Void
+    var bindig: (CollectionViewCell, GenericTableSectionItem<CollectionItem>) -> Void
     
     var cellClass: AnyClass
     
-    subscript(index: Int) -> GenericCollectionSection<CollectionItem> {
+    subscript(index: Int) -> GenericTableSection<CollectionItem> {
         
         get {
             
@@ -30,7 +30,7 @@ class GenericCollectionViewDataSource<CollectionViewCell: UICollectionViewCell, 
     }
     
     init(cellClass: AnyClass,
-         binding: @escaping (_ cell: CollectionViewCell, _ item: GenericCollectionSectionItem<CollectionItem>) -> Void) {
+         binding: @escaping (_ cell: CollectionViewCell, _ item: GenericTableSectionItem<CollectionItem>) -> Void) {
         
         self.bindig = binding
         self.cellClass = cellClass
@@ -60,7 +60,7 @@ class GenericCollectionViewDataSource<CollectionViewCell: UICollectionViewCell, 
         return cell
     }
     
-    func item(by: IndexPath) -> GenericCollectionSectionItem<CollectionItem> {
+    func item(by: IndexPath) -> GenericTableSectionItem<CollectionItem> {
         
         return sections[by.section].items[by.row]
     }

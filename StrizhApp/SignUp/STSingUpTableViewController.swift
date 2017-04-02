@@ -417,9 +417,9 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
             })
     }
     
-    fileprivate func createDataSection() -> CollectionSection {
+    fileprivate func createDataSection() -> TableSection {
         
-        let section = CollectionSection()
+        let section = TableSection()
         
         switch self.signupStep {
             

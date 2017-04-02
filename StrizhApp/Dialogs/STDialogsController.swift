@@ -14,7 +14,7 @@ class STDialogsController: UITableViewController {
 
     fileprivate let dataSource = TableViewDataSource()
     
-    fileprivate let section = CollectionSection()
+    fileprivate let section = TableSection()
     
     fileprivate var loadingStatus = STLoadingStatusEnum.idle
     
@@ -41,7 +41,6 @@ class STDialogsController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.tableView.tableFooterView = UIView()
         self.tableView.backgroundColor = UIColor.stLightBlueGrey
         self.tableView.estimatedRowHeight = 50
         self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -49,8 +48,12 @@ class STDialogsController: UITableViewController {
         
         self.myUser = STUser.objects(by: STUser.self).first!
         
+        self.setCustomBackButton()
         self.createRefreshControl()
         self.setupDataSource()
+        
+        self.tableView.tableFooterView = UIView()
+        
         self.loadDialogs()
     }
    
@@ -63,7 +66,11 @@ class STDialogsController: UITableViewController {
         self.dataSource.onDidSelectRowAtIndexPath = { [unowned self] (tableView, indexPath, item) in
             
             let dialog = item.item as! STDialog
-            self.st_router_openChatController(dialog: dialog)
+            
+            let userIds = dialog.userIds.map({ $0.value })
+            let users = self.users.filter({ userIds.contains($0.id) })
+            
+            self.st_router_openChatController(dialog: dialog, users: users)
         }
     }
     
@@ -212,16 +219,6 @@ class STDialogsController: UITableViewController {
         }).dispose(in: disposeBag)
     }
     
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

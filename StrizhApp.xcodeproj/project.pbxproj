@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		0D4712BF056042E4491062F2 /* Pods_StrizhApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 277E51B2F6F272FF051A01F5 /* Pods_StrizhApp.framework */; };
 		D402C2341E7DFEE700237EB9 /* RealmInt64.swift in Sources */ = {isa = PBXBuildFile; fileRef = D402C2331E7DFEE700237EB9 /* RealmInt64.swift */; };
+		D40405811E917F8400F0A8E4 /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40405801E917F8400F0A8E4 /* CollectionViewDataSource.swift */; };
+		D40405851E91869D00F0A8E4 /* CollectionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40405841E91869D00F0A8E4 /* CollectionSection.swift */; };
+		D40405871E91870400F0A8E4 /* CollectionSectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40405861E91870400F0A8E4 /* CollectionSectionItem.swift */; };
+		D40405891E91876000F0A8E4 /* ValidationEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40405881E91876000F0A8E4 /* ValidationEnum.swift */; };
+		D404058B1E91886C00F0A8E4 /* SectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D404058A1E91886C00F0A8E4 /* SectionItem.swift */; };
 		D40A6BE61E3AA7DB00F1D218 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40A6BE51E3AA7DB00F1D218 /* Router.swift */; };
 		D40A6BE81E3AA7FB00F1D218 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40A6BE71E3AA7FB00F1D218 /* Extensions.swift */; };
 		D40BC85F1E5B60DF0045F327 /* STCommonButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40BC85D1E5B60DF0045F327 /* STCommonButtonCell.swift */; };
@@ -28,6 +33,7 @@
 		D4227F511E62126D00BCB8B1 /* STContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4227F501E62126D00BCB8B1 /* STContactsController.swift */; };
 		D4227F531E6270E200BCB8B1 /* STContactHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4227F521E6270E200BCB8B1 /* STContactHeaderCell.swift */; };
 		D4227F551E6270F600BCB8B1 /* STContactHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4227F541E6270F600BCB8B1 /* STContactHeaderCell.xib */; };
+		D42D530C1E915473007952AD /* STCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42D530B1E915473007952AD /* STCollectionLayout.swift */; };
 		D433D1041E54F56900974AB1 /* STSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D433D1031E54F56900974AB1 /* STSettingsController.swift */; };
 		D43A75601E4E610700DB0850 /* STPostDetailsMapsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43A755E1E4E610700DB0850 /* STPostDetailsMapsCell.swift */; };
 		D43A75611E4E610700DB0850 /* STPostDetailsMapsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D43A755F1E4E610700DB0850 /* STPostDetailsMapsCell.xib */; };
@@ -46,7 +52,6 @@
 		D44AB4EB1E4FCC210013A972 /* GenericCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AB4EA1E4FCC210013A972 /* GenericCollectionViewDataSource.swift */; };
 		D44AB4EE1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AB4EC1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift */; };
 		D44AB4EF1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44AB4ED1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib */; };
-		D44AB4F61E4FD54D0013A972 /* STFeedDetailsCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AB4F51E4FD54D0013A972 /* STFeedDetailsCollectionLayout.swift */; };
 		D44E33941E749FCD006F4709 /* STAttachmentPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44E33921E749FCD006F4709 /* STAttachmentPhotoCell.swift */; };
 		D44E33951E749FCD006F4709 /* STAttachmentPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44E33931E749FCD006F4709 /* STAttachmentPhotoCell.xib */; };
 		D44E33991E74B50C006F4709 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44E33981E74B50C006F4709 /* ImageUploader.swift */; };
@@ -70,13 +75,17 @@
 		D497271E1E32DC700076B7A1 /* PDBConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497271D1E32DC700076B7A1 /* PDBConfiguration.swift */; };
 		D49727201E32DCAC0076B7A1 /* STRealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497271F1E32DCAC0076B7A1 /* STRealmConfiguration.swift */; };
 		D49727241E32E3CC0076B7A1 /* STAuthorizationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49727231E32E3CC0076B7A1 /* STAuthorizationError.swift */; };
-		D497AB4C1E3BE53A006A393D /* CollectionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497AB461E3BE53A006A393D /* CollectionSection.swift */; };
-		D497AB4D1E3BE53A006A393D /* CollectionSectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497AB471E3BE53A006A393D /* CollectionSectionItem.swift */; };
-		D497AB4E1E3BE53A006A393D /* GenericCollectionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497AB481E3BE53A006A393D /* GenericCollectionSection.swift */; };
-		D497AB4F1E3BE53A006A393D /* GenericCollectionSectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497AB491E3BE53A006A393D /* GenericCollectionSectionItem.swift */; };
+		D497AB4C1E3BE53A006A393D /* TableSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497AB461E3BE53A006A393D /* TableSection.swift */; };
+		D497AB4D1E3BE53A006A393D /* TableSectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497AB471E3BE53A006A393D /* TableSectionItem.swift */; };
+		D497AB4E1E3BE53A006A393D /* GenericTableSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497AB481E3BE53A006A393D /* GenericTableSection.swift */; };
+		D497AB4F1E3BE53A006A393D /* GenericTableSectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497AB491E3BE53A006A393D /* GenericTableSectionItem.swift */; };
 		D497AB501E3BE53A006A393D /* GenericTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497AB4A1E3BE53A006A393D /* GenericTableViewDataSource.swift */; };
 		D497AB511E3BE53A006A393D /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497AB4B1E3BE53A006A393D /* TableViewDataSource.swift */; };
 		D497AB531E3BE7C0006A393D /* CountdownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497AB521E3BE7C0006A393D /* CountdownTimer.swift */; };
+		D49D97101E91333200D66D2F /* STUserDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D970F1E91333200D66D2F /* STUserDialogViewController.swift */; };
+		D49D97121E91390400D66D2F /* STChatControllerBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D97111E91390400D66D2F /* STChatControllerBase.swift */; };
+		D49D97141E914C0F00D66D2F /* STDialogMyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D97131E914C0F00D66D2F /* STDialogMyCell.swift */; };
+		D49D97161E914DD700D66D2F /* STDialogOtherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D97151E914DD700D66D2F /* STDialogOtherCell.swift */; };
 		D49EB19E1E45212F00B6F5DC /* STSocketRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49EB19D1E45212F00B6F5DC /* STSocketRequestBuilder.swift */; };
 		D49EB1A01E452B9A00B6F5DC /* STSocketRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49EB19F1E452B9A00B6F5DC /* STSocketRequest.swift */; };
 		D4AD43B31E47A970006F13DE /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AD43B21E47A970006F13DE /* AppSettings.swift */; };
@@ -112,7 +121,7 @@
 		E55906721E51A60800F8E20E /* STProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55906711E51A60800F8E20E /* STProfileTableViewController.swift */; };
 		E55906771E51A74500F8E20E /* STProfileHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55906751E51A74500F8E20E /* STProfileHeaderCell.swift */; };
 		E55906781E51A74500F8E20E /* STProfileHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E55906761E51A74500F8E20E /* STProfileHeaderCell.xib */; };
-		E559067A1E51FF5900F8E20E /* CollectionSectionHeaderFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55906791E51FF5900F8E20E /* CollectionSectionHeaderFooter.swift */; };
+		E559067A1E51FF5900F8E20E /* TableSectionHeaderFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55906791E51FF5900F8E20E /* TableSectionHeaderFooter.swift */; };
 		E55906801E520D7B00F8E20E /* ModelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E559067F1E520D7B00F8E20E /* ModelExtensions.swift */; };
 		E561F5671E72FA4000C7407C /* STPostAttachmentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561F5661E72FA4000C7407C /* STPostAttachmentsController.swift */; };
 		E561F56A1E72FCD300C7407C /* STAttachmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561F5681E72FCD300C7407C /* STAttachmentCell.swift */; };
@@ -157,6 +166,11 @@
 		277E51B2F6F272FF051A01F5 /* Pods_StrizhApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StrizhApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E8A8787F4373C051854C7D5 /* Pods-StrizhApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp.debug.xcconfig"; sourceTree = "<group>"; };
 		D402C2331E7DFEE700237EB9 /* RealmInt64.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmInt64.swift; sourceTree = "<group>"; };
+		D40405801E917F8400F0A8E4 /* CollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewDataSource.swift; path = DataSource/CollectionViewDataSource.swift; sourceTree = "<group>"; };
+		D40405841E91869D00F0A8E4 /* CollectionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionSection.swift; path = DataSource/CollectionSection.swift; sourceTree = "<group>"; };
+		D40405861E91870400F0A8E4 /* CollectionSectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionSectionItem.swift; path = DataSource/CollectionSectionItem.swift; sourceTree = "<group>"; };
+		D40405881E91876000F0A8E4 /* ValidationEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValidationEnum.swift; path = DataSource/ValidationEnum.swift; sourceTree = "<group>"; };
+		D404058A1E91886C00F0A8E4 /* SectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionItem.swift; path = DataSource/SectionItem.swift; sourceTree = "<group>"; };
 		D40A6BE51E3AA7DB00F1D218 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Router.swift; path = Extensions/Router.swift; sourceTree = "<group>"; };
 		D40A6BE71E3AA7FB00F1D218 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Extensions/Extensions.swift; sourceTree = "<group>"; };
 		D40BC85D1E5B60DF0045F327 /* STCommonButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STCommonButtonCell.swift; path = CommonUI/STCommonButtonCell.swift; sourceTree = "<group>"; };
@@ -176,6 +190,7 @@
 		D4227F501E62126D00BCB8B1 /* STContactsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STContactsController.swift; path = Contacts/STContactsController.swift; sourceTree = "<group>"; };
 		D4227F521E6270E200BCB8B1 /* STContactHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STContactHeaderCell.swift; path = Contacts/STContactHeaderCell.swift; sourceTree = "<group>"; };
 		D4227F541E6270F600BCB8B1 /* STContactHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STContactHeaderCell.xib; path = Contacts/STContactHeaderCell.xib; sourceTree = "<group>"; };
+		D42D530B1E915473007952AD /* STCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STCollectionLayout.swift; path = CommonUI/STCollectionLayout.swift; sourceTree = "<group>"; };
 		D433D1031E54F56900974AB1 /* STSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSettingsController.swift; path = Profile/STSettingsController.swift; sourceTree = "<group>"; };
 		D43A755E1E4E610700DB0850 /* STPostDetailsMapsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPostDetailsMapsCell.swift; path = Feed/STPostDetailsMapsCell.swift; sourceTree = "<group>"; };
 		D43A755F1E4E610700DB0850 /* STPostDetailsMapsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPostDetailsMapsCell.xib; path = Feed/STPostDetailsMapsCell.xib; sourceTree = "<group>"; };
@@ -194,7 +209,6 @@
 		D44AB4EA1E4FCC210013A972 /* GenericCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		D44AB4EC1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPostDetailsPhotoCell.swift; path = Feed/STPostDetailsPhotoCell.swift; sourceTree = "<group>"; };
 		D44AB4ED1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPostDetailsPhotoCell.xib; path = Feed/STPostDetailsPhotoCell.xib; sourceTree = "<group>"; };
-		D44AB4F51E4FD54D0013A972 /* STFeedDetailsCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedDetailsCollectionLayout.swift; path = Feed/STFeedDetailsCollectionLayout.swift; sourceTree = "<group>"; };
 		D44E33921E749FCD006F4709 /* STAttachmentPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STAttachmentPhotoCell.swift; path = NewPost/STAttachmentPhotoCell.swift; sourceTree = "<group>"; };
 		D44E33931E749FCD006F4709 /* STAttachmentPhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STAttachmentPhotoCell.xib; path = NewPost/STAttachmentPhotoCell.xib; sourceTree = "<group>"; };
 		D44E33981E74B50C006F4709 /* ImageUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
@@ -220,13 +234,17 @@
 		D497271D1E32DC700076B7A1 /* PDBConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PDBConfiguration.swift; path = DataBase/PDBConfiguration.swift; sourceTree = "<group>"; };
 		D497271F1E32DCAC0076B7A1 /* STRealmConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STRealmConfiguration.swift; path = DataBase/STRealmConfiguration.swift; sourceTree = "<group>"; };
 		D49727231E32E3CC0076B7A1 /* STAuthorizationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STAuthorizationError.swift; path = Errors/STAuthorizationError.swift; sourceTree = "<group>"; };
-		D497AB461E3BE53A006A393D /* CollectionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionSection.swift; path = DataSource/CollectionSection.swift; sourceTree = "<group>"; };
-		D497AB471E3BE53A006A393D /* CollectionSectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionSectionItem.swift; path = DataSource/CollectionSectionItem.swift; sourceTree = "<group>"; };
-		D497AB481E3BE53A006A393D /* GenericCollectionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenericCollectionSection.swift; path = DataSource/GenericCollectionSection.swift; sourceTree = "<group>"; };
-		D497AB491E3BE53A006A393D /* GenericCollectionSectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenericCollectionSectionItem.swift; path = DataSource/GenericCollectionSectionItem.swift; sourceTree = "<group>"; };
+		D497AB461E3BE53A006A393D /* TableSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableSection.swift; path = DataSource/TableSection.swift; sourceTree = "<group>"; };
+		D497AB471E3BE53A006A393D /* TableSectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableSectionItem.swift; path = DataSource/TableSectionItem.swift; sourceTree = "<group>"; };
+		D497AB481E3BE53A006A393D /* GenericTableSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenericTableSection.swift; path = DataSource/GenericTableSection.swift; sourceTree = "<group>"; };
+		D497AB491E3BE53A006A393D /* GenericTableSectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenericTableSectionItem.swift; path = DataSource/GenericTableSectionItem.swift; sourceTree = "<group>"; };
 		D497AB4A1E3BE53A006A393D /* GenericTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenericTableViewDataSource.swift; path = DataSource/GenericTableViewDataSource.swift; sourceTree = "<group>"; };
 		D497AB4B1E3BE53A006A393D /* TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewDataSource.swift; path = DataSource/TableViewDataSource.swift; sourceTree = "<group>"; };
 		D497AB521E3BE7C0006A393D /* CountdownTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownTimer.swift; sourceTree = "<group>"; };
+		D49D970F1E91333200D66D2F /* STUserDialogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STUserDialogViewController.swift; path = Dialogs/STUserDialogViewController.swift; sourceTree = "<group>"; };
+		D49D97111E91390400D66D2F /* STChatControllerBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STChatControllerBase.swift; path = Dialogs/STChatControllerBase.swift; sourceTree = "<group>"; };
+		D49D97131E914C0F00D66D2F /* STDialogMyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialogMyCell.swift; path = Dialogs/STDialogMyCell.swift; sourceTree = "<group>"; };
+		D49D97151E914DD700D66D2F /* STDialogOtherCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialogOtherCell.swift; path = Dialogs/STDialogOtherCell.swift; sourceTree = "<group>"; };
 		D49EB19D1E45212F00B6F5DC /* STSocketRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSocketRequestBuilder.swift; path = WebSocket/STSocketRequestBuilder.swift; sourceTree = "<group>"; };
 		D49EB19F1E452B9A00B6F5DC /* STSocketRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSocketRequest.swift; path = WebSocket/STSocketRequest.swift; sourceTree = "<group>"; };
 		D4AD43B21E47A970006F13DE /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
@@ -262,7 +280,7 @@
 		E55906711E51A60800F8E20E /* STProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STProfileTableViewController.swift; path = Profile/STProfileTableViewController.swift; sourceTree = "<group>"; };
 		E55906751E51A74500F8E20E /* STProfileHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STProfileHeaderCell.swift; path = Profile/STProfileHeaderCell.swift; sourceTree = "<group>"; };
 		E55906761E51A74500F8E20E /* STProfileHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STProfileHeaderCell.xib; path = Profile/STProfileHeaderCell.xib; sourceTree = "<group>"; };
-		E55906791E51FF5900F8E20E /* CollectionSectionHeaderFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionSectionHeaderFooter.swift; path = DataSource/CollectionSectionHeaderFooter.swift; sourceTree = "<group>"; };
+		E55906791E51FF5900F8E20E /* TableSectionHeaderFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableSectionHeaderFooter.swift; path = DataSource/TableSectionHeaderFooter.swift; sourceTree = "<group>"; };
 		E559067F1E520D7B00F8E20E /* ModelExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelExtensions.swift; path = Extensions/ModelExtensions.swift; sourceTree = "<group>"; };
 		E561F5661E72FA4000C7407C /* STPostAttachmentsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPostAttachmentsController.swift; path = NewPost/STPostAttachmentsController.swift; sourceTree = "<group>"; };
 		E561F5681E72FCD300C7407C /* STAttachmentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STAttachmentCell.swift; path = NewPost/STAttachmentCell.swift; sourceTree = "<group>"; };
@@ -325,6 +343,31 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D40405821E91832C00F0A8E4 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				D497AB461E3BE53A006A393D /* TableSection.swift */,
+				D497AB471E3BE53A006A393D /* TableSectionItem.swift */,
+				D497AB4B1E3BE53A006A393D /* TableViewDataSource.swift */,
+				E55906791E51FF5900F8E20E /* TableSectionHeaderFooter.swift */,
+				D497AB4A1E3BE53A006A393D /* GenericTableViewDataSource.swift */,
+				D497AB481E3BE53A006A393D /* GenericTableSection.swift */,
+				D497AB491E3BE53A006A393D /* GenericTableSectionItem.swift */,
+			);
+			name = TableView;
+			sourceTree = "<group>";
+		};
+		D40405831E91860000F0A8E4 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				D44AB4EA1E4FCC210013A972 /* GenericCollectionViewDataSource.swift */,
+				D40405801E917F8400F0A8E4 /* CollectionViewDataSource.swift */,
+				D40405841E91869D00F0A8E4 /* CollectionSection.swift */,
+				D40405861E91870400F0A8E4 /* CollectionSectionItem.swift */,
+			);
+			name = CollectionView;
+			sourceTree = "<group>";
+		};
 		D40BC85C1E5B605F0045F327 /* CommonUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -335,6 +378,7 @@
 				D40BC85E1E5B60DF0045F327 /* STCommonButtonCell.xib */,
 				D40BC8611E5B61120045F327 /* STCommonLabelCell.swift */,
 				D40BC8621E5B61120045F327 /* STCommonLabelCell.xib */,
+				D42D530B1E915473007952AD /* STCollectionLayout.swift */,
 			);
 			name = CommonUI;
 			sourceTree = "<group>";
@@ -542,7 +586,6 @@
 				D4AD43B41E47A980006F13DE /* Views */,
 				E5BE9E241E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift */,
 				E5BE9E311E4C99C00022B157 /* STFeedFilter.swift */,
-				D44AB4F51E4FD54D0013A972 /* STFeedDetailsCollectionLayout.swift */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -604,14 +647,10 @@
 		E53185E91E3612D600BC6C9A /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
-				D497AB461E3BE53A006A393D /* CollectionSection.swift */,
-				D497AB471E3BE53A006A393D /* CollectionSectionItem.swift */,
-				D497AB4B1E3BE53A006A393D /* TableViewDataSource.swift */,
-				D497AB481E3BE53A006A393D /* GenericCollectionSection.swift */,
-				D497AB491E3BE53A006A393D /* GenericCollectionSectionItem.swift */,
-				D497AB4A1E3BE53A006A393D /* GenericTableViewDataSource.swift */,
-				D44AB4EA1E4FCC210013A972 /* GenericCollectionViewDataSource.swift */,
-				E55906791E51FF5900F8E20E /* CollectionSectionHeaderFooter.swift */,
+				D40405831E91860000F0A8E4 /* CollectionView */,
+				D40405821E91832C00F0A8E4 /* TableView */,
+				D40405881E91876000F0A8E4 /* ValidationEnum.swift */,
+				D404058A1E91886C00F0A8E4 /* SectionItem.swift */,
 			);
 			name = DataSource;
 			sourceTree = "<group>";
@@ -754,6 +793,8 @@
 			isa = PBXGroup;
 			children = (
 				E5E4E9BC1E810F8600B77102 /* STDialogCell.swift */,
+				D49D97131E914C0F00D66D2F /* STDialogMyCell.swift */,
+				D49D97151E914DD700D66D2F /* STDialogOtherCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -763,6 +804,8 @@
 			children = (
 				E5E4E9C41E8115D500B77102 /* STDialogsController.swift */,
 				E58AF8501E8A4B9000CEF2B3 /* STChatViewController.swift */,
+				D49D970F1E91333200D66D2F /* STUserDialogViewController.swift */,
+				D49D97111E91390400D66D2F /* STChatControllerBase.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -967,6 +1010,7 @@
 				D40A6BE81E3AA7FB00F1D218 /* Extensions.swift in Sources */,
 				D49727201E32DCAC0076B7A1 /* STRealmConfiguration.swift in Sources */,
 				E5BE9E371E4E23A40022B157 /* STPostDetailsMainInfoCell.swift in Sources */,
+				D49D97101E91333200D66D2F /* STUserDialogViewController.swift in Sources */,
 				D497AB531E3BE7C0006A393D /* CountdownTimer.swift in Sources */,
 				E5BE9E281E4C8D690022B157 /* STFeedFilterTableViewController.swift in Sources */,
 				D4427E661E757C8F0002BCCF /* STCommonCollectionViewCell.swift in Sources */,
@@ -976,7 +1020,7 @@
 				D44E33991E74B50C006F4709 /* ImageUploader.swift in Sources */,
 				D40BC85F1E5B60DF0045F327 /* STCommonButtonCell.swift in Sources */,
 				D49727171E32D2750076B7A1 /* PRemoteServerApi.swift in Sources */,
-				E559067A1E51FF5900F8E20E /* CollectionSectionHeaderFooter.swift in Sources */,
+				E559067A1E51FF5900F8E20E /* TableSectionHeaderFooter.swift in Sources */,
 				E59448971E680C98002B2989 /* STPostButtonsCell.swift in Sources */,
 				D40A6BE61E3AA7DB00F1D218 /* Router.swift in Sources */,
 				E53185FE1E364AE700BC6C9A /* STLoginTableViewCell.swift in Sources */,
@@ -987,6 +1031,7 @@
 				D4227F4B1E61D0FE00BCB8B1 /* STContactsDataSourceWrapper.swift in Sources */,
 				D49727131E32CA8B0076B7A1 /* STError.swift in Sources */,
 				D49EB1A01E452B9A00B6F5DC /* STSocketRequest.swift in Sources */,
+				D49D97121E91390400D66D2F /* STChatControllerBase.swift in Sources */,
 				D497271B1E32D9BD0076B7A1 /* STServerApi.swift in Sources */,
 				E5BE9E2B1E4C8F000022B157 /* STFeedFilterTableViewCell.swift in Sources */,
 				E59B98C91E8E5BC10069F9C0 /* Colors.swift in Sources */,
@@ -1007,20 +1052,26 @@
 				D40BC8631E5B61120045F327 /* STCommonLabelCell.swift in Sources */,
 				E59A1B181E3F9388009EE669 /* STImage.swift in Sources */,
 				D40BC8661E5B706D0045F327 /* SHSPhoneComponentExtensions.swift in Sources */,
+				D42D530C1E915473007952AD /* STCollectionLayout.swift in Sources */,
 				E5FF31261E55D3FA0013B713 /* STEditProfileHeaderCell.swift in Sources */,
 				E537712E1E64941C00BBADEA /* STPersonalPostDetailsMainInfoCell.swift in Sources */,
+				D49D97141E914C0F00D66D2F /* STDialogMyCell.swift in Sources */,
+				D40405891E91876000F0A8E4 /* ValidationEnum.swift in Sources */,
 				E58AF8511E8A4B9000CEF2B3 /* STChatViewController.swift in Sources */,
 				E50FA39A1E6842CE00CAA4D7 /* STNewPostObject.swift in Sources */,
 				D4194A171E46028F00D0B189 /* RealmString.swift in Sources */,
-				D497AB4F1E3BE53A006A393D /* GenericCollectionSectionItem.swift in Sources */,
+				D497AB4F1E3BE53A006A393D /* GenericTableSectionItem.swift in Sources */,
 				E5BE9E251E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift in Sources */,
 				E50DBEAF1E76FD8D000C38E4 /* STTextViewCell.swift in Sources */,
 				E53F37BD1E3A632C00393BAD /* STLoginLogoTableViewCell.swift in Sources */,
-				D497AB4C1E3BE53A006A393D /* CollectionSection.swift in Sources */,
+				D497AB4C1E3BE53A006A393D /* TableSection.swift in Sources */,
 				E5BE9E321E4C99C00022B157 /* STFeedFilter.swift in Sources */,
 				D4AD43C11E47DB7B006F13DE /* STNavigationController.swift in Sources */,
 				E50FA39D1E68510E00CAA4D7 /* STNewPostNavigationController.swift in Sources */,
+				D40405811E917F8400F0A8E4 /* CollectionViewDataSource.swift in Sources */,
+				D40405871E91870400F0A8E4 /* CollectionSectionItem.swift in Sources */,
 				D4C60A811E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift in Sources */,
+				D40405851E91869D00F0A8E4 /* CollectionSection.swift in Sources */,
 				D4227F511E62126D00BCB8B1 /* STContactsController.swift in Sources */,
 				D43BED6E1E708D4100683D5C /* DatePickerPresentationController.swift in Sources */,
 				D440F8FF1E79CA380011C22D /* AsyncOperation.swift in Sources */,
@@ -1028,19 +1079,20 @@
 				E53F37C31E3A75F900393BAD /* KeyboardNotificationListener.swift in Sources */,
 				D4C2AD841E5395C7009CD55A /* STPersonalPostCell.swift in Sources */,
 				D43BED6C1E708A1000683D5C /* STBottomPopupPresentationAnimation.swift in Sources */,
+				D49D97161E914DD700D66D2F /* STDialogOtherCell.swift in Sources */,
 				E53185F71E3612EF00BC6C9A /* STLoadingStatusEnum.swift in Sources */,
 				D4194A111E4600F000D0B189 /* STPost.swift in Sources */,
-				D44AB4F61E4FD54D0013A972 /* STFeedDetailsCollectionLayout.swift in Sources */,
 				E55906721E51A60800F8E20E /* STProfileTableViewController.swift in Sources */,
 				D497AB501E3BE53A006A393D /* GenericTableViewDataSource.swift in Sources */,
 				E59448901E680797002B2989 /* STNewPostController.swift in Sources */,
 				D43A75631E4E6A3B00DB0850 /* STFile.swift in Sources */,
 				D4922AAD1E43F6B9006FF4D5 /* STHTTPManager.swift in Sources */,
 				E5E4E9C51E8115D500B77102 /* STDialogsController.swift in Sources */,
-				D497AB4E1E3BE53A006A393D /* GenericCollectionSection.swift in Sources */,
+				D497AB4E1E3BE53A006A393D /* GenericTableSection.swift in Sources */,
 				D4922AA61E43DB67006FF4D5 /* STWebSocket.swift in Sources */,
 				E59448931E680B83002B2989 /* STTextFieldCell.swift in Sources */,
 				D4194A1A1E460D4400D0B189 /* ArrayTransform.swift in Sources */,
+				D404058B1E91886C00F0A8E4 /* SectionItem.swift in Sources */,
 				D4AD43BC1E47B504006F13DE /* STPostTableViewCell.swift in Sources */,
 				D44AB4EE1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift in Sources */,
 				D44E339B1E74B9B8006F4709 /* ImageUploadOperation.swift in Sources */,
@@ -1054,7 +1106,7 @@
 				D49545D01E3D064700EDCF01 /* STLoginTextTableViewCell.swift in Sources */,
 				D43A75671E4E883700DB0850 /* STFeed.swift in Sources */,
 				E59448891E66D8AD002B2989 /* STTabBarViewController.swift in Sources */,
-				D497AB4D1E3BE53A006A393D /* CollectionSectionItem.swift in Sources */,
+				D497AB4D1E3BE53A006A393D /* TableSectionItem.swift in Sources */,
 				D44AB4EB1E4FCC210013A972 /* GenericCollectionViewDataSource.swift in Sources */,
 				E5BE9E341E4E181E0022B157 /* STFeedDetailsTableViewController.swift in Sources */,
 				D497AB511E3BE53A006A393D /* TableViewDataSource.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  GenericCollectionSectionItem.swift
+//  GenericTableSectionItem.swift
 //  Targo
 //
 //  Created by Vladimir Kokhanevich on 15/08/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GenericCollectionSectionItem<TItem>: Equatable {
+class GenericTableSectionItem<TItem>: Equatable {
     
     let id = UUID()
     
@@ -34,7 +34,7 @@ class GenericCollectionSectionItem<TItem>: Equatable {
         self.item = item
     }
     
-    public static func ==(lhs: GenericCollectionSectionItem<TItem>, rhs: GenericCollectionSectionItem<TItem>) -> Bool {
+    public static func ==(lhs: GenericTableSectionItem<TItem>, rhs: GenericTableSectionItem<TItem>) -> Bool {
         
         return lhs.id == rhs.id
     }

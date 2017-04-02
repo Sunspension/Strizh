@@ -13,9 +13,9 @@ import Bond
 
 class STContactsDataSourceWrapper {
     
-    fileprivate var notRelatedContactsSection = CollectionSection()
+    fileprivate var notRelatedContactsSection = TableSection()
     
-    fileprivate var searchSection = CollectionSection()
+    fileprivate var searchSection = TableSection()
     
     fileprivate var contactsProvider = STContactsProvider.sharedInstance
     
@@ -41,7 +41,7 @@ class STContactsDataSourceWrapper {
         self.viewController = viewController
         
         // hack for table footer
-        self.dataSource.sections.append(CollectionSection())
+        self.dataSource.sections.append(TableSection())
         
         self.searchDataSource.sections.append(self.searchSection)
         
@@ -107,7 +107,7 @@ class STContactsDataSourceWrapper {
                 
                 if section == nil {
                     
-                    section = CollectionSection(title: letter)
+                    section = TableSection(title: letter)
                     section!.sectionType = letter
                     
                     section!.header(headerClass: STContactHeaderCell.self, item: letter, bindingAction: { (cell, item) in
@@ -149,7 +149,7 @@ class STContactsDataSourceWrapper {
         }
     }
     
-    fileprivate func binding(_ cell: UITableViewCell, item: CollectionSectionItem) {
+    fileprivate func binding(_ cell: UITableViewCell, item: TableSectionItem) {
         
         let viewCell = cell as! STContactCell
         let contact = item.item as! STContact

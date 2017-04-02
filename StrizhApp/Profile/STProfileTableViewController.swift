@@ -17,9 +17,9 @@ class STProfileTableViewController: UITableViewController {
     
     fileprivate var dataSource = TableViewDataSource()
     
-    fileprivate var userInfoSection = CollectionSection()
+    fileprivate var userInfoSection = TableSection()
     
-    fileprivate var userPostsSection = CollectionSection()
+    fileprivate var userPostsSection = TableSection()
     
     fileprivate var user: STUser?
     

@@ -12,9 +12,9 @@ class STSettingsController: UITableViewController {
 
     fileprivate let dataSource = TableViewDataSource()
     
-    fileprivate let section1 = CollectionSection(title: "УВЕДОМЛЕНИЯ")
+    fileprivate let section1 = TableSection(title: "УВЕДОМЛЕНИЯ")
     
-    fileprivate let section2 = CollectionSection()
+    fileprivate let section2 = TableSection()
     
     
     required init?(coder aDecoder: NSCoder) {

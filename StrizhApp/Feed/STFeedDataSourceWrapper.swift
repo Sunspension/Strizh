@@ -22,7 +22,7 @@ class STFeedDataSourceWrapper {
     
     fileprivate var pageSize: Int
     
-    fileprivate let section = GenericCollectionSection<STPost>()
+    fileprivate let section = GenericTableSection<STPost>()
     
     fileprivate var filter: STFeedFilter?
     

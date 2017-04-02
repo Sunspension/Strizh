@@ -64,7 +64,7 @@ class STFeedFilterTableViewController: UITableViewController {
         
         self.navigationItem.title = "Фильтр"
         
-//        let section1 = CollectionSection()
+//        let section1 = TableSection()
 //        self.dataSource.sections.append(section1)
 //        
 //        section1.addItem(cellClass: STFeedFilterSwitchTableViewCell.self,
@@ -86,7 +86,7 @@ class STFeedFilterTableViewController: UITableViewController {
 //                            }
 //        }
         
-        let section2 = CollectionSection()
+        let section2 = TableSection()
         self.dataSource.sections.append(section2)
         
         section2.addItem(cellClass: STFeedFilterTableViewCell.self,

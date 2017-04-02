@@ -101,14 +101,14 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         
         self.itemsSource!.dataSource.onDidSelectRowAtIndexPath = {
             
-            (_ tableView: UITableView, _ indexPath: IndexPath, _ item: CollectionSectionItem) in
+            (_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) in
         
             self.selectedItems.append((item.item as! STContact).contactUserId)
         }
         
         self.itemsSource!.dataSource.onDidDeselectRowAtIndexPath = {
             
-            (_ tableView: UITableView, _ indexPath: IndexPath, _ item: CollectionSectionItem) in
+            (_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) in
             
             let contactId = (item.item as! STContact).contactUserId
             let index = self.selectedItems.index(of: (contactId))!

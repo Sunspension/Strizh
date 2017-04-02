@@ -28,6 +28,14 @@ extension Date {
         return formatter.string(from: self)
     }
     
+    var time: String {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        
+        return formatter.string(from: self)
+    }
+    
     func elapsedInterval() -> String {
         
         let componets = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: self, to: Date())

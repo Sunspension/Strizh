@@ -1,5 +1,5 @@
 //
-//  GenericCollectionSection.swift
+//  GenericTableSection.swift
 //  Targo
 //
 //  Created by Vladimir Kokhanevich on 10/07/16.
@@ -8,21 +8,21 @@
 
 import UIKit
 
-class GenericCollectionSection<TItem>: NSObject {
+class GenericTableSection<TItem>: NSObject {
 
     var title: String
     
-    var items: [GenericCollectionSectionItem<TItem>] = []
+    var items: [GenericTableSectionItem<TItem>] = []
     
-    var headerItem: CollectionSectionHeaderFooter?
+    var headerItem: TableSectionHeaderFooter?
     
-    var footerItem: CollectionSectionHeaderFooter?
+    var footerItem: TableSectionHeaderFooter?
     
     var sectionType: Any?
     
     var sectionChanged: (() -> Void)?
     
-    subscript(index: Int) -> GenericCollectionSectionItem<TItem> {
+    subscript(index: Int) -> GenericTableSectionItem<TItem> {
         
         get {
             
@@ -42,7 +42,7 @@ class GenericCollectionSection<TItem>: NSObject {
     
     func add(item: TItem, itemType: Any? = nil) {
         
-        let item = GenericCollectionSectionItem<TItem>(item: item)
+        let item = GenericTableSectionItem<TItem>(item: item)
         item.itemType = itemType
         
         self.items.append(item)
@@ -50,7 +50,7 @@ class GenericCollectionSection<TItem>: NSObject {
     
     func insert(at index: Int, item: TItem, itemType: Any? = nil) {
         
-        let item = GenericCollectionSectionItem<TItem>(item: item)
+        let item = GenericTableSectionItem<TItem>(item: item)
         item.itemType = itemType
         
         self.items.insert(item, at: index)
@@ -58,13 +58,13 @@ class GenericCollectionSection<TItem>: NSObject {
     
     func header(headerNibClass: AnyClass, item: Any? = nil, bindingAction: BindingHeaderFooterAction? = nil) {
         
-        let header = CollectionSectionHeaderFooter(headerFooterNibClass: headerNibClass, item: item, binding: bindingAction)
+        let header = TableSectionHeaderFooter(headerFooterNibClass: headerNibClass, item: item, binding: bindingAction)
         self.headerItem = header
     }
     
     func footer(footerNibClass: AnyClass, item: Any? = nil, bindingAction: BindingHeaderFooterAction? = nil) {
         
-        let footer = CollectionSectionHeaderFooter(headerFooterNibClass: footerNibClass, item: item, binding: bindingAction)
+        let footer = TableSectionHeaderFooter(headerFooterNibClass: footerNibClass, item: item, binding: bindingAction)
         self.footerItem = footer
     }
 }

@@ -1,5 +1,5 @@
 //
-//  CollectionSectionHeaderFooter.swift
+//  TableSectionHeaderFooter.swift
 //  StrizhApp
 //
 //  Created by Vladimir Kokhanevich on 13/02/2017.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-typealias BindingHeaderFooterAction = ((_ cell: UITableViewHeaderFooterView, _ item: CollectionSectionHeaderFooter) -> Void)
+typealias BindingHeaderFooterAction = ((_ cell: UITableViewHeaderFooterView, _ item: TableSectionHeaderFooter) -> Void)
 
-class CollectionSectionHeaderFooter {
+class TableSectionHeaderFooter {
 
     var item: Any?
     

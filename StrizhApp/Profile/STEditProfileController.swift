@@ -23,9 +23,9 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
     
     fileprivate let dataSource = TableViewDataSource()
     
-    fileprivate var userImageSection = CollectionSection()
+    fileprivate var userImageSection = TableSection()
     
-    fileprivate var userInfoSection = CollectionSection()
+    fileprivate var userInfoSection = TableSection()
     
     fileprivate var user: STUser?
     

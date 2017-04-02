@@ -24,9 +24,9 @@ class STFeedDetailsTableViewController: UIViewController {
     
     fileprivate var imageDataSource: GenericCollectionViewDataSource<STPostDetailsPhotoCell, STImage>?
     
-    fileprivate let tableSection = CollectionSection()
+    fileprivate let tableSection = TableSection()
     
-    fileprivate let collectionSection = GenericCollectionSection<STImage>()
+    fileprivate let collectionSection = GenericTableSection<STImage>()
     
     fileprivate var coordinateBounds = GMSCoordinateBounds()
     

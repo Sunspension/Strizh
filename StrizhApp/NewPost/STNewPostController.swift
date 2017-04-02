@@ -15,9 +15,9 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
     
     fileprivate var dataSource = TableViewDataSource()
     
-    fileprivate var requiredFieldsSection = CollectionSection()
+    fileprivate var requiredFieldsSection = TableSection()
     
-    fileprivate var optionalFieldsSection = CollectionSection()
+    fileprivate var optionalFieldsSection = TableSection()
     
     fileprivate lazy var postObject: STUserPostObject = {
        

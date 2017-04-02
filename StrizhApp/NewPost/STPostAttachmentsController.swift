@@ -38,11 +38,11 @@ class STPostAttachmentsController: UITableViewController {
 
     fileprivate var dataSource = TableViewDataSource()
     
-    fileprivate var section = CollectionSection()
+    fileprivate var section = TableSection()
     
     fileprivate var imageDataSource: GenericCollectionViewDataSource<STAttachmentPhotoCell, ImageAsset>?
     
-    fileprivate let imagesCollectionSection = GenericCollectionSection<ImageAsset>()
+    fileprivate let imagesCollectionSection = GenericTableSection<ImageAsset>()
     
     fileprivate var imageUploader = ImageUploader()
     

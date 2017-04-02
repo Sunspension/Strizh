@@ -8,8 +8,15 @@
 
 import UIKit
 
-class STFeedDetailsCollectionLayout: UICollectionViewFlowLayout {
+class STCollectionLayout: UICollectionViewFlowLayout {
 
+    required init?(coder aDecoder: NSCoder) {
+        
+        super.init(coder: aDecoder)
+        
+        self.estimatedItemSize = CGSize(width: 200, height: 5)
+    }
+    
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         
         let attributes = super.layoutAttributesForItem(at: indexPath)?.copy() as? UICollectionViewLayoutAttributes

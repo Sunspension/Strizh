@@ -95,10 +95,10 @@ extension UIViewController {
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    func st_router_openChatController(dialog: STDialog) {
+    func st_router_openChatController(dialog: STDialog, users: [STUser]) {
         
-        let controller = storyBoard.instantiateViewController(withIdentifier: String(describing: STChatViewController.self)) as! STChatViewController
-        controller.dialog = dialog
+        let chatController = storyBoard.instantiateViewController(withIdentifier: String(describing: STChatViewController.self)) as? STChatViewController
+        let controller = STUserDialogViewController(dialog: dialog, users: users, chatController: chatController!)
         self.navigationController?.pushViewController(controller, animated: true)
     }
 }

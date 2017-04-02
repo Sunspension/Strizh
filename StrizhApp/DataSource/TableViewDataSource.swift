@@ -10,13 +10,13 @@ import UIKit
 
 class TableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     
-    var sections: [CollectionSection] = []
+    var sections: [TableSection] = []
     
-    var onDidSelectRowAtIndexPath: ((_ tableView: UITableView, _ indexPath: IndexPath, _ item: CollectionSectionItem) -> Void)?
+    var onDidSelectRowAtIndexPath: ((_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) -> Void)?
     
-    var onDidDeselectRowAtIndexPath: ((_ tableView: UITableView, _ indexPath: IndexPath, _ item: CollectionSectionItem) -> Void)?
+    var onDidDeselectRowAtIndexPath: ((_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) -> Void)?
     
-    subscript(index: Int) -> CollectionSection {
+    subscript(index: Int) -> TableSection {
         
         get {
             
@@ -30,7 +30,7 @@ class TableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelegate 
     }
     
     
-    func item(by: IndexPath) -> CollectionSectionItem {
+    func item(by: IndexPath) -> TableSectionItem {
         
         return sections[by.section].items[by.row]
     }
