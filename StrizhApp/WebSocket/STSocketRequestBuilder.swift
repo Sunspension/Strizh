@@ -344,9 +344,7 @@ enum STSocketRequestBuilder {
             
             self.addToQuery(&query, type: .pageSize, value: pageSize)
             self.addToQuery(&query, type: .sortingOrder, value: ["id" : "desc"])
-            self.addToQuery(&query, type: .filters, value: ["object_id" : dialog.objectId])
-            
-            query["object_type"] = dialog.objectType
+            self.addToQuery(&query, type: .filters, value: ["dialog_id" : dialog.id])
             
             break
         }

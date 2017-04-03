@@ -108,7 +108,7 @@
                                     <constraint firstAttribute="trailing" secondItem="ZId-E6-1Lt" secondAttribute="trailing" constant="12" id="l4f-Qg-xSo"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="FYQ-B9-un8">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="FYQ-B9-un8">
                                 <rect key="frame" x="0.0" y="20" width="375" height="594"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="neT-pO-owl" customClass="STCollectionLayout" customModule="StrizhApp" customModuleProvider="target">
@@ -369,7 +369,7 @@
             <objects>
                 <navigationController id="y8a-4d-R7j" customClass="STNavigationController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Лента" image="icon-feed" id="1vh-bf-t6H"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Jhj-Ko-WV5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Jhj-Ko-WV5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -409,7 +409,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="ibQ-gp-xhM" customClass="STNavigationController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Кабинет" image="icon-profile" id="2FL-tE-lSs"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QE0-AY-KGJ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="QE0-AY-KGJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -428,7 +428,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8hU-3R-Ujc" customClass="STNavigationController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Контакты" image="icon-contacts" id="rhd-M2-bI2"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zhg-1V-xPv">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Zhg-1V-xPv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -449,7 +449,7 @@
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="y4b-by-Jmu">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="y4b-by-Jmu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

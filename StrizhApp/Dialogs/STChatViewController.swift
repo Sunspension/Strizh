@@ -23,11 +23,15 @@ class STChatViewController: STChatControllerBase {
     
     @IBOutlet weak var bottomToolbarSpace: NSLayoutConstraint!
     
+    
     fileprivate var dataSource = CollectionViewDataSource()
     
     fileprivate var section = CollectionSection()
     
     fileprivate var myUser: STUser!
+    
+    fileprivate var originalContentInset = UIEdgeInsets.zero
+    
     
     var users: [STUser] = []
     
@@ -60,6 +64,8 @@ class STChatViewController: STChatControllerBase {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size {
 
             self.bottomToolbarSpace.constant = keyboardSize.height
+            self.scrollToLastMessage()
+            
             UIView.animate(withDuration: 0.3, animations: { 
                 
                 self.view.layoutIfNeeded()
@@ -70,6 +76,7 @@ class STChatViewController: STChatControllerBase {
     override func keyboardWillHide(_ notification: Notification) {
         
         self.bottomToolbarSpace.constant = 0
+        
         UIView.animate(withDuration: 0.3, animations: {
             
             self.view.layoutIfNeeded()
