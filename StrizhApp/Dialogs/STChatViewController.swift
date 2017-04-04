@@ -58,8 +58,6 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         self.collectionView.delegate = self.dataSource
         self.collectionView.dataSource = self.dataSource
         
-        self.collectionView.backgroundColor = UIColor.stLightBlueGrey
-        
         self.dataSource.sections.append(self.section)
     }
 

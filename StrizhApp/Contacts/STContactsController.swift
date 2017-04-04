@@ -46,7 +46,10 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.tableFooterView = UIView()
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.stLightBlueGrey
+        self.tableView.backgroundView = backgroundView
+        
         self.tableView.backgroundColor = UIColor.stLightBlueGrey
         self.tableView.estimatedRowHeight = 50
         self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -117,6 +120,8 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         
         self.tableView.dataSource = self.itemsSource!.dataSource
         self.tableView.delegate = self.itemsSource!.dataSource
+        
+        self.tableView.tableFooterView = UIView()
         
         self.itemsSource!.synchronizeContacts()
         

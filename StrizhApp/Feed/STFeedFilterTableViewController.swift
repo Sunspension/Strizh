@@ -50,6 +50,7 @@ class STFeedFilterTableViewController: UITableViewController {
         self.tableView.estimatedRowHeight = 44
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.allowsMultipleSelection = true
+        self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 52, bottom: 0, right: 0)
         
         self.tableView.dataSource = self.dataSource
         

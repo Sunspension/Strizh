@@ -42,7 +42,10 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.tableFooterView = UIView()
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.stLightBlueGrey
+        self.tableView.backgroundView = backgroundView
         self.tableView.backgroundColor = UIColor.stLightBlueGrey
         self.tableView.estimatedRowHeight = 176
         self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -69,6 +72,9 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         
         // set data source
         self.tableView.dataSource = self.feedDataSource!.dataSource
+        
+        // set footer view after data source to prevent unwanted data source calls
+        self.tableView.tableFooterView = UIView()
         
         self.tableView.showBusy()
         self.feedDataSource!.loadFeed()
