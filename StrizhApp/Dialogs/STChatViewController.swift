@@ -154,6 +154,11 @@ class STChatViewController: STChatControllerBase {
         self.collectionView.setNeedsLayout()
         self.collectionView.layoutIfNeeded()
         
+        guard self.section.items.count != 0 else {
+            
+            return
+        }
+        
         let item = self.section.items.last!
         let index = self.section.items.index(of: item)!
         let indexPath = IndexPath(item: index, section: 0)

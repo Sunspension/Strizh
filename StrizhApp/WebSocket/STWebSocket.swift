@@ -18,6 +18,8 @@ class STWebSocket {
     
     fileprivate var serverUrlString: String
     
+    fileprivate var requestCallbacks: [String : ([String : Any]) -> Void] = [:]
+    
     
     init(serverUrlString: String) {
         
@@ -344,7 +346,6 @@ class STWebSocket {
     }
     
     // MARK: Private methods
-    
     fileprivate func sendRequest(request: STSocketRequest,
                                  callback: @escaping (_ json: [String : Any]) -> Void) {
         
@@ -354,40 +355,8 @@ class STWebSocket {
             print("request id: \(request.requestId)")
             print("================================")
             
+            self.requestCallbacks[request.requestId] = callback
             self.socket?.emit("request", request.payLoad)
-            
-            self.socket?.on("response") { (data, ack) in
-                
-                // converting data to json
-                guard let responseString = data[0] as? String else {
-                    
-                    return
-                }
-                
-                let responseData = responseString.data(using: String.Encoding.utf8)
-                
-                var json = [String : AnyObject]()
-                
-                do {
-                    
-                    json = try JSONSerialization.jsonObject(with: responseData!, options: []) as! [String : AnyObject]
-                }
-                catch let error {
-                    
-                    print(error)
-                }
-                
-                print(json)
-                
-                if let requestId = json["request_id"] as? String,
-                    requestId == request.requestId {
-                    
-                    if let data = json["data"] as? [String : Any] {
-                        
-                        callback(data)
-                    }
-                }
-            }
         }
     }
     
@@ -412,13 +381,49 @@ class STWebSocket {
             
             self.socket?.connect()
             
-            self.socket?.once("connect") { (data, ack) in
+            self.socket?.on("connect") { (data, ack) in
                 
                 print("===============\n")
                 print("socket connected")
                 print("===============\n")
                 
                 callback()
+            }
+            
+            self.socket?.on("response") { (data, ack) in
+                
+                // converting data to json
+                guard let responseString = data[0] as? String else {
+                    
+                    return
+                }
+                
+                let responseData = responseString.data(using: String.Encoding.utf8)
+                
+                var json = [String : AnyObject]()
+                
+                do {
+                    
+                    json = try JSONSerialization.jsonObject(with: responseData!, options: []) as! [String : AnyObject]
+                }
+                catch let error {
+                    
+                    print(error)
+                }
+                
+                print(json)
+                
+                if let requestId = json["request_id"] as? String {
+                    
+                    if let data = json["data"] as? [String : Any] {
+                        
+                        if let callback = self.requestCallbacks.first(where: { $0.key == requestId }) {
+                            
+                            callback.value(data)
+                            self.requestCallbacks.removeValue(forKey: callback.key)
+                        }
+                    }
+                }
             }
         }
         else {
