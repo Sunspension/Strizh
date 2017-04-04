@@ -351,9 +351,9 @@ class STWebSocket {
         
         self.socketConnect {
             
-            print("================================")
-            print("request id: \(request.requestId)")
-            print("================================")
+            debugPrint("================================")
+            debugPrint("request id: \(request.requestId)")
+            debugPrint("================================")
             
             self.requestCallbacks[request.requestId] = callback
             self.socket?.emit("request", request.payLoad)
@@ -369,9 +369,49 @@ class STWebSocket {
         
         self.socket = SocketIOClient(socketURL: URL(string: serverUrlString)!, config: config)
         
-        self.socket?.on("event") { (data, ack) in
+        self.socket!.on("event") { (data, ack) in
             
-            print(data)
+            debugPrint(data)
+        }
+        
+        self.socket!.on("response") { (data, ack) in
+            
+            // converting data to json
+            guard let responseString = data[0] as? String else {
+                
+                return
+            }
+            
+            let responseData = responseString.data(using: String.Encoding.utf8)
+            
+            var json = [String : AnyObject]()
+            
+            do {
+                
+                json = try JSONSerialization.jsonObject(with: responseData!, options: []) as! [String : AnyObject]
+            }
+            catch let error {
+                
+                debugPrint(error)
+            }
+            
+            debugPrint(json)
+            
+            if let requestId = json["request_id"] as? String {
+                
+                if let data = json["data"] as? [String : Any] {
+                    
+                    if let callback = self.requestCallbacks.first(where: { $0.key == requestId }) {
+                        
+                        callback.value(data)
+                        self.requestCallbacks.removeValue(forKey: callback.key)
+                    }
+                }
+                else {
+                    
+                    // TODO error handler
+                }
+            }
         }
     }
     
@@ -381,49 +421,10 @@ class STWebSocket {
             
             self.socket?.connect()
             
-            self.socket?.on("connect") { (data, ack) in
-                
-                print("===============\n")
-                print("socket connected")
-                print("===============\n")
+            // we dont want to have this all the time, just once for delayed callback
+            self.socket?.once("connect") { (data, ack) in
                 
                 callback()
-            }
-            
-            self.socket?.on("response") { (data, ack) in
-                
-                // converting data to json
-                guard let responseString = data[0] as? String else {
-                    
-                    return
-                }
-                
-                let responseData = responseString.data(using: String.Encoding.utf8)
-                
-                var json = [String : AnyObject]()
-                
-                do {
-                    
-                    json = try JSONSerialization.jsonObject(with: responseData!, options: []) as! [String : AnyObject]
-                }
-                catch let error {
-                    
-                    print(error)
-                }
-                
-                print(json)
-                
-                if let requestId = json["request_id"] as? String {
-                    
-                    if let data = json["data"] as? [String : Any] {
-                        
-                        if let callback = self.requestCallbacks.first(where: { $0.key == requestId }) {
-                            
-                            callback.value(data)
-                            self.requestCallbacks.removeValue(forKey: callback.key)
-                        }
-                    }
-                }
             }
         }
         else {

@@ -354,7 +354,7 @@ class STProfileTableViewController: UITableViewController {
                                             viewCell.locations.setTitle("\(0)", for: .normal)
                                         }
                                         
-                                        viewCell.more.reactive.tap.observe { _ in
+                                        viewCell.more.reactive.tap.observeNext { _ in
                                             
                                             let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
                                             

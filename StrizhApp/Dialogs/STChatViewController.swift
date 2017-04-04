@@ -9,7 +9,7 @@
 import UIKit
 import AlamofireImage
 
-class STChatViewController: STChatControllerBase {
+class STChatViewController: STChatControllerBase, UITextViewDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -48,13 +48,17 @@ class STChatViewController: STChatControllerBase {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        textView.layer.cornerRadius = 5
-        textView.clipsToBounds = true
+        self.textView.layer.cornerRadius = 5
+        self.textView.clipsToBounds = true
+        self.textView.delegate = self
+        self.textView.textContainerInset = UIEdgeInsets(top: 8, left: 4, bottom: 8, right: 4)
         
         self.myUser = STUser.objects(by: STUser.self).first!
         
         self.collectionView.delegate = self.dataSource
         self.collectionView.dataSource = self.dataSource
+        
+        self.collectionView.backgroundColor = UIColor.stLightBlueGrey
         
         self.dataSource.sections.append(self.section)
     }
@@ -64,6 +68,8 @@ class STChatViewController: STChatControllerBase {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size {
 
             self.bottomToolbarSpace.constant = keyboardSize.height
+            self.textView.contentOffset = CGPoint.zero
+            self.textView.contentInset = UIEdgeInsets.zero
             self.scrollToLastMessage()
             
             UIView.animate(withDuration: 0.3, animations: { 
@@ -80,9 +86,15 @@ class STChatViewController: STChatControllerBase {
         UIView.animate(withDuration: 0.3, animations: {
             
             self.view.layoutIfNeeded()
+            self.bottomToolbar.layoutIfNeeded()
         })
     }
 
+    func textViewDidChange(_ textView: UITextView) {
+        
+        self.placeHolder.isHidden = !textView.text.isEmpty
+    }
+    
     fileprivate func createDataSource() {
         
         for message in self.itemsSource {

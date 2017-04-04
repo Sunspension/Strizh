@@ -39,7 +39,7 @@ extension STUser {
             
             let url = URL(string: urlString)!
             
-            AppDelegate.appSettings.imageDownloader.download(URLRequest(url: url)) { [unowned self] response in
+            AppDelegate.appSettings.imageDownloader.download(URLRequest(url: url)) { [weak self] response in
                 
                 if let error = response.result.error {
                     
@@ -50,7 +50,7 @@ extension STUser {
                     
                     STUser.realm.beginWrite()
                     
-                    self.imageData = UIImageJPEGRepresentation(image, 1)
+                    self?.imageData = UIImageJPEGRepresentation(image, 1)
                     
                     do {
                         
