@@ -30,8 +30,6 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
     
     fileprivate var myUser: STUser!
     
-    fileprivate var originalContentInset = UIEdgeInsets.zero
-    
     
     var users: [STUser] = []
     
@@ -52,6 +50,14 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         self.textView.clipsToBounds = true
         self.textView.delegate = self
         self.textView.textContainerInset = UIEdgeInsets(top: 8, left: 4, bottom: 8, right: 4)
+        
+        let tapRecognaizer = UITapGestureRecognizer(target: self, action: #selector(self.tapGestureHandler))
+        tapRecognaizer.numberOfTapsRequired = 1
+        tapRecognaizer.numberOfTouchesRequired = 1
+        
+        self.view.addGestureRecognizer(tapRecognaizer)
+        
+        self.sendButton.addTarget(self, action: #selector(self.sendMessage), for: .touchUpInside)
         
         self.myUser = STUser.objects(by: STUser.self).first!
         
@@ -88,9 +94,39 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         })
     }
 
+    func sendMessage() {
+        
+        let text = self.textView.text.trimmingCharacters(in: .whitespaces)
+        let createdAt = Date()
+        let userId = self.myUser.id
+        
+        let message = STMessage(message: text, createdAt: createdAt, userId: userId)
+        
+        let itemIndex = self.section.addItem(cellClass: STDialogMyCell.self, item: message,
+                                             bindingAction: self.myCellBindingAction)
+        
+        let indexPath = IndexPath(item: itemIndex!, section: 0)
+        
+        self.textView.text = ""
+        self.placeHolder.isHidden = false
+        
+        self.collectionView.insertItems(at: [indexPath])
+        self.scrollToLastMessage()
+    }
+    
     func textViewDidChange(_ textView: UITextView) {
         
         self.placeHolder.isHidden = !textView.text.isEmpty
+    }
+    
+    func tapGestureHandler(tapRecognizer: UITapGestureRecognizer) {
+        
+        if tapRecognizer.state != .recognized {
+            
+            return
+        }
+        
+        self.view.endEditing(true)
     }
     
     fileprivate func createDataSource() {
@@ -99,28 +135,8 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
             
             if message.userId == self.myUser.id {
                 
-                self.section.addItem(cellClass: STDialogMyCell.self,
-                                     item: message,
-                                     bindingAction: { [unowned self] (cell, item) in
-                                        
-                                        let viewCell = cell as! STDialogMyCell
-                                        let message = item.item as! STMessage
-                                        
-                                        viewCell.text.text = message.message
-                                        viewCell.time.text = message.createdAt.time
-                                        
-                                        viewCell.setNeedsLayout()
-                                        viewCell.layoutIfNeeded()
-                                        
-                                        if let user = self.users.first(where: { $0.id == message.userId }) {
-                                            
-                                            let urlString = user.imageUrl + self.queryResizeString(imageView: viewCell.userImage.imageView!)
-                                            
-                                            let filter = RoundedCornersFilter(radius: CGFloat(viewCell.userImage.imageView!.bounds.width))
-                                            
-                                            viewCell.userImage.af_setImage(for: .normal, url: URL(string: urlString)!, filter: filter)
-                                        }
-                })
+                self.section.addItem(cellClass: STDialogMyCell.self, item: message,
+                                     bindingAction: self.myCellBindingAction)
             }
             else {
                 
@@ -174,6 +190,27 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         let indexPath = IndexPath(item: index, section: 0)
         
         self.collectionView.scrollToItem(at: indexPath, at: .top, animated: false)
+    }
+    
+    fileprivate func myCellBindingAction(cell: UICollectionViewCell, item: CollectionSectionItem) {
+        
+        let viewCell = cell as! STDialogMyCell
+        let message = item.item as! STMessage
+        
+        viewCell.text.text = message.message
+        viewCell.time.text = message.createdAt.time
+        
+        viewCell.setNeedsLayout()
+        viewCell.layoutIfNeeded()
+        
+        if let user = self.users.first(where: { $0.id == message.userId }) {
+            
+            let urlString = user.imageUrl + self.queryResizeString(imageView: viewCell.userImage.imageView!)
+            
+            let filter = RoundedCornersFilter(radius: CGFloat(viewCell.userImage.imageView!.bounds.width))
+            
+            viewCell.userImage.af_setImage(for: .normal, url: URL(string: urlString)!, filter: filter)
+        }
     }
     
     // MARK: UICollectionViewDelegate

@@ -17,11 +17,24 @@ class STCollectionLayout: UICollectionViewFlowLayout {
         self.estimatedItemSize = CGSize(width: 200, height: 5)
     }
     
+//    override func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+//        
+//        let attributes = super.layoutAttributesForItem(at: itemIndexPath)?.copy() as? UICollectionViewLayoutAttributes
+//        
+//        guard let collectionView = self.collectionView else {
+//            
+//            return attributes
+//        }
+//        
+//        attributes?.transform3D = CATransform3DMakeTranslation(0, collectionView.bounds.size.height, 0)
+//        return attributes
+//    }
+    
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         
         let attributes = super.layoutAttributesForItem(at: indexPath)?.copy() as? UICollectionViewLayoutAttributes
         
-        guard let collectionView = collectionView else {
+        guard let collectionView = self.collectionView else {
             
             return attributes
         }

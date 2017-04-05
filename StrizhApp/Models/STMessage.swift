@@ -9,6 +9,7 @@
 import Foundation
 import ObjectMapper
 import RealmSwift
+import Realm
 
 class STMessage: Object, Mappable {
     
@@ -35,10 +36,34 @@ class STMessage: Object, Mappable {
     var audioIds = List<RealmInt64>()
     
     
+    convenience init(message: String, createdAt: Date, userId: Int) {
+        
+        self.init()
+        
+        self.message = message
+        self.createdAt = createdAt
+        self.userId = userId
+    }
+    
     required convenience init?(map: Map) {
         
         self.init()
     }
+    
+//    required init(realm: RLMRealm, schema: RLMObjectSchema) {
+//        
+//        super.init(realm: realm, schema: schema)
+//    }
+//    
+//    required init(value: Any, schema: RLMSchema) {
+//        
+//        super.init(value: value, schema: schema)
+//    }
+//    
+//    required init() {
+//        
+//        super.init()
+//    }
     
     override static func primaryKey() -> String? {
         
