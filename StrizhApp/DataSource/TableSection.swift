@@ -43,14 +43,16 @@ class TableSection {
         self.title = title;
     }
     
+    @discardableResult
     func addItem(cellClass: AnyClass, item: Any? = nil,
-                          itemType: Any? = nil, bindingAction: TableCellBindingAction? = nil) {
+                          itemType: Any? = nil, bindingAction: TableCellBindingAction? = nil) -> Int {
         
         let item = TableSectionItem(cellClass: cellClass,
                                          item: item,
                                          itemType: itemType,
                                          bindingAction: bindingAction)
         self.items.append(item)
+        return self.items.index(of: item)!
     }
     
     func addItem(cellStyle: UITableViewCellStyle, item: Any? = nil,

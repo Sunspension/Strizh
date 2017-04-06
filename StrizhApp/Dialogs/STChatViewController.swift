@@ -11,7 +11,7 @@ import AlamofireImage
 
 class STChatViewController: STChatControllerBase, UITextViewDelegate {
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var bottomToolbar: UIView!
     
@@ -24,9 +24,9 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
     @IBOutlet weak var bottomToolbarSpace: NSLayoutConstraint!
     
     
-    fileprivate var dataSource = CollectionViewDataSource()
+    fileprivate var dataSource = TableViewDataSource()
     
-    fileprivate var section = CollectionSection()
+    fileprivate var section = TableSection()
     
     fileprivate var myUser: STUser!
     
@@ -38,8 +38,8 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         didSet {
             
             self.createDataSource()
-            self.collectionView.reloadData()
-//            self.scrollToLastMessage()
+            self.tableView.reloadData()
+            self.scrollToLastMessage(animated: false)
         }
     }
     
@@ -61,13 +61,15 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         
         self.myUser = STUser.objects(by: STUser.self).first!
         
-        self.collectionView.delegate = self.dataSource
-        self.collectionView.dataSource = self.dataSource
-        let flow = self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        let width = self.collectionView.bounds.width - flow.sectionInset.left - flow.sectionInset.right
-        flow.estimatedItemSize = CGSize(width: width, height: 1)
+        self.tableView.delegate = self.dataSource
+        self.tableView.dataSource = self.dataSource
         
         self.dataSource.sections.append(self.section)
+        
+        self.tableView.estimatedRowHeight = 80
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.tableFooterView = UIView()
+        self.tableView.separatorStyle = .none
     }
 
     override func keyboardWillShow(_ notification: Notification) {
@@ -77,10 +79,15 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
             self.bottomToolbarSpace.constant = keyboardSize.height
             self.textView.contentOffset = CGPoint.zero
             self.textView.contentInset = UIEdgeInsets.zero
-            self.scrollToLastMessage()
+            
+            self.tableView.setNeedsLayout()
+            self.tableView.layoutIfNeeded()
+            
+            self.scrollToLastMessage(animated: false)
             
             UIView.animate(withDuration: 0.3, animations: { 
                 
+                self.view.setNeedsLayout()
                 self.view.layoutIfNeeded()
             })
         }
@@ -92,28 +99,32 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         
         UIView.animate(withDuration: 0.3, animations: {
             
+            self.view.setNeedsLayout()
             self.view.layoutIfNeeded()
-            self.bottomToolbar.layoutIfNeeded()
         })
     }
 
     func sendMessage() {
         
         let text = self.textView.text.trimmingCharacters(in: .whitespaces)
+        
+        guard !text.isEmpty else {
+            
+            return
+        }
+        
         let createdAt = Date()
         let userId = self.myUser.id
         
         let message = STMessage(message: text, createdAt: createdAt, userId: userId)
         
-        let itemIndex = self.section.addItem(cellClass: STDialogMyCell.self, item: message,
-                                             bindingAction: self.myCellBindingAction)
-        
-        let indexPath = IndexPath(item: itemIndex!, section: 0)
+        self.section.addItem(cellClass: STDialogMyCell.self, item: message,
+                             bindingAction: self.myCellBindingAction)
         
         self.textView.text = ""
         self.placeHolder.isHidden = false
-        self.collectionView.insertItems(at: [indexPath])
-//        self.scrollToLastMessage()
+        self.tableView.reloadData()
+        self.scrollToLastMessage()
     }
     
     func textViewDidChange(_ textView: UITextView) {
@@ -149,11 +160,8 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
                                         let viewCell = cell as! STDialogOtherCell
                                         let message = item.item as! STMessage
                                         
-                                        viewCell.text.text = message.message
+                                        viewCell.messageText.text = message.message
                                         viewCell.time.text = message.createdAt.time
-                                        
-                                        viewCell.setNeedsLayout()
-                                        viewCell.layoutIfNeeded()
                                         
                                         if let user = self.users.first(where: { $0.id == message.userId }) {
                                             
@@ -177,10 +185,10 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         return "?resize=w[\(width)]h[\(height)]q[100]e[true]"
     }
     
-    fileprivate func scrollToLastMessage() {
+    fileprivate func scrollToLastMessage(animated: Bool = true) {
         
-        self.collectionView.setNeedsLayout()
-        self.collectionView.layoutIfNeeded()
+        self.tableView.setNeedsLayout()
+        self.tableView.layoutIfNeeded()
         
         guard self.section.items.count != 0 else {
             
@@ -191,19 +199,16 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         let index = self.section.items.index(of: item)!
         let indexPath = IndexPath(item: index, section: 0)
         
-        self.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+        self.tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
     }
     
-    fileprivate func myCellBindingAction(cell: UICollectionViewCell, item: CollectionSectionItem) {
+    fileprivate func myCellBindingAction(cell: UITableViewCell, item: TableSectionItem) {
         
         let viewCell = cell as! STDialogMyCell
         let message = item.item as! STMessage
         
-        viewCell.text.text = message.message
+        viewCell.messageText.text = message.message
         viewCell.time.text = message.createdAt.time
-        
-        viewCell.setNeedsLayout()
-        viewCell.layoutIfNeeded()
         
         if let user = self.users.first(where: { $0.id == message.userId }) {
             
@@ -214,36 +219,4 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
             viewCell.userImage.af_setImage(for: .normal, url: URL(string: urlString)!, filter: filter)
         }
     }
-    
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
-
 }

@@ -85,8 +85,6 @@
 		D497AB531E3BE7C0006A393D /* CountdownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497AB521E3BE7C0006A393D /* CountdownTimer.swift */; };
 		D49D97101E91333200D66D2F /* STUserDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D970F1E91333200D66D2F /* STUserDialogViewController.swift */; };
 		D49D97121E91390400D66D2F /* STChatControllerBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D97111E91390400D66D2F /* STChatControllerBase.swift */; };
-		D49D97141E914C0F00D66D2F /* STDialogMyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D97131E914C0F00D66D2F /* STDialogMyCell.swift */; };
-		D49D97161E914DD700D66D2F /* STDialogOtherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D97151E914DD700D66D2F /* STDialogOtherCell.swift */; };
 		D49EB19E1E45212F00B6F5DC /* STSocketRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49EB19D1E45212F00B6F5DC /* STSocketRequestBuilder.swift */; };
 		D49EB1A01E452B9A00B6F5DC /* STSocketRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49EB19F1E452B9A00B6F5DC /* STSocketRequest.swift */; };
 		D4AD43B31E47A970006F13DE /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AD43B21E47A970006F13DE /* AppSettings.swift */; };
@@ -119,6 +117,8 @@
 		E53F37BE1E3A632C00393BAD /* STLoginLogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E53F37BC1E3A632C00393BAD /* STLoginLogoTableViewCell.xib */; };
 		E53F37C31E3A75F900393BAD /* KeyboardNotificationListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53F37C21E3A75F900393BAD /* KeyboardNotificationListener.swift */; };
 		E54D88F41E3BB579005233DB /* RealmExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54D88F31E3BB579005233DB /* RealmExtensions.swift */; };
+		E55434E01E969FDB00EF254E /* STDialogMyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55434DF1E969FDB00EF254E /* STDialogMyCell.swift */; };
+		E55434E21E969FF500EF254E /* STDialogOtherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55434E11E969FF500EF254E /* STDialogOtherCell.swift */; };
 		E55906721E51A60800F8E20E /* STProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55906711E51A60800F8E20E /* STProfileTableViewController.swift */; };
 		E55906771E51A74500F8E20E /* STProfileHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55906751E51A74500F8E20E /* STProfileHeaderCell.swift */; };
 		E55906781E51A74500F8E20E /* STProfileHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E55906761E51A74500F8E20E /* STProfileHeaderCell.xib */; };
@@ -245,8 +245,6 @@
 		D497AB521E3BE7C0006A393D /* CountdownTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownTimer.swift; sourceTree = "<group>"; };
 		D49D970F1E91333200D66D2F /* STUserDialogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STUserDialogViewController.swift; path = Dialogs/STUserDialogViewController.swift; sourceTree = "<group>"; };
 		D49D97111E91390400D66D2F /* STChatControllerBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STChatControllerBase.swift; path = Dialogs/STChatControllerBase.swift; sourceTree = "<group>"; };
-		D49D97131E914C0F00D66D2F /* STDialogMyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialogMyCell.swift; path = Dialogs/STDialogMyCell.swift; sourceTree = "<group>"; };
-		D49D97151E914DD700D66D2F /* STDialogOtherCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialogOtherCell.swift; path = Dialogs/STDialogOtherCell.swift; sourceTree = "<group>"; };
 		D49EB19D1E45212F00B6F5DC /* STSocketRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSocketRequestBuilder.swift; path = WebSocket/STSocketRequestBuilder.swift; sourceTree = "<group>"; };
 		D49EB19F1E452B9A00B6F5DC /* STSocketRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSocketRequest.swift; path = WebSocket/STSocketRequest.swift; sourceTree = "<group>"; };
 		D4AD43B21E47A970006F13DE /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
@@ -279,6 +277,8 @@
 		E53F37BC1E3A632C00393BAD /* STLoginLogoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STLoginLogoTableViewCell.xib; path = SignUp/STLoginLogoTableViewCell.xib; sourceTree = "<group>"; };
 		E53F37C21E3A75F900393BAD /* KeyboardNotificationListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardNotificationListener.swift; sourceTree = "<group>"; };
 		E54D88F31E3BB579005233DB /* RealmExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmExtensions.swift; path = Extensions/RealmExtensions.swift; sourceTree = "<group>"; };
+		E55434DF1E969FDB00EF254E /* STDialogMyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialogMyCell.swift; path = Dialogs/STDialogMyCell.swift; sourceTree = "<group>"; };
+		E55434E11E969FF500EF254E /* STDialogOtherCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialogOtherCell.swift; path = Dialogs/STDialogOtherCell.swift; sourceTree = "<group>"; };
 		E55906711E51A60800F8E20E /* STProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STProfileTableViewController.swift; path = Profile/STProfileTableViewController.swift; sourceTree = "<group>"; };
 		E55906751E51A74500F8E20E /* STProfileHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STProfileHeaderCell.swift; path = Profile/STProfileHeaderCell.swift; sourceTree = "<group>"; };
 		E55906761E51A74500F8E20E /* STProfileHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STProfileHeaderCell.xib; path = Profile/STProfileHeaderCell.xib; sourceTree = "<group>"; };
@@ -795,8 +795,8 @@
 			isa = PBXGroup;
 			children = (
 				E5E4E9BC1E810F8600B77102 /* STDialogCell.swift */,
-				D49D97131E914C0F00D66D2F /* STDialogMyCell.swift */,
-				D49D97151E914DD700D66D2F /* STDialogOtherCell.swift */,
+				E55434DF1E969FDB00EF254E /* STDialogMyCell.swift */,
+				E55434E11E969FF500EF254E /* STDialogOtherCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1054,12 +1054,12 @@
 				D44E33941E749FCD006F4709 /* STAttachmentPhotoCell.swift in Sources */,
 				D45DC06C1E86C87400E9DB2B /* STDialog.swift in Sources */,
 				D40BC8631E5B61120045F327 /* STCommonLabelCell.swift in Sources */,
+				E55434E21E969FF500EF254E /* STDialogOtherCell.swift in Sources */,
 				E59A1B181E3F9388009EE669 /* STImage.swift in Sources */,
 				D40BC8661E5B706D0045F327 /* SHSPhoneComponentExtensions.swift in Sources */,
 				D42D530C1E915473007952AD /* STCollectionLayout.swift in Sources */,
 				E5FF31261E55D3FA0013B713 /* STEditProfileHeaderCell.swift in Sources */,
 				E537712E1E64941C00BBADEA /* STPersonalPostDetailsMainInfoCell.swift in Sources */,
-				D49D97141E914C0F00D66D2F /* STDialogMyCell.swift in Sources */,
 				D40405891E91876000F0A8E4 /* ValidationEnum.swift in Sources */,
 				E58AF8511E8A4B9000CEF2B3 /* STChatViewController.swift in Sources */,
 				E50FA39A1E6842CE00CAA4D7 /* STNewPostObject.swift in Sources */,
@@ -1083,12 +1083,12 @@
 				E53F37C31E3A75F900393BAD /* KeyboardNotificationListener.swift in Sources */,
 				D4C2AD841E5395C7009CD55A /* STPersonalPostCell.swift in Sources */,
 				D43BED6C1E708A1000683D5C /* STBottomPopupPresentationAnimation.swift in Sources */,
-				D49D97161E914DD700D66D2F /* STDialogOtherCell.swift in Sources */,
 				E53185F71E3612EF00BC6C9A /* STLoadingStatusEnum.swift in Sources */,
 				D4194A111E4600F000D0B189 /* STPost.swift in Sources */,
 				E55906721E51A60800F8E20E /* STProfileTableViewController.swift in Sources */,
 				D497AB501E3BE53A006A393D /* GenericTableViewDataSource.swift in Sources */,
 				E59448901E680797002B2989 /* STNewPostController.swift in Sources */,
+				E55434E01E969FDB00EF254E /* STDialogMyCell.swift in Sources */,
 				D43A75631E4E6A3B00DB0850 /* STFile.swift in Sources */,
 				D4922AAD1E43F6B9006FF4D5 /* STHTTPManager.swift in Sources */,
 				E5E4E9C51E8115D500B77102 /* STDialogsController.swift in Sources */,

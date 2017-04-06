@@ -2,38 +2,33 @@
 //  STDialogMyCell.swift
 //  StrizhApp
 //
-//  Created by Vladimir Kokhanevich on 02/04/2017.
+//  Created by Vladimir Kokhanevich on 06/04/2017.
 //  Copyright © 2017 Vladimir Kokhanevich. All rights reserved.
 //
 
 import UIKit
 
-class STDialogMyCell: UICollectionViewCell {
-    
-    @IBOutlet weak var bubbleImage: UIImageView!
-    
-    @IBOutlet weak var text: UILabel!
+class STDialogMyCell: UITableViewCell {
+
+    @IBOutlet weak var messageText: UILabel!
     
     @IBOutlet weak var time: UILabel!
     
     @IBOutlet weak var userImage: UIButton!
-    
+
+    @IBOutlet weak var bubbleImage: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        bubbleImage.tintColor = UIColor(red: 71 / 255.0, green: 122 / 255.0, blue: 251 / 255.0, alpha: 1)
+        self.bubbleImage.tintColor = UIColor(red: 71 / 255.0, green: 122 / 255.0, blue: 251 / 255.0, alpha: 1)
+        self.selectionStyle = .none
     }
-    
-    override func prepareForReuse() {
-        
-//        userImage.setImage(UIImage(), for: .normal)
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
     }
-    
-    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        
-        let height = systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
-        layoutAttributes.frame.size.height = height
-        return layoutAttributes
-    }
+
 }

@@ -32,13 +32,13 @@ class CollectionSection {
     
     @discardableResult
     func addItem(cellClass: AnyClass, item: Any? = nil,
-                 itemType: Any? = nil, bindingAction: CollectionCellBindingAction? = nil) -> Int? {
+                 itemType: Any? = nil, bindingAction: CollectionCellBindingAction? = nil) -> Int {
         
         let item = CollectionSectionItem(cellClass: cellClass,
                                          item: item,
                                          itemType: itemType,
                                          bindingAction: bindingAction)
         self.items.append(item)
-        return self.items.index(of: item)
+        return self.items.index(of: item)!
     }
 }
