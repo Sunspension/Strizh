@@ -39,7 +39,7 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
             
             self.createDataSource()
             self.collectionView.reloadData()
-            self.scrollToLastMessage()
+//            self.scrollToLastMessage()
         }
     }
     
@@ -63,6 +63,9 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         
         self.collectionView.delegate = self.dataSource
         self.collectionView.dataSource = self.dataSource
+        let flow = self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        let width = self.collectionView.bounds.width - flow.sectionInset.left - flow.sectionInset.right
+        flow.estimatedItemSize = CGSize(width: width, height: 1)
         
         self.dataSource.sections.append(self.section)
     }
@@ -109,9 +112,8 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         
         self.textView.text = ""
         self.placeHolder.isHidden = false
-        
         self.collectionView.insertItems(at: [indexPath])
-        self.scrollToLastMessage()
+//        self.scrollToLastMessage()
     }
     
     func textViewDidChange(_ textView: UITextView) {
@@ -189,7 +191,7 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         let index = self.section.items.index(of: item)!
         let indexPath = IndexPath(item: index, section: 0)
         
-        self.collectionView.scrollToItem(at: indexPath, at: .top, animated: false)
+        self.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
     }
     
     fileprivate func myCellBindingAction(cell: UICollectionViewCell, item: CollectionSectionItem) {

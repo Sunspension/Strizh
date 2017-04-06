@@ -40,6 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let session = STSession.objects(by: STSession.self).first {
             
+            // This must to call first
             self.onAuthorized()
             
             // load user
@@ -124,7 +125,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func onAuthorized() {
         
-        // This must to call first
         AppDelegate.appSettings.api.onValidSession()
     }
     

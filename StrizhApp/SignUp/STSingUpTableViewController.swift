@@ -292,6 +292,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                                 return
                             }
                             
+                            user.writeToDB()
                             self.st_router_openMainController()
                         })
                         .onFailure(callback: { error in

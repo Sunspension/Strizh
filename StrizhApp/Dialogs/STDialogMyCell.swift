@@ -33,7 +33,7 @@ class STDialogMyCell: UICollectionViewCell {
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         
         let height = systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
-        layoutAttributes.bounds.size.height = height
+        layoutAttributes.frame.size.height = height
         return layoutAttributes
     }
 }

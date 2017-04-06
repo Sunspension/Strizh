@@ -58,6 +58,7 @@
 		D44E339B1E74B9B8006F4709 /* ImageUploadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44E339A1E74B9B8006F4709 /* ImageUploadOperation.swift */; };
 		D459437C1E7E15EE00139D16 /* NSNumberToInt64Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = D459437B1E7E15EE00139D16 /* NSNumberToInt64Transform.swift */; };
 		D45DC06C1E86C87400E9DB2B /* STDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45DC06B1E86C87400E9DB2B /* STDialog.swift */; };
+		D46FFA691E959EF700578F07 /* ChatCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46FFA681E959EF700578F07 /* ChatCollectionViewFlowLayout.swift */; };
 		D4922AA61E43DB67006FF4D5 /* STWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */; };
 		D4922AAD1E43F6B9006FF4D5 /* STHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AAC1E43F6B9006FF4D5 /* STHTTPManager.swift */; };
 		D49545CC1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49545CA1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift */; };
@@ -215,6 +216,7 @@
 		D44E339A1E74B9B8006F4709 /* ImageUploadOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploadOperation.swift; sourceTree = "<group>"; };
 		D459437B1E7E15EE00139D16 /* NSNumberToInt64Transform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSNumberToInt64Transform.swift; sourceTree = "<group>"; };
 		D45DC06B1E86C87400E9DB2B /* STDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialog.swift; path = Models/STDialog.swift; sourceTree = "<group>"; };
+		D46FFA681E959EF700578F07 /* ChatCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STWebSocket.swift; path = WebSocket/STWebSocket.swift; sourceTree = "<group>"; };
 		D4922AAC1E43F6B9006FF4D5 /* STHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STHTTPManager.swift; path = HTTPManager/STHTTPManager.swift; sourceTree = "<group>"; };
 		D49545CA1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginAvatarTableViewCell.swift; path = SignUp/STLoginAvatarTableViewCell.swift; sourceTree = "<group>"; };
@@ -802,6 +804,7 @@
 		E5E4E9C31E81159700B77102 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D46FFA681E959EF700578F07 /* ChatCollectionViewFlowLayout.swift */,
 				E5E4E9C41E8115D500B77102 /* STDialogsController.swift */,
 				E58AF8501E8A4B9000CEF2B3 /* STChatViewController.swift */,
 				D49D970F1E91333200D66D2F /* STUserDialogViewController.swift */,
@@ -995,6 +998,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5E4E9C11E81139D00B77102 /* CircledButton.swift in Sources */,
+				D46FFA691E959EF700578F07 /* ChatCollectionViewFlowLayout.swift in Sources */,
 				E5E334B81E7AD64A00EA274A /* STContactsProvider.swift in Sources */,
 				D4AD43BF1E47DB52006F13DE /* STSignUpNavigationController.swift in Sources */,
 				D49545CC1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift in Sources */,

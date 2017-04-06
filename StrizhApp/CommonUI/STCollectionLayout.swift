@@ -14,7 +14,7 @@ class STCollectionLayout: UICollectionViewFlowLayout {
         
         super.init(coder: aDecoder)
         
-        self.estimatedItemSize = CGSize(width: 200, height: 5)
+        self.estimatedItemSize = CGSize(width: 1, height: 1)
     }
     
 //    override func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
@@ -30,34 +30,34 @@ class STCollectionLayout: UICollectionViewFlowLayout {
 //        return attributes
 //    }
     
-    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        
-        let attributes = super.layoutAttributesForItem(at: indexPath)?.copy() as? UICollectionViewLayoutAttributes
-        
-        guard let collectionView = self.collectionView else {
-            
-            return attributes
-        }
-        
-        attributes?.bounds.size.width = collectionView.bounds.width - sectionInset.left - sectionInset.right
-        return attributes
-    }
-    
-    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        
-        let allAttributes = super.layoutAttributesForElements(in: rect)
-        
-        return allAttributes?.flatMap { attributes in
-            
-            switch attributes.representedElementCategory {
-                
-            case .cell:
-                return layoutAttributesForItem(at: attributes.indexPath)
-                
-            default:
-                return attributes
-            
-            }
-        }
-    }
+//    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+//        
+//        let attributes = super.layoutAttributesForItem(at: indexPath)?.copy() as? UICollectionViewLayoutAttributes
+//        
+//        guard let collectionView = self.collectionView else {
+//            
+//            return attributes
+//        }
+//        
+//        attributes?.bounds.size.width = collectionView.bounds.width - sectionInset.left - sectionInset.right
+//        return attributes
+//    }
+//    
+//    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+//        
+//        let allAttributes = super.layoutAttributesForElements(in: rect)
+//        
+//        return allAttributes?.flatMap { attributes in
+//            
+//            switch attributes.representedElementCategory {
+//                
+//            case .cell:
+//                return layoutAttributesForItem(at: attributes.indexPath)
+//                
+//            default:
+//                return attributes
+//            
+//            }
+//        }
+//    }
 }

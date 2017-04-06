@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CollectionViewDataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource {
+class CollectionViewDataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     var sections: [CollectionSection] = []
     
@@ -59,4 +59,11 @@ class CollectionViewDataSource: NSObject, UICollectionViewDelegate, UICollection
         
         return UICollectionViewCell()
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        
+//        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+//        let width = collectionView.bounds.width - flowLayout.sectionInset.left - flowLayout.sectionInset.right
+//        return CGSize(width: width, height: 10)
+//    }
 }
