@@ -16,6 +16,8 @@ class TableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelegate 
     
     var onDidDeselectRowAtIndexPath: ((_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) -> Void)?
     
+    var onDidScrollUp: (() -> Void)?
+    
     subscript(index: Int) -> TableSection {
         
         get {
@@ -70,6 +72,18 @@ class TableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelegate 
         return cell;
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        let item = self.item(by: indexPath)
+        item.cellHeight = cell.bounds.height
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        let item = self.item(by: indexPath)
+        return item.cellHeight ?? UITableViewAutomaticDimension
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         self.onDidSelectRowAtIndexPath?(tableView, indexPath, self.item(by: indexPath))
@@ -99,6 +113,16 @@ class TableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelegate 
         }
         
         return nil
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        guard scrollView.panGestureRecognizer.translation(in: scrollView.superview).y > 0 else {
+            
+            return
+        }
+        
+        self.onDidScrollUp?()
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

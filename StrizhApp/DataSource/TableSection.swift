@@ -66,6 +66,16 @@ class TableSection {
         
     }
     
+    func insert(item: Any? = nil, itemType: Any? = nil, at index: Int, cellClass: AnyClass,
+                  bindingAction: TableCellBindingAction? = nil) {
+        
+        let item = TableSectionItem(cellClass: cellClass,
+                                    item: item,
+                                    itemType: itemType,
+                                    bindingAction: bindingAction)
+        self.items.insert(item, at: index)
+    }
+    
     func header(headerClass: AnyClass,  item: Any? = nil, bindingAction: BindingHeaderFooterAction? = nil) {
         
         let header = TableSectionHeaderFooter(headerFooterNibClass: headerClass, item: item, binding: bindingAction)

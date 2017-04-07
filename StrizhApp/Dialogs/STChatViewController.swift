@@ -11,6 +11,22 @@ import AlamofireImage
 
 class STChatViewController: STChatControllerBase, UITextViewDelegate {
     
+    
+    fileprivate let dataSource = TableViewDataSource()
+    
+    fileprivate let section = TableSection()
+    
+    fileprivate var myUser: STUser!
+    
+    fileprivate var loadingStatus = STLoadingStatusEnum.idle
+    
+    fileprivate var lastId: Int? = nil
+    
+    fileprivate var hasMore = false
+    
+    fileprivate var pageSize = 20
+    
+    
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var bottomToolbar: UIView!
@@ -23,28 +39,21 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
     
     @IBOutlet weak var bottomToolbarSpace: NSLayoutConstraint!
     
-    
-    fileprivate var dataSource = TableViewDataSource()
-    
-    fileprivate var section = TableSection()
-    
-    fileprivate var myUser: STUser!
-    
+    var dialog: STDialog!
     
     var users: [STUser] = []
     
-    var itemsSource: [STMessage] = [] {
+    
+    required init?(coder aDecoder: NSCoder) {
         
-        didSet {
-            
-            self.createDataSource()
-            self.tableView.reloadData()
-            self.scrollToLastMessage(animated: false)
-        }
+        super.init(coder: aDecoder)
     }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = self.dialog.title
         
         self.textView.layer.cornerRadius = 5
         self.textView.clipsToBounds = true
@@ -66,10 +75,11 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         
         self.dataSource.sections.append(self.section)
         
-        self.tableView.estimatedRowHeight = 80
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 77 // magic number
         self.tableView.tableFooterView = UIView()
         self.tableView.separatorStyle = .none
+        
+        self.loadMessages()
     }
 
     override func keyboardWillShow(_ notification: Notification) {
@@ -83,7 +93,7 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
             self.tableView.setNeedsLayout()
             self.tableView.layoutIfNeeded()
             
-            self.scrollToLastMessage(animated: false)
+            self.scrollToLastMessage()
             
             UIView.animate(withDuration: 0.3, animations: { 
                 
@@ -124,7 +134,7 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         self.textView.text = ""
         self.placeHolder.isHidden = false
         self.tableView.reloadData()
-        self.scrollToLastMessage()
+        self.scrollToLastMessage(animated: true)
     }
     
     func textViewDidChange(_ textView: UITextView) {
@@ -142,20 +152,79 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         self.view.endEditing(true)
     }
     
-    fileprivate func createDataSource() {
+    fileprivate func loadMessages(loadMore: Bool = false, initialIndexPath: IndexPath? = nil) {
         
-        for message in self.itemsSource {
+        self.loadingStatus = .loading
+        self.tableView.showBusy()
+        
+        api.loadDialogMessages(dialog: dialog, pageSize: self.pageSize, lastId: self.lastId)
+            
+            .onSuccess { messages in
+                
+                self.tableView.hideBusy()
+                self.loadingStatus = .loaded
+                
+                if let lastMessage = messages.last {
+                
+                    self.lastId = lastMessage.id
+                }
+                
+                self.hasMore = messages.count == self.pageSize
+                
+                self.createDataSource(messages: messages)
+                
+                
+                if loadMore {
+                 
+                    let sizeBefore = self.tableView.contentSize
+                    
+                    self.tableView.reloadData()
+                    
+                    self.tableView.setNeedsLayout()
+                    self.tableView.layoutIfNeeded()
+                    
+                    let sizeAfter = self.tableView.contentSize
+                    let offSet = self.tableView.contentOffset
+                    
+                    let newOffsetY = offSet.y + sizeAfter.height - sizeBefore.height
+                    
+                    self.tableView.contentOffset = CGPoint(x: 0, y: newOffsetY)
+                }
+                else {
+                    
+                    self.tableView.reloadData()
+                    self.scrollToLastMessage()
+                }
+                
+            }.onFailure { error in
+                
+                self.loadingStatus = .failed
+                self.tableView.hideBusy()
+                
+                self.showError(error: error)
+        }
+    }
+    
+    fileprivate func createDataSource(messages: [STMessage]) {
+        
+        for message in messages {
             
             if message.userId == self.myUser.id {
                 
-                self.section.addItem(cellClass: STDialogMyCell.self, item: message,
-                                     bindingAction: self.myCellBindingAction)
+                self.section.insert(item: message, at: 0, cellClass: STDialogMyCell.self,
+                                    bindingAction: self.myCellBindingAction)
             }
             else {
                 
-                self.section.addItem(cellClass: STDialogOtherCell.self,
-                                     item: message,
+                self.section.insert(item: message, at: 0, cellClass: STDialogOtherCell.self,
                                      bindingAction: { [unowned self] (cell, item) in
+                                        
+                                        if item.indexPath.row - 10 < 0 && self.hasMore
+                                            && self.loadingStatus != .loading {
+                                            
+                                            self.loadMessages(loadMore: true,
+                                                              initialIndexPath: item.indexPath)
+                                        }
                                         
                                         let viewCell = cell as! STDialogOtherCell
                                         let message = item.item as! STMessage
@@ -185,10 +254,7 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         return "?resize=w[\(width)]h[\(height)]q[100]e[true]"
     }
     
-    fileprivate func scrollToLastMessage(animated: Bool = true) {
-        
-        self.tableView.setNeedsLayout()
-        self.tableView.layoutIfNeeded()
+    fileprivate func scrollToLastMessage(animated: Bool = false) {
         
         guard self.section.items.count != 0 else {
             
@@ -203,6 +269,13 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
     }
     
     fileprivate func myCellBindingAction(cell: UITableViewCell, item: TableSectionItem) {
+        
+        if item.indexPath.row - 10 < 0 && self.hasMore
+            && self.loadingStatus != .loading {
+            
+            self.loadMessages(loadMore: true,
+                              initialIndexPath: item.indexPath)
+        }
         
         let viewCell = cell as! STDialogMyCell
         let message = item.item as! STMessage

@@ -83,7 +83,6 @@
 		D497AB501E3BE53A006A393D /* GenericTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497AB4A1E3BE53A006A393D /* GenericTableViewDataSource.swift */; };
 		D497AB511E3BE53A006A393D /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497AB4B1E3BE53A006A393D /* TableViewDataSource.swift */; };
 		D497AB531E3BE7C0006A393D /* CountdownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497AB521E3BE7C0006A393D /* CountdownTimer.swift */; };
-		D49D97101E91333200D66D2F /* STUserDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D970F1E91333200D66D2F /* STUserDialogViewController.swift */; };
 		D49D97121E91390400D66D2F /* STChatControllerBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D97111E91390400D66D2F /* STChatControllerBase.swift */; };
 		D49EB19E1E45212F00B6F5DC /* STSocketRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49EB19D1E45212F00B6F5DC /* STSocketRequestBuilder.swift */; };
 		D49EB1A01E452B9A00B6F5DC /* STSocketRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49EB19F1E452B9A00B6F5DC /* STSocketRequest.swift */; };
@@ -243,7 +242,6 @@
 		D497AB4A1E3BE53A006A393D /* GenericTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenericTableViewDataSource.swift; path = DataSource/GenericTableViewDataSource.swift; sourceTree = "<group>"; };
 		D497AB4B1E3BE53A006A393D /* TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewDataSource.swift; path = DataSource/TableViewDataSource.swift; sourceTree = "<group>"; };
 		D497AB521E3BE7C0006A393D /* CountdownTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownTimer.swift; sourceTree = "<group>"; };
-		D49D970F1E91333200D66D2F /* STUserDialogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STUserDialogViewController.swift; path = Dialogs/STUserDialogViewController.swift; sourceTree = "<group>"; };
 		D49D97111E91390400D66D2F /* STChatControllerBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STChatControllerBase.swift; path = Dialogs/STChatControllerBase.swift; sourceTree = "<group>"; };
 		D49EB19D1E45212F00B6F5DC /* STSocketRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSocketRequestBuilder.swift; path = WebSocket/STSocketRequestBuilder.swift; sourceTree = "<group>"; };
 		D49EB19F1E452B9A00B6F5DC /* STSocketRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSocketRequest.swift; path = WebSocket/STSocketRequest.swift; sourceTree = "<group>"; };
@@ -807,7 +805,6 @@
 				D46FFA681E959EF700578F07 /* ChatCollectionViewFlowLayout.swift */,
 				E5E4E9C41E8115D500B77102 /* STDialogsController.swift */,
 				E58AF8501E8A4B9000CEF2B3 /* STChatViewController.swift */,
-				D49D970F1E91333200D66D2F /* STUserDialogViewController.swift */,
 				D49D97111E91390400D66D2F /* STChatControllerBase.swift */,
 			);
 			name = Controllers;
@@ -1014,7 +1011,6 @@
 				D40A6BE81E3AA7FB00F1D218 /* Extensions.swift in Sources */,
 				D49727201E32DCAC0076B7A1 /* STRealmConfiguration.swift in Sources */,
 				E5BE9E371E4E23A40022B157 /* STPostDetailsMainInfoCell.swift in Sources */,
-				D49D97101E91333200D66D2F /* STUserDialogViewController.swift in Sources */,
 				D497AB531E3BE7C0006A393D /* CountdownTimer.swift in Sources */,
 				E5BE9E281E4C8D690022B157 /* STFeedFilterTableViewController.swift in Sources */,
 				D4427E661E757C8F0002BCCF /* STCommonCollectionViewCell.swift in Sources */,
