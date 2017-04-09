@@ -58,7 +58,11 @@ enum STSocketRequestBuilder {
     
     case loadDialogs(page: Int, pageSize: Int)
     
-    case loadDialogMessages(dialog: STDialog, pageSize: Int, lastId: Int?)
+    case loadDialogMessages(dialogId: Int, pageSize: Int, lastId: Int?)
+    
+    case sendMessage(dialogId: Int, message: String)
+    
+    case notifyMessagesRead(dialogId: Int, lastMessageId: Int)
     
     
     var request: STSocketRequest {
@@ -330,7 +334,7 @@ enum STSocketRequestBuilder {
             
             break
             
-        case .loadDialogMessages(let dialog, let pageSize, let lastId):
+        case .loadDialogMessages(let dialogId, let pageSize, let lastId):
             
             // payload
             self.addToPayload(&payLoad, type: .path, value: "/api/message")
@@ -344,7 +348,35 @@ enum STSocketRequestBuilder {
             
             self.addToQuery(&query, type: .pageSize, value: pageSize)
             self.addToQuery(&query, type: .sortingOrder, value: ["id" : "desc"])
-            self.addToQuery(&query, type: .filters, value: ["dialog_id" : dialog.id])
+            self.addToQuery(&query, type: .filters, value: ["dialog_id" : dialogId])
+            
+            break
+            
+        case .sendMessage(let dialogId, let message):
+            
+            // payload
+            self.addToPayload(&payLoad, type: .path, value: "/api/message")
+            self.addToPayload(&payLoad, type: .method, value: "POST")
+
+            var body = [String : Any]()
+            
+            body["dialog_id"] = dialogId
+            body["message"] = message
+            
+            self.addToPayload(&payLoad, type: .body, value: body)
+            
+            break
+            
+        case .notifyMessagesRead(let dialogId, let lastMessageId):
+            
+            // payload
+            self.addToPayload(&payLoad, type: .path, value: "/api/dialog/\(dialogId)")
+            self.addToPayload(&payLoad, type: .method, value: "PUT")
+            
+            var body = [String : Any]()
+            
+            body["last_read_message_id"] = lastMessageId
+            self.addToPayload(&payLoad, type: .body, value: body)
             
             break
         }

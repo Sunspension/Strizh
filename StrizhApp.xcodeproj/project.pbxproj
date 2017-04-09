@@ -57,6 +57,8 @@
 		D44E33991E74B50C006F4709 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44E33981E74B50C006F4709 /* ImageUploader.swift */; };
 		D44E339B1E74B9B8006F4709 /* ImageUploadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44E339A1E74B9B8006F4709 /* ImageUploadOperation.swift */; };
 		D459437C1E7E15EE00139D16 /* NSNumberToInt64Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = D459437B1E7E15EE00139D16 /* NSNumberToInt64Transform.swift */; };
+		D45B8B101E9A779F0042C8B6 /* STDialogSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45B8B0F1E9A779F0042C8B6 /* STDialogSectionHeader.swift */; };
+		D45B8B121E9A77B60042C8B6 /* STDialogSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = D45B8B111E9A77B60042C8B6 /* STDialogSectionHeader.xib */; };
 		D45DC06C1E86C87400E9DB2B /* STDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45DC06B1E86C87400E9DB2B /* STDialog.swift */; };
 		D46FFA691E959EF700578F07 /* ChatCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46FFA681E959EF700578F07 /* ChatCollectionViewFlowLayout.swift */; };
 		D4922AA61E43DB67006FF4D5 /* STWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */; };
@@ -214,6 +216,8 @@
 		D44E33981E74B50C006F4709 /* ImageUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		D44E339A1E74B9B8006F4709 /* ImageUploadOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploadOperation.swift; sourceTree = "<group>"; };
 		D459437B1E7E15EE00139D16 /* NSNumberToInt64Transform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSNumberToInt64Transform.swift; sourceTree = "<group>"; };
+		D45B8B0F1E9A779F0042C8B6 /* STDialogSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialogSectionHeader.swift; path = Dialogs/STDialogSectionHeader.swift; sourceTree = "<group>"; };
+		D45B8B111E9A77B60042C8B6 /* STDialogSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STDialogSectionHeader.xib; path = Dialogs/STDialogSectionHeader.xib; sourceTree = "<group>"; };
 		D45DC06B1E86C87400E9DB2B /* STDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialog.swift; path = Models/STDialog.swift; sourceTree = "<group>"; };
 		D46FFA681E959EF700578F07 /* ChatCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STWebSocket.swift; path = WebSocket/STWebSocket.swift; sourceTree = "<group>"; };
@@ -795,6 +799,8 @@
 				E5E4E9BC1E810F8600B77102 /* STDialogCell.swift */,
 				E55434DF1E969FDB00EF254E /* STDialogMyCell.swift */,
 				E55434E11E969FF500EF254E /* STDialogOtherCell.swift */,
+				D45B8B0F1E9A779F0042C8B6 /* STDialogSectionHeader.swift */,
+				D45B8B111E9A77B60042C8B6 /* STDialogSectionHeader.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -911,6 +917,7 @@
 				D49545D11E3D064700EDCF01 /* STLoginTextTableViewCell.xib in Resources */,
 				D43BED671E70570500683D5C /* STTextFieldsCell.xib in Resources */,
 				D44E33951E749FCD006F4709 /* STAttachmentPhotoCell.xib in Resources */,
+				D45B8B121E9A77B60042C8B6 /* STDialogSectionHeader.xib in Resources */,
 				E537712F1E64941C00BBADEA /* STPersonalPostDetailsMainInfoCell.xib in Resources */,
 				E561F56B1E72FCD300C7407C /* STAttachmentCell.xib in Resources */,
 				E55906781E51A74500F8E20E /* STProfileHeaderCell.xib in Resources */,
@@ -1058,6 +1065,7 @@
 				E537712E1E64941C00BBADEA /* STPersonalPostDetailsMainInfoCell.swift in Sources */,
 				D40405891E91876000F0A8E4 /* ValidationEnum.swift in Sources */,
 				E58AF8511E8A4B9000CEF2B3 /* STChatViewController.swift in Sources */,
+				D45B8B101E9A779F0042C8B6 /* STDialogSectionHeader.swift in Sources */,
 				E50FA39A1E6842CE00CAA4D7 /* STNewPostObject.swift in Sources */,
 				D4194A171E46028F00D0B189 /* RealmString.swift in Sources */,
 				D497AB4F1E3BE53A006A393D /* GenericTableSectionItem.swift in Sources */,

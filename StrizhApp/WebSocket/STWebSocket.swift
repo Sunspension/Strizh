@@ -299,11 +299,11 @@ class STWebSocket {
         return p.future
     }
     
-    func loadDialogMessages(dialog: STDialog, pageSize: Int, lastId: Int?) -> Future<[STMessage], STError> {
+    func loadDialogMessages(dialogId: Int, pageSize: Int, lastId: Int?) -> Future<[STMessage], STError> {
         
         let p = Promise<[STMessage], STError>()
         
-        let request = STSocketRequestBuilder.loadDialogMessages(dialog: dialog, pageSize: pageSize, lastId: lastId).request
+        let request = STSocketRequestBuilder.loadDialogMessages(dialogId: dialogId, pageSize: pageSize, lastId: lastId).request
         
         self.sendRequest(request: request) { json in
             
@@ -316,7 +316,49 @@ class STWebSocket {
             }
             else {
                 
-                p.failure(.loadContactsFailure)
+                p.failure(.loadMessagesError)
+            }
+        }
+        
+        return p.future
+    }
+    
+    func sendMessage(dialogId: Int, message: String) -> Future<STMessage, STError> {
+        
+        let p = Promise<STMessage, STError>()
+        
+        let request = STSocketRequestBuilder.sendMessage(dialogId: dialogId, message: message).request
+        
+        self.sendRequest(request: request) { json in
+            
+            if let message = STMessage(JSON: json) {
+                
+                p.success(message)
+            }
+            else {
+                
+                p.failure(.sendMessageError)
+            }
+        }
+        
+        return p.future
+    }
+    
+    func notifyMessagesRead(dialogId: Int, lastMessageId: Int) -> Future<STDialog, STError> {
+        
+        let p = Promise<STDialog, STError>()
+        
+        let request = STSocketRequestBuilder.notifyMessagesRead(dialogId: dialogId, lastMessageId: lastMessageId).request
+        
+        self.sendRequest(request: request) { json in
+            
+            if let message = STDialog(JSON: json) {
+                
+                p.success(message)
+            }
+            else {
+                
+                p.failure(.notifyMessagesReadError)
             }
         }
         
@@ -371,28 +413,39 @@ class STWebSocket {
         
         self.socket!.on("event") { (data, ack) in
             
-            debugPrint(data)
-        }
-        
-        self.socket!.on("response") { (data, ack) in
-            
-            // converting data to json
-            guard let responseString = data[0] as? String else {
+            guard let json = self.serializeJSON(data: data) else {
                 
                 return
             }
             
-            let responseData = responseString.data(using: String.Encoding.utf8)
+            debugPrint(json)
             
-            var json = [String : AnyObject]()
+            if let data = json["data"] as? [String : Any] {
             
-            do {
-                
-                json = try JSONSerialization.jsonObject(with: responseData!, options: []) as! [String : AnyObject]
+                switch json["type"] as! String {
+                    
+                case "message":
+                    
+                    guard let message = STMessage(JSON: data) else {
+                        
+                        return
+                    }
+                    
+                    NotificationCenter.default.post(name: NSNotification.Name(kReceiveMessageNotification), object: message)
+                    
+                    break
+                    
+                default:
+                    break
+                }
             }
-            catch let error {
+        }
+        
+        self.socket!.on("response") { (data, ack) in
+            
+            guard let json = self.serializeJSON(data: data) else {
                 
-                debugPrint(error)
+                return
             }
             
             debugPrint(json)
@@ -413,6 +466,30 @@ class STWebSocket {
                 }
             }
         }
+    }
+    
+    fileprivate func serializeJSON(data: [Any]) -> [String : AnyObject]? {
+        
+        // converting data to json
+        guard let responseString = data[0] as? String else {
+            
+            return nil
+        }
+        
+        let responseData = responseString.data(using: String.Encoding.utf8)
+        
+        var json = [String : AnyObject]()
+        
+        do {
+            
+            json = try JSONSerialization.jsonObject(with: responseData!, options: []) as! [String : AnyObject]
+        }
+        catch let error {
+            
+            debugPrint(error)
+        }
+        
+        return json
     }
     
     fileprivate func socketConnect(callback:@escaping () -> Void) {

@@ -54,6 +54,35 @@ class STDialogsController: UITableViewController {
         
         self.tableView.tableFooterView = UIView()
         
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostUpdateDialogNotification),
+                                                         object: nil)
+            .observeNext { [unowned self] notification in
+                
+                let dialog = (notification.object as? STDialog)!
+                
+                if let section = self.section.items.first(where: { ($0.item as! STDialog).id == dialog.id }) {
+                    
+                    let itemIndex = self.section.items.index(of: section)!
+                    
+                    // update table view
+                    self.tableView.beginUpdates()
+                    
+                    self.section.items.remove(at: itemIndex)
+                    
+                    let indexPath = IndexPath(row: itemIndex, section: 0)
+                    
+                    self.tableView.deleteRows(at: [indexPath], with: .none)
+                    
+                    self.section.insert(item: dialog, at: itemIndex,
+                                        cellClass: STDialogCell.self, bindingAction: self.bindingAction)
+                    
+                    self.tableView.insertRows(at: [indexPath], with: .none)
+                    
+                    self.tableView.endUpdates()
+                }
+                
+            }.dispose(in: disposeBag)
+        
         self.loadDialogs()
     }
    
@@ -124,82 +153,85 @@ class STDialogsController: UITableViewController {
         
         for dialog in dialogsPage.dialogs {
             
-            self.section.addItem(cellClass: STDialogCell.self, item: dialog, bindingAction: { (cell, item) in
+            self.section.addItem(cellClass: STDialogCell.self,
+                                 item: dialog, bindingAction: self.bindingAction)
+        }
+    }
+    
+    fileprivate func bindingAction(cell: UITableViewCell, item: TableSectionItem) {
+        
+        if item.indexPath.row + 10 > self.section.items.count
+            && self.loadingStatus != .loading && self.hasMore {
+            
+            self.loadDialogs()
+        }
+        
+        let viewCell = cell as! STDialogCell
+        let dialog = item.item as! STDialog
+        
+        viewCell.topicTitle.text = dialog.title
+        
+        if (dialog.unreadMessageCount == 0) {
+            
+            viewCell.newMessageCounter.isHidden = true
+            viewCell.backgroundView?.backgroundColor = UIColor.clear
+        }
+        else {
+            
+            viewCell.backgroundView?.backgroundColor = UIColor.stPaleGrey
+            viewCell.newMessageCounter.isHidden = false
+            viewCell.newMessageCounter.setTitle("\(dialog.unreadMessageCount)", for: .normal)
+            viewCell.newMessageCounter.sizeToFit()
+        }
+        
+        // get user
+        
+        if let opponentId = dialog.userIds.first(where: { $0.value != self.myUser.id }) {
+            
+            if let user = self.users.first(where: { $0.id == opponentId.value }) {
                 
-                if item.indexPath.row + 10 > self.section.items.count
-                    && self.loadingStatus != .loading && self.hasMore {
+                viewCell.userName.text = user.firstName + " " + user.lastName
+                
+                if !user.imageUrl.isEmpty {
                     
-                    self.loadDialogs()
-                }
-                
-                let viewCell = cell as! STDialogCell
-                let dialog = item.item as! STDialog
-                
-                viewCell.topicTitle.text = dialog.title
-                
-                if (dialog.unreadMessageCount == 0) {
+                    let width = Int(viewCell.userImage.bounds.size.width * UIScreen.main.scale)
+                    let height = Int(viewCell.userImage.bounds.size.height * UIScreen.main.scale)
                     
-                    viewCell.newMessageCounter.isHidden = true
-                    viewCell.backgroundView?.backgroundColor = UIColor.clear
-                }
-                else {
+                    let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
                     
-                    viewCell.backgroundView?.backgroundColor = UIColor.stPaleGrey
-                    viewCell.newMessageCounter.isHidden = false
-                    viewCell.newMessageCounter.setTitle("\(dialog.unreadMessageCount)", for: .normal)
-                    viewCell.newMessageCounter.sizeToFit()
-                }
-                
-                // get user
-                
-                if let opponentId = dialog.userIds.first(where: { $0.value != self.myUser.id }) {
+                    let urlString = user.imageUrl + queryResize
                     
-                    if let user = self.users.first(where: { $0.id == opponentId.value }) {
-                        
-                        viewCell.userName.text = user.firstName + " " + user.lastName
-                        
-                        if !user.imageUrl.isEmpty {
-                            
-                            let width = Int(viewCell.userImage.bounds.size.width * UIScreen.main.scale)
-                            let height = Int(viewCell.userImage.bounds.size.height * UIScreen.main.scale)
-                            
-                            let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
-                            
-                            let urlString = user.imageUrl + queryResize
-                            
-                            let filter = RoundedCornersFilter(radius: CGFloat(width))
-                            viewCell.userImage.af_setImage(withURL: URL(string: urlString)!,
-                                                           filter: filter,
-                                                           completion: nil)
-                        }
-                    }
+                    let filter = RoundedCornersFilter(radius: CGFloat(width))
+                    viewCell.userImage.af_setImage(withURL: URL(string: urlString)!,
+                                                   filter: filter,
+                                                   completion: nil)
                 }
+            }
+        }
+        
+        // get the date and the time
+        viewCell.time.text = dialog.createdAt.mediumLocalizedFormat
+        
+        // get last message
+        if let message = self.messages.first(where: { $0.id == dialog.messageId }) {
+            
+            if message.userId == self.myUser.id {
                 
-                // get the date and the time
-                viewCell.time.text = dialog.createdAt.mediumLocalizedFormat
+                viewCell.inOutIcon.isSelected = true
                 
-                // get last message
-                if let message = self.messages.first(where: { $0.id == dialog.messageId }) {
-                    
-                    if message.userId == self.myUser.id {
-                        
-                        viewCell.inOutIcon.isSelected = true
-                        
-                        let prefixColor = UIColor(red: 75 / 255.0, green: 75 / 255.0, blue: 75 / 255.0, alpha: 1)
-                        let prefix = NSMutableAttributedString(attributedString: "Вы: ".string(with: prefixColor))
-                        
-                        let messageColor = UIColor(red: 129 / 255.0, green: 129 / 255.0, blue: 129 / 255.0, alpha: 1)
-                        prefix.append(message.message.string(with: messageColor))
-                        
-                        viewCell.message.attributedText = prefix
-                    }
-                    else {
-                        
-                        viewCell.inOutIcon.isSelected = false
-                        viewCell.message.text = message.message
-                    }
-                }
-            })
+                let prefixColor = UIColor(red: 75 / 255.0, green: 75 / 255.0, blue: 75 / 255.0, alpha: 1)
+                let prefix = NSMutableAttributedString(attributedString: "Вы: ".string(with: prefixColor))
+                
+                let messageColor = UIColor(red: 129 / 255.0, green: 129 / 255.0, blue: 129 / 255.0, alpha: 1)
+                prefix.append(message.message.string(with: messageColor))
+                
+                viewCell.message.attributedText = prefix
+            }
+            else {
+                
+                viewCell.inOutIcon.isSelected = false
+                viewCell.message.text = message.message
+            }
         }
     }
     

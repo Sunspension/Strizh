@@ -8,7 +8,9 @@
 
 import UIKit
 
-class TableSection {
+class TableSection: Equatable {
+    
+    var id = UUID()
     
     var title: String?
     
@@ -41,6 +43,11 @@ class TableSection {
     init(title: String? = "") {
         
         self.title = title;
+    }
+    
+    public static func == (lhs: TableSection, rhs: TableSection) -> Bool {
+        
+        return lhs.id == rhs.id
     }
     
     @discardableResult

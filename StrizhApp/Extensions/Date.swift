@@ -28,12 +28,35 @@ extension Date {
         return formatter.string(from: self)
     }
     
+    var dayMonthFormat: String {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMMM"
+        
+        return formatter.string(from: self)
+    }
+    
     var time: String {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         
         return formatter.string(from: self)
+    }
+    
+    var day: Int {
+        
+        return Calendar.current.component(.day, from: self)
+    }
+    
+    var month: Int {
+        
+        return Calendar.current.component(.month, from: self)
+    }
+    
+    var year: Int {
+        
+        return Calendar.current.component(.year, from: self)
     }
     
     func elapsedInterval() -> String {

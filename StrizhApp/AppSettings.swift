@@ -19,6 +19,8 @@ let kPostAddedToArchiveNotification = "kPostAddedToArchiveNotification"
 let kPostDeleteFromDetailsNotification = "kPostDeleteFromDetailsNotification"
 let kPostCreatedNotification = "kPostCreatedNotification"
 let kPostDeleteNotification = "kPostDeleteNotification"
+let kPostUpdateDialogNotification = "kPostUpdateDialogNotification"
+let kReceiveMessageNotification = "kReceiveMessageNotification"
 
 struct AppSettings {
     

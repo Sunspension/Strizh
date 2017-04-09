@@ -20,6 +20,12 @@ enum STError: Error {
     
     case loadDialogsError
     
+    case loadMessagesError
+    
+    case sendMessageError
+    
+    case notifyMessagesReadError
+    
     case anyError(error: Error)
     
     
@@ -50,6 +56,18 @@ enum STError: Error {
         case .loadDialogsError:
             
             return "Error has occurred when was trying to load dialogs"
+            
+        case .loadMessagesError:
+            
+            return "Error has occurred when was trying to load dialog messages"
+            
+        case .sendMessageError:
+            
+            return "Error has occurred when was trying to send dialog messages"
+            
+        case .notifyMessagesReadError:
+            
+            return "Error has occurred when was trying to notify about read messages"
         }
     }
 }

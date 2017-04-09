@@ -148,7 +148,7 @@ class TableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelegate 
             return 0.01
         }
         
-        return header.cellHeight ?? 0.01
+        return header.cellHeight ?? UITableViewAutomaticDimension
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

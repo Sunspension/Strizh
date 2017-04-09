@@ -8,13 +8,12 @@
 
 import UIKit
 import AlamofireImage
+import ReactiveKit
 
 class STChatViewController: STChatControllerBase, UITextViewDelegate {
     
     
     fileprivate let dataSource = TableViewDataSource()
-    
-    fileprivate let section = TableSection()
     
     fileprivate var myUser: STUser!
     
@@ -25,6 +24,8 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
     fileprivate var hasMore = false
     
     fileprivate var pageSize = 20
+    
+    fileprivate let disposeBag = DisposeBag()
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -66,18 +67,43 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         
         self.view.addGestureRecognizer(tapRecognaizer)
         
-        self.sendButton.addTarget(self, action: #selector(self.sendMessage), for: .touchUpInside)
+        self.sendButton.addTarget(self, action: #selector(self.sendMessageAction), for: .touchUpInside)
         
         self.myUser = STUser.objects(by: STUser.self).first!
         
         self.tableView.delegate = self.dataSource
         self.tableView.dataSource = self.dataSource
         
-        self.dataSource.sections.append(self.section)
-        
         self.tableView.estimatedRowHeight = 77 // magic number
+        self.tableView.sectionHeaderHeight = UITableViewAutomaticDimension
         self.tableView.tableFooterView = UIView()
+        self.tableView.backgroundColor = UIColor.white
         self.tableView.separatorStyle = .none
+        self.tableView.register(headerFooterNibClass: STDialogSectionHeader.self)
+        
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kReceiveMessageNotification), object: nil)
+            .observeNext { [unowned self] notification in
+                
+                let message = (notification.object as? STMessage)!
+                
+                if message.dialogId != self.dialog.id {
+                    
+                    return
+                }
+                
+                // notify
+                self.notifyMessagesRead(lastReadMessage: message.id)
+                
+                let section = self.section(by: message.createdAt)
+                let itemIndex = section.addItem(cellClass: STDialogMyCell.self, item: message,
+                                                bindingAction: self.myCellBindingAction)
+                
+                let sectionIndex = self.dataSource.sections.index(of: section)
+                let indexPath = IndexPath(item: itemIndex, section: sectionIndex!)
+                
+                self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+                
+            }.dispose(in: disposeBag)
         
         self.loadMessages()
     }
@@ -114,7 +140,7 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         })
     }
 
-    func sendMessage() {
+    func sendMessageAction() {
         
         let text = self.textView.text.trimmingCharacters(in: .whitespaces)
         
@@ -128,13 +154,17 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         
         let message = STMessage(message: text, createdAt: createdAt, userId: userId)
         
-        self.section.addItem(cellClass: STDialogMyCell.self, item: message,
-                             bindingAction: self.myCellBindingAction)
+        let section = self.section(by: Date())
+        
+        let messageIndex = section.addItem(cellClass: STDialogMyCell.self, item: message,
+                                            bindingAction: self.myCellBindingAction)
         
         self.textView.text = ""
         self.placeHolder.isHidden = false
         self.tableView.reloadData()
         self.scrollToLastMessage(animated: true)
+        
+        self.sendMessage(message: text, section: section, messageIndex: messageIndex)
     }
     
     func textViewDidChange(_ textView: UITextView) {
@@ -152,14 +182,82 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         self.view.endEditing(true)
     }
     
-    fileprivate func loadMessages(loadMore: Bool = false, initialIndexPath: IndexPath? = nil) {
+    fileprivate func section(by date: Date) -> TableSection {
+        
+        var section = self.dataSource.sections.last
+        
+        if section == nil {
+            
+            section = TableSection()
+            section!.sectionType = date
+            section!.header(headerClass: STDialogSectionHeader.self,
+                            item: date.dayMonthFormat,
+                            bindingAction: { (cell, item) in
+                                
+                                let header = cell as! STDialogSectionHeader
+                                let date = item.item as! String
+                                header.dateLabel.text = date
+            })
+            
+            section?.headerItem?.cellHeight = 30
+            
+            self.dataSource.sections.append(section!)
+        }
+        
+        return section!
+    }
+    
+    fileprivate func sendMessage(message: String, section: TableSection, messageIndex: Int) {
+        
+        api.sendMessage(dialogId: self.dialog!.id, message: message)
+            .onFailure { error in
+                
+                let alert = UIAlertController(title: "Ошибка",
+                                              message: "Не удалось отправить сообщение",
+                                              preferredStyle: .alert)
+                let cancel = UIAlertAction(title: "Удалить сообщение",
+                                           style: .cancel, handler: { [unowned self] action in
+                                            
+                                            section.items.remove(at: messageIndex)
+                                            
+                                            let sectionIndex = self.dataSource.sections.index(of: section)!
+                                            let indexPath = IndexPath(item: messageIndex, section: sectionIndex)
+                                            
+                                            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                })
+                
+                let resend = UIAlertAction(title: "Попробовать еще раз",
+                                           style: .default, handler: { [weak self] action in
+                                            
+                                            self?.sendMessage(message: message, section: section,
+                                                              messageIndex: messageIndex)
+                })
+                
+                alert.addAction(cancel)
+                alert.addAction(resend)
+                
+                self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    fileprivate func notifyMessagesRead(lastReadMessage: Int) {
+        
+        api.notifyMessagesRead(dialogId: self.dialog!.id, lastMessageId: lastReadMessage)
+            .onSuccess { dialog in
+            
+                NotificationCenter.default.post(name: NSNotification.Name(kPostUpdateDialogNotification),
+                                                object: dialog)
+            }
+    }
+    
+    fileprivate func loadMessages(loadMore: Bool = false) {
         
         self.loadingStatus = .loading
         self.tableView.showBusy()
         
-        api.loadDialogMessages(dialog: dialog, pageSize: self.pageSize, lastId: self.lastId)
+        api.loadDialogMessages(dialogId: self.dialog.id, pageSize: self.pageSize, lastId: self.lastId)
             
-            .onSuccess { messages in
+            .onSuccess { [unowned self] messages in
                 
                 self.tableView.hideBusy()
                 self.loadingStatus = .loaded
@@ -167,12 +265,20 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
                 if let lastMessage = messages.last {
                 
                     self.lastId = lastMessage.id
+                    
+                    if !loadMore && self.dialog.unreadMessageCount != 0 {
+                        
+                        // notify
+                        if let message = messages.first(where: { $0.userId != self.myUser.id }) {
+                            
+                            self.notifyMessagesRead(lastReadMessage: message.id)
+                        }
+                    }
                 }
                 
                 self.hasMore = messages.count == self.pageSize
                 
                 self.createDataSource(messages: messages)
-                
                 
                 if loadMore {
                  
@@ -209,21 +315,56 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         
         for message in messages {
             
+            var section = self.dataSource.sections.first(where: { section -> Bool in
+                
+                if let sectionDate = section.sectionType as? Date {
+                    
+                   if sectionDate.year == message.createdAt.year
+                    && sectionDate.month == message.createdAt.month
+                    && sectionDate.day == message.createdAt.day {
+                    
+                        return true
+                    }
+                }
+                
+                return false
+            })
+            
+            if section == nil {
+                
+                section = TableSection()
+                section!.sectionType = message.createdAt
+                section!.header(headerClass: STDialogSectionHeader.self,
+                                item: message.createdAt.dayMonthFormat,
+                                bindingAction: { (cell, item) in
+                                    
+                                    let header = cell as! STDialogSectionHeader
+                                    let date = item.item as! String
+                                    header.dateLabel.text = date
+                })
+                
+                section?.headerItem?.cellHeight = 30
+                
+                self.dataSource.sections.insert(section!, at: 0)
+            }
+            
             if message.userId == self.myUser.id {
                 
-                self.section.insert(item: message, at: 0, cellClass: STDialogMyCell.self,
+                section!.insert(item: message, at: 0, cellClass: STDialogMyCell.self,
                                     bindingAction: self.myCellBindingAction)
             }
             else {
                 
-                self.section.insert(item: message, at: 0, cellClass: STDialogOtherCell.self,
+                section!.insert(item: message, at: 0, cellClass: STDialogOtherCell.self,
                                      bindingAction: { [unowned self] (cell, item) in
                                         
-                                        if item.indexPath.row - 10 < 0 && self.hasMore
+                                        let section = self.dataSource.sections.first!
+                                        
+                                        if section.items.contains(item)
+                                            && item.indexPath.row - 10 < 0 && self.hasMore
                                             && self.loadingStatus != .loading {
                                             
-                                            self.loadMessages(loadMore: true,
-                                                              initialIndexPath: item.indexPath)
+                                            self.loadMessages(loadMore: true)
                                         }
                                         
                                         let viewCell = cell as! STDialogOtherCell
@@ -256,25 +397,30 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
     
     fileprivate func scrollToLastMessage(animated: Bool = false) {
         
-        guard self.section.items.count != 0 else {
+        guard self.dataSource.sections.flatMap({ $0.items }).count != 0 else {
             
             return
         }
         
-        let item = self.section.items.last!
-        let index = self.section.items.index(of: item)!
-        let indexPath = IndexPath(item: index, section: 0)
+        let section = self.dataSource.sections.last!
+        let item = section.items.last!
+        let itemIndex = section.items.index(of: item)!
+        let sectionIndex = self.dataSource.sections.index(of: section)
+        
+        let indexPath = IndexPath(item: itemIndex, section: sectionIndex!)
         
         self.tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
     }
     
     fileprivate func myCellBindingAction(cell: UITableViewCell, item: TableSectionItem) {
         
-        if item.indexPath.row - 10 < 0 && self.hasMore
+        let section = self.dataSource.sections.first!
+        
+        if section.items.contains(item)
+            && item.indexPath.row - 10 < 0 && self.hasMore
             && self.loadingStatus != .loading {
             
-            self.loadMessages(loadMore: true,
-                              initialIndexPath: item.indexPath)
+            self.loadMessages(loadMore: true)
         }
         
         let viewCell = cell as! STDialogMyCell
