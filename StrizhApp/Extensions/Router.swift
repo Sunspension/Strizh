@@ -98,8 +98,21 @@ extension UIViewController {
     func st_router_openChatController(dialog: STDialog, users: [STUser]) {
         
         let chatController = storyBoard.instantiateViewController(withIdentifier: String(describing: STChatViewController.self)) as! STChatViewController
+        
         chatController.dialog = dialog
         chatController.users = users
+        chatController.title = dialog.title
+        
+        self.navigationController?.pushViewController(chatController, animated: true)
+    }
+    
+    func st_router_openChatController(post: STPost) {
+        
+        let chatController = storyBoard.instantiateViewController(withIdentifier: String(describing: STChatViewController.self)) as! STChatViewController
+        
+        chatController.postId = post.id
+        chatController.title = post.title
+        
         self.navigationController?.pushViewController(chatController, animated: true)
     }
 }

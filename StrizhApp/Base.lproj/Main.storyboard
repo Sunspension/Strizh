@@ -323,8 +323,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="actionWrite" destination="c3b-Gb-ce1" id="5Bf-9a-cTu"/>
                         <outlet property="tableView" destination="icQ-BL-6St" id="x7G-PC-At2"/>
+                        <outlet property="writeMessage" destination="c3b-Gb-ce1" id="z18-yM-bDN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Q0-du-cgB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -528,7 +528,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="106"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zMi-7i-kaf" id="11u-pW-mNQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="105.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="106"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar" translatesAutoresizingMaskIntoConstraints="NO" id="xxo-y0-Zcw">
@@ -705,10 +705,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="STDialogOtherCell" rowHeight="112" id="pYp-WB-1HO" customClass="STDialogOtherCell" customModule="StrizhApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="112"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="112"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pYp-WB-1HO" id="5tk-wk-C5s">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="111.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="111"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mlP-RR-azc">
@@ -765,10 +765,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="STDialogMyCell" rowHeight="112" id="KxX-LT-dzb" customClass="STDialogMyCell" customModule="StrizhApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="167.5" width="375" height="112"/>
+                                        <rect key="frame" x="0.0" y="168" width="375" height="112"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KxX-LT-dzb" id="6ze-L6-Fp3">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="111.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="111"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble-my" translatesAutoresizingMaskIntoConstraints="NO" id="kFe-z8-AwQ">

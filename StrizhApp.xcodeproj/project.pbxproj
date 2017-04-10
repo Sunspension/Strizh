@@ -154,6 +154,7 @@
 		E5BE9E371E4E23A40022B157 /* STPostDetailsMainInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE9E351E4E23A40022B157 /* STPostDetailsMainInfoCell.swift */; };
 		E5BE9E381E4E23A40022B157 /* STPostDetailsMainInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5BE9E361E4E23A40022B157 /* STPostDetailsMainInfoCell.xib */; };
 		E5E334B81E7AD64A00EA274A /* STContactsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E334B71E7AD64A00EA274A /* STContactsProvider.swift */; };
+		E5E3A6551E9B7EA6009B1BFA /* STDialogBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E3A6541E9B7EA6009B1BFA /* STDialogBadge.swift */; };
 		E5E4E9BD1E810F8600B77102 /* STDialogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E4E9BC1E810F8600B77102 /* STDialogCell.swift */; };
 		E5E4E9C11E81139D00B77102 /* CircledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E4E9C01E81139D00B77102 /* CircledButton.swift */; };
 		E5E4E9C51E8115D500B77102 /* STDialogsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E4E9C41E8115D500B77102 /* STDialogsController.swift */; };
@@ -315,6 +316,7 @@
 		E5BE9E351E4E23A40022B157 /* STPostDetailsMainInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPostDetailsMainInfoCell.swift; path = Feed/STPostDetailsMainInfoCell.swift; sourceTree = "<group>"; };
 		E5BE9E361E4E23A40022B157 /* STPostDetailsMainInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPostDetailsMainInfoCell.xib; path = Feed/STPostDetailsMainInfoCell.xib; sourceTree = "<group>"; };
 		E5E334B71E7AD64A00EA274A /* STContactsProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STContactsProvider.swift; path = Contacts/STContactsProvider.swift; sourceTree = "<group>"; };
+		E5E3A6541E9B7EA6009B1BFA /* STDialogBadge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialogBadge.swift; path = Models/STDialogBadge.swift; sourceTree = "<group>"; };
 		E5E4E9BC1E810F8600B77102 /* STDialogCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialogCell.swift; path = Dialogs/STDialogCell.swift; sourceTree = "<group>"; };
 		E5E4E9BE1E81105000B77102 /* StrizhApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StrizhApp.entitlements; sourceTree = "<group>"; };
 		E5E4E9C01E81139D00B77102 /* CircledButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CircledButton.swift; path = CustomControls/CircledButton.swift; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 				D45DC06B1E86C87400E9DB2B /* STDialog.swift */,
 				D4FFDFA91E8705590090BE5A /* STDialogsPage.swift */,
 				D4FFDFAB1E8706580090BE5A /* STMessage.swift */,
+				E5E3A6541E9B7EA6009B1BFA /* STDialogBadge.swift */,
 			);
 			name = Response;
 			sourceTree = "<group>";
@@ -507,7 +510,7 @@
 			children = (
 				E5E4E9BF1E81135C00B77102 /* CustomControls */,
 				D40BC85C1E5B605F0045F327 /* CommonUI */,
-				D4AD43B11E47A8F8006F13DE /* Pages */,
+				D4AD43B11E47A8F8006F13DE /* Tabs */,
 				D4194A181E460CB700D0B189 /* ObjectMapper */,
 				E53F37C11E3A75E200393BAD /* Helpers */,
 				E53185E91E3612D600BC6C9A /* DataSource */,
@@ -594,7 +597,7 @@
 			name = Feed;
 			sourceTree = "<group>";
 		};
-		D4AD43B11E47A8F8006F13DE /* Pages */ = {
+		D4AD43B11E47A8F8006F13DE /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
 				E5E4E9BB1E810F2C00B77102 /* Dialogs */,
@@ -607,7 +610,7 @@
 				E59448881E66D8AD002B2989 /* STTabBarViewController.swift */,
 				E594488A1E68062A002B2989 /* STDummyNavigationController.swift */,
 			);
-			name = Pages;
+			name = Tabs;
 			sourceTree = "<group>";
 		};
 		D4AD43B41E47A980006F13DE /* Views */ = {
@@ -1105,6 +1108,7 @@
 				D44AB4EE1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift in Sources */,
 				D44E339B1E74B9B8006F4709 /* ImageUploadOperation.swift in Sources */,
 				E5E4E9BD1E810F8600B77102 /* STDialogCell.swift in Sources */,
+				E5E3A6551E9B7EA6009B1BFA /* STDialogBadge.swift in Sources */,
 				D43BED661E70570500683D5C /* STTextFieldsCell.swift in Sources */,
 				D433D1041E54F56900974AB1 /* STSettingsController.swift in Sources */,
 				D49EB19E1E45212F00B6F5DC /* STSocketRequestBuilder.swift in Sources */,

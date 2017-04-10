@@ -28,6 +28,15 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
     fileprivate let disposeBag = DisposeBag()
     
     
+    var postId: Int?
+    
+    var objectType: Int?
+    
+    var dialog: STDialog?
+    
+    var users: [STUser] = []
+    
+    
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var bottomToolbar: UIView!
@@ -40,10 +49,6 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
     
     @IBOutlet weak var bottomToolbarSpace: NSLayoutConstraint!
     
-    var dialog: STDialog!
-    
-    var users: [STUser] = []
-    
     
     required init?(coder aDecoder: NSCoder) {
         
@@ -53,8 +58,6 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.title = self.dialog.title
         
         self.textView.layer.cornerRadius = 5
         self.textView.clipsToBounds = true
@@ -84,9 +87,14 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         NotificationCenter.default.reactive.notification(name: NSNotification.Name(kReceiveMessageNotification), object: nil)
             .observeNext { [unowned self] notification in
                 
+                guard let dialog = self.dialog else {
+                    
+                    return
+                }
+                
                 let message = (notification.object as? STMessage)!
                 
-                if message.dialogId != self.dialog.id {
+                if message.dialogId != dialog.id {
                     
                     return
                 }
@@ -104,6 +112,31 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
                 self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
                 
             }.dispose(in: disposeBag)
+        
+        if self.dialog == nil {
+            
+            if let postId = self.postId, let objectType = self.objectType {
+                
+                self.tableView.showBusy()
+                
+                api.createDialog(objectId: postId, objectType: objectType, message: nil)
+                    .onSuccess { [weak self] dialog in
+                        
+                        self?.tableView.hideBusy()
+                        
+                        self?.dialog = dialog
+                        
+                        // TODO load apponent id
+                        self?.loadMessages()
+                    }
+                    .onFailure { [weak self] error in
+                        
+                        self?.tableView.hideBusy()
+                    }
+            }
+            
+            return
+        }
         
         self.loadMessages()
     }
@@ -140,6 +173,13 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         })
     }
 
+    /// Object type = 1 - Dialog with user
+    /// Object type = 2 - Dialog with support
+    func loadDialog(by objectId: Int, objectType: Int) {
+        
+       
+    }
+    
     func sendMessageAction() {
         
         let text = self.textView.text.trimmingCharacters(in: .whitespaces)
@@ -209,34 +249,54 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
     
     fileprivate func sendMessage(message: String, section: TableSection, messageIndex: Int) {
         
-        api.sendMessage(dialogId: self.dialog!.id, message: message)
-            .onFailure { error in
+        let errorClosure = {
+            
+            let alert = UIAlertController(title: "Ошибка",
+                                          message: "Не удалось отправить сообщение",
+                                          preferredStyle: .alert)
+            let cancel = UIAlertAction(title: "Удалить сообщение",
+                                       style: .cancel, handler: { [unowned self] action in
+                                        
+                                        section.items.remove(at: messageIndex)
+                                        
+                                        let sectionIndex = self.dataSource.sections.index(of: section)!
+                                        let indexPath = IndexPath(item: messageIndex, section: sectionIndex)
+                                        
+                                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            })
+            
+            let resend = UIAlertAction(title: "Попробовать еще раз",
+                                       style: .default, handler: { [weak self] action in
+                                        
+                                        self?.sendMessage(message: message, section: section,
+                                                          messageIndex: messageIndex)
+            })
+            
+            alert.addAction(cancel)
+            alert.addAction(resend)
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        if let dialog = self.dialog {
+            
+            api.sendMessage(dialogId: dialog.id, message: message)
+                .onFailure { error in
+                    
+                    errorClosure()
+                }
+        }
+        else if let postId = self.postId, let objectType = self.objectType {
+            
+            api.createDialog(objectId: postId, objectType: objectType, message: message)
+                .onSuccess(callback: { dialog in
                 
-                let alert = UIAlertController(title: "Ошибка",
-                                              message: "Не удалось отправить сообщение",
-                                              preferredStyle: .alert)
-                let cancel = UIAlertAction(title: "Удалить сообщение",
-                                           style: .cancel, handler: { [unowned self] action in
-                                            
-                                            section.items.remove(at: messageIndex)
-                                            
-                                            let sectionIndex = self.dataSource.sections.index(of: section)!
-                                            let indexPath = IndexPath(item: messageIndex, section: sectionIndex)
-                                            
-                                            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                    self.dialog = dialog
                 })
-                
-                let resend = UIAlertAction(title: "Попробовать еще раз",
-                                           style: .default, handler: { [weak self] action in
-                                            
-                                            self?.sendMessage(message: message, section: section,
-                                                              messageIndex: messageIndex)
+                .onFailure(callback: { error in
+                    
+                    errorClosure()
                 })
-                
-                alert.addAction(cancel)
-                alert.addAction(resend)
-                
-                self.present(alert, animated: true, completion: nil)
         }
     }
     
@@ -252,10 +312,15 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
     
     fileprivate func loadMessages(loadMore: Bool = false) {
         
+        guard let dialog = self.dialog else {
+            
+            return
+        }
+        
         self.loadingStatus = .loading
         self.tableView.showBusy()
         
-        api.loadDialogMessages(dialogId: self.dialog.id, pageSize: self.pageSize, lastId: self.lastId)
+        api.loadDialogMessages(dialogId: dialog.id, pageSize: self.pageSize, lastId: self.lastId)
             
             .onSuccess { [unowned self] messages in
                 
@@ -266,7 +331,7 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
                 
                     self.lastId = lastMessage.id
                     
-                    if !loadMore && self.dialog.unreadMessageCount != 0 {
+                    if !loadMore && dialog.unreadMessageCount != 0 {
                         
                         // notify
                         if let message = messages.first(where: { $0.userId != self.myUser.id }) {

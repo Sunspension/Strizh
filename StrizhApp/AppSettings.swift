@@ -21,6 +21,7 @@ let kPostCreatedNotification = "kPostCreatedNotification"
 let kPostDeleteNotification = "kPostDeleteNotification"
 let kPostUpdateDialogNotification = "kPostUpdateDialogNotification"
 let kReceiveMessageNotification = "kReceiveMessageNotification"
+let kReceiveDialogBadgeNotification = "kReceiveDialogBadgeNotification"
 
 struct AppSettings {
     

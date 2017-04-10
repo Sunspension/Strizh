@@ -54,31 +54,61 @@ class STDialogsController: UITableViewController {
         
         self.tableView.tableFooterView = UIView()
         
-        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostUpdateDialogNotification),
+//        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostUpdateDialogNotification),
+//                                                         object: nil)
+//            .observeNext { [unowned self] notification in
+//                
+//                let dialog = (notification.object as? STDialog)!
+//                
+//                for i in 0 ... self.section.items.count - 1 {
+//                
+//                    let dialogItem = self.section.items[i].item as! STDialog
+//                    
+//                    if dialogItem.id != dialog.id {
+//                        
+//                        continue
+//                    }
+//                    
+//                    // update table view
+//                    self.tableView.beginUpdates()
+//                    
+//                    self.section.items.remove(at: i)
+//                    
+//                    let indexPath = IndexPath(row: i, section: 0)
+//                    
+//                    self.tableView.deleteRows(at: [indexPath], with: .none)
+//                    
+//                    self.section.insert(item: dialog, at: i,
+//                                        cellClass: STDialogCell.self, bindingAction: self.bindingAction)
+//                    
+//                    self.tableView.insertRows(at: [indexPath], with: .none)
+//                    
+//                    self.tableView.endUpdates()
+//                    
+//                    break
+//                }
+//                
+//            }.dispose(in: disposeBag)
+        
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kReceiveDialogBadgeNotification),
                                                          object: nil)
             .observeNext { [unowned self] notification in
                 
-                let dialog = (notification.object as? STDialog)!
+                let badge = (notification.object as? STDialogBadge)!
                 
-                if let section = self.section.items.first(where: { ($0.item as! STDialog).id == dialog.id }) {
+                for i in 0 ... self.section.items.count - 1 {
                     
-                    let itemIndex = self.section.items.index(of: section)!
+                    let dialogItem = self.section.items[i].item as! STDialog
                     
-                    // update table view
-                    self.tableView.beginUpdates()
+                    if dialogItem.id != badge.dialogId {
+                        
+                        continue
+                    }
                     
-                    self.section.items.remove(at: itemIndex)
+                    let indexPath = IndexPath(row: i, section: 0)
+                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
                     
-                    let indexPath = IndexPath(row: itemIndex, section: 0)
-                    
-                    self.tableView.deleteRows(at: [indexPath], with: .none)
-                    
-                    self.section.insert(item: dialog, at: itemIndex,
-                                        cellClass: STDialogCell.self, bindingAction: self.bindingAction)
-                    
-                    self.tableView.insertRows(at: [indexPath], with: .none)
-                    
-                    self.tableView.endUpdates()
+                    break
                 }
                 
             }.dispose(in: disposeBag)
@@ -171,6 +201,7 @@ class STDialogsController: UITableViewController {
         
         viewCell.topicTitle.text = dialog.title
         
+        // unread
         if (dialog.unreadMessageCount == 0) {
             
             viewCell.newMessageCounter.isHidden = true
@@ -185,7 +216,6 @@ class STDialogsController: UITableViewController {
         }
         
         // get user
-        
         if let opponentId = dialog.userIds.first(where: { $0.value != self.myUser.id }) {
             
             if let user = self.users.first(where: { $0.id == opponentId.value }) {

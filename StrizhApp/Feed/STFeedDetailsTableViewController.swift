@@ -35,7 +35,7 @@ class STFeedDetailsTableViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet weak var actionWrite: UIButton!
+    @IBOutlet weak var writeMessage: UIButton!
     
     
     var user: STUser?
@@ -77,6 +77,13 @@ class STFeedDetailsTableViewController: UIViewController {
         self.tableView.register(nibClass: STPersonalPostDetailsMainInfoCell.self)
         
         self.navigationItem.title = "Информация"
+        
+        if let post = self.post {
+            
+            let buttonTitle = post.dialogCount == 0 ? "Написать сообщение" : "Перейти к диалогу"
+            self.writeMessage.setTitle(buttonTitle, for: .normal)
+            self.writeMessage.addTarget(self, action: #selector(self.openChatController), for: .touchUpInside)
+        }
     
         self.dataSource.sections.append(self.tableSection)
         
@@ -94,6 +101,16 @@ class STFeedDetailsTableViewController: UIViewController {
         self.createDataSource()
     }
 
+    func openChatController() {
+        
+        guard let post = self.post else {
+            
+            return
+        }
+        
+        self.st_router_openChatController(post: post)
+    }
+    
     fileprivate func createDataSource() {
         
         guard let post = self.post else {

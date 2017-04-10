@@ -64,6 +64,8 @@ enum STSocketRequestBuilder {
     
     case notifyMessagesRead(dialogId: Int, lastMessageId: Int)
     
+    case createDialog(objectId: Int, objectType: Int, message: String?)
+    
     
     var request: STSocketRequest {
         
@@ -376,6 +378,26 @@ enum STSocketRequestBuilder {
             var body = [String : Any]()
             
             body["last_read_message_id"] = lastMessageId
+            self.addToPayload(&payLoad, type: .body, value: body)
+            
+            break
+            
+        case .createDialog(let objectId, let objectType, let message):
+            
+            // payload
+            self.addToPayload(&payLoad, type: .path, value: "/api/message")
+            self.addToPayload(&payLoad, type: .method, value: "POST")
+            
+            var body = [String : Any]()
+            
+            body["object_type"] = objectType
+            body["object_id"] = objectId
+            
+            if message != nil {
+                
+                body["message"] = message
+            }
+            
             self.addToPayload(&payLoad, type: .body, value: body)
             
             break

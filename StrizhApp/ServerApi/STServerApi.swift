@@ -180,4 +180,9 @@ struct STServerApi: PRemoteServerApi {
         
         return self.socket.notifyMessagesRead(dialogId: dialogId, lastMessageId: lastMessageId)
     }
+    
+    func createDialog(objectId: Int, objectType: Int, message: String?) -> Future<STDialog, STError> {
+        
+        return self.socket.createDialog(objectId: objectId, objectType: objectType, message: message)
+    }
 }

@@ -73,4 +73,8 @@ protocol PRemoteServerApi {
     func sendMessage(dialogId: Int, message: String) -> Future<STMessage, STError>
     
     func notifyMessagesRead(dialogId: Int, lastMessageId: Int) -> Future<STDialog, STError>
+    
+    //// For creation dialog with user, object id have to be equals to a post id.
+    //// For creation dialog with support, object id have to be equals user id
+    func createDialog(objectId: Int, objectType: Int, message: String?) -> Future<STDialog, STError>
 }

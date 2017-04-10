@@ -365,6 +365,27 @@ class STWebSocket {
         return p.future
     }
     
+    func createDialog(objectId: Int, objectType: Int, message: String?) -> Future<STDialog, STError> {
+        
+        let p = Promise<STDialog, STError>()
+        
+        let request = STSocketRequestBuilder.createDialog(objectId: objectId, objectType: objectType, message: message).request
+        
+        self.sendRequest(request: request) { json in
+            
+            if let message = STDialog(JSON: json) {
+                
+                p.success(message)
+            }
+            else {
+                
+                p.failure(.notifyMessagesReadError)
+            }
+        }
+        
+        return p.future
+    }
+    
     @objc func onApplicationDidBecomeActiveNotification() {
         
         if let socket = self.socket {
@@ -421,7 +442,7 @@ class STWebSocket {
             debugPrint(json)
             
             if let data = json["data"] as? [String : Any] {
-            
+                
                 switch json["type"] as! String {
                     
                 case "message":
@@ -432,6 +453,17 @@ class STWebSocket {
                     }
                     
                     NotificationCenter.default.post(name: NSNotification.Name(kReceiveMessageNotification), object: message)
+                    
+                    break
+                    
+                case "dialog_badge":
+                    
+                    guard let message = STDialogBadge(JSON: data) else {
+                        
+                        return
+                    }
+                    
+                    NotificationCenter.default.post(name: NSNotification.Name(kReceiveDialogBadgeNotification), object: message)
                     
                     break
                     
@@ -463,6 +495,7 @@ class STWebSocket {
                 else {
                     
                     // TODO error handler
+                    debugPrint(json)
                 }
             }
         }
