@@ -56,7 +56,7 @@ enum STSocketRequestBuilder {
     
     case createPost(post: STUserPostObject, update: Bool)
     
-    case loadDialogs(page: Int, pageSize: Int)
+    case loadDialogs(page: Int, pageSize: Int, postId: Int?)
     
     case loadDialogMessages(dialogId: Int, pageSize: Int, lastId: Int?)
     
@@ -64,7 +64,7 @@ enum STSocketRequestBuilder {
     
     case notifyMessagesRead(dialogId: Int, lastMessageId: Int)
     
-    case createDialog(objectId: Int, objectType: Int, message: String?)
+    case createDialog(objectId: Int, objectType: Int)
     
     
     var request: STSocketRequest {
@@ -322,7 +322,7 @@ enum STSocketRequestBuilder {
             
             break
             
-        case .loadDialogs(let page, let pageSize):
+        case .loadDialogs(let page, let pageSize, let postId):
             
             // payload
             self.addToPayload(&payLoad, type: .path, value: "/api/dialog")
@@ -333,6 +333,16 @@ enum STSocketRequestBuilder {
             self.addToQuery(&query, type: .pageSize, value: pageSize)
             self.addToQuery(&query, type: .sortingOrder, value: ["id" : "desc"])
             self.addToQuery(&query, type: .extend, value: "user, message")
+            
+            if postId != nil {
+                
+                var filters: [String : Any] = [:]
+                
+                filters["object_id"] = postId!
+                filters["object_type"] = 1
+                
+                self.addToQuery(&query, type: .filters, value: filters)
+            }
             
             break
             
@@ -382,21 +392,16 @@ enum STSocketRequestBuilder {
             
             break
             
-        case .createDialog(let objectId, let objectType, let message):
+        case .createDialog(let objectId, let objectType):
             
             // payload
-            self.addToPayload(&payLoad, type: .path, value: "/api/message")
+            self.addToPayload(&payLoad, type: .path, value: "/api/dialog")
             self.addToPayload(&payLoad, type: .method, value: "POST")
             
             var body = [String : Any]()
             
             body["object_type"] = objectType
             body["object_id"] = objectId
-            
-            if message != nil {
-                
-                body["message"] = message
-            }
             
             self.addToPayload(&payLoad, type: .body, value: body)
             

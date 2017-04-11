@@ -113,21 +113,40 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
                 
             }.dispose(in: disposeBag)
         
+        // If we have just a post id
         if self.dialog == nil {
+            
+            self.users.append(myUser)
             
             if let postId = self.postId, let objectType = self.objectType {
                 
                 self.tableView.showBusy()
                 
-                api.createDialog(objectId: postId, objectType: objectType, message: nil)
+                api.createDialog(objectId: postId, objectType: objectType)
                     .onSuccess { [weak self] dialog in
                         
-                        self?.tableView.hideBusy()
+                        guard let sself = self else {
+                            
+                            return
+                        }
                         
-                        self?.dialog = dialog
+                        sself.dialog = dialog
                         
-                        // TODO load apponent id
-                        self?.loadMessages()
+                        // load an apponent id
+                        if let userId = dialog.userIds.first(where: { $0.value != sself.myUser.id }) {
+                            
+                            sself.api.loadUser(transport: .webSocket, userId: userId.value)
+                                .onSuccess(callback: { user in
+                                
+                                    sself.tableView.hideBusy()
+                                    sself.users.append(user)
+                                    sself.loadMessages()
+                                })
+                                .onFailure(callback: { error in
+                                    
+                                    sself.tableView.hideBusy()
+                                })
+                        }
                     }
                     .onFailure { [weak self] error in
                         
@@ -171,13 +190,6 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
             self.view.setNeedsLayout()
             self.view.layoutIfNeeded()
         })
-    }
-
-    /// Object type = 1 - Dialog with user
-    /// Object type = 2 - Dialog with support
-    func loadDialog(by objectId: Int, objectType: Int) {
-        
-       
     }
     
     func sendMessageAction() {
@@ -249,54 +261,39 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
     
     fileprivate func sendMessage(message: String, section: TableSection, messageIndex: Int) {
         
-        let errorClosure = {
+        guard let dialog = self.dialog else {
             
-            let alert = UIAlertController(title: "Ошибка",
-                                          message: "Не удалось отправить сообщение",
-                                          preferredStyle: .alert)
-            let cancel = UIAlertAction(title: "Удалить сообщение",
-                                       style: .cancel, handler: { [unowned self] action in
-                                        
-                                        section.items.remove(at: messageIndex)
-                                        
-                                        let sectionIndex = self.dataSource.sections.index(of: section)!
-                                        let indexPath = IndexPath(item: messageIndex, section: sectionIndex)
-                                        
-                                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            })
-            
-            let resend = UIAlertAction(title: "Попробовать еще раз",
-                                       style: .default, handler: { [weak self] action in
-                                        
-                                        self?.sendMessage(message: message, section: section,
-                                                          messageIndex: messageIndex)
-            })
-            
-            alert.addAction(cancel)
-            alert.addAction(resend)
-            
-            self.present(alert, animated: true, completion: nil)
+            return
         }
         
-        if let dialog = self.dialog {
-            
-            api.sendMessage(dialogId: dialog.id, message: message)
-                .onFailure { error in
-                    
-                    errorClosure()
-                }
-        }
-        else if let postId = self.postId, let objectType = self.objectType {
-            
-            api.createDialog(objectId: postId, objectType: objectType, message: message)
-                .onSuccess(callback: { dialog in
+        api.sendMessage(dialogId: dialog.id, message: message)
+            .onFailure { error in
                 
-                    self.dialog = dialog
+                let alert = UIAlertController(title: "Ошибка",
+                                              message: "Не удалось отправить сообщение",
+                                              preferredStyle: .alert)
+                let cancel = UIAlertAction(title: "Удалить сообщение",
+                                           style: .cancel, handler: { [unowned self] action in
+                                            
+                                            section.items.remove(at: messageIndex)
+                                            
+                                            let sectionIndex = self.dataSource.sections.index(of: section)!
+                                            let indexPath = IndexPath(item: messageIndex, section: sectionIndex)
+                                            
+                                            self.tableView.deleteRows(at: [indexPath], with: .automatic)
                 })
-                .onFailure(callback: { error in
-                    
-                    errorClosure()
+                
+                let resend = UIAlertAction(title: "Попробовать еще раз",
+                                           style: .default, handler: { [weak self] action in
+                                            
+                                            self?.sendMessage(message: message, section: section,
+                                                              messageIndex: messageIndex)
                 })
+                
+                alert.addAction(cancel)
+                alert.addAction(resend)
+                
+                self.present(alert, animated: true, completion: nil)
         }
     }
     

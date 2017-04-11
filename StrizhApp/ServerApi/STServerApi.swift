@@ -161,9 +161,9 @@ struct STServerApi: PRemoteServerApi {
         return self.socket.uploadContacts(contacts: contacts)
     }
     
-    func loadDialogs(page: Int, pageSize: Int) -> Future<STDialogsPage, STError> {
+    func loadDialogs(page: Int, pageSize: Int, postId: Int? = nil) -> Future<STDialogsPage, STError> {
         
-        return self.socket.loadDialogs(page: page, pageSize: pageSize)
+        return self.socket.loadDialogs(page: page, pageSize: pageSize, postId: postId)
     }
     
     func loadDialogMessages(dialogId: Int, pageSize: Int, lastId: Int?) -> Future<[STMessage], STError> {
@@ -181,8 +181,8 @@ struct STServerApi: PRemoteServerApi {
         return self.socket.notifyMessagesRead(dialogId: dialogId, lastMessageId: lastMessageId)
     }
     
-    func createDialog(objectId: Int, objectType: Int, message: String?) -> Future<STDialog, STError> {
+    func createDialog(objectId: Int, objectType: Int) -> Future<STDialog, STError> {
         
-        return self.socket.createDialog(objectId: objectId, objectType: objectType, message: message)
+        return self.socket.createDialog(objectId: objectId, objectType: objectType)
     }
 }

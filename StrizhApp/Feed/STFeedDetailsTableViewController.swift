@@ -78,11 +78,39 @@ class STFeedDetailsTableViewController: UIViewController {
         
         self.navigationItem.title = "Информация"
         
+        self.setCustomBackButton()
+        
         if let post = self.post {
             
-            let buttonTitle = post.dialogCount == 0 ? "Написать сообщение" : "Перейти к диалогу"
-            self.writeMessage.setTitle(buttonTitle, for: .normal)
-            self.writeMessage.addTarget(self, action: #selector(self.openChatController), for: .touchUpInside)
+            let myUser = STUser.objects(by: STUser.self).first!
+            
+            if post.dialogCount == 0 {
+                
+                self.writeMessage.setTitle("Написать сообщение", for: .normal)
+                
+                if post.userId == myUser.id {
+                    
+                    writeMessage.isEnabled = false
+                    writeMessage.alpha = 0.7
+                }
+                else {
+                    
+                    self.writeMessage.addTarget(self, action: #selector(self.openChatController), for: .touchUpInside)
+                }
+            }
+            else {
+                
+                if post.userId == myUser.id && post.dialogCount > 1 {
+                    
+                    self.writeMessage.setTitle("Перейти к диалогам (\(post.dialogCount))", for: .normal)
+                    self.writeMessage.addTarget(self, action: #selector(self.openDialogsController), for: .touchUpInside)
+                }
+                else {
+                    
+                    self.writeMessage.setTitle("Перейти к диалогу", for: .normal)
+                    self.writeMessage.addTarget(self, action: #selector(self.openChatController), for: .touchUpInside)
+                }
+            }
         }
     
         self.dataSource.sections.append(self.tableSection)
@@ -101,6 +129,16 @@ class STFeedDetailsTableViewController: UIViewController {
         self.createDataSource()
     }
 
+    func openDialogsController() {
+        
+        guard let post = self.post else {
+            
+            return
+        }
+        
+        self.st_router_openDialogsController(postId: post.id)
+    }
+    
     func openChatController() {
         
         guard let post = self.post else {

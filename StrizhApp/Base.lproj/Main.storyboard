@@ -375,7 +375,7 @@
             <objects>
                 <navigationController id="y8a-4d-R7j" customClass="STNavigationController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Лента" image="icon-feed" id="1vh-bf-t6H"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Jhj-Ko-WV5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Jhj-Ko-WV5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -415,7 +415,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="ibQ-gp-xhM" customClass="STNavigationController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Кабинет" image="icon-profile" id="2FL-tE-lSs"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="QE0-AY-KGJ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QE0-AY-KGJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -434,7 +434,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8hU-3R-Ujc" customClass="STNavigationController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Контакты" image="icon-contacts" id="rhd-M2-bI2"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Zhg-1V-xPv">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zhg-1V-xPv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -455,7 +455,7 @@
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="y4b-by-Jmu">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="y4b-by-Jmu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -518,7 +518,7 @@
         <!--Диалоги-->
         <scene sceneID="sl6-XG-5yE">
             <objects>
-                <tableViewController id="Qk3-KO-YG4" customClass="STDialogsController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="STDialogsController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Qk3-KO-YG4" customClass="STDialogsController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="106" sectionHeaderHeight="28" sectionFooterHeight="28" id="ZUf-wo-OOR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -528,7 +528,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="106"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zMi-7i-kaf" id="11u-pW-mNQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="106"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="105.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar" translatesAutoresizingMaskIntoConstraints="NO" id="xxo-y0-Zcw">
@@ -625,7 +625,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9nb-ZW-4wz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1641" y="1882"/>
+            <point key="canvasLocation" x="1641" y="1815"/>
         </scene>
         <!--Диалоги-->
         <scene sceneID="7K9-mO-dWc">
@@ -633,7 +633,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WDs-mK-VAP" customClass="STNavigationController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Диалоги" image="icon-dialogs" id="rWH-3o-7Hv"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="JdF-zd-MQe">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JdF-zd-MQe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -705,10 +705,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="STDialogOtherCell" rowHeight="112" id="pYp-WB-1HO" customClass="STDialogOtherCell" customModule="StrizhApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="112"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="112"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pYp-WB-1HO" id="5tk-wk-C5s">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="111"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="111.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mlP-RR-azc">
@@ -765,10 +765,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="STDialogMyCell" rowHeight="112" id="KxX-LT-dzb" customClass="STDialogMyCell" customModule="StrizhApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="168" width="375" height="112"/>
+                                        <rect key="frame" x="0.0" y="167.5" width="375" height="112"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KxX-LT-dzb" id="6ze-L6-Fp3">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="111"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="111.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble-my" translatesAutoresizingMaskIntoConstraints="NO" id="kFe-z8-AwQ">

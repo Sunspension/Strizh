@@ -32,6 +32,8 @@ class STDialogsController: UITableViewController {
     
     fileprivate let disposeBag = DisposeBag()
     
+    var postId: Int?
+    
     
     deinit {
         
@@ -138,7 +140,7 @@ class STDialogsController: UITableViewController {
         self.loadingStatus = .loading
         self.tableView.showBusy()
         
-        api.loadDialogs(page: self.page, pageSize: self.pageSize)
+        api.loadDialogs(page: self.page, pageSize: self.pageSize, postId: self.postId)
             
             .onSuccess { [unowned self] dialogPage in
             
