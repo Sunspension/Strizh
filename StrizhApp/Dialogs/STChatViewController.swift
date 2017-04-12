@@ -94,7 +94,8 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
                 
                 let message = (notification.object as? STMessage)!
                 
-                if message.dialogId != dialog.id {
+                if message.dialogId != dialog.id
+                    || message.userId == self.myUser.id {
                     
                     return
                 }
@@ -103,12 +104,13 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
                 self.notifyMessagesRead(lastReadMessage: message.id)
                 
                 let section = self.section(by: message.createdAt)
-                let itemIndex = section.addItem(cellClass: STDialogMyCell.self, item: message,
-                                                bindingAction: self.myCellBindingAction)
+                let itemIndex = section.addItem(cellClass: STDialogOtherCell.self, item: message,
+                                                bindingAction: self.otherCellBindingAction)
                 
                 let sectionIndex = self.dataSource.sections.index(of: section)
                 let indexPath = IndexPath(item: itemIndex, section: sectionIndex!)
                 
+                self.tableView.reloadData()
                 self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
                 
             }.dispose(in: disposeBag)
@@ -418,33 +420,7 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
             else {
                 
                 section!.insert(item: message, at: 0, cellClass: STDialogOtherCell.self,
-                                     bindingAction: { [unowned self] (cell, item) in
-                                        
-                                        let section = self.dataSource.sections.first!
-                                        
-                                        if section.items.contains(item)
-                                            && item.indexPath.row - 10 < 0 && self.hasMore
-                                            && self.loadingStatus != .loading {
-                                            
-                                            self.loadMessages(loadMore: true)
-                                        }
-                                        
-                                        let viewCell = cell as! STDialogOtherCell
-                                        let message = item.item as! STMessage
-                                        
-                                        viewCell.messageText.text = message.message
-                                        viewCell.time.text = message.createdAt.time
-                                        
-                                        if let user = self.users.first(where: { $0.id == message.userId }) {
-                                            
-                                            let urlString = user.imageUrl + self.queryResizeString(imageView: viewCell.userImage.imageView!)
-                                            
-                                            let filter = RoundedCornersFilter(radius: CGFloat(viewCell.userImage.imageView!.bounds.width))
-                                            
-                                            viewCell.userImage.af_setImage(for: .normal, url: URL(string: urlString)!, filter: filter)
-                                        }
-                                        
-                })
+                                     bindingAction: self.otherCellBindingAction)
             }
         }
     }
@@ -472,6 +448,33 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         let indexPath = IndexPath(item: itemIndex, section: sectionIndex!)
         
         self.tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
+    }
+    
+    fileprivate func otherCellBindingAction(cell: UITableViewCell, item: TableSectionItem) {
+        
+        let section = self.dataSource.sections.first!
+        
+        if section.items.contains(item)
+            && item.indexPath.row - 10 < 0 && self.hasMore
+            && self.loadingStatus != .loading {
+            
+            self.loadMessages(loadMore: true)
+        }
+        
+        let viewCell = cell as! STDialogOtherCell
+        let message = item.item as! STMessage
+        
+        viewCell.messageText.text = message.message
+        viewCell.time.text = message.createdAt.time
+        
+        if let user = self.users.first(where: { $0.id == message.userId }) {
+            
+            let urlString = user.imageUrl + self.queryResizeString(imageView: viewCell.userImage.imageView!)
+            
+            let filter = RoundedCornersFilter(radius: CGFloat(viewCell.userImage.imageView!.bounds.width))
+            
+            viewCell.userImage.af_setImage(for: .normal, url: URL(string: urlString)!, filter: filter)
+        }
     }
     
     fileprivate func myCellBindingAction(cell: UITableViewCell, item: TableSectionItem) {

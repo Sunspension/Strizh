@@ -433,21 +433,17 @@ class STWebSocket {
         self.socket = SocketIOClient(socketURL: URL(string: serverUrlString)!, config: config)
         
         self.socket!.on("event") { (data, ack) in
-            
-            guard let json = self.serializeJSON(data: data) else {
+
+            if
+                let data = data[0] as? [String : Any],
+                let type = data["type"] as? String,
+                let object = data["data"] as? [String : Any] {
                 
-                return
-            }
-            
-            debugPrint(json)
-            
-            if let data = json["data"] as? [String : Any] {
-                
-                switch json["type"] as! String {
+                switch type {
                     
                 case "message":
                     
-                    guard let message = STMessage(JSON: data) else {
+                    guard let message = STMessage(JSON: object) else {
                         
                         return
                     }
@@ -458,7 +454,7 @@ class STWebSocket {
                     
                 case "dialog_badge":
                     
-                    guard let message = STDialogBadge(JSON: data) else {
+                    guard let message = STDialogBadge(JSON: object) else {
                         
                         return
                     }
@@ -469,6 +465,7 @@ class STWebSocket {
                     
                 default:
                     break
+                    
                 }
             }
         }
@@ -511,11 +508,11 @@ class STWebSocket {
         
         let responseData = responseString.data(using: String.Encoding.utf8)
         
-        var json = [String : AnyObject]()
+        var json: [String : AnyObject]? = nil
         
         do {
             
-            json = try JSONSerialization.jsonObject(with: responseData!, options: []) as! [String : AnyObject]
+            json = try JSONSerialization.jsonObject(with: responseData!, options: []) as? [String : AnyObject]
         }
         catch let error {
             
