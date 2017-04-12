@@ -9,7 +9,7 @@
 import UIKit
 
 enum STError: Error {
-
+    
     case favoriteFailure
     
     case archiveFailure
@@ -20,11 +20,17 @@ enum STError: Error {
     
     case loadDialogsError
     
+    case loadDialogError
+    
     case loadMessagesError
     
     case sendMessageError
     
     case notifyMessagesReadError
+    
+    case createDialogError
+    
+    case loadMessageError
     
     case anyError(error: Error)
     
@@ -57,6 +63,10 @@ enum STError: Error {
             
             return "Error has occurred when was trying to load dialogs"
             
+        case .loadDialogError:
+            
+            return "Error has occurred when was trying to load a dialog"
+            
         case .loadMessagesError:
             
             return "Error has occurred when was trying to load dialog messages"
@@ -68,6 +78,14 @@ enum STError: Error {
         case .notifyMessagesReadError:
             
             return "Error has occurred when was trying to notify about read messages"
+            
+        case .createDialogError:
+            
+            return "Error has occurred when was trying to create a dialog"
+            
+        case .loadMessageError:
+            
+            return "Error has occurred when was trying to load a message"
         }
     }
 }

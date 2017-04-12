@@ -11,7 +11,7 @@ import ObjectMapper
 import RealmSwift
 import Realm
 
-class STMessage: Object, Mappable {
+class STMessage: Object, Mappable, RealmOptionalType {
     
     dynamic var id = 0
     
@@ -49,21 +49,6 @@ class STMessage: Object, Mappable {
         
         self.init()
     }
-    
-//    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-//        
-//        super.init(realm: realm, schema: schema)
-//    }
-//    
-//    required init(value: Any, schema: RLMSchema) {
-//        
-//        super.init(value: value, schema: schema)
-//    }
-//    
-//    required init() {
-//        
-//        super.init()
-//    }
     
     override static func primaryKey() -> String? {
         

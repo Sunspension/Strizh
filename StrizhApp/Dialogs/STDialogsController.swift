@@ -56,42 +56,6 @@ class STDialogsController: UITableViewController {
         
         self.tableView.tableFooterView = UIView()
         
-//        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostUpdateDialogNotification),
-//                                                         object: nil)
-//            .observeNext { [unowned self] notification in
-//                
-//                let dialog = (notification.object as? STDialog)!
-//                
-//                for i in 0 ... self.section.items.count - 1 {
-//                
-//                    let dialogItem = self.section.items[i].item as! STDialog
-//                    
-//                    if dialogItem.id != dialog.id {
-//                        
-//                        continue
-//                    }
-//                    
-//                    // update table view
-//                    self.tableView.beginUpdates()
-//                    
-//                    self.section.items.remove(at: i)
-//                    
-//                    let indexPath = IndexPath(row: i, section: 0)
-//                    
-//                    self.tableView.deleteRows(at: [indexPath], with: .none)
-//                    
-//                    self.section.insert(item: dialog, at: i,
-//                                        cellClass: STDialogCell.self, bindingAction: self.bindingAction)
-//                    
-//                    self.tableView.insertRows(at: [indexPath], with: .none)
-//                    
-//                    self.tableView.endUpdates()
-//                    
-//                    break
-//                }
-//                
-//            }.dispose(in: disposeBag)
-        
         NotificationCenter.default.reactive.notification(name: NSNotification.Name(kReceiveDialogBadgeNotification),
                                                          object: nil)
             .observeNext { [unowned self] notification in
@@ -107,8 +71,27 @@ class STDialogsController: UITableViewController {
                         continue
                     }
                     
-                    let indexPath = IndexPath(row: i, section: 0)
-                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    let index = i
+                    
+                    self.api.loadDialogWithLastMessage(by: badge.dialogId)
+                        .onSuccess(callback: { dialog in
+                            
+                            guard let lastMessage = dialog.message else {
+                                
+                                return
+                            }
+                            
+                            let indexPath = IndexPath(row: index, section: 0)
+                            self.section.items.remove(at: index)
+                            
+                            self.messages.append(lastMessage)
+                            self.section.insert(item: dialog,
+                                                at: index,
+                                                cellClass: STDialogCell.self,
+                                                bindingAction: self.bindingAction)
+                            
+                            self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    })
                     
                     break
                 }

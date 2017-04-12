@@ -36,6 +36,8 @@ class STDialog: Object, Mappable {
     
     var userIds = List<RealmInt>()
     
+    dynamic var message: STMessage?
+    
     
     required convenience init?(map: Map) {
         
@@ -61,5 +63,6 @@ class STDialog: Object, Mappable {
         maxLastReadMessageId <- map["max_last_read_message_id"]
         unreadMessageCount <- map["unread_message_count"]
         userIds <- (map["user_ids"], ArrayOfCustomRealmObjectsTransform<RealmInt>())
+        message <- map["message"]
     }
 }

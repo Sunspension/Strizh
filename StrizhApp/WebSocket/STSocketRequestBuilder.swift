@@ -58,6 +58,10 @@ enum STSocketRequestBuilder {
     
     case loadDialogs(page: Int, pageSize: Int, postId: Int?)
     
+    case loadDialog(dialogId: Int)
+    
+    case loadDialogWithLastMessage(dialogId: Int)
+    
     case loadDialogMessages(dialogId: Int, pageSize: Int, lastId: Int?)
     
     case sendMessage(dialogId: Int, message: String)
@@ -65,6 +69,8 @@ enum STSocketRequestBuilder {
     case notifyMessagesRead(dialogId: Int, lastMessageId: Int)
     
     case createDialog(objectId: Int, objectType: Int)
+    
+    case loadMessage(messageId: Int)
     
     
     var request: STSocketRequest {
@@ -346,6 +352,24 @@ enum STSocketRequestBuilder {
             
             break
             
+        case .loadDialog(let dialogId):
+            
+            // payload
+            self.addToPayload(&payLoad, type: .path, value: "/api/dialog/\(dialogId)")
+            self.addToPayload(&payLoad, type: .method, value: "GET")
+            
+            break
+            
+        case .loadDialogWithLastMessage(let dialogId):
+            
+            // payload
+            self.addToPayload(&payLoad, type: .path, value: "/api/dialog/\(dialogId)")
+            self.addToPayload(&payLoad, type: .method, value: "GET")
+            
+            self.addToQuery(&query, type: .extend, value: "message")
+            
+            break
+            
         case .loadDialogMessages(let dialogId, let pageSize, let lastId):
             
             // payload
@@ -404,6 +428,14 @@ enum STSocketRequestBuilder {
             body["object_id"] = objectId
             
             self.addToPayload(&payLoad, type: .body, value: body)
+            
+            break
+            
+        case .loadMessage(let messageId):
+            
+            // payload
+            self.addToPayload(&payLoad, type: .path, value: "/api/message/\(messageId)")
+            self.addToPayload(&payLoad, type: .method, value: "GET")
             
             break
         }

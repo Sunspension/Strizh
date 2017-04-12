@@ -299,6 +299,48 @@ class STWebSocket {
         return p.future
     }
     
+    func loadDialog(by id: Int) -> Future<STDialog, STError> {
+        
+        let p = Promise<STDialog, STError>()
+        
+        let request = STSocketRequestBuilder.loadDialog(dialogId: id).request
+        
+        self.sendRequest(request: request) { json in
+            
+            if let dialog = STDialog(JSON: json) {
+                
+                p.success(dialog)
+            }
+            else {
+                
+                p.failure(.loadDialogsError)
+            }
+        }
+        
+        return p.future
+    }
+    
+    func loadDialogWithLastMessage(by dialogId: Int) -> Future<STDialog, STError> {
+        
+        let p = Promise<STDialog, STError>()
+        
+        let request = STSocketRequestBuilder.loadDialogWithLastMessage(dialogId: dialogId).request
+        
+        self.sendRequest(request: request) { json in
+            
+            if let dialog = STDialog(JSON: json) {
+                
+                p.success(dialog)
+            }
+            else {
+                
+                p.failure(.loadDialogError)
+            }
+        }
+        
+        return p.future
+    }
+    
     func loadDialogMessages(dialogId: Int, pageSize: Int, lastId: Int?) -> Future<[STMessage], STError> {
         
         let p = Promise<[STMessage], STError>()
@@ -373,13 +415,34 @@ class STWebSocket {
         
         self.sendRequest(request: request) { json in
             
-            if let message = STDialog(JSON: json) {
+            if let dialog = STDialog(JSON: json) {
+                
+                p.success(dialog)
+            }
+            else {
+                
+                p.failure(.createDialogError)
+            }
+        }
+        
+        return p.future
+    }
+    
+    func loadMessage(by id: Int) -> Future<STMessage, STError> {
+        
+        let p = Promise<STMessage, STError>()
+        
+        let request = STSocketRequestBuilder.loadMessage(messageId: id).request
+        
+        self.sendRequest(request: request) { json in
+            
+            if let message = STMessage(JSON: json) {
                 
                 p.success(message)
             }
             else {
                 
-                p.failure(.notifyMessagesReadError)
+                p.failure(.loadMessageError)
             }
         }
         
