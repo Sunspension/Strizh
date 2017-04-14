@@ -355,6 +355,10 @@ class STWebSocket {
                     
                     p.success(messages)
                 }
+                else {
+                    
+                    p.failure(.loadMessagesError)
+                }
             }
             else {
                 
@@ -475,14 +479,14 @@ class STWebSocket {
     fileprivate func sendRequest(request: STSocketRequest,
                                  callback: @escaping (_ json: [String : Any]) -> Void) {
         
-        self.socketConnect {
+        self.socketConnect { [weak self] in
             
             debugPrint("================================")
             debugPrint("request id: \(request.requestId)")
             debugPrint("================================")
             
-            self.requestCallbacks[request.requestId] = callback
-            self.socket?.emit("request", request.payLoad)
+            self?.requestCallbacks[request.requestId] = callback
+            self?.socket?.emit("request", request.payLoad)
         }
     }
     

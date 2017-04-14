@@ -80,6 +80,7 @@ class TableSection: Equatable {
                                     item: item,
                                     itemType: itemType,
                                     bindingAction: bindingAction)
+        
         self.items.insert(item, at: index)
     }
     

@@ -10,7 +10,7 @@ import UIKit
 import AlamofireImage
 import ReactiveKit
 
-class STChatViewController: STChatControllerBase, UITextViewDelegate {
+class STChatViewController: UIViewController, UITextViewDelegate {
     
     
     fileprivate let dataSource = TableViewDataSource()
@@ -26,6 +26,8 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
     fileprivate var pageSize = 20
     
     fileprivate let disposeBag = DisposeBag()
+    
+    fileprivate var messages = [STMessage]()
     
     
     var postId: Int?
@@ -49,13 +51,12 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
     
     @IBOutlet weak var bottomToolbarSpace: NSLayoutConstraint!
     
-    
-    required init?(coder aDecoder: NSCoder) {
+
+    deinit {
         
-        super.init(coder: aDecoder)
+        NotificationCenter.default.removeObserver(self)
     }
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,36 +85,20 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         self.tableView.separatorStyle = .none
         self.tableView.register(headerFooterNibClass: STDialogSectionHeader.self)
         
-        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kReceiveMessageNotification), object: nil)
-            .observeNext { [unowned self] notification in
-                
-                guard let dialog = self.dialog else {
-                    
-                    return
-                }
-                
-                let message = (notification.object as? STMessage)!
-                
-                if message.dialogId != dialog.id
-                    || message.userId == self.myUser.id {
-                    
-                    return
-                }
-                
-                // notify
-                self.notifyMessagesRead(lastReadMessage: message.id)
-                
-                let section = self.section(by: message.createdAt)
-                let itemIndex = section.addItem(cellClass: STDialogOtherCell.self, item: message,
-                                                bindingAction: self.otherCellBindingAction)
-                
-                let sectionIndex = self.dataSource.sections.index(of: section)
-                let indexPath = IndexPath(item: itemIndex, section: sectionIndex!)
-                
-                self.tableView.reloadData()
-                self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-                
-            }.dispose(in: disposeBag)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.onMessageReceive),
+                                               name: Notification.Name(kReceiveMessageNotification),
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.keyboardWillShow),
+                                               name: Notification.Name.UIKeyboardWillShow,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.keyboardWillHide),
+                                               name: Notification.Name.UIKeyboardWillHide,
+                                               object: nil)
         
         // If we have just a post id
         if self.dialog == nil {
@@ -138,15 +123,15 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
                         if let userId = dialog.userIds.first(where: { $0.value != sself.myUser.id }) {
                             
                             sself.api.loadUser(transport: .webSocket, userId: userId.value)
-                                .onSuccess(callback: { user in
+                                .onSuccess(callback: { [weak self] user in
                                 
-                                    sself.tableView.hideBusy()
-                                    sself.users.append(user)
-                                    sself.loadMessages()
+                                    self?.tableView.hideBusy()
+                                    self?.users.append(user)
+                                    self?.loadMessages()
                                 })
-                                .onFailure(callback: { error in
+                                .onFailure(callback: { [weak self] error in
                                     
-                                    sself.tableView.hideBusy()
+                                    self?.tableView.hideBusy()
                                 })
                         }
                     }
@@ -162,7 +147,7 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         self.loadMessages()
     }
 
-    override func keyboardWillShow(_ notification: Notification) {
+    func keyboardWillShow(_ notification: Notification) {
         
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size {
 
@@ -183,7 +168,7 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         }
     }
     
-    override func keyboardWillHide(_ notification: Notification) {
+    func keyboardWillHide(_ notification: Notification) {
         
         self.bottomToolbarSpace.constant = 0
         
@@ -192,6 +177,37 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
             self.view.setNeedsLayout()
             self.view.layoutIfNeeded()
         })
+    }
+    
+    func onMessageReceive(notification: Notification) {
+        
+        guard let dialog = self.dialog else {
+            
+            return
+        }
+        
+        let message = (notification.object as? STMessage)!
+        
+        if message.dialogId != dialog.id
+            || message.userId == self.myUser.id {
+            
+            return
+        }
+        
+        // notify
+        self.notifyMessagesRead(lastReadMessage: message.id)
+        
+        let section = self.section(by: message.createdAt)
+        let itemIndex = section.addItem(cellClass: STDialogOtherCell.self, item: message) { [unowned self] (cell, item) in
+            
+            self.otherCellBindingAction(cell: cell, item: item)
+        }
+        
+        let sectionIndex = self.dataSource.sections.index(of: section)
+        let indexPath = IndexPath(item: itemIndex, section: sectionIndex!)
+        
+        self.tableView.reloadData()
+        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
     
     func sendMessageAction() {
@@ -210,8 +226,10 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         
         let section = self.section(by: Date())
         
-        let messageIndex = section.addItem(cellClass: STDialogMyCell.self, item: message,
-                                            bindingAction: self.myCellBindingAction)
+        let messageIndex = section.addItem(cellClass: STDialogMyCell.self, item: message) { [unowned self] (cell, item) in
+            
+            self.myCellBindingAction(cell: cell, item: item)
+        }
         
         self.textView.text = ""
         self.placeHolder.isHidden = false
@@ -269,7 +287,7 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         }
         
         api.sendMessage(dialogId: dialog.id, message: message)
-            .onFailure { error in
+            .onFailure { [unowned self] error in
                 
                 let alert = UIAlertController(title: "Ошибка",
                                               message: "Не удалось отправить сообщение",
@@ -286,9 +304,9 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
                 })
                 
                 let resend = UIAlertAction(title: "Попробовать еще раз",
-                                           style: .default, handler: { [weak self] action in
+                                           style: .default, handler: { [unowned self] action in
                                             
-                                            self?.sendMessage(message: message, section: section,
+                                            self.sendMessage(message: message, section: section,
                                                               messageIndex: messageIndex)
                 })
                 
@@ -320,7 +338,7 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
         self.tableView.showBusy()
         
         api.loadDialogMessages(dialogId: dialog.id, pageSize: self.pageSize, lastId: self.lastId)
-            
+
             .onSuccess { [unowned self] messages in
                 
                 self.tableView.hideBusy()
@@ -365,14 +383,14 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
                     self.tableView.reloadData()
                     self.scrollToLastMessage()
                 }
-                
-            }.onFailure { error in
+            }
+            .onFailure { [unowned self] error in
                 
                 self.loadingStatus = .failed
                 self.tableView.hideBusy()
                 
                 self.showError(error: error)
-        }
+            }
     }
     
     fileprivate func createDataSource(messages: [STMessage]) {
@@ -407,20 +425,24 @@ class STChatViewController: STChatControllerBase, UITextViewDelegate {
                                     header.dateLabel.text = date
                 })
                 
-                section?.headerItem?.cellHeight = 30
+                section!.headerItem?.cellHeight = 30
                 
                 self.dataSource.sections.insert(section!, at: 0)
             }
             
             if message.userId == self.myUser.id {
                 
-                section!.insert(item: message, at: 0, cellClass: STDialogMyCell.self,
-                                    bindingAction: self.myCellBindingAction)
+                section!.insert(item: message, at: 0, cellClass: STDialogMyCell.self) { [unowned self] (cell, item) in
+                    
+                    self.myCellBindingAction(cell: cell, item: item)
+                }
             }
             else {
                 
-                section!.insert(item: message, at: 0, cellClass: STDialogOtherCell.self,
-                                     bindingAction: self.otherCellBindingAction)
+                section!.insert(item: message, at: 0, cellClass: STDialogOtherCell.self) { [unowned self] (cell, item) in
+                    
+                    self.otherCellBindingAction(cell: cell, item: item)
+                }
             }
         }
     }

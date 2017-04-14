@@ -11,7 +11,7 @@ import ObjectMapper
 import RealmSwift
 import Realm
 
-class STMessage: Object, Mappable, RealmOptionalType {
+final class STMessage: Object, Mappable, Copying {
     
     dynamic var id = 0
     
@@ -53,6 +53,31 @@ class STMessage: Object, Mappable, RealmOptionalType {
     override static func primaryKey() -> String? {
         
         return "id"
+    }
+    
+    required convenience init(original: STMessage) {
+        
+        self.init()
+        
+        self.id = original.id
+        self.userId = original.userId
+        self.message = original.message
+        self.createdAt = original.createdAt
+        self.dialogId = original.dialogId
+        self.objectId = original.objectId
+        self.objectType = original.objectType
+        
+        self.fileIds = List<RealmInt64>()
+        self.fileIds.append(objectsIn: original.fileIds)
+        
+        self.imageIds = List<RealmInt64>()
+        self.imageIds.append(objectsIn: original.imageIds)
+        
+        self.locationIds = List<RealmInt>()
+        self.locationIds.append(objectsIn: original.locationIds)
+        
+        self.audioIds = List<RealmInt64>()
+        self.audioIds.append(objectsIn: original.audioIds)
     }
     
     func mapping(map: Map) {
