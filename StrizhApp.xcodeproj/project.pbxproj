@@ -101,6 +101,7 @@
 		D4C2AD851E5395C7009CD55A /* STPersonalPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4C2AD831E5395C7009CD55A /* STPersonalPostCell.xib */; };
 		D4C60A811E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C60A7F1E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift */; };
 		D4C60A821E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4C60A801E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib */; };
+		D4CB22771EA1577800A9B80F /* STDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CB22761EA1577800A9B80F /* STDocumentViewController.swift */; };
 		D4FFDFAA1E8705590090BE5A /* STDialogsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFDFA91E8705590090BE5A /* STDialogsPage.swift */; };
 		D4FFDFAC1E8706580090BE5A /* STMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFDFAB1E8706580090BE5A /* STMessage.swift */; };
 		E50DBEAF1E76FD8D000C38E4 /* STTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50DBEAD1E76FD8D000C38E4 /* STTextViewCell.swift */; };
@@ -264,6 +265,7 @@
 		D4C2AD831E5395C7009CD55A /* STPersonalPostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPersonalPostCell.xib; path = Profile/STPersonalPostCell.xib; sourceTree = "<group>"; };
 		D4C60A7F1E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginSkipTableViewCell.swift; path = SignUp/STLoginSkipTableViewCell.swift; sourceTree = "<group>"; };
 		D4C60A801E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STLoginSkipTableViewCell.xib; path = SignUp/STLoginSkipTableViewCell.xib; sourceTree = "<group>"; };
+		D4CB22761EA1577800A9B80F /* STDocumentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDocumentViewController.swift; path = Feed/STDocumentViewController.swift; sourceTree = "<group>"; };
 		D4FFDFA91E8705590090BE5A /* STDialogsPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialogsPage.swift; path = Models/STDialogsPage.swift; sourceTree = "<group>"; };
 		D4FFDFAB1E8706580090BE5A /* STMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STMessage.swift; path = Models/STMessage.swift; sourceTree = "<group>"; };
 		E50DBEAD1E76FD8D000C38E4 /* STTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STTextViewCell.swift; path = NewPost/STTextViewCell.swift; sourceTree = "<group>"; };
@@ -641,6 +643,7 @@
 				D4AD43B61E47A9C2006F13DE /* STFeedTableViewController.swift */,
 				E5BE9E271E4C8D680022B157 /* STFeedFilterTableViewController.swift */,
 				E5BE9E331E4E181E0022B157 /* STFeedDetailsTableViewController.swift */,
+				D4CB22761EA1577800A9B80F /* STDocumentViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1021,6 +1024,7 @@
 				E5BE9E2F1E4C90680022B157 /* STFeedFilterSwitchTableViewCell.swift in Sources */,
 				D49545D41E3D0B8800EDCF01 /* STLoginSeparatorTableViewCell.swift in Sources */,
 				E55906801E520D7B00F8E20E /* ModelExtensions.swift in Sources */,
+				D4CB22771EA1577800A9B80F /* STDocumentViewController.swift in Sources */,
 				D40A6BE81E3AA7FB00F1D218 /* Extensions.swift in Sources */,
 				D49727201E32DCAC0076B7A1 /* STRealmConfiguration.swift in Sources */,
 				E5BE9E371E4E23A40022B157 /* STPostDetailsMainInfoCell.swift in Sources */,

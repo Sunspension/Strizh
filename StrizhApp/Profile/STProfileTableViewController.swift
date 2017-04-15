@@ -272,6 +272,15 @@ class STProfileTableViewController: UITableViewController {
     
     private func createDataSource(posts: [STPost]) {
         
+        if posts.count == 0 {
+            
+            self.showDummyView(imageName: "no-data")
+        }
+        else {
+            
+            self.hideDummyView()
+        }
+        
         posts.forEach { post in
             
             userPostsSection.addItem(cellClass: STPersonalPostCell.self,

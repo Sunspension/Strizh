@@ -124,4 +124,12 @@ extension UIViewController {
         
         self.navigationController?.pushViewController(chatController, animated: true)
     }
+    
+    func st_router_openDocumentController(url: URL, fileName: String) {
+        
+        let controller = STDocumentViewController(url: url, fileName: fileName)
+        let navi = STNewPostNavigationController(rootViewController: controller)
+        
+        self.present(navi, animated: true, completion: nil)
+    }
 }

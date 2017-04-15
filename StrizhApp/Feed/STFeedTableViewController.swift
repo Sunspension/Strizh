@@ -125,7 +125,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ? self.searchFeedDataSource : self.searchFavoriteDataSource
         
         self.tableView.dataSource = dataSource!.dataSource
-        self.tableView.reloadData()
+        self.reloadTableView()
         self.tableView.hideBusy()
     }
     
@@ -138,7 +138,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ? self.feedDataSource : self.favoritesFeedDataSource
         
         self.tableView.dataSource = dataSource!.dataSource
-        self.tableView.reloadData()
+        self.reloadTableView()
         self.tableView.hideBusy()
     }
     
@@ -188,7 +188,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
             return
         }
         
-        self.tableView.reloadData()
+        self.reloadTableView()
     }
     
     func openFilter() {
@@ -197,7 +197,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
             
             self.feedDataSource?.reloadFilter(notify: self.dataSourceSwitch.selectedSegmentIndex == 0)
             self.favoritesFeedDataSource?.reloadFilter(notify: self.dataSourceSwitch.selectedSegmentIndex == 1)
-            self.tableView.reloadData()
+            self.reloadTableView()
         }
         
         let navi = STNavigationController(rootViewController: controller)
@@ -257,14 +257,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
             }
         }
         
-        if animation {
-            
-            self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
-        }
-        else {
-            
-            self.tableView.reloadData()
-        }
+        self.reloadTableView(animation: animation)
     }
     
     private func onStartLoading() {
@@ -293,5 +286,26 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
             dataSource?.loadFeed(isRefresh: true)
             
         }).dispose(in: disposeBag)
+    }
+    
+    private func reloadTableView(animation: Bool = false) {
+        
+        if animation {
+            
+            self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        }
+        else {
+            
+            self.tableView.reloadData()
+        }
+        
+        if self.tableView.numberOfRows(inSection: 0) == 0 {
+            
+            self.showDummyView(imageName: "no-data")
+        }
+        else {
+            
+            self.hideDummyView()
+        }
     }
 }

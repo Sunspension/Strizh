@@ -171,6 +171,16 @@ class STDialogsController: UITableViewController {
             self.section.addItem(cellClass: STDialogCell.self,
                                  item: dialog, bindingAction: self.bindingAction)
         }
+        
+        // dummy view
+        if dialogsPage.dialogs.count == 0 {
+            
+            self.showDummyView(imageName: "no-data")
+        }
+        else {
+            
+            self.hideDummyView()
+        }
     }
     
     fileprivate func bindingAction(cell: UITableViewCell, item: TableSectionItem) {
@@ -190,7 +200,7 @@ class STDialogsController: UITableViewController {
         if (dialog.unreadMessageCount == 0) {
             
             viewCell.newMessageCounter.isHidden = true
-            viewCell.backgroundView?.backgroundColor = UIColor.clear
+            viewCell.backgroundView?.backgroundColor = UIColor.white
         }
         else {
             

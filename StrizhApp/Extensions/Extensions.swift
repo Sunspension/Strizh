@@ -81,6 +81,64 @@ extension UIViewController {
         
         self.appDelegate?.changeRootViewController(viewController)
     }
+    
+    func showBusy() {
+        
+        self.hideBusy()
+        
+        let busy = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        busy.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        busy.hidesWhenStopped = true
+        busy.startAnimating()
+        
+        self.view.addSubview(busy)
+        busy.center = self.view.center
+    }
+    
+    func hideBusy() {
+        
+        self.view.subviews.forEach { view in
+            
+            if view.self is UIActivityIndicatorView {
+                
+                view.removeFromSuperview()
+            }
+        }
+    }
+    
+    func showDummyView(imageName: String) {
+        
+        self.hideDummyView()
+        
+        let imageView = UIImageView(image: UIImage(named: imageName))
+        imageView.frame = CGRect(x: 0, y: 0, width: 200, height: 165)
+        imageView.contentMode = .scaleAspectFit
+        
+        self.view.addSubview(imageView)
+
+        var center = self.view.center
+        
+        if self.view is UITableView {
+            
+            if let bar = self.navigationController?.navigationBar {
+                
+                center.y = center.y - (bar.isHidden ? 0 : bar.frame.size.height)
+            }
+        }
+        
+        imageView.center = center
+    }
+    
+    func hideDummyView() {
+        
+        self.view.subviews.forEach { view in
+            
+            if view.self is UIImageView {
+                
+                view.removeFromSuperview()
+            }
+        }
+    }
 }
 
 extension UIView {

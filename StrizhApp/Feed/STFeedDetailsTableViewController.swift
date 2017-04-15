@@ -11,14 +11,18 @@ import AlamofireImage
 import GoogleMaps
 
 
-enum STPostDetailsReasonEnum {
-    
-    case feedDetails, personalPostDetails
-}
-
-
 class STFeedDetailsTableViewController: UIViewController {
 
+    fileprivate enum STItemTypeEnum {
+        
+        case file, image, location
+    }
+    
+    enum STPostDetailsReasonEnum {
+        
+        case feedDetails, personalPostDetails
+    }
+    
     
     fileprivate let dataSource = TableViewDataSource()
     
@@ -68,6 +72,7 @@ class STFeedDetailsTableViewController: UIViewController {
         self.tableView.separatorStyle = .none
         
         self.tableView.dataSource = self.dataSource
+        self.tableView.delegate = self.dataSource
         
         self.tableView.register(nibClass: STPostDetailsMainInfoCell.self)
         self.tableView.register(nibClass: STPostDetailsMapsCell.self)
@@ -80,6 +85,31 @@ class STFeedDetailsTableViewController: UIViewController {
         
         self.setCustomBackButton()
         
+        self.dataSource.onDidSelectRowAtIndexPath = { (tableView: UITableView, indexPath: IndexPath, item: TableSectionItem) in
+            
+            tableView.deselectRow(at: indexPath, animated: true)
+            
+            guard let itemType = item.itemType as? STItemTypeEnum else {
+                
+                return
+            }
+            
+            switch itemType {
+                
+            case .file:
+                
+                let file = item.item as! STFile
+                let url = URL(string: file.url)!
+                self.st_router_openDocumentController(url: url, fileName: file.title)
+                
+                break
+                
+            default:
+                break
+            }
+        }
+        
+                
         if let post = self.post {
             
             let myUser = STUser.objects(by: STUser.self).first!
@@ -391,15 +421,15 @@ class STFeedDetailsTableViewController: UIViewController {
                 
                 tableSection.addItem(cellClass: STCommonButtonCell.self,
                                      item: file,
+                                     itemType: STItemTypeEnum.file,
                                      bindingAction: { (cell, item) in
                                         
                                         let viewCell = cell as! STCommonButtonCell
-                                        viewCell.selectionStyle = .none
-                                        
                                         let file = item.item as! STFile
                                         
                                         viewCell.title.setTitle(file.title, for: .normal)
                                         viewCell.title.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 0)
+                                        viewCell.title.isUserInteractionEnabled = false
                 })
             })
         }
