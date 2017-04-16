@@ -137,13 +137,12 @@ class STContactsDataSourceWrapper {
         })
         
         // sorting
-        
         self.dataSource.sections.sort { (oneSection, otherSection) -> Bool in
             
             return (oneSection.sectionType as! String) < (otherSection.sectionType as! String)
         }
         
-        if !showOnlyRegistered {
+        if !showOnlyRegistered && contacts.count > 0 {
             
             self.dataSource.sections.append(self.notRelatedContactsSection)
         }
@@ -177,12 +176,7 @@ class STContactsDataSourceWrapper {
             return
         }
         
-        let width = Int(viewCell.contactImage.bounds.size.width * UIScreen.main.scale)
-        let height = Int(viewCell.contactImage.bounds.size.height * UIScreen.main.scale)
-        
-        let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
-        
-        let urlString = contact.imageUrl + queryResize
+        let urlString = contact.imageUrl + viewCell.contactImage.queryResizeString()
         
         let filter = RoundedCornersFilter(radius: viewCell.contactImage.bounds.size.width)
         viewCell.contactImage.af_setImage(withURL: URL(string: urlString)!,

@@ -49,6 +49,8 @@
 		D440F8FF1E79CA380011C22D /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D440F8FE1E79CA380011C22D /* AsyncOperation.swift */; };
 		D4427E661E757C8F0002BCCF /* STCommonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4427E641E757C8F0002BCCF /* STCommonCollectionViewCell.swift */; };
 		D4427E671E757C8F0002BCCF /* STCommonCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4427E651E757C8F0002BCCF /* STCommonCollectionViewCell.xib */; };
+		D449A8601EA287EF008B9603 /* STPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D449A85F1EA287EF008B9603 /* STPhotoViewController.swift */; };
+		D449A8621EA28A3B008B9603 /* STPhotoViewerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D449A8611EA28A3B008B9603 /* STPhotoViewerCell.swift */; };
 		D44AB4EB1E4FCC210013A972 /* GenericCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AB4EA1E4FCC210013A972 /* GenericCollectionViewDataSource.swift */; };
 		D44AB4EE1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AB4EC1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift */; };
 		D44AB4EF1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44AB4ED1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib */; };
@@ -102,6 +104,8 @@
 		D4C60A811E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C60A7F1E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift */; };
 		D4C60A821E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4C60A801E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib */; };
 		D4CB22771EA1577800A9B80F /* STDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CB22761EA1577800A9B80F /* STDocumentViewController.swift */; };
+		D4F00F4B1EA3A75500C6E1E8 /* STDummyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4F00F4A1EA3A75500C6E1E8 /* STDummyView.xib */; };
+		D4F00F4D1EA3A89D00C6E1E8 /* STDummyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F00F4C1EA3A89D00C6E1E8 /* STDummyView.swift */; };
 		D4FFDFAA1E8705590090BE5A /* STDialogsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFDFA91E8705590090BE5A /* STDialogsPage.swift */; };
 		D4FFDFAC1E8706580090BE5A /* STMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFDFAB1E8706580090BE5A /* STMessage.swift */; };
 		E50DBEAF1E76FD8D000C38E4 /* STTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50DBEAD1E76FD8D000C38E4 /* STTextViewCell.swift */; };
@@ -211,6 +215,8 @@
 		D440F8FE1E79CA380011C22D /* AsyncOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		D4427E641E757C8F0002BCCF /* STCommonCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STCommonCollectionViewCell.swift; path = CommonUI/STCommonCollectionViewCell.swift; sourceTree = "<group>"; };
 		D4427E651E757C8F0002BCCF /* STCommonCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STCommonCollectionViewCell.xib; path = CommonUI/STCommonCollectionViewCell.xib; sourceTree = "<group>"; };
+		D449A85F1EA287EF008B9603 /* STPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPhotoViewController.swift; path = PhotoViewer/STPhotoViewController.swift; sourceTree = "<group>"; };
+		D449A8611EA28A3B008B9603 /* STPhotoViewerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPhotoViewerCell.swift; path = PhotoViewer/STPhotoViewerCell.swift; sourceTree = "<group>"; };
 		D44AB4EA1E4FCC210013A972 /* GenericCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		D44AB4EC1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPostDetailsPhotoCell.swift; path = Feed/STPostDetailsPhotoCell.swift; sourceTree = "<group>"; };
 		D44AB4ED1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPostDetailsPhotoCell.xib; path = Feed/STPostDetailsPhotoCell.xib; sourceTree = "<group>"; };
@@ -266,6 +272,8 @@
 		D4C60A7F1E3E7E1C00040C53 /* STLoginSkipTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginSkipTableViewCell.swift; path = SignUp/STLoginSkipTableViewCell.swift; sourceTree = "<group>"; };
 		D4C60A801E3E7E1C00040C53 /* STLoginSkipTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STLoginSkipTableViewCell.xib; path = SignUp/STLoginSkipTableViewCell.xib; sourceTree = "<group>"; };
 		D4CB22761EA1577800A9B80F /* STDocumentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDocumentViewController.swift; path = Feed/STDocumentViewController.swift; sourceTree = "<group>"; };
+		D4F00F4A1EA3A75500C6E1E8 /* STDummyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STDummyView.xib; path = CommonUI/STDummyView.xib; sourceTree = "<group>"; };
+		D4F00F4C1EA3A89D00C6E1E8 /* STDummyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDummyView.swift; path = CommonUI/STDummyView.swift; sourceTree = "<group>"; };
 		D4FFDFA91E8705590090BE5A /* STDialogsPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialogsPage.swift; path = Models/STDialogsPage.swift; sourceTree = "<group>"; };
 		D4FFDFAB1E8706580090BE5A /* STMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STMessage.swift; path = Models/STMessage.swift; sourceTree = "<group>"; };
 		E50DBEAD1E76FD8D000C38E4 /* STTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STTextViewCell.swift; path = NewPost/STTextViewCell.swift; sourceTree = "<group>"; };
@@ -389,6 +397,8 @@
 				D40BC8611E5B61120045F327 /* STCommonLabelCell.swift */,
 				D40BC8621E5B61120045F327 /* STCommonLabelCell.xib */,
 				D42D530B1E915473007952AD /* STCollectionLayout.swift */,
+				D4F00F4A1EA3A75500C6E1E8 /* STDummyView.xib */,
+				D4F00F4C1EA3A89D00C6E1E8 /* STDummyView.swift */,
 			);
 			name = CommonUI;
 			sourceTree = "<group>";
@@ -440,6 +450,7 @@
 				D4227F491E61D08800BCB8B1 /* Views */,
 				D4227F481E61D07F00BCB8B1 /* Controllers */,
 				D4227F4A1E61D0FE00BCB8B1 /* STContactsDataSourceWrapper.swift */,
+				E5E334B71E7AD64A00EA274A /* STContactsProvider.swift */,
 			);
 			name = Contacts;
 			sourceTree = "<group>";
@@ -448,7 +459,6 @@
 			isa = PBXGroup;
 			children = (
 				D4227F501E62126D00BCB8B1 /* STContactsController.swift */,
-				E5E334B71E7AD64A00EA274A /* STContactsProvider.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -472,6 +482,15 @@
 				D43BED6D1E708D4100683D5C /* DatePickerPresentationController.swift */,
 			);
 			name = DatePickerController;
+			sourceTree = "<group>";
+		};
+		D449A85E1EA2879E008B9603 /* PhotoViewer */ = {
+			isa = PBXGroup;
+			children = (
+				D449A85F1EA287EF008B9603 /* STPhotoViewController.swift */,
+				D449A8611EA28A3B008B9603 /* STPhotoViewerCell.swift */,
+			);
+			name = PhotoViewer;
 			sourceTree = "<group>";
 		};
 		D4922AA41E43DAF3006FF4D5 /* WebSocket */ = {
@@ -513,9 +532,10 @@
 		D49726F91E32BDA50076B7A1 /* StrizhApp */ = {
 			isa = PBXGroup;
 			children = (
+				D449A85E1EA2879E008B9603 /* PhotoViewer */,
 				E5E4E9BF1E81135C00B77102 /* CustomControls */,
 				D40BC85C1E5B605F0045F327 /* CommonUI */,
-				D4AD43B11E47A8F8006F13DE /* Tabs */,
+				D4AD43B11E47A8F8006F13DE /* Pages */,
 				D4194A181E460CB700D0B189 /* ObjectMapper */,
 				E53F37C11E3A75E200393BAD /* Helpers */,
 				E53185E91E3612D600BC6C9A /* DataSource */,
@@ -602,7 +622,7 @@
 			name = Feed;
 			sourceTree = "<group>";
 		};
-		D4AD43B11E47A8F8006F13DE /* Tabs */ = {
+		D4AD43B11E47A8F8006F13DE /* Pages */ = {
 			isa = PBXGroup;
 			children = (
 				E5E4E9BB1E810F2C00B77102 /* Dialogs */,
@@ -615,7 +635,7 @@
 				E59448881E66D8AD002B2989 /* STTabBarViewController.swift */,
 				E594488A1E68062A002B2989 /* STDummyNavigationController.swift */,
 			);
-			name = Tabs;
+			name = Pages;
 			sourceTree = "<group>";
 		};
 		D4AD43B41E47A980006F13DE /* Views */ = {
@@ -918,6 +938,7 @@
 				D49727041E32BDA50076B7A1 /* Assets.xcassets in Resources */,
 				D40BC8601E5B60DF0045F327 /* STCommonButtonCell.xib in Resources */,
 				E59448941E680B83002B2989 /* STTextFieldCell.xib in Resources */,
+				D4F00F4B1EA3A75500C6E1E8 /* STDummyView.xib in Resources */,
 				D4227F4F1E61FE7600BCB8B1 /* STContactCell.xib in Resources */,
 				D44AB4EF1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib in Resources */,
 				E50DBEB01E76FD8D000C38E4 /* STTextViewCell.xib in Resources */,
@@ -1071,8 +1092,10 @@
 				E59A1B181E3F9388009EE669 /* STImage.swift in Sources */,
 				D40BC8661E5B706D0045F327 /* SHSPhoneComponentExtensions.swift in Sources */,
 				D42D530C1E915473007952AD /* STCollectionLayout.swift in Sources */,
+				D449A8621EA28A3B008B9603 /* STPhotoViewerCell.swift in Sources */,
 				E5FF31261E55D3FA0013B713 /* STEditProfileHeaderCell.swift in Sources */,
 				E537712E1E64941C00BBADEA /* STPersonalPostDetailsMainInfoCell.swift in Sources */,
+				D449A8601EA287EF008B9603 /* STPhotoViewController.swift in Sources */,
 				D40405891E91876000F0A8E4 /* ValidationEnum.swift in Sources */,
 				E58AF8511E8A4B9000CEF2B3 /* STChatViewController.swift in Sources */,
 				D45B8B101E9A779F0042C8B6 /* STDialogSectionHeader.swift in Sources */,
@@ -1093,6 +1116,7 @@
 				D40405851E91869D00F0A8E4 /* CollectionSection.swift in Sources */,
 				D4227F511E62126D00BCB8B1 /* STContactsController.swift in Sources */,
 				D43BED6E1E708D4100683D5C /* DatePickerPresentationController.swift in Sources */,
+				D4F00F4D1EA3A89D00C6E1E8 /* STDummyView.swift in Sources */,
 				D440F8FF1E79CA380011C22D /* AsyncOperation.swift in Sources */,
 				E54D88F41E3BB579005233DB /* RealmExtensions.swift in Sources */,
 				E53F37C31E3A75F900393BAD /* KeyboardNotificationListener.swift in Sources */,

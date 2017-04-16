@@ -251,12 +251,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                     
                     if !user.imageUrl.isEmpty {
                         
-                        let width = Int(viewCell.userImage.bounds.size.width * UIScreen.main.scale)
-                        let height = Int(viewCell.userImage.bounds.size.height * UIScreen.main.scale)
-                        
-                        let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
-                        
-                        let urlString = user.imageUrl + queryResize
+                        let urlString = user.imageUrl + viewCell.userImage.queryResizeString()
                         
                         let filter = RoundedCornersFilter(radius: viewCell.userImage.bounds.size.width)
                         viewCell.userImage.af_setImage(for: .normal, url: URL(string: urlString)!, filter: filter)

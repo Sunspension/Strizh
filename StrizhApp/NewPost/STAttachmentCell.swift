@@ -21,9 +21,9 @@ class STAttachmentCell: UITableViewCell {
     
     @IBOutlet weak var collectionViewHeight: NSLayoutConstraint!
     
-    @IBOutlet weak var bottomIconMargin: NSLayoutConstraint!
-    
     @IBOutlet weak var actionButton: UIButton!
+    
+    @IBOutlet weak var containerHeight: NSLayoutConstraint!
     
     var disposeBag = DisposeBag()
     
@@ -50,34 +50,30 @@ class STAttachmentCell: UITableViewCell {
     
     override func prepareForReuse() {
         
-        collectionViewHeight.constant = 0
-        bottomIconMargin.constant = 0
+//        self.collectionViewHeight.constant = 0
+        self.containerHeight.constant = 60
         disposeBag.dispose()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    func expandCell() {
+        
+        if self.containerHeight.constant == 135 {
+            
+            return
+        }
+        
+//        self.collectionViewHeight.constant = 68
+        self.containerHeight.constant = 135
     }
     
-    func exapandCell() {
+    func collapsCell() {
         
-        collectionViewHeight.constant = 68
-        bottomIconMargin.constant = 8
-    }
-    
-    func expandCellIfNeeded() {
+        if self.containerHeight.constant == 60 {
+            
+            return
+        }
         
-        if (collectionView.numberOfItems(inSection: 0) > 0) {
-            
-            collectionViewHeight.constant = 68
-            bottomIconMargin.constant = 8
-        }
-        else {
-            
-            collectionViewHeight.constant = 0
-            bottomIconMargin.constant = 0
-        }
-    }
+//        self.collectionViewHeight.constant = 0
+        self.containerHeight.constant = 60
+    }    
 }

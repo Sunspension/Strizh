@@ -139,7 +139,7 @@ class STPostAttachmentsController: UITableViewController {
                 
                 if self.imagesCollectionSection.items.count == 0 {
                     
-                    self.refreshTableView()
+//                    self.refreshTableView()
                 }
             }
             
@@ -223,12 +223,7 @@ class STPostAttachmentsController: UITableViewController {
                         cell.busyIndicator.startAnimating()
                         cell.uploaded()
                         
-                        let width = Int(cell.image.bounds.size.width * UIScreen.main.scale)
-                        let height = Int(cell.image.bounds.size.height * UIScreen.main.scale)
-                        
-                        let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
-                        
-                        let url = URL(string: image.url + queryResize)!
+                        let url = URL(string: image.url + cell.image.queryResizeString())!
                         
                         cell.image.af_setImage(withURL: url, imageTransition: .crossDissolve(0.3),
                                                runImageTransitionIfCached: true, completion: { [unowned cell] image in
@@ -242,10 +237,10 @@ class STPostAttachmentsController: UITableViewController {
             
         })
         
-        self.imagesCollectionSection.sectionChanged = {
-            
-            self.refreshTableView()
-        }
+//        self.imagesCollectionSection.sectionChanged = {
+//            
+//            self.refreshTableView()
+//        }
         
         self.imageDataSource?.sections.append(self.imagesCollectionSection)
     }
@@ -282,7 +277,7 @@ class STPostAttachmentsController: UITableViewController {
                     photoController.maxSelectableCount = 10 - self.imagesCollectionSection.items.count
                     photoController.sourceType = .photo
                     photoController.assetType = .allPhotos
-                    photoController.didSelectAssets = { [unowned viewCell, unowned self] assets in
+                    photoController.didSelectAssets = { [unowned self] assets in
                         
                         if assets.count == 0 {
                             
@@ -295,8 +290,6 @@ class STPostAttachmentsController: UITableViewController {
                         })
                         
                         self.imagesCollectionSection.sectionChanged?()
-                        viewCell.expandCellIfNeeded()
-                        self.refreshTableView()
                         
                         self.navigationItem.rightBarButtonItem?.isEnabled = false
                         
@@ -319,7 +312,8 @@ class STPostAttachmentsController: UITableViewController {
                             
                             DispatchQueue.main.async {
                                 
-                                self.tableView.reloadRows(at: [item.indexPath], with: .automatic)
+                                let cell = self.tableView.cellForRow(at: item.indexPath) as! STAttachmentCell
+                                cell.collectionView.reloadData()
                             }
                         }
                     }
@@ -329,14 +323,32 @@ class STPostAttachmentsController: UITableViewController {
                 
             }.dispose(in: viewCell.bag)
             
-            self.imagesCollectionSection.sectionChanged = { [unowned viewCell] in
+            self.imagesCollectionSection.sectionChanged = { [unowned viewCell, unowned self] in
+                
+//                if self.imagesCollectionSection.items.count > 0 {
+//                    
+//                    viewCell.expandCell()
+//                    viewCell.collectionView.reloadData()
+//                }
+//                else {
+//                    
+//                    viewCell.collapsCell()
+//                }
                 
                 viewCell.collectionView.reloadData()
-                viewCell.expandCellIfNeeded()
             }
             
             viewCell.collectionView.reloadData()
-            viewCell.expandCellIfNeeded()
+            
+//            if self.imagesCollectionSection.items.count > 0 {
+//                
+//                viewCell.expandCell()
+//                viewCell.collectionView.reloadData()
+//            }
+//            else {
+//                
+//                viewCell.collapsCell()
+//            }
         }
         
         // if we have images
@@ -359,13 +371,13 @@ class STPostAttachmentsController: UITableViewController {
     
     func refreshTableView() {
         
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
+        
         UIView.animate(withDuration: 0.3, animations: { [unowned self] in
             
             self.tableView.setNeedsLayout()
             self.tableView.layoutIfNeeded()
         })
-        
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
     }
 }

@@ -224,12 +224,7 @@ class STFeedDataSourceWrapper {
                     return
                 }
                 
-                let width = Int(cell.userIcon.bounds.size.width * UIScreen.main.scale)
-                let height = Int(cell.userIcon.bounds.size.height * UIScreen.main.scale)
-                
-                let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
-                
-                let urlString = user.imageUrl + queryResize
+                let urlString = user.imageUrl + cell.userIcon.queryResizeString()
                 
                 let filter = RoundedCornersFilter(radius: cell.userIcon.bounds.size.width)
                 cell.userIcon.af_setImage(withURL: URL(string: urlString)!,

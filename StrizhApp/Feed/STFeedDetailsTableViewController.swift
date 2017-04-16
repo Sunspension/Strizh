@@ -224,12 +224,7 @@ class STFeedDetailsTableViewController: UIViewController {
                                                 return
                                             }
                                             
-                                            let width = Int(viewCell.userIcon.bounds.size.width * UIScreen.main.scale)
-                                            let height = Int(viewCell.userIcon.bounds.size.height * UIScreen.main.scale)
-                                            
-                                            let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
-                                            
-                                            let urlString = user.imageUrl + queryResize
+                                            let urlString = user.imageUrl + viewCell.userIcon.queryResizeString()
                                             
                                             let filter = RoundedCornersFilter(radius: viewCell.userIcon.bounds.size.width)
                                             viewCell.userIcon.af_setImage(withURL: URL(string: urlString)!,
@@ -379,12 +374,7 @@ class STFeedDetailsTableViewController: UIViewController {
                 
                 cell.busy.startAnimating()
                 
-                let width = Int(cell.image.bounds.size.width * UIScreen.main.scale)
-                let height = Int(cell.image.bounds.size.height * UIScreen.main.scale)
-                
-                let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
-                
-                let url = URL(string: item.item.url + queryResize)!
+                let url = URL(string: item.item.url + cell.image.queryResizeString())!
                 
                 cell.image.af_setImage(withURL: url, imageTransition: .crossDissolve(0.3),
                                        runImageTransitionIfCached: true, completion: { [weak cell] image in

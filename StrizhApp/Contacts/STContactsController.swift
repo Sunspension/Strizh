@@ -99,7 +99,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         
         self.itemsSource!.onDataSourceChanged = {
             
-            self.tableView.reloadData()
+            self.reloadTableView()
         }
         
         self.itemsSource!.dataSource.onDidSelectRowAtIndexPath = {
@@ -191,14 +191,14 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         
         self.tableView.dataSource = self.itemsSource?.searchDataSource
         self.tableView.delegate = self.itemsSource?.searchDataSource
-        self.tableView.reloadData()
+        self.reloadTableView()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
         self.tableView.dataSource = self.itemsSource?.dataSource
         self.tableView.delegate = self.itemsSource?.dataSource
-        self.tableView.reloadData()
+        self.reloadTableView()
     }
     
     //MARK: - UISearchResultUpdating delegate implementation
@@ -219,7 +219,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                 }
                 
                 self.itemsSource?.searchContacts(searchString: query)
-                self.tableView.reloadData()
+                self.reloadTableView()
             }
         }
     }
@@ -238,5 +238,29 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         self.definesPresentationContext = true
         
         tableView.tableHeaderView = searchController.searchBar
+    }
+    
+    private func reloadTableView(animation: Bool = false) {
+        
+        if animation {
+            
+            self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        }
+        else {
+            
+            self.tableView.reloadData()
+        }
+        
+        if self.tableView.numberOfSections == 0
+            || self.tableView.numberOfRows(inSection: 0) == 0 {
+            
+            self.showDummyView(imageName: "empty-contacts",
+                               title: "Контактов нет",
+                               subTitle: "Для работы с приложением необходимо разрешить доступ к Вашим контактам. Вы можете сделать это в настройках Вашего iPhone.")
+        }
+        else {
+            
+            self.hideDummyView()
+        }
     }
 }

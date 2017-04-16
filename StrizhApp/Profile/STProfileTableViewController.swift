@@ -250,14 +250,9 @@ class STProfileTableViewController: UITableViewController {
                     
                     if !user.imageUrl.isEmpty {
                         
-                        let width = Int(viewCell.userImage.bounds.size.width * UIScreen.main.scale)
-                        let height = Int(viewCell.userImage.bounds.size.height * UIScreen.main.scale)
+                        let urlString = user.imageUrl + viewCell.userImage.queryResizeString()
+                        let filter = RoundedCornersFilter(radius: viewCell.userImage.bounds.width)
                         
-                        let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
-                        
-                        let urlString = user.imageUrl + queryResize
-                        
-                        let filter = RoundedCornersFilter(radius: viewCell.userImage.bounds.size.width)
                         viewCell.userImage.af_setImage(withURL: URL(string: urlString)!, filter: filter)
                     }
                 }
@@ -274,7 +269,9 @@ class STProfileTableViewController: UITableViewController {
         
         if posts.count == 0 {
             
-            self.showDummyView(imageName: "no-data")
+            self.showDummyView(imageName: "empty-personal-feed",
+                               title: "Созданных тем нет",
+                               subTitle: "Вы еще не создали ни одной темы. Чтобы создать, нажмите на “+”.")
         }
         else {
             

@@ -158,6 +158,11 @@ class STChatViewController: UIViewController, UITextViewDelegate {
             self.tableView.setNeedsLayout()
             self.tableView.layoutIfNeeded()
             
+            if let dummy = self.dummyView() {
+                
+                dummy.center.y -= keyboardSize.height
+            }
+            
             self.scrollToLastMessage()
             
             UIView.animate(withDuration: 0.3, animations: { 
@@ -169,6 +174,11 @@ class STChatViewController: UIViewController, UITextViewDelegate {
     }
     
     func keyboardWillHide(_ notification: Notification) {
+        
+        if let dummy = self.dummyView() {
+            
+            dummy.center.y += self.bottomToolbarSpace.constant
+        }
         
         self.bottomToolbarSpace.constant = 0
         
@@ -197,16 +207,23 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         // notify
         self.notifyMessagesRead(lastReadMessage: message.id)
         
-        let section = self.section(by: message.createdAt)
-        let itemIndex = section.addItem(cellClass: STDialogOtherCell.self, item: message) { [unowned self] (cell, item) in
+        var section = self.section(by: message.createdAt)
+        
+        if section == nil {
+            
+            section = self.newSection(date: message.createdAt)
+            self.dataSource.sections.append(section!)
+        }
+        
+        let itemIndex = section!.addItem(cellClass: STDialogOtherCell.self, item: message) { [unowned self] (cell, item) in
             
             self.otherCellBindingAction(cell: cell, item: item)
         }
         
-        let sectionIndex = self.dataSource.sections.index(of: section)
+        let sectionIndex = self.dataSource.sections.index(of: section!)
         let indexPath = IndexPath(item: itemIndex, section: sectionIndex!)
         
-        self.tableView.reloadData()
+        self.reloadTableView()
         self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
     
@@ -224,19 +241,29 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         
         let message = STMessage(message: text, createdAt: createdAt, userId: userId)
         
-        let section = self.section(by: Date())
+        var section = self.section(by: createdAt)
         
-        let messageIndex = section.addItem(cellClass: STDialogMyCell.self, item: message) { [unowned self] (cell, item) in
+        if section == nil {
+            
+            section = self.newSection(date: Date())
+            self.dataSource.sections.append(section!)
+        }
+        
+        let messageIndex = section!.addItem(cellClass: STDialogMyCell.self, item: message) { [unowned self] (cell, item) in
             
             self.myCellBindingAction(cell: cell, item: item)
         }
         
         self.textView.text = ""
         self.placeHolder.isHidden = false
-        self.tableView.reloadData()
-        self.scrollToLastMessage(animated: true)
         
-        self.sendMessage(message: text, section: section, messageIndex: messageIndex)
+        let sectionIndex = self.dataSource.sections.index(of: section!)
+        let indexPath = IndexPath(item: messageIndex, section: sectionIndex!)
+        
+        self.reloadTableView()
+        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        
+        self.sendMessage(message: text, section: section!, messageIndex: messageIndex)
     }
     
     func textViewDidChange(_ textView: UITextView) {
@@ -254,29 +281,19 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         self.view.endEditing(true)
     }
     
-    fileprivate func section(by date: Date) -> TableSection {
+    fileprivate func section(by date: Date) -> TableSection? {
         
-        var section = self.dataSource.sections.last
+        let section = self.dataSource.sections.first(where: { section -> Bool in
+            
+            if let sectionDate = section.sectionType as? Date {
+                
+                return sectionDate.isTheSameDay(date: date)
+            }
+            
+            return false
+        })
         
-        if section == nil {
-            
-            section = TableSection()
-            section!.sectionType = date
-            section!.header(headerClass: STDialogSectionHeader.self,
-                            item: date.dayMonthFormat,
-                            bindingAction: { (cell, item) in
-                                
-                                let header = cell as! STDialogSectionHeader
-                                let date = item.item as! String
-                                header.dateLabel.text = date
-            })
-            
-            section?.headerItem?.cellHeight = 30
-            
-            self.dataSource.sections.append(section!)
-        }
-        
-        return section!
+        return section
     }
     
     fileprivate func sendMessage(message: String, section: TableSection, messageIndex: Int) {
@@ -366,7 +383,7 @@ class STChatViewController: UIViewController, UITextViewDelegate {
                  
                     let sizeBefore = self.tableView.contentSize
                     
-                    self.tableView.reloadData()
+                    self.reloadTableView()
                     
                     self.tableView.setNeedsLayout()
                     self.tableView.layoutIfNeeded()
@@ -380,7 +397,7 @@ class STChatViewController: UIViewController, UITextViewDelegate {
                 }
                 else {
                     
-                    self.tableView.reloadData()
+                    self.reloadTableView()
                     self.scrollToLastMessage()
                 }
             }
@@ -397,36 +414,11 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         
         for message in messages {
             
-            var section = self.dataSource.sections.first(where: { section -> Bool in
-                
-                if let sectionDate = section.sectionType as? Date {
-                    
-                   if sectionDate.year == message.createdAt.year
-                    && sectionDate.month == message.createdAt.month
-                    && sectionDate.day == message.createdAt.day {
-                    
-                        return true
-                    }
-                }
-                
-                return false
-            })
+            var section = self.section(by: message.createdAt)
             
             if section == nil {
                 
-                section = TableSection()
-                section!.sectionType = message.createdAt
-                section!.header(headerClass: STDialogSectionHeader.self,
-                                item: message.createdAt.dayMonthFormat,
-                                bindingAction: { (cell, item) in
-                                    
-                                    let header = cell as! STDialogSectionHeader
-                                    let date = item.item as! String
-                                    header.dateLabel.text = date
-                })
-                
-                section!.headerItem?.cellHeight = 30
-                
+                section = self.newSection(date: message.createdAt)
                 self.dataSource.sections.insert(section!, at: 0)
             }
             
@@ -445,14 +437,6 @@ class STChatViewController: UIViewController, UITextViewDelegate {
                 }
             }
         }
-    }
-    
-    fileprivate func queryResizeString(imageView: UIImageView) -> String {
-        
-        let width = Int(imageView.bounds.size.width * UIScreen.main.scale)
-        let height = Int(imageView.bounds.size.height * UIScreen.main.scale)
-        
-        return "?resize=w[\(width)]h[\(height)]q[100]e[true]"
     }
     
     fileprivate func scrollToLastMessage(animated: Bool = false) {
@@ -491,7 +475,7 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         
         if let user = self.users.first(where: { $0.id == message.userId }) {
             
-            let urlString = user.imageUrl + self.queryResizeString(imageView: viewCell.userImage.imageView!)
+            let urlString = user.imageUrl + viewCell.userImage.imageView!.queryResizeString()
             
             let filter = RoundedCornersFilter(radius: CGFloat(viewCell.userImage.imageView!.bounds.width))
             
@@ -518,11 +502,56 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         
         if let user = self.users.first(where: { $0.id == message.userId }) {
             
-            let urlString = user.imageUrl + self.queryResizeString(imageView: viewCell.userImage.imageView!)
+            let urlString = user.imageUrl + viewCell.userImage.imageView!.queryResizeString()
             
             let filter = RoundedCornersFilter(radius: CGFloat(viewCell.userImage.imageView!.bounds.width))
             
             viewCell.userImage.af_setImage(for: .normal, url: URL(string: urlString)!, filter: filter)
+        }
+    }
+    
+    fileprivate func newSection(date: Date) -> TableSection {
+        
+        let section = TableSection()
+        section.sectionType = date
+        section.header(headerClass: STDialogSectionHeader.self,
+                        item: date.dayMonthFormat,
+                        bindingAction: { (cell, item) in
+                            
+                            let header = cell as! STDialogSectionHeader
+                            let date = item.item as! String
+                            header.dateLabel.text = date
+        })
+        
+        section.headerItem?.cellHeight = 30
+        
+        return section
+    }
+    
+    private func reloadTableView(animation: Bool = false) {
+        
+        if animation {
+            
+            self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        }
+        else {
+            
+            self.tableView.reloadData()
+        }
+        
+        if self.tableView.numberOfSections == 0
+            || self.tableView.numberOfRows(inSection: 0) == 0 {
+            
+            self.showDummyView(imageName: "empty-messages",
+                               title: "Сообщений нет",
+                               subTitle: "Чтобы получить дополнительную информацию по теме, начните диалог.") { view in
+            
+                                view.backgroundColor = UIColor.white
+            }
+        }
+        else {
+            
+            self.hideDummyView()
         }
     }
 }

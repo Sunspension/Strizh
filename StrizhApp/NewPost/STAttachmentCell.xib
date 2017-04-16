@@ -6,87 +6,96 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="150" id="KGk-i7-Jjw" customClass="STAttachmentCell" customModule="StrizhApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="152" id="KGk-i7-Jjw" customClass="STAttachmentCell" customModule="StrizhApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="152"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+            <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="151.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-attachment-image" translatesAutoresizingMaskIntoConstraints="NO" id="iTw-Fc-rPo">
-                        <rect key="frame" x="16" y="16" width="36" height="36"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="36" id="eJr-Gr-9kQ"/>
-                            <constraint firstAttribute="width" constant="36" id="lgO-HH-mEn"/>
-                        </constraints>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Фотографии" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rMi-EQ-E3h">
-                        <rect key="frame" x="60" y="16" width="188" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="До 10 фотографий" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tiz-IP-IR9">
-                        <rect key="frame" x="60" y="38" width="188" height="14"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                        <color key="textColor" red="0.59607843137254901" green="0.62745098039215685" blue="0.67843137254901964" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="mHZ-8h-Rdc">
-                        <rect key="frame" x="16" y="60" width="288" height="0.0"/>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BPy-9f-Uth">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="151.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Фотографии" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rMi-EQ-E3h">
+                                <rect key="frame" x="59" y="16" width="189" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="До 10 фотографий" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tiz-IP-IR9">
+                                <rect key="frame" x="59" y="37" width="189" height="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" red="0.59607843137254901" green="0.62745098039215685" blue="0.67843137254901964" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8iQ-a3-teE">
+                                <rect key="frame" x="256" y="22" width="48" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="F55-Xk-a89"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <state key="normal" title="Добавить"/>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-attachment-image" translatesAutoresizingMaskIntoConstraints="NO" id="iTw-Fc-rPo">
+                                <rect key="frame" x="16" y="16" width="35" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="eJr-Gr-9kQ"/>
+                                    <constraint firstAttribute="width" constant="35" id="lgO-HH-mEn"/>
+                                </constraints>
+                            </imageView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="mHZ-8h-Rdc">
+                                <rect key="frame" x="16" y="59" width="288" height="68"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="68" id="iZC-bf-rMW"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="2" minimumInteritemSpacing="0.0" id="6ja-Mc-bAL">
+                                    <size key="itemSize" width="76" height="56"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="1" maxX="0.0" maxY="1"/>
+                                </collectionViewFlowLayout>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" id="bEP-WO-or7"/>
+                            <constraint firstItem="Tiz-IP-IR9" firstAttribute="leading" secondItem="rMi-EQ-E3h" secondAttribute="leading" id="BGz-MD-M0X"/>
+                            <constraint firstItem="rMi-EQ-E3h" firstAttribute="leading" secondItem="iTw-Fc-rPo" secondAttribute="trailing" constant="8" id="Bla-Az-pUX"/>
+                            <constraint firstItem="mHZ-8h-Rdc" firstAttribute="top" secondItem="iTw-Fc-rPo" secondAttribute="bottom" constant="8" id="Fdy-3e-2wt"/>
+                            <constraint firstItem="8iQ-a3-teE" firstAttribute="centerY" secondItem="iTw-Fc-rPo" secondAttribute="centerY" id="Nzu-fH-Bxv"/>
+                            <constraint firstItem="8iQ-a3-teE" firstAttribute="leading" secondItem="rMi-EQ-E3h" secondAttribute="trailing" constant="8" id="S9S-lp-WZV"/>
+                            <constraint firstAttribute="bottom" secondItem="mHZ-8h-Rdc" secondAttribute="bottom" priority="999" constant="8" id="UXV-de-Bjh"/>
+                            <constraint firstItem="Tiz-IP-IR9" firstAttribute="trailing" secondItem="rMi-EQ-E3h" secondAttribute="trailing" id="Uzt-Ch-7Fp"/>
+                            <constraint firstItem="mHZ-8h-Rdc" firstAttribute="trailing" secondItem="8iQ-a3-teE" secondAttribute="trailing" id="WY0-ue-Hih"/>
+                            <constraint firstItem="rMi-EQ-E3h" firstAttribute="top" secondItem="iTw-Fc-rPo" secondAttribute="top" id="Z8h-R5-uZx"/>
+                            <constraint firstAttribute="trailing" secondItem="8iQ-a3-teE" secondAttribute="trailing" constant="16" id="ZYW-fa-WS7"/>
+                            <constraint firstItem="iTw-Fc-rPo" firstAttribute="top" secondItem="BPy-9f-Uth" secondAttribute="top" constant="16" id="e9a-qb-vr7"/>
+                            <constraint firstItem="Tiz-IP-IR9" firstAttribute="bottom" secondItem="iTw-Fc-rPo" secondAttribute="bottom" id="lTg-d4-gti"/>
+                            <constraint firstItem="mHZ-8h-Rdc" firstAttribute="leading" secondItem="iTw-Fc-rPo" secondAttribute="leading" id="nXG-6q-D87"/>
+                            <constraint firstItem="iTw-Fc-rPo" firstAttribute="leading" secondItem="BPy-9f-Uth" secondAttribute="leading" constant="16" id="yHW-9b-G5a"/>
                         </constraints>
-                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="2" minimumInteritemSpacing="0.0" id="6ja-Mc-bAL">
-                            <size key="itemSize" width="76" height="56"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="1" maxX="0.0" maxY="1"/>
-                        </collectionViewFlowLayout>
-                    </collectionView>
-                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8iQ-a3-teE">
-                        <rect key="frame" x="256" y="22" width="48" height="24"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="24" id="F55-Xk-a89"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                        <state key="normal" title="Добавить"/>
-                    </button>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Tiz-IP-IR9" firstAttribute="leading" secondItem="rMi-EQ-E3h" secondAttribute="leading" id="2dG-pK-5Zp"/>
-                    <constraint firstItem="8iQ-a3-teE" firstAttribute="leading" secondItem="rMi-EQ-E3h" secondAttribute="trailing" constant="8" id="ANh-0i-MeD"/>
-                    <constraint firstItem="mHZ-8h-Rdc" firstAttribute="trailing" secondItem="8iQ-a3-teE" secondAttribute="trailing" id="H5E-HA-7IY"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="8iQ-a3-teE" secondAttribute="trailing" constant="8" id="KVl-ex-4da"/>
-                    <constraint firstItem="rMi-EQ-E3h" firstAttribute="top" secondItem="iTw-Fc-rPo" secondAttribute="top" id="PBq-Pn-J2T"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="mHZ-8h-Rdc" secondAttribute="bottom" priority="750" constant="8" id="Rts-Oc-xS1"/>
-                    <constraint firstItem="mHZ-8h-Rdc" firstAttribute="leading" secondItem="iTw-Fc-rPo" secondAttribute="leading" id="TA4-fR-kTM"/>
-                    <constraint firstItem="8iQ-a3-teE" firstAttribute="centerY" secondItem="iTw-Fc-rPo" secondAttribute="centerY" id="Uto-RG-8th"/>
-                    <constraint firstItem="Tiz-IP-IR9" firstAttribute="trailing" secondItem="rMi-EQ-E3h" secondAttribute="trailing" id="gOd-wX-hcI"/>
-                    <constraint firstItem="rMi-EQ-E3h" firstAttribute="leading" secondItem="iTw-Fc-rPo" secondAttribute="trailing" constant="8" id="lf8-Xl-uGR"/>
-                    <constraint firstItem="iTw-Fc-rPo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="p8t-Ft-oXx"/>
-                    <constraint firstItem="Tiz-IP-IR9" firstAttribute="bottom" secondItem="iTw-Fc-rPo" secondAttribute="bottom" id="tYL-xY-BHO"/>
-                    <constraint firstItem="mHZ-8h-Rdc" firstAttribute="top" secondItem="iTw-Fc-rPo" secondAttribute="bottom" constant="8" id="uzK-EV-tl4"/>
-                    <constraint firstItem="iTw-Fc-rPo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="v2I-7R-nCE"/>
+                    <constraint firstAttribute="trailing" secondItem="BPy-9f-Uth" secondAttribute="trailing" id="9Yp-0X-nhG"/>
+                    <constraint firstAttribute="bottom" secondItem="BPy-9f-Uth" secondAttribute="bottom" id="deM-1t-l9G"/>
+                    <constraint firstItem="BPy-9f-Uth" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="p3G-aT-Ahl"/>
+                    <constraint firstItem="BPy-9f-Uth" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="rdu-qe-AGe"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="actionButton" destination="8iQ-a3-teE" id="YoZ-wW-P6T"/>
-                <outlet property="bottomIconMargin" destination="Rts-Oc-xS1" id="r53-cm-iwJ"/>
                 <outlet property="collectionView" destination="mHZ-8h-Rdc" id="zbu-te-oha"/>
-                <outlet property="collectionViewHeight" destination="bEP-WO-or7" id="a59-NH-6tY"/>
                 <outlet property="icon" destination="iTw-Fc-rPo" id="k7D-OW-TTp"/>
                 <outlet property="subtitle" destination="Tiz-IP-IR9" id="AZv-Ju-4SN"/>
                 <outlet property="title" destination="rMi-EQ-E3h" id="Srz-WO-0qX"/>
             </connections>
-            <point key="canvasLocation" x="34" y="107"/>
+            <point key="canvasLocation" x="34" y="108"/>
         </tableViewCell>
     </objects>
     <resources>

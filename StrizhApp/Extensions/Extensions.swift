@@ -106,38 +106,49 @@ extension UIViewController {
         }
     }
     
-    func showDummyView(imageName: String) {
+    func showDummyView(imageName: String, title: String, subTitle: String, setupView: ((_ dummyView: UIView) -> Void)? = nil) {
         
         self.hideDummyView()
         
-        let imageView = UIImageView(image: UIImage(named: imageName))
-        imageView.frame = CGRect(x: 0, y: 0, width: 200, height: 165)
-        imageView.contentMode = .scaleAspectFit
+        guard let dummy = UIView.loadFromNib(view: STDummyView.self) else {
+            
+            return
+        }
         
-        self.view.addSubview(imageView)
+        dummy.imageView.image = UIImage(named: imageName)
+        dummy.title.text = title
+        dummy.subTitle.text = subTitle
+        
+        setupView?(dummy)
+        
+        dummy.sizeToFit()
+        
+        self.view.addSubview(dummy)
 
         var center = self.view.center
         
-        if self.view is UITableView {
+        if let bar = self.navigationController?.navigationBar {
             
-            if let bar = self.navigationController?.navigationBar {
-                
-                center.y = center.y - (bar.isHidden ? 0 : bar.frame.size.height)
-            }
+            center.y = center.y - (bar.isHidden ? 0 : bar.frame.size.height)
         }
         
-        imageView.center = center
+        dummy.center = center
     }
     
     func hideDummyView() {
         
         self.view.subviews.forEach { view in
             
-            if view.self is UIImageView {
+            if view.self is STDummyView {
                 
                 view.removeFromSuperview()
             }
         }
+    }
+    
+    func dummyView() -> UIView? {
+        
+        return self.view.subviews.first(where: { $0.self is STDummyView })
     }
 }
 
@@ -152,6 +163,14 @@ extension UIView {
     static func loadFromNib<T: UIView>(view: T.Type) -> T? {
         
         return Bundle.main.loadNibNamed(String(describing: T.self), owner: self, options: nil)?.first as? T
+    }
+    
+    func queryResizeString() -> String {
+        
+        let width = Int(self.bounds.width * UIScreen.main.scale)
+        let height = Int(self.bounds.height * UIScreen.main.scale)
+        
+        return "?resize=w[\(width)]h[\(height)]q[100]e[true]"
     }
 }
 

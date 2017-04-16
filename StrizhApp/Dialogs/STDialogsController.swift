@@ -175,7 +175,9 @@ class STDialogsController: UITableViewController {
         // dummy view
         if dialogsPage.dialogs.count == 0 {
             
-            self.showDummyView(imageName: "no-data")
+            self.showDummyView(imageName: "empty-dialogs",
+                               title: "Диалогов нет",
+                               subTitle: "Начните общение по темам, нажав \"написать сообщение\" в карточке из ленты.")
         }
         else {
             
@@ -219,14 +221,9 @@ class STDialogsController: UITableViewController {
                 
                 if !user.imageUrl.isEmpty {
                     
-                    let width = Int(viewCell.userImage.bounds.size.width * UIScreen.main.scale)
-                    let height = Int(viewCell.userImage.bounds.size.height * UIScreen.main.scale)
+                    let urlString = user.imageUrl + viewCell.userImage.queryResizeString()
                     
-                    let queryResize = "?resize=w[\(width)]h[\(height)]q[100]e[true]"
-                    
-                    let urlString = user.imageUrl + queryResize
-                    
-                    let filter = RoundedCornersFilter(radius: CGFloat(width))
+                    let filter = RoundedCornersFilter(radius: viewCell.userImage.bounds.width)
                     viewCell.userImage.af_setImage(withURL: URL(string: urlString)!,
                                                    filter: filter,
                                                    completion: nil)

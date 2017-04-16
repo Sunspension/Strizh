@@ -301,7 +301,19 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         
         if self.tableView.numberOfRows(inSection: 0) == 0 {
             
-            self.showDummyView(imageName: "no-data")
+            if self.tableView.dataSource === self.favoritesFeedDataSource!.dataSource
+                || self.tableView.dataSource === self.searchFavoriteDataSource!.dataSource {
+                
+                self.showDummyView(imageName: "empty-feed-favorite",
+                                   title: "Избранных тем нет",
+                                   subTitle: "Чтобы добавить тему в избранное, отметьте ее звездочкой в правом верхнем углу карточки.")
+            }
+            else {
+                
+                self.showDummyView(imageName: "empty-feed",
+                                   title: "Лента пуста",
+                                   subTitle: "Пока что никто из Ваших контктов не отправлял темы.")
+            }
         }
         else {
             

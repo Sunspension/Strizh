@@ -38,7 +38,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1641" y="-331"/>
+            <point key="canvasLocation" x="1641" y="-422"/>
         </scene>
         <!--Контакты-->
         <scene sceneID="o5O-IN-nHs">
@@ -514,6 +514,74 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s09-qO-L3W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1641" y="1127"/>
+        </scene>
+        <!--Collection View Controller-->
+        <scene sceneID="ifD-nx-NKX">
+            <objects>
+                <collectionViewController id="Yhz-KS-1RS" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" id="qBf-18-HSo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="HIU-ru-goL">
+                            <size key="itemSize" width="158" height="137"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="STPhotoViewerCell" id="huo-nZ-9Wv" customClass="STPhotoViewerCell" customModule="StrizhApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="158" height="137"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="158" height="137"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T7r-ev-Bck">
+                                            <rect key="frame" x="0.0" y="0.0" width="158" height="137"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VUJ-11-8li">
+                                                    <rect key="frame" x="0.0" y="0.0" width="158" height="138"/>
+                                                </imageView>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="cvv-GC-jFF">
+                                                    <rect key="frame" x="69" y="58" width="20" height="20"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="VUJ-11-8li" firstAttribute="centerX" secondItem="T7r-ev-Bck" secondAttribute="centerX" id="7J8-o7-7DX"/>
+                                                <constraint firstItem="VUJ-11-8li" firstAttribute="top" secondItem="T7r-ev-Bck" secondAttribute="top" id="JJy-za-WPA"/>
+                                                <constraint firstItem="VUJ-11-8li" firstAttribute="centerY" secondItem="T7r-ev-Bck" secondAttribute="centerY" id="Spd-sx-fvM"/>
+                                                <constraint firstItem="cvv-GC-jFF" firstAttribute="centerY" secondItem="T7r-ev-Bck" secondAttribute="centerY" id="ULv-1b-QGE"/>
+                                                <constraint firstItem="cvv-GC-jFF" firstAttribute="centerX" secondItem="T7r-ev-Bck" secondAttribute="centerX" id="gb5-nM-UX0"/>
+                                                <constraint firstAttribute="trailing" secondItem="VUJ-11-8li" secondAttribute="trailing" id="gyO-Bi-nSK"/>
+                                                <constraint firstAttribute="bottom" secondItem="VUJ-11-8li" secondAttribute="bottom" id="rSY-BV-ozU"/>
+                                                <constraint firstItem="VUJ-11-8li" firstAttribute="leading" secondItem="T7r-ev-Bck" secondAttribute="leading" id="tcZ-NQ-AqN"/>
+                                            </constraints>
+                                        </scrollView>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="T7r-ev-Bck" firstAttribute="top" secondItem="huo-nZ-9Wv" secondAttribute="top" id="6gu-Rz-LeV"/>
+                                    <constraint firstAttribute="trailing" secondItem="T7r-ev-Bck" secondAttribute="trailing" id="9qN-bI-XCw"/>
+                                    <constraint firstAttribute="bottom" secondItem="T7r-ev-Bck" secondAttribute="bottom" id="If1-Nu-xM1"/>
+                                    <constraint firstItem="T7r-ev-Bck" firstAttribute="leading" secondItem="huo-nZ-9Wv" secondAttribute="leading" id="RlD-Dn-g9c"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="imageView" destination="VUJ-11-8li" id="5hw-hC-76i"/>
+                                    <outlet property="scroller" destination="T7r-ev-Bck" id="B76-14-KoQ"/>
+                                    <outlet property="spiner" destination="cvv-GC-jFF" id="d99-m6-RjK"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="Yhz-KS-1RS" id="p0s-t5-KOm"/>
+                            <outlet property="delegate" destination="Yhz-KS-1RS" id="51X-xi-MBW"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ySX-Ao-OHt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2565.5999999999999" y="1122.1889055472266"/>
         </scene>
         <!--Диалоги-->
         <scene sceneID="sl6-XG-5yE">

@@ -59,6 +59,18 @@ extension Date {
         return Calendar.current.component(.year, from: self)
     }
     
+    func isTheSameDay(date: Date) -> Bool {
+        
+        if self.year == date.year
+            && self.month == date.month
+            && self.day == date.day {
+            
+            return true
+        }
+        
+        return false
+    }
+    
     func elapsedInterval() -> String {
         
         let componets = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: self, to: Date())
