@@ -132,4 +132,15 @@ extension UIViewController {
         
         self.present(navi, animated: true, completion: nil)
     }
+    
+    func st_router_openPhotoViewer(images: [STImage], index:Int) {
+        
+        let controller = storyBoard.instantiateViewController(withIdentifier: String(describing: STPhotoViewController.self.self)) as! STPhotoViewController
+        
+        controller.images = images
+        controller.photoIndex = index
+        
+        let navi = STNewPostNavigationController(rootViewController: controller)
+        self.present(navi, animated: true, completion: nil)
+    }
 }

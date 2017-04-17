@@ -16,20 +16,25 @@ class STPhotoViewController: UICollectionViewController {
     private var section = GenericTableSection<STImage>()
     
     
-    var images: [STImage]?
+    var images: [STImage]!
+    
+    var photoIndex: Int!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.collectionView?.dataSource = self.dataSource
-        self.collectionView?.delegate = self.dataSource
         
         let layout = self.collectionView?.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: self.view.bounds.width, height: self.view.bounds.height)
         
         self.setupDataSource()
         self.createDataSource()
+        
+        self.collectionView?.dataSource = self.dataSource
+        self.collectionView?.delegate = self.dataSource
+        
+        let leftItem = UIBarButtonItem(title: "Отмена", style: .plain, target: self, action: #selector(self.cancel))
+        self.navigationItem.leftBarButtonItem = leftItem
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -40,6 +45,20 @@ class STPhotoViewController: UICollectionViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        self.collectionView?.scrollToItem(at: IndexPath(item: self.photoIndex, section: 0), at: .centeredHorizontally, animated: false)
+        
+        self.title = "\(self.photoIndex! + 1)/\(self.images!.count)"
+    }
+    
+    func cancel() {
+        
+        self.dismiss(animated: true, completion: nil)
     }
     
     fileprivate func setupDataSource() {
@@ -58,7 +77,12 @@ class STPhotoViewController: UICollectionViewController {
                                                             })
         })
         
-        self.dataSource?.sections.append(self.section)
+        self.dataSource!.sections.append(self.section)
+        
+        self.dataSource!.onDidScrollToCellIndexPath = { (collectionView, indexPath) in
+            
+            self.title = "\(indexPath.row + 1)/\(self.images!.count)"
+        }
     }
     
     fileprivate func createDataSource() {
@@ -73,36 +97,4 @@ class STPhotoViewController: UICollectionViewController {
             self.section.add(item: image)
         }
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
-
 }

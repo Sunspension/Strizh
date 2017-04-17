@@ -403,6 +403,12 @@ class STFeedDetailsTableViewController: UIViewController {
                                 viewCell.collectionView.delegate = dataSource
                                 viewCell.collectionView.reloadData()
             })
+            
+            self.imageDataSource?.onDidSelectRowAtIndexPath = { [unowned self] (collectionView, indexPath, item) in
+                
+                let photoIndex = indexPath.row
+                self.st_router_openPhotoViewer(images: self.images!, index: photoIndex)
+            }
         }
         
         if let files = self.files {

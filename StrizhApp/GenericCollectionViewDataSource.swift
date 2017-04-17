@@ -16,6 +16,10 @@ class GenericCollectionViewDataSource<CollectionViewCell: UICollectionViewCell, 
     
     var cellClass: AnyClass
     
+    var onDidSelectRowAtIndexPath: ((_ collectionView: UICollectionView, _ indexPath: IndexPath, _ item: GenericTableSectionItem<CollectionItem>) -> Void)?
+    
+    var onDidScrollToCellIndexPath: ((_ collectionView: UICollectionView, _ indexPath: IndexPath) -> Void)?
+    
     subscript(index: Int) -> GenericTableSection<CollectionItem> {
         
         get {
@@ -58,6 +62,24 @@ class GenericCollectionViewDataSource<CollectionViewCell: UICollectionViewCell, 
         self.bindig(cell, item)
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        self.onDidSelectRowAtIndexPath?(collectionView, indexPath, self.item(by: indexPath))
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+        let rect = CGRect(origin: scrollView.contentOffset, size: scrollView.bounds.size)
+        let point = CGPoint(x: rect.midX , y: rect.midY)
+        
+        let collectionView = scrollView as! UICollectionView
+        
+        if let indexPath = collectionView.indexPathForItem(at: point) {
+            
+            self.onDidScrollToCellIndexPath?(collectionView, indexPath)
+        }
     }
     
     func item(by: IndexPath) -> GenericTableSectionItem<CollectionItem> {
