@@ -22,15 +22,21 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
     
     fileprivate var loadingStatus = STLoadingStatusEnum.idle
     
+    fileprivate var loadingStatusSearch = STLoadingStatusEnum.idle
+    
     fileprivate var hasMore = false
     
+    fileprivate var hasMoreSearch = false
+    
     fileprivate var page = 1
+    
+    fileprivate var searchPage = 1
     
     fileprivate var pageSize = 20
     
     fileprivate var users = Set<STUser>()
     
-    fileprivate var messages = [STMessage]()
+    fileprivate var messages = Set<STMessage>()
     
     fileprivate var myUser: STUser!
     
@@ -53,7 +59,9 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.tableView.backgroundColor = UIColor.stLightBlueGrey
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.stLightBlueGrey
+        self.tableView.backgroundView = backgroundView
         self.tableView.estimatedRowHeight = 50
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.separatorInset = .zero
@@ -62,6 +70,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         
         self.setCustomBackButton()
         self.createRefreshControl()
+        self.setupSearchController()
         self.setupDataSource()
         
         self.tableView.tableFooterView = UIView()
@@ -94,7 +103,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
                             let indexPath = IndexPath(row: index, section: 0)
                             self.section.items.remove(at: index)
                             
-                            self.messages.append(lastMessage)
+                            self.messages.insert(lastMessage)
                             self.section.insert(item: dialog,
                                                 at: index,
                                                 cellClass: STDialogCell.self,
@@ -120,6 +129,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         self.refreshControl = nil
         
         self.tableView.dataSource = self.searchDataSource
+        self.tableView.delegate = self.searchDataSource
         self.reloadTableView()
         self.tableView.hideBusy()
     }
@@ -131,6 +141,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         self.createRefreshControl()
         
         self.tableView.dataSource = self.dataSource
+        self.tableView.delegate = self.dataSource
         self.reloadTableView()
         self.tableView.hideBusy()
     }
@@ -138,7 +149,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
     //MARK: - UISearchResultUpdating delegate implementation
     func updateSearchResults(for searchController: UISearchController) {
         
-        if let string = searchController.searchBar.text {
+        if let string = self.searchController.searchBar.text {
             
             let query = string
             
@@ -146,15 +157,18 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
             
             DispatchQueue.main.asyncAfter(deadline: time) {
                 
-                guard searchController.searchBar.text == query, self.searchQueryString != query else {
+                guard
+                    
+                    self.searchController.searchBar.text == query,
+                    self.searchQueryString != query else {
                     
                     return
                 }
                 
                 self.searchSection.items.removeAll()
                 self.searchQueryString = query
-                
-                // TODO load dialogs
+                self.searchPage = 1
+                self.loadDialogs()
             }
         }
     }
@@ -209,7 +223,9 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         self.loadingStatus = .loading
         self.tableView.showBusy()
         
-        api.loadDialogs(page: self.page, pageSize: self.pageSize, postId: self.postId)
+        let page = self.shouldShowSearchResults ? self.searchPage : self.page
+        
+        api.loadDialogs(page: page, pageSize: self.pageSize, postId: self.postId, searchString: searchQueryString)
             
             .onSuccess { [unowned self] dialogPage in
             
@@ -222,16 +238,31 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
                     control.endRefreshing()
                 }
                 
-                self.page += 1
-                
-                self.hasMore = dialogPage.dialogs.count == self.pageSize
+                if self.shouldShowSearchResults {
+                    
+                    self.searchPage += 1
+                    self.hasMoreSearch = dialogPage.dialogs.count == self.pageSize
+                }
+                else {
+                    
+                    self.page += 1
+                    self.hasMore = dialogPage.dialogs.count == self.pageSize
+                }
                 
                 self.handleResponse(dialogPage)
                 self.reloadTableView()
             }
             .onFailure { [unowned self] error in
                 
-                self.loadingStatus = .failed
+                if self.shouldShowSearchResults {
+                    
+                    self.loadingStatusSearch = .failed
+                }
+                else {
+                    
+                    self.loadingStatus = .failed
+                }
+                
                 self.tableView.hideBusy()
                 
                 if let control = self.refreshControl, control.isRefreshing {
@@ -245,29 +276,24 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
     
     fileprivate func handleResponse(_ dialogsPage: STDialogsPage) {
         
-        self.messages.append(contentsOf: dialogsPage.messages)
+        self.messages = self.messages.union(dialogsPage.messages)
+        self.users = self.users.union(dialogsPage.users)
         
-        for user in dialogsPage.users {
+        if self.shouldShowSearchResults {
             
-            self.users.insert(user)
-        }
-        
-        for dialog in dialogsPage.dialogs {
-            
-            self.section.addItem(cellClass: STDialogCell.self,
-                                 item: dialog, bindingAction: self.bindingAction)
-        }
-        
-        // dummy view
-        if dialogsPage.dialogs.count == 0 {
-            
-            self.showDummyView(imageName: "empty-dialogs",
-                               title: "Диалогов нет",
-                               subTitle: "Начните общение по темам, нажав \"написать сообщение\" в карточке из ленты.")
+            for dialog in dialogsPage.dialogs {
+                
+                self.searchSection.addItem(cellClass: STDialogCell.self,
+                                           item: dialog, bindingAction: self.bindingAction)
+            }
         }
         else {
             
-            self.hideDummyView()
+            for dialog in dialogsPage.dialogs {
+                
+                self.section.addItem(cellClass: STDialogCell.self,
+                                     item: dialog, bindingAction: self.bindingAction)
+            }
         }
     }
     
@@ -362,6 +388,19 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
     fileprivate func reloadTableView() {
         
         self.tableView.reloadData()
+        
+        // dummy view
+        if self.tableView.numberOfSections == 0
+            || self.tableView.numberOfRows(inSection: 0) == 0 {
+            
+            self.showDummyView(imageName: "empty-dialogs",
+                               title: "Диалогов нет",
+                               subTitle: "Начните общение по темам, нажав \"написать сообщение\" в карточке из ленты.")
+        }
+        else {
+            
+            self.hideDummyView()
+        }
     }
     
     /*

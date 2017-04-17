@@ -56,7 +56,7 @@ enum STSocketRequestBuilder {
     
     case createPost(post: STUserPostObject, update: Bool)
     
-    case loadDialogs(page: Int, pageSize: Int, postId: Int?)
+    case loadDialogs(page: Int, pageSize: Int, postId: Int?, searchString: String?)
     
     case loadDialog(dialogId: Int)
     
@@ -328,7 +328,7 @@ enum STSocketRequestBuilder {
             
             break
             
-        case .loadDialogs(let page, let pageSize, let postId):
+        case .loadDialogs(let page, let pageSize, let postId, let searchString):
             
             // payload
             self.addToPayload(&payLoad, type: .path, value: "/api/dialog")
@@ -348,6 +348,11 @@ enum STSocketRequestBuilder {
                 filters["object_type"] = 1
                 
                 self.addToQuery(&query, type: .filters, value: filters)
+            }
+            
+            if searchString != nil {
+                
+                self.addToQuery(&query, type: .query, value: searchString!)
             }
             
             break
