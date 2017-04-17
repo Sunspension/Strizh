@@ -10,11 +10,15 @@ import UIKit
 import AlamofireImage
 import ReactiveKit
 
-class STDialogsController: UITableViewController {
+class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating {
 
     fileprivate let dataSource = TableViewDataSource()
     
     fileprivate let section = TableSection()
+    
+    fileprivate var searchDataSource = TableViewDataSource()
+    
+    fileprivate var searchSection = TableSection()
     
     fileprivate var loadingStatus = STLoadingStatusEnum.idle
     
@@ -31,6 +35,12 @@ class STDialogsController: UITableViewController {
     fileprivate var myUser: STUser!
     
     fileprivate let disposeBag = DisposeBag()
+    
+    fileprivate let searchController = UISearchController(searchResultsController: nil)
+    
+    fileprivate var shouldShowSearchResults = false
+    
+    fileprivate var searchQueryString = ""
     
     var postId: Int?
     
@@ -100,7 +110,71 @@ class STDialogsController: UITableViewController {
         
         self.loadDialogs()
     }
+    
+    //MARK: - UISearchBar delegate implementation
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        
+        self.shouldShowSearchResults = true
+        
+        self.refreshControl = nil
+        
+        self.tableView.dataSource = self.searchDataSource
+        self.reloadTableView()
+        self.tableView.hideBusy()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+        self.shouldShowSearchResults = false
+        
+        self.createRefreshControl()
+        
+        self.tableView.dataSource = self.dataSource
+        self.reloadTableView()
+        self.tableView.hideBusy()
+    }
+    
+    //MARK: - UISearchResultUpdating delegate implementation
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        if let string = searchController.searchBar.text {
+            
+            let query = string
+            
+            let time = DispatchTime.now() + 0.5
+            
+            DispatchQueue.main.asyncAfter(deadline: time) {
+                
+                guard searchController.searchBar.text == query, self.searchQueryString != query else {
+                    
+                    return
+                }
+                
+                self.searchSection.items.removeAll()
+                self.searchQueryString = query
+                
+                // TODO load dialogs
+            }
+        }
+    }
    
+    private func setupSearchController() {
+        
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor =
+            UIColor(red: 232 / 255.0, green: 237 / 255.0, blue: 247 / 255.0, alpha: 1)
+        
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Поиск"
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        searchController.searchBar.barTintColor = UIColor.stLightBlueGrey
+        searchController.searchBar.backgroundImage = UIImage()
+        self.definesPresentationContext = true
+        
+        tableView.tableHeaderView = searchController.searchBar
+    }
+    
     fileprivate func setupDataSource() {
         
         self.dataSource.sections.append(self.section)
@@ -108,6 +182,18 @@ class STDialogsController: UITableViewController {
         self.tableView.delegate = self.dataSource
         
         self.dataSource.onDidSelectRowAtIndexPath = { [unowned self] (tableView, indexPath, item) in
+            
+            let dialog = item.item as! STDialog
+            
+            let userIds = dialog.userIds.map({ $0.value })
+            let users = self.users.filter({ userIds.contains($0.id) })
+            
+            self.st_router_openChatController(dialog: dialog, users: users)
+        }
+        
+        self.searchDataSource.sections.append(self.searchSection)
+        
+        self.searchDataSource.onDidSelectRowAtIndexPath = { [unowned self] (tableView, indexPath, item) in
             
             let dialog = item.item as! STDialog
             
@@ -141,7 +227,7 @@ class STDialogsController: UITableViewController {
                 self.hasMore = dialogPage.dialogs.count == self.pageSize
                 
                 self.handleResponse(dialogPage)
-                self.tableView.reloadData()
+                self.reloadTableView()
             }
             .onFailure { [unowned self] error in
                 
@@ -271,6 +357,11 @@ class STDialogsController: UITableViewController {
             self.loadDialogs()
             
         }).dispose(in: disposeBag)
+    }
+    
+    fileprivate func reloadTableView() {
+        
+        self.tableView.reloadData()
     }
     
     /*
