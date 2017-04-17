@@ -18,8 +18,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="151.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BPy-9f-Uth">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="151.5"/>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BPy-9f-Uth" userLabel="Container">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="58"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Фотографии" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rMi-EQ-E3h">
                                 <rect key="frame" x="59" y="16" width="189" height="17"/>
@@ -49,10 +49,10 @@
                                 </constraints>
                             </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="mHZ-8h-Rdc">
-                                <rect key="frame" x="16" y="59" width="288" height="68"/>
+                                <rect key="frame" x="16" y="63" width="288" height="72"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="68" id="iZC-bf-rMW"/>
+                                    <constraint firstAttribute="height" constant="72" id="iZC-bf-rMW"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="2" minimumInteritemSpacing="0.0" id="6ja-Mc-bAL">
                                     <size key="itemSize" width="76" height="56"/>
@@ -66,11 +66,11 @@
                         <constraints>
                             <constraint firstItem="Tiz-IP-IR9" firstAttribute="leading" secondItem="rMi-EQ-E3h" secondAttribute="leading" id="BGz-MD-M0X"/>
                             <constraint firstItem="rMi-EQ-E3h" firstAttribute="leading" secondItem="iTw-Fc-rPo" secondAttribute="trailing" constant="8" id="Bla-Az-pUX"/>
-                            <constraint firstItem="mHZ-8h-Rdc" firstAttribute="top" secondItem="iTw-Fc-rPo" secondAttribute="bottom" constant="8" id="Fdy-3e-2wt"/>
+                            <constraint firstItem="mHZ-8h-Rdc" firstAttribute="top" secondItem="iTw-Fc-rPo" secondAttribute="bottom" constant="12" id="Fdy-3e-2wt"/>
                             <constraint firstItem="8iQ-a3-teE" firstAttribute="centerY" secondItem="iTw-Fc-rPo" secondAttribute="centerY" id="Nzu-fH-Bxv"/>
                             <constraint firstItem="8iQ-a3-teE" firstAttribute="leading" secondItem="rMi-EQ-E3h" secondAttribute="trailing" constant="8" id="S9S-lp-WZV"/>
-                            <constraint firstAttribute="bottom" secondItem="mHZ-8h-Rdc" secondAttribute="bottom" priority="999" constant="8" id="UXV-de-Bjh"/>
                             <constraint firstItem="Tiz-IP-IR9" firstAttribute="trailing" secondItem="rMi-EQ-E3h" secondAttribute="trailing" id="Uzt-Ch-7Fp"/>
+                            <constraint firstAttribute="height" priority="750" constant="58" id="W0v-xK-E3R"/>
                             <constraint firstItem="mHZ-8h-Rdc" firstAttribute="trailing" secondItem="8iQ-a3-teE" secondAttribute="trailing" id="WY0-ue-Hih"/>
                             <constraint firstItem="rMi-EQ-E3h" firstAttribute="top" secondItem="iTw-Fc-rPo" secondAttribute="top" id="Z8h-R5-uZx"/>
                             <constraint firstAttribute="trailing" secondItem="8iQ-a3-teE" secondAttribute="trailing" constant="16" id="ZYW-fa-WS7"/>
@@ -83,7 +83,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="BPy-9f-Uth" secondAttribute="trailing" id="9Yp-0X-nhG"/>
-                    <constraint firstAttribute="bottom" secondItem="BPy-9f-Uth" secondAttribute="bottom" id="deM-1t-l9G"/>
+                    <constraint firstAttribute="bottom" secondItem="BPy-9f-Uth" secondAttribute="bottom" priority="749" id="deM-1t-l9G"/>
                     <constraint firstItem="BPy-9f-Uth" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="p3G-aT-Ahl"/>
                     <constraint firstItem="BPy-9f-Uth" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="rdu-qe-AGe"/>
                 </constraints>
@@ -91,6 +91,7 @@
             <connections>
                 <outlet property="actionButton" destination="8iQ-a3-teE" id="YoZ-wW-P6T"/>
                 <outlet property="collectionView" destination="mHZ-8h-Rdc" id="zbu-te-oha"/>
+                <outlet property="containerHeight" destination="W0v-xK-E3R" id="35t-ld-c3u"/>
                 <outlet property="icon" destination="iTw-Fc-rPo" id="k7D-OW-TTp"/>
                 <outlet property="subtitle" destination="Tiz-IP-IR9" id="AZv-Ju-4SN"/>
                 <outlet property="title" destination="rMi-EQ-E3h" id="Srz-WO-0qX"/>

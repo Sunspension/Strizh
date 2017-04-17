@@ -217,7 +217,7 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             
             item.validation = { [unowned item] in
                 
-                if !self.postObject.title.isEmpty {
+                if !self.postObject.details.isEmpty {
                     
                     item.hasError = false
                     return ValidationResult.onSuccess

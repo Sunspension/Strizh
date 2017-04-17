@@ -243,8 +243,7 @@ class STProfileTableViewController: UITableViewController {
                 
                 if let imageData = user.imageData {
                     
-                    viewCell.userImage.image = UIImage(data: imageData)
-                    viewCell.userImage.makeCircular()
+                    viewCell.userImage.image = UIImage(data: imageData)?.af_imageRoundedIntoCircle()
                 }
                 else {
                     
@@ -266,17 +265,6 @@ class STProfileTableViewController: UITableViewController {
     }
     
     private func createDataSource(posts: [STPost]) {
-        
-        if posts.count == 0 {
-            
-            self.showDummyView(imageName: "empty-personal-feed",
-                               title: "Созданных тем нет",
-                               subTitle: "Вы еще не создали ни одной темы. Чтобы создать, нажмите на “+”.")
-        }
-        else {
-            
-            self.hideDummyView()
-        }
         
         posts.forEach { post in
             
@@ -419,6 +407,7 @@ class STProfileTableViewController: UITableViewController {
                                                         }
                                                         
                                                         self.tableView.reloadSections(IndexSet(integer: item.indexPath.section) , with: .automatic)
+                                                        self.showDummyViewIfNeeded()
                                                     })
                                                     .onFailure(callback: { error in
                                                         
@@ -469,6 +458,7 @@ class STProfileTableViewController: UITableViewController {
                 }
                 
                 self.createDataSource(posts: feed.posts)
+                self.showDummyViewIfNeeded()
                 
                 feed.images.forEach({ image in
                     
@@ -488,6 +478,20 @@ class STProfileTableViewController: UITableViewController {
                 
                 self.tableView.hideBusy()
                 self.status = .failed
+        }
+    }
+    
+    fileprivate func showDummyViewIfNeeded() {
+        
+        if self.userPostsSection.items.count == 0 {
+            
+            self.showDummyView(imageName: "empty-personal-feed",
+                               title: "Созданных тем нет",
+                               subTitle: "Вы еще не создали ни одной темы. Чтобы создать, нажмите на “+”.")
+        }
+        else {
+            
+            self.hideDummyView()
         }
     }
 }

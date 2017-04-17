@@ -76,6 +76,7 @@ class STPostAttachmentsController: UITableViewController {
         self.imageUploader.completeAllOperations = { [unowned self] in
             
             self.navigationItem.rightBarButtonItem?.isEnabled = true
+            self.imagesCollectionSection.sectionChanged?()
         }
         
         self.setupDataSource()
@@ -123,6 +124,7 @@ class STPostAttachmentsController: UITableViewController {
         // collection view data source
         self.imageDataSource = GenericCollectionViewDataSource(cellClass: STAttachmentPhotoCell.self, binding: { [unowned self] (cell, item) in
             
+            // delete action
             cell.onDeleteAction = { [unowned self] in
                 
                 self.imagesCollectionSection.items.remove(object: item)
@@ -139,7 +141,7 @@ class STPostAttachmentsController: UITableViewController {
                 
                 if self.imagesCollectionSection.items.count == 0 {
                     
-//                    self.refreshTableView()
+                    self.refreshTableView()
                 }
             }
             
@@ -199,6 +201,8 @@ class STPostAttachmentsController: UITableViewController {
                                     }
                                     else {
                                         
+                                        print("finished operation index: \(item.indexPath.row)")
+                                        
                                         cell.uploaded()
                                     }
                                 }
@@ -236,11 +240,6 @@ class STPostAttachmentsController: UITableViewController {
             }
             
         })
-        
-//        self.imagesCollectionSection.sectionChanged = {
-//            
-//            self.refreshTableView()
-//        }
         
         self.imageDataSource?.sections.append(self.imagesCollectionSection)
     }
@@ -293,6 +292,7 @@ class STPostAttachmentsController: UITableViewController {
                         
                         self.navigationItem.rightBarButtonItem?.isEnabled = false
                         
+                        // add operations
                         DispatchQueue.global().async {
                             
                             var images = [(Data, String)]()
@@ -323,32 +323,36 @@ class STPostAttachmentsController: UITableViewController {
                 
             }.dispose(in: viewCell.bag)
             
+            
+            // collection section changed handler
             self.imagesCollectionSection.sectionChanged = { [unowned viewCell, unowned self] in
                 
-//                if self.imagesCollectionSection.items.count > 0 {
-//                    
-//                    viewCell.expandCell()
+                if self.imagesCollectionSection.items.count > 0 {
+                    
+                    viewCell.expandCell()
 //                    viewCell.collectionView.reloadData()
-//                }
-//                else {
-//                    
-//                    viewCell.collapsCell()
-//                }
-                
+                }
+                else {
+                    
+                    viewCell.collapsCell()
+                }
+
                 viewCell.collectionView.reloadData()
+                self.refreshTableView()
             }
             
-            viewCell.collectionView.reloadData()
+            // reload collection view
+            if self.imagesCollectionSection.items.count > 0 {
+                
+                viewCell.expandCell()
+                viewCell.collectionView.reloadData()
+            }
+            else {
+                
+                viewCell.collapsCell()
+            }
             
-//            if self.imagesCollectionSection.items.count > 0 {
-//                
-//                viewCell.expandCell()
-//                viewCell.collectionView.reloadData()
-//            }
-//            else {
-//                
-//                viewCell.collapsCell()
-//            }
+            self.refreshTableView()
         }
         
         // if we have images
@@ -371,13 +375,13 @@ class STPostAttachmentsController: UITableViewController {
     
     func refreshTableView() {
         
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
-        
         UIView.animate(withDuration: 0.3, animations: { [unowned self] in
             
             self.tableView.setNeedsLayout()
             self.tableView.layoutIfNeeded()
         })
+        
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
     }
 }

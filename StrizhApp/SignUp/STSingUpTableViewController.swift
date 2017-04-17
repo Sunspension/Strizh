@@ -575,17 +575,19 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
             section.addItem(cellClass: STLoginAvatarTableViewCell.self) { [unowned self] (cell, item) in
                 
                 let viewCell = cell as! STLoginAvatarTableViewCell
-                viewCell.avatarButton.makeCircular()
                 viewCell.avatarButton.addTarget(self, action: #selector(self.choosePhoto(_:)), for: .touchUpInside)
                 
                 self.observableImage.observeNext{ image in
                     
-                    guard image.cgImage?.width != nil, image.cgImage?.height != nil else {
+                    guard
+                        
+                        image.cgImage?.width != nil,
+                        image.cgImage?.height != nil else {
                         
                         return
                     }
                     
-                    viewCell.avatarButton.setImage(image, for: .normal)
+                    viewCell.avatarButton.setImage(image.af_imageRoundedIntoCircle(), for: .normal)
                     
                     }.dispose(in: viewCell.bag)
             }

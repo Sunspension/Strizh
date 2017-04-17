@@ -244,8 +244,10 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                 
                 if let data = user.imageData {
                     
-                    viewCell.userImage.setImage(UIImage(data: data), for: .normal)
-                    viewCell.userImage.makeCircular()
+                    if let image = UIImage(data: data) {
+                        
+                        viewCell.userImage.setImage(image.af_imageRoundedIntoCircle(), for: .normal)
+                    }
                 }
                 else {
                     

@@ -35,7 +35,7 @@ class STAttachmentCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        (self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout).itemSize = CGSize(width: 92, height: 72)
+        (self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout).itemSize = CGSize(width: 92, height: 68)
         self.collectionView.register(nib: STAttachmentPhotoCell.self)
         
         self.actionButton.layer.borderWidth = 1
@@ -50,7 +50,6 @@ class STAttachmentCell: UITableViewCell {
     
     override func prepareForReuse() {
         
-//        self.collectionViewHeight.constant = 0
         self.containerHeight.constant = 60
         disposeBag.dispose()
     }
@@ -62,7 +61,6 @@ class STAttachmentCell: UITableViewCell {
             return
         }
         
-//        self.collectionViewHeight.constant = 68
         self.containerHeight.constant = 135
     }
     
@@ -73,7 +71,6 @@ class STAttachmentCell: UITableViewCell {
             return
         }
         
-//        self.collectionViewHeight.constant = 0
         self.containerHeight.constant = 60
     }    
 }
