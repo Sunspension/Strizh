@@ -1,8 +1,8 @@
 //
-//  Extensions.swift
+//  UIViewController.swift
 //  StrizhApp
 //
-//  Created by Vladimir Kokhanevich on 23/01/2017.
+//  Created by Vladimir Kokhanevich on 19/04/2017.
 //  Copyright © 2017 Vladimir Kokhanevich. All rights reserved.
 //
 
@@ -124,7 +124,7 @@ extension UIViewController {
         dummy.sizeToFit()
         
         self.view.addSubview(dummy)
-
+        
         var center = self.view.center
         
         if let bar = self.navigationController?.navigationBar {
@@ -149,161 +149,5 @@ extension UIViewController {
     func dummyView() -> UIView? {
         
         return self.view.subviews.first(where: { $0.self is STDummyView })
-    }
-}
-
-extension UIView {
-    
-    func makeCircular() {
-        
-        self.layer.cornerRadius = min(self.frame.size.height, self.frame.size.width) / 2.0
-        self.clipsToBounds = true
-    }
-    
-    static func loadFromNib<T: UIView>(view: T.Type) -> T? {
-        
-        return Bundle.main.loadNibNamed(String(describing: T.self), owner: self, options: nil)?.first as? T
-    }
-    
-    func queryResizeString() -> String {
-        
-        let width = Int(self.bounds.width * UIScreen.main.scale)
-        let height = Int(self.bounds.height * UIScreen.main.scale)
-        
-        return "?resize=w[\(width)]h[\(height)]q[100]e[true]"
-    }
-}
-
-extension UITableView {
-    
-    func register(cellClass: AnyClass) {
-        
-        self.register(cellClass, forCellReuseIdentifier: String(describing: cellClass.self))
-    }
-    
-    func register(nibClass: AnyClass) {
-        
-        self.register(UINib(nibName: String(describing: nibClass), bundle: nil), forCellReuseIdentifier: String(describing: nibClass))
-    }
-    
-    func register(headerFooterCellClass: AnyClass) {
-        
-        self.register(headerFooterCellClass, forHeaderFooterViewReuseIdentifier: String(describing: headerFooterCellClass))
-    }
-    
-    func register(headerFooterNibClass: AnyClass) {
-        
-        self.register(UINib(nibName: String(describing: headerFooterNibClass), bundle: nil),
-                      forHeaderFooterViewReuseIdentifier: String(describing: headerFooterNibClass))
-    }
-    
-    func showBusy() {
-        
-        // Sometimes it possible to call this method from not UI thread, for example when you asking access to Address Book
-        DispatchQueue.main.async {
-            
-            let busy = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-            busy.frame = CGRect(x: 0, y: 0, width: 300, height: 60)
-            busy.hidesWhenStopped = true
-            busy.startAnimating()
-            self.tableFooterView = busy
-        }
-    }
-    
-    func hideBusy() {
-        
-        DispatchQueue.main.async {
-            
-            self.tableFooterView = UIView()
-        }
-    }
-}
-
-extension UICollectionView {
-    
-    func register(cellClass: AnyClass) {
-        
-        self.register(cellClass, forCellWithReuseIdentifier: String(describing: cellClass.self))
-    }
-    
-    func register(nib: AnyClass) {
-        
-        self.register(UINib(nibName: String(describing: nib), bundle: nil), forCellWithReuseIdentifier: String(describing: nib))
-    }
-}
-
-extension Int {
-    
-    func ending(yabloko: String, yabloka: String, yablok: String) -> String {
-    
-        let number = self % 100
-        
-        if number >= 11 && number <= 19 {
-            
-            return yablok
-        }
-        
-        switch number % 10 {
-            
-        case 1:
-            return yabloko
-            
-        case 2...4:
-            return yabloka
-            
-        default:
-            return yablok
-        }
-    }
-}
-
-extension Array where Element: Equatable {
-    
-    // Remove first collection element that is equal to the given `object`:
-    mutating func remove(object: Element) {
-        
-        if let index = self.index(of: object) {
-            
-            self.remove(at: index)
-        }
-    }
-}
-
-extension String {
-    
-    func string(with color: UIColor) -> NSAttributedString {
-        
-        return NSAttributedString(string: self, attributes: [ NSForegroundColorAttributeName : color])
-    }
-}
-
-//Protocal that copyable class should conform
-protocol Copying {
-    
-    init(original: Self)
-}
-
-//Concrete class extension
-extension Copying {
-    
-    func copy() -> Self {
-       
-        return Self.init(original: self)
-    }
-}
-
-//Array extension for elements conforms the Copying protocol
-extension Array where Element: Copying {
-    
-    func clone() -> Array {
-        
-        var copiedArray = Array<Element>()
-        
-        for element in self {
-        
-            copiedArray.append(element.copy())
-        }
-        
-        return copiedArray
     }
 }

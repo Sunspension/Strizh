@@ -33,7 +33,7 @@ class STPhotoViewController: UICollectionViewController {
         self.collectionView?.dataSource = self.dataSource
         self.collectionView?.delegate = self.dataSource
         
-        let leftItem = UIBarButtonItem(title: "Отмена", style: .plain, target: self, action: #selector(self.cancel))
+        let leftItem = UIBarButtonItem(title: "action_cancel".localized, style: .plain, target: self, action: #selector(self.cancel))
         self.navigationItem.leftBarButtonItem = leftItem
         
         // Uncomment the following line to preserve selection between presentations

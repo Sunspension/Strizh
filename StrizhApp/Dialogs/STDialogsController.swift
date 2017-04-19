@@ -179,7 +179,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
             UIColor(red: 232 / 255.0, green: 237 / 255.0, blue: 247 / 255.0, alpha: 1)
         
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Поиск"
+        searchController.searchBar.placeholder = "placeholder_search".localized
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.searchBar.barTintColor = UIColor.stLightBlueGrey
@@ -354,7 +354,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
                 viewCell.inOutIcon.isSelected = true
                 
                 let prefixColor = UIColor(red: 75 / 255.0, green: 75 / 255.0, blue: 75 / 255.0, alpha: 1)
-                let prefix = NSMutableAttributedString(attributedString: "Вы: ".string(with: prefixColor))
+                let prefix = NSMutableAttributedString(attributedString: "prefix_you".localized.string(with: prefixColor))
                 
                 let messageColor = UIColor(red: 129 / 255.0, green: 129 / 255.0, blue: 129 / 255.0, alpha: 1)
                 prefix.append(message.message.string(with: messageColor))
@@ -393,9 +393,8 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         if self.tableView.numberOfSections == 0
             || self.tableView.numberOfRows(inSection: 0) == 0 {
             
-            self.showDummyView(imageName: "empty-dialogs",
-                               title: "Диалогов нет",
-                               subTitle: "Начните общение по темам, нажав \"написать сообщение\" в карточке из ленты.")
+            self.showDummyView(imageName: "empty-dialogs", title: "dummy_dialogs_title".localized,
+                               subTitle: "dummy_dialogs_subtitle".localized)
         }
         else {
             

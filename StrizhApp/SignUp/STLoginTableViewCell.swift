@@ -22,6 +22,7 @@ class STLoginTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         value.tintColor = UIColor.white
+        title.text = "login_page_phone_title".localized
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -29,5 +30,4 @@ class STLoginTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
 }

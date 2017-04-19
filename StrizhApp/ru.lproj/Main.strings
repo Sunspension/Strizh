@@ -1,0 +1,66 @@
+
+/* Class = "UITabBarItem"; title = "Feed"; ObjectID = "1vh-bf-t6H"; */
+"1vh-bf-t6H.title" = "Лента";
+
+/* Class = "UIBarButtonItem"; title = "Choose"; ObjectID = "2FI-Qe-u46"; */
+"2FI-Qe-u46.title" = "Выбрать";
+
+/* Class = "UITabBarItem"; title = "Profile"; ObjectID = "2FL-tE-lSs"; */
+"2FL-tE-lSs.title" = "Кабинет";
+
+/* Class = "UILabel"; text = "12:32"; ObjectID = "7ed-eG-fr1"; */
+"7ed-eG-fr1.text" = "12:32";
+
+/* Class = "UINavigationItem"; title = "Duration"; ObjectID = "DuN-A1-exc"; */
+"DuN-A1-exc.title" = "Время действия";
+
+/* Class = "UILabel"; text = "Добрый! Да, предложение\nв силе. Вы представитель \nкакой-то фирмы?"; ObjectID = "Iwf-py-WPi"; */
+"Iwf-py-WPi.text" = "Добрый! Да, предложение\nв силе. Вы представитель \nкакой-то фирмы?";
+
+/* Class = "UIBarButtonItem"; title = "Close"; ObjectID = "KKa-JO-gve"; */
+"KKa-JO-gve.title" = "Закрыть";
+
+/* Class = "UIButton"; normalTitle = "Send"; ObjectID = "OtB-uV-6bT"; */
+"OtB-uV-6bT.normalTitle" = "Отпр.";
+
+/* Class = "UILabel"; text = "14:25"; ObjectID = "SNk-eJ-Vpc"; */
+"SNk-eJ-Vpc.text" = "14:25";
+
+/* Class = "UILabel"; text = "14:25"; ObjectID = "Tu8-nu-XWl"; */
+"Tu8-nu-XWl.text" = "14:25";
+
+/* Class = "UITextField"; placeholder = "Enter message"; ObjectID = "VOD-fd-Wqq"; */
+"VOD-fd-Wqq.placeholder" = "Введите сообщение";
+
+/* Class = "UILabel"; text = "Добрый день! Заинтересовало..."; ObjectID = "WBc-kB-8yw"; */
+"WBc-kB-8yw.text" = "Добрый день! Заинтересовало...";
+
+/* Class = "UINavigationItem"; title = "Feed"; ObjectID = "Y53-z1-ZpI"; */
+"Y53-z1-ZpI.title" = "Лента";
+
+/* Class = "UIButton"; normalTitle = "2"; ObjectID = "YBi-ri-gOt"; */
+"YBi-ri-gOt.normalTitle" = "2";
+
+/* Class = "UINavigationItem"; title = "Contacts"; ObjectID = "aUF-J8-Jig"; */
+"aUF-J8-Jig.title" = "Контакты";
+
+/* Class = "UIButton"; normalTitle = "Написать сообщение"; ObjectID = "c3b-Gb-ce1"; */
+"c3b-Gb-ce1.normalTitle" = "Написать сообщение";
+
+/* Class = "UILabel"; text = "Ирина Васильевна"; ObjectID = "nvT-f9-EJa"; */
+"nvT-f9-EJa.text" = "Ирина Васильевна";
+
+/* Class = "UILabel"; text = "Добрый день! Заинтересовало \nВаше предложение, оно еще\nактуально?"; ObjectID = "ooG-IP-qIj"; */
+"ooG-IP-qIj.text" = "Добрый день! Заинтересовало \nВаше предложение, оно еще\nактуально?";
+
+/* Class = "UITabBarItem"; title = "Dialogs"; ObjectID = "rWH-3o-7Hv"; */
+"rWH-3o-7Hv.title" = "Диалоги";
+
+/* Class = "UITabBarItem"; title = "Contacts"; ObjectID = "rhd-M2-bI2"; */
+"rhd-M2-bI2.title" = "Контакты";
+
+/* Class = "UILabel"; text = "Однопостовая мойка са..."; ObjectID = "tZu-0b-A6Q"; */
+"tZu-0b-A6Q.text" = "Однопостовая мойка са...";
+
+/* Class = "UINavigationItem"; title = "Dialogs"; ObjectID = "x0X-4H-W14"; */
+"x0X-4H-W14.title" = "Диалоги";

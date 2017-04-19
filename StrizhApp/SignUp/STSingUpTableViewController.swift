@@ -90,7 +90,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         self.tableView.register(nibClass: STLoginTextTableViewCell.self)
         self.tableView.register(nibClass: STLoginSeparatorTableViewCell.self)
         
-        let text = self.signupStep == .signupThirdStep ? "Готово" : "Далее"
+        let text = self.signupStep == .signupThirdStep ? "action_done".localized : "action_next".localized
         let rigthItem = UIBarButtonItem(title: text, style: .plain, target: self, action: #selector(self.actionNext))
         rigthItem.tintColor = UIColor.white
         rigthItem.isEnabled = false
@@ -333,14 +333,15 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
     func choosePhoto(_ sender: UIButton) {
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
         
-        let choosePhotoAction = UIAlertAction(title: "Выбрать фото", style: .default) { [unowned self] action in
+        let cancelAction = UIAlertAction(title: "action_cancel".localized, style: .cancel, handler: nil)
+        
+        let choosePhotoAction = UIAlertAction(title: "login_page_choose_photo_text".localized, style: .default) { [unowned self] action in
             
             if !UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                 
-                self.showOkAlert(title: "Нет доступа к Фото",
-                                 message: "Не удалось получить доступ к Фото на вашем устройстве")
+                self.showOkAlert(title: "login_page_no_access_photo_title".localized,
+                                 message: "login_page_no_access_photo_message".localized)
             }
             
             let pickerController = UIImagePickerController()
@@ -351,12 +352,12 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
             self.present(pickerController, animated: true, completion: nil)
         }
         
-        let takePhotoAction = UIAlertAction(title: "Сделать фото", style: .default) { [unowned self] action in
+        let takePhotoAction = UIAlertAction(title: "login_page_take_photo_title".localized, style: .default) { [unowned self] action in
             
             if !UIImagePickerController.isSourceTypeAvailable(.camera) {
                 
-                self.showOkAlert(title: "Нет доступа к Камере",
-                                 message: "Не удалось получить доступ к Камере на вашем устройстве")
+                self.showOkAlert(title: "login_page_no_access_camera_title".localized,
+                                 message: "login_page_no_access_camera_subtitle".localized)
                 
             }
             
@@ -459,7 +460,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 
                 cell.selectionStyle = .none
                 cell.textLabel?.font = UIFont.systemFont(ofSize: 13)
-                cell.textLabel?.text = "На ваш телефон будет оправлен пароль"
+                cell.textLabel?.text = "login_page_action_send_password_description".localized
                 cell.textLabel?.textColor = UIColor.stWhite70Opacity
                 cell.backgroundColor = UIColor.clear
             })
@@ -492,7 +493,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 viewCell.selectionStyle = .none
                 viewCell.contentView.backgroundColor = UIColor.stWhite20Opacity
                 viewCell.title.textColor = UIColor.white
-                viewCell.title.text = "Пароль"
+                viewCell.title.text = "login_page_password_text".localized
                 
                 viewCell.value.textColor = UIColor.white
                 viewCell.value.formatter.setDefaultOutputPattern("######")
@@ -513,7 +514,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                     self.password = wcell.value.phoneNumber()
                 }
                 
-                viewCell.value.attributedPlaceholder = NSAttributedString(string: "Введите пароль из SMS", attributes: [NSForegroundColorAttributeName : UIColor.stWhite70Opacity])
+                viewCell.value.attributedPlaceholder = NSAttributedString(string: "login_page_enter_password_from_text_messsage_text".localized, attributes: [NSForegroundColorAttributeName : UIColor.stWhite70Opacity])
                 viewCell.value.isSecureTextEntry = true
             }
             
@@ -521,7 +522,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 
                 cell.selectionStyle = .none
                 cell.textLabel?.font = UIFont.systemFont(ofSize: 13)
-                cell.textLabel?.text = "Отправить пароль еще раз через 00:05"
+                cell.textLabel?.text = "login_page_resend_password_text".localized + "00:05"
                 cell.textLabel?.textColor = UIColor.stWhite70Opacity
                 cell.textLabel?.numberOfLines = 0
                 cell.backgroundColor = UIColor.clear
@@ -531,19 +532,19 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                     guard time != nil else {
                         
                         item.allowAction = true
-                        cell.textLabel?.text = "Отправить пароль"
+                        cell.textLabel?.text = "login_page_action_send_password_text".localized
                         cell.textLabel?.textColor = UIColor.white
                         return
                     }
                     
                     item.allowAction = false
-                    cell.textLabel?.text = "Отправить пароль еще раз через \(time!)"
+                    cell.textLabel?.text = "login_page_resend_password_text".localized + "\(time!)"
                 }
                 
                 self.countDownTimer?.preStartSetup = {
                     
                     cell.textLabel?.textColor = UIColor.stWhite70Opacity
-                    cell.textLabel?.text = "Отправить пароль еще раз через 00:05"
+                    cell.textLabel?.text = "login_page_resend_password_text".localized + "00:05"
                 }
                 
                 self.countDownTimer?.startTimer()
@@ -560,11 +561,11 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 cell.backgroundColor = UIColor.clear
                 cell.textLabel?.textAlignment = .center
                 
-                let title = NSMutableAttributedString(string: "Осталось немного!\n\n",
+                let title = NSMutableAttributedString(string: "login_page_last_action_text1".localized,
                                                       attributes: [NSForegroundColorAttributeName : UIColor.white,
                                                                    NSFontAttributeName : UIFont.systemFont(ofSize: 16)])
                 
-                let text = "Выберите картинку для профиля и заполните поля."
+                let text = "login_page_last_action_text2".localized
                 
                 let subtitle = NSAttributedString(string: text, attributes: [NSForegroundColorAttributeName : UIColor.white, NSFontAttributeName : UIFont.systemFont(ofSize: 13)])
                 
@@ -597,9 +598,9 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 let viewCell = cell as! STLoginTextTableViewCell
                 viewCell.selectionStyle = .none
                 viewCell.contentView.backgroundColor = UIColor.stWhite20Opacity
-                viewCell.title.text = "Имя"
+                viewCell.title.text = "login_page_name_title".localized
                 viewCell.title.textColor = UIColor.white
-                viewCell.value.attributedPlaceholder = NSAttributedString(string: "Введите имя", attributes: [NSForegroundColorAttributeName : UIColor.stWhite70Opacity])
+                viewCell.value.attributedPlaceholder = NSAttributedString(string: "login_page_enter_name_text".localized, attributes: [NSForegroundColorAttributeName : UIColor.stWhite70Opacity])
                 viewCell.value.textColor = UIColor.white
                 viewCell.value.tag = 1
                 viewCell.value.delegate = self
@@ -625,9 +626,9 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 
                 let viewCell = cell as! STLoginTextTableViewCell
                 viewCell.selectionStyle = .none
-                viewCell.title.text = "Фамилия"
+                viewCell.title.text = "login_page_last_name_title".localized
                 viewCell.title.textColor = UIColor.white
-                viewCell.value.attributedPlaceholder = NSAttributedString(string: "Введите фамилию", attributes: [NSForegroundColorAttributeName : UIColor.stWhite70Opacity])
+                viewCell.value.attributedPlaceholder = NSAttributedString(string: "login_page_last_name_action_text".localized, attributes: [NSForegroundColorAttributeName : UIColor.stWhite70Opacity])
                 
                 viewCell.value.textColor = UIColor.white
                 viewCell.contentView.backgroundColor = UIColor.stWhite20Opacity

@@ -1,0 +1,54 @@
+/* 
+  Localizable.strings
+  StrizhApp
+
+  Created by Vladimir Kokhanevich on 19/04/2017.
+  Copyright © 2017 Vladimir Kokhanevich. All rights reserved.
+*/
+
+
+// Basic actions
+"action_cancel" = "Cancel";
+"action_done" = "Done";
+"action_close" = "Close";
+"action_choose" = "Choose";
+"action_done" = "Done";
+"action_next" = "Next";
+
+// Place holders
+"placeholder_search" = "Search";
+
+// Dummy texts
+"dummy_dialogs_title" = "Диалогов нет";
+"dummy_dialogs_subtitle" = "Начните общение по темам, нажав \"написать сообщение\" в карточке из ленты.";
+"dummy_chat_empty_mesages_title" = "Сообщений нет";
+"dummy_chat_empty_mesages_subtitle" = "Чтобы получить дополнительную информацию по теме, начните диалог.";
+
+// Alert
+"alert_title_error" = "Error";
+"alert_title_delete_chat_message" = "Удалить сообщение";
+"alert_title_chat_try_again" = "Попробовать еще раз";
+"alert_chat_can't_send_message" = "Не удалось отправить сообщение";
+
+// Login
+"login_page_phone_title" = "Телефон";
+"login_page_name_title" = "Имя";
+"login_page_last_name_title" = "Фамилия";
+"login_page_last_name_action_text" = "Введите фамилию";
+"login_page_enter_name_text" = "Введите имя";
+"login_page_choose_photo_text" = " Выбрать фото";
+"login_page_no_access_photo_title" = "Нет доступа к фотографиям";
+"login_page_no_access_photo_message" = "Не удалось получить доступ к фотографиям на вашем устройстве.";
+"login_page_take_photo_title" = "Сделать фото";
+"login_page_no_access_camera_title" = "Нет доступа к Камере";
+"login_page_no_access_camera_subtitle" = "Не удалось получить доступ к Камере на вашем устройстве";
+"login_page_action_send_password_description" = "На ваш телефон будет оправлен пароль";
+"login_page_password_text" = "Пароль";
+"login_page_enter_password_from_text_messsage_text" = "Введите пароль из SMS";
+"login_page_resend_password_text" = "Отправить пароль еще раз через ";
+"login_page_last_action_text1" = "Осталось немного!\n\n";
+"login_page_last_action_text2" = "Выберите картинку для профиля и заполните поля.";
+"login_page_action_send_password_text" = "Отправить пароль";
+
+// Chat
+"prefix_you" = "You: ";

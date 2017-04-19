@@ -306,10 +306,10 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         api.sendMessage(dialogId: dialog.id, message: message)
             .onFailure { [unowned self] error in
                 
-                let alert = UIAlertController(title: "Ошибка",
-                                              message: "Не удалось отправить сообщение",
+                let alert = UIAlertController(title: "alert_title_error".localized,
+                                              message: "alert_chat_can't_send_message".localized,
                                               preferredStyle: .alert)
-                let cancel = UIAlertAction(title: "Удалить сообщение",
+                let cancel = UIAlertAction(title: "alert_title_delete_chat_message".localized,
                                            style: .cancel, handler: { [unowned self] action in
                                             
                                             section.items.remove(at: messageIndex)
@@ -320,7 +320,7 @@ class STChatViewController: UIViewController, UITextViewDelegate {
                                             self.tableView.deleteRows(at: [indexPath], with: .automatic)
                 })
                 
-                let resend = UIAlertAction(title: "Попробовать еще раз",
+                let resend = UIAlertAction(title: "alert_title_chat_try_again".localized,
                                            style: .default, handler: { [unowned self] action in
                                             
                                             self.sendMessage(message: message, section: section,
@@ -543,8 +543,8 @@ class STChatViewController: UIViewController, UITextViewDelegate {
             || self.tableView.numberOfRows(inSection: 0) == 0 {
             
             self.showDummyView(imageName: "empty-messages",
-                               title: "Сообщений нет",
-                               subTitle: "Чтобы получить дополнительную информацию по теме, начните диалог.") { view in
+                               title: "dummy_chat_empty_mesages_title".localized,
+                               subTitle: "dummy_chat_empty_mesages_subtitle".localized) { view in
             
                                 view.backgroundColor = UIColor.white
             }

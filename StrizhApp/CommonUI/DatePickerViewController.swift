@@ -42,9 +42,9 @@ class DatePickerViewController: UIViewController, UIViewControllerTransitioningD
         
         self.datePicker.minimumDate = now
         self.navigationBar.topItem?.title = navigationTitle
-        self.navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(title: "Закрыть", style: .plain, target: self, action: #selector(self.close))
+        self.navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(title: "action_close".localized, style: .plain, target: self, action: #selector(self.close))
         
-        self.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Выбрать", style: .plain, target: self, action: #selector(self.selectDate))
+        self.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "action_choose".localized, style: .plain, target: self, action: #selector(self.selectDate))
      
         self.datePicker.addTarget(self, action: #selector(self.didSelectDate(_:)), for: .valueChanged)
     }

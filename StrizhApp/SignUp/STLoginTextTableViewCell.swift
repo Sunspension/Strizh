@@ -20,6 +20,7 @@ class STLoginTextTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         value.tintColor = UIColor.white
+        title.text = ""
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
