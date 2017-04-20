@@ -24,10 +24,6 @@ class STFeedFilterTableViewController: UITableViewController {
     
     fileprivate var filterCallback: (() -> Void)?
     
-//    private var toggleListener: EventListener<Bool>?
-//    
-//    private var toggleEmitter = Event<Bool>()
-    
     
     required init?(coder aDecoder: NSCoder) {
         
@@ -57,13 +53,13 @@ class STFeedFilterTableViewController: UITableViewController {
         self.tableView.register(nibClass: STFeedFilterTableViewCell.self)
 //        self.tableView.register(nibClass: STFeedFilterSwitchTableViewCell.self)
         
-        let leftItem = UIBarButtonItem(title: "Отмена", style: .plain, target: self, action: #selector(self.cancel))
+        let leftItem = UIBarButtonItem(title: "action_cancel".localized, style: .plain, target: self, action: #selector(self.cancel))
         self.navigationItem.leftBarButtonItem = leftItem
         
-        let rightItem = UIBarButtonItem(title: "Применить", style: .plain, target: self, action: #selector(self.applyFilter))
+        let rightItem = UIBarButtonItem(title: "action_apply".localized, style: .plain, target: self, action: #selector(self.applyFilter))
         self.navigationItem.rightBarButtonItem = rightItem
         
-        self.navigationItem.title = "Фильтр"
+        self.navigationItem.title = "feed_filter_page_title".localized
         
 //        let section1 = TableSection()
 //        self.dataSource.sections.append(section1)
@@ -95,7 +91,7 @@ class STFeedFilterTableViewController: UITableViewController {
                             
                             let viewCell = cell as! STFeedFilterTableViewCell
                             
-                            viewCell.title.text = "Предложения"
+                            viewCell.title.text = "feed_filter_page_offer_text".localized
                             viewCell.icon.image = UIImage(named: "icon-offer")
                             
                             if self.filter.offer {
@@ -110,7 +106,7 @@ class STFeedFilterTableViewController: UITableViewController {
                             
                             let viewCell = cell as! STFeedFilterTableViewCell
                             
-                            viewCell.title.text = "Запросы/Поиск"
+                            viewCell.title.text = "feed_filter_page_search_text".localized
                             viewCell.icon.image = UIImage(named: "icon-search")
                             
                             if self.filter.search {

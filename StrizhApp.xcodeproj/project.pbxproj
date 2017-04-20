@@ -100,6 +100,7 @@
 		D4C2AD841E5395C7009CD55A /* STPersonalPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C2AD821E5395C7009CD55A /* STPersonalPostCell.swift */; };
 		D4C2AD851E5395C7009CD55A /* STPersonalPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4C2AD831E5395C7009CD55A /* STPersonalPostCell.xib */; };
 		D4CB22771EA1577800A9B80F /* STDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CB22761EA1577800A9B80F /* STDocumentViewController.swift */; };
+		D4D826261EA95BC4007E42FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4D826281EA95BC4007E42FB /* Localizable.strings */; };
 		D4F00F4B1EA3A75500C6E1E8 /* STDummyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4F00F4A1EA3A75500C6E1E8 /* STDummyView.xib */; };
 		D4F00F4D1EA3A89D00C6E1E8 /* STDummyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F00F4C1EA3A89D00C6E1E8 /* STDummyView.swift */; };
 		D4FFDFAA1E8705590090BE5A /* STDialogsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFDFA91E8705590090BE5A /* STDialogsPage.swift */; };
@@ -127,7 +128,6 @@
 		E55906781E51A74500F8E20E /* STProfileHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E55906761E51A74500F8E20E /* STProfileHeaderCell.xib */; };
 		E559067A1E51FF5900F8E20E /* TableSectionHeaderFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55906791E51FF5900F8E20E /* TableSectionHeaderFooter.swift */; };
 		E55906801E520D7B00F8E20E /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E559067F1E520D7B00F8E20E /* Models.swift */; };
-		E55ED8E01EA7479E00917B3E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E55ED8DF1EA7479E00917B3E /* Localizable.strings */; };
 		E55ED8E91EA7558D00917B3E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55ED8E81EA7558D00917B3E /* String.swift */; };
 		E55ED8EB1EA755E400917B3E /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55ED8EA1EA755E400917B3E /* UIView.swift */; };
 		E55ED8ED1EA7565C00917B3E /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55ED8EC1EA7565C00917B3E /* UIViewController.swift */; };
@@ -272,6 +272,8 @@
 		D4C2AD821E5395C7009CD55A /* STPersonalPostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPersonalPostCell.swift; path = Profile/STPersonalPostCell.swift; sourceTree = "<group>"; };
 		D4C2AD831E5395C7009CD55A /* STPersonalPostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPersonalPostCell.xib; path = Profile/STPersonalPostCell.xib; sourceTree = "<group>"; };
 		D4CB22761EA1577800A9B80F /* STDocumentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDocumentViewController.swift; path = Feed/STDocumentViewController.swift; sourceTree = "<group>"; };
+		D4D826271EA95BC4007E42FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D4D826291EA95BC9007E42FB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4F00F4A1EA3A75500C6E1E8 /* STDummyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STDummyView.xib; path = CommonUI/STDummyView.xib; sourceTree = "<group>"; };
 		D4F00F4C1EA3A89D00C6E1E8 /* STDummyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDummyView.swift; path = CommonUI/STDummyView.swift; sourceTree = "<group>"; };
 		D4FFDFA91E8705590090BE5A /* STDialogsPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialogsPage.swift; path = Models/STDialogsPage.swift; sourceTree = "<group>"; };
@@ -299,7 +301,6 @@
 		E55906761E51A74500F8E20E /* STProfileHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STProfileHeaderCell.xib; path = Profile/STProfileHeaderCell.xib; sourceTree = "<group>"; };
 		E55906791E51FF5900F8E20E /* TableSectionHeaderFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableSectionHeaderFooter.swift; path = DataSource/TableSectionHeaderFooter.swift; sourceTree = "<group>"; };
 		E559067F1E520D7B00F8E20E /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Models.swift; path = Extensions/Models.swift; sourceTree = "<group>"; };
-		E55ED8DF1EA7479E00917B3E /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		E55ED8E71EA74E4000917B3E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		E55ED8E81EA7558D00917B3E /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = String.swift; path = Extensions/String.swift; sourceTree = "<group>"; };
 		E55ED8EA1EA755E400917B3E /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIView.swift; path = Extensions/UIView.swift; sourceTree = "<group>"; };
@@ -562,7 +563,7 @@
 				D43BED6F1E70A72D00683D5C /* Main.storyboard */,
 				D49727051E32BDA50076B7A1 /* LaunchScreen.storyboard */,
 				D49727081E32BDA50076B7A1 /* Info.plist */,
-				E55ED8DF1EA7479E00917B3E /* Localizable.strings */,
+				D4D826281EA95BC4007E42FB /* Localizable.strings */,
 			);
 			path = StrizhApp;
 			sourceTree = "<group>";
@@ -921,6 +922,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = D49726EE1E32BDA50076B7A1;
 			productRefGroup = D49726F81E32BDA50076B7A1 /* Products */;
@@ -969,7 +971,7 @@
 				D4AD43BD1E47B504006F13DE /* STPostTableViewCell.xib in Resources */,
 				E53185FF1E364AE700BC6C9A /* STLoginTableViewCell.xib in Resources */,
 				D43A75611E4E610700DB0850 /* STPostDetailsMapsCell.xib in Resources */,
-				E55ED8E01EA7479E00917B3E /* Localizable.strings in Resources */,
+				D4D826261EA95BC4007E42FB /* Localizable.strings in Resources */,
 				E59448981E680C98002B2989 /* STPostButtonsCell.xib in Resources */,
 				D43BED711E70A72D00683D5C /* Main.storyboard in Resources */,
 				E53F37BE1E3A632C00393BAD /* STLoginLogoTableViewCell.xib in Resources */,
@@ -1194,6 +1196,15 @@
 				D49727061E32BDA50076B7A1 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D4D826281EA95BC4007E42FB /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4D826271EA95BC4007E42FB /* Base */,
+				D4D826291EA95BC9007E42FB /* ru */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -495,8 +495,8 @@ class STProfileTableViewController: UITableViewController {
         if self.userPostsSection.items.count == 0 {
             
             self.showDummyView(imageName: "empty-personal-feed",
-                               title: "Созданных тем нет",
-                               subTitle: "Вы еще не создали ни одной темы. Чтобы создать, нажмите на “+”.")
+                               title: "profile_page_empty_personal_posts_title".localized,
+                               subTitle: "profile_page_empty_personal_posts_message".localized)
         }
         else {
             

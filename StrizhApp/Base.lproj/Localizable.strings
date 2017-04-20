@@ -1,0 +1,135 @@
+/* 
+  Localizable.strings
+  StrizhApp
+
+  Created by Vladimir Kokhanevich on 19/04/2017.
+  Copyright © 2017 Vladimir Kokhanevich. All rights reserved.
+*/
+
+
+// Basic actions
+"action_cancel" = "Cancel";
+"action_done" = "Done";
+"action_close" = "Close";
+"action_choose" = "Choose";
+"action_done" = "Done";
+"action_next" = "Next";
+"action_edit" = "Edit";
+"action_delete" = "Delete";
+"action_save" = "Save";
+"action_apply" = "Apply";
+
+// Place holders
+"placeholder_search" = "Search";
+
+// Dummy texts
+"dummy_dialogs_title" = "No dialogs";
+"dummy_dialogs_subtitle" = "Begin conversation by click on \" write message \" button on a post's details page";
+"dummy_chat_empty_mesages_title" = "No messages";
+"dummy_chat_empty_mesages_subtitle" = "For details information about an interesting topic you have to begin a dialog";
+
+// Alert
+"alert_title_error" = "Error";
+"alert_title_delete_chat_message" = "Delete message";
+"alert_title_chat_try_again" = "Try again";
+"alert_chat_can't_send_message" = "Message could not be sent";
+
+// Login
+"login_page_phone_title" = "Phone number";
+"login_page_name_title" = "First name";
+"login_page_last_name_title" = "Last Name";
+"login_page_last_name_action_text" = "Enter your Last Name";
+"login_page_enter_name_text" = "Enter your Name";
+"login_page_choose_photo_text" = "Choose a photo";
+"login_page_no_access_photo_title" = "Access to photos is unable";
+"login_page_no_access_photo_message" = "Access to photos is unable on your device.";
+"login_page_take_photo_title" = "Take a photo";
+"login_page_no_access_camera_title" = "Access to the Camera is unable";
+"login_page_no_access_camera_subtitle" = "Access to the Camera is unable on your device";
+"login_page_action_send_password_description" = "Please wait a text message with a password";
+"login_page_password_text" = "Password";
+"login_page_enter_password_from_text_messsage_text" = "Please enter the password from the text message";
+"login_page_resend_password_text" = "Send a password again in ";
+"login_page_last_action_text1" = "Your almost done!\n\n";
+"login_page_last_action_text2" = "Please choose a photo for your profile and fill empty fields";
+"login_page_action_send_password_text" = "Send password";
+
+// Post
+"post_page_title" = "New topic";
+"post_page_button_offer_title" = "Offer";
+"post_page_button_search_title" = "Search";
+"post_page_time_to_begin_text" = "Begining";
+"post_page_time_to_end_text" = "End";
+"post_page_duration" = "Duration";
+"post_page_additional_fields_text" = "ADDITIONAL FIELDS:";
+"post_page_required_fields_text" = "REQUIRED FIELDS:";
+"post_page_topic_type_text" = "Type of topic";
+"post_page_name_text" = "Topic name";
+"post_page_enter_topic_name_text" = "Enter a topic name";
+"post_page_description_text" = "Description";
+"post_page_enter_topic_description_text" = "Enter a description of topic";
+"post_page_price_text" = "Price";
+"post_page_price_details_placeholder" = "5000 rubles for one piece";
+"post_page_price_comment_text" = "Price description";
+"post_page_price_comment_placeholder" = "Price negotiating is possible etc.";
+"post_page_agency_profit_text" = "Agent's commission";
+"post_page_agency_profit_placeholder" = "A couple of words about agent's commission";
+"post_page_attach_to_topic_text" = "Attach to the topic";
+"post_page_attach_to_topic_title" = "ATTACH TO THE TOPIC:";
+"post_page_photos_text" = "Photos";
+"post_page_photos_description_text" = "Max 10 photos";
+"post_page_attament_loading_text" = "Download...";
+
+// Post errors
+"post_page_error_validation_message" = "This field could not be empty";
+"post_page_attachment_error_title" = "Error!";
+"post_page_attachment_waiting_title" = "Waiting";
+
+// Chat
+"prefix_you" = "You: ";
+
+// Contacts
+"contacts_page_title" = "Contacts";
+"contacts_page_create_text" = "Create";
+"contacts_page_success_title" = "Success";
+"contacts_page_success_create_message" = "You have successfully created a new topic";
+"contacts_page_success_update_message" = "You have successfully updated the topic";
+"contacts_page_empty_contacts_title" = "No contacts";
+"contacts_page_empty_contacts_message" = "You have to allow an access to your contacts on your iPhone.";
+"contacts_page_users_who_don't_use_app_title" = "DO NOT USING THE STRIZHAPP";
+"contacts_page_share_text" = "I wish to invite you in StrizhApp, which you can download from the App Store";
+
+// Profile
+"profile_page_my_topics" = "MY TOPICS:";
+"profile_page_open_one_dialog_text" = "Opened:";
+"profile_page_open_few_dialogs_text" = "Opened:";
+"profile_page_one_dialog_text" = "dialos";
+"profile_page_few_dialogs_text" = "dialogs";
+"profile_page_many_dialogs_text" = "dialogs";
+"profile_page_empty_personal_posts_title" = "No topics";
+"profile_page_empty_personal_posts_message" = "You haven't created any topic. Click on “+” for that";
+"profile_edit_page_title" = "Profile";
+"profile_edit_page_error_empty_first_name_text" = "First Name could not be empty";
+"profile_edit_page_error_empty_last_name_text" = "Last Name could not be empty";
+// Settings
+
+"settings_page_title" = "Settings";
+"settings_page_events_text" = "NOTIFICATIONS";
+"settings_page_topics_text" = "Topics";
+"settings_page_messages_text" = "Messages";
+"settings_page_singout_text" = "Logout";
+
+// Feed
+"feed_page_filter_all_feed_text" = "Feed";
+"feed_page_filter_favorites_text" = "Favorites";
+"feed_page_empty_feed_title" = "Empty feed";
+"feed_page_empty_feed_message" = "Nobody from your contacts didn't send you any topic.";
+"feed_page_empty_favotites_feed_title" = "Empty favorites";
+"feed_page_empty_favotites_feed_message" = "Just click on \"star\" button to make a topic your favorite.";
+"feed_filter_page_title" = "Filter";
+"feed_filter_page_offer_text" = "Offers";
+"feed_filter_page_search_text" = "Search";
+"feed_details_page_title" = "Information";
+"feed_details_page_button_write_message_title" = "Write message";
+"feed_details_page_button_write_go_to_dialog_title" = "Go to the dialog";
+"feed_details_page_button_write_go_to_dialogs_title" = "Go to dialogs";

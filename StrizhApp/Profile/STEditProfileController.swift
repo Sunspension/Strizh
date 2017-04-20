@@ -69,14 +69,14 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
         self.tableView.register(nibClass: STEditProfileHeaderCell.self)
         self.tableView.register(nibClass: STEditProfileTextCell.self)
         
-        let rigthItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(self.save))
+        let rigthItem = UIBarButtonItem(title: "action_save".localized, style: .plain, target: self, action: #selector(self.save))
         
-        let leftItem = UIBarButtonItem(title: "Закрыть", style: .plain, target: self, action: #selector(self.close))
+        let leftItem = UIBarButtonItem(title: "action_close".localized, style: .plain, target: self, action: #selector(self.close))
         
         self.navigationItem.rightBarButtonItem = rigthItem
         self.navigationItem.leftBarButtonItem = leftItem
         
-        self.title = "Профиль"
+        self.title = "profile_edit_page_title".localized
         
         self.createDataSource()
     }
@@ -119,7 +119,9 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
             if let valid = item.validation?().valid, valid == false {
                 
                 let itemType = item.itemType as! EditProfileFieldsEnum
-                errors.append(itemType == .firstName ? "Имя" : "Фамилия")
+                errors.append(itemType == .firstName
+                    ? "login_page_name_title".localized
+                    : "login_page_last_name_title".localized)
             }
         }
         
@@ -136,7 +138,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                 message = "Поля \(errors[0]) и \(errors[1]) не должны быть пустыми"
             }
             
-            self.showOkAlert(title: "Ошибка", message: message)
+            self.showOkAlert(title: "alert_title_error".localized, message: message)
             
             return
         }
@@ -178,7 +180,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                 viewCell.userImage.reactive.tap.observe {[unowned viewCell, unowned self] _ in
                 
                     let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-                    let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+                    let cancelAction = UIAlertAction(title: "action_cancel".localized, style: .cancel, handler: nil)
                     
                     self.observableImage.observeNext{ image in
                         
@@ -191,12 +193,12 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                         
                     }.dispose(in: viewCell.bag)
                     
-                    let choosePhotoAction = UIAlertAction(title: "Выбрать фото", style: .default) { [unowned self] action in
+                    let choosePhotoAction = UIAlertAction(title: "login_page_choose_photo_text".localized, style: .default) { [unowned self] action in
                         
                         if !UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                             
-                            self.showOkAlert(title: "Нет доступа к Фото",
-                                             message: "Не удалось получить доступ к Фото на вашем устройстве")
+                            self.showOkAlert(title: "login_page_no_access_photo_title".localized,
+                                             message: "login_page_no_access_photo_message".localized)
                             return
                         }
                         
@@ -208,12 +210,12 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                         self.present(pickerController, animated: true, completion: nil)
                     }
                     
-                    let takePhotoAction = UIAlertAction(title: "Сделать фото", style: .default) { [unowned self] action in
+                    let takePhotoAction = UIAlertAction(title: "login_page_take_photo_title".localized, style: .default) { [unowned self] action in
                         
                         if !UIImagePickerController.isSourceTypeAvailable(.camera) {
                             
-                            self.showOkAlert(title: "Нет доступа к Камере",
-                                             message: "Не удалось получить доступ к Камере на вашем устройстве")
+                            self.showOkAlert(title: "login_page_no_access_camera_title".localized,
+                                             message: "login_page_no_access_camera_subtitle".localized)
                             
                             return
                         }
@@ -270,8 +272,8 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                                             
                                             let viewCell = cell as! STEditProfileTextCell
                                             
-                                            viewCell.title.text = "Имя"
-                                            viewCell.value.placeholder = "Введите имя"
+                                            viewCell.title.text = "login_page_name_title".localized
+                                            viewCell.value.placeholder = "login_page_enter_name_text".localized
                                             viewCell.value.text = user.firstName
                                             viewCell.selectionStyle = .none
                                             viewCell.layoutMargins = UIEdgeInsets.zero
@@ -290,7 +292,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                                                     return ValidationResult.onSuccess
                                                 }
                                                 
-                                                return ValidationResult.onError(errorMessage: "Поле Имя не должно быть пустым")
+                                                return ValidationResult.onError(errorMessage: "profile_edit_page_error_empty_first_name_text".localized)
                                             }
                                         }
         }
@@ -303,8 +305,8 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                                             
                                             let viewCell = cell as! STEditProfileTextCell
                                             
-                                            viewCell.title.text = "Фамилия"
-                                            viewCell.value.placeholder = "Введите фамилию"
+                                            viewCell.title.text = "login_page_last_name_title".localized
+                                            viewCell.value.placeholder = "login_page_last_name_action_text".localized
                                             viewCell.value.text = user.lastName
                                             viewCell.selectionStyle = .none
                                             viewCell.layoutMargins = UIEdgeInsets.zero
@@ -323,7 +325,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                                                     return ValidationResult.onSuccess
                                                 }
                                                 
-                                                return ValidationResult.onError(errorMessage: "Поле Фамилия не должно быть пустым")
+                                                return ValidationResult.onError(errorMessage: "profile_edit_page_error_empty_last_name_text".localized)
                                             }
                                         }
         }
@@ -359,7 +361,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                                             
                                             let viewCell = cell as! STEditProfileTextCell
                                             
-                                            viewCell.title.text = "Телефон"
+                                            viewCell.title.text = "login_page_phone_title".localized
                                             viewCell.value.placeholder = ""
                                             viewCell.selectionStyle = .none
                                             viewCell.layoutMargins = UIEdgeInsets.zero

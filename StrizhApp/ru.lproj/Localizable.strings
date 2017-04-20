@@ -8,17 +8,18 @@
 
 
 // Basic actions
-"action_cancel" = "Cancel";
-"action_done" = "Done";
-"action_close" = "Close";
-"action_choose" = "Choose";
-"action_done" = "Done";
-"action_next" = "Next";
+"action_cancel" = "Отмена";
+"action_done" = "Готово";
+"action_close" = "Закрыть";
+"action_choose" = "Выбрать";
+"action_next" = "Далее";
 "action_edit" = "Редактировать";
 "action_delete" = "Удалить";
+"action_save" = "Сохранить";
+"action_apply" = "Применить";
 
 // Place holders
-"placeholder_search" = "Search";
+"placeholder_search" = "Поиск";
 
 // Dummy texts
 "dummy_dialogs_title" = "Диалогов нет";
@@ -27,7 +28,7 @@
 "dummy_chat_empty_mesages_subtitle" = "Чтобы получить дополнительную информацию по теме, начните диалог.";
 
 // Alert
-"alert_title_error" = "Error";
+"alert_title_error" = "Ошибка";
 "alert_title_delete_chat_message" = "Удалить сообщение";
 "alert_title_chat_try_again" = "Попробовать еще раз";
 "alert_chat_can't_send_message" = "Не удалось отправить сообщение";
@@ -84,7 +85,7 @@
 "post_page_attachment_waiting_title" = "Ожидание";
 
 // Chat
-"prefix_you" = "You: ";
+"prefix_you" = "Вы: ";
 
 // Contacts
 "contacts_page_title" = "Контакты";
@@ -104,5 +105,31 @@
 "profile_page_one_dialog_text" = "диалог";
 "profile_page_few_dialogs_text" = "диалога";
 "profile_page_many_dialogs_text" = "диалогов";
+"profile_page_empty_personal_posts_title" = "Созданных тем нет";
+"profile_page_empty_personal_posts_message" = "Вы еще не создали ни одной темы. Чтобы создать, нажмите на “+”.";
+"profile_edit_page_title" = "Профиль";
+"profile_edit_page_error_empty_first_name_text" = "Поле Имя не должно быть пустым";
+"profile_edit_page_error_empty_last_name_text" = "Поле Фамилия не должно быть пустым";
 
+// Settings
 
+"settings_page_title" = "Настройки";
+"settings_page_events_text" = "УВЕДОМЛЕНИЯ";
+"settings_page_topics_text" = "Темы";
+"settings_page_messages_text" = "Сообщения";
+"settings_page_singout_text" = "Выйти из аккаунта";
+
+// Feed
+"feed_page_filter_all_feed_text" = "Вся Лента";
+"feed_page_filter_favorites_text" = "Избранное";
+"feed_page_empty_feed_title" = "Лента пуста";
+"feed_page_empty_feed_message" = "Пока что никто из Ваших контктов не отправлял темы.";
+"feed_page_empty_favotites_feed_title" = "Избранных тем нет";
+"feed_page_empty_favotites_feed_message" = "Чтобы добавить тему в избранное, отметьте ее звездочкой в правом верхнем углу карточки.";
+"feed_filter_page_title" = "Фильтр";
+"feed_filter_page_offer_text" = "Предложения";
+"feed_filter_page_search_text" = "Запросы/Поиск";
+"feed_details_page_title" = "Информация";
+"feed_details_page_button_write_message_title" = "Написать сообщение";
+"feed_details_page_button_write_go_to_dialog_title" = "Перейти к диалогу";
+"feed_details_page_button_write_go_to_dialogs_title" = "Перейти к диалогам";

@@ -81,7 +81,7 @@ class STFeedDetailsTableViewController: UIViewController {
         self.tableView.register(nibClass: STCommonLabelCell.self)
         self.tableView.register(nibClass: STPersonalPostDetailsMainInfoCell.self)
         
-        self.navigationItem.title = "Информация"
+        self.navigationItem.title = "feed_details_page_title".localized
         
         self.setCustomBackButton()
         
@@ -116,7 +116,7 @@ class STFeedDetailsTableViewController: UIViewController {
             
             if post.dialogCount == 0 {
                 
-                self.writeMessage.setTitle("Написать сообщение", for: .normal)
+                self.writeMessage.setTitle("feed_details_page_button_write_message_title".localized, for: .normal)
                 
                 if post.userId == myUser.id {
                     
@@ -132,12 +132,12 @@ class STFeedDetailsTableViewController: UIViewController {
                 
                 if post.userId == myUser.id && post.dialogCount > 1 {
                     
-                    self.writeMessage.setTitle("Перейти к диалогам (\(post.dialogCount))", for: .normal)
+                    self.writeMessage.setTitle("feed_details_page_button_write_go_to_dialogs_title".localized + "(\(post.dialogCount))", for: .normal)
                     self.writeMessage.addTarget(self, action: #selector(self.openDialogsController), for: .touchUpInside)
                 }
                 else {
                     
-                    self.writeMessage.setTitle("Перейти к диалогу", for: .normal)
+                    self.writeMessage.setTitle("feed_details_page_button_write_go_to_dialog_title".localized, for: .normal)
                     self.writeMessage.addTarget(self, action: #selector(self.openChatController), for: .touchUpInside)
                 }
             }
@@ -255,9 +255,13 @@ class STFeedDetailsTableViewController: UIViewController {
                                             
                                             viewCell.dialogsCount.isHidden = false
                                             viewCell.openedDialogs.isHidden = false
-                                            viewCell.openedDialogs.text = post.dialogCount == 1 ? "Открыт:" : "Открыто:"
+                                            viewCell.openedDialogs.text = post.dialogCount == 1
+                                                ? "profile_page_open_one_dialog_text".localized
+                                                : "profile_page_open_few_dialogs_text".localized
                                             
-                                            let ending = post.dialogCount.ending(yabloko: "диалог", yabloka: "диалога", yablok: "диалогов")
+                                            let ending = post.dialogCount.ending(yabloko: "profile_page_one_dialog_text".localized,
+                                                                                 yabloka: "profile_page_few_dialogs_text".localized,
+                                                                                 yablok: "profile_page_many_dialogs_text".localized)
                                             
                                             viewCell.dialogsCount.text = "\(post.dialogCount)" + " " + ending
                                         }
@@ -455,9 +459,9 @@ class STFeedDetailsTableViewController: UIViewController {
         
         let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let cancel = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "action_cancel".localized, style: .cancel, handler: nil)
         
-        let actionEdit = UIAlertAction(title: "Редактировать", style: .default, handler: { action in
+        let actionEdit = UIAlertAction(title: "action_edit".localized, style: .default, handler: { action in
             
             // open edit controller
             let postObject = STUserPostObject(post: post)
@@ -492,7 +496,7 @@ class STFeedDetailsTableViewController: UIViewController {
 //            actionController.addAction(actionArchive)
 //        }
         
-        let actionDelete = UIAlertAction(title: "Удалить", style: .default, handler: { action in
+        let actionDelete = UIAlertAction(title: "action_delete".localized, style: .default, handler: { action in
             
             self.api.deletePost(postId: post.id)
                 .onSuccess(callback: { _ in

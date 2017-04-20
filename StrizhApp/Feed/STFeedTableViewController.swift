@@ -21,7 +21,8 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     
     fileprivate var searchFavoriteDataSource: STFeedDataSourceWrapper?
     
-    fileprivate var dataSourceSwitch = UISegmentedControl(items: ["Вся Лента", "Избранное"])
+    fileprivate var dataSourceSwitch = UISegmentedControl(items: ["feed_page_filter_all_feed_text".localized,
+                                                                  "feed_page_filter_favorites_text".localized])
     
     fileprivate let searchController = UISearchController(searchResultsController: nil)
     
@@ -143,7 +144,6 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     }
     
     //MARK: - UISearchResultUpdating delegate implementation
-    
     func updateSearchResults(for searchController: UISearchController) {
         
         let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ? self.searchFeedDataSource : self.searchFavoriteDataSource
@@ -235,7 +235,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
             UIColor(red: 232 / 255.0, green: 237 / 255.0, blue: 247 / 255.0, alpha: 1)
         
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Поиск"
+        searchController.searchBar.placeholder = "placeholder_search".localized
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.searchBar.barTintColor = UIColor.stLightBlueGrey
@@ -305,14 +305,14 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
                 || self.tableView.dataSource === self.searchFavoriteDataSource!.dataSource {
                 
                 self.showDummyView(imageName: "empty-feed-favorite",
-                                   title: "Избранных тем нет",
-                                   subTitle: "Чтобы добавить тему в избранное, отметьте ее звездочкой в правом верхнем углу карточки.")
+                                   title: "feed_page_empty_favotites_feed_title".localized,
+                                   subTitle: "feed_page_empty_favotites_feed_message".localized)
             }
             else {
                 
                 self.showDummyView(imageName: "empty-feed",
-                                   title: "Лента пуста",
-                                   subTitle: "Пока что никто из Ваших контктов не отправлял темы.")
+                                   title: "feed_page_empty_feed_title".localized,
+                                   subTitle: "feed_page_empty_feed_message".localized)
             }
         }
         else {

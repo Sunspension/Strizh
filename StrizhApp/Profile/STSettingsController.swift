@@ -12,7 +12,7 @@ class STSettingsController: UITableViewController {
 
     fileprivate let dataSource = TableViewDataSource()
     
-    fileprivate let section1 = TableSection(title: "УВЕДОМЛЕНИЯ")
+    fileprivate let section1 = TableSection(title: "settings_page_events_text".localized)
     
     fileprivate let section2 = TableSection()
     
@@ -43,11 +43,11 @@ class STSettingsController: UITableViewController {
         
         self.tableView.register(nibClass: STFeedFilterSwitchTableViewCell.self)
         
-        self.title = "Настройки"
+        self.title = "settings_page_title".localized
         
-        let rigthItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(self.close))
+        let rigthItem = UIBarButtonItem(title: "action_save".localized, style: .plain, target: self, action: #selector(self.close))
         
-        let leftItem = UIBarButtonItem(title: "Закрыть", style: .plain, target: self, action: #selector(self.close))
+        let leftItem = UIBarButtonItem(title: "action_close".localized, style: .plain, target: self, action: #selector(self.close))
         
         self.navigationItem.rightBarButtonItem = rigthItem
         self.navigationItem.leftBarButtonItem = leftItem
@@ -75,14 +75,14 @@ class STSettingsController: UITableViewController {
         self.section1.addItem(cellClass: STFeedFilterSwitchTableViewCell.self) { (cell, item) in
             
             let viewCell = cell as! STFeedFilterSwitchTableViewCell
-            viewCell.title.text = "Темы"
+            viewCell.title.text = "settings_page_topics_text".localized
             viewCell.toggle.isOn = true
         }
         
         self.section1.addItem(cellClass: STFeedFilterSwitchTableViewCell.self) { (cell, item) in
             
             let viewCell = cell as! STFeedFilterSwitchTableViewCell
-            viewCell.title.text = "Сообщения"
+            viewCell.title.text = "settings_page_messages_text".localized
             viewCell.toggle.isOn = true
         }
         
@@ -90,7 +90,7 @@ class STSettingsController: UITableViewController {
             
             cell.textLabel?.textAlignment = .center
             cell.textLabel?.textColor = UIColor.stBrick
-            cell.textLabel?.text = "Выйти из аккаунта"
+            cell.textLabel?.text = "settings_page_singout_text".localized
         }
     }
 }
