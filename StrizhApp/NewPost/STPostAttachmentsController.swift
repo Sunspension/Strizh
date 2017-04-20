@@ -66,12 +66,12 @@ class STPostAttachmentsController: UITableViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.separatorInset = UIEdgeInsets.zero
         
-        let rightItem = UIBarButtonItem(title: "Далее", style: .plain, target: self, action: #selector(self.nextAction))
+        let rightItem = UIBarButtonItem(title: "action_next".localized, style: .plain, target: self, action: #selector(self.nextAction))
         self.navigationItem.rightBarButtonItem = rightItem
         
         self.setCustomBackButton()
         
-        title = "Прикрепить к теме"
+        title = "post_page_attach_to_topic_text".localized
         
         self.imageUploader.completeAllOperations = { [unowned self] in
             
@@ -250,7 +250,7 @@ class STPostAttachmentsController: UITableViewController {
             
             let header = view as! STContactHeaderCell
             
-            header.title.text = "ПРИКРЕПИТЬ К ТЕМЕ:"
+            header.title.text = "post_page_attach_to_topic_title".localized
             header.title.font = UIFont.systemFont(ofSize: 12)
             header.title.textColor = UIColor.stSteelGrey
             header.topSpace.constant = 16
@@ -262,8 +262,8 @@ class STPostAttachmentsController: UITableViewController {
             
             let viewCell = cell as! STAttachmentCell
             viewCell.icon.image = UIImage(named: "icon-attachment-image")
-            viewCell.title.text = "Фотографии"
-            viewCell.subtitle.text = "До 10 фотографий"
+            viewCell.title.text = "post_page_photos_text".localized
+            viewCell.subtitle.text = "post_page_photos_description_text".localized
             viewCell.collectionView.dataSource = self.imageDataSource
             viewCell.collectionView.delegate = self.imageDataSource
             

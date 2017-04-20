@@ -50,7 +50,7 @@ class STContactsDataSourceWrapper {
             self.notRelatedContactsSection.header(headerClass: STContactHeaderCell.self, bindingAction: { (cell, item) in
                 
                 let header = cell as! STContactHeaderCell
-                header.title.text = "НЕ ИСПОЛЬЗУЮТ STRIZHAPP"
+                header.title.text = "contacts_page_users_who_don't_use_app_title".localized
                 header.title.textColor = UIColor.stSteelGrey
             })
             
@@ -161,7 +161,7 @@ class STContactsDataSourceWrapper {
         
         if !contact.isRegistered {
             
-            let textToShare = "Приглашаю в приложение StrizhApp, которое можно скачать в App Store"
+            let textToShare = "contacts_page_share_text".localized
             
             viewCell.addContact.reactive.tap.observe { [unowned self] _ in
                 

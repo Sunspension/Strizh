@@ -56,11 +56,12 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         self.tableView.register(nibClass: STContactCell.self)
         self.tableView.register(headerFooterNibClass: STContactHeaderCell.self)
         
-        self.title = "Контакты"
+        self.title = "contacts_page_title".localized
         
         if self.reason == .newPost {
             
-            let rightItem = UIBarButtonItem(title: "Создать", style: .plain, target: self, action: #selector(self.nextAction))
+            let rightItem = UIBarButtonItem(title: "contacts_page_create_text".localized,
+                                            style: .plain, target: self, action: #selector(self.nextAction))
             rightItem.isEnabled = false
             self.navigationItem.rightBarButtonItem = rightItem
             
@@ -146,7 +147,8 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                     
                     NotificationCenter.default.post(name: NSNotification.Name(kPostCreatedNotification), object: post)
                     
-                    self.showOkAlert(title: "Успешно", message:"Вы успешно создали новую тему", okAction: {
+                    self.showOkAlert(title: "contacts_page_success_title".localized,
+                                     message:"contacts_page_success_message".localized, okAction: {
                         
                         action in self.navigationController?.dismiss(animated: true, completion: nil)
                     })
@@ -170,7 +172,8 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                     // still having the same behavior
                     NotificationCenter.default.post(name: NSNotification.Name(kPostCreatedNotification), object: post)
                     
-                    self.showOkAlert(title: "Успешно", message:"Вы успешно обновили тему", okAction: {
+                    self.showOkAlert(title: "contacts_page_success_title".localized,
+                                     message:"contacts_page_success_update_message".localized, okAction: {
                         
                         action in self.navigationController?.dismiss(animated: true, completion: nil)
                     })
@@ -230,7 +233,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
             UIColor(red: 232 / 255.0, green: 237 / 255.0, blue: 247 / 255.0, alpha: 1)
         
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Поиск"
+        searchController.searchBar.placeholder = "placeholder_search".localized
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.searchBar.barTintColor = UIColor.stLightBlueGrey
@@ -255,8 +258,8 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
             || self.tableView.numberOfRows(inSection: 0) == 0 {
             
             self.showDummyView(imageName: "empty-contacts",
-                               title: "Контактов нет",
-                               subTitle: "Для работы с приложением необходимо разрешить доступ к Вашим контактам. Вы можете сделать это в настройках Вашего iPhone.")
+                               title: "contacts_page_empty_contacts_title".localized,
+                               subTitle: "contacts_page_empty_contacts_message".localized)
         }
         else {
             

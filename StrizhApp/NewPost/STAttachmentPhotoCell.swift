@@ -61,13 +61,13 @@ class STAttachmentPhotoCell: UICollectionViewCell {
     
     func uploading() {
         
-        self.loadingLabel.text = "Загрузка..."
+        self.loadingLabel.text = "post_page_attament_loading_text".localized
     }
     
     func error() {
         
         self.delete.isHidden = false
-        self.loadingLabel.text = "Ошибка!"
+        self.loadingLabel.text = "post_page_attachment_error_title".localized
         self.coloredLayer.backgroundColor = UIColor.stBrownish.cgColor
         self.progress.isHidden = true
     }
@@ -92,7 +92,7 @@ class STAttachmentPhotoCell: UICollectionViewCell {
             self.image.layer.addSublayer(self.coloredLayer)
         }
         
-        self.loadingLabel.text = "Ожидание"
+        self.loadingLabel.text = "post_page_attachment_waiting_title".localized
         self.angle = 0.0
         self.coloredLayer.backgroundColor = UIColor.stCloudyBlue.cgColor
         self.delete.isHidden = true

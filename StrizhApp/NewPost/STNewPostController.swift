@@ -29,10 +29,10 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let leftItem = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(self.cancel))
+        let leftItem = UIBarButtonItem(title: "action_cancel".localized, style: .plain, target: self, action: #selector(self.cancel))
         self.navigationItem.leftBarButtonItem = leftItem
         
-        let rightItem = UIBarButtonItem(title: "Далее", style: .plain, target: self, action: #selector(self.nextAction))
+        let rightItem = UIBarButtonItem(title: "action_next".localized, style: .plain, target: self, action: #selector(self.nextAction))
         self.navigationItem.rightBarButtonItem = rightItem
         
         self.tableView.tableFooterView = UIView()
@@ -57,7 +57,7 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
         
         self.createDataSource()
         
-        self.title = !self.postObject.title.isEmpty ? self.postObject.title : "Новая тема"
+        self.title = !self.postObject.title.isEmpty ? self.postObject.title : "post_page_title".localized
     }
     
     func cancel() {
@@ -109,7 +109,7 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             
             let header = view as! STContactHeaderCell
             
-            header.title.text = "ОБЯЗАТЕЛЬНЫЕ ПОЛЯ:"
+            header.title.text = "post_page_required_fields_text".localized
             header.title.font = UIFont.systemFont(ofSize: 12)
             header.title.textColor = UIColor.stSteelGrey
             header.topSpace.constant = 16
@@ -124,7 +124,7 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             self.postObject.type = 1
             
             viewCell.offerButtonSelected(true)
-            viewCell.title.text = "Вид темы"
+            viewCell.title.text = "post_page_topic_type_text".localized
             viewCell.setType(type: self.postObject.type)
             
             
@@ -147,8 +147,8 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             
             let viewCell = cell as! STTextFieldCell
             
-            viewCell.title.text = "Название"
-            viewCell.value.placeholder = "Введите название темы"
+            viewCell.title.text = "post_page_name_text".localized
+            viewCell.value.placeholder = "post_page_enter_topic_name_text".localized
             viewCell.value.text = self.postObject.title
             
             viewCell.onTextDidChange = { [unowned viewCell, unowned self] text in
@@ -187,8 +187,8 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             
             let viewCell = cell as! STTextViewCell
             
-            viewCell.title.text = "Описание"
-            viewCell.placeHolder.placeholder = "Введите описание темы"
+            viewCell.title.text = "post_page_description_text".localized
+            viewCell.placeHolder.placeholder = "post_page_enter_topic_description_text".localized
             viewCell.textValue = self.postObject.details
             
             viewCell.onReturn = { [unowned self] in
@@ -236,7 +236,7 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             
             let header = view as! STContactHeaderCell
             
-            header.title.text = "ДОПОЛНИТЕЛЬНЫЕ ПОЛЯ:"
+            header.title.text = "post_page_additional_fields_text".localized
             header.title.font = UIFont.systemFont(ofSize: 12)
             header.title.textColor = UIColor.stSteelGrey
             header.topSpace.constant = 16
@@ -248,9 +248,9 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             
             let viewCell = cell as! STTextFieldsCell
             
-            viewCell.title.text = "Срок действия"
-            viewCell.leftValue.placeholder = "Начало"
-            viewCell.rightValue.placeholder = "Конец"
+            viewCell.title.text = "post_page_duration".localized
+            viewCell.leftValue.placeholder = "post_page_time_to_begin_text".localized
+            viewCell.rightValue.placeholder = "post_page_time_to_end_text".localized
             
             viewCell.leftValue.text = self.postObject.fromDate?.mediumLocalizedFormat
             viewCell.rightValue.text = self.postObject.tillDate?.mediumLocalizedFormat
@@ -258,7 +258,7 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             viewCell.onLeftValueShouldBeginEditing = { [unowned viewCell] in
                 
                 let controller = DatePickerViewController.instance()
-                controller.navigationTitle = "Начало"
+                controller.navigationTitle = "post_page_time_to_begin_text".localized
                 controller.onDidSelectDate = { [unowned viewCell, unowned self] selectedDate in
                     
                     self.postObject.fromDate = selectedDate
@@ -271,7 +271,7 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             viewCell.onRightValueShouldBeginEditing = { [unowned viewCell, unowned self] in
                 
                 let controller = DatePickerViewController.instance()
-                controller.navigationTitle = "Конец"
+                controller.navigationTitle = "post_page_time_to_end_text".localized
                 
                 controller.onDidSelectDate = { [unowned viewCell, unowned self] selectedDate in
                     
@@ -287,8 +287,8 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             
             let viewCell = cell as! STTextFieldCell
             
-            viewCell.title.text = "Цена"
-            viewCell.value.placeholder = "5000 руб. за штуку"
+            viewCell.title.text = "post_page_price_text".localized
+            viewCell.value.placeholder = "post_page_price_details_placeholder".localized
             viewCell.value.keyboardType = .numbersAndPunctuation
             
             viewCell.value.text = self.postObject.price
@@ -304,8 +304,8 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             
             let viewCell = cell as! STTextViewCell
             
-            viewCell.title.text = "Комментарий к цене"
-            viewCell.placeHolder.placeholder = "Торг возможен, ниже рыночной цены и т.д."
+            viewCell.title.text = "post_page_price_comment_text".localized
+            viewCell.placeHolder.placeholder = "post_page_price_comment_placeholder".localized
             viewCell.textValue = self.postObject.priceDescription
             
             viewCell.onReturn = { [unowned self] in
@@ -324,8 +324,8 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             
             let viewCell = cell as! STTextViewCell
             
-            viewCell.title.text = "Агентское вознаграждение"
-            viewCell.placeHolder.placeholder = "Опишите выгоду для адресатов"
+            viewCell.title.text = "post_page_agency_profit_text".localized
+            viewCell.placeHolder.placeholder = "post_page_agency_profit_placeholder".localized
             viewCell.textValue = self.postObject.profitDescription
             
             viewCell.onReturn = { [unowned self] in
@@ -343,7 +343,7 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
     
     fileprivate func showValidationAlert() {
         
-        self.showOkAlert(title: "Ошибка", message: "Это поле не может быть пустым")
+        self.showOkAlert(title: "alert_title_error".localized, message: "post_page_error_validation_message".localized)
     }
     
     func refreshTableView() {

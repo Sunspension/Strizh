@@ -14,6 +14,8 @@
 "action_choose" = "Choose";
 "action_done" = "Done";
 "action_next" = "Next";
+"action_edit" = "Редактировать";
+"action_delete" = "Удалить";
 
 // Place holders
 "placeholder_search" = "Search";
@@ -50,5 +52,57 @@
 "login_page_last_action_text2" = "Выберите картинку для профиля и заполните поля.";
 "login_page_action_send_password_text" = "Отправить пароль";
 
+// Post
+"post_page_title" = "Новая тема";
+"post_page_button_offer_title" = "Предложение";
+"post_page_button_search_title" = "Запрос/Поиск";
+"post_page_time_to_begin_text" = "Начало";
+"post_page_time_to_end_text" = "Конец";
+"post_page_duration" = "Срок действия";
+"post_page_additional_fields_text" = "ДОПОЛНИТЕЛЬНЫЕ ПОЛЯ:";
+"post_page_required_fields_text" = "ОБЯЗАТЕЛЬНЫЕ ПОЛЯ:";
+"post_page_topic_type_text" = "Вид темы";
+"post_page_name_text" = "Название";
+"post_page_enter_topic_name_text" = "Введите название темы";
+"post_page_description_text" = "Описание";
+"post_page_enter_topic_description_text" = "Введите описание темы";
+"post_page_price_text" = "Цена";
+"post_page_price_details_placeholder" = "5000 руб. за штуку";
+"post_page_price_comment_text" = "Комментарий к цене";
+"post_page_price_comment_placeholder" = "Торг возможен, ниже рыночной цены и т.д.";
+"post_page_agency_profit_text" = "Агентское вознаграждение";
+"post_page_agency_profit_placeholder" = "Опишите выгоду для адресатов";
+"post_page_attach_to_topic_text" = "Прикрепить к теме";
+"post_page_attach_to_topic_title" = "ПРИКРЕПИТЬ К ТЕМЕ:";
+"post_page_photos_text" = "Фотографии";
+"post_page_photos_description_text" = "До 10 фотографий";
+"post_page_attament_loading_text" = "Загрузка...";
+
+// Post errors
+"post_page_error_validation_message" = "Это поле не может быть пустым";
+"post_page_attachment_error_title" = "Ошибка!";
+"post_page_attachment_waiting_title" = "Ожидание";
+
 // Chat
 "prefix_you" = "You: ";
+
+// Contacts
+"contacts_page_title" = "Контакты";
+"contacts_page_create_text" = "Создать";
+"contacts_page_success_title" = "Успешно";
+"contacts_page_success_create_message" = "Вы успешно создали новую тему";
+"contacts_page_success_update_message" = "Вы успешно обновили тему";
+"contacts_page_empty_contacts_title" = "Контактов нет";
+"contacts_page_empty_contacts_message" = "Для работы с приложением необходимо разрешить доступ к Вашим контактам. Вы можете сделать это в настройках Вашего iPhone.";
+"contacts_page_users_who_don't_use_app_title" = "НЕ ИСПОЛЬЗУЮТ STRIZHAPP";
+"contacts_page_share_text" = "Приглашаю в приложение StrizhApp, которое можно скачать в App Store";
+
+// Profile
+"profile_page_my_topics" = "МОИ ТЕМЫ:";
+"profile_page_open_one_dialog_text" = "Открыт:";
+"profile_page_open_few_dialogs_text" = "Открыто:";
+"profile_page_one_dialog_text" = "диалог";
+"profile_page_few_dialogs_text" = "диалога";
+"profile_page_many_dialogs_text" = "диалогов";
+
+

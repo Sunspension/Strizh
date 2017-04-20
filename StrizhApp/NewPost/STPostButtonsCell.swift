@@ -36,6 +36,7 @@ class STPostButtonsCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        offer.setTitle("post_page_button_offer_title".localized, for: .normal)
         offer.layer.cornerRadius = 5
         offer.layer.masksToBounds = true
         offer.layer.borderWidth = 1
@@ -45,6 +46,7 @@ class STPostButtonsCell: UITableViewCell {
         offer.setTitleColor(UIColor.stDarkMint, for: .normal)
         offer.tintColor = UIColor.white
         
+        search.setTitle("post_page_button_search_title".localized, for: .normal)
         search.layer.cornerRadius = 5
         search.layer.masksToBounds = true
         search.layer.borderWidth = 1

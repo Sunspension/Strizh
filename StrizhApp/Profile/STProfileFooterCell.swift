@@ -10,6 +10,9 @@ import UIKit
 
 class STProfileFooterCell: UITableViewHeaderFooterView {
 
+    @IBOutlet weak var label: UILabel!
+    
+    
     override func awakeFromNib() {
         
         super.awakeFromNib()
