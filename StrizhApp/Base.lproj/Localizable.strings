@@ -18,6 +18,7 @@
 "action_delete" = "Delete";
 "action_save" = "Save";
 "action_apply" = "Apply";
+"action_add" = "Add";
 
 // Place holders
 "placeholder_search" = "Search";
@@ -111,6 +112,12 @@
 "profile_edit_page_title" = "Profile";
 "profile_edit_page_error_empty_first_name_text" = "First Name could not be empty";
 "profile_edit_page_error_empty_last_name_text" = "Last Name could not be empty";
+"profile_edit_email_text" = "Email";
+"profile_edit_email_placeholder" = "Enter your email";
+"profile_edit_empty_field_text" = "Field %@ could not be empty";
+"profile_edit_empty_fields_text" = "Fileds %@ and %@ could not be empty";
+"profile_edit_delete_avatar_title" = "Delete the avatar";
+
 // Settings
 
 "settings_page_title" = "Settings";

@@ -131,11 +131,11 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
             
             if errors.count == 1 {
                 
-                message = "Поле \(errors[0]) не должно быть пустым"
+                message = String(format: "profile_edit_empty_field_text".localized, "\(errors[0])")
             }
             else {
                 
-                message = "Поля \(errors[0]) и \(errors[1]) не должны быть пустыми"
+                message = String(format: "profile_edit_empty_fields_text".localized, "\(errors[0])", "\(errors[1])")
             }
             
             self.showOkAlert(title: "alert_title_error".localized, message: message)
@@ -176,6 +176,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                 viewCell.selectionStyle = .none
                 viewCell.layoutMargins = UIEdgeInsets.zero
                 viewCell.separatorInset = UIEdgeInsets.zero
+                viewCell.deleteAvatar.setTitle("profile_edit_delete_avatar_title".localized, for: .normal)
                 
                 viewCell.userImage.reactive.tap.observe {[unowned viewCell, unowned self] _ in
                 
@@ -338,8 +339,8 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                                             
                                             let viewCell = cell as! STEditProfileTextCell
                                             
-                                            viewCell.title.text = "Почта"
-                                            viewCell.value.placeholder = "Введите e-mail"
+                                            viewCell.title.text = "profile_edit_email_text".localized
+                                            viewCell.value.placeholder = "profile_edit_email_placeholder".localized
                                             viewCell.value.text = user.email
                                             viewCell.selectionStyle = .none
                                             viewCell.layoutMargins = UIEdgeInsets.zero

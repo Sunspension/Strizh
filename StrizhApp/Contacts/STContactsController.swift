@@ -148,7 +148,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                     NotificationCenter.default.post(name: NSNotification.Name(kPostCreatedNotification), object: post)
                     
                     self.showOkAlert(title: "contacts_page_success_title".localized,
-                                     message:"contacts_page_success_message".localized, okAction: {
+                                     message:"contacts_page_success_create_message".localized, okAction: {
                         
                         action in self.navigationController?.dismiss(animated: true, completion: nil)
                     })

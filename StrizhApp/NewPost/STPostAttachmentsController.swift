@@ -266,6 +266,7 @@ class STPostAttachmentsController: UITableViewController {
             viewCell.subtitle.text = "post_page_photos_description_text".localized
             viewCell.collectionView.dataSource = self.imageDataSource
             viewCell.collectionView.delegate = self.imageDataSource
+            viewCell.actionButton.setTitle("action_add".localized, for: .normal)
             
             viewCell.actionButton.reactive.tap.observeNext {
                 

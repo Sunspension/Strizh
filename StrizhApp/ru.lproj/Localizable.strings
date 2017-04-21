@@ -17,6 +17,7 @@
 "action_delete" = "Удалить";
 "action_save" = "Сохранить";
 "action_apply" = "Применить";
+"action_add" = "Добавить";
 
 // Place holders
 "placeholder_search" = "Поиск";
@@ -110,6 +111,11 @@
 "profile_edit_page_title" = "Профиль";
 "profile_edit_page_error_empty_first_name_text" = "Поле Имя не должно быть пустым";
 "profile_edit_page_error_empty_last_name_text" = "Поле Фамилия не должно быть пустым";
+"profile_edit_email_text" = "Почта";
+"profile_edit_email_placeholder" = "Введите e-mail";
+"profile_edit_empty_field_text" = "Поле %@ не должно быть пустым";
+"profile_edit_empty_fields_text" = "Поля %@ и %@ не должны быть пустыми";
+"profile_edit_delete_avatar_title" = "Удалить аватар";
 
 // Settings
 
