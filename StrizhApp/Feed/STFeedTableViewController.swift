@@ -216,6 +216,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         self.searchFeedDataSource = STFeedDataSourceWrapper(onDataSourceChanged: self.onDataSourceChanged)
         self.searchFeedDataSource!.onStartLoading = self.onStartLoading
         self.searchFeedDataSource!.onStopLoading = self.onStopLoading
+        self.searchFeedDataSource!.disableAddToFavoriteHadler = true
         self.searchFeedDataSource!.initialize()
         
         self.favoritesFeedDataSource = STFeedDataSourceWrapper(isFavorite: true, onDataSourceChanged: self.onDataSourceChanged)
@@ -226,6 +227,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         self.searchFavoriteDataSource = STFeedDataSourceWrapper(isFavorite: true, onDataSourceChanged: self.onDataSourceChanged)
         self.searchFavoriteDataSource!.onStartLoading = self.onStartLoading
         self.searchFavoriteDataSource!.onStopLoading = self.onStopLoading
+        self.searchFavoriteDataSource!.disableAddToFavoriteHadler = true
         self.searchFavoriteDataSource!.initialize()
     }
     

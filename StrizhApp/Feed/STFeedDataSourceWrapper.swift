@@ -57,6 +57,8 @@ class STFeedDataSourceWrapper {
     
     var bag = DisposeBag()
     
+    var disableAddToFavoriteHadler = false
+    
     
     deinit {
         
@@ -72,34 +74,37 @@ class STFeedDataSourceWrapper {
         self.isPersonal = isPersonal
         self.onDataSourceChanged = onDataSourceChanged
         
-        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kItemFavoriteNotification), object: nil)
-            .observeNext { [unowned self] notification in
+        if !self.disableAddToFavoriteHadler {
             
-            let post = notification.object as! STPost
-            
-            if self.isFavorite {
-                
-                if post.isFavorite {
+            NotificationCenter.default.reactive.notification(name: NSNotification.Name(kItemFavoriteNotification), object: nil)
+                .observeNext { [unowned self] notification in
                     
-                    self.section.insert(at: 0, item: post)
-                }
-                else {
+                    let post = notification.object as! STPost
                     
-                    self.section.items = self.section.items.filter({ $0.item.id != post.id })
-                }
-                
-                self.onDataSourceChanged?(false)
-            }
-            else {
-                
-                if let item = self.section.items.filter({ $0.item.id == post.id }).first {
+                    if self.isFavorite {
+                        
+                        if post.isFavorite {
+                            
+                            self.section.insert(at: 0, item: post)
+                        }
+                        else {
+                            
+                            self.section.items = self.section.items.filter({ $0.item.id != post.id })
+                        }
+                        
+                        self.onDataSourceChanged?(false)
+                    }
+                    else {
+                        
+                        if let item = self.section.items.filter({ $0.item.id == post.id }).first {
+                            
+                            item.item.isFavorite = post.isFavorite
+                            self.onDataSourceChanged?(false)
+                        }
+                    }
                     
-                    item.item.isFavorite = post.isFavorite
-                    self.onDataSourceChanged?(false)
-                }
-            }
-            
-        }.dispose(in: self.bag)
+                }.dispose(in: self.bag)
+        }
         
         NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostDeleteFromDetailsNotification),
                                                          object: nil)
@@ -156,20 +161,19 @@ class STFeedDataSourceWrapper {
             cell.postType.isSelected = post.type == 2 ? true : false
             cell.postTime.text = post.createdAt?.elapsedInterval()
             
-            cell.iconFavorite.reactive.tap.observe {_ in
+            cell.iconFavorite.reactive.tap.observeNext { [outerPost = post, outerCell = cell] in
                 
-                let favorite = !cell.iconFavorite.isSelected
-                cell.iconFavorite.isSelected = favorite
+                let favorite = !outerCell.iconFavorite.isSelected
+                outerCell.iconFavorite.isSelected = favorite
                 
-                AppDelegate.appSettings.api.favorite(postId: post.id, favorite: favorite)
+                AppDelegate.appSettings.api.favorite(postId: outerPost.id, favorite: favorite)
                     .onSuccess(callback: { postResponse in
                         
-                        post.isFavorite = postResponse.isFavorite
-                        
+                        outerPost.isFavorite = postResponse.isFavorite
                         NotificationCenter.default.post(name: NSNotification.Name(kItemFavoriteNotification), object: postResponse)
                     })
-                
-            }.dispose(in: cell.bag)
+                }
+                .dispose(in: cell.bag)
             
             if post.dateFrom != nil && post.dateTo != nil {
                 
