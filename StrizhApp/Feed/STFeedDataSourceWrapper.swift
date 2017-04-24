@@ -9,7 +9,6 @@
 import UIKit
 import BrightFutures
 import AlamofireImage
-import ReactiveKit
 
 class STFeedDataSourceWrapper {
     
@@ -55,14 +54,12 @@ class STFeedDataSourceWrapper {
     
     var onStopLoading:(() -> Void)?
     
-    var bag = DisposeBag()
-    
     var disableAddToFavoriteHadler = false
     
     
     deinit {
         
-        bag.dispose()
+        NotificationCenter.default.removeObserver(self)
     }
     
     
@@ -76,71 +73,57 @@ class STFeedDataSourceWrapper {
         
         if !self.disableAddToFavoriteHadler {
             
-            NotificationCenter.default.reactive.notification(name: NSNotification.Name(kItemFavoriteNotification), object: nil)
-                .observeNext { [unowned self] notification in
-                    
-                    let post = notification.object as! STPost
-                    
-                    if self.isFavorite {
-                        
-                        if post.isFavorite {
-                            
-                            self.section.insert(at: 0, item: post)
-                        }
-                        else {
-                            
-                            self.section.items = self.section.items.filter({ $0.item.id != post.id })
-                        }
-                        
-                        self.onDataSourceChanged?(false)
-                    }
-                    else {
-                        
-                        if let item = self.section.items.filter({ $0.item.id == post.id }).first {
-                            
-                            item.item.isFavorite = post.isFavorite
-                            self.onDataSourceChanged?(false)
-                        }
-                    }
-                    
-                }.dispose(in: self.bag)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.onItemFavoriteNotification),
+                                                   name: NSNotification.Name(kItemFavoriteNotification), object: nil)
         }
         
-        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostDeleteFromDetailsNotification),
-                                                         object: nil)
-            .observeNext { [unowned self] notification in
-                
-                let post = notification.object as! STPost
-                
-                let count = self.section.items.count
-                
-                self.section.items = self.section.items
-                    .filter({ $0.item.id != post.id })
-                
-                if count != self.section.items.count {
-                    
-                    self.onDataSourceChanged?(false)
-                }
-                
-            }.dispose(in: bag)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onPostDeleteNotification),
+                                               name: NSNotification.Name(kPostDeleteFromDetailsNotification), object: nil)
         
-        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostDeleteNotification),
-                                                         object: nil)
-            .observeNext { [unowned self] notification in
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onPostDeleteNotification),
+                                               name: NSNotification.Name(kPostDeleteNotification), object: nil)
+    }
+    
+    @objc func onPostDeleteNotification(_ notification: Notification) {
+        
+        let post = notification.object as! STPost
+        
+        let count = self.section.items.count
+        
+        self.section.items = self.section.items
+            .filter({ $0.item.id != post.id })
+        
+        if count != self.section.items.count {
+            
+            self.onDataSourceChanged?(false)
+        }
+    }
+    
+    @objc func onItemFavoriteNotification(_ notification: Notification) {
+        
+        let post = notification.object as! STPost
+        
+        if self.isFavorite {
+            
+            if post.isFavorite {
                 
-                let post = notification.object as! STPost
+                self.section.insert(at: 0, item: post)
+            }
+            else {
                 
-                let count = self.section.items.count
+                self.section.items = self.section.items.filter({ $0.item.id != post.id })
+            }
+            
+            self.onDataSourceChanged?(false)
+        }
+        else {
+            
+            if let item = self.section.items.filter({ $0.item.id == post.id }).first {
                 
-                self.section.items = self.section.items
-                    .filter({ $0.item.id != post.id })
-                
-                if count != self.section.items.count {
-                    
-                    self.onDataSourceChanged?(false)
-                }
-                
-            }.dispose(in: bag)
+                item.item.isFavorite = post.isFavorite
+                self.onDataSourceChanged?(false)
+            }
+        }
     }
     
     func initialize() {
@@ -161,19 +144,18 @@ class STFeedDataSourceWrapper {
             cell.postType.isSelected = post.type == 2 ? true : false
             cell.postTime.text = post.createdAt?.elapsedInterval()
             
-            cell.iconFavorite.reactive.tap.observeNext { [outerPost = post, outerCell = cell] in
+            cell.onFavoriteButtonTap = { [outerCell = cell] in
                 
                 let favorite = !outerCell.iconFavorite.isSelected
                 outerCell.iconFavorite.isSelected = favorite
                 
-                AppDelegate.appSettings.api.favorite(postId: outerPost.id, favorite: favorite)
+                AppDelegate.appSettings.api.favorite(postId: post.id, favorite: favorite)
                     .onSuccess(callback: { postResponse in
                         
-                        outerPost.isFavorite = postResponse.isFavorite
+                        post.isFavorite = postResponse.isFavorite
                         NotificationCenter.default.post(name: NSNotification.Name(kItemFavoriteNotification), object: postResponse)
                     })
-                }
-                .dispose(in: cell.bag)
+            }
             
             if post.dateFrom != nil && post.dateTo != nil {
                 

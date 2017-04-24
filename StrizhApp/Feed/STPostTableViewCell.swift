@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ReactiveKit
 
 class STPostTableViewCell: UITableViewCell {
 
@@ -40,8 +39,9 @@ class STPostTableViewCell: UITableViewCell {
     
     @IBOutlet weak var header: UIView!
     
-    var disposeBag = DisposeBag()
+    var onFavoriteButtonTap: (() -> Void)?
 
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -70,12 +70,13 @@ class STPostTableViewCell: UITableViewCell {
         images.setTitleColor(disabledColor, for: .disabled)
         locations.setTitleColor(disabledColor, for: .disabled)
         documents.setTitleColor(disabledColor, for: .disabled)
+        
+        iconFavorite.addTarget(self, action: #selector(self.tapOnFaforite), for: .touchUpInside)
     }
 
     override func prepareForReuse() {
         
         userIcon.image = nil
-        disposeBag = DisposeBag()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -84,4 +85,8 @@ class STPostTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func tapOnFaforite(_ sender: UIButton) {
+        
+        self.onFavoriteButtonTap?()
+    }
 }
