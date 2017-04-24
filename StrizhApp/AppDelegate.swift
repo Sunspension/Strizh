@@ -68,6 +68,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         else {
             
+            // TODO 
+            if let _ = UserDefaults.standard.object(forKey: kNeedIntro) as? Bool {
+            
+                
+            }
+            
             let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
             let navi = STSignUpNavigationController(rootViewController: controller)
             self.window?.rootViewController = navi
@@ -83,6 +89,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Busy indicator setup
         NVActivityIndicatorView.DEFAULT_TYPE = .ballClipRotateMultiple
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.introEnded), name: Notification.Name(rawValue: kIntroHasEndedNotification), object: nil)
         
         return true
     }
@@ -145,6 +153,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
         let navi = STSignUpNavigationController(rootViewController: controller)
         self.changeRootViewController(navi)
+    }
+    
+    func introEnded() {
+        
+        let defaults = UserDefaults.standard
+        defaults.set(false, forKey: kNeedIntro)
+        defaults.synchronize()
+        
+        UIApplication.shared.statusBarStyle = .lightContent
+        
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyBoard.instantiateViewController(withIdentifier: "RegistrationPhone")
+        let navigation = UINavigationController(rootViewController: controller)
+        self.changeRootViewController(navigation)
     }
     
     // MARK: Internal methods

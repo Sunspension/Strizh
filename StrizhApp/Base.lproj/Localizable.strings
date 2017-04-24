@@ -19,6 +19,7 @@
 "action_save" = "Save";
 "action_apply" = "Apply";
 "action_add" = "Add";
+"action_skip" = "Skip";
 
 // Place holders
 "placeholder_search" = "Search";

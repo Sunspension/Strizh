@@ -18,6 +18,7 @@
 "action_save" = "Сохранить";
 "action_apply" = "Применить";
 "action_add" = "Добавить";
+"action_skip" = "Пропустить";
 
 // Place holders
 "placeholder_search" = "Поиск";

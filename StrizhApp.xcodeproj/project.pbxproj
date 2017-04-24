@@ -64,6 +64,9 @@
 		D46FFA691E959EF700578F07 /* ChatCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46FFA681E959EF700578F07 /* ChatCollectionViewFlowLayout.swift */; };
 		D4922AA61E43DB67006FF4D5 /* STWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */; };
 		D4922AAD1E43F6B9006FF4D5 /* STHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AAC1E43F6B9006FF4D5 /* STHTTPManager.swift */; };
+		D4927F3A1EAEA8FE00995352 /* STIntroContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4927F391EAEA8FE00995352 /* STIntroContainerViewController.swift */; };
+		D4927F3D1EAEA92200995352 /* STIntroImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4927F3B1EAEA92200995352 /* STIntroImageViewController.swift */; };
+		D4927F3E1EAEA92200995352 /* STIntroPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4927F3C1EAEA92200995352 /* STIntroPageController.swift */; };
 		D49545CC1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49545CA1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift */; };
 		D49545CD1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D49545CB1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.xib */; };
 		D49545D01E3D064700EDCF01 /* STLoginTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49545CE1E3D064700EDCF01 /* STLoginTextTableViewCell.swift */; };
@@ -234,6 +237,9 @@
 		D46FFA681E959EF700578F07 /* ChatCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STWebSocket.swift; path = WebSocket/STWebSocket.swift; sourceTree = "<group>"; };
 		D4922AAC1E43F6B9006FF4D5 /* STHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STHTTPManager.swift; path = HTTPManager/STHTTPManager.swift; sourceTree = "<group>"; };
+		D4927F391EAEA8FE00995352 /* STIntroContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STIntroContainerViewController.swift; path = Intro/STIntroContainerViewController.swift; sourceTree = "<group>"; };
+		D4927F3B1EAEA92200995352 /* STIntroImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STIntroImageViewController.swift; path = Intro/STIntroImageViewController.swift; sourceTree = "<group>"; };
+		D4927F3C1EAEA92200995352 /* STIntroPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STIntroPageController.swift; path = Intro/STIntroPageController.swift; sourceTree = "<group>"; };
 		D49545CA1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginAvatarTableViewCell.swift; path = SignUp/STLoginAvatarTableViewCell.swift; sourceTree = "<group>"; };
 		D49545CB1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STLoginAvatarTableViewCell.xib; path = SignUp/STLoginAvatarTableViewCell.xib; sourceTree = "<group>"; };
 		D49545CE1E3D064700EDCF01 /* STLoginTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginTextTableViewCell.swift; path = SignUp/STLoginTextTableViewCell.swift; sourceTree = "<group>"; };
@@ -521,6 +527,24 @@
 			name = HTTPManager;
 			sourceTree = "<group>";
 		};
+		D4927F351EAEA86300995352 /* Intro */ = {
+			isa = PBXGroup;
+			children = (
+				D4927F361EAEA87000995352 /* Controllers */,
+			);
+			name = Intro;
+			sourceTree = "<group>";
+		};
+		D4927F361EAEA87000995352 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D4927F3B1EAEA92200995352 /* STIntroImageViewController.swift */,
+				D4927F3C1EAEA92200995352 /* STIntroPageController.swift */,
+				D4927F391EAEA8FE00995352 /* STIntroContainerViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		D49726EE1E32BDA50076B7A1 = {
 			isa = PBXGroup;
 			children = (
@@ -642,6 +666,7 @@
 		D4AD43B11E47A8F8006F13DE /* Pages */ = {
 			isa = PBXGroup;
 			children = (
+				D4927F351EAEA86300995352 /* Intro */,
 				E5E4E9BB1E810F2C00B77102 /* Dialogs */,
 				E53185E61E36097100BC6C9A /* SingUp */,
 				E594488C1E680735002B2989 /* NewPost */,
@@ -1056,6 +1081,7 @@
 				D43A75651E4E6EBE00DB0850 /* STLocation.swift in Sources */,
 				D43BED6A1E70897200683D5C /* DatePickerViewController.swift in Sources */,
 				E561F56A1E72FCD300C7407C /* STAttachmentCell.swift in Sources */,
+				D4927F3E1EAEA92200995352 /* STIntroPageController.swift in Sources */,
 				D4194A1E1E463F4300D0B189 /* ArrayOfCustomRealmObjectsTransform.swift in Sources */,
 				E5BE9E2F1E4C90680022B157 /* STFeedFilterSwitchTableViewCell.swift in Sources */,
 				D49545D41E3D0B8800EDCF01 /* STLoginSeparatorTableViewCell.swift in Sources */,
@@ -1072,6 +1098,7 @@
 				D44E33991E74B50C006F4709 /* ImageUploader.swift in Sources */,
 				D40BC85F1E5B60DF0045F327 /* STCommonButtonCell.swift in Sources */,
 				D49727171E32D2750076B7A1 /* PRemoteServerApi.swift in Sources */,
+				D4927F3A1EAEA8FE00995352 /* STIntroContainerViewController.swift in Sources */,
 				E559067A1E51FF5900F8E20E /* TableSectionHeaderFooter.swift in Sources */,
 				E59448971E680C98002B2989 /* STPostButtonsCell.swift in Sources */,
 				D40A6BE61E3AA7DB00F1D218 /* Router.swift in Sources */,
@@ -1162,6 +1189,7 @@
 				D43BED661E70570500683D5C /* STTextFieldsCell.swift in Sources */,
 				D433D1041E54F56900974AB1 /* STSettingsController.swift in Sources */,
 				D49EB19E1E45212F00B6F5DC /* STSocketRequestBuilder.swift in Sources */,
+				D4927F3D1EAEA92200995352 /* STIntroImageViewController.swift in Sources */,
 				D402C2341E7DFEE700237EB9 /* RealmInt64.swift in Sources */,
 				E561F5671E72FA4000C7407C /* STPostAttachmentsController.swift in Sources */,
 				E5FF31231E55D29C0013B713 /* STEditProfileController.swift in Sources */,
