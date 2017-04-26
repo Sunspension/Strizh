@@ -107,6 +107,11 @@ struct AppSettings {
         
     }()
     
+    lazy var fbAccountKit: AKFAccountKit = {
+        
+        return AKFAccountKit(responseType: AKFResponseType.authorizationCode)
+    }()
+    
     init(dbConfig: PDBConfiguration, serverApi: PRemoteServerApi) {
         
         self.dbConfig = dbConfig

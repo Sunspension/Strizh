@@ -10,9 +10,10 @@ import UIKit
 import Firebase
 import GoogleMaps
 import NVActivityIndicatorView
+import AccountKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate {
 
     var window: UIWindow?
     
@@ -38,47 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GMSServices.provideAPIKey("AIzaSyB9Xe2_0osvR8RC8nBkRttpIEWOQuUbdI8")
         
-        if let session = STSession.objects(by: STSession.self).first {
-            
-            // This must to call first
-            self.onAuthorized()
-            
-            // load user
-            AppDelegate.appSettings.api.loadUser(transport: .webSocket, userId: session.userId)
-                .onSuccess(callback: { user in
-                  
-                    if user.firstName.isEmpty || user.lastName.isEmpty {
-                        
-                        let controller = STSingUpTableViewController(signupStep: .signupThirdStep)
-                        let navi = STSignUpNavigationController(rootViewController: controller)
-                        
-                        self.changeRootViewController(navi)
-                    }
-                    else {
-                        
-                        if let controller = AppDelegate.appSettings.storyBoard.instantiateInitialViewController() {
-                            
-                            self.changeRootViewController(controller)
-                        }
-                    }
-                    
-                    user.writeToDB()
-                    user.updateUserImage()
-                })
-        }
-        else {
-            
-            // TODO 
-            if let _ = UserDefaults.standard.object(forKey: kNeedIntro) as? Bool {
-            
-                
-            }
-            
-            let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
-            let navi = STSignUpNavigationController(rootViewController: controller)
-            self.window?.rootViewController = navi
-            self.window?.makeKeyAndVisible()
-        }
+        self.checkSession()
         
         if self.window?.rootViewController == nil {
             
@@ -123,6 +84,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppDelegate.appSettings.deviceToken = token
     }
     
+    
+    // MARK: AKFViewControllerDelegate implementation
+    func viewController(_ viewController: UIViewController!, didCompleteLoginWithAuthorizationCode code: String!, state: String!) {
+        
+        let deviceToken = AppDelegate.appSettings.deviceToken ?? "xxxxxxxxxxxxxxxx"
+        
+        AppDelegate.appSettings.api.fbAuthorization(deviceToken: deviceToken, code: code)
+            
+            .onSuccess(callback: { [unowned self] session in
+                
+                // check user
+                AppDelegate.appSettings.api.loadUser(transport: .http, userId: session.userId)
+                    
+                    .onSuccess(callback: { [unowned self] user in
+                        
+                        self.onAuthorized()
+                        
+                        if user.firstName.isEmpty {
+                            
+                            let controller = STSingUpTableViewController(signupStep: .signupThirdStep)
+                            let navi = STNavigationController(rootViewController: controller)
+                            
+                            self.changeRootViewController(navi)
+                            return
+                        }
+                        
+                        user.writeToDB()
+                        self.openMainController()
+                    })
+                    .onFailure(callback: { error in
+                        
+                        // TODO show error
+                    })
+            })
+    }
+    
+    private func viewController(_ viewController: UIViewController!, didFailWithError error: NSError!) {
+        
+        print("We have an error \(error)")
+    }
+    
+    func viewControllerDidCancel(_ viewController: UIViewController!) {
+        
+        print("The user cancel the login")
+    }
+    
     func openMainController() {
         
         if let controller = AppDelegate.appSettings.storyBoard.instantiateInitialViewController() {
@@ -148,11 +155,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // delete all contacts
         STContactsProvider.sharedInstance.reset()
+        AppDelegate.appSettings.fbAccountKit.logOut()
         
-        // open sign up controller
-        let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
-        let navi = STSignUpNavigationController(rootViewController: controller)
-        self.changeRootViewController(navi)
+        self.checkSession()
     }
     
     func introEnded() {
@@ -187,5 +192,68 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     // MARK: Private methods
+    fileprivate func checkSession() {
+        
+        AppDelegate.appSettings.api.checkSession()
+            
+            .onSuccess { session in
+                
+                if !session.isExpired {
+                    
+                    // This must to call first
+                    self.onAuthorized()
+                    
+                    // load user
+                    AppDelegate.appSettings.api.loadUser(transport: .webSocket, userId: session.userId)
+                        .onSuccess(callback: { user in
+                            
+                            if user.firstName.isEmpty || user.lastName.isEmpty {
+                                
+                                let controller = STSingUpTableViewController(signupStep: .signupThirdStep)
+                                let navi = STSignUpNavigationController(rootViewController: controller)
+                                
+                                self.changeRootViewController(navi)
+                            }
+                            else {
+                                
+                                if let controller = AppDelegate.appSettings.storyBoard.instantiateInitialViewController() {
+                                    
+                                    self.changeRootViewController(controller)
+                                }
+                            }
+                            
+                            user.writeToDB()
+                            user.updateUserImage()
+                        })
+                }
+                else {
+                    
+                    // TODO
+                    if let _ = UserDefaults.standard.object(forKey: kNeedIntro) as? Bool {
+                        
+                        
+                    }
+                    
+                    if session.isFacebook {
+                        
+                        let controller = AppDelegate.appSettings.fbAccountKit
+                            .viewControllerForPhoneLogin() as! AKFViewController
+                        controller.enableSendToFacebook = true
+                        controller.delegate = self
+                        
+                        
+                        self.window?.rootViewController = controller as? UIViewController
+                        self.window?.makeKeyAndVisible()
+                    }
+                    else {
+                        
+                        let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
+                        let navi = STSignUpNavigationController(rootViewController: controller)
+                        self.window?.rootViewController = navi
+                        self.window?.makeKeyAndVisible()
+                    }
+                }
+        }
+    }
 }
 

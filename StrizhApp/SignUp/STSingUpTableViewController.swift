@@ -281,9 +281,6 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                         .onSuccess(callback: { [unowned self] user in
                             
                             self.stopAnimating()
-                            
-                            session.writeToDB()
-                            
                             self.st_router_onAuthorized()
                             
                             if user.firstName.isEmpty {
@@ -298,7 +295,6 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                         .onFailure(callback: { error in
                             
                             self.stopAnimating()
-                            
                             self.showError(error: error)
                         })
                 })

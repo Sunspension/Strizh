@@ -23,6 +23,6 @@ target 'StrizhApp' do
     pod 'KDCircularProgress'
     pod 'Dip'
     pod 'Dip-UI'
-    pod 'RxSwift', '~> 3.0'
-    pod 'RxCocoa', '~> 3.0'
+#    pod 'RxSwift', '~> 3.0'
+#    pod 'RxCocoa', '~> 3.0'
 end

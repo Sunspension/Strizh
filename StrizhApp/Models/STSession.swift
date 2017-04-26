@@ -15,6 +15,18 @@ class STSession: Object, Mappable {
     
     dynamic var userId = 0
     
+    dynamic var type = ""
+    
+    var isFacebook: Bool {
+        
+        return type == "fb_code"
+    }
+    
+    var isExpired: Bool {
+        
+        return userId == 0
+    }
+    
     required convenience init?(map: Map) {
         
         self.init()
@@ -29,5 +41,6 @@ class STSession: Object, Mappable {
         
         sid <- map["sid"]
         userId <- map["user_id"]
+        type <- map["type"]
     }
 }

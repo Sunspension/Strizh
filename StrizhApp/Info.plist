@@ -52,5 +52,9 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>FacebookAppID</key>
+	<string>1832580017000999</string>
+	<key>AccountKitClientToken</key>
+	<string>46c2f8c68c76331a50fd2c380495341d</string>
 </dict>
 </plist>

@@ -186,6 +186,74 @@ class STHTTPManager {
         return p.future
     }
     
+    func fbAuthorization(deviceToken: String, code: String) -> Future<STSession, STAuthorizationError> {
+    
+        let p = Promise<STSession, STAuthorizationError>()
+        
+        let systemVersion = UIDevice.current.systemVersion;
+        let info = Bundle.main.infoDictionary
+        let bundleId = Bundle.main.bundleIdentifier
+        
+        let applicationVersion = info?["CFBundleShortVersionString"]
+        
+        let params: [String: Any] = ["device_uuid" : deviceToken,
+                                     "code" : code,
+                                     "device_type" : "ios",
+                                     "type" : "fb_code",
+                                     "application" : bundleId ?? "",
+                                     "system_version" : systemVersion,
+                                     "application_version" : applicationVersion ?? "" ]
+        
+        request(method: .post, remotePath: serverBaseUrlString + "/api/auth", params: params)
+            .responseJSON(completionHandler: { response in
+                
+                if let error = response.result.error {
+                    
+                    print("Response error: \(error)")
+                }
+                else {
+                    
+                    if let statusCode = response.response?.statusCode, statusCode != 200 {
+                        
+                        switch statusCode {
+                            
+                        case 422:
+                            
+                            if let result = response.result.value as? [String : Any] {
+                                
+                                p.failure(.requiredParameters(json: result))
+                            }
+                            
+                            break
+                            
+                        case 400:
+                            
+                            p.failure(.codeNotFound)
+                            
+                            break
+                            
+                        default:
+                            break
+                        }
+                    }
+                    
+                    print("Response result: \(response.result.value ?? "")")
+                }
+            })
+            .responseObject(keyPath: "data",
+                            completionHandler: { (response: DataResponse<STSession>) in
+                                
+                                guard response.result.error == nil else {
+                                    
+                                    return
+                                }
+                                
+                                p.success(response.value!)
+            })
+        
+        return p.future
+    }
+    
     func logout() -> Future<STSession, STAuthorizationError> {
         
         let p = Promise<STSession, STAuthorizationError>()

@@ -30,11 +30,11 @@ class STIntroPageController : UIPageViewController, UIPageViewControllerDataSour
 
     func viewControllerAtIndex(_ index: Int) -> UIViewController? {
 
-        if let controller = self.instantiateViewControllerWithIdentifierOrNibName("IntroImageController") as? STIntroImageViewController {
-            
-            controller.imageName = imagesName[index]
-            return controller
-        }
+//        if let controller = self.instantiateViewControllerWithIdentifierOrNibName("IntroImageController") as? STIntroImageViewController {
+//            
+//            controller.imageName = imagesName[index]
+//            return controller
+//        }
 
         return nil
     }

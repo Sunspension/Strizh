@@ -32,6 +32,8 @@ protocol PRemoteServerApi {
                        systemVersion: String,
                        applicationVersion: String) -> Future<STSession, STAuthorizationError>
     
+    func fbAuthorization(deviceToken: String, code: String) -> Future<STSession, STAuthorizationError>
+    
     func logout() -> Future<STSession, STAuthorizationError>
     
     func uploadImage(image: Data, uploadProgress: ((_ progress: Double) -> Void)?) -> Future<STFile, STImageUploadError>

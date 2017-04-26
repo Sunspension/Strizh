@@ -62,6 +62,8 @@
 		D45B8B121E9A77B60042C8B6 /* STDialogSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = D45B8B111E9A77B60042C8B6 /* STDialogSectionHeader.xib */; };
 		D45DC06C1E86C87400E9DB2B /* STDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45DC06B1E86C87400E9DB2B /* STDialog.swift */; };
 		D46FFA691E959EF700578F07 /* ChatCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46FFA681E959EF700578F07 /* ChatCollectionViewFlowLayout.swift */; };
+		D489D9F31EB148400018BD0A /* AccountKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D489D9F11EB148400018BD0A /* AccountKit.framework */; };
+		D489D9F41EB148400018BD0A /* AccountKitStrings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D489D9F21EB148400018BD0A /* AccountKitStrings.bundle */; };
 		D4922AA61E43DB67006FF4D5 /* STWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */; };
 		D4922AAD1E43F6B9006FF4D5 /* STHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AAC1E43F6B9006FF4D5 /* STHTTPManager.swift */; };
 		D4927F3A1EAEA8FE00995352 /* STIntroContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4927F391EAEA8FE00995352 /* STIntroContainerViewController.swift */; };
@@ -235,6 +237,9 @@
 		D45B8B111E9A77B60042C8B6 /* STDialogSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STDialogSectionHeader.xib; path = Dialogs/STDialogSectionHeader.xib; sourceTree = "<group>"; };
 		D45DC06B1E86C87400E9DB2B /* STDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialog.swift; path = Models/STDialog.swift; sourceTree = "<group>"; };
 		D46FFA681E959EF700578F07 /* ChatCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		D489D9F11EB148400018BD0A /* AccountKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AccountKit.framework; sourceTree = "<group>"; };
+		D489D9F21EB148400018BD0A /* AccountKitStrings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AccountKitStrings.bundle; sourceTree = "<group>"; };
+		D489D9F51EB148EE0018BD0A /* StrizhApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StrizhApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STWebSocket.swift; path = WebSocket/STWebSocket.swift; sourceTree = "<group>"; };
 		D4922AAC1E43F6B9006FF4D5 /* STHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STHTTPManager.swift; path = HTTPManager/STHTTPManager.swift; sourceTree = "<group>"; };
 		D4927F391EAEA8FE00995352 /* STIntroContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STIntroContainerViewController.swift; path = Intro/STIntroContainerViewController.swift; sourceTree = "<group>"; };
@@ -363,6 +368,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D4712BF056042E4491062F2 /* Pods_StrizhApp.framework in Frameworks */,
+				D489D9F31EB148400018BD0A /* AccountKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,6 +515,16 @@
 			name = PhotoViewer;
 			sourceTree = "<group>";
 		};
+		D489D9F01EB1481A0018BD0A /* FBSDK */ = {
+			isa = PBXGroup;
+			children = (
+				D489D9F11EB148400018BD0A /* AccountKit.framework */,
+				D489D9F21EB148400018BD0A /* AccountKitStrings.bundle */,
+				D489D9F51EB148EE0018BD0A /* StrizhApp-Bridging-Header.h */,
+			);
+			name = FBSDK;
+			sourceTree = "<group>";
+		};
 		D4922AA41E43DAF3006FF4D5 /* WebSocket */ = {
 			isa = PBXGroup;
 			children = (
@@ -566,6 +582,7 @@
 		D49726F91E32BDA50076B7A1 /* StrizhApp */ = {
 			isa = PBXGroup;
 			children = (
+				D489D9F01EB1481A0018BD0A /* FBSDK */,
 				D449A85E1EA2879E008B9603 /* PhotoViewer */,
 				E5E4E9BF1E81135C00B77102 /* CustomControls */,
 				D40BC85C1E5B605F0045F327 /* CommonUI */,
@@ -973,6 +990,7 @@
 				D49545D51E3D0B8800EDCF01 /* STLoginSeparatorTableViewCell.xib in Resources */,
 				E5BE9E2C1E4C8F000022B157 /* STFeedFilterTableViewCell.xib in Resources */,
 				E5BE9E301E4C90680022B157 /* STFeedFilterSwitchTableViewCell.xib in Resources */,
+				D489D9F41EB148400018BD0A /* AccountKitStrings.bundle in Resources */,
 				E5BE9E381E4E23A40022B157 /* STPostDetailsMainInfoCell.xib in Resources */,
 				E53185E21E35E5A200BC6C9A /* GoogleService-Info.plist in Resources */,
 				D49727041E32BDA50076B7A1 /* Assets.xcassets in Resources */,
@@ -1338,11 +1356,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StrizhApp/StrizhApp.entitlements;
 				DEVELOPMENT_TEAM = 5KSEC35F26;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/StrizhApp",
+				);
 				INFOPLIST_FILE = StrizhApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.strizhapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "StrizhApp/StrizhApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -1355,11 +1378,16 @@
 				CODE_SIGN_ENTITLEMENTS = StrizhApp/StrizhApp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 5KSEC35F26;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/StrizhApp",
+				);
 				INFOPLIST_FILE = StrizhApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.strizhapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "StrizhApp/StrizhApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
