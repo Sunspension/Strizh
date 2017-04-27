@@ -76,6 +76,11 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if self.signupStep == .signupFirstStep {
+            
+            self.analytics.logEvent(eventName: st_eAuth, timed: true)
+        }
+        
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "background"))
         self.tableView.estimatedRowHeight = 50
         self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -319,6 +324,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                     return
                 }
                 
+                self.analytics.endTimeEvent(eventName: st_eAuth)
                 self.st_router_openMainController()
             }
             
@@ -377,6 +383,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
     
     fileprivate func makeCodeRequest(phone: String) {
         
+        self.analytics.logEvent(eventName: st_eCode)
         startAnimating()
 
         let deviceToken = AppDelegate.appSettings.deviceToken ?? "xxxxxxxxxxxxxxxx"

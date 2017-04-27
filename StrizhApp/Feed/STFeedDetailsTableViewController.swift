@@ -65,7 +65,9 @@ class STFeedDetailsTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.analytics.logEvent(eventName: st_ePostDetails)
+        
         self.tableView.tableFooterView = UIView()
         self.tableView.estimatedRowHeight = 100
         self.tableView.rowHeight = UITableViewAutomaticDimension

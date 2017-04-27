@@ -37,6 +37,11 @@ extension UIViewController {
         return AppDelegate.appSettings.dependencyContainer
     }
     
+    var analytics: STAnalytics {
+        
+        return try! self.dependencyContainer.resolve(STAnalytics.self) as! STAnalytics
+    }
+    
     func setCustomBackButton() {
         
         let back = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)

@@ -78,7 +78,6 @@ extension UIViewController {
         self.dependencyContainer.register(.singleton) { postObject ?? STUserPostObject() }
 
         let navi = STNewPostNavigationController(rootViewController: STNewPostController())
-        
         self.present(navi, animated: true, completion: nil)
     }
     

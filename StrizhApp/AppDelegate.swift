@@ -11,6 +11,8 @@ import Firebase
 import GoogleMaps
 import NVActivityIndicatorView
 import AccountKit
+import Flurry_iOS_SDK
+import Dip
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate {
@@ -39,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         
         GMSServices.provideAPIKey("AIzaSyB9Xe2_0osvR8RC8nBkRttpIEWOQuUbdI8")
         
+        self.setupAnalytics()
         self.checkSession()
         
         if self.window?.rootViewController == nil {
@@ -192,6 +195,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     }
     
     // MARK: Private methods
+    
+    fileprivate func setupAnalytics() {
+        
+        let info = Bundle.main.infoDictionary
+        let appVersion = info?["CFBundleShortVersionString"] as? String
+        
+        let builder = FlurrySessionBuilder.init()
+            .withAppVersion(appVersion ?? "1.0")
+            .withLogLevel(FlurryLogLevelAll)
+            .withCrashReporting(true)
+            .withSessionContinueSeconds(10)
+        
+        Flurry.startSession("B65KW7TXYQ8T4S7PPGZN", with: builder)
+        
+        let analytics = STAnalytics(analytics: [STFlurryAnalytics()])
+        analytics.logEvent(eventName: "start")
+        
+        let dip = AppDelegate.appSettings.dependencyContainer
+        dip.register(ComponentScope.singleton) { analytics }
+    }
+    
     fileprivate func checkSession() {
         
         AppDelegate.appSettings.api.checkSession()
