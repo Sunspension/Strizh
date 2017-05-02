@@ -110,6 +110,7 @@
 		D4C2AD841E5395C7009CD55A /* STPersonalPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C2AD821E5395C7009CD55A /* STPersonalPostCell.swift */; };
 		D4C2AD851E5395C7009CD55A /* STPersonalPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4C2AD831E5395C7009CD55A /* STPersonalPostCell.xib */; };
 		D4CB22771EA1577800A9B80F /* STDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CB22761EA1577800A9B80F /* STDocumentViewController.swift */; };
+		D4CEC6561EB927B3001D8907 /* STIntroObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CEC6551EB927B3001D8907 /* STIntroObject.swift */; };
 		D4D826261EA95BC4007E42FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4D826281EA95BC4007E42FB /* Localizable.strings */; };
 		D4F00F4B1EA3A75500C6E1E8 /* STDummyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4F00F4A1EA3A75500C6E1E8 /* STDummyView.xib */; };
 		D4F00F4D1EA3A89D00C6E1E8 /* STDummyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F00F4C1EA3A89D00C6E1E8 /* STDummyView.swift */; };
@@ -291,6 +292,7 @@
 		D4C2AD821E5395C7009CD55A /* STPersonalPostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPersonalPostCell.swift; path = Profile/STPersonalPostCell.swift; sourceTree = "<group>"; };
 		D4C2AD831E5395C7009CD55A /* STPersonalPostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPersonalPostCell.xib; path = Profile/STPersonalPostCell.xib; sourceTree = "<group>"; };
 		D4CB22761EA1577800A9B80F /* STDocumentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDocumentViewController.swift; path = Feed/STDocumentViewController.swift; sourceTree = "<group>"; };
+		D4CEC6551EB927B3001D8907 /* STIntroObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STIntroObject.swift; path = Intro/STIntroObject.swift; sourceTree = "<group>"; };
 		D4D826271EA95BC4007E42FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4D826291EA95BC9007E42FB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4F00F4A1EA3A75500C6E1E8 /* STDummyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STDummyView.xib; path = CommonUI/STDummyView.xib; sourceTree = "<group>"; };
@@ -572,6 +574,7 @@
 				D4927F3B1EAEA92200995352 /* STIntroImageViewController.swift */,
 				D4927F3C1EAEA92200995352 /* STIntroPageController.swift */,
 				D4927F391EAEA8FE00995352 /* STIntroContainerViewController.swift */,
+				D4CEC6551EB927B3001D8907 /* STIntroObject.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1083,7 +1086,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		E53185E51E35E72A00BC6C9A /* ShellScript */ = {
@@ -1234,6 +1237,7 @@
 				D49545D01E3D064700EDCF01 /* STLoginTextTableViewCell.swift in Sources */,
 				D43A75671E4E883700DB0850 /* STFeed.swift in Sources */,
 				E55ED8E91EA7558D00917B3E /* String.swift in Sources */,
+				D4CEC6561EB927B3001D8907 /* STIntroObject.swift in Sources */,
 				E59448891E66D8AD002B2989 /* STTabBarViewController.swift in Sources */,
 				D497AB4D1E3BE53A006A393D /* TableSectionItem.swift in Sources */,
 				D44AB4EB1E4FCC210013A972 /* GenericCollectionViewDataSource.swift in Sources */,

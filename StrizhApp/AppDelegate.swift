@@ -169,12 +169,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         defaults.set(false, forKey: kNeedIntro)
         defaults.synchronize()
         
-        UIApplication.shared.statusBarStyle = .lightContent
-        
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyBoard.instantiateViewController(withIdentifier: "RegistrationPhone")
-        let navigation = UINavigationController(rootViewController: controller)
-        self.changeRootViewController(navigation)
+        self.checkSession(animation: true)
     }
     
     // MARK: Internal methods
@@ -216,7 +211,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         dip.register(ComponentScope.singleton) { analytics }
     }
     
-    fileprivate func checkSession() {
+    fileprivate func checkSession(animation: Bool = false) {
         
         AppDelegate.appSettings.api.checkSession()
             
@@ -252,29 +247,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                 }
                 else {
                     
-                    // TODO
                     if let _ = UserDefaults.standard.object(forKey: kNeedIntro) as? Bool {
                         
-                        
-                    }
-                    
-                    if session.isFacebook {
-                        
-                        let controller = AppDelegate.appSettings.fbAccountKit
-                            .viewControllerForPhoneLogin() as! AKFViewController
-                        controller.enableSendToFacebook = true
-                        controller.delegate = self
-                        
-                        
-                        self.window?.rootViewController = controller as? UIViewController
-                        self.window?.makeKeyAndVisible()
+                        if session.isFacebook {
+                            
+                            let controller = AppDelegate.appSettings.fbAccountKit
+                                .viewControllerForPhoneLogin() as! AKFViewController
+                            controller.enableSendToFacebook = true
+                            controller.delegate = self
+                            
+                            if animation {
+                                
+                                self.changeRootViewController(controller as! UIViewController)
+                                return
+                            }
+                            
+                            self.window?.rootViewController = controller as? UIViewController
+                            self.window?.makeKeyAndVisible()
+                        }
+                        else {
+                            
+                            let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
+                            let navi = STSignUpNavigationController(rootViewController: controller)
+                            
+                            if animation {
+                                
+                                self.changeRootViewController(navi)
+                            }
+                            
+                            self.window?.rootViewController = navi
+                            self.window?.makeKeyAndVisible()
+                        }
                     }
                     else {
                         
-                        let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
-                        let navi = STSignUpNavigationController(rootViewController: controller)
-                        self.window?.rootViewController = navi
-                        self.window?.makeKeyAndVisible()
+                        let controller = STIntroContainerViewController.controllerInstance()
+                        self.changeRootViewController(controller)
                     }
                 }
         }

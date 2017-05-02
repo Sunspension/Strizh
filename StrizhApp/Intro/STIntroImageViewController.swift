@@ -18,18 +18,37 @@ class STIntroImageViewController : UIViewController {
     
     @IBOutlet weak var container: UIView!
     
+    var introObject: STIntroObject?
+    
+    var nextActionClosure: (() -> Void)?
+    
     
     var imageName: String?
 
+    
+    override func loadView() {
+        
+        super.loadView()
+        
+        self.container.layer.cornerRadius = 15
+        self.container.clipsToBounds = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.container.layer.cornerRadius = 7
-        self.container.clipsToBounds = true
-        
-        if let name = imageName {
+        if let object = introObject {
 
-            imageView.image = UIImage(named: name)
+            imageView.image = UIImage(named: object.imageName)
+            mainTitle.text = object.title
+            subtitle.text = object.subtitle
+            nextAction.addTarget(self, action: #selector(self.nextActionHandler), for: .touchUpInside)
+            nextAction.setTitle(object.nextTitle, for: .normal)
         }
+    }
+    
+    func nextActionHandler() {
+        
+        self.nextActionClosure?()
     }
 }

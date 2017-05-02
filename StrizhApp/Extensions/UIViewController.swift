@@ -42,6 +42,12 @@ extension UIViewController {
         return try! self.dependencyContainer.resolve(STAnalytics.self) as! STAnalytics
     }
     
+    static func loadFromStoryBoard<T: UIViewController>(_ controller: T.Type) -> T {
+        
+        let identifier = String(describing: controller)
+        return AppDelegate.appSettings.storyBoard.instantiateViewController(withIdentifier: identifier) as! T
+    }
+    
     func setCustomBackButton() {
         
         let back = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)

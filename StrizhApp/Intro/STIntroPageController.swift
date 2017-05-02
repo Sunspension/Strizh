@@ -8,12 +8,16 @@ import UIKit
 
 class STIntroPageController : UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
 
-    var imagesName: [String] = []
+    var itemsSource: [STIntroObject] = []
 
     var scrollCallbackAction: ((_ index:Int) -> Void)?
 
     var completeCallbackAction: (() -> Void)?
 
+    required init?(coder: NSCoder) {
+        
+        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [UIPageViewControllerOptionInterPageSpacingKey : 20])
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,30 +25,27 @@ class STIntroPageController : UIPageViewController, UIPageViewControllerDataSour
         self.dataSource = self
         self.delegate = self
         
-        if let controller = self.viewControllerAtIndex(0) {
-
-            self.setViewControllers([controller], direction: .forward, animated: false, completion: nil)
-        }
+        self.setViewControllers([self.viewControllerAtIndex(0)],
+                                direction: .forward, animated: false, completion: nil)
     }
 
 
-    func viewControllerAtIndex(_ index: Int) -> UIViewController? {
+    func viewControllerAtIndex(_ index: Int) -> UIViewController {
 
-//        if let controller = self.instantiateViewControllerWithIdentifierOrNibName("IntroImageController") as? STIntroImageViewController {
-//            
-//            controller.imageName = imagesName[index]
-//            return controller
-//        }
-
-        return nil
+        let controller = UIViewController.loadFromStoryBoard(STIntroImageViewController.self)
+        controller.introObject = self.itemsSource[index]
+        controller.nextActionClosure = self.nextAction
+        return controller
     }
 
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
 
-        if let controller = viewController as? STIntroImageViewController , controller.imageName != nil {
+        if
+            let controller = viewController as? STIntroImageViewController,
+            let introObject = controller.introObject {
 
-            var index = imagesName.index(of: controller.imageName!)!
+            var index = itemsSource.index(of: introObject)!
 
             index -= 1
 
@@ -64,13 +65,15 @@ class STIntroPageController : UIPageViewController, UIPageViewControllerDataSour
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
 
-        if let controller = viewControllers!.last as? STIntroImageViewController , controller.imageName != nil {
+        if
+            let controller = viewControllers!.last as? STIntroImageViewController,
+            let introObject = controller.introObject {
 
-            var index = imagesName.index(of: controller.imageName!)!
+            var index = itemsSource.index(of: introObject)!
 
             index += 1
 
-            guard index < imagesName.count else {
+            guard index < itemsSource.count else {
 
                 return nil
             }
@@ -78,18 +81,15 @@ class STIntroPageController : UIPageViewController, UIPageViewControllerDataSour
             return self.viewControllerAtIndex(index)
         }
 
-        return nil;
+        return nil
     }
-
 
     func scrollToViewController(index newIndex: Int, completionAction: ((Bool) -> Void)?) {
         
         let direction: UIPageViewControllerNavigationDirection = newIndex >= self.viewControllers!.count ? .forward : .reverse
         
-        if let viewController = self.viewControllerAtIndex(newIndex) {
-            
-            self.setViewControllers([viewController], direction: direction, animated: true, completion: completionAction)
-        }
+        let viewController = self.viewControllerAtIndex(newIndex)
+        self.setViewControllers([viewController], direction: direction, animated: true, completion: completionAction)
     }
 
 
@@ -98,23 +98,25 @@ class STIntroPageController : UIPageViewController, UIPageViewControllerDataSour
                             previousViewControllers: [UIViewController],
                             transitionCompleted completed: Bool) {
 
-        if let controller = viewControllers!.first as? STIntroImageViewController {
-
-            let index = imagesName.index(of: controller.imageName!)!
+        if
+            let controller = viewControllers!.first as? STIntroImageViewController,
+            let introObject = controller.introObject {
+            let index = self.itemsSource.index(of: introObject)!
             self.scrollCallbackAction?(index)
         }
     }
 
-
     func nextAction() {
 
-        if let controller = viewControllers!.last as? STIntroImageViewController, controller.imageName != nil {
+        if
+            let controller = viewControllers!.last as? STIntroImageViewController,
+            let introObject = controller.introObject {
 
-            var index = imagesName.index(of: controller.imageName!)!
+            var index = self.itemsSource.index(of: introObject)!
 
             index += 1
 
-            guard index < imagesName.count else {
+            guard index < self.itemsSource.count else {
 
                 self.completeCallbackAction?()
                 return
