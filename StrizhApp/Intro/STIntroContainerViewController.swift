@@ -14,7 +14,6 @@ class STIntroContainerViewController: UIViewController {
     
     @IBOutlet weak var cancel: UIButton!
     
-    @IBOutlet weak var buttonNext: UIButton!
     
     var imagesName: [String]!
     
@@ -31,9 +30,9 @@ class STIntroContainerViewController: UIViewController {
         super.viewDidLoad()
         
         self.cancel.setTitle("action_skip".localized, for: UIControlState())
-        self.buttonNext.setTitle("action_next".localized, for: UIControlState())
+//        self.buttonNext.setTitle("action_next".localized, for: UIControlState())
         
-        self.buttonNext.addTarget(self, action: #selector(self.nextAction), for: .touchUpInside)
+//        self.buttonNext.addTarget(self, action: #selector(self.nextAction), for: .touchUpInside)
         self.cancel.addTarget(self, action: #selector(self.skipAction), for: .touchUpInside)
         
         self.pageControl.addTarget(self, action: #selector(self.didChangePageControlValue), for: .valueChanged)
@@ -62,11 +61,11 @@ class STIntroContainerViewController: UIViewController {
 
                 if index == self.imagesName.count - 1 {
 
-                    self.buttonNext.setTitle("action_done".localized, for: UIControlState())
+//                    self.buttonNext.setTitle("action_done".localized, for: UIControlState())
                 }
                 else  {
 
-                    self.buttonNext.setTitle("action_next".localized, for: UIControlState())
+//                    self.buttonNext.setTitle("action_next".localized, for: UIControlState())
                 }
             }
 
