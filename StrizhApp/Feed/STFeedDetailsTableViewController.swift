@@ -63,10 +63,16 @@ class STFeedDetailsTableViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        self.analytics.endTimeEvent(eventName: st_ePostDetails)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.analytics.logEvent(eventName: st_ePostDetails)
+//        self.analytics.logEvent(eventName: st_ePostDetails)
         
         self.tableView.tableFooterView = UIView()
         self.tableView.estimatedRowHeight = 100

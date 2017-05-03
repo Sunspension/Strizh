@@ -32,6 +32,8 @@ class STIntroPageController : UIPageViewController, UIPageViewControllerDataSour
 
     func viewControllerAtIndex(_ index: Int) -> UIViewController {
 
+        self.analytics.logEvent(eventName: st_eIntro, params: ["page" : index])
+        
         let controller = UIViewController.loadFromStoryBoard(STIntroImageViewController.self)
         controller.introObject = self.itemsSource[index]
         controller.nextActionClosure = self.nextAction
@@ -118,7 +120,9 @@ class STIntroPageController : UIPageViewController, UIPageViewControllerDataSour
 
             guard index < self.itemsSource.count else {
 
+                self.analytics.endTimeEvent(eventName: st_eIntro)
                 self.completeCallbackAction?()
+                
                 return
             }
 

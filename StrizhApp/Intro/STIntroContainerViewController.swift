@@ -28,6 +28,8 @@ class STIntroContainerViewController: UIViewController {
         
         self.cancel.addTarget(self, action: #selector(self.skipAction), for: .touchUpInside)
         self.pageControl.addTarget(self, action: #selector(self.didChangePageControlValue), for: .valueChanged)
+        
+        self.analytics.logEvent(eventName: st_eIntro, timed: true)
     }
     
     func didChangePageControlValue() {
@@ -87,6 +89,8 @@ class STIntroContainerViewController: UIViewController {
     }
     
     func skipAction() {
+        
+        self.analytics.logEvent(eventName: st_eSkipIntro)
         
         NotificationCenter.default.post(Notification(name: Notification.Name(kIntroHasEndedNotification),
                                                      object: nil))

@@ -43,7 +43,6 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.stLightBlueGrey
         self.tableView.backgroundView = backgroundView
@@ -94,6 +93,18 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
             }.dispose(in: disposeBag)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        self.analytics.logEvent(eventName: st_eFeed, timed: true)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        self.analytics.endTimeEvent(eventName: st_eFeed)
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ?
@@ -109,6 +120,8 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         let locations = dataSource!.locationsBy(post: post)
         
         if let user = dataSource?.userBy(post: post) {
+            
+            self.analytics.logEvent(eventName: st_ePostDetails, params: ["post_id" : post.id, "from" : "pFeed"], timed: true)
             
             self.st_router_openPostDetails(post: post, user: user, images: images,
                                            files: files, locations: locations)
@@ -194,6 +207,24 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     func openFilter() {
         
         let controller = STFeedFilterTableViewController() { [unowned self] in
+            
+            // analytics
+            if let filter = STFeedFilter.objects(by: STFeedFilter.self).first {
+                
+                var types = [Int]()
+                
+                if filter.offer {
+                    
+                    types.append(1)
+                }
+                
+                if filter.search {
+                    
+                    types.append(2)
+                }
+                
+                self.analytics.logEvent(eventName: st_eFeedFilter, params: ["type" : types])
+            }
             
             self.feedDataSource?.reloadFilter(notify: self.dataSourceSwitch.selectedSegmentIndex == 0)
             self.favoritesFeedDataSource?.reloadFilter(notify: self.dataSourceSwitch.selectedSegmentIndex == 1)

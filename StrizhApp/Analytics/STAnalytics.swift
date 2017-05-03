@@ -20,17 +20,25 @@ struct STAnalytics {
     
     func logEvent(eventName: String, params: Dictionary<String, Any>? = nil, timed: Bool? = nil) {
     
-        for analitycs in self.analyticsContainer {
+        for analytics in self.analyticsContainer {
             
-            analitycs.logEvent(eventName: eventName, params: params, timed: timed)
+            analytics.logEvent(eventName: eventName, params: params, timed: timed)
         }
     }
     
     func endTimeEvent(eventName: String, params: Dictionary<String, Any>? = nil) {
         
-        for analitycs in self.analyticsContainer {
+        for analytics in self.analyticsContainer {
             
-            analitycs.endTimeEvent(eventName: eventName, params: params)
+            analytics.endTimeEvent(eventName: eventName, params: params)
+        }
+    }
+    
+    func setUserId(userId: Int) {
+        
+        for analytics in self.analyticsContainer {
+            
+            analytics.setUserId(userId: userId)
         }
     }
 }

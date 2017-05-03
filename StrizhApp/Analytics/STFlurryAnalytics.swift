@@ -20,4 +20,9 @@ struct STFlurryAnalytics: PAnalytics {
         
         Flurry.endTimedEvent(eventName, withParameters: params)
     }
+    
+    func setUserId(userId: Int) {
+        
+        Flurry.setUserID("\(userId)")
+    }
 }

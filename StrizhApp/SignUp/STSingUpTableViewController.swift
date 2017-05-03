@@ -144,6 +144,8 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 return
             }
             
+            self.analytics.logEvent(eventName: st_eGetCodeAgain)
+            
             let phone = AppDelegate.appSettings.lastSessionPhoneNumber!
             self.makeCodeRequest(phone: phone)
             
@@ -280,6 +282,9 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 
                 .onSuccess(callback: { [unowned self] session in
                     
+                    // analytics
+                    self.analytics.setUserId(userId: session.userId)
+                    
                     // check user
                     self.api.loadUser(transport: .http, userId: session.userId)
                         
@@ -290,6 +295,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                             
                             if user.firstName.isEmpty {
                                 
+                                self.analytics.logEvent(eventName: st_eWelcomeProfile, timed: true)
                                 self.st_router_singUpPersonalInfo()
                                 return
                             }
@@ -313,6 +319,9 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         case .signupThirdStep:
             
             self.startAnimating()
+            
+            self.analytics.endTimeEvent(eventName: st_eWelcomeProfile)
+            self.analytics.logEvent(eventName: st_eSaveWelcomeProfile)
             
             self.submitUserInfo() { error in
                 

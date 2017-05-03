@@ -38,6 +38,9 @@ class STFeedDataSourceWrapper {
         return hasMore && status != .loading
     }
     
+    fileprivate let analytics = try! AppDelegate.appSettings.dependencyContainer.resolve(STAnalytics.self) as! STAnalytics
+    
+    
     var dataSource: GenericTableViewDataSource<STPostTableViewCell, STPost>?
     
     var users = Set<STUser>()
@@ -55,7 +58,6 @@ class STFeedDataSourceWrapper {
     var onStopLoading:(() -> Void)?
     
     var disableAddToFavoriteHadler = false
-    
     
     deinit {
         
@@ -107,10 +109,14 @@ class STFeedDataSourceWrapper {
             
             if post.isFavorite {
                 
+                // analytics
+                self.analytics.logEvent(eventName: st_eFavoriteAdd, params: ["post_id" : post.id])
                 self.section.insert(at: 0, item: post)
             }
             else {
                 
+                // analytics
+                self.analytics.logEvent(eventName: st_eFavoriteRemove, params: ["post_id" : post.id])
                 self.section.items = self.section.items.filter({ $0.item.id != post.id })
             }
             
@@ -285,6 +291,15 @@ class STFeedDataSourceWrapper {
         if isRefresh {
             
             self.page = 1
+            
+            // analytics
+            self.analytics.logEvent(eventName: st_eFeedRefresh)
+        }
+        
+        if searchString != nil {
+            
+            // analytics
+            self.analytics.logEvent(eventName: st_eFeedSearch, params: ["query" : searchString])
         }
         
         AppDelegate.appSettings.api.loadFeed(filter: self.filter!, page: page,
@@ -327,6 +342,9 @@ class STFeedDataSourceWrapper {
                 self.hasMore = feed.posts.count == self.pageSize
                 
                 self.page += 1
+                
+                // analytics
+                analytics.logEvent(eventName: st_eFeedScroll, params: ["page" : self.page])
                 
                 self.status = .loaded
                 

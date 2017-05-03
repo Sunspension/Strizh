@@ -165,6 +165,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     
     func introEnded() {
         
+        let dip = AppDelegate.appSettings.dependencyContainer
+        let analytics = try! dip.resolve(STFlurryAnalytics.self) as! STFlurryAnalytics
+        analytics.endTimeEvent(eventName: st_eIntro)
+        
         let defaults = UserDefaults.standard
         defaults.set(false, forKey: kNeedIntro)
         defaults.synchronize()
