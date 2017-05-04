@@ -121,7 +121,14 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         
         if let user = dataSource?.userBy(post: post) {
             
-            self.analytics.logEvent(eventName: st_ePostDetails, params: ["post_id" : post.id, "from" : "pFeed"], timed: true)
+            if dataSource!.isFavorite {
+                
+                self.analytics.logEvent(eventName: st_ePostDetails, params: ["post_id" : post.id, "from" : "pFeedFavorite"], timed: true)
+            }
+            else {
+                
+                self.analytics.logEvent(eventName: st_ePostDetails, params: ["post_id" : post.id, "from" : st_eFeed], timed: true)
+            }
             
             self.st_router_openPostDetails(post: post, user: user, images: images,
                                            files: files, locations: locations)
@@ -188,11 +195,14 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
             
         case 0:
             
+            self.analytics.endTimeEvent(eventName: st_eFeedPostTab)
             self.tableView.dataSource = self.feedDataSource!.dataSource
             self.feedDataSource!.loadFeedIfNotYet()
             break
             
         case 1:
+            
+            self.analytics.endTimeEvent(eventName: st_eFavoritePostTab)
             self.tableView.dataSource = self.favoritesFeedDataSource!.dataSource
             self.favoritesFeedDataSource!.loadFeedIfNotYet()
             break

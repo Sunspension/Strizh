@@ -174,6 +174,8 @@ class STFeedDetailsTableViewController: UIViewController {
             return
         }
         
+        self.analytics.logEvent(eventName: st_ePostDialogList, params: ["post_id" : post.id])
+        
         self.st_router_openDialogsController(postId: post.id)
     }
     
@@ -183,6 +185,8 @@ class STFeedDetailsTableViewController: UIViewController {
             
             return
         }
+        
+        self.analytics.logEvent(eventName: st_eStartDialog, params: ["post_id" : post.id])
         
         self.st_router_openChatController(post: post)
     }

@@ -28,8 +28,6 @@ class STFeedDataSourceWrapper {
     fileprivate var hasMore = false
     
     fileprivate var onDataSourceChanged:((_ animation: Bool) -> Void)?
-    
-    fileprivate var isFavorite: Bool
 
     fileprivate var isPersonal: Bool
     
@@ -40,6 +38,7 @@ class STFeedDataSourceWrapper {
     
     fileprivate let analytics = try! AppDelegate.appSettings.dependencyContainer.resolve(STAnalytics.self) as! STAnalytics
     
+    private(set) var isFavorite: Bool
     
     var dataSource: GenericTableViewDataSource<STPostTableViewCell, STPost>?
     

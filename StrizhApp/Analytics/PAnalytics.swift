@@ -23,6 +23,10 @@ let st_eFeedSearch = "aFeedSearch"
 let st_eFeedFilter = "aFeedFilter"
 let st_eFavoriteAdd = "aFavoriteAdd"
 let st_eFavoriteRemove = "aFavoriteRemove"
+let st_eFavoritePostTab = "bFavoritePostTab"
+let st_eFeedPostTab = "bFeedPostTab"
+let st_eStartDialog = "bStartDialog"
+let st_ePostDialogList = "bPostDialogList"
 
 protocol PAnalytics {
     
