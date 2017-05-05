@@ -165,6 +165,11 @@ class STContactsDataSourceWrapper {
             
             viewCell.addContact.reactive.tap.observe { [unowned self] _ in
                 
+                // analytics
+                let container = AppDelegate.appSettings.dependencyContainer
+                let analytics = try! container.resolve(STAnalytics.self) as! STAnalytics
+                analytics.logEvent(eventName: st_eContactInvite)
+                
                 let activity = UIActivityViewController(activityItems: [textToShare], applicationActivities: nil)
                 self.viewController?.present(activity, animated: true, completion: nil)
                 

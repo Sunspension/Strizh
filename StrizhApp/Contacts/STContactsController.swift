@@ -43,6 +43,20 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         disposeBag?.dispose()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        if self.reason == .newPost {
+            
+            self.analytics.logEvent(eventName: st_eNewPostStep3)
+        }
+        else {
+            
+            self.analytics.logEvent(eventName: st_eContacts)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -220,6 +234,8 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                     
                     return
                 }
+                
+                self.analytics.logEvent(eventName: st_eContactSearch, params: ["query" : query])
                 
                 self.itemsSource?.searchContacts(searchString: query)
                 self.reloadTableView()

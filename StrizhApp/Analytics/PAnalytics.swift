@@ -27,6 +27,18 @@ let st_eFavoritePostTab = "bFavoritePostTab"
 let st_eFeedPostTab = "bFeedPostTab"
 let st_eStartDialog = "bStartDialog"
 let st_ePostDialogList = "bPostDialogList"
+let st_eContacts = "pContacts"
+let st_eContactSearch = "aContactSearch"
+let st_eContactInvite = "aContactInvite"
+let st_eNewPostStep1 = "pNewPostStep1"
+let st_eCloseNewPost = "aCloseNewPost"
+let st_eNewPostStep2 = "pNewPostStep2"
+let st_eAddPostImage = "bAddPostImage"
+let st_eFinishAddPostImage = "aFinishAddPostImage"
+let st_eAddPostFile = "bAddPostFile"
+let st_eBackNewPostStep1 = "bBackNewPostStep1"
+let st_eNewPostStep3 = "pNewPostStep3"
+
 
 protocol PAnalytics {
     

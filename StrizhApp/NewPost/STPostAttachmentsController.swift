@@ -57,6 +57,24 @@ class STPostAttachmentsController: UITableViewController {
         print("")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        self.analytics.endTimeEvent(eventName: st_eNewPostStep2)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewDidDisappear(animated)
+
+        // checking press back button
+        if self.navigationController?.viewControllers.index(of: self) == NSNotFound {
+            
+            self.analytics.endTimeEvent(eventName: st_eBackNewPostStep1)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -270,6 +288,9 @@ class STPostAttachmentsController: UITableViewController {
             
             viewCell.actionButton.reactive.tap.observeNext {
                 
+                // analytics
+                self.analytics.endTimeEvent(eventName: st_eAddPostImage)
+                
                 if item.itemType as? STAttachmentItemsEnum == .photo &&
                     self.imagesCollectionSection.items.count < 10 {
                     
@@ -277,6 +298,13 @@ class STPostAttachmentsController: UITableViewController {
                     photoController.maxSelectableCount = 10 - self.imagesCollectionSection.items.count
                     photoController.sourceType = .photo
                     photoController.assetType = .allPhotos
+                    
+                    photoController.didCancel = {
+                        
+                        // analytics
+                        self.analytics.endTimeEvent(eventName: st_eFinishAddPostImage)
+                    }
+                    
                     photoController.didSelectAssets = { [unowned self] assets in
                         
                         if assets.count == 0 {

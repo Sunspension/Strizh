@@ -25,6 +25,19 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
         
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        self.analytics.endTimeEvent(eventName: st_eNewPostStep1)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewDidDisappear(animated)
+        
+        self.analytics.endTimeEvent(eventName: st_eCloseNewPost)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
