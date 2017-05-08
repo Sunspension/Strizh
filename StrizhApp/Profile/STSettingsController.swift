@@ -27,6 +27,19 @@ class STSettingsController: UITableViewController {
         super.init(style: .grouped)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        self.analytics.logEvent(eventName: st_eApplicationSettings, timed: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        
+        self.analytics.endTimeEvent(eventName: st_eApplicationSettings)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +75,7 @@ class STSettingsController: UITableViewController {
             return
         }
         
+        self.analytics.logEvent(eventName: st_eLogout)
         self.st_router_logout()
     }
     

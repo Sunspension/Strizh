@@ -52,6 +52,19 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
         self.user = STUser.objects(by: STUser.self).first
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        self.analytics.logEvent(eventName: st_eProfileEdit, timed: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        self.analytics.endTimeEvent(eventName: st_eProfileEdit)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -154,6 +167,8 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                 self.showError(error: error!)
                 return
             }
+        
+            self.analytics.logEvent(eventName: st_eSaveProfile)
             
             NotificationCenter.default.post(Notification(name: Notification.Name(kUserUpdatedNotification)))
             
@@ -390,6 +405,8 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
             api.uploadImage(image: data, uploadProgress: nil)
                 
                 .onSuccess(callback: { [unowned self] imageResponse in
+                    
+                    self.analytics.logEvent(eventName: st_eSetAvatar)
                     
                     let firstName = self.firstName ?? self.user!.firstName
                     let lastName = self.lastName ?? self.user!.lastName

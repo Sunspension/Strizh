@@ -55,6 +55,15 @@ class STProfileTableViewController: UITableViewController {
         
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
+        
+        self.analytics.logEvent(eventName: st_eMyProfile, timed: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        
+        self.analytics.endTimeEvent(eventName: st_eMyProfile)
     }
     
     override func viewDidLoad() {
@@ -107,6 +116,9 @@ class STProfileTableViewController: UITableViewController {
                     
                     return post.locationIds.contains(where: { $0.value == location.id })
                 })
+                
+                self.analytics.logEvent(eventName: st_ePostDetails,
+                                        params: ["post_id" : post.id, "from=" : st_eMyProfile])
                 
                 self.st_router_openPostDetails(personal: true, post: post, user: user, images: images,
                                                files: files, locations: locations)
@@ -188,6 +200,8 @@ class STProfileTableViewController: UITableViewController {
         NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostCreatedNotification),
                                                          object: nil)
             .observeNext { [unowned self] notification in
+                
+                self.analytics.logEvent(eventName: st_ePostRefresh)
                 
                 // temporary
                 self.minId = 0
@@ -369,6 +383,9 @@ class STProfileTableViewController: UITableViewController {
                                                 let postObject = STUserPostObject(post: post)
                                                 postObject.images = self.images
                                                 
+                                                self.analytics.logEvent(eventName: st_ePostEdit,
+                                                                        params: ["post_id" : post.id])
+                                                
                                                 self.st_router_openPostController(postObject: postObject)
                                             })
                                             
@@ -399,6 +416,8 @@ class STProfileTableViewController: UITableViewController {
                                                 
                                                 self.api.deletePost(postId: post.id)
                                                     .onSuccess(callback: { [unowned self] _ in
+                                                        
+                                                        self.analytics.logEvent(eventName: st_ePostDelete, params: ["post_id" : post.id])
                                                         
                                                         self.userPostsSection.items = self.userPostsSection.items
                                                                 .filter({ ($0.item! as! STPost).id != (item.item! as! STPost).id })
@@ -439,6 +458,9 @@ class STProfileTableViewController: UITableViewController {
         self.tableView.showBusy()
         
         self.status = .loading
+        
+        self.analytics.logEvent(eventName: st_ePostScroll)
+        
         api.loadPersonalPosts(minId: self.minId, pageSize: self.pageSize)
             .onSuccess { [unowned self] feed in
                 

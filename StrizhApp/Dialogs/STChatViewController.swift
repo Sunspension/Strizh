@@ -57,6 +57,33 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         NotificationCenter.default.removeObserver(self)
     }
 
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        self.analytics.logEvent(eventName: st_eDialog, timed: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        
+        self.analytics.endTimeEvent(eventName: st_eDialog)
+        
+        // checking press back button
+        if self.navigationController?.viewControllers.index(of: self) == NSNotFound {
+            
+            guard let dialog = self.dialog else {
+                
+                return
+            }
+            
+            self.analytics.endTimeEvent(eventName: st_eBackToDialogList,
+                                        params: ["post_id" : dialog.postId, "dialog_id" : dialog.id])
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -204,6 +231,9 @@ class STChatViewController: UIViewController, UITextViewDelegate {
             return
         }
         
+        self.analytics.logEvent(eventName: st_eDialogReceiveMessage,
+                                params: ["post_id" : dialog.postId, "dialog_id" : dialog.id])
+        
         // notify
         self.notifyMessagesRead(lastReadMessage: message.id)
         
@@ -262,6 +292,13 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         
         self.reloadTableView()
         self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        
+        if let dialog = self.dialog {
+            
+            let postId = self.postId ?? dialog.postId
+            
+            self.analytics.logEvent(eventName: st_eSendMessage, params: ["post_id" : postId, "dialog_id" : dialog.id])
+        }
         
         self.sendMessage(message: text, section: section!, messageIndex: messageIndex)
     }
@@ -353,6 +390,8 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         
         self.loadingStatus = .loading
         self.tableView.showBusy()
+        
+        self.analytics.logEvent(eventName: st_eDialogScroll, params: ["post_id" : dialog.postId, "dialog_id" : dialog.id])
         
         api.loadDialogMessages(dialogId: dialog.id, pageSize: self.pageSize, lastId: self.lastId)
 

@@ -56,6 +56,14 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         disposeBag.dispose()
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        self.analytics.logEvent(eventName: st_eDialogList)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -123,6 +131,8 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
     //MARK: - UISearchBar delegate implementation
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        
+        self.analytics.logEvent(eventName: st_eDialogListSearch)
         
         self.shouldShowSearchResults = true
         
@@ -224,6 +234,8 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         self.tableView.showBusy()
         
         let page = self.shouldShowSearchResults ? self.searchPage : self.page
+        
+        self.analytics.logEvent(eventName: st_eDialogListScroll, params: ["page" : page])
         
         api.loadDialogs(page: page, pageSize: self.pageSize, postId: self.postId, searchString: searchQueryString)
             
@@ -380,6 +392,9 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
             }
             
             self.page = 1
+            
+            self.analytics.logEvent(eventName: st_eDialogListRefresh)
+            
             self.loadDialogs()
             
         }).dispose(in: disposeBag)

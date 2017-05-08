@@ -19,15 +19,15 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         case usual, newPost
     }
     
-    private var itemsSource: STContactsDataSourceWrapper?
+    fileprivate var itemsSource: STContactsDataSourceWrapper?
     
-    private let searchController = UISearchController(searchResultsController: nil)
+    fileprivate let searchController = UISearchController(searchResultsController: nil)
     
-    private var shouldShowSearchResults = false
+    fileprivate var shouldShowSearchResults = false
     
-    private let selectedItems = MutableObservableArray([Int]())
+    fileprivate let selectedItems = MutableObservableArray([Int]())
     
-    private lazy var postObject: STUserPostObject = {
+    fileprivate lazy var postObject: STUserPostObject = {
         
         return try! self.dependencyContainer.resolve(STUserPostObject.self) as! STUserPostObject
         
@@ -49,11 +49,28 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         
         if self.reason == .newPost {
             
-            self.analytics.logEvent(eventName: st_eNewPostStep3)
+            self.analytics.logEvent(eventName: st_eNewPostStep3, timed: true)
         }
         else {
             
             self.analytics.logEvent(eventName: st_eContacts)
+        }
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewDidDisappear(animated)
+        
+        // checking press back button
+        if self.navigationController?.viewControllers.index(of: self) == NSNotFound {
+            
+            if self.reason != .newPost {
+                
+                return
+            }
+            
+            self.analytics.endTimeEvent(eventName: st_eNewPostStep3)
         }
     }
     
@@ -153,11 +170,24 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
             
         case .new:
          
+            if self.selectedItems.count > 0 {
+                
+                let totalCount = self.itemsSource!.dataSource.sections.reduce(0, { (result, section) -> Int in
+                    
+                    return result + section.items.count
+                })
+                
+                self.analytics.logEvent(eventName: st_eNewPostContactSelect, params: ["select_count" : self.selectedItems.count, "total_count" : totalCount])
+            }
+            
+            self.analytics.endTimeEvent(eventName: st_eNewPostStep3)
             api.createPost(post: self.postObject)
                 
                 .onSuccess(callback: { [unowned self] post in
                     
                     self.stopAnimating()
+                    
+                    self.analytics.logEvent(eventName: st_eNewPostCreateFinish, params: ["select_count" : self.selectedItems.count])
                     
                     NotificationCenter.default.post(name: NSNotification.Name(kPostCreatedNotification), object: post)
                     
@@ -205,6 +235,11 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
     //MARK: - UISearchBar delegate implementation
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        
+        if self.reason == .newPost {
+            
+            self.analytics.logEvent(eventName: st_eNewPostContactSearch)
+        }
         
         self.tableView.dataSource = self.itemsSource?.searchDataSource
         self.tableView.delegate = self.itemsSource?.searchDataSource
