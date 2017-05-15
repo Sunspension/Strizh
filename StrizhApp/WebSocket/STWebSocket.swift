@@ -494,7 +494,7 @@ class STWebSocket {
         
         let config: SocketIOClientConfiguration = [.log(true),
                                                    .forceWebsockets(true),
-                                                   .path("/websocket"),
+                                                   .path("/api/websocket"),
                                                    SocketIOClientOption.cookies(HTTPCookieStorage.shared.cookies!)]
         
         self.socket = SocketIOClient(socketURL: URL(string: serverUrlString)!, config: config)

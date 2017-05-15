@@ -11,13 +11,15 @@ import ReactiveKit
 
 class STContactCell: UITableViewCell {
 
-    @IBOutlet weak var contactImage: UIImageView!
+    @IBOutlet weak var contactImage: CircledImageView!
     
     @IBOutlet weak var contactName: UILabel!
     
     @IBOutlet weak var addContact: UIButton!
     
     var disposeBag = DisposeBag()
+    
+    var disableSelection = false
     
     
     deinit {
@@ -38,13 +40,18 @@ class STContactCell: UITableViewCell {
 
     override func prepareForReuse() {
         
-        disposeBag.dispose()
+        disposeBag = DisposeBag()
         contactImage.image = UIImage(named: "avatar")
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
+        if disableSelection {
+            
+            return
+        }
+        
         self.tintColor = selected ? UIColor.stBrightBlue : UIColor.lightGray
         self.backgroundView?.backgroundColor = selected ? UIColor.stLightGreenGrey : UIColor.clear
     }

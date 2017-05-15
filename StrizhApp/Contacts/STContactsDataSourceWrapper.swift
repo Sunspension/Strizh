@@ -158,6 +158,7 @@ class STContactsDataSourceWrapper {
         viewCell.layoutMargins = UIEdgeInsets.zero
         viewCell.separatorInset = UIEdgeInsets.zero
         viewCell.accessoryType = allowsSelection ? .checkmark : .none
+        viewCell.disableSelection = !self.showOnlyRegistered
         
         if !contact.isRegistered {
             
@@ -167,7 +168,7 @@ class STContactsDataSourceWrapper {
                 
                 // analytics
                 let container = AppDelegate.appSettings.dependencyContainer
-                let analytics = try! container.resolve(STAnalytics.self) as! STAnalytics
+                let analytics: STAnalytics = try! container.resolve()
                 analytics.logEvent(eventName: st_eContactInvite)
                 
                 let activity = UIActivityViewController(activityItems: [textToShare], applicationActivities: nil)
@@ -182,10 +183,6 @@ class STContactsDataSourceWrapper {
         }
         
         let urlString = contact.imageUrl + viewCell.contactImage.queryResizeString()
-        
-        let filter = RoundedCornersFilter(radius: viewCell.contactImage.bounds.size.width)
-        viewCell.contactImage.af_setImage(withURL: URL(string: urlString)!,
-                                          filter: filter,
-                                          completion: nil)
+        viewCell.contactImage.af_setImage(withURL: URL(string: urlString)!, completion: nil)
     }
 }

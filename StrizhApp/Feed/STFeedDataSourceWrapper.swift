@@ -36,7 +36,7 @@ class STFeedDataSourceWrapper {
         return hasMore && status != .loading
     }
     
-    fileprivate let analytics = try! AppDelegate.appSettings.dependencyContainer.resolve(STAnalytics.self) as! STAnalytics
+    fileprivate let analytics: STAnalytics = try! AppDelegate.appSettings.dependencyContainer.resolve()
     
     private(set) var isFavorite: Bool
     

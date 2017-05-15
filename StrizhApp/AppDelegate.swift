@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     static var appSettings: AppSettings = {
        
         return AppSettings(dbConfig: STRealmConfiguration(),
-                           serverApi: STServerApi(serverUrlString: "https://strizhapp.ru"))
+                           serverApi: STServerApi(serverUrlString: "https://devapi.strizhapp.ru"))
     }()
     
     
@@ -166,7 +166,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     func introEnded() {
         
         let dip = AppDelegate.appSettings.dependencyContainer
-        let analytics = try! dip.resolve(STFlurryAnalytics.self) as! STFlurryAnalytics
+        let analytics: STAnalytics = try! dip.resolve()
         analytics.endTimeEvent(eventName: st_eIntro)
         
         let defaults = UserDefaults.standard
@@ -208,11 +208,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         
         Flurry.startSession("B65KW7TXYQ8T4S7PPGZN", with: builder)
         
-        let analytics = STAnalytics(analytics: [STFlurryAnalytics()])
-        analytics.logEvent(eventName: "start")
-        
         let dip = AppDelegate.appSettings.dependencyContainer
-        dip.register(ComponentScope.singleton) { analytics }
+        dip.register(.singleton) { STAnalytics(analytics: [STFlurryAnalytics()]) as STAnalytics }
+        
+        let analytics: STAnalytics = try! dip.resolve()
+        analytics.logEvent(eventName: "start")
     }
     
     fileprivate func checkSession(animation: Bool = false) {

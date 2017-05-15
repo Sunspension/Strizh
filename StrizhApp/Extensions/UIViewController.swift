@@ -39,7 +39,7 @@ extension UIViewController {
     
     var analytics: STAnalytics {
         
-        return try! self.dependencyContainer.resolve(STAnalytics.self) as! STAnalytics
+        return try! self.dependencyContainer.resolve()
     }
     
     static func loadFromStoryBoard<T: UIViewController>(_ controller: T.Type) -> T {

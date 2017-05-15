@@ -126,6 +126,7 @@
 		E53185FF1E364AE700BC6C9A /* STLoginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E53185FD1E364AE700BC6C9A /* STLoginTableViewCell.xib */; };
 		E537712E1E64941C00BBADEA /* STPersonalPostDetailsMainInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537712C1E64941C00BBADEA /* STPersonalPostDetailsMainInfoCell.swift */; };
 		E537712F1E64941C00BBADEA /* STPersonalPostDetailsMainInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E537712D1E64941C00BBADEA /* STPersonalPostDetailsMainInfoCell.xib */; };
+		E53A94C01EC9FE3C009AB8C6 /* CircledImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53A94BF1EC9FE3C009AB8C6 /* CircledImageView.swift */; };
 		E53F37BD1E3A632C00393BAD /* STLoginLogoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53F37BB1E3A632C00393BAD /* STLoginLogoTableViewCell.swift */; };
 		E53F37BE1E3A632C00393BAD /* STLoginLogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E53F37BC1E3A632C00393BAD /* STLoginLogoTableViewCell.xib */; };
 		E53F37C31E3A75F900393BAD /* KeyboardNotificationListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53F37C21E3A75F900393BAD /* KeyboardNotificationListener.swift */; };
@@ -309,6 +310,7 @@
 		E53185FD1E364AE700BC6C9A /* STLoginTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STLoginTableViewCell.xib; path = SignUp/STLoginTableViewCell.xib; sourceTree = "<group>"; };
 		E537712C1E64941C00BBADEA /* STPersonalPostDetailsMainInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPersonalPostDetailsMainInfoCell.swift; path = Profile/STPersonalPostDetailsMainInfoCell.swift; sourceTree = "<group>"; };
 		E537712D1E64941C00BBADEA /* STPersonalPostDetailsMainInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPersonalPostDetailsMainInfoCell.xib; path = Profile/STPersonalPostDetailsMainInfoCell.xib; sourceTree = "<group>"; };
+		E53A94BF1EC9FE3C009AB8C6 /* CircledImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CircledImageView.swift; path = CustomControls/CircledImageView.swift; sourceTree = "<group>"; };
 		E53F37BB1E3A632C00393BAD /* STLoginLogoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginLogoTableViewCell.swift; path = SignUp/STLoginLogoTableViewCell.swift; sourceTree = "<group>"; };
 		E53F37BC1E3A632C00393BAD /* STLoginLogoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STLoginLogoTableViewCell.xib; path = SignUp/STLoginLogoTableViewCell.xib; sourceTree = "<group>"; };
 		E53F37C21E3A75F900393BAD /* KeyboardNotificationListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardNotificationListener.swift; sourceTree = "<group>"; };
@@ -895,6 +897,7 @@
 			isa = PBXGroup;
 			children = (
 				E5E4E9C01E81139D00B77102 /* CircledButton.swift */,
+				E53A94BF1EC9FE3C009AB8C6 /* CircledImageView.swift */,
 			);
 			name = CustomControls;
 			sourceTree = "<group>";
@@ -1204,6 +1207,7 @@
 				E53F37C31E3A75F900393BAD /* KeyboardNotificationListener.swift in Sources */,
 				D4C2AD841E5395C7009CD55A /* STPersonalPostCell.swift in Sources */,
 				D43BED6C1E708A1000683D5C /* STBottomPopupPresentationAnimation.swift in Sources */,
+				E53A94C01EC9FE3C009AB8C6 /* CircledImageView.swift in Sources */,
 				E53185F71E3612EF00BC6C9A /* STLoadingStatusEnum.swift in Sources */,
 				D4194A111E4600F000D0B189 /* STPost.swift in Sources */,
 				E55906721E51A60800F8E20E /* STProfileTableViewController.swift in Sources */,
