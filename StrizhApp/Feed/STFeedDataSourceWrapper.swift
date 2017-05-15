@@ -298,7 +298,7 @@ class STFeedDataSourceWrapper {
         if searchString != nil {
             
             // analytics
-            self.analytics.logEvent(eventName: st_eFeedSearch, params: ["query" : searchString])
+            self.analytics.logEvent(eventName: st_eFeedSearch, params: ["query" : searchString!])
         }
         
         AppDelegate.appSettings.api.loadFeed(filter: self.filter!, page: page,
@@ -343,7 +343,7 @@ class STFeedDataSourceWrapper {
                 self.page += 1
                 
                 // analytics
-                analytics.logEvent(eventName: st_eFeedScroll, params: ["page" : self.page])
+                self.analytics.logEvent(eventName: st_eFeedScroll, params: ["page" : self.page])
                 
                 self.status = .loaded
                 
