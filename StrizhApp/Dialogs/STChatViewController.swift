@@ -127,51 +127,10 @@ class STChatViewController: UIViewController, UITextViewDelegate {
                                                name: Notification.Name.UIKeyboardWillHide,
                                                object: nil)
         
-        // If we have just a post id
-        if self.dialog == nil {
-            
-            self.users.append(myUser)
-            
-            if let postId = self.postId, let objectType = self.objectType {
-                
-                self.tableView.showBusy()
-                
-                api.createDialog(objectId: postId, objectType: objectType)
-                    .onSuccess { [weak self] dialog in
-                        
-                        guard let sself = self else {
-                            
-                            return
-                        }
-                        
-                        sself.dialog = dialog
-                        
-                        // load an apponent id
-                        if let userId = dialog.userIds.first(where: { $0.value != sself.myUser.id }) {
-                            
-                            sself.api.loadUser(transport: .webSocket, userId: userId.value)
-                                .onSuccess(callback: { [weak self] user in
-                                
-                                    self?.tableView.hideBusy()
-                                    self?.users.append(user)
-                                    self?.loadMessages()
-                                })
-                                .onFailure(callback: { [weak self] error in
-                                    
-                                    self?.tableView.hideBusy()
-                                })
-                        }
-                    }
-                    .onFailure { [weak self] error in
-                        
-                        self?.tableView.hideBusy()
-                    }
-            }
-            
-            return
-        }
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon-more"),
+                                                                 style: .plain, target: self, action: #selector(self.openFilterAction))
         
-        self.loadMessages()
+        self.loadNecessaryDataIfNeeded()
     }
 
     func keyboardWillShow(_ notification: Notification) {
@@ -317,6 +276,34 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         
         self.view.endEditing(true)
     }
+    
+    func openFilterAction() {
+        
+        let controller = UIAlertController(title: nil, message: nil,preferredStyle: .actionSheet)
+        
+        let openDetailsAction = UIAlertAction(title: "chat_filter_action_go_to_post_details_text".localized,
+                                              style: .default) { action in
+                                                
+                                                guard
+                                                    
+                                                    self.users.count > 1,
+                                                    self.dialog != nil
+                                                    
+                                                    else { return }
+                                                
+                                                
+        }
+        
+        let cancel = UIAlertAction(title: "action_cancel".localized, style: .cancel, handler: nil)
+        
+        controller.addAction(openDetailsAction)
+        controller.addAction(cancel)
+        
+        self.present(controller, animated: true, completion: nil)
+    }
+
+    
+    // MARK: - Private methods
     
     fileprivate func section(by date: Date) -> TableSection? {
         
@@ -592,5 +579,55 @@ class STChatViewController: UIViewController, UITextViewDelegate {
             
             self.hideDummyView()
         }
+    }
+    
+    fileprivate func loadNecessaryDataIfNeeded() {
+        
+        // If we have just a post id
+        if self.dialog == nil {
+            
+            self.users.append(myUser)
+            
+            if let postId = self.postId, let objectType = self.objectType {
+                
+                self.tableView.showBusy()
+                
+                api.createDialog(objectId: postId, objectType: objectType)
+                    .onSuccess { [weak self] dialog in
+                        
+                        guard let sself = self else {
+                            
+                            return
+                        }
+                        
+                        sself.dialog = dialog
+                        
+                        // load an apponent id
+                        if let userId = dialog.userIds.first(where: { $0.value != sself.myUser.id }) {
+                            
+                            sself.api.loadUser(transport: .webSocket, userId: userId.value)
+                                .onSuccess(callback: { [weak self] user in
+                                    
+                                    self?.tableView.hideBusy()
+                                    
+                                    self?.users.append(user)
+                                    self?.loadMessages()
+                                })
+                                .onFailure(callback: { [weak self] error in
+                                    
+                                    self?.tableView.hideBusy()
+                                })
+                        }
+                    }
+                    .onFailure { [weak self] error in
+                        
+                        self?.tableView.hideBusy()
+                }
+            }
+            
+            return
+        }
+        
+        self.loadMessages()
     }
 }

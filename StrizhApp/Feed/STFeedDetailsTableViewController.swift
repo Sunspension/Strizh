@@ -20,7 +20,7 @@ class STFeedDetailsTableViewController: UIViewController {
     
     enum STPostDetailsReasonEnum {
         
-        case feedDetails, personalPostDetails
+        case feedDetails, personalPostDetails, fromChat
     }
     
     
@@ -72,9 +72,6 @@ class STFeedDetailsTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.analytics.logEvent(eventName: st_ePostDetails)
-        
-        self.tableView.tableFooterView = UIView()
         self.tableView.estimatedRowHeight = 100
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.separatorStyle = .none
@@ -92,66 +89,7 @@ class STFeedDetailsTableViewController: UIViewController {
         self.navigationItem.title = "feed_details_page_title".localized
         
         self.setCustomBackButton()
-        
-        self.dataSource.onDidSelectRowAtIndexPath = { (tableView: UITableView, indexPath: IndexPath, item: TableSectionItem) in
-            
-            tableView.deselectRow(at: indexPath, animated: true)
-            
-            guard let itemType = item.itemType as? STItemTypeEnum else {
-                
-                return
-            }
-            
-            switch itemType {
-                
-            case .file:
-                
-                let file = item.item as! STFile
-                let url = URL(string: file.url)!
-                self.st_router_openDocumentController(url: url, fileName: file.title)
-                
-                break
-                
-            default:
-                break
-            }
-        }
-        
-                
-        if let post = self.post {
-            
-            let myUser = STUser.objects(by: STUser.self).first!
-            
-            if post.dialogCount == 0 {
-                
-                self.writeMessage.setTitle("feed_details_page_button_write_message_title".localized, for: .normal)
-                
-                if post.userId == myUser.id {
-                    
-                    writeMessage.isEnabled = false
-                    writeMessage.alpha = 0.7
-                }
-                else {
-                    
-                    self.writeMessage.addTarget(self, action: #selector(self.openChatController), for: .touchUpInside)
-                }
-            }
-            else {
-                
-                if post.userId == myUser.id && post.dialogCount > 1 {
-                    
-                    self.writeMessage.setTitle("feed_details_page_button_write_go_to_dialogs_title".localized + "(\(post.dialogCount))", for: .normal)
-                    self.writeMessage.addTarget(self, action: #selector(self.openDialogsController), for: .touchUpInside)
-                }
-                else {
-                    
-                    self.writeMessage.setTitle("feed_details_page_button_write_go_to_dialog_title".localized, for: .normal)
-                    self.writeMessage.addTarget(self, action: #selector(self.openChatController), for: .touchUpInside)
-                }
-            }
-        }
-    
-        self.dataSource.sections.append(self.tableSection)
+        self.setupDataSource()
         
         if self.reason == .personalPostDetails {
             
@@ -164,7 +102,14 @@ class STFeedDetailsTableViewController: UIViewController {
             self.navigationItem.rightBarButtonItem = moreButton
         }
         
+        if reason == .fromChat {
+            
+            return
+        }
+        
+        self.setupWriteAction()
         self.createDataSource()
+        self.tableView.tableFooterView = UIView()
     }
 
     func openDialogsController() {
@@ -525,5 +470,71 @@ class STFeedDetailsTableViewController: UIViewController {
         actionController.addAction(actionDelete)
         
         self.present(actionController, animated: true, completion: nil)
+    }
+    
+    fileprivate func setupDataSource() {
+        
+        // setup data source
+        self.dataSource.onDidSelectRowAtIndexPath = { (tableView: UITableView, indexPath: IndexPath, item: TableSectionItem) in
+            
+            tableView.deselectRow(at: indexPath, animated: true)
+            
+            guard let itemType = item.itemType as? STItemTypeEnum else {
+                
+                return
+            }
+            
+            switch itemType {
+                
+            case .file:
+                
+                let file = item.item as! STFile
+                let url = URL(string: file.url)!
+                self.st_router_openDocumentController(url: url, fileName: file.title)
+                
+                break
+                
+            default:
+                break
+            }
+        }
+        
+        self.dataSource.sections.append(self.tableSection)
+    }
+    
+    fileprivate func setupWriteAction() {
+        
+        if let post = self.post {
+            
+            let myUser = STUser.objects(by: STUser.self).first!
+            
+            if post.dialogCount == 0 {
+                
+                self.writeMessage.setTitle("feed_details_page_button_write_message_title".localized, for: .normal)
+                
+                if post.userId == myUser.id {
+                    
+                    writeMessage.isEnabled = false
+                    writeMessage.alpha = 0.7
+                }
+                else {
+                    
+                    self.writeMessage.addTarget(self, action: #selector(self.openChatController), for: .touchUpInside)
+                }
+            }
+            else {
+                
+                if post.userId == myUser.id && post.dialogCount > 1 {
+                    
+                    self.writeMessage.setTitle("feed_details_page_button_write_go_to_dialogs_title".localized + "(\(post.dialogCount))", for: .normal)
+                    self.writeMessage.addTarget(self, action: #selector(self.openDialogsController), for: .touchUpInside)
+                }
+                else {
+                    
+                    self.writeMessage.setTitle("feed_details_page_button_write_go_to_dialog_title".localized, for: .normal)
+                    self.writeMessage.addTarget(self, action: #selector(self.openChatController), for: .touchUpInside)
+                }
+            }
+        }
     }
 }

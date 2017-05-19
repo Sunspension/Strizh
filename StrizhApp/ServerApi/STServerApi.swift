@@ -176,6 +176,11 @@ struct STServerApi: PRemoteServerApi {
         return self.socket.loadDialog(by: id)
     }
     
+    func loadDialog(by id: Int) -> Future<STExtendedDialog, STError> {
+        
+        return self.socket.loadDialog(by: id)
+    }
+    
     func loadDialogWithLastMessage(by dialogId: Int) -> Future<STDialog, STError> {
         
         return self.socket.loadDialogWithLastMessage(by: dialogId)

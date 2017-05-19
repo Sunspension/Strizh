@@ -88,6 +88,7 @@
 
 // Chat
 "prefix_you" = "Вы: ";
+"chat_filter_action_go_to_post_details_text" = "Открыть детали сделки";
 
 // Contacts
 "contacts_page_title" = "Контакты";

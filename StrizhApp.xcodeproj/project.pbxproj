@@ -148,6 +148,7 @@
 		E561F5671E72FA4000C7407C /* STPostAttachmentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561F5661E72FA4000C7407C /* STPostAttachmentsController.swift */; };
 		E561F56A1E72FCD300C7407C /* STAttachmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561F5681E72FCD300C7407C /* STAttachmentCell.swift */; };
 		E561F56B1E72FCD300C7407C /* STAttachmentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E561F5691E72FCD300C7407C /* STAttachmentCell.xib */; };
+		E582EE151ECF60FB00992E96 /* STExtendedDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E582EE141ECF60FB00992E96 /* STExtendedDialog.swift */; };
 		E58AF8511E8A4B9000CEF2B3 /* STChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58AF8501E8A4B9000CEF2B3 /* STChatViewController.swift */; };
 		E59448891E66D8AD002B2989 /* STTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59448881E66D8AD002B2989 /* STTabBarViewController.swift */; };
 		E594488B1E68062A002B2989 /* STDummyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E594488A1E68062A002B2989 /* STDummyNavigationController.swift */; };
@@ -333,6 +334,7 @@
 		E561F5661E72FA4000C7407C /* STPostAttachmentsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPostAttachmentsController.swift; path = NewPost/STPostAttachmentsController.swift; sourceTree = "<group>"; };
 		E561F5681E72FCD300C7407C /* STAttachmentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STAttachmentCell.swift; path = NewPost/STAttachmentCell.swift; sourceTree = "<group>"; };
 		E561F5691E72FCD300C7407C /* STAttachmentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STAttachmentCell.xib; path = NewPost/STAttachmentCell.xib; sourceTree = "<group>"; };
+		E582EE141ECF60FB00992E96 /* STExtendedDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STExtendedDialog.swift; path = Models/STExtendedDialog.swift; sourceTree = "<group>"; };
 		E58AF8501E8A4B9000CEF2B3 /* STChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STChatViewController.swift; path = Dialogs/STChatViewController.swift; sourceTree = "<group>"; };
 		E59448881E66D8AD002B2989 /* STTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTabBarViewController.swift; sourceTree = "<group>"; };
 		E594488A1E68062A002B2989 /* STDummyNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STDummyNavigationController.swift; sourceTree = "<group>"; };
@@ -452,6 +454,7 @@
 				D4FFDFAB1E8706580090BE5A /* STMessage.swift */,
 				E5E3A6541E9B7EA6009B1BFA /* STDialogBadge.swift */,
 				D4BEB4051E9ED96500E2402E /* STDialogMessage.swift */,
+				E582EE141ECF60FB00992E96 /* STExtendedDialog.swift */,
 			);
 			name = Response;
 			sourceTree = "<group>";
@@ -1227,6 +1230,7 @@
 				D404058B1E91886C00F0A8E4 /* SectionItem.swift in Sources */,
 				D4AD43BC1E47B504006F13DE /* STPostTableViewCell.swift in Sources */,
 				D44AB4EE1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift in Sources */,
+				E582EE151ECF60FB00992E96 /* STExtendedDialog.swift in Sources */,
 				E55ED8F11EA756E100917B3E /* UICollectionView.swift in Sources */,
 				D44E339B1E74B9B8006F4709 /* ImageUploadOperation.swift in Sources */,
 				E5E4E9BD1E810F8600B77102 /* STDialogCell.swift in Sources */,

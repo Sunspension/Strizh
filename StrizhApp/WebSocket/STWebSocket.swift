@@ -303,11 +303,32 @@ class STWebSocket {
         
         let p = Promise<STDialog, STError>()
         
-        let request = STSocketRequestBuilder.loadDialog(dialogId: id).request
+        let request = STSocketRequestBuilder.loadDialog(dialogId: id, extend: false).request
         
         self.sendRequest(request: request) { json in
             
             if let dialog = STDialog(JSON: json) {
+                
+                p.success(dialog)
+            }
+            else {
+                
+                p.failure(.loadDialogsError)
+            }
+        }
+        
+        return p.future
+    }
+    
+    func loadDialog(by id: Int) -> Future<STExtendedDialog, STError> {
+        
+        let p = Promise<STExtendedDialog, STError>()
+        
+        let request = STSocketRequestBuilder.loadDialog(dialogId: id, extend: true).request
+        
+        self.sendRequest(request: request) { json in
+            
+            if let dialog = STExtendedDialog(JSON: json) {
                 
                 p.success(dialog)
             }

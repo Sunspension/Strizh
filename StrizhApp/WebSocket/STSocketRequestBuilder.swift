@@ -58,7 +58,7 @@ enum STSocketRequestBuilder {
     
     case loadDialogs(page: Int, pageSize: Int, postId: Int?, searchString: String?)
     
-    case loadDialog(dialogId: Int)
+    case loadDialog(dialogId: Int, extend: Bool)
     
     case loadDialogWithLastMessage(dialogId: Int)
     
@@ -357,11 +357,16 @@ enum STSocketRequestBuilder {
             
             break
             
-        case .loadDialog(let dialogId):
+        case .loadDialog(let dialogId, let extend):
             
             // payload
             self.addToPayload(&payLoad, type: .path, value: "/api/dialog/\(dialogId)")
             self.addToPayload(&payLoad, type: .method, value: "GET")
+            
+            if extend {
+                
+                self.addToQuery(&query, type: .extend, value: "image, file, location")
+            }
             
             break
             

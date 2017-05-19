@@ -89,6 +89,7 @@
 
 // Chat
 "prefix_you" = "You: ";
+"chat_filter_action_go_to_post_details_text" = "Open the deal details";
 
 // Contacts
 "contacts_page_title" = "Contacts";

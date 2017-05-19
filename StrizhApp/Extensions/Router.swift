@@ -46,13 +46,30 @@ extension UIViewController {
     func st_router_openPostDetails(personal: Bool = false, post: STPost, user: STUser,
                                    images: [STImage]?, files: [STFile]?, locations: [STLocation]?) -> Void {
         
-        let controller = storyBoard.instantiateViewController(withIdentifier: String(describing: STFeedDetailsTableViewController.self)) as! STFeedDetailsTableViewController
+        let controller = storyBoard.instantiateViewController(withIdentifier: String(describing: STFeedDetailsTableViewController.self))
+            as! STFeedDetailsTableViewController
         controller.post = post
         controller.user = user
         controller.images = images
         controller.files = files
         controller.locations = locations
         controller.reason = personal ? .personalPostDetails : .feedDetails
+        
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func st_router_openPostDetails(postId: Int, user: STUser, presented: Bool = true) {
+        
+        let controller = storyBoard.instantiateViewController(withIdentifier: String(describing: STFeedDetailsTableViewController.self))
+            as! STFeedDetailsTableViewController
+        
+        if presented {
+            
+            let navi = STNavigationController(rootViewController: controller)
+            self.present(navi, animated: true, completion: nil)
+            
+            return
+        }
         
         self.navigationController?.pushViewController(controller, animated: true)
     }
