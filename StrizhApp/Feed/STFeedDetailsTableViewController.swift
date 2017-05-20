@@ -42,6 +42,8 @@ class STFeedDetailsTableViewController: UIViewController {
     @IBOutlet weak var writeMessage: UIButton!
     
     
+    var postId: Int?
+    
     var user: STUser?
     
     var post: STPost?
@@ -61,6 +63,11 @@ class STFeedDetailsTableViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         self.navigationController?.isNavigationBarHidden = false
+        
+        if self.presentingViewController != nil {
+            
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "action_close".localized, style: .plain, target: self, action: #selector(self.close))
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -104,6 +111,33 @@ class STFeedDetailsTableViewController: UIViewController {
         
         if reason == .fromChat {
             
+            if let postId = self.postId {
+                
+                self.showBusy()
+                
+                self.api.loadPost(by: postId)
+                    .onSuccess(callback: { [weak self] post in
+                
+                        self?.hideBusy()
+                        
+                        self?.post = post
+                        self?.user = post.user
+                        self?.images = Array(post.images)
+                        self?.files = Array(post.files)
+                        self?.locations = Array(post.locations)
+                        
+                        self?.setupWriteAction()
+                        self?.createDataSource()
+                        self?.tableView.tableFooterView = UIView()
+                        
+                        self?.tableView.reloadData()
+                    })
+                    .onFailure(callback: { (error) in
+                    
+                        self.hideBusy()
+                    })
+            }
+            
             return
         }
         
@@ -112,6 +146,11 @@ class STFeedDetailsTableViewController: UIViewController {
         self.tableView.tableFooterView = UIView()
     }
 
+    func close() {
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     func openDialogsController() {
         
         guard let post = self.post else {
@@ -507,6 +546,14 @@ class STFeedDetailsTableViewController: UIViewController {
         if let post = self.post {
             
             let myUser = STUser.objects(by: STUser.self).first!
+            
+            if reason == .fromChat {
+                
+                self.writeMessage.setTitle("feed_details_page_button_write_back_to_dialog_title".localized, for: .normal)
+                self.writeMessage.addTarget(self, action: #selector(self.close), for: .touchUpInside)
+                
+                return
+            }
             
             if post.dialogCount == 0 {
                 

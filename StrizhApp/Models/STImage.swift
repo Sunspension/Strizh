@@ -8,36 +8,29 @@
 
 import Foundation
 import ObjectMapper
+import RealmSwift
 
-struct STImage: Mappable, Hashable, Equatable {
+class STImage: Object, Mappable {
 
-    var id: Int64 = 0
+    dynamic var id: Int64 = 0
     
-    var userId = 0
+    dynamic var userId = 0
     
-    var path = ""
+    dynamic var path = ""
     
-    var url = ""
+    dynamic var url = ""
     
-    var hashValue: Int {
-        
-        return id.hashValue ^ userId.hashValue
+    
+    required convenience init?(map: Map) {
+    
+        self.init()
     }
     
-    init?(map: Map) {
-    
-    }
-    
-    mutating func mapping(map: Map) {
+    func mapping(map: Map) {
         
         id <- (map["id"], NSNumberToInt64Transform())
         userId <- map["user_id"]
         path <- map["path"]
         url <- map["url"]
-    }
-    
-    static func ==(lhs: STImage, rhs: STImage) -> Bool {
-        
-        return lhs.id == rhs.id
     }
 }

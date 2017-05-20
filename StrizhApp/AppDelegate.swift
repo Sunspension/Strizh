@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         
         AppDelegate.appSettings.dbConfig.configure()
         
-        FIRApp.configure()
+        FirebaseApp.configure()
         
         GMSServices.provideAPIKey("AIzaSyB9Xe2_0osvR8RC8nBkRttpIEWOQuUbdI8")
         

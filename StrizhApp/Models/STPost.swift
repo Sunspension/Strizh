@@ -46,6 +46,14 @@ class STPost : Object, Mappable {
     
     dynamic var isFavorite = false
     
+    dynamic var user: STUser?
+    
+    var images = List<STImage>()
+    
+    var files = List<STFile>()
+    
+    var locations = List<STLocation>()
+    
     var imageIds = List<RealmInt64>()
     
     var userIds = List<RealmInt>()
@@ -91,6 +99,10 @@ class STPost : Object, Mappable {
         fileIds <- (map["file_ids"], ArrayOfCustomRealmObjectsTransform<RealmInt64>())
         locationIds <- (map["location_ids"], ArrayOfCustomRealmObjectsTransform<RealmInt>())
         imageUrls <- (map["image_urls"], ArrayOfCustomRealmObjectsTransform<RealmString>())
+        user <- map["user"]
+        images <- (map["image"], ArrayTransform<STImage>())
+        files <- (map["file"], ArrayTransform<STFile>())
+        locations <- (map["location"], ArrayTransform<STLocation>())
     }
     
     fileprivate func formatter() -> DateFormatter {

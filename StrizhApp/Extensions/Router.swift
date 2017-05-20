@@ -58,10 +58,13 @@ extension UIViewController {
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    func st_router_openPostDetails(postId: Int, user: STUser, presented: Bool = true) {
+    func st_router_openPostDetails(postId: Int, presented: Bool = true) {
         
         let controller = storyBoard.instantiateViewController(withIdentifier: String(describing: STFeedDetailsTableViewController.self))
             as! STFeedDetailsTableViewController
+        
+        controller.postId = postId
+        controller.reason = .fromChat
         
         if presented {
             

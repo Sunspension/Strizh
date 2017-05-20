@@ -284,14 +284,8 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         let openDetailsAction = UIAlertAction(title: "chat_filter_action_go_to_post_details_text".localized,
                                               style: .default) { action in
                                                 
-                                                guard
-                                                    
-                                                    self.users.count > 1,
-                                                    self.dialog != nil
-                                                    
-                                                    else { return }
-                                                
-                                                
+                                                guard self.dialog != nil else { return }
+                                                self.st_router_openPostDetails(postId: self.dialog!.postId)
         }
         
         let cancel = UIAlertAction(title: "action_cancel".localized, style: .cancel, handler: nil)

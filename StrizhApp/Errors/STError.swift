@@ -20,6 +20,8 @@ enum STError: Error {
     
     case loadDialogsError
     
+    case loadPostError
+    
     case loadDialogError
     
     case loadMessagesError
@@ -66,6 +68,10 @@ enum STError: Error {
         case .loadDialogError:
             
             return "Error has occurred when was trying to load a dialog"
+            
+        case .loadPostError:
+            
+            return "Error has occurred when was trying to load a post"
             
         case .loadMessagesError:
             

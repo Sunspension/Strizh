@@ -303,7 +303,7 @@ class STWebSocket {
         
         let p = Promise<STDialog, STError>()
         
-        let request = STSocketRequestBuilder.loadDialog(dialogId: id, extend: false).request
+        let request = STSocketRequestBuilder.loadDialog(dialogId: id).request
         
         self.sendRequest(request: request) { json in
             
@@ -320,17 +320,17 @@ class STWebSocket {
         return p.future
     }
     
-    func loadDialog(by id: Int) -> Future<STExtendedDialog, STError> {
+    func loadPost(by id: Int) -> Future<STPost, STError> {
         
-        let p = Promise<STExtendedDialog, STError>()
+        let p = Promise<STPost, STError>()
         
-        let request = STSocketRequestBuilder.loadDialog(dialogId: id, extend: true).request
+        let request = STSocketRequestBuilder.loadPost(postId: id).request
         
         self.sendRequest(request: request) { json in
             
-            if let dialog = STExtendedDialog(JSON: json) {
+            if let post = STPost(JSON: json) {
                 
-                p.success(dialog)
+                p.success(post)
             }
             else {
                 

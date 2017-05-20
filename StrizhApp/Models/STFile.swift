@@ -8,41 +8,39 @@
 
 import Foundation
 import ObjectMapper
+import RealmSwift
 
-struct STFile: Mappable, Hashable, Equatable {
+class STFile: Object, Mappable {
     
-    var id: Int64 = 0
+    dynamic var id: Int64 = 0
     
-    var createdAt = Date()
+    dynamic var createdAt = Date()
     
-    var deleted = false
+    dynamic var deleted = false
     
-    var deletedAt: Date?
+    dynamic var deletedAt: Date?
     
-    var md5 = ""
+    dynamic var md5 = ""
     
-    var mimeType = ""
+    dynamic var mimeType = ""
     
-    var title = ""
+    dynamic var title = ""
     
-    var updatedAt: Date?
+    dynamic var updatedAt: Date?
     
-    var url = ""
+    dynamic var url = ""
     
-    var path = ""
+    dynamic var path = ""
     
-    var type = 0
+    dynamic var type = 0
     
-    var hashValue: Int {
+    
+    required convenience init?(map: Map) {
         
-        return id.hashValue ^ title.hashValue
+        self.init()
     }
     
-    init?(map: Map) {
-        
-    }
-    
-    mutating func mapping(map: Map) {
+    func mapping(map: Map) {
         
         id <- (map["id"], NSNumberToInt64Transform())
         deleted <- map["deleted"]
@@ -55,11 +53,6 @@ struct STFile: Mappable, Hashable, Equatable {
         url <- map["url"]
         path <- map["path"]
         type <- map["type"]
-    }
-    
-    static func ==(lhs: STFile, rhs: STFile) -> Bool {
-        
-        return lhs.id == rhs.id
     }
     
     fileprivate func formatter() -> DateFormatter {

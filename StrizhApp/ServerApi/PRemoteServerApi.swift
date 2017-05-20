@@ -72,7 +72,7 @@ protocol PRemoteServerApi {
     
     func loadDialog(by id: Int) -> Future<STDialog, STError>
     
-    func loadDialog(by id: Int) -> Future<STExtendedDialog, STError>
+    func loadPost(by id: Int) -> Future<STPost, STError>
     
     func loadDialogWithLastMessage(by dialogId: Int) -> Future<STDialog, STError>
     

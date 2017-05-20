@@ -8,33 +8,35 @@
 
 import Foundation
 import ObjectMapper
+import RealmSwift
 
-struct STLocation: Mappable {
+class STLocation: Object, Mappable {
     
-    var id = 0
+    dynamic var id = 0
     
-    var deleted = false
+    dynamic var deleted = false
     
-    var createdAt = Date()
+    dynamic var createdAt = Date()
     
-    var deletedAt: Date?
+    dynamic var deletedAt: Date?
     
-    var updatedAt: Date?
+    dynamic var updatedAt: Date?
     
-    var lat = 0.0
+    dynamic var lat = 0.0
     
-    var lon = 0.0
+    dynamic var lon = 0.0
     
-    var title = ""
+    dynamic var title = ""
     
-    var userId = 0
+    dynamic var userId = 0
     
     
-    init?(map: Map) {
+    required convenience init?(map: Map) {
         
+        self.init()
     }
     
-    mutating func mapping(map: Map) {
+    func mapping(map: Map) {
         
         id <- map["id"]
         deleted <- map["deleted"]
