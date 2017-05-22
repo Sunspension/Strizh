@@ -298,7 +298,6 @@ class STChatViewController: UIViewController, UITextViewDelegate {
 
     
     // MARK: - Private methods
-    
     fileprivate func section(by date: Date) -> TableSection? {
         
         let section = self.dataSource.sections.first(where: { section -> Bool in
@@ -352,7 +351,7 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    fileprivate func notifyMessagesRead(lastReadMessage: Int) {
+    fileprivate func notifyMessagesRead(lastReadMessage: Int?) {
         
         api.notifyMessagesRead(dialogId: self.dialog!.id, lastMessageId: lastReadMessage)
             .onSuccess { dialog in
@@ -372,7 +371,8 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         self.loadingStatus = .loading
         self.tableView.showBusy()
         
-        self.analytics.logEvent(eventName: st_eDialogScroll, params: ["post_id" : dialog.postId, "dialog_id" : dialog.id])
+        self.analytics.logEvent(eventName: st_eDialogScroll,
+                                params: ["post_id" : dialog.postId, "dialog_id" : dialog.id])
         
         api.loadDialogMessages(dialogId: dialog.id, pageSize: self.pageSize, lastId: self.lastId)
 
@@ -388,10 +388,8 @@ class STChatViewController: UIViewController, UITextViewDelegate {
                     if !loadMore && dialog.unreadMessageCount != 0 {
                         
                         // notify
-                        if let message = messages.first(where: { $0.userId != self.myUser.id }) {
-                            
-                            self.notifyMessagesRead(lastReadMessage: message.id)
-                        }
+                        let message = messages.first(where: { $0.userId != self.myUser.id })
+                        self.notifyMessagesRead(lastReadMessage: message?.id)
                     }
                 }
                 

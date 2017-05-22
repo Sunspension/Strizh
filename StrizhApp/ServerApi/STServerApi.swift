@@ -196,7 +196,7 @@ struct STServerApi: PRemoteServerApi {
         return self.socket.sendMessage(dialogId: dialogId, message: message)
     }
 
-    func notifyMessagesRead(dialogId: Int, lastMessageId: Int) -> Future<STDialog, STError> {
+    func notifyMessagesRead(dialogId: Int, lastMessageId: Int?) -> Future<STDialog, STError> {
         
         return self.socket.notifyMessagesRead(dialogId: dialogId, lastMessageId: lastMessageId)
     }

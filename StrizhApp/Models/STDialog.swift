@@ -20,6 +20,8 @@ class STDialog: Object, Mappable {
     
     dynamic var createdAt = Date()
     
+    dynamic var updatedAt: Date?
+    
     dynamic var messageId = 0
     
     dynamic var title = ""
@@ -55,6 +57,7 @@ class STDialog: Object, Mappable {
         objectType <- map["object_type"]
         objectId <- map["object_id"]
         createdAt <- (map["created_at"], DateFormatterTransform(dateFormatter: AppDelegate.appSettings.defaultFormatter))
+        updatedAt <- (map["updated_at"], DateFormatterTransform(dateFormatter: AppDelegate.appSettings.defaultFormatter))
         messageId <- map["message_id"]
         title <- map["title"]
         ownerUserId <- map["owner_user_id"]

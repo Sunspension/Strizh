@@ -411,7 +411,7 @@ class STWebSocket {
         return p.future
     }
     
-    func notifyMessagesRead(dialogId: Int, lastMessageId: Int) -> Future<STDialog, STError> {
+    func notifyMessagesRead(dialogId: Int, lastMessageId: Int?) -> Future<STDialog, STError> {
         
         let p = Promise<STDialog, STError>()
         

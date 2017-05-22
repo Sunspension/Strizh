@@ -59,6 +59,18 @@ class STUser: Object, Mappable {
         return "id"
     }
     
+    override func isEqual(_ object: Any?) -> Bool {
+        
+        if let other = object as? STUser {
+            
+            return self.id == other.id
+        }
+        else {
+            
+            return false
+        }
+    }
+    
     func mapping(map: Map) {
         
         id <- map["id"]

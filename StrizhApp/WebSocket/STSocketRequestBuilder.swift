@@ -68,7 +68,7 @@ enum STSocketRequestBuilder {
     
     case sendMessage(dialogId: Int, message: String)
     
-    case notifyMessagesRead(dialogId: Int, lastMessageId: Int)
+    case notifyMessagesRead(dialogId: Int, lastMessageId: Int?)
     
     case createDialog(objectId: Int, objectType: Int)
     
@@ -339,7 +339,7 @@ enum STSocketRequestBuilder {
             // query
             self.addToQuery(&query, type: .page, value: page)
             self.addToQuery(&query, type: .pageSize, value: pageSize)
-            self.addToQuery(&query, type: .sortingOrder, value: ["id" : "desc"])
+            self.addToQuery(&query, type: .sortingOrder, value: ["updated_at" : "desc"])
             self.addToQuery(&query, type: .extend, value: "user, message")
             
             if postId != nil {
@@ -425,10 +425,13 @@ enum STSocketRequestBuilder {
             self.addToPayload(&payLoad, type: .path, value: "/api/dialog/\(dialogId)")
             self.addToPayload(&payLoad, type: .method, value: "PUT")
             
-            var body = [String : Any]()
-            
-            body["last_read_message_id"] = lastMessageId
-            self.addToPayload(&payLoad, type: .body, value: body)
+            if lastMessageId != nil {
+                
+                var body = [String : Any]()
+                
+                body["last_read_message_id"] = lastMessageId
+                self.addToPayload(&payLoad, type: .body, value: body)
+            }
             
             break
             
