@@ -111,6 +111,7 @@ class STFeedDataSourceWrapper {
                 // analytics
                 self.analytics.logEvent(eventName: st_eFavoriteAdd, params: ["post_id" : post.id])
                 self.section.insert(at: 0, item: post)
+                self.posts.append(post)
             }
             else {
                 
@@ -260,7 +261,7 @@ class STFeedDataSourceWrapper {
     
     func loadFeedIfNotYet() {
         
-        if self.section.items.count == 0 && self.status == .idle {
+        if (self.section.items.count == 0 && self.status != .loaded) || self.status == .idle {
             
             loadFeed()
         }
@@ -319,10 +320,14 @@ class STFeedDataSourceWrapper {
                     self.section.items.removeAll()
                 }
                 
-                self.posts.append(contentsOf: feed.posts)
-                
-                feed.posts.forEach { post in
+                for post in feed.posts {
                     
+                    if self.isFavorite && self.posts.contains(post) {
+                        
+                        continue
+                    }
+                    
+                    self.posts.append(post)
                     self.section.add(item: post)
                 }
                 

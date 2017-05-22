@@ -75,6 +75,18 @@ class STPost : Object, Mappable {
         return "id"
     }
     
+    override func isEqual(_ object: Any?) -> Bool {
+        
+        if let other = object as? STPost {
+            
+            return self.id == other.id
+        }
+        else {
+            
+            return false
+        }
+    }
+    
     func mapping(map: Map) {
         
         id <- map["id"]
