@@ -38,15 +38,14 @@ class STDialogCell: UITableViewCell {
         inOutIcon.setImage(UIImage(named: "icon-arrow-in"), for: .normal)
         inOutIcon.setImage(UIImage(named: "icon-arrow-out"), for: .selected)
         
-        message.attributedText = nil
-        message.text = ""
-        topicTitle.text = ""
+        self.clear()
         newMessageCounter.layer.cornerRadius = newMessageCounter.layer.bounds.size.height / 2
         newMessageCounter.clipsToBounds = true
     }
     
     override func prepareForReuse() {
         
+        self.clear()
         userImage.image = UIImage(named: "avatar")
     }
 
@@ -56,4 +55,10 @@ class STDialogCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    fileprivate func clear() {
+        
+        message.attributedText = nil
+        message.text = ""
+        topicTitle.text = ""
+    }
 }
