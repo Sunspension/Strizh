@@ -22,7 +22,7 @@ class STDialog: Object, Mappable {
     
     dynamic var updatedAt: Date?
     
-    dynamic var messageId = 0
+    dynamic var messageId: Int64 = 0
     
     dynamic var title = ""
     

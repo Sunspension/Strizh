@@ -68,7 +68,7 @@ protocol PRemoteServerApi {
     
     func updatePost(post: STUserPostObject) -> Future<STPost, STError>
     
-    func loadDialogs(page: Int, pageSize: Int, postId: Int?, searchString: String?) -> Future<STDialogsPage, STError>
+    func loadDialogs(page: Int, pageSize: Int, postId: Int?, userId: Int?, searchString: String?) -> Future<STDialogsPage, STError>
     
     func loadDialog(by id: Int) -> Future<STDialog, STError>
     
@@ -76,13 +76,13 @@ protocol PRemoteServerApi {
     
     func loadDialogWithLastMessage(by dialogId: Int) -> Future<STDialog, STError>
     
-    func loadDialogMessages(dialogId: Int, pageSize: Int, lastId: Int?) -> Future<[STMessage], STError>
+    func loadDialogMessages(dialogId: Int, pageSize: Int, lastId: Int64?) -> Future<[STMessage], STError>
     
     func loadMessage(by id: Int) -> Future<STMessage, STError>
     
     func sendMessage(dialogId: Int, message: String) -> Future<STMessage, STError>
     
-    func notifyMessagesRead(dialogId: Int, lastMessageId: Int?) -> Future<STDialog, STError>
+    func notifyMessagesRead(dialogId: Int, lastMessageId: Int64?) -> Future<STDialog, STError>
     
     //// For creation dialog with user, object id have to be equals to a post id.
     //// For creation dialog with support, object id have to be equals user id

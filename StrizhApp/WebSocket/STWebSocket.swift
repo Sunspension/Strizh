@@ -278,11 +278,11 @@ class STWebSocket {
         return p.future
     }
     
-    func loadDialogs(page: Int, pageSize: Int, postId: Int? = nil, searchString: String? = nil) -> Future<STDialogsPage, STError> {
+    func loadDialogs(page: Int, pageSize: Int, postId: Int? = nil, userId: Int? = nil, searchString: String? = nil) -> Future<STDialogsPage, STError> {
         
         let p = Promise<STDialogsPage, STError>()
         
-        let request = STSocketRequestBuilder.loadDialogs(page: page, pageSize: pageSize, postId: postId, searchString: searchString).request
+        let request = STSocketRequestBuilder.loadDialogs(page: page, pageSize: pageSize, postId: postId, userId: userId, searchString: searchString).request
         
         self.sendRequest(request: request) { json in
             
@@ -362,7 +362,7 @@ class STWebSocket {
         return p.future
     }
     
-    func loadDialogMessages(dialogId: Int, pageSize: Int, lastId: Int?) -> Future<[STMessage], STError> {
+    func loadDialogMessages(dialogId: Int, pageSize: Int, lastId: Int64?) -> Future<[STMessage], STError> {
         
         let p = Promise<[STMessage], STError>()
         
@@ -411,7 +411,7 @@ class STWebSocket {
         return p.future
     }
     
-    func notifyMessagesRead(dialogId: Int, lastMessageId: Int?) -> Future<STDialog, STError> {
+    func notifyMessagesRead(dialogId: Int, lastMessageId: Int64?) -> Future<STDialog, STError> {
         
         let p = Promise<STDialog, STError>()
         

@@ -83,6 +83,8 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         
         self.tableView.tableFooterView = UIView()
         
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: ""), style: .plain, target: self, action: #selector(self.openFilter))
+        
         NotificationCenter.default.reactive.notification(name: NSNotification.Name(kReceiveDialogBadgeNotification),
                                                          object: nil)
             .observeNext { [unowned self] notification in
@@ -157,6 +159,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
     }
     
     //MARK: - UISearchResultUpdating delegate implementation
+    
     func updateSearchResults(for searchController: UISearchController) {
         
         if let string = self.searchController.searchBar.text {
@@ -183,6 +186,13 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         }
     }
    
+    func openFilter() {
+        
+        
+    }
+    
+    //MARK: - Private methods
+    
     private func setupSearchController() {
         
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor =
@@ -237,7 +247,11 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         
         self.analytics.logEvent(eventName: st_eDialogListScroll, params: ["page" : page])
         
-        api.loadDialogs(page: page, pageSize: self.pageSize, postId: self.postId, searchString: searchQueryString)
+        api.loadDialogs(page: page,
+                        pageSize: self.pageSize,
+                        postId: self.postId,
+                        userId: nil,
+                        searchString: searchQueryString)
             
             .onSuccess { [unowned self] dialogPage in
             

@@ -19,7 +19,7 @@ class STChatViewController: UIViewController, UITextViewDelegate {
     
     fileprivate var loadingStatus = STLoadingStatusEnum.idle
     
-    fileprivate var lastId: Int? = nil
+    fileprivate var lastId: Int64? = nil
     
     fileprivate var hasMore = false
     
@@ -351,7 +351,7 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    fileprivate func notifyMessagesRead(lastReadMessage: Int?) {
+    fileprivate func notifyMessagesRead(lastReadMessage: Int64?) {
         
         api.notifyMessagesRead(dialogId: self.dialog!.id, lastMessageId: lastReadMessage)
             .onSuccess { dialog in
@@ -388,8 +388,7 @@ class STChatViewController: UIViewController, UITextViewDelegate {
                     if !loadMore && dialog.unreadMessageCount != 0 {
                         
                         // notify
-                        let message = messages.first(where: { $0.userId != self.myUser.id })
-                        self.notifyMessagesRead(lastReadMessage: message?.id)
+                        self.notifyMessagesRead(lastReadMessage: lastMessage.lastMessageId)
                     }
                 }
                 

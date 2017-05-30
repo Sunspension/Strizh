@@ -13,7 +13,7 @@ import Realm
 
 final class STMessage: Object, Mappable, Copying {
     
-    dynamic var id = 0
+    dynamic var id: Int64 = 0
     
     dynamic var userId = 0
     
@@ -26,6 +26,8 @@ final class STMessage: Object, Mappable, Copying {
     dynamic var objectId = 0
     
     dynamic var objectType = 0
+    
+    dynamic var lastMessageId: Int64 = 0
     
     var fileIds = List<RealmInt64>()
     
@@ -66,6 +68,7 @@ final class STMessage: Object, Mappable, Copying {
         self.dialogId = original.dialogId
         self.objectId = original.objectId
         self.objectType = original.objectType
+        self.lastMessageId = original.lastMessageId
         
         self.fileIds = List<RealmInt64>()
         self.fileIds.append(objectsIn: original.fileIds)
@@ -89,6 +92,7 @@ final class STMessage: Object, Mappable, Copying {
         dialogId <- map["dialog_id"]
         objectId <- map["object_id"]
         objectType <- map["object_type"]
+        lastMessageId <- (map["last_message_id"], NSNumberToInt64Transform())
         fileIds <- (map["file_ids"], ArrayOfCustomRealmObjectsTransform<RealmInt64>())
         imageIds <- (map["image_ids"], ArrayOfCustomRealmObjectsTransform<RealmInt64>())
         locationIds <- (map["location_ids"], ArrayOfCustomRealmObjectsTransform<RealmInt>())

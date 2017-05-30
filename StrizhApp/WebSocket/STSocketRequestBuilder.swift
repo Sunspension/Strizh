@@ -56,7 +56,7 @@ enum STSocketRequestBuilder {
     
     case createPost(post: STUserPostObject, update: Bool)
     
-    case loadDialogs(page: Int, pageSize: Int, postId: Int?, searchString: String?)
+    case loadDialogs(page: Int, pageSize: Int, postId: Int?, userId: Int?, searchString: String?)
     
     case loadDialog(dialogId: Int)
     
@@ -64,11 +64,11 @@ enum STSocketRequestBuilder {
     
     case loadDialogWithLastMessage(dialogId: Int)
     
-    case loadDialogMessages(dialogId: Int, pageSize: Int, lastId: Int?)
+    case loadDialogMessages(dialogId: Int, pageSize: Int, lastId: Int64?)
     
     case sendMessage(dialogId: Int, message: String)
     
-    case notifyMessagesRead(dialogId: Int, lastMessageId: Int?)
+    case notifyMessagesRead(dialogId: Int, lastMessageId: Int64?)
     
     case createDialog(objectId: Int, objectType: Int)
     
@@ -330,7 +330,7 @@ enum STSocketRequestBuilder {
             
             break
             
-        case .loadDialogs(let page, let pageSize, let postId, let searchString):
+        case .loadDialogs(let page, let pageSize, let postId, let userId, let searchString):
             
             // payload
             self.addToPayload(&payLoad, type: .path, value: "/api/dialog")
@@ -342,12 +342,20 @@ enum STSocketRequestBuilder {
             self.addToQuery(&query, type: .sortingOrder, value: ["updated_at" : "desc"])
             self.addToQuery(&query, type: .extend, value: "user, message")
             
+            var filters: [String : Any] = [:]
+            
             if postId != nil {
-                
-                var filters: [String : Any] = [:]
                 
                 filters["object_id"] = postId!
                 filters["object_type"] = 1
+            }
+            
+            if userId != nil {
+                
+                filters["owner_user_id"] = userId
+            }
+            
+            if filters.count > 0 {
                 
                 self.addToQuery(&query, type: .filters, value: filters)
             }

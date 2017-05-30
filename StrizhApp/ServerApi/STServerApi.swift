@@ -166,9 +166,9 @@ struct STServerApi: PRemoteServerApi {
         return self.socket.uploadContacts(contacts: contacts)
     }
     
-    func loadDialogs(page: Int, pageSize: Int, postId: Int? = nil, searchString: String? = nil) -> Future<STDialogsPage, STError> {
+    func loadDialogs(page: Int, pageSize: Int, postId: Int? = nil, userId: Int? = nil, searchString: String? = nil) -> Future<STDialogsPage, STError> {
         
-        return self.socket.loadDialogs(page: page, pageSize: pageSize, postId: postId, searchString: searchString)
+        return self.socket.loadDialogs(page: page, pageSize: pageSize, postId: postId, userId: userId, searchString: searchString)
     }
     
     func loadDialog(by id: Int) -> Future<STDialog, STError> {
@@ -186,7 +186,7 @@ struct STServerApi: PRemoteServerApi {
         return self.socket.loadDialogWithLastMessage(by: dialogId)
     }
     
-    func loadDialogMessages(dialogId: Int, pageSize: Int, lastId: Int?) -> Future<[STMessage], STError> {
+    func loadDialogMessages(dialogId: Int, pageSize: Int, lastId: Int64?) -> Future<[STMessage], STError> {
         
         return self.socket.loadDialogMessages(dialogId: dialogId, pageSize: pageSize, lastId: lastId)
     }
@@ -196,7 +196,7 @@ struct STServerApi: PRemoteServerApi {
         return self.socket.sendMessage(dialogId: dialogId, message: message)
     }
 
-    func notifyMessagesRead(dialogId: Int, lastMessageId: Int?) -> Future<STDialog, STError> {
+    func notifyMessagesRead(dialogId: Int, lastMessageId: Int64?) -> Future<STDialog, STError> {
         
         return self.socket.notifyMessagesRead(dialogId: dialogId, lastMessageId: lastMessageId)
     }
