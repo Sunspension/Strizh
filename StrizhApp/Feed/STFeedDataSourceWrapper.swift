@@ -166,7 +166,7 @@ class STFeedDataSourceWrapper {
             if post.dateFrom != nil && post.dateTo != nil {
                 
                 cell.durationDate.isHidden = false
-                let period = post.dateFrom!.mediumLocalizedFormat + " - " + post.dateTo!.mediumLocalizedFormat
+                let period = post.dateFrom!.shortLocalizedFormat + " - " + post.dateTo!.shortLocalizedFormat
                 cell.durationDate.setTitle(period , for: .normal)
             }
             else {
@@ -212,6 +212,13 @@ class STFeedDataSourceWrapper {
                 cell.userName.text = user.lastName + " " + user.firstName
                 
                 guard !user.imageUrl.isEmpty else {
+                    
+                    DispatchQueue.main.async {
+                        
+                        var defaultImage = UIImage(named: "avatar")
+                        defaultImage = defaultImage?.af_imageAspectScaled(toFill: cell.userIcon.bounds.size)
+                        cell.userIcon.image = defaultImage?.af_imageRoundedIntoCircle()
+                    }
                     
                     return
                 }
