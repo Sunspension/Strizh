@@ -365,6 +365,14 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
                     viewCell.userImage.af_setImage(withURL: URL(string: urlString)!,
                                                    filter: filter,
                                                    completion: nil)
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    
+                    var defaultImage = UIImage(named: "avatar")
+                    defaultImage = defaultImage?.af_imageAspectScaled(toFill: viewCell.userImage.bounds.size)
+                    viewCell.userImage.image = defaultImage?.af_imageRoundedIntoCircle()
                 }
             }
         }

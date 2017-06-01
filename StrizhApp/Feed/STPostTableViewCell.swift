@@ -72,6 +72,8 @@ class STPostTableViewCell: UITableViewCell {
         documents.setTitleColor(disabledColor, for: .disabled)
         
         iconFavorite.addTarget(self, action: #selector(self.tapOnFaforite), for: .touchUpInside)
+        
+        userIcon.image = nil
     }
 
     override func prepareForReuse() {

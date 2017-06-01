@@ -46,7 +46,6 @@ class STDialogCell: UITableViewCell {
     override func prepareForReuse() {
         
         self.clear()
-        userImage.image = UIImage(named: "avatar")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -60,5 +59,6 @@ class STDialogCell: UITableViewCell {
         message.attributedText = nil
         message.text = ""
         topicTitle.text = ""
+        userImage.image = nil
     }
 }

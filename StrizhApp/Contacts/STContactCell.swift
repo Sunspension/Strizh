@@ -36,12 +36,14 @@ class STContactCell: UITableViewCell {
             
             self.backgroundView = UIView()
         }
+        
+        contactImage.image = nil;
     }
 
     override func prepareForReuse() {
         
         disposeBag = DisposeBag()
-        contactImage.image = UIImage(named: "avatar")
+        contactImage.image = nil;
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

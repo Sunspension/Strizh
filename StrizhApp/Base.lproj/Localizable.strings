@@ -99,7 +99,7 @@
 "contacts_page_success_update_message" = "You have successfully updated information about the deal";
 "contacts_page_empty_contacts_title" = "No contacts";
 "contacts_page_empty_contacts_message" = "You have to allow an access to your contacts on your iPhone.";
-"contacts_page_users_who_don't_use_app_title" = "DO NOT USING THE STRIZHAPP";
+"contacts_page_users_who_don't_use_app_title" = "DO NOT USE THE STRIZHAPP";
 "contacts_page_share_text" = "I wish to invite you in StrizhApp, which you can download from the App Store";
 
 // Profile

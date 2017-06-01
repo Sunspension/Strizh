@@ -198,10 +198,8 @@ class STWebSocket {
             
             if let contacts = json["contact"] as? [[String : Any]] {
                 
-                if let remoteContacts = Mapper<STContact>().mapArray(JSONArray: contacts) {
-                    
-                    p.success(remoteContacts)
-                }
+                let remoteContacts = Mapper<STContact>().mapArray(JSONArray: contacts)
+                p.success(remoteContacts)
             }
             else {
                 
@@ -222,10 +220,8 @@ class STWebSocket {
             
             if let contacts = json["contact"] as? [[String : Any]] {
                 
-                if let remoteContacts = Mapper<STContact>().mapArray(JSONArray: contacts) {
-                    
-                    p.success(remoteContacts)
-                }
+                let remoteContacts = Mapper<STContact>().mapArray(JSONArray: contacts)
+                p.success(remoteContacts)
             }
             else {
                 
@@ -372,14 +368,8 @@ class STWebSocket {
             
             if let messagePath = json["message"] as? [[String : Any]] {
                 
-                if let messages = Mapper<STMessage>().mapArray(JSONArray: messagePath) {
-                    
-                    p.success(messages)
-                }
-                else {
-                    
-                    p.failure(.loadMessagesError)
-                }
+                let messages = Mapper<STMessage>().mapArray(JSONArray: messagePath)
+                p.success(messages)
             }
             else {
                 

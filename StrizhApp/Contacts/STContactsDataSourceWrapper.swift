@@ -179,6 +179,13 @@ class STContactsDataSourceWrapper {
         
         if contact.imageUrl.isEmpty {
             
+            DispatchQueue.main.async {
+                
+                var defaultImage = UIImage(named: "avatar")
+                defaultImage = defaultImage?.af_imageAspectScaled(toFill: viewCell.contactImage.bounds.size)
+                viewCell.contactImage.image = defaultImage?.af_imageRoundedIntoCircle()
+            }
+            
             return
         }
         
