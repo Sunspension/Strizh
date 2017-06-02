@@ -13,6 +13,7 @@ import NVActivityIndicatorView
 import AccountKit
 import Flurry_iOS_SDK
 import Dip
+import ObjectMapper
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate {
@@ -87,6 +88,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         AppDelegate.appSettings.deviceToken = token
     }
     
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        
+        
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        let aps = userInfo["aps"] as! [String : AnyObject]
+        
+        switch aps["type"] as! String {
+            
+        case "message":
+            
+            if let newMessage = Mapper<STNewMessage>().map(JSON: aps) {
+                
+                let i = 0
+            }
+            
+            break
+            
+        case "post":
+            
+            
+            
+            break
+            
+        default:
+            break
+        }
+    }
     
     // MARK: AKFViewControllerDelegate implementation
     func viewController(_ viewController: UIViewController!, didCompleteLoginWithAuthorizationCode code: String!, state: String!) {

@@ -163,6 +163,8 @@
 		E59A1B1C1E3F9716009EE669 /* STUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B1B1E3F9716009EE669 /* STUser.swift */; };
 		E59B98C91E8E5BC10069F9C0 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59B98C81E8E5BC10069F9C0 /* Colors.swift */; };
 		E59B98CB1E8E5C9D0069F9C0 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59B98CA1E8E5C9D0069F9C0 /* Date.swift */; };
+		E59C15601EE172DE00F8B558 /* RemoteNotificationsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59C155F1EE172DE00F8B558 /* RemoteNotificationsHandler.swift */; };
+		E59C15631EE1762700F8B558 /* STNewMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59C15621EE1762700F8B558 /* STNewMessage.swift */; };
 		E5BE9E251E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE9E241E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift */; };
 		E5BE9E281E4C8D690022B157 /* STFeedFilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE9E271E4C8D680022B157 /* STFeedFilterTableViewController.swift */; };
 		E5BE9E2B1E4C8F000022B157 /* STFeedFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE9E291E4C8F000022B157 /* STFeedFilterTableViewCell.swift */; };
@@ -348,6 +350,8 @@
 		E59A1B1B1E3F9716009EE669 /* STUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STUser.swift; path = Models/STUser.swift; sourceTree = "<group>"; };
 		E59B98C81E8E5BC10069F9C0 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Colors.swift; path = Extensions/Colors.swift; sourceTree = "<group>"; };
 		E59B98CA1E8E5C9D0069F9C0 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Date.swift; path = Extensions/Date.swift; sourceTree = "<group>"; };
+		E59C155F1EE172DE00F8B558 /* RemoteNotificationsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RemoteNotificationsHandler.swift; path = RemoteNotifications/RemoteNotificationsHandler.swift; sourceTree = "<group>"; };
+		E59C15621EE1762700F8B558 /* STNewMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STNewMessage.swift; path = Models/STNewMessage.swift; sourceTree = "<group>"; };
 		E5BE9E241E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedDataSourceWrapper.swift; path = Feed/STFeedDataSourceWrapper.swift; sourceTree = "<group>"; };
 		E5BE9E271E4C8D680022B157 /* STFeedFilterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedFilterTableViewController.swift; path = Feed/STFeedFilterTableViewController.swift; sourceTree = "<group>"; };
 		E5BE9E291E4C8F000022B157 /* STFeedFilterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedFilterTableViewCell.swift; path = Feed/STFeedFilterTableViewCell.swift; sourceTree = "<group>"; };
@@ -602,6 +606,7 @@
 		D49726F91E32BDA50076B7A1 /* StrizhApp */ = {
 			isa = PBXGroup;
 			children = (
+				E59C155E1EE1719A00F8B558 /* RemoteNotifications */,
 				D460E0C31EB288420040E856 /* Analytics */,
 				D489D9F01EB1481A0018BD0A /* FBSDK */,
 				D449A85E1EA2879E008B9603 /* PhotoViewer */,
@@ -644,6 +649,7 @@
 		D49727141E32CF5B0076B7A1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E59C15611EE175EC00F8B558 /* Push */,
 				D4194A131E46025700D0B189 /* Realm */,
 				D4194A121E46024000D0B189 /* Response */,
 				E50FA3991E6842CD00CAA4D7 /* STNewPostObject.swift */,
@@ -884,6 +890,22 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		E59C155E1EE1719A00F8B558 /* RemoteNotifications */ = {
+			isa = PBXGroup;
+			children = (
+				E59C155F1EE172DE00F8B558 /* RemoteNotificationsHandler.swift */,
+			);
+			name = RemoteNotifications;
+			sourceTree = "<group>";
+		};
+		E59C15611EE175EC00F8B558 /* Push */ = {
+			isa = PBXGroup;
+			children = (
+				E59C15621EE1762700F8B558 /* STNewMessage.swift */,
+			);
+			name = Push;
+			sourceTree = "<group>";
+		};
 		E5E4E9BB1E810F2C00B77102 /* Dialogs */ = {
 			isa = PBXGroup;
 			children = (
@@ -1116,6 +1138,7 @@
 				D46FFA691E959EF700578F07 /* ChatCollectionViewFlowLayout.swift in Sources */,
 				E5E334B81E7AD64A00EA274A /* STContactsProvider.swift in Sources */,
 				D4AD43BF1E47DB52006F13DE /* STSignUpNavigationController.swift in Sources */,
+				E59C15601EE172DE00F8B558 /* RemoteNotificationsHandler.swift in Sources */,
 				D49545CC1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift in Sources */,
 				D4AD43B71E47A9C2006F13DE /* STFeedTableViewController.swift in Sources */,
 				D4FFDFAA1E8705590090BE5A /* STDialogsPage.swift in Sources */,
@@ -1223,6 +1246,7 @@
 				D4922AA61E43DB67006FF4D5 /* STWebSocket.swift in Sources */,
 				E59448931E680B83002B2989 /* STTextFieldCell.swift in Sources */,
 				D4194A1A1E460D4400D0B189 /* ArrayTransform.swift in Sources */,
+				E59C15631EE1762700F8B558 /* STNewMessage.swift in Sources */,
 				D460E0C51EB288790040E856 /* PAnalytics.swift in Sources */,
 				D404058B1E91886C00F0A8E4 /* SectionItem.swift in Sources */,
 				D4AD43BC1E47B504006F13DE /* STPostTableViewCell.swift in Sources */,
