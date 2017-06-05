@@ -37,4 +37,20 @@ extension Object {
         
         return realm.object(ofType: T.self, forPrimaryKey: T.primaryKey())
     }
+    
+    static func updateObject(_ update: () -> Void) -> Void {
+        
+        realm.beginWrite()
+        
+        update()
+        
+        do {
+            
+            try realm.commitWrite()
+        }
+        catch {
+            
+            print("Caught an error when was trying to make commit to Realm")
+        }
+    }
 }

@@ -90,6 +90,9 @@
 // Chat
 "prefix_you" = "You: ";
 "chat_filter_action_go_to_post_details_text" = "The deal details";
+"dialog_filter_page_incoming_text" = "Incoming deals";
+"dialog_filter_page_outgoing_text" = "Outgoing deals";
+"dialog_filter_page_all_text" = "All deals";
 
 // Contacts
 "contacts_page_title" = "Contacts";

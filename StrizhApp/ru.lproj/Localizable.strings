@@ -89,6 +89,9 @@
 // Chat
 "prefix_you" = "Вы: ";
 "chat_filter_action_go_to_post_details_text" = "Детали сделки";
+"dialog_filter_page_incoming_text" = "Входящие сделки";
+"dialog_filter_page_outgoing_text" = "Исходящие сделки";
+"dialog_filter_page_all_text" = "Все сделки";
 
 // Contacts
 "contacts_page_title" = "Контакты";

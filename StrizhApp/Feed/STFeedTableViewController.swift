@@ -227,10 +227,13 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
                     
                     types.append(1)
                 }
-                
-                if filter.isSearch {
+                else if filter.isSearch {
                     
                     types.append(2)
+                }
+                else {
+                    
+                    types.append(contentsOf: [1, 2])
                 }
                 
                 self.analytics.logEvent(eventName: st_eFeedFilter, params: ["type" : types])

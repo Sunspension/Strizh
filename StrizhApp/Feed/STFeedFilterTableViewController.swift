@@ -17,6 +17,8 @@ class STFeedFilterTableViewController: UITableViewController {
     
     fileprivate let dataSource = TableViewDataSource()
     
+    fileprivate let section = TableSection()
+    
     fileprivate var filterCallback: (() -> Void)?
 
     var filter: STBaseFilter?
@@ -41,7 +43,6 @@ class STFeedFilterTableViewController: UITableViewController {
         self.tableView.backgroundColor = UIColor.stLightBlueGrey
         self.tableView.estimatedRowHeight = 44
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.allowsMultipleSelection = true
         self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 52, bottom: 0, right: 0)
         
         self.tableView.dataSource = self.dataSource
@@ -56,8 +57,7 @@ class STFeedFilterTableViewController: UITableViewController {
         
         self.navigationItem.title = "feed_filter_page_title".localized
         
-        let section2 = TableSection()
-        self.dataSource.sections.append(section2)
+        self.dataSource.sections.append(section)
         
         guard let filter = self.filter else {
             
@@ -66,7 +66,7 @@ class STFeedFilterTableViewController: UITableViewController {
         
         for filter in filter.filterItems {
             
-            section2.addItem(cellClass: STFeedFilterTableViewCell.self, item: filter,
+            self.section.addItem(cellClass: STFeedFilterTableViewCell.self, item: filter,
                              bindingAction: { [unowned self] (cell, item) in
                                 
                                 let viewCell = cell as! STFeedFilterTableViewCell
@@ -75,42 +75,17 @@ class STFeedFilterTableViewController: UITableViewController {
                                 viewCell.title.text = filterItem.itemName
                                 viewCell.icon.image = UIImage(named: filterItem.itemIconName)
                                 
-                                if filter.isSelected {
+                                if item.selected == nil {
+                                    
+                                    item.selected = filterItem.isSelected
+                                }
+                                
+                                if item.selected != nil && item.selected! {
                                     
                                     self.tableView.selectRow(at: item.indexPath, animated: false, scrollPosition: .none)
                                 }
             })
         }
-        
-//        section2.addItem(item: cellClass: STFeedFilterTableViewCell.self,
-//                         itemType: FilterFields.offers) { [unowned self] (cell, item) in
-//                            
-//                            let viewCell = cell as! STFeedFilterTableViewCell
-//                            
-//                            viewCell.title.text = "feed_filter_page_offer_text".localized
-//                            viewCell.icon.image = UIImage(named: "icon-offer")
-//                            
-//                            if self.filter.isOffer {
-//                                
-//                                self.tableView.selectRow(at: item.indexPath, animated: false, scrollPosition: .none)
-//                                item.selected = true
-//                            }
-//        }
-//        
-//        section2.addItem(cellClass: STFeedFilterTableViewCell.self,
-//                         itemType: FilterFields.search) { [unowned self] (cell, item) in
-//                            
-//                            let viewCell = cell as! STFeedFilterTableViewCell
-//                            
-//                            viewCell.title.text = "feed_filter_page_search_text".localized
-//                            viewCell.icon.image = UIImage(named: "icon-search")
-//                            
-//                            if self.filter.isSearch {
-//                                
-//                                self.tableView.selectRow(at: item.indexPath, animated: false, scrollPosition: .none)
-//                                item.selected = true
-//                            }
-//        }
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -132,44 +107,25 @@ class STFeedFilterTableViewController: UITableViewController {
     
     func applyFilter() {
 
-        guard let filter = self.filter else {
+        guard self.filter != nil else {
             
             return
         }
         
-        filter.writeToDB()
+        for item in self.section.items {
+            
+            if item.selected != nil {
+                
+                let filterItem = item.item as! STFilterItem
+                
+                STFilterItem.updateObject({
+                    
+                    filterItem.isSelected = item.selected!
+                })
+            }
+        }
+        
         self.filterCallback?()
         self.cancel()
-        
-//        let filter = STFeedFilter()
-//        
-//        self.dataSource.sections.flatMap({ $0.items }).forEach { item in
-//            
-//            switch item.itemType as! FilterFields {
-//                
-//            case .archived:
-//                
-//                filter.showArchived = item.selected
-//                
-//                break
-//                
-//            case .offers:
-//                
-//                filter.offer = item.selected
-//                
-//                break
-//                
-//            case .search:
-//                
-//                filter.search = item.selected
-//                
-//                break
-//            }
-//        }
-//        
-//        filter.writeToDB()
-//        
-//        self.filterCallback?()
-//        self.cancel()
     }
 }

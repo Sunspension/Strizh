@@ -56,7 +56,7 @@ enum STSocketRequestBuilder {
     
     case createPost(post: STUserPostObject, update: Bool)
     
-    case loadDialogs(page: Int, pageSize: Int, postId: Int?, userId: Int?, searchString: String?)
+    case loadDialogs(page: Int, pageSize: Int, postId: Int?, userIdAndIsIncoming: (Int, Bool)?, searchString: String?)
     
     case loadDialog(dialogId: Int)
     
@@ -179,10 +179,13 @@ enum STSocketRequestBuilder {
                 
                 types.append(1)
             }
-            
-            if filter.isSearch {
+            else if filter.isSearch {
                 
                 types.append(2)
+            }
+            else {
+                
+                types.append(contentsOf: [1, 2])
             }
             
             filters["type"] = types
@@ -330,7 +333,7 @@ enum STSocketRequestBuilder {
             
             break
             
-        case .loadDialogs(let page, let pageSize, let postId, let userId, let searchString):
+        case .loadDialogs(let page, let pageSize, let postId, let userIdAndIsIncoming, let searchString):
             
             // payload
             self.addToPayload(&payLoad, type: .path, value: "/api/dialog")
@@ -342,22 +345,19 @@ enum STSocketRequestBuilder {
             self.addToQuery(&query, type: .sortingOrder, value: ["updated_at" : "desc"])
             self.addToQuery(&query, type: .extend, value: "user, message")
             
-            var filters: [String : Any] = [:]
-            
             if postId != nil {
                 
+                var filters: [String : Any] = [:]
                 filters["object_id"] = postId!
                 filters["object_type"] = 1
-            }
-            
-            if userId != nil {
-                
-                filters["owner_user_id"] = userId
-            }
-            
-            if filters.count > 0 {
                 
                 self.addToQuery(&query, type: .filters, value: filters)
+            }
+            
+            if userIdAndIsIncoming != nil {
+                
+                let conditions = ["owner_user_id" : [ (userIdAndIsIncoming!.1 == true ? "ne" : "eq") : userIdAndIsIncoming!.0]]
+                self.addToQuery(&query, type: .conditions, value: conditions)
             }
             
             if searchString != nil {

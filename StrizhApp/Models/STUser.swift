@@ -48,6 +48,10 @@ class STUser: Object, Mappable {
     
     dynamic var imageData: Data?
     
+    override var hash: Int {
+        
+        return id.hashValue ^ firstName.hashValue
+    }
     
     required convenience init?(map: Map) {
         

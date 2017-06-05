@@ -50,6 +50,60 @@ struct AppSettings {
         if filter == nil {
             
             filter = STFeedFilter()
+            
+            let all = STFilterItem()
+            all.itemName = "dialog_filter_page_all_text".localized
+            all.itemIconName = "icon-all-deals"
+            all.isSelected = true
+            all.id = 1
+            
+            let offer = STFilterItem()
+            offer.itemName = "feed_filter_page_offer_text".localized
+            offer.itemIconName = "icon-offer"
+            offer.isSelected = false
+            offer.id = 2
+            
+            let search = STFilterItem()
+            search.itemName = "feed_filter_page_search_text".localized
+            search.itemIconName = "icon-search"
+            search.isSelected = false
+            search.id = 3
+            
+            filter!.filterItems.append(objectsIn: [all, offer, search])
+            filter!.writeToDB()
+        }
+        
+        return filter!
+    }
+    
+    var dialogFilter: STDialogFilter {
+        
+        var filter = STDialogFilter.objects(by: STDialogFilter.self).first
+        
+        if filter == nil {
+            
+            filter = STDialogFilter()
+            
+            let all = STFilterItem()
+            all.itemName = "dialog_filter_page_all_text".localized
+            all.itemIconName = "icon-all-deals"
+            all.isSelected = true
+            all.id = 4
+            
+            let incoming = STFilterItem()
+            incoming.itemName = "dialog_filter_page_incoming_text".localized
+            incoming.itemIconName = "icon-incoming-deals"
+            incoming.isSelected = false
+            incoming.id = 5
+            
+            let outgoing = STFilterItem()
+            outgoing.itemName = "dialog_filter_page_outgoing_text".localized
+            outgoing.itemIconName = "icon-outgoing-deals"
+            outgoing.isSelected = false
+            outgoing.id = 6
+            
+            filter!.filterItems.append(objectsIn: [all, incoming, outgoing])
+            
             filter!.writeToDB()
         }
         

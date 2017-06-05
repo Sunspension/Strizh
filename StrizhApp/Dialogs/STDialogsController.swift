@@ -149,8 +149,35 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
    
     func openFilter() {
         
+        let controller = STFeedFilterTableViewController() { [unowned self] in
+            
+            var userIdAndIsIncoming: (Int, Bool)? = nil
+            
+            // analytics
+            if let filter = STDialogFilter.objects(by: STDialogFilter.self).first {
+                
+                if filter.isIncoming {
+                    
+                    userIdAndIsIncoming = (self.myUser.id, true)
+                }
+                    
+                if filter.isOutgoing {
+                    
+                    userIdAndIsIncoming = (self.myUser.id, false)
+                }
+            }
+         
+            self.page = 1
+            self.loadDialogs(userIdAndIsIncoming: userIdAndIsIncoming)
+        }
         
+        controller.filter = AppDelegate.appSettings.dialogFilter
+        
+        let navi = STNavigationController(rootViewController: controller)
+        
+        self.present(navi, animated: true, completion: nil)
     }
+
     
     func onDidReceiveDialogBadgeNotification(_ notification: Notification) {
         
@@ -230,7 +257,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         }
     }
     
-    fileprivate func loadDialogs() {
+    fileprivate func loadDialogs(userIdAndIsIncoming: (Int, Bool)? = nil) {
         
         self.loadingStatus = .loading
         self.tableView.showBusy()
@@ -242,7 +269,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         api.loadDialogs(page: page,
                         pageSize: self.pageSize,
                         postId: self.postId,
-                        userId: nil,
+                        userIdAndIsIncoming: userIdAndIsIncoming,
                         searchString: searchQueryString)
             
             .onSuccess { [unowned self] dialogPage in
@@ -254,6 +281,11 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
                     
                     self.section.items.removeAll()
                     control.endRefreshing()
+                }
+                
+                if (self.page == 1) {
+                    
+                    self.section.items.removeAll()
                 }
                 
                 if self.shouldShowSearchResults {

@@ -8,12 +8,20 @@
 
 import Foundation
 import RealmSwift
+import Realm
 
 class STFilterItem: Object {
+    
+    dynamic var id = 0
     
     dynamic var itemName = ""
     
     dynamic var itemIconName = ""
     
     dynamic var isSelected = false
+    
+    override static func primaryKey() -> String? {
+        
+        return "id"
+    }
 }

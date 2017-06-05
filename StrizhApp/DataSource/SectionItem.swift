@@ -22,13 +22,14 @@ class SectionItem: Equatable, Hashable {
     
     var hasError = false
     
-    var selected = false
+    var selected: Bool?
     
     var allowAction = true
     
     var indexPath: IndexPath!
 
     var cellClass: AnyClass?
+    
     
     var hashValue: Int {
         

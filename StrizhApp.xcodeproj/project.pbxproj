@@ -167,6 +167,7 @@
 		E59B98CB1E8E5C9D0069F9C0 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59B98CA1E8E5C9D0069F9C0 /* Date.swift */; };
 		E59C15601EE172DE00F8B558 /* RemoteNotificationsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59C155F1EE172DE00F8B558 /* RemoteNotificationsHandler.swift */; };
 		E59C15631EE1762700F8B558 /* STNewMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59C15621EE1762700F8B558 /* STNewMessage.swift */; };
+		E59C15651EE54A3A00F8B558 /* STDialogFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59C15641EE54A3A00F8B558 /* STDialogFilter.swift */; };
 		E5BE9E251E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE9E241E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift */; };
 		E5BE9E281E4C8D690022B157 /* STFeedFilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE9E271E4C8D680022B157 /* STFeedFilterTableViewController.swift */; };
 		E5BE9E2B1E4C8F000022B157 /* STFeedFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE9E291E4C8F000022B157 /* STFeedFilterTableViewCell.swift */; };
@@ -356,6 +357,7 @@
 		E59B98CA1E8E5C9D0069F9C0 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Date.swift; path = Extensions/Date.swift; sourceTree = "<group>"; };
 		E59C155F1EE172DE00F8B558 /* RemoteNotificationsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RemoteNotificationsHandler.swift; path = RemoteNotifications/RemoteNotificationsHandler.swift; sourceTree = "<group>"; };
 		E59C15621EE1762700F8B558 /* STNewMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STNewMessage.swift; path = Models/STNewMessage.swift; sourceTree = "<group>"; };
+		E59C15641EE54A3A00F8B558 /* STDialogFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialogFilter.swift; path = Dialogs/STDialogFilter.swift; sourceTree = "<group>"; };
 		E5BE9E241E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedDataSourceWrapper.swift; path = Feed/STFeedDataSourceWrapper.swift; sourceTree = "<group>"; };
 		E5BE9E271E4C8D680022B157 /* STFeedFilterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedFilterTableViewController.swift; path = Feed/STFeedFilterTableViewController.swift; sourceTree = "<group>"; };
 		E5BE9E291E4C8F000022B157 /* STFeedFilterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedFilterTableViewCell.swift; path = Feed/STFeedFilterTableViewCell.swift; sourceTree = "<group>"; };
@@ -925,6 +927,7 @@
 			children = (
 				E5E4E9C31E81159700B77102 /* Controllers */,
 				E5E4E9C21E81158C00B77102 /* Views */,
+				E59C15641EE54A3A00F8B558 /* STDialogFilter.swift */,
 			);
 			name = Dialogs;
 			sourceTree = "<group>";
@@ -1258,6 +1261,7 @@
 				D497AB4E1E3BE53A006A393D /* GenericTableSection.swift in Sources */,
 				E55ED8F51EA7571800917B3E /* Array.swift in Sources */,
 				D4922AA61E43DB67006FF4D5 /* STWebSocket.swift in Sources */,
+				E59C15651EE54A3A00F8B558 /* STDialogFilter.swift in Sources */,
 				E59448931E680B83002B2989 /* STTextFieldCell.swift in Sources */,
 				D4194A1A1E460D4400D0B189 /* ArrayTransform.swift in Sources */,
 				E59C15631EE1762700F8B558 /* STNewMessage.swift in Sources */,

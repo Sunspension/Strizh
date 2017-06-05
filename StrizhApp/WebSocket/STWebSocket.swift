@@ -274,11 +274,12 @@ class STWebSocket {
         return p.future
     }
     
-    func loadDialogs(page: Int, pageSize: Int, postId: Int? = nil, userId: Int? = nil, searchString: String? = nil) -> Future<STDialogsPage, STError> {
+    func loadDialogs(page: Int, pageSize: Int, postId: Int? = nil, userIdAndIsIncoming: (Int, Bool)? = nil, searchString: String? = nil) -> Future<STDialogsPage, STError> {
         
         let p = Promise<STDialogsPage, STError>()
         
-        let request = STSocketRequestBuilder.loadDialogs(page: page, pageSize: pageSize, postId: postId, userId: userId, searchString: searchString).request
+        let request = STSocketRequestBuilder.loadDialogs(page: page, pageSize: pageSize, postId: postId,
+                                                         userIdAndIsIncoming: userIdAndIsIncoming, searchString: searchString).request
         
         self.sendRequest(request: request) { json in
             
