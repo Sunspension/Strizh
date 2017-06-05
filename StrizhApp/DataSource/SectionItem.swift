@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SectionItem: Equatable {
+class SectionItem: Equatable, Hashable {
     
     let id = UUID()
     
@@ -30,6 +30,10 @@ class SectionItem: Equatable {
 
     var cellClass: AnyClass?
     
+    var hashValue: Int {
+        
+        return id.hashValue ^ 344
+    }
     
     public static func == (lhs: SectionItem, rhs: SectionItem) -> Bool {
         

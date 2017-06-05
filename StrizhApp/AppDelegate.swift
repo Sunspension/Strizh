@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         GMSServices.provideAPIKey("AIzaSyB9Xe2_0osvR8RC8nBkRttpIEWOQuUbdI8")
         
         self.setupAnalytics()
-        self.checkSession()
+        self.checkSession(launchOptions: launchOptions)
         
         if self.window?.rootViewController == nil {
             
@@ -90,32 +90,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         
-        
+        print(userInfo)
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
-        let aps = userInfo["aps"] as! [String : AnyObject]
+        guard userInfo is [String : Any] else { return }
         
-        switch aps["type"] as! String {
+        if let type = userInfo["type"] as? String {
             
-        case "message":
-            
-            if let newMessage = Mapper<STNewMessage>().map(JSON: aps) {
+            switch type {
                 
-                let i = 0
+            case "message":
+                
+                if let newMessage = Mapper<STNewMessage>().map(JSON: userInfo as! [String : Any]) {
+                    
+//                    if self.window?.rootViewController ==
+                }
+                
+                break
+                
+            case "post":
+                
+                
+                
+                break
+                
+            default:
+                break
             }
-            
-            break
-            
-        case "post":
-            
-            
-            
-            break
-            
-        default:
-            break
         }
     }
     
@@ -246,7 +249,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         analytics.logEvent(eventName: "start")
     }
     
-    fileprivate func checkSession(animation: Bool = false) {
+    fileprivate func checkSession(launchOptions: [UIApplicationLaunchOptionsKey: Any]? = nil,
+                                  animation: Bool = false) {
         
         AppDelegate.appSettings.api.checkSession()
             
@@ -270,9 +274,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                             }
                             else {
                                 
-                                if let controller = AppDelegate.appSettings.storyBoard.instantiateInitialViewController() {
+                                if let options = launchOptions {
                                     
-                                    self.changeRootViewController(controller)
+                                    let key = UIApplicationLaunchOptionsKey("UIApplicationLaunchOptionsRemoteNotificationKey")
+                                    
+                                    if let notification = options[key] as? [String : Any] {
+                                        
+                                        self.openMainController()
+                                    }
+                                    else {
+                                        
+                                        self.openMainController()
+                                    }
+                                }
+                                else {
+                                    
+                                    self.openMainController()
                                 }
                             }
                             

@@ -12,5 +12,5 @@ class RealmInt64: Object, RealmCustomObject {
     
     typealias ObjectType = Int64
     
-    var value:Int64 = 0
+    var value: Int64 = 0
 }

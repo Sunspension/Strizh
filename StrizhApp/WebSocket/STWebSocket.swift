@@ -532,12 +532,12 @@ class STWebSocket {
                     
                 case "dialog_badge":
                     
-                    guard let message = STDialogBadge(JSON: object) else {
+                    guard let badge = STDialogBadge(JSON: object) else {
                         
                         return
                     }
                     
-                    NotificationCenter.default.post(name: NSNotification.Name(kReceiveDialogBadgeNotification), object: message)
+                    NotificationCenter.default.post(name: NSNotification.Name(kReceiveDialogBadgeNotification), object: badge)
                     
                     break
                     

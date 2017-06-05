@@ -223,12 +223,12 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
                 
                 var types = [Int]()
                 
-                if filter.offer {
+                if filter.isOffer {
                     
                     types.append(1)
                 }
                 
-                if filter.search {
+                if filter.isSearch {
                     
                     types.append(2)
                 }
@@ -240,6 +240,8 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
             self.favoritesFeedDataSource?.reloadFilter(notify: self.dataSourceSwitch.selectedSegmentIndex == 1)
             self.reloadTableView()
         }
+        
+        controller.filter = AppDelegate.appSettings.feedFilter
         
         let navi = STNavigationController(rootViewController: controller)
         

@@ -23,7 +23,10 @@ class STFeedDataSourceWrapper {
     
     fileprivate let section = GenericTableSection<STPost>()
     
-    fileprivate var filter: STFeedFilter?
+    fileprivate var filter: STFeedFilter {
+        
+        return AppDelegate.appSettings.feedFilter
+    }
     
     fileprivate var hasMore = false
     
@@ -233,8 +236,6 @@ class STFeedDataSourceWrapper {
         }
         
         self.dataSource!.sections.append(self.section)
-        
-        self.filter = AppDelegate.appSettings.feedFilter
     }
     
     func userBy(post: STPost) -> STUser? {
@@ -276,7 +277,6 @@ class STFeedDataSourceWrapper {
     
     func reloadFilter(notify: Bool) {
         
-        self.filter = AppDelegate.appSettings.feedFilter
         self.section.items.removeAll()
         self.page = 1
         self.loadFeed(notify: notify)
@@ -309,7 +309,7 @@ class STFeedDataSourceWrapper {
             self.analytics.logEvent(eventName: st_eFeedSearch, params: ["query" : searchString!])
         }
         
-        AppDelegate.appSettings.api.loadFeed(filter: self.filter!, page: page,
+        AppDelegate.appSettings.api.loadFeed(filter: self.filter, page: page,
                                              pageSize: pageSize, isFavorite: self.isFavorite, searchString: searchString)
             
             .onSuccess { [unowned self] feed in

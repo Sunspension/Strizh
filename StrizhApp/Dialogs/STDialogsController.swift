@@ -53,6 +53,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
     
     deinit {
         
+        NotificationCenter.default.removeObserver(self)
         disposeBag.dispose()
     }
     
@@ -83,49 +84,9 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         
         self.tableView.tableFooterView = UIView()
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: ""), style: .plain, target: self, action: #selector(self.openFilter))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon-filter"), style: .plain, target: self, action: #selector(self.openFilter))
         
-        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kReceiveDialogBadgeNotification),
-                                                         object: nil)
-            .observeNext { [unowned self] notification in
-                
-                let badge = (notification.object as? STDialogBadge)!
-                
-                for i in 0 ... self.section.items.count - 1 {
-                    
-                    let dialogItem = self.section.items[i].item as! STDialog
-                    
-                    if dialogItem.id != badge.dialogId {
-                        
-                        continue
-                    }
-                    
-                    let index = i
-                    
-                    self.api.loadDialogWithLastMessage(by: badge.dialogId)
-                        .onSuccess(callback: { dialog in
-                            
-                            guard let lastMessage = dialog.message else {
-                                
-                                return
-                            }
-                            
-                            let indexPath = IndexPath(row: index, section: 0)
-                            self.section.items.remove(at: index)
-                            
-                            self.messages.insert(lastMessage)
-                            self.section.insert(item: dialog,
-                                                at: index,
-                                                cellClass: STDialogCell.self,
-                                                bindingAction: self.bindingAction)
-                            
-                            self.tableView.reloadRows(at: [indexPath], with: .automatic)
-                    })
-                    
-                    break
-                }
-                
-            }.dispose(in: disposeBag)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onDidReceiveDialogBadgeNotification(_:)), name: NSNotification.Name(kReceiveDialogBadgeNotification), object: nil)
         
         self.loadDialogs()
     }
@@ -189,6 +150,37 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
     func openFilter() {
         
         
+    }
+    
+    func onDidReceiveDialogBadgeNotification(_ notification: Notification) {
+        
+        let badge = (notification.object as? STDialogBadge)!
+        
+        if let targetDialog = self.section.items.first(where: { ($0.item as! STDialog).id == badge.dialogId }) {
+            
+            self.api.loadDialogWithLastMessage(by: badge.dialogId)
+                .onSuccess(callback: { [unowned self] dialog in
+                    
+                    guard let lastMessage = dialog.message else {
+                        
+                        return
+                    }
+                    
+                    if let index = self.section.items.index(of: targetDialog) {
+                        
+                        self.messages.insert(lastMessage)
+                        
+                        let indexPath = IndexPath(row: index, section: 0)
+                        self.section.items.remove(at: index)
+                        self.section.insert(item: dialog,
+                                            at: index,
+                                            cellClass: STDialogCell.self,
+                                            bindingAction: self.bindingAction)
+                        
+                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    }
+                })
+        }
     }
     
     //MARK: - Private methods
@@ -365,14 +357,15 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
                     viewCell.userImage.af_setImage(withURL: URL(string: urlString)!,
                                                    filter: filter,
                                                    completion: nil)
-                    return
                 }
-                
-                DispatchQueue.main.async {
+                else {
                     
-                    var defaultImage = UIImage(named: "avatar")
-                    defaultImage = defaultImage?.af_imageAspectScaled(toFill: viewCell.userImage.bounds.size)
-                    viewCell.userImage.image = defaultImage?.af_imageRoundedIntoCircle()
+                    DispatchQueue.main.async {
+                        
+                        var defaultImage = UIImage(named: "avatar")
+                        defaultImage = defaultImage?.af_imageAspectScaled(toFill: viewCell.userImage.bounds.size)
+                        viewCell.userImage.image = defaultImage?.af_imageRoundedIntoCircle()
+                    }
                 }
             }
         }

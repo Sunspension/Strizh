@@ -159,28 +159,28 @@ enum STSocketRequestBuilder {
             }
             
             // archived
-            var archived = [Bool]()
+//            var archived = [Bool]()
             
-            if filter.showArchived {
-                
-                archived.append(contentsOf: [true, false])
-            }
-            else {
-                
-                archived.append(false)
-            }
-            
-            filters["is_archived"] = archived
+//            if filter.showArchived {
+//                
+//                archived.append(contentsOf: [true, false])
+//            }
+//            else {
+//                
+//                archived.append(false)
+//            }
+//            
+//            filters["is_archived"] = archived
             
             // post types
             var types = [Int]()
             
-            if filter.offer {
+            if filter.isOffer {
                 
                 types.append(1)
             }
             
-            if filter.search {
+            if filter.isSearch {
                 
                 types.append(2)
             }

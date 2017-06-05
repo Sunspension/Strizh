@@ -67,6 +67,7 @@
 		D460E0CB1EB2A8560040E856 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D460E0CA1EB2A8560040E856 /* GoogleService-Info.plist */; };
 		D460E0CD1EB2AA710040E856 /* strizhapp-78ed2-firebase-crashreporting-fglbu-962209ea7c.json in Resources */ = {isa = PBXBuildFile; fileRef = D460E0CC1EB2AA710040E856 /* strizhapp-78ed2-firebase-crashreporting-fglbu-962209ea7c.json */; };
 		D46FFA691E959EF700578F07 /* ChatCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46FFA681E959EF700578F07 /* ChatCollectionViewFlowLayout.swift */; };
+		D483AF401EE2E89600E07392 /* STBaseFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D483AF3F1EE2E89600E07392 /* STBaseFilter.swift */; };
 		D489D9F31EB148400018BD0A /* AccountKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D489D9F11EB148400018BD0A /* AccountKit.framework */; };
 		D489D9F41EB148400018BD0A /* AccountKitStrings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D489D9F21EB148400018BD0A /* AccountKitStrings.bundle */; };
 		D4922AA61E43DB67006FF4D5 /* STWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */; };
@@ -114,6 +115,7 @@
 		D4D826261EA95BC4007E42FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4D826281EA95BC4007E42FB /* Localizable.strings */; };
 		D4F00F4B1EA3A75500C6E1E8 /* STDummyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4F00F4A1EA3A75500C6E1E8 /* STDummyView.xib */; };
 		D4F00F4D1EA3A89D00C6E1E8 /* STDummyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F00F4C1EA3A89D00C6E1E8 /* STDummyView.swift */; };
+		D4FBE4AE1EE2DCA600C473A3 /* STFilterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FBE4AD1EE2DCA600C473A3 /* STFilterItem.swift */; };
 		D4FFDFAA1E8705590090BE5A /* STDialogsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFDFA91E8705590090BE5A /* STDialogsPage.swift */; };
 		D4FFDFAC1E8706580090BE5A /* STMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFDFAB1E8706580090BE5A /* STMessage.swift */; };
 		E50DBEAF1E76FD8D000C38E4 /* STTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50DBEAD1E76FD8D000C38E4 /* STTextViewCell.swift */; };
@@ -249,6 +251,7 @@
 		D460E0CA1EB2A8560040E856 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D460E0CC1EB2AA710040E856 /* strizhapp-78ed2-firebase-crashreporting-fglbu-962209ea7c.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "strizhapp-78ed2-firebase-crashreporting-fglbu-962209ea7c.json"; sourceTree = "<group>"; };
 		D46FFA681E959EF700578F07 /* ChatCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		D483AF3F1EE2E89600E07392 /* STBaseFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STBaseFilter.swift; path = Models/STBaseFilter.swift; sourceTree = "<group>"; };
 		D489D9F11EB148400018BD0A /* AccountKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AccountKit.framework; sourceTree = "<group>"; };
 		D489D9F21EB148400018BD0A /* AccountKitStrings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AccountKitStrings.bundle; sourceTree = "<group>"; };
 		D489D9F51EB148EE0018BD0A /* StrizhApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StrizhApp-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -300,6 +303,7 @@
 		D4D826291EA95BC9007E42FB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4F00F4A1EA3A75500C6E1E8 /* STDummyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STDummyView.xib; path = CommonUI/STDummyView.xib; sourceTree = "<group>"; };
 		D4F00F4C1EA3A89D00C6E1E8 /* STDummyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDummyView.swift; path = CommonUI/STDummyView.swift; sourceTree = "<group>"; };
+		D4FBE4AD1EE2DCA600C473A3 /* STFilterItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFilterItem.swift; path = Models/STFilterItem.swift; sourceTree = "<group>"; };
 		D4FFDFA91E8705590090BE5A /* STDialogsPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialogsPage.swift; path = Models/STDialogsPage.swift; sourceTree = "<group>"; };
 		D4FFDFAB1E8706580090BE5A /* STMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STMessage.swift; path = Models/STMessage.swift; sourceTree = "<group>"; };
 		E50DBEAD1E76FD8D000C38E4 /* STTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STTextViewCell.swift; path = NewPost/STTextViewCell.swift; sourceTree = "<group>"; };
@@ -649,6 +653,7 @@
 		D49727141E32CF5B0076B7A1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D4FBE4AC1EE2DC8500C473A3 /* Filter */,
 				E59C15611EE175EC00F8B558 /* Push */,
 				D4194A131E46025700D0B189 /* Realm */,
 				D4194A121E46024000D0B189 /* Response */,
@@ -753,6 +758,15 @@
 				D4CB22761EA1577800A9B80F /* STDocumentViewController.swift */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		D4FBE4AC1EE2DC8500C473A3 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				D4FBE4AD1EE2DCA600C473A3 /* STFilterItem.swift */,
+				D483AF3F1EE2E89600E07392 /* STBaseFilter.swift */,
+			);
+			name = Filter;
 			sourceTree = "<group>";
 		};
 		E53185E61E36097100BC6C9A /* SingUp */ = {
@@ -1111,7 +1125,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		E53185E51E35E72A00BC6C9A /* ShellScript */ = {
@@ -1262,11 +1276,13 @@
 				D402C2341E7DFEE700237EB9 /* RealmInt64.swift in Sources */,
 				E561F5671E72FA4000C7407C /* STPostAttachmentsController.swift in Sources */,
 				E5FF31231E55D29C0013B713 /* STEditProfileController.swift in Sources */,
+				D483AF401EE2E89600E07392 /* STBaseFilter.swift in Sources */,
 				D49545D01E3D064700EDCF01 /* STLoginTextTableViewCell.swift in Sources */,
 				D43A75671E4E883700DB0850 /* STFeed.swift in Sources */,
 				E55ED8E91EA7558D00917B3E /* String.swift in Sources */,
 				D4CEC6561EB927B3001D8907 /* STIntroObject.swift in Sources */,
 				E59448891E66D8AD002B2989 /* STTabBarViewController.swift in Sources */,
+				D4FBE4AE1EE2DCA600C473A3 /* STFilterItem.swift in Sources */,
 				D497AB4D1E3BE53A006A393D /* TableSectionItem.swift in Sources */,
 				D44AB4EB1E4FCC210013A972 /* GenericCollectionViewDataSource.swift in Sources */,
 				E5BE9E341E4E181E0022B157 /* STFeedDetailsTableViewController.swift in Sources */,

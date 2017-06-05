@@ -7,22 +7,19 @@
 //
 
 import UIKit
-import EmitterKit
-
-private enum FilterFields : Int {
-    
-    case archived, offers, search
-}
-
 
 class STFeedFilterTableViewController: UITableViewController {
     
+    private enum FilterFields : Int {
+        
+        case archived, offers, search
+    }
     
     fileprivate let dataSource = TableViewDataSource()
     
-    fileprivate var filter = STFeedFilter()
-    
     fileprivate var filterCallback: (() -> Void)?
+
+    var filter: STBaseFilter?
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,7 +31,6 @@ class STFeedFilterTableViewController: UITableViewController {
         
         super.init(style: .plain)
         
-        self.filter = AppDelegate.appSettings.feedFilter
         self.filterCallback = applyFilterCallback
     }
     
@@ -51,7 +47,6 @@ class STFeedFilterTableViewController: UITableViewController {
         self.tableView.dataSource = self.dataSource
         
         self.tableView.register(nibClass: STFeedFilterTableViewCell.self)
-//        self.tableView.register(nibClass: STFeedFilterSwitchTableViewCell.self)
         
         let leftItem = UIBarButtonItem(title: "action_cancel".localized, style: .plain, target: self, action: #selector(self.cancel))
         self.navigationItem.leftBarButtonItem = leftItem
@@ -61,60 +56,61 @@ class STFeedFilterTableViewController: UITableViewController {
         
         self.navigationItem.title = "feed_filter_page_title".localized
         
-//        let section1 = TableSection()
-//        self.dataSource.sections.append(section1)
-//        
-//        section1.addItem(cellClass: STFeedFilterSwitchTableViewCell.self,
-//                         itemType: FilterFields.archived) { [unowned self] (cell, item) in
-//                            
-//                            let viewCell = cell as! STFeedFilterSwitchTableViewCell
-//                            
-//                            viewCell.toggle.addTarget(self, action: #selector(self.toggleAction(sender:)), for: .valueChanged)
-//                            
-//                            self.toggleListener = self.toggleEmitter.on({ isOn in
-//                                
-//                                item.selected = isOn
-//                            })
-//                            
-//                            if self.filter.showArchived {
-//                                
-//                                viewCell.toggle.setOn(true, animated: false)
-//                                item.selected = true
-//                            }
-//        }
-        
         let section2 = TableSection()
         self.dataSource.sections.append(section2)
         
-        section2.addItem(cellClass: STFeedFilterTableViewCell.self,
-                         itemType: FilterFields.offers) { [unowned self] (cell, item) in
-                            
-                            let viewCell = cell as! STFeedFilterTableViewCell
-                            
-                            viewCell.title.text = "feed_filter_page_offer_text".localized
-                            viewCell.icon.image = UIImage(named: "icon-offer")
-                            
-                            if self.filter.offer {
-                                
-                                self.tableView.selectRow(at: item.indexPath, animated: false, scrollPosition: .none)
-                                item.selected = true
-                            }
+        guard let filter = self.filter else {
+            
+            return
         }
         
-        section2.addItem(cellClass: STFeedFilterTableViewCell.self,
-                         itemType: FilterFields.search) { [unowned self] (cell, item) in
-                            
-                            let viewCell = cell as! STFeedFilterTableViewCell
-                            
-                            viewCell.title.text = "feed_filter_page_search_text".localized
-                            viewCell.icon.image = UIImage(named: "icon-search")
-                            
-                            if self.filter.search {
+        for filter in filter.filterItems {
+            
+            section2.addItem(cellClass: STFeedFilterTableViewCell.self, item: filter,
+                             bindingAction: { [unowned self] (cell, item) in
                                 
-                                self.tableView.selectRow(at: item.indexPath, animated: false, scrollPosition: .none)
-                                item.selected = true
-                            }
+                                let viewCell = cell as! STFeedFilterTableViewCell
+                                let filterItem = item.item as! STFilterItem
+                                
+                                viewCell.title.text = filterItem.itemName
+                                viewCell.icon.image = UIImage(named: filterItem.itemIconName)
+                                
+                                if filter.isSelected {
+                                    
+                                    self.tableView.selectRow(at: item.indexPath, animated: false, scrollPosition: .none)
+                                }
+            })
         }
+        
+//        section2.addItem(item: cellClass: STFeedFilterTableViewCell.self,
+//                         itemType: FilterFields.offers) { [unowned self] (cell, item) in
+//                            
+//                            let viewCell = cell as! STFeedFilterTableViewCell
+//                            
+//                            viewCell.title.text = "feed_filter_page_offer_text".localized
+//                            viewCell.icon.image = UIImage(named: "icon-offer")
+//                            
+//                            if self.filter.isOffer {
+//                                
+//                                self.tableView.selectRow(at: item.indexPath, animated: false, scrollPosition: .none)
+//                                item.selected = true
+//                            }
+//        }
+//        
+//        section2.addItem(cellClass: STFeedFilterTableViewCell.self,
+//                         itemType: FilterFields.search) { [unowned self] (cell, item) in
+//                            
+//                            let viewCell = cell as! STFeedFilterTableViewCell
+//                            
+//                            viewCell.title.text = "feed_filter_page_search_text".localized
+//                            viewCell.icon.image = UIImage(named: "icon-search")
+//                            
+//                            if self.filter.isSearch {
+//                                
+//                                self.tableView.selectRow(at: item.indexPath, animated: false, scrollPosition: .none)
+//                                item.selected = true
+//                            }
+//        }
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -135,41 +131,45 @@ class STFeedFilterTableViewController: UITableViewController {
     }
     
     func applyFilter() {
-        
-        let filter = STFeedFilter()
-        
-        self.dataSource.sections.flatMap({ $0.items }).forEach { item in
+
+        guard let filter = self.filter else {
             
-            switch item.itemType as! FilterFields {
-                
-            case .archived:
-                
-                filter.showArchived = item.selected
-                
-                break
-                
-            case .offers:
-                
-                filter.offer = item.selected
-                
-                break
-                
-            case .search:
-                
-                filter.search = item.selected
-                
-                break
-            }
+            return
         }
         
         filter.writeToDB()
-        
         self.filterCallback?()
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-//    func toggleAction(sender: UISwitch) {
+        self.cancel()
+        
+//        let filter = STFeedFilter()
 //        
-//        self.toggleEmitter.emit(sender.isOn)
-//    }
+//        self.dataSource.sections.flatMap({ $0.items }).forEach { item in
+//            
+//            switch item.itemType as! FilterFields {
+//                
+//            case .archived:
+//                
+//                filter.showArchived = item.selected
+//                
+//                break
+//                
+//            case .offers:
+//                
+//                filter.offer = item.selected
+//                
+//                break
+//                
+//            case .search:
+//                
+//                filter.search = item.selected
+//                
+//                break
+//            }
+//        }
+//        
+//        filter.writeToDB()
+//        
+//        self.filterCallback?()
+//        self.cancel()
+    }
 }
