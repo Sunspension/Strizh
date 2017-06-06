@@ -20,9 +20,11 @@ class STRealmConfiguration: PDBConfiguration {
         
         var config = Realm.Configuration()
         config.schemaVersion = 16
+        
 //        config.migrationBlock = { (migration: Migration, oldSchemaVersion: UInt64) in
 //            
-//            if oldSchemaVersion < 1 {
+//            if oldSchemaVersion < 16 {
+//                
 //                
 //            }
 //        }

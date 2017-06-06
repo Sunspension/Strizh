@@ -72,7 +72,7 @@ class STFeedFilterTableViewController: UITableViewController {
                                 let viewCell = cell as! STFeedFilterTableViewCell
                                 let filterItem = item.item as! STFilterItem
                                 
-                                viewCell.title.text = filterItem.itemName
+                                viewCell.title.text = filterItem.itemName.localized
                                 viewCell.icon.image = UIImage(named: filterItem.itemIconName)
                                 
                                 if item.selected == nil {
