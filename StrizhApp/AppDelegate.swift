@@ -258,6 +258,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                 
                 if !session.isExpired {
                     
+                    // write session to db
+                    session.writeToDB()
+                    
                     // This must to call first
                     self.onAuthorized()
                     
@@ -298,6 +301,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                         })
                 }
                 else {
+                    
+                    // remove session from db
+                    STSession.removeFromDB(by: STSession.self)
                     
                     if let _ = UserDefaults.standard.object(forKey: kNeedIntro) as? Bool {
                         

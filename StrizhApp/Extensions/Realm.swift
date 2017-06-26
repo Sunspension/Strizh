@@ -28,6 +28,12 @@ extension Object {
         })
     }
     
+    static func removeFromDB<T: Object>(by: T.Type) {
+        
+        let objects = realm.objects(T.self)
+        realm.delete(objects)
+    }
+    
     static func objects<T: Object>(by: T.Type) -> [T] {
         
         return Array(realm.objects(T.self))
