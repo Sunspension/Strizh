@@ -12,6 +12,13 @@ import ReactiveKit
 
 class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating {
 
+    fileprivate enum STDialogsControllerOpenReason {
+        
+        case openFromPush, regular
+    }
+    
+    fileprivate var reason = STDialogsControllerOpenReason.regular
+    
     fileprivate let dataSource = TableViewDataSource()
     
     fileprivate let section = TableSection()
@@ -47,6 +54,9 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
     fileprivate var shouldShowSearchResults = false
     
     fileprivate var searchQueryString = ""
+    
+    fileprivate var dialogId = 0
+    
     
     var postId: Int?
     
@@ -87,6 +97,11 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon-filter"), style: .plain, target: self, action: #selector(self.openFilter))
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.onDidReceiveDialogBadgeNotification(_:)), name: NSNotification.Name(kReceiveDialogBadgeNotification), object: nil)
+        
+        guard self.reason == .regular else {
+            
+            return
+        }
         
         self.loadDialogs()
     }
@@ -147,6 +162,19 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         }
     }
    
+    func openDialog(by id: Int) {
+        
+        self.reason = .openFromPush
+        
+        self.loadDialogs { 
+            
+            if let index = self.section.items.index(where: { ($0.item as! STDialog).id == id }) {
+                
+                self.tableView.selectRow(at: IndexPath(index: index) , animated: false, scrollPosition: .middle)
+            }
+        }
+    }
+    
     func openFilter() {
         
         let controller = STFeedFilterTableViewController() { [unowned self] in
@@ -257,7 +285,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         }
     }
     
-    fileprivate func loadDialogs(userIdAndIsIncoming: (Int, Bool)? = nil) {
+    fileprivate func loadDialogs(userIdAndIsIncoming: (Int, Bool)? = nil, completion: (() -> Void)? = nil) {
         
         self.loadingStatus = .loading
         self.tableView.showBusy()
@@ -301,6 +329,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
                 
                 self.handleResponse(dialogPage)
                 self.reloadTableView()
+                completion?()
             }
             .onFailure { [unowned self] error in
                 

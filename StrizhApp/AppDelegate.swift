@@ -105,7 +105,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                 
                 if let newMessage = Mapper<STNewMessage>().map(JSON: userInfo as! [String : Any]) {
                     
-//                    if self.window?.rootViewController ==
+                    // 1 Check by dialog id do we have exist dialog or need to load one
+                    // 2 Load dialog by id with users and messages if needed
+                    // 3 Open chat controller with target dialog
+                    
+                    let openDialogsControllerClosure = {
+                        
+                        let tabController = self.window?.rootViewController! as! STTabBarViewController
+                        let index = tabController.viewControllers?.index(where: { ($0 as! UINavigationController).topViewController is STDialogsController })
+                        
+                        if let id = index {
+                            
+                            tabController.selectedIndex = id
+                            let dialogsController = tabController.viewControllers?[id] as! STDialogsController
+                            dialogsController.openDialog(by: newMessage.dialogId)
+                        }
+                    }
+                    
+                    if self.window?.rootViewController == nil {
+                        
+                        self.openMainController(completion: { completion in
+                            
+                            openDialogsControllerClosure()
+                        })
+                    }
+                    else {
+                        
+                        openDialogsControllerClosure()
+                    }
                 }
                 
                 break
@@ -167,11 +194,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         print("The user cancel the login")
     }
     
-    func openMainController() {
+    func openMainController(completion: ((Bool) -> Swift.Void)? = nil) {
         
         if let controller = AppDelegate.appSettings.storyBoard.instantiateInitialViewController() {
             
-            self.changeRootViewController(controller)
+            self.changeRootViewController(controller, completion: completion)
         }
     }
     
@@ -212,7 +239,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     
     // MARK: Internal methods
     
-    func changeRootViewController(_ viewController: UIViewController) {
+    func changeRootViewController(_ viewController: UIViewController, completion: ((Bool) -> Swift.Void)? = nil) {
         
         UIView.transition(with: self.window!,
                           duration: 0.5,
@@ -224,7 +251,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                             self.window!.rootViewController = viewController
                             UIView.setAnimationsEnabled(oldState)
                             
-        }, completion: nil)
+        }, completion: completion)
     }
     
     // MARK: Private methods
