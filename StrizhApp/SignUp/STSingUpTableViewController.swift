@@ -285,6 +285,9 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                     // analytics
                     self.analytics.setUserId(userId: session.userId)
                     
+                    // write session
+                    session.writeToDB()
+                    
                     // check user
                     self.api.loadUser(transport: .http, userId: session.userId)
                         
