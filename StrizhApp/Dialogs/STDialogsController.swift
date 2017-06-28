@@ -166,11 +166,13 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         
         self.reason = .openFromPush
         
-        self.loadDialogs { 
+        self.loadDialogs {
             
             if let index = self.section.items.index(where: { ($0.item as! STDialog).id == id }) {
                 
-                self.tableView.selectRow(at: IndexPath(index: index) , animated: false, scrollPosition: .middle)
+                let indexPath = IndexPath(row: index, section: 0)
+                self.tableView.selectRow(at: indexPath , animated: false, scrollPosition: .middle)
+                self.tableView.delegate?.tableView!(self.tableView, didSelectRowAt: indexPath)
             }
         }
     }

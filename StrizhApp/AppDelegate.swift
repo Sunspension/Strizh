@@ -1,4 +1,4 @@
-//
+ //
 //  AppDelegate.swift
 //  StrizhApp
 //
@@ -96,57 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
         guard userInfo is [String : Any] else { return }
-        
-        if let type = userInfo["type"] as? String {
-            
-            switch type {
-                
-            case "message":
-                
-                if let newMessage = Mapper<STNewMessage>().map(JSON: userInfo as! [String : Any]) {
-                    
-                    // 1 Check by dialog id do we have exist dialog or need to load one
-                    // 2 Load dialog by id with users and messages if needed
-                    // 3 Open chat controller with target dialog
-                    
-                    let openDialogsControllerClosure = {
-                        
-                        let tabController = self.window?.rootViewController! as! STTabBarViewController
-                        let index = tabController.viewControllers?.index(where: { ($0 as! UINavigationController).topViewController is STDialogsController })
-                        
-                        if let id = index {
-                            
-                            tabController.selectedIndex = id
-                            let dialogsController = tabController.viewControllers?[id] as! STDialogsController
-                            dialogsController.openDialog(by: newMessage.dialogId)
-                        }
-                    }
-                    
-                    if self.window?.rootViewController == nil {
-                        
-                        self.openMainController(completion: { completion in
-                            
-                            openDialogsControllerClosure()
-                        })
-                    }
-                    else {
-                        
-                        openDialogsControllerClosure()
-                    }
-                }
-                
-                break
-                
-            case "post":
-                
-                
-                
-                break
-                
-            default:
-                break
-            }
-        }
+        self.pushNotificationHandler(payload: userInfo as! [String : Any])
     }
     
     // MARK: AKFViewControllerDelegate implementation
@@ -276,6 +226,59 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         analytics.logEvent(eventName: "start")
     }
     
+    fileprivate func pushNotificationHandler(payload: [String : Any]) {
+        
+        if let type = payload["type"] as? String {
+            
+            switch type {
+                
+            case "message":
+                
+                if let newMessage = Mapper<STNewMessage>().map(JSON: payload) {
+                    
+                    // 1 Check by dialog id do we have exist dialog or need to load one
+                    // 2 Load dialog by id with users and messages if needed
+                    // 3 Open chat controller with target dialog
+                    
+                    let openDialogsControllerClosure = {
+                        
+                        let tabController = self.window?.rootViewController! as! STTabBarViewController
+                        
+                        if let controller = tabController.viewControllers?.first(where: { ($0 as! UINavigationController).topViewController is STDialogsController }) {
+                            
+                            let index = tabController.viewControllers!.index(of: controller)!
+                            tabController.selectedIndex = index
+                            
+                            let dialogsController = (controller as! UINavigationController).topViewController as! STDialogsController
+                            dialogsController.openDialog(by: newMessage.dialogId)
+                        }
+                    }
+                    
+                    if self.window?.rootViewController == nil || !(self.window?.rootViewController is STTabBarViewController) {
+                        
+                        self.openMainController(completion: { completion in
+                            
+                            openDialogsControllerClosure()
+                        })
+                    }
+                    else {
+                        
+                        openDialogsControllerClosure()
+                    }
+                }
+                
+                break
+                
+            case "post":
+                
+                break
+                
+            default:
+                break
+            }
+        }
+    }
+    
     fileprivate func checkSession(launchOptions: [UIApplicationLaunchOptionsKey: Any]? = nil,
                                   animation: Bool = false) {
         
@@ -308,9 +311,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                                     
                                     let key = UIApplicationLaunchOptionsKey("UIApplicationLaunchOptionsRemoteNotificationKey")
                                     
-                                    if let notification = options[key] as? [String : Any] {
+                                    if let payload = options[key] as? [String : Any] {
                                         
-                                        self.openMainController()
+                                        self.pushNotificationHandler(payload: payload)
                                     }
                                     else {
                                         
