@@ -18,6 +18,8 @@ import ObjectMapper
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate {
 
+    fileprivate var coldStart = true
+    
     var window: UIWindow?
     
     static var appSettings: AppSettings = {
@@ -25,7 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         return AppSettings(dbConfig: STRealmConfiguration(),
                            serverApi: STServerApi(serverUrlString: "https://devapi.strizhapp.ru"))
     }()
-    
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -95,7 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
-        guard userInfo is [String : Any] else { return }
+        guard userInfo is [String : Any] && self.coldStart == false else { return }
         self.pushNotificationHandler(payload: userInfo as! [String : Any])
     }
     
@@ -328,6 +329,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                             
                             user.writeToDB()
                             user.updateUserImage()
+                            
+                            self.coldStart = false
                         })
                 }
                 else {
