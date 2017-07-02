@@ -10,15 +10,14 @@ import UIKit
 import AlamofireImage
 import ReactiveKit
 
+enum STDialogsControllerOpenReason {
+    
+    case openFromPush, regular
+}
+
 class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating {
 
-    fileprivate enum STDialogsControllerOpenReason {
-        
-        case openFromPush, regular
-    }
-    
-    fileprivate var reason = STDialogsControllerOpenReason.regular
-    
+
     fileprivate let dataSource = TableViewDataSource()
     
     fileprivate let section = TableSection()
@@ -57,6 +56,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
     
     fileprivate var dialogId = 0
     
+    var reason = STDialogsControllerOpenReason.regular
     
     var postId: Int?
     
@@ -96,6 +96,8 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon-filter"), style: .plain, target: self, action: #selector(self.openFilter))
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onDidReceiveNewMessageNotification(_:)), name: NSNotification.Name(kReceiveMessageNotification), object: nil)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.onDidReceiveDialogBadgeNotification(_:)), name: NSNotification.Name(kReceiveDialogBadgeNotification), object: nil)
         
         guard self.reason == .regular else {
@@ -107,7 +109,6 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
     }
     
     //MARK: - UISearchBar delegate implementation
-    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         
         self.analytics.logEvent(eventName: st_eDialogListSearch)
@@ -135,7 +136,6 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
     }
     
     //MARK: - UISearchResultUpdating delegate implementation
-    
     func updateSearchResults(for searchController: UISearchController) {
         
         if let string = self.searchController.searchBar.text {
@@ -164,7 +164,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
    
     func openDialog(by id: Int) {
         
-        self.reason = .openFromPush
+        self.page = 1
         
         self.loadDialogs {
             
@@ -208,8 +208,18 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         self.present(navi, animated: true, completion: nil)
     }
 
+    func onDidReceiveNewMessageNotification(_ notification: Notification) {
+        
+        self.page = 1
+        self.loadDialogs()
+    }
     
     func onDidReceiveDialogBadgeNotification(_ notification: Notification) {
+        
+        if self.loadingStatus == .loading {
+            
+            return
+        }
         
         let badge = (notification.object as? STDialogBadge)!
         

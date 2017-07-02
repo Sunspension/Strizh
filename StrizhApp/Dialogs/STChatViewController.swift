@@ -387,11 +387,14 @@ class STChatViewController: UIViewController, UITextViewDelegate {
                     
                     if !loadMore && dialog.unreadMessageCount != 0 {
                         
-                        let lastMessageId = lastMessage.userId == self.myUser.id ?
-                            lastMessage.lastMessageId : lastMessage.id
-                        
-                        // notify
-                        self.notifyMessagesRead(lastReadMessage: lastMessageId)
+                        if let firstMessage = messages.first {
+                            
+                            let lastMessageId = firstMessage.userId == self.myUser.id ?
+                                firstMessage.lastMessageId : firstMessage.id
+                            
+                            // notify
+                            self.notifyMessagesRead(lastReadMessage: lastMessageId)
+                        }
                     }
                 }
                 

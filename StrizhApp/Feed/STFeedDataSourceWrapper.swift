@@ -289,7 +289,8 @@ class STFeedDataSourceWrapper {
         self.section.items.removeAll()
     }
     
-    func loadFeed(isRefresh: Bool = false, notify: Bool = true, searchString: String? = nil) {
+    func loadFeed(isRefresh: Bool = false, notify: Bool = true,
+                  searchString: String? = nil, complete: (() -> Void)? = nil) {
         
         self.onStartLoading?()
         
@@ -358,6 +359,8 @@ class STFeedDataSourceWrapper {
                 self.analytics.logEvent(eventName: st_eFeedScroll, params: ["page" : self.page])
                 
                 self.status = .loaded
+                
+                complete?()
                 
                 if notify {
                     

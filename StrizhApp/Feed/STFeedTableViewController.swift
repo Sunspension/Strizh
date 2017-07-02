@@ -9,10 +9,16 @@
 import UIKit
 import ReactiveKit
 
+enum STFeedControllerOpenReason {
+    
+    case openFromPush, regular
+}
+
 class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating {
 
-    @IBOutlet weak var searchBar: UISearchBar!
-
+    
+    fileprivate var pushPostId: Int = 0
+    
     fileprivate var feedDataSource: STFeedDataSourceWrapper?
     
     fileprivate var favoritesFeedDataSource: STFeedDataSourceWrapper?
@@ -33,6 +39,10 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     fileprivate var searchQueryString = ""
     
     fileprivate let disposeBag = DisposeBag()
+
+    var reason = STDialogsControllerOpenReason.regular
+    
+    @IBOutlet weak var searchBar: UISearchBar!
     
     
     deinit {
@@ -76,9 +86,6 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         // set footer view after data source to prevent unwanted data source calls
         self.tableView.tableFooterView = UIView()
         
-        self.tableView.showBusy()
-        self.feedDataSource!.loadFeed()
-        
         self.dataSourceSwitch.selectedSegmentIndex = 0
         
         self.setupSearchController()
@@ -91,6 +98,13 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
                 self.feedDataSource?.loadFeed(isRefresh: true)
                 
             }.dispose(in: disposeBag)
+        
+        guard self.reason == .regular else {
+            
+            return
+        }
+        
+        self.feedDataSource!.loadFeed()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -188,6 +202,19 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         }
     }
 
+    func openPostDetails(by id: Int) {
+        
+        self.pushPostId = id
+        self.feedDataSource!.loadFeed() { [weak self] in
+            
+            if let index = self?.feedDataSource!.dataSource?.sections[0].items.index(where: { $0.item.id == id }) {
+                
+                let indexPath = IndexPath(row: index, section: 0)
+                self?.tableView.selectRow(at: indexPath , animated: false, scrollPosition: .middle)
+                self?.tableView.delegate?.tableView!((self?.tableView)!, didSelectRowAt: indexPath)
+            }
+        }
+    }
     
     func switchDataSource(control: UISegmentedControl) {
         
@@ -295,7 +322,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     
     private func onDataSourceChanged(animation: Bool) {
         
-        self.tableView.hideBusy()
+//        self.tableView.hideBusy()
         
         if let refresh = self.refreshControl, refresh.isRefreshing {
             

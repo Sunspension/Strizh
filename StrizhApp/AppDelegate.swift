@@ -237,10 +237,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                 
                 if let newMessage = Mapper<STNewMessage>().map(JSON: payload) {
                     
-                    // 1 Check by dialog id do we have exist dialog or need to load one
-                    // 2 Load dialog by id with users and messages if needed
-                    // 3 Open chat controller with target dialog
-                    
                     let openDialogsControllerClosure = {
                         
                         let tabController = self.window?.rootViewController! as! STTabBarViewController
@@ -251,6 +247,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                             tabController.selectedIndex = index
                             
                             let dialogsController = (controller as! UINavigationController).topViewController as! STDialogsController
+                            dialogsController.reason = .openFromPush
                             dialogsController.openDialog(by: newMessage.dialogId)
                         }
                     }
@@ -271,6 +268,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                 break
                 
             case "post":
+                
+                if let newPost = Mapper<STNewPost>().map(JSON: payload) {
+                    
+                    let openPostDetailsControllerClosure = {
+                        
+                        let tabController = self.window?.rootViewController! as! STTabBarViewController
+                        
+                        if let controller = tabController.viewControllers?.first(where: { ($0 as! UINavigationController).topViewController is STFeedTableViewController }) {
+                            
+                            let index = tabController.viewControllers!.index(of: controller)!
+                            tabController.selectedIndex = index
+                            
+                            let postsController = (controller as! UINavigationController).topViewController as! STFeedTableViewController
+                            postsController.reason = .openFromPush
+                            postsController.openPostDetails(by: newPost.postId)
+                        }
+                    }
+                    
+                    if self.window?.rootViewController == nil || !(self.window?.rootViewController is STTabBarViewController) {
+                        
+                        self.openMainController(completion: { completion in
+                            
+                            openPostDetailsControllerClosure()
+                        })
+                    }
+                    else {
+                        
+                        openPostDetailsControllerClosure()
+                    }
+                }
                 
                 break
                 
