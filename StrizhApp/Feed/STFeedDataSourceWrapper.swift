@@ -292,6 +292,11 @@ class STFeedDataSourceWrapper {
     func loadFeed(isRefresh: Bool = false, notify: Bool = true,
                   searchString: String? = nil, complete: (() -> Void)? = nil) {
         
+        guard self.status != .loading else {
+            
+            return
+        }
+        
         self.onStartLoading?()
         
         self.status = .loading

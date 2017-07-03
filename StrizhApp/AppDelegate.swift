@@ -96,7 +96,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
-        guard userInfo is [String : Any] && self.coldStart == false else { return }
+        guard userInfo is [String : Any] &&
+            self.coldStart == false &&
+            application.applicationState != .active else { return }
+        
         self.pushNotificationHandler(payload: userInfo as! [String : Any])
     }
     
@@ -239,16 +242,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                     
                     let openDialogsControllerClosure = {
                         
-                        let tabController = self.window?.rootViewController! as! STTabBarViewController
-                        
-                        if let controller = tabController.viewControllers?.first(where: { ($0 as! UINavigationController).topViewController is STDialogsController }) {
+                        if let tabController = self.window?.rootViewController! as? STTabBarViewController {
                             
-                            let index = tabController.viewControllers!.index(of: controller)!
-                            tabController.selectedIndex = index
-                            
-                            let dialogsController = (controller as! UINavigationController).topViewController as! STDialogsController
-                            dialogsController.reason = .openFromPush
-                            dialogsController.openDialog(by: newMessage.dialogId)
+                            if let count = tabController.viewControllers?.count {
+                                
+                                for index in 0...count {
+                                    
+                                    let navi = tabController.viewControllers![index] as! UINavigationController
+                                    
+                                    if let controller = navi.viewControllers.first(where: { $0 is STDialogsController }) {
+                                        
+                                        tabController.selectedIndex = index
+                                        navi.popToViewController(controller, animated: false)
+                                        
+                                        let dialogsController = controller as! STDialogsController
+                                        dialogsController.reason = .openFromPush
+                                        dialogsController.openDialog(by: newMessage.dialogId)
+                                        
+                                        break
+                                    }
+                                }
+                            }
                         }
                     }
                     
@@ -273,16 +287,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                     
                     let openPostDetailsControllerClosure = {
                         
-                        let tabController = self.window?.rootViewController! as! STTabBarViewController
-                        
-                        if let controller = tabController.viewControllers?.first(where: { ($0 as! UINavigationController).topViewController is STFeedTableViewController }) {
+                        if let tabController = self.window?.rootViewController! as? STTabBarViewController {
                             
-                            let index = tabController.viewControllers!.index(of: controller)!
-                            tabController.selectedIndex = index
-                            
-                            let postsController = (controller as! UINavigationController).topViewController as! STFeedTableViewController
-                            postsController.reason = .openFromPush
-                            postsController.openPostDetails(by: newPost.postId)
+                            if let count = tabController.viewControllers?.count {
+                                
+                                for index in 0...count {
+                                    
+                                    let navi = tabController.viewControllers![index] as! UINavigationController
+                                    
+                                    if let controller = navi.viewControllers.first(where: { $0 is STFeedTableViewController }) {
+                                        
+                                        tabController.selectedIndex = index
+                                        navi.popToViewController(controller, animated: false)
+                                        
+                                        let postsController = controller as! STFeedTableViewController
+                                        postsController.reason = .openFromPush
+                                        postsController.openPostDetails(by: newPost.postId)
+                                        
+                                        break
+                                    }
+                                }
+                            }
                         }
                     }
                     
@@ -367,35 +392,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                     
                     if let _ = UserDefaults.standard.object(forKey: kNeedIntro) as? Bool {
                         
-                        if session.isFacebook {
+                        let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
+                        let navi = STSignUpNavigationController(rootViewController: controller)
+                        
+                        if animation {
                             
-                            let controller = AppDelegate.appSettings.fbAccountKit
-                                .viewControllerForPhoneLogin() as! AKFViewController
-                            controller.enableSendToFacebook = true
-                            controller.delegate = self
-                            
-                            if animation {
-                                
-                                self.changeRootViewController(controller as! UIViewController)
-                                return
-                            }
-                            
-                            self.window?.rootViewController = controller as? UIViewController
-                            self.window?.makeKeyAndVisible()
+                            self.changeRootViewController(navi)
                         }
-                        else {
-                            
-                            let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
-                            let navi = STSignUpNavigationController(rootViewController: controller)
-                            
-                            if animation {
-                                
-                                self.changeRootViewController(navi)
-                            }
-                            
-                            self.window?.rootViewController = navi
-                            self.window?.makeKeyAndVisible()
-                        }
+                        
+                        self.window?.rootViewController = navi
+                        self.window?.makeKeyAndVisible()
+                        
+//                        if session.isFacebook {
+//                            
+//                            let controller = AppDelegate.appSettings.fbAccountKit
+//                                .viewControllerForPhoneLogin() as! AKFViewController
+//                            controller.enableSendToFacebook = true
+//                            controller.delegate = self
+//                            
+//                            if animation {
+//                                
+//                                self.changeRootViewController(controller as! UIViewController)
+//                                return
+//                            }
+//                            
+//                            self.window?.rootViewController = controller as? UIViewController
+//                            self.window?.makeKeyAndVisible()
+//                        }
+//                        else {
+//                            
+//                            let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
+//                            let navi = STSignUpNavigationController(rootViewController: controller)
+//                            
+//                            if animation {
+//                                
+//                                self.changeRootViewController(navi)
+//                            }
+//                            
+//                            self.window?.rootViewController = navi
+//                            self.window?.makeKeyAndVisible()
+//                        }
                     }
                     else {
                         

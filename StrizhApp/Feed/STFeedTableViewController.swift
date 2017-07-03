@@ -17,8 +17,6 @@ enum STFeedControllerOpenReason {
 class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating {
 
     
-    fileprivate var pushPostId: Int = 0
-    
     fileprivate var feedDataSource: STFeedDataSourceWrapper?
     
     fileprivate var favoritesFeedDataSource: STFeedDataSourceWrapper?
@@ -204,7 +202,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
 
     func openPostDetails(by id: Int) {
         
-        self.pushPostId = id
+        self.feedDataSource!.reset()
         self.feedDataSource!.loadFeed() { [weak self] in
             
             if let index = self?.feedDataSource!.dataSource?.sections[0].items.index(where: { $0.item.id == id }) {
