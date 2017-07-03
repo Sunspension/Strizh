@@ -392,46 +392,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                     
                     if let _ = UserDefaults.standard.object(forKey: kNeedIntro) as? Bool {
                         
-                        let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
-                        let navi = STSignUpNavigationController(rootViewController: controller)
-                        
-                        if animation {
+                        if session.isFacebook {
                             
-                            self.changeRootViewController(navi)
+                            let controller = AppDelegate.appSettings.fbAccountKit
+                                .viewControllerForPhoneLogin() as! AKFViewController
+                            controller.enableSendToFacebook = true
+                            controller.delegate = self
+                            
+                            if animation {
+                                
+                                self.changeRootViewController(controller as! UIViewController)
+                                return
+                            }
+                            
+                            self.window?.rootViewController = controller as? UIViewController
+                            self.window?.makeKeyAndVisible()
                         }
-                        
-                        self.window?.rootViewController = navi
-                        self.window?.makeKeyAndVisible()
-                        
-//                        if session.isFacebook {
-//                            
-//                            let controller = AppDelegate.appSettings.fbAccountKit
-//                                .viewControllerForPhoneLogin() as! AKFViewController
-//                            controller.enableSendToFacebook = true
-//                            controller.delegate = self
-//                            
-//                            if animation {
-//                                
-//                                self.changeRootViewController(controller as! UIViewController)
-//                                return
-//                            }
-//                            
-//                            self.window?.rootViewController = controller as? UIViewController
-//                            self.window?.makeKeyAndVisible()
-//                        }
-//                        else {
-//                            
-//                            let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
-//                            let navi = STSignUpNavigationController(rootViewController: controller)
-//                            
-//                            if animation {
-//                                
-//                                self.changeRootViewController(navi)
-//                            }
-//                            
-//                            self.window?.rootViewController = navi
-//                            self.window?.makeKeyAndVisible()
-//                        }
+                        else {
+                            
+                            let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
+                            let navi = STSignUpNavigationController(rootViewController: controller)
+                            
+                            if animation {
+                                
+                                self.changeRootViewController(navi)
+                            }
+                            
+                            self.window?.rootViewController = navi
+                            self.window?.makeKeyAndVisible()
+                        }
                     }
                     else {
                         
