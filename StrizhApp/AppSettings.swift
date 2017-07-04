@@ -145,6 +145,7 @@ struct AppSettings {
     var defaultFormatter: DateFormatter {
         
         let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return formatter
     }

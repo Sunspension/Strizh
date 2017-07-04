@@ -127,6 +127,9 @@
 
 "settings_page_title" = "Settings";
 "settings_page_events_text" = "NOTIFICATIONS";
+"settings_page_about_app_text" = "ABOUT APPLICATION";
+"settings_terms_&_condictions_text" = "Terms & conditions";
+"settings_offer_text" = "Offer";
 "settings_page_topics_text" = "Deals";
 "settings_page_messages_text" = "Messages";
 "settings_page_singout_text" = "Logout";

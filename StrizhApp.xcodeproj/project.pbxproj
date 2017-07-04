@@ -123,6 +123,7 @@
 		E50DBEB01E76FD8D000C38E4 /* STTextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50DBEAE1E76FD8D000C38E4 /* STTextViewCell.xib */; };
 		E50FA39A1E6842CE00CAA4D7 /* STNewPostObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50FA3991E6842CD00CAA4D7 /* STNewPostObject.swift */; };
 		E50FA39D1E68510E00CAA4D7 /* STNewPostNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50FA39C1E68510E00CAA4D7 /* STNewPostNavigationController.swift */; };
+		E52770251F0B8C0D00E9D2C5 /* privacy-policy.docx in Resources */ = {isa = PBXBuildFile; fileRef = E52770241F0B87C100E9D2C5 /* privacy-policy.docx */; };
 		E53185E81E3609B700BC6C9A /* STSingUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185E71E3609B700BC6C9A /* STSingUpTableViewController.swift */; };
 		E53185F71E3612EF00BC6C9A /* STLoadingStatusEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185F01E3612EF00BC6C9A /* STLoadingStatusEnum.swift */; };
 		E53185FE1E364AE700BC6C9A /* STLoginTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185FC1E364AE700BC6C9A /* STLoginTableViewCell.swift */; };
@@ -313,6 +314,7 @@
 		E50DBEAE1E76FD8D000C38E4 /* STTextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STTextViewCell.xib; path = NewPost/STTextViewCell.xib; sourceTree = "<group>"; };
 		E50FA3991E6842CD00CAA4D7 /* STNewPostObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STNewPostObject.swift; path = Models/STNewPostObject.swift; sourceTree = "<group>"; };
 		E50FA39C1E68510E00CAA4D7 /* STNewPostNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STNewPostNavigationController.swift; path = NewPost/STNewPostNavigationController.swift; sourceTree = "<group>"; };
+		E52770241F0B87C100E9D2C5 /* privacy-policy.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "privacy-policy.docx"; sourceTree = "<group>"; };
 		E53185E71E3609B700BC6C9A /* STSingUpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpTableViewController.swift; path = SignUp/STSingUpTableViewController.swift; sourceTree = "<group>"; };
 		E53185F01E3612EF00BC6C9A /* STLoadingStatusEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STLoadingStatusEnum.swift; sourceTree = "<group>"; };
 		E53185FC1E364AE700BC6C9A /* STLoginTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginTableViewCell.swift; path = SignUp/STLoginTableViewCell.swift; sourceTree = "<group>"; };
@@ -634,6 +636,7 @@
 				D489D9F51EB148EE0018BD0A /* StrizhApp-Bridging-Header.h */,
 				E5E4E9BE1E81105000B77102 /* StrizhApp.entitlements */,
 				D460E0CC1EB2AA710040E856 /* strizhapp-78ed2-firebase-crashreporting-fglbu-962209ea7c.json */,
+				E52770241F0B87C100E9D2C5 /* privacy-policy.docx */,
 				D460E0CA1EB2A8560040E856 /* GoogleService-Info.plist */,
 				D49727031E32BDA50076B7A1 /* Assets.xcassets */,
 				D43BED6F1E70A72D00683D5C /* Main.storyboard */,
@@ -1062,6 +1065,7 @@
 				D40BC8601E5B60DF0045F327 /* STCommonButtonCell.xib in Resources */,
 				E59448941E680B83002B2989 /* STTextFieldCell.xib in Resources */,
 				D4F00F4B1EA3A75500C6E1E8 /* STDummyView.xib in Resources */,
+				E52770251F0B8C0D00E9D2C5 /* privacy-policy.docx in Resources */,
 				D4227F4F1E61FE7600BCB8B1 /* STContactCell.xib in Resources */,
 				D44AB4EF1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib in Resources */,
 				E50DBEB01E76FD8D000C38E4 /* STTextViewCell.xib in Resources */,

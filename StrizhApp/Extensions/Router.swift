@@ -144,12 +144,19 @@ extension UIViewController {
         self.navigationController?.pushViewController(chatController, animated: true)
     }
     
-    func st_router_openDocumentController(url: URL, fileName: String) {
+    func st_router_openDocumentController(url: URL, title: String, present: Bool = true) {
         
-        let controller = STDocumentViewController(url: url, fileName: fileName)
-        let navi = STNewPostNavigationController(rootViewController: controller)
+        let controller = STDocumentViewController(url: url, title: title)
         
-        self.present(navi, animated: true, completion: nil)
+        if present {
+            
+            let navi = STNewPostNavigationController(rootViewController: controller)
+            self.present(navi, animated: true, completion: nil)
+        }
+        else {
+            
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
     }
     
     func st_router_openPhotoViewer(images: [STImage], index:Int) {

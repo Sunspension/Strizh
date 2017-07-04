@@ -529,7 +529,7 @@ class STFeedDetailsTableViewController: UIViewController {
                 
                 let file = item.item as! STFile
                 let url = URL(string: file.url)!
-                self.st_router_openDocumentController(url: url, fileName: file.title)
+                self.st_router_openDocumentController(url: url, title: file.title)
                 
                 break
                 

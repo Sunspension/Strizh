@@ -23,12 +23,12 @@ class STDocumentViewController: UIViewController, WKNavigationDelegate {
         super.init(coder: aDecoder)
     }
     
-    init(url: URL, fileName: String) {
+    init(url: URL, title: String) {
         
         super.init(nibName: nil, bundle: nil)
         
         self.url = url
-        self.fileName = fileName
+        self.fileName = title
     }
     
     override func loadView() {
@@ -37,8 +37,6 @@ class STDocumentViewController: UIViewController, WKNavigationDelegate {
         
         self.webView.navigationDelegate = self
         self.view = self.webView
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
-                                                                target: self, action: #selector(self.close))
         self.title = self.fileName
     }
     
@@ -51,6 +49,17 @@ class STDocumentViewController: UIViewController, WKNavigationDelegate {
         }
         
         self.webView.load(URLRequest(url: url))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        if self.presentedViewController != nil {
+            
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
+                                                                    target: self, action: #selector(self.close))
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,7 +78,6 @@ class STDocumentViewController: UIViewController, WKNavigationDelegate {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         self.hideBusy()
     }
-    
     
     func close() {
         

@@ -126,6 +126,9 @@
 
 "settings_page_title" = "Настройки";
 "settings_page_events_text" = "УВЕДОМЛЕНИЯ";
+"settings_page_about_app_text" = "О ПРИЛОЖЕНИИ";
+"settings_terms_&_condictions_text" = "Полльзовательское соглашение";
+"settings_offer_text" = "Оферта";
 "settings_page_topics_text" = "Сделки";
 "settings_page_messages_text" = "Сообщения";
 "settings_page_singout_text" = "Выйти из аккаунта";
