@@ -14,9 +14,10 @@ import AccountKit
 import Flurry_iOS_SDK
 import Dip
 import ObjectMapper
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate, UNUserNotificationCenterDelegate {
 
     fileprivate var coldStart = true
     
@@ -34,6 +35,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil);
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
+        
+        // local notifications
+        if #available(iOS 10.0, *) {
+            
+            let center = UNUserNotificationCenter.current()
+            center.delegate = self
+            
+            let options: UNAuthorizationOptions = [.alert]
+            center.requestAuthorization(options: options, completionHandler: { (granted, error) in
+                
+                if !granted {
+                    
+                    print(error!)
+                }
+            })
+            
+        } else {
+            
+            // Fallback on earlier versions
+        }
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
@@ -89,18 +110,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         AppDelegate.appSettings.deviceToken = token
     }
     
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+    @available(iOS 10.0, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
-        print(userInfo)
+        print(response.notification.request.content.userInfo)
+    }
+    
+    @available(iOS 10.0, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        completionHandler([.alert])
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
-        guard userInfo is [String : Any] &&
-            self.coldStart == false &&
-            application.applicationState != .active else { return }
+        guard userInfo is [String : Any] && self.coldStart == false else { return }
         
-        self.pushNotificationHandler(payload: userInfo as! [String : Any])
+        self.pushNotificationHandler(application: application, payload: userInfo as! [String : Any])
     }
     
     // MARK: AKFViewControllerDelegate implementation
@@ -230,7 +256,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         analytics.logEvent(eventName: "start")
     }
     
-    fileprivate func pushNotificationHandler(payload: [String : Any]) {
+    fileprivate func makeLocalNotification(title: String, body: String, payload: [String : Any]) {
+        
+        if #available(iOS 10.0, *) {
+
+            let center = UNUserNotificationCenter.current()
+            center.getNotificationSettings(completionHandler: { settings in
+                
+                if settings.authorizationStatus == .authorized {
+                    
+                    let content = UNMutableNotificationContent()
+                    content.title = title
+                    content.body = body
+                    content.sound = UNNotificationSound.default()
+                    content.userInfo = payload
+                    
+                    let identifier = "STLocalNotification"
+                    let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
+                    
+                    center.add(request, withCompletionHandler: { error in
+                        
+                        if let error = error {
+                            
+                            print(error)
+                        }
+                    })
+                }
+            })
+        }
+    }
+    
+    fileprivate func pushNotificationHandler(application: UIApplication, payload: [String : Any]) {
         
         if let type = payload["type"] as? String {
             
@@ -241,6 +297,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                 if let newMessage = Mapper<STNewMessage>().map(JSON: payload) {
                     
                     let openDialogsControllerClosure = {
+                        
+                        if application.applicationState == .active {
+                            
+                            if #available(iOS 10.0, *) {
+                                
+                                self.makeLocalNotification(title: newMessage.title, body: newMessage.message, payload: payload)
+                                return
+                            }
+//                            else {
+//                                
+//                                let notification = UILocalNotification()
+//                                notification.alertTitle = newMessage.title
+//                                notification.alertBody = newMessage.message
+//                                notification.userInfo = payload
+//                                application.presentLocalNotificationNow(notification)
+//
+//                                return
+//                            }
+                        }
                         
                         if let tabController = self.window?.rootViewController! as? STTabBarViewController {
                             
@@ -288,6 +363,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                     let openPostDetailsControllerClosure = {
                         
                         if let tabController = self.window?.rootViewController! as? STTabBarViewController {
+                            
+                            if application.applicationState == .active {
+                                
+                                if #available(iOS 10.0, *) {
+                                    
+                                    self.makeLocalNotification(title: newPost.title, body: newPost.body, payload: payload)
+                                    return
+                                }
+                            }
                             
                             if let count = tabController.viewControllers?.count {
                                 
@@ -366,7 +450,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                                     
                                     if let payload = options[key] as? [String : Any] {
                                         
-                                        self.pushNotificationHandler(payload: payload)
+                                        self.pushNotificationHandler(application: UIApplication.shared, payload: payload)
                                     }
                                     else {
                                         
@@ -392,35 +476,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                     
                     if let _ = UserDefaults.standard.object(forKey: kNeedIntro) as? Bool {
                         
-                        if session.isFacebook {
+                        let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
+                        let navi = STSignUpNavigationController(rootViewController: controller)
+                        
+                        if animation {
                             
-                            let controller = AppDelegate.appSettings.fbAccountKit
-                                .viewControllerForPhoneLogin() as! AKFViewController
-                            controller.enableSendToFacebook = true
-                            controller.delegate = self
-                            
-                            if animation {
-                                
-                                self.changeRootViewController(controller as! UIViewController)
-                                return
-                            }
-                            
-                            self.window?.rootViewController = controller as? UIViewController
-                            self.window?.makeKeyAndVisible()
+                            self.changeRootViewController(navi)
                         }
-                        else {
-                            
-                            let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
-                            let navi = STSignUpNavigationController(rootViewController: controller)
-                            
-                            if animation {
-                                
-                                self.changeRootViewController(navi)
-                            }
-                            
-                            self.window?.rootViewController = navi
-                            self.window?.makeKeyAndVisible()
-                        }
+                        
+                        self.window?.rootViewController = navi
+                        self.window?.makeKeyAndVisible()
+                        
+//                        if session.isFacebook {
+//                            
+//                            let controller = AppDelegate.appSettings.fbAccountKit
+//                                .viewControllerForPhoneLogin() as! AKFViewController
+//                            controller.enableSendToFacebook = true
+//                            controller.delegate = self
+//                            
+//                            if animation {
+//                                
+//                                self.changeRootViewController(controller as! UIViewController)
+//                                return
+//                            }
+//                            
+//                            self.window?.rootViewController = controller as? UIViewController
+//                            self.window?.makeKeyAndVisible()
+//                        }
+//                        else {
+//                            
+//                            let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
+//                            let navi = STSignUpNavigationController(rootViewController: controller)
+//                            
+//                            if animation {
+//                                
+//                                self.changeRootViewController(navi)
+//                            }
+//                            
+//                            self.window?.rootViewController = navi
+//                            self.window?.makeKeyAndVisible()
+//                        }
                     }
                     else {
                         

@@ -44,6 +44,11 @@ extension Date {
         return formatter.string(from: self)
     }
     
+    var second: Int {
+        
+        return Calendar.current.component(.second, from: self)
+    }
+    
     var day: Int {
         
         return Calendar.current.component(.day, from: self)
