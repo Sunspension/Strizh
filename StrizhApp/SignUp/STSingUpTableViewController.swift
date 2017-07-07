@@ -94,6 +94,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         self.tableView.register(nibClass: STLoginAvatarTableViewCell.self)
         self.tableView.register(nibClass: STLoginTextTableViewCell.self)
         self.tableView.register(nibClass: STLoginSeparatorTableViewCell.self)
+        self.tableView.register(nibClass: STClickableLabelCell.self)
         
         let text = self.signupStep == .signupThirdStep ? "action_done".localized : "action_next".localized
         let rigthItem = UIBarButtonItem(title: text, style: .plain, target: self, action: #selector(self.actionNext))
@@ -478,6 +479,66 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 cell.textLabel?.text = "login_page_action_send_password_description".localized
                 cell.textLabel?.textColor = UIColor.stWhite70Opacity
                 cell.backgroundColor = UIColor.clear
+            })
+            
+            section.addItem(cellClass: STClickableLabelCell.self, bindingAction: { (cell, item) in
+                
+                let viewCell = cell as! STClickableLabelCell
+                viewCell.backgroundColor = UIColor.clear
+                viewCell.selectionStyle = .none
+                
+                let text = String(format: "login_page_offer_text".localized, "login_offer_text".localized, "login_terms_text".localized)
+                
+                let style = NSNumber(integerLiteral: NSUnderlineStyle.styleSingle.rawValue)
+                
+                let attributedText = NSMutableAttributedString(string: text,
+                                                               attributes: [ NSFontAttributeName : UIFont.systemFont(ofSize: 11),
+                                                                             NSForegroundColorAttributeName : UIColor.stWhite70Opacity ])
+                
+                let range1 = attributedText.mutableString.range(of: "login_offer_text".localized, options: .caseInsensitive)
+                let range2 = attributedText.mutableString.range(of: "login_terms_text".localized, options: .caseInsensitive)
+                
+                let attr: [String : Any] = [NSFontAttributeName : UIFont.systemFont(ofSize: 11),
+                                            NSForegroundColorAttributeName : UIColor.stWhite70Opacity,
+                                            NSUnderlineColorAttributeName : UIColor.stWhite70Opacity,
+                                            NSUnderlineStyleAttributeName : style]
+                
+                attributedText.setAttributes(attr, range: range1)
+                attributedText.setAttributes(attr, range: range2)
+                
+                viewCell.clickableLabel.textAlignment = .center
+                viewCell.clickableLabel.attributedText = attributedText
+                viewCell.clickableLabel.clikableRanges = [range1, range2]
+                viewCell.clickableLabel.onTextClikAction = { range in
+                    
+                    switch (range.location, range.length) {
+                     
+                    case (range1.location, range1.length):
+                        
+                        print("open offer")
+                        
+                        if let path = Bundle.main.path(forResource: "privacy-policy", ofType: "docx") {
+                            
+                            self.st_router_openDocumentController(url: URL(fileURLWithPath: path), title: "settings_terms_&_condictions_text".localized)
+                        }
+                        
+                        break
+                        
+                    case (range2.location, range2.length):
+                        
+                        print("open terms")
+                        
+                        if let path = Bundle.main.path(forResource: "privacy-policy", ofType: "docx") {
+                            
+                            self.st_router_openDocumentController(url: URL(fileURLWithPath: path), title: "settings_terms_&_condictions_text".localized)
+                        }
+                        
+                        break
+                        
+                    default:
+                        break
+                    }
+                }
             })
             
             break

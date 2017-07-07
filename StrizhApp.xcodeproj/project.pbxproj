@@ -119,6 +119,11 @@
 		D4FBE4AE1EE2DCA600C473A3 /* STFilterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FBE4AD1EE2DCA600C473A3 /* STFilterItem.swift */; };
 		D4FFDFAA1E8705590090BE5A /* STDialogsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFDFA91E8705590090BE5A /* STDialogsPage.swift */; };
 		D4FFDFAC1E8706580090BE5A /* STMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFDFAB1E8706580090BE5A /* STMessage.swift */; };
+		E50941C41F0FBCF300E08B4E /* UITapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50941C31F0FBCF300E08B4E /* UITapGestureRecognizer.swift */; };
+		E50941C61F0FBFA600E08B4E /* ClickableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50941C51F0FBFA600E08B4E /* ClickableLabel.swift */; };
+		E50941C91F0FC57D00E08B4E /* STClickableLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50941C71F0FC57D00E08B4E /* STClickableLabelCell.swift */; };
+		E50941CA1F0FC57D00E08B4E /* STClickableLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50941C81F0FC57D00E08B4E /* STClickableLabelCell.xib */; };
+		E50941CC1F0FD01300E08B4E /* NSMutableAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50941CB1F0FD01300E08B4E /* NSMutableAttributedString.swift */; };
 		E50DBEAF1E76FD8D000C38E4 /* STTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50DBEAD1E76FD8D000C38E4 /* STTextViewCell.swift */; };
 		E50DBEB01E76FD8D000C38E4 /* STTextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50DBEAE1E76FD8D000C38E4 /* STTextViewCell.xib */; };
 		E50FA39A1E6842CE00CAA4D7 /* STNewPostObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50FA3991E6842CD00CAA4D7 /* STNewPostObject.swift */; };
@@ -310,6 +315,11 @@
 		D4FBE4AD1EE2DCA600C473A3 /* STFilterItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFilterItem.swift; path = Models/STFilterItem.swift; sourceTree = "<group>"; };
 		D4FFDFA91E8705590090BE5A /* STDialogsPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialogsPage.swift; path = Models/STDialogsPage.swift; sourceTree = "<group>"; };
 		D4FFDFAB1E8706580090BE5A /* STMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STMessage.swift; path = Models/STMessage.swift; sourceTree = "<group>"; };
+		E50941C31F0FBCF300E08B4E /* UITapGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITapGestureRecognizer.swift; path = Extensions/UITapGestureRecognizer.swift; sourceTree = "<group>"; };
+		E50941C51F0FBFA600E08B4E /* ClickableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClickableLabel.swift; path = CustomControls/ClickableLabel.swift; sourceTree = "<group>"; };
+		E50941C71F0FC57D00E08B4E /* STClickableLabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STClickableLabelCell.swift; path = SignUp/STClickableLabelCell.swift; sourceTree = "<group>"; };
+		E50941C81F0FC57D00E08B4E /* STClickableLabelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STClickableLabelCell.xib; path = SignUp/STClickableLabelCell.xib; sourceTree = "<group>"; };
+		E50941CB1F0FD01300E08B4E /* NSMutableAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSMutableAttributedString.swift; path = Extensions/NSMutableAttributedString.swift; sourceTree = "<group>"; };
 		E50DBEAD1E76FD8D000C38E4 /* STTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STTextViewCell.swift; path = NewPost/STTextViewCell.swift; sourceTree = "<group>"; };
 		E50DBEAE1E76FD8D000C38E4 /* STTextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STTextViewCell.xib; path = NewPost/STTextViewCell.xib; sourceTree = "<group>"; };
 		E50FA3991E6842CD00CAA4D7 /* STNewPostObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STNewPostObject.swift; path = Models/STNewPostObject.swift; sourceTree = "<group>"; };
@@ -705,6 +715,8 @@
 				E55ED8F01EA756E100917B3E /* UICollectionView.swift */,
 				E55ED8F21EA7570000917B3E /* Int.swift */,
 				E55ED8F41EA7571800917B3E /* Array.swift */,
+				E50941C31F0FBCF300E08B4E /* UITapGestureRecognizer.swift */,
+				E50941CB1F0FD01300E08B4E /* NSMutableAttributedString.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -818,6 +830,8 @@
 				D49545CF1E3D064700EDCF01 /* STLoginTextTableViewCell.xib */,
 				D49545D21E3D0B8800EDCF01 /* STLoginSeparatorTableViewCell.swift */,
 				D49545D31E3D0B8800EDCF01 /* STLoginSeparatorTableViewCell.xib */,
+				E50941C71F0FC57D00E08B4E /* STClickableLabelCell.swift */,
+				E50941C81F0FC57D00E08B4E /* STClickableLabelCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -943,6 +957,7 @@
 			children = (
 				E5E4E9C01E81139D00B77102 /* CircledButton.swift */,
 				E53A94BF1EC9FE3C009AB8C6 /* CircledImageView.swift */,
+				E50941C51F0FBFA600E08B4E /* ClickableLabel.swift */,
 			);
 			name = CustomControls;
 			sourceTree = "<group>";
@@ -1087,6 +1102,7 @@
 				E59448981E680C98002B2989 /* STPostButtonsCell.xib in Resources */,
 				D43BED711E70A72D00683D5C /* Main.storyboard in Resources */,
 				E53F37BE1E3A632C00393BAD /* STLoginLogoTableViewCell.xib in Resources */,
+				E50941CA1F0FC57D00E08B4E /* STClickableLabelCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1169,6 +1185,7 @@
 				D43A75651E4E6EBE00DB0850 /* STLocation.swift in Sources */,
 				D43BED6A1E70897200683D5C /* DatePickerViewController.swift in Sources */,
 				E561F56A1E72FCD300C7407C /* STAttachmentCell.swift in Sources */,
+				E50941CC1F0FD01300E08B4E /* NSMutableAttributedString.swift in Sources */,
 				D4927F3E1EAEA92200995352 /* STIntroPageController.swift in Sources */,
 				D4194A1E1E463F4300D0B189 /* ArrayOfCustomRealmObjectsTransform.swift in Sources */,
 				E5BE9E2F1E4C90680022B157 /* STFeedFilterSwitchTableViewCell.swift in Sources */,
@@ -1220,6 +1237,7 @@
 				D45DC06C1E86C87400E9DB2B /* STDialog.swift in Sources */,
 				D40BC8631E5B61120045F327 /* STCommonLabelCell.swift in Sources */,
 				E55434E21E969FF500EF254E /* STDialogOtherCell.swift in Sources */,
+				E50941C61F0FBFA600E08B4E /* ClickableLabel.swift in Sources */,
 				E59A1B181E3F9388009EE669 /* STImage.swift in Sources */,
 				D40BC8661E5B706D0045F327 /* SHSPhoneComponent.swift in Sources */,
 				D42D530C1E915473007952AD /* STCollectionLayout.swift in Sources */,
@@ -1239,7 +1257,9 @@
 				E53F37BD1E3A632C00393BAD /* STLoginLogoTableViewCell.swift in Sources */,
 				D497AB4C1E3BE53A006A393D /* TableSection.swift in Sources */,
 				E5BE9E321E4C99C00022B157 /* STFeedFilter.swift in Sources */,
+				E50941C41F0FBCF300E08B4E /* UITapGestureRecognizer.swift in Sources */,
 				D4AD43C11E47DB7B006F13DE /* STNavigationController.swift in Sources */,
+				E50941C91F0FC57D00E08B4E /* STClickableLabelCell.swift in Sources */,
 				E55ED8ED1EA7565C00917B3E /* UIViewController.swift in Sources */,
 				E50FA39D1E68510E00CAA4D7 /* STNewPostNavigationController.swift in Sources */,
 				D4BEB4061E9ED96500E2402E /* STDialogMessage.swift in Sources */,

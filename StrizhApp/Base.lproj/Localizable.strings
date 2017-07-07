@@ -55,6 +55,9 @@
 "login_page_last_action_text1" = "Your almost done!\n\n";
 "login_page_last_action_text2" = "Please choose a photo for your profile and fill empty fields";
 "login_page_action_send_password_text" = "Send password";
+"login_page_offer_text" = "By registering you agree to %@ and %@";
+"login_offer_text" = "offer";
+"login_terms_text" = "terms & conditions";
 
 // Post
 "post_page_title" = "New deal";

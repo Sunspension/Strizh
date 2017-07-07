@@ -55,7 +55,7 @@ class STDocumentViewController: UIViewController, WKNavigationDelegate {
         
         super.viewWillAppear(animated)
         
-        if self.presentedViewController != nil {
+        if self.presentingViewController != nil {
             
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
                                                                     target: self, action: #selector(self.close))

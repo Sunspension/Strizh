@@ -31,11 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-//        // register for notifications
-//        let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil);
-//        application.registerUserNotificationSettings(settings)
-        
-        // local notifications
+        // notifications
         if #available(iOS 10.0, *) {
             
             let center = UNUserNotificationCenter.current()
@@ -54,7 +50,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
             
         } else {
             
-            // register for notifications
             let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil);
             application.registerUserNotificationSettings(settings)
             application.registerForRemoteNotifications()

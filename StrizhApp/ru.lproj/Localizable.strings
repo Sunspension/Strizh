@@ -54,6 +54,9 @@
 "login_page_last_action_text1" = "Осталось немного!\n\n";
 "login_page_last_action_text2" = "Выберите картинку для профиля и заполните поля.";
 "login_page_action_send_password_text" = "Отправить пароль";
+"login_page_offer_text" = "Регистрируясь, Вы принимаете %@ и %@";
+"login_offer_text" = "оферту";
+"login_terms_text" = "пользовательское соглашение";
 
 // Post
 "post_page_title" = "Открыть сделку";
