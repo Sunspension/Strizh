@@ -31,10 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        // register for notifications
-        let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil);
-        application.registerUserNotificationSettings(settings)
-        application.registerForRemoteNotifications()
+//        // register for notifications
+//        let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil);
+//        application.registerUserNotificationSettings(settings)
         
         // local notifications
         if #available(iOS 10.0, *) {
@@ -42,18 +41,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
             let center = UNUserNotificationCenter.current()
             center.delegate = self
             
-            let options: UNAuthorizationOptions = [.alert]
+            let options: UNAuthorizationOptions = [.alert, .badge, .sound]
             center.requestAuthorization(options: options, completionHandler: { (granted, error) in
                 
                 if !granted {
                     
                     print(error!)
                 }
+                
+                application.registerForRemoteNotifications()
             })
             
         } else {
             
-            // Fallback on earlier versions
+            // register for notifications
+            let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil);
+            application.registerUserNotificationSettings(settings)
+            application.registerForRemoteNotifications()
         }
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -113,21 +117,121 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
-        print(response.notification.request.content.userInfo)
+        if let payload = response.notification.request.content.userInfo as? [String : Any] {
+            
+            self.pushNotificationHandler(payload: payload)
+        }
     }
     
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
-        completionHandler([.alert])
-    }
-    
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        let userInfo = notification.request.content.userInfo
         
-        guard userInfo is [String : Any] && self.coldStart == false else { return }
+        let payload = userInfo as! [String : Any]
         
-        self.pushNotificationHandler(application: application, payload: userInfo as! [String : Any])
+        if let type = payload["type"] as? String {
+            
+            switch type {
+                
+            case "message":
+                
+                if let newMessage = Mapper<STNewMessage>().map(JSON: payload) {
+                    
+                    // TODO checking for current dialog in chat
+                    if let tabController = self.window?.rootViewController! as? STTabBarViewController {
+                        
+                        if let count = tabController.viewControllers?.count {
+                            
+                            for index in 0...count - 1 {
+                                
+                                let navi = tabController.viewControllers![index] as! UINavigationController
+                                
+                                if let chatController = navi.topViewController as? STChatViewController {
+                                    
+                                    if let dialog = chatController.dialog {
+                                        
+                                        if dialog.id == newMessage.dialogId {
+                                            
+                                            return
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            default:
+                break
+            }
+        }
+            
+        completionHandler([.alert, .badge, .sound])
     }
+ 
+//    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+//        
+//        guard userInfo is [String : Any] && self.coldStart == false else { return }
+//        
+//        if application.applicationState == .active {
+//            
+//            if #available(iOS 10.0, *) {
+//                
+//                let payload = userInfo as! [String : Any]
+//                
+//                if let type = payload["type"] as? String {
+//                    
+//                    switch type {
+//                        
+//                    case "message":
+//                        
+//                        if let newMessage = Mapper<STNewMessage>().map(JSON: payload) {
+//                            
+//                            // TODO checking for current dialog in chat
+//                            if let tabController = self.window?.rootViewController! as? STTabBarViewController {
+//                                
+//                                if let count = tabController.viewControllers?.count {
+//                                    
+//                                    for index in 0...count {
+//                                        
+//                                        let navi = tabController.viewControllers![index] as! UINavigationController
+//                                        
+//                                        if let chatController = navi.topViewController as? STChatViewController {
+//                                            
+//                                            if let dialog = chatController.dialog {
+//                                                
+//                                                if dialog.id == newMessage.dialogId {
+//                                                    
+//                                                    return
+//                                                }
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                            
+//                            self.makeLocalNotification(title: newMessage.title, body: newMessage.message, payload: payload)
+//                        }
+//                        
+//                    case "post":
+//                        
+//                        if let newPost = Mapper<STNewPost>().map(JSON: payload) {
+//                            
+//                            self.makeLocalNotification(title: newPost.title, body: newPost.body, payload: payload)
+//                        }
+//                        
+//                    default:
+//                        break
+//                    }
+//                }
+//                
+//                return
+//            }
+//        }
+//        
+//        self.pushNotificationHandler(payload: userInfo as! [String : Any])
+//    }
     
     // MARK: AKFViewControllerDelegate implementation
     func viewController(_ viewController: UIViewController!, didCompleteLoginWithAuthorizationCode code: String!, state: String!) {
@@ -286,7 +390,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         }
     }
     
-    fileprivate func pushNotificationHandler(application: UIApplication, payload: [String : Any]) {
+    fileprivate func pushNotificationHandler(payload: [String : Any]) {
         
         if let type = payload["type"] as? String {
             
@@ -297,25 +401,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                 if let newMessage = Mapper<STNewMessage>().map(JSON: payload) {
                     
                     let openDialogsControllerClosure = {
-                        
-                        if application.applicationState == .active {
-                            
-                            if #available(iOS 10.0, *) {
-                                
-                                self.makeLocalNotification(title: newMessage.title, body: newMessage.message, payload: payload)
-                                return
-                            }
-//                            else {
-//                                
-//                                let notification = UILocalNotification()
-//                                notification.alertTitle = newMessage.title
-//                                notification.alertBody = newMessage.message
-//                                notification.userInfo = payload
-//                                application.presentLocalNotificationNow(notification)
-//
-//                                return
-//                            }
-                        }
                         
                         if let tabController = self.window?.rootViewController! as? STTabBarViewController {
                             
@@ -363,15 +448,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                     let openPostDetailsControllerClosure = {
                         
                         if let tabController = self.window?.rootViewController! as? STTabBarViewController {
-                            
-                            if application.applicationState == .active {
-                                
-                                if #available(iOS 10.0, *) {
-                                    
-                                    self.makeLocalNotification(title: newPost.title, body: newPost.body, payload: payload)
-                                    return
-                                }
-                            }
                             
                             if let count = tabController.viewControllers?.count {
                                 
@@ -450,7 +526,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                                     
                                     if let payload = options[key] as? [String : Any] {
                                         
-                                        self.pushNotificationHandler(application: UIApplication.shared, payload: payload)
+                                        self.pushNotificationHandler(payload: payload)
                                     }
                                     else {
                                         
