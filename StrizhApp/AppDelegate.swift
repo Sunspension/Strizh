@@ -117,6 +117,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
+        guard self.coldStart == false else {
+            
+            return
+        }
+        
         if let payload = response.notification.request.content.userInfo as? [String : Any] {
             
             self.pushNotificationHandler(payload: payload)
@@ -170,68 +175,68 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         completionHandler([.alert, .badge, .sound])
     }
  
-//    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-//        
-//        guard userInfo is [String : Any] && self.coldStart == false else { return }
-//        
-//        if application.applicationState == .active {
-//            
-//            if #available(iOS 10.0, *) {
-//                
-//                let payload = userInfo as! [String : Any]
-//                
-//                if let type = payload["type"] as? String {
-//                    
-//                    switch type {
-//                        
-//                    case "message":
-//                        
-//                        if let newMessage = Mapper<STNewMessage>().map(JSON: payload) {
-//                            
-//                            // TODO checking for current dialog in chat
-//                            if let tabController = self.window?.rootViewController! as? STTabBarViewController {
-//                                
-//                                if let count = tabController.viewControllers?.count {
-//                                    
-//                                    for index in 0...count {
-//                                        
-//                                        let navi = tabController.viewControllers![index] as! UINavigationController
-//                                        
-//                                        if let chatController = navi.topViewController as? STChatViewController {
-//                                            
-//                                            if let dialog = chatController.dialog {
-//                                                
-//                                                if dialog.id == newMessage.dialogId {
-//                                                    
-//                                                    return
-//                                                }
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                            
-//                            self.makeLocalNotification(title: newMessage.title, body: newMessage.message, payload: payload)
-//                        }
-//                        
-//                    case "post":
-//                        
-//                        if let newPost = Mapper<STNewPost>().map(JSON: payload) {
-//                            
-//                            self.makeLocalNotification(title: newPost.title, body: newPost.body, payload: payload)
-//                        }
-//                        
-//                    default:
-//                        break
-//                    }
-//                }
-//                
-//                return
-//            }
-//        }
-//        
-//        self.pushNotificationHandler(payload: userInfo as! [String : Any])
-//    }
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        guard userInfo is [String : Any] && self.coldStart == false else { return }
+        
+        if application.applicationState == .active {
+            
+            if #available(iOS 10.0, *) {
+                
+                let payload = userInfo as! [String : Any]
+                
+                if let type = payload["type"] as? String {
+                    
+                    switch type {
+                        
+                    case "message":
+                        
+                        if let newMessage = Mapper<STNewMessage>().map(JSON: payload) {
+                            
+                            // TODO checking for current dialog in chat
+                            if let tabController = self.window?.rootViewController! as? STTabBarViewController {
+                                
+                                if let count = tabController.viewControllers?.count {
+                                    
+                                    for index in 0...count {
+                                        
+                                        let navi = tabController.viewControllers![index] as! UINavigationController
+                                        
+                                        if let chatController = navi.topViewController as? STChatViewController {
+                                            
+                                            if let dialog = chatController.dialog {
+                                                
+                                                if dialog.id == newMessage.dialogId {
+                                                    
+                                                    return
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            self.makeLocalNotification(title: newMessage.title, body: newMessage.message, payload: payload)
+                        }
+                        
+                    case "post":
+                        
+                        if let newPost = Mapper<STNewPost>().map(JSON: payload) {
+                            
+                            self.makeLocalNotification(title: newPost.title, body: newPost.body, payload: payload)
+                        }
+                        
+                    default:
+                        break
+                    }
+                }
+                
+                return
+            }
+        }
+        
+        self.pushNotificationHandler(payload: userInfo as! [String : Any])
+    }
     
     // MARK: AKFViewControllerDelegate implementation
     func viewController(_ viewController: UIViewController!, didCompleteLoginWithAuthorizationCode code: String!, state: String!) {
