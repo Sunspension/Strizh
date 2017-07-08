@@ -558,6 +558,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                                 .viewControllerForPhoneLogin() as! AKFViewController
                             controller.enableSendToFacebook = true
                             controller.delegate = self
+                            controller.uiManager = STFaceBookUIManager(controller: controller as! UIViewController)
                             
                             if animation {
                                 
