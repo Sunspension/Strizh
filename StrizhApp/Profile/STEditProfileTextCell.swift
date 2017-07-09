@@ -18,14 +18,9 @@ class STEditProfileTextCell: UITableViewCell {
     var disposeBag = DisposeBag()
     
     
-    deinit {
-        
-        disposeBag.dispose()
-    }
-    
     override func prepareForReuse() {
         
-        disposeBag.dispose()
+        disposeBag = DisposeBag()
     }
     
     override func awakeFromNib() {

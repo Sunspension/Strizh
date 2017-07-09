@@ -370,8 +370,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
         }
         
         self.userInfoSection.addItem(cellClass: STEditProfileTextCell.self,
-                                     item: self.user,
-                                     itemType: EditProfileFieldsEnum.email) { (cell, item) in
+                                     item: self.user) { (cell, item) in
                                         
                                         if let user = self.user {
                                             
@@ -450,7 +449,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
         if let session = STSession.objects(by: STSession.self).first {
             
             api.updateUserInformation(transport: .webSocket, userId: session.userId, firstName: firstName,
-                                      lastName: lastName, email: nil, imageId: imageId)
+                                      lastName: lastName, email: email, imageId: imageId)
                 .onSuccess(callback: { user in
                     
                     if let image = self.userImage {

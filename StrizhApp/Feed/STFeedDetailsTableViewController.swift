@@ -557,15 +557,15 @@ class STFeedDetailsTableViewController: UIViewController {
             
             if post.dialogCount == 0 {
                 
-                self.writeMessage.setTitle("feed_details_page_button_write_message_title".localized, for: .normal)
-                
                 if post.userId == myUser.id {
                     
+                    self.writeMessage.setTitle("feed_details_page_button_have_no_dialogs_title".localized, for: .normal)
                     writeMessage.isEnabled = false
                     writeMessage.alpha = 0.7
                 }
                 else {
                     
+                    self.writeMessage.setTitle("feed_details_page_button_write_message_title".localized, for: .normal)
                     self.writeMessage.addTarget(self, action: #selector(self.openChatController), for: .touchUpInside)
                 }
             }

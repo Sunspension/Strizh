@@ -552,36 +552,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                     
                     if let _ = UserDefaults.standard.object(forKey: kNeedIntro) as? Bool {
                         
-                        if session.isFacebook {
+                        let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
+                        let navi = STSignUpNavigationController(rootViewController: controller)
+                        
+                        if animation {
                             
-                            let controller = AppDelegate.appSettings.fbAccountKit
-                                .viewControllerForPhoneLogin() as! AKFViewController
-                            controller.enableSendToFacebook = true
-                            controller.delegate = self
-                            controller.uiManager = STFaceBookUIManager(controller: controller as! UIViewController)
-                            
-                            if animation {
-                                
-                                self.changeRootViewController(controller as! UIViewController)
-                                return
-                            }
-                            
-                            self.window?.rootViewController = controller as? UIViewController
-                            self.window?.makeKeyAndVisible()
+                            self.changeRootViewController(navi)
                         }
-                        else {
-                            
-                            let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
-                            let navi = STSignUpNavigationController(rootViewController: controller)
-                            
-                            if animation {
-                                
-                                self.changeRootViewController(navi)
-                            }
-                            
-                            self.window?.rootViewController = navi
-                            self.window?.makeKeyAndVisible()
-                        }
+                        
+                        self.window?.rootViewController = navi
+                        self.window?.makeKeyAndVisible()
+                        
+//                        if session.isFacebook {
+//                            
+//                            let controller = AppDelegate.appSettings.fbAccountKit
+//                                .viewControllerForPhoneLogin() as! AKFViewController
+//                            controller.enableSendToFacebook = true
+//                            controller.delegate = self
+//                            controller.uiManager = STFaceBookUIManager(controller: controller as! UIViewController)
+//                            
+//                            if animation {
+//                                
+//                                self.changeRootViewController(controller as! UIViewController)
+//                                return
+//                            }
+//                            
+//                            self.window?.rootViewController = controller as? UIViewController
+//                            self.window?.makeKeyAndVisible()
+//                        }
+//                        else {
+//                            
+//                            let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
+//                            let navi = STSignUpNavigationController(rootViewController: controller)
+//                            
+//                            if animation {
+//                                
+//                                self.changeRootViewController(navi)
+//                            }
+//                            
+//                            self.window?.rootViewController = navi
+//                            self.window?.makeKeyAndVisible()
+//                        }
                     }
                     else {
                         
