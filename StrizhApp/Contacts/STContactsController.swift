@@ -243,7 +243,6 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         
         self.tableView.dataSource = self.itemsSource?.searchDataSource
         self.tableView.delegate = self.itemsSource?.searchDataSource
-        self.reloadTableView()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -273,7 +272,6 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                 self.analytics.logEvent(eventName: st_eContactSearch, params: ["query" : query])
                 
                 self.itemsSource?.searchContacts(searchString: query)
-                self.reloadTableView()
             }
         }
     }

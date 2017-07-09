@@ -15,8 +15,6 @@ class STContactsDataSourceWrapper {
     
     fileprivate var notRelatedContactsSection = TableSection()
     
-    fileprivate var searchSection = TableSection()
-    
     fileprivate var contactsProvider = STContactsProvider.sharedInstance
     
     var allowsSelection = false
@@ -43,7 +41,7 @@ class STContactsDataSourceWrapper {
         // hack for table footer
         self.dataSource.sections.append(TableSection())
         
-        self.searchDataSource.sections.append(self.searchSection)
+//        self.searchDataSource.sections.append(self.searchSection)
         
         if !showOnlyRegistered {
             
@@ -67,7 +65,7 @@ class STContactsDataSourceWrapper {
             if let contacts = result.value {
                 
                 self.dataSource.sections.removeAll()
-                self.createDataSource(contacts: contacts)
+                self.createDataSource(for: self.dataSource, contacts: contacts)
                 self.onDataSourceChanged?()
             }
         }
@@ -75,27 +73,30 @@ class STContactsDataSourceWrapper {
     
     func searchContacts(searchString: String) {
         
-        self.searchSection.items.removeAll()
+        self.searchDataSource.sections.removeAll()
+        self.notRelatedContactsSection.items.removeAll()
         
-        let items = dataSource.sections.flatMap({ $0.items }).filter { item -> Bool in
+        _ = self.contactsProvider.contacts.andThen { result in
             
-            let contact = item.item as! STContact
-            
-            if contact.firstName.contains(searchString) || contact.lastName.contains(searchString) {
+            guard let contacts = result.value else {
                 
-                return true
+                return
             }
             
-            return false
-        }
-        
-        items.forEach { item in
+            if searchString.isEmpty {
+                
+                self.createDataSource(for: self.searchDataSource, contacts: contacts)
+                self.onDataSourceChanged?()
+                return
+            }
             
-            self.searchSection.addItem(cellClass: STContactCell.self, item: item.item, bindingAction: self.binding)
+            let items = contacts.filter({ $0.firstName.contains(searchString) || $0.lastName.contains(searchString) })
+            self.createDataSource(for: self.searchDataSource, contacts: items)
+            self.onDataSourceChanged?()
         }
     }
     
-    fileprivate func createDataSource(contacts: [STContact]) {
+    fileprivate func createDataSource(for dataSource: TableViewDataSource, contacts: [STContact]) {
         
         contacts.forEach({ contact in
             
@@ -103,7 +104,7 @@ class STContactsDataSourceWrapper {
                 
                 let letter = String(contact.firstName.characters.first!)
                 
-                var section = self.dataSource.sections.filter({ ($0.sectionType as! String) == letter }).first
+                var section = dataSource.sections.filter({ ($0.sectionType as? String) == letter }).first
                 
                 if section == nil {
                     
@@ -121,14 +122,14 @@ class STContactsDataSourceWrapper {
                     
                     section!.headerItem!.cellHeight = 30
                     
-                    self.dataSource.sections.append(section!)
+                    dataSource.sections.append(section!)
                 }
                 
                 section!.addItem(cellClass: STContactCell.self,
                                  item: contact,
                                  bindingAction: self.binding)
             }
-            else if !showOnlyRegistered {
+            else {
                 
                 self.notRelatedContactsSection.addItem(cellClass: STContactCell.self,
                                                        item: contact,
@@ -137,14 +138,14 @@ class STContactsDataSourceWrapper {
         })
         
         // sorting
-        self.dataSource.sections.sort { (oneSection, otherSection) -> Bool in
+        dataSource.sections.sort { (oneSection, otherSection) -> Bool in
             
             return (oneSection.sectionType as! String) < (otherSection.sectionType as! String)
         }
         
-        if !showOnlyRegistered && contacts.count > 0 {
+        if !showOnlyRegistered && self.notRelatedContactsSection.items.count > 0 {
             
-            self.dataSource.sections.append(self.notRelatedContactsSection)
+            dataSource.sections.append(self.notRelatedContactsSection)
         }
     }
     
