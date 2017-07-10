@@ -12,20 +12,20 @@ import ReactiveKit
 import Bond
 import Dip
 
+enum OpenContactsReasonEnum {
+    
+    case usual, newPost
+}
+
+
 class STContactsController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating, NVActivityIndicatorViewable {
     
-    enum OpenContactsReasonEnum {
-        
-        case usual, newPost
-    }
     
-    fileprivate var itemsSource: STContactsDataSourceWrapper?
+    fileprivate var contactsProvider = STContactsProvider.sharedInstance
     
     fileprivate let searchController = UISearchController(searchResultsController: nil)
     
-    fileprivate var shouldShowSearchResults = false
-    
-    fileprivate let selectedItems = MutableObservableArray([Int]())
+    fileprivate let selectedItems = MutableObservableArray([STContact]())
     
     fileprivate lazy var postObject: STUserPostObject = {
         
@@ -33,15 +33,19 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         
     }()
     
-    var disposeBag: Disposable?
+    fileprivate let dataSource = TableViewDataSource()
+    
+    fileprivate let searchDataSource = TableViewDataSource()
+    
+    fileprivate let notRelatedContactsSection = TableSection()
+    
+    fileprivate var disposeBag = DisposeBag()
+    
+    fileprivate var searchString = ""
     
     var reason = OpenContactsReasonEnum.usual
     
     
-    deinit {
-        
-        disposeBag?.dispose()
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -96,26 +100,39 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
             rightItem.isEnabled = false
             self.navigationItem.rightBarButtonItem = rightItem
             
-            self.disposeBag = self.selectedItems.observeNext(with: { event in
+            self.selectedItems.observeNext(with: { [unowned self] event in
                 
                 rightItem.isEnabled = event.dataSource.count != 0
+                
+                if (event.dataSource.count == 0) {
+                    
+                    self.title = "contacts_page_title".localized
+                }
+                else {
+                    
+                    self.title = "contacts_page_title".localized + "(\(event.dataSource.count))"
+                }
             })
-        }
-        
-        self.itemsSource = STContactsDataSourceWrapper(viewController: self)
-        
-        if self.reason == .newPost {
+            .dispose(in: self.disposeBag)
             
             self.tableView.allowsMultipleSelection = true
-            self.itemsSource!.allowsSelection = true
-            self.itemsSource!.showOnlyRegistered = true
+            self.tableView.allowsSelection = true
         }
         else {
             
             self.tableView.allowsSelection = false
+            
+            self.notRelatedContactsSection.header(headerClass: STContactHeaderCell.self, bindingAction: { (cell, item) in
+                
+                let header = cell as! STContactHeaderCell
+                header.title.text = "contacts_page_users_who_don't_use_app_title".localized
+                header.title.textColor = UIColor.stSteelGrey
+            })
+            
+            self.notRelatedContactsSection.headerItem?.cellHeight = 30
         }
         
-        self.itemsSource!.loadingStatusChanged = { loadingStatus in
+        self.contactsProvider.loadingStatusChanged = { loadingStatus in
         
             switch loadingStatus {
                 
@@ -129,42 +146,52 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
             }
         }
         
-        self.itemsSource!.onDataSourceChanged = {
-            
-            self.reloadTableView()
-        }
-        
-        self.itemsSource!.dataSource.onDidSelectRowAtIndexPath = {
+        self.dataSource.onDidSelectRowAtIndexPath = {
             
             (_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) in
         
-            self.selectedItems.append((item.item as! STContact).contactUserId)
+            self.selectedItems.append((item.item as! STContact))
         }
         
-        self.itemsSource!.dataSource.onDidDeselectRowAtIndexPath = {
+        self.dataSource.onDidDeselectRowAtIndexPath = {
             
             (_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) in
             
-            let contactId = (item.item as! STContact).contactUserId
-            let index = self.selectedItems.index(of: (contactId))!
+            let index = self.selectedItems.index(of: item.item as! STContact)!
             self.selectedItems.remove(at: index)
         }
         
-        self.tableView.dataSource = self.itemsSource!.dataSource
-        self.tableView.delegate = self.itemsSource!.dataSource
+        self.searchDataSource.onDidSelectRowAtIndexPath = {
+            
+            (_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) in
+            
+            self.selectedItems.append((item.item as! STContact))
+        }
+        
+        self.searchDataSource.onDidDeselectRowAtIndexPath = {
+            
+            (_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) in
+            
+            let index = self.selectedItems.index(of: item.item as! STContact)!
+            self.selectedItems.remove(at: index)
+        }
+        
+        self.dataSource.sections.append(TableSection())
+        
+        self.tableView.dataSource = self.dataSource
+        self.tableView.delegate = self.dataSource
         
         self.tableView.tableFooterView = UIView()
         
-        self.itemsSource!.synchronizeContacts()
-        
         self.setupSearchController()
+        self.synchronizeContacts()
     }
     
     func nextAction() {
         
-        self.postObject.userIds.append(contentsOf: self.selectedItems.array)
+        self.postObject.userIds.append(contentsOf: self.selectedItems.array.map({ $0.contactUserId }))
         
-        startAnimating()
+        self.startAnimating()
         
         switch self.postObject.objectType {
             
@@ -172,15 +199,18 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
          
             if self.selectedItems.count > 0 {
                 
-                let totalCount = self.itemsSource!.dataSource.sections.reduce(0, { (result, section) -> Int in
+                _ = self.contactsProvider.contacts.andThen(callback: { result in
                     
-                    return result + section.items.count
+                    if let totalContacts = result.value {
+                        
+                        self.analytics.logEvent(eventName: st_eNewPostContactSelect, params: ["select_count" : self.selectedItems.count,
+                                                                                              "total_count" : totalContacts.count])
+                    }
                 })
-                
-                self.analytics.logEvent(eventName: st_eNewPostContactSelect, params: ["select_count" : self.selectedItems.count, "total_count" : totalCount])
             }
             
             self.analytics.endTimeEvent(eventName: st_eNewPostStep3)
+            
             api.createPost(post: self.postObject)
                 
                 .onSuccess(callback: { [unowned self] post in
@@ -241,14 +271,14 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
             self.analytics.logEvent(eventName: st_eNewPostContactSearch)
         }
         
-        self.tableView.dataSource = self.itemsSource?.searchDataSource
-        self.tableView.delegate = self.itemsSource?.searchDataSource
+        self.tableView.dataSource = self.searchDataSource
+        self.tableView.delegate = self.searchDataSource
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
-        self.tableView.dataSource = self.itemsSource?.dataSource
-        self.tableView.delegate = self.itemsSource?.dataSource
+        self.tableView.dataSource = self.dataSource
+        self.tableView.delegate = self.dataSource
         self.reloadTableView()
     }
     
@@ -269,10 +299,102 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                     return
                 }
                 
+                self.searchContacts(searchString: query)
                 self.analytics.logEvent(eventName: st_eContactSearch, params: ["query" : query])
-                
-                self.itemsSource?.searchContacts(searchString: query)
             }
+        }
+    }
+    
+    //MARK: - Private methods
+    
+    fileprivate func synchronizeContacts() {
+        
+        _ = self.contactsProvider.contacts.andThen { result in
+            
+            if let contacts = result.value {
+                
+                self.dataSource.sections.removeAll()
+                self.createDataSource(for: self.dataSource, contacts: contacts)
+                self.reloadTableView()
+            }
+        }
+    }
+    
+    fileprivate func searchContacts(searchString: String) {
+        
+        self.searchDataSource.sections.removeAll()
+        self.notRelatedContactsSection.items.removeAll()
+        
+        _ = self.contactsProvider.contacts.andThen { result in
+            
+            guard let contacts = result.value else {
+                
+                return
+            }
+            
+            if searchString.isEmpty {
+                
+                self.createDataSource(for: self.searchDataSource, contacts: contacts)
+                self.reloadTableView()
+                return
+            }
+            
+            let items = contacts.filter({ $0.firstName.contains(searchString) || $0.lastName.contains(searchString) })
+            self.createDataSource(for: self.searchDataSource, contacts: items)
+            self.reloadTableView()
+        }
+    }
+    
+    fileprivate func createDataSource(for dataSource: TableViewDataSource, contacts: [STContact]) {
+        
+        contacts.forEach({ contact in
+            
+            if contact.isRegistered {
+                
+                let letter = String(contact.firstName.characters.first!)
+                
+                var section = dataSource.sections.filter({ ($0.sectionType as? String) == letter }).first
+                
+                if section == nil {
+                    
+                    section = TableSection(title: letter)
+                    section!.sectionType = letter
+                    
+                    section!.header(headerClass: STContactHeaderCell.self, item: letter, bindingAction: { (cell, item) in
+                        
+                        let header = cell as! STContactHeaderCell
+                        let title = item.item as! String
+                        
+                        header.title.textColor = UIColor.black
+                        header.title.text = title
+                    })
+                    
+                    section!.headerItem!.cellHeight = 30
+                    
+                    dataSource.sections.append(section!)
+                }
+                
+                section!.addItem(cellClass: STContactCell.self,
+                                 item: contact,
+                                 bindingAction: self.binding)
+            }
+            else {
+                
+                self.notRelatedContactsSection.addItem(cellClass: STContactCell.self,
+                                                       item: contact,
+                                                       bindingAction: self.binding)
+            }
+        })
+        
+        // sorting
+        dataSource.sections.sort { (oneSection, otherSection) -> Bool in
+            
+            return (oneSection.sectionType as! String) < (otherSection.sectionType as! String)
+        }
+        
+        if self.reason == .usual && self.notRelatedContactsSection.items.count > 0 {
+            
+            dataSource.sections.append(self.notRelatedContactsSection)
         }
     }
     
@@ -290,6 +412,56 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         self.definesPresentationContext = true
         
         tableView.tableHeaderView = searchController.searchBar
+    }
+    
+    fileprivate func binding(_ cell: UITableViewCell, item: TableSectionItem) {
+        
+        let viewCell = cell as! STContactCell
+        let contact = item.item as! STContact
+        
+        viewCell.contactName.text = contact.firstName + " " + contact.lastName
+        viewCell.addContact.isHidden = contact.isRegistered
+        viewCell.layoutMargins = UIEdgeInsets.zero
+        viewCell.separatorInset = UIEdgeInsets.zero
+        viewCell.accessoryType = self.tableView.allowsSelection ? .checkmark : .none
+        viewCell.disableSelection = self.reason == .usual
+        
+        if self.tableView.allowsSelection && self.selectedItems.contains(item.item as! STContact) {
+            
+            self.tableView.selectRow(at: item.indexPath, animated: false, scrollPosition: .none)
+        }
+        
+        if !contact.isRegistered {
+            
+            let textToShare = "contacts_page_share_text".localized
+            
+            viewCell.addContact.reactive.tap.observe { [unowned self] _ in
+                
+                // analytics
+                let container = AppDelegate.appSettings.dependencyContainer
+                let analytics: STAnalytics = try! container.resolve()
+                analytics.logEvent(eventName: st_eContactInvite)
+                
+                let activity = UIActivityViewController(activityItems: [textToShare], applicationActivities: nil)
+                self.present(activity, animated: true, completion: nil)
+                
+                }.dispose(in: viewCell.bag)
+        }
+        
+        if contact.imageUrl.isEmpty {
+            
+            DispatchQueue.main.async {
+                
+                var defaultImage = UIImage(named: "avatar")
+                defaultImage = defaultImage?.af_imageAspectScaled(toFill: viewCell.contactImage.bounds.size)
+                viewCell.contactImage.image = defaultImage?.af_imageRoundedIntoCircle()
+            }
+            
+            return
+        }
+        
+        let urlString = contact.imageUrl + viewCell.contactImage.queryResizeString()
+        viewCell.contactImage.af_setImage(withURL: URL(string: urlString)!, completion: nil)
     }
     
     private func reloadTableView(animation: Bool = false) {

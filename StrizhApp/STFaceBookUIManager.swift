@@ -38,8 +38,13 @@ class STFaceBookUIManager: NSObject, AKFUIManager {
         
         let style = NSNumber(integerLiteral: NSUnderlineStyle.styleSingle.rawValue)
         
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 5
+        paragraphStyle.alignment = .center
+        
         let attributedText = NSMutableAttributedString(string: text,
-                                                       attributes: [ NSFontAttributeName : UIFont.systemFont(ofSize: 11) ])
+                                                       attributes: [ NSFontAttributeName : UIFont.systemFont(ofSize: 11),
+                                                                     NSParagraphStyleAttributeName : paragraphStyle ])
         
         let range1 = attributedText.mutableString.range(of: "login_offer_text".localized, options: .caseInsensitive)
         let range2 = attributedText.mutableString.range(of: "login_terms_text".localized, options: .caseInsensitive)
@@ -53,7 +58,6 @@ class STFaceBookUIManager: NSObject, AKFUIManager {
         let label = self.container.label!
         
         label.numberOfLines = 0
-        label.textAlignment = .center
         label.isUserInteractionEnabled = true
         label.attributedText = attributedText
         label.clikableRanges = [range1, range2]

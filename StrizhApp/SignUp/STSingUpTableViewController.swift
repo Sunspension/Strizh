@@ -491,9 +491,14 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 
                 let style = NSNumber(integerLiteral: NSUnderlineStyle.styleSingle.rawValue)
                 
+                let paragraphStyle = NSMutableParagraphStyle()
+                paragraphStyle.lineSpacing = 5
+                paragraphStyle.alignment = .center
+                
                 let attributedText = NSMutableAttributedString(string: text,
                                                                attributes: [ NSFontAttributeName : UIFont.systemFont(ofSize: 11),
-                                                                             NSForegroundColorAttributeName : UIColor.stWhite70Opacity ])
+                                                                             NSForegroundColorAttributeName : UIColor.stWhite70Opacity,
+                                                                             NSParagraphStyleAttributeName : paragraphStyle ])
                 
                 let range1 = attributedText.mutableString.range(of: "login_offer_text".localized, options: .caseInsensitive)
                 let range2 = attributedText.mutableString.range(of: "login_terms_text".localized, options: .caseInsensitive)
@@ -506,7 +511,6 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 attributedText.setAttributes(attr, range: range1)
                 attributedText.setAttributes(attr, range: range2)
                 
-                viewCell.clickableLabel.textAlignment = .center
                 viewCell.clickableLabel.attributedText = attributedText
                 viewCell.clickableLabel.clikableRanges = [range1, range2]
                 viewCell.clickableLabel.onTextClikAction = { range in
