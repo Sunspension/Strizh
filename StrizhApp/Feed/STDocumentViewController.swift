@@ -55,16 +55,12 @@ class STDocumentViewController: UIViewController, WKNavigationDelegate {
         
         super.viewWillAppear(animated)
         
-        if self.presentingViewController != nil {
+        
+        if self.navigationController != nil && self.navigationController!.isBeingPresented {
             
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
                                                                     target: self, action: #selector(self.close))
         }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {

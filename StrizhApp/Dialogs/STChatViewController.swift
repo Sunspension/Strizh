@@ -182,10 +182,24 @@ class STChatViewController: UIViewController, UITextViewDelegate {
             return
         }
         
+        
+        if self.loadingStatus == .idle {
+            
+            return
+        }
+        
         let message = (notification.object as? STMessage)!
         
         if message.dialogId != dialog.id
             || message.userId == self.myUser.id {
+            
+            return
+        }
+        
+        if self.dataSource.sections
+            .flatMap({ $0.items })
+            .flatMap({ $0.item as? STMessage })
+            .first(where: { $0.id == message.id }) != nil {
             
             return
         }
