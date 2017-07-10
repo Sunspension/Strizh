@@ -172,7 +172,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
  
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
-        guard userInfo is [String : Any] && self.coldStart == false else { return }
+        guard
+            userInfo is [String : Any] &&
+            self.coldStart == false &&
+            application.applicationState != .active
+            
+            else { return }
         
         if application.applicationState == .active {
             
