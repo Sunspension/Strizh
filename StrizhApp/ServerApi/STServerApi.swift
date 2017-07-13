@@ -61,9 +61,9 @@ struct STServerApi: PRemoteServerApi {
         
     }
     
-    func fbAuthorization(deviceToken: String, code: String) -> Future<STSession, STAuthorizationError> {
+    func fbAuthorization(deviceToken: String, deviceUUID: String, code: String) -> Future<STSession, STAuthorizationError> {
         
-        return self.httpManager.fbAuthorization(deviceToken: deviceToken, code: code)
+        return self.httpManager.fbAuthorization(deviceToken: deviceToken, deviceUUID: deviceUUID, code: code)
     }
     
     func logout() -> Future<STSession, STAuthorizationError> {

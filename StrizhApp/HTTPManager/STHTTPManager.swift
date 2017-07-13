@@ -186,7 +186,7 @@ class STHTTPManager {
         return p.future
     }
     
-    func fbAuthorization(deviceToken: String, code: String) -> Future<STSession, STAuthorizationError> {
+    func fbAuthorization(deviceToken: String, deviceUUID: String, code: String) -> Future<STSession, STAuthorizationError> {
     
         let p = Promise<STSession, STAuthorizationError>()
         
@@ -194,15 +194,19 @@ class STHTTPManager {
         let info = Bundle.main.infoDictionary
         let bundleId = Bundle.main.bundleIdentifier
         
-        let applicationVersion = info?["CFBundleShortVersionString"]
+        var applicationVersion = info?["CFBundleShortVersionString"] as! String
+        let buildVersion = info?["CFBundleVersion"] as! String
         
-        let params: [String: Any] = ["device_uuid" : deviceToken,
+        applicationVersion += "." + buildVersion
+        
+        let params: [String: Any] = ["device_token" : deviceToken,
+                                     "device_uuid" : deviceUUID,
                                      "code" : code,
                                      "device_type" : "ios",
                                      "type" : "fb_code",
                                      "application" : bundleId ?? "",
                                      "system_version" : systemVersion,
-                                     "application_version" : applicationVersion ?? "" ]
+                                     "application_version" : applicationVersion ]
         
         request(method: .post, remotePath: serverBaseUrlString + "/api/auth", params: params)
             .responseJSON(completionHandler: { response in

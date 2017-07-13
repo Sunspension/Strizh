@@ -32,7 +32,7 @@ protocol PRemoteServerApi {
                        systemVersion: String,
                        applicationVersion: String) -> Future<STSession, STAuthorizationError>
     
-    func fbAuthorization(deviceToken: String, code: String) -> Future<STSession, STAuthorizationError>
+    func fbAuthorization(deviceToken: String, deviceUUID: String, code: String) -> Future<STSession, STAuthorizationError>
     
     func logout() -> Future<STSession, STAuthorizationError>
     
