@@ -153,3 +153,7 @@
 "feed_details_page_button_write_back_to_dialog_title" = "Back to the dialog";
 "feed_details_page_button_write_go_to_dialogs_title" = "Go to dialogs";
 "feed_details_page_button_have_no_dialogs_title" = "You have no dialogs";
+
+// Reachability
+
+"reachability_unreachable_text" = "Internet connection is not available";

@@ -15,11 +15,32 @@ import Flurry_iOS_SDK
 import Dip
 import ObjectMapper
 import UserNotifications
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate, UNUserNotificationCenterDelegate {
 
     fileprivate var coldStart = true
+    
+    fileprivate let manager = NetworkReachabilityManager(host: "www.apple.com")
+    
+    fileprivate var sessionChecked = false
+    
+    fileprivate var launchOptions: [UIApplicationLaunchOptionsKey: Any]? = nil
+    
+    fileprivate lazy var toast: UILabel = {
+        
+        let toastLabel = UILabel()
+        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        toastLabel.textColor = UIColor.white
+        toastLabel.textAlignment = .center;
+        toastLabel.font = UIFont.systemFont(ofSize: 12)
+        toastLabel.layer.cornerRadius = 10;
+        toastLabel.clipsToBounds  =  true
+        toastLabel.numberOfLines = 0
+        
+        return toastLabel
+    }()
     
     var window: UIWindow?
     
@@ -28,6 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         return AppSettings(dbConfig: STRealmConfiguration(),
                            serverApi: STServerApi(serverUrlString: "https://devapi.strizhapp.ru"))
     }()
+    
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -63,6 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         
         GMSServices.provideAPIKey("AIzaSyB9Xe2_0osvR8RC8nBkRttpIEWOQuUbdI8")
         
+        self.reachabilitySetup()
         self.setupAnalytics()
         self.checkSession(launchOptions: launchOptions)
         
@@ -502,9 +525,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     fileprivate func checkSession(launchOptions: [UIApplicationLaunchOptionsKey: Any]? = nil,
                                   animation: Bool = false) {
         
+        self.sessionChecked = false
+        
         AppDelegate.appSettings.api.checkSession()
             
             .onSuccess { session in
+                
+                self.sessionChecked = true
                 
                 if !session.isExpired {
                     
@@ -596,7 +623,68 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                         self.changeRootViewController(controller)
                     }
                 }
+            }
+            .onFailure { error in
+            
+                
+            }
+    }
+    
+    fileprivate func reachabilitySetup() {
+        
+        manager?.listener = { status in
+            
+            switch status {
+                
+            case .reachable(NetworkReachabilityManager.ConnectionType.wwan),
+            .reachable(NetworkReachabilityManager.ConnectionType.ethernetOrWiFi):
+                
+                self.toast.removeFromSuperview()
+                
+                if self.sessionChecked {
+                    
+                    return
+                }
+                
+                self.checkSession(launchOptions: self.launchOptions)
+                
+                break
+                
+            case .notReachable:
+                
+                self.showToast(message: "reachability_unreachable_text".localized)
+                
+                break
+                
+            default:
+                break
+            }
         }
+        
+        manager?.startListening()
+    }
+    
+    fileprivate func showToast(message : String) {
+        
+        guard let window = self.window, self.toast.superview == nil else {
+            
+            return
+        }
+        
+        self.toast.alpha = 0
+        window.addSubview(toast)
+        
+        self.toast.text = message
+        self.toast.sizeToFit()
+        let size = toast.frame.size
+        let frame = window.rootViewController!.view.frame
+        self.toast.frame = CGRect(x: frame.size.width / 2 - size.width / 2 - 10, y: frame.size.height - 100, width: size.width + 20, height: 35)
+        
+        UIView.animate(withDuration: 1.0, delay: 0.1, options: .curveEaseOut, animations: {
+            
+            self.toast.alpha = 1
+            
+        }, completion: nil)
     }
 }
 
