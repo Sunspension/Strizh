@@ -43,9 +43,15 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
     
     fileprivate var searchString = ""
     
+    fileprivate var keyBoardHeight: CGFloat = 0
+    
     var reason = OpenContactsReasonEnum.usual
     
     
+    deinit {
+        
+        NotificationCenter.default.removeObserver(self)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -185,6 +191,16 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         
         self.setupSearchController()
         self.synchronizeContacts()
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.keyboardWillShow),
+                                               name: Notification.Name.UIKeyboardWillShow,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.keyboardWillHide),
+                                               name: Notification.Name.UIKeyboardWillHide,
+                                               object: nil)
     }
     
     func nextAction() {
@@ -259,6 +275,41 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                 })
             
             break
+        }
+    }
+    
+    func keyboardWillShow(_ notification: Notification) {
+        
+        if let height = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.height {
+            
+            self.keyBoardHeight = height
+        }
+        
+        if let dummy = self.dummyView() {
+            
+            let inset = self.tableView.contentInset
+            let bounds = self.view.bounds
+            let visibleRect = CGRect(x: bounds.minX,
+                                     y: inset.top,
+                                     width: bounds.width,
+                                     height: bounds.height - self.keyBoardHeight)
+            
+            dummy.center = CGPoint(x: dummy.center.x, y: visibleRect.midY)
+        }
+    }
+    
+    func keyboardWillHide(_ notification: Notification) {
+        
+        if let dummy = self.dummyView() {
+            
+            let inset = self.tableView.contentInset
+            let bounds = self.view.bounds
+            let visibleRect = CGRect(x: bounds.minX,
+                                     y: inset.top,
+                                     width: bounds.width,
+                                     height: bounds.height - inset.bottom)
+            
+            dummy.center = CGPoint(x: dummy.center.x, y: visibleRect.midY)
         }
     }
     
@@ -477,6 +528,22 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         
         if self.tableView.numberOfSections == 0
             || self.tableView.numberOfRows(inSection: 0) == 0 {
+            
+            if self.keyBoardHeight != 0 {
+                
+                let inset = self.tableView.contentInset
+                let bounds = self.view.bounds
+                let visibleRect = CGRect(x: bounds.minX,
+                                         y: inset.top,
+                                         width: bounds.width,
+                                         height: bounds.height - self.keyBoardHeight)
+                
+                self.showDummyView(imageName: "empty-contacts",
+                                   title: "contacts_page_empty_contacts_title".localized,
+                                   subTitle: "contacts_page_empty_contacts_message".localized,
+                                   inRect: visibleRect)
+                return
+            }
             
             self.showDummyView(imageName: "empty-contacts",
                                title: "contacts_page_empty_contacts_title".localized,
