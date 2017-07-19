@@ -116,7 +116,7 @@ extension UIViewController {
         }
     }
     
-    func showDummyView(imageName: String, title: String, subTitle: String, setupView: ((_ dummyView: UIView) -> Void)? = nil) {
+    func showDummyView(imageName: String, title: String, subTitle: String, inRect: CGRect? = nil, setupView: ((_ dummyView: UIView) -> Void)? = nil) {
         
         guard self.view.subviews.first(where: { $0 is STDummyView }) == nil else {
             
@@ -137,6 +137,12 @@ extension UIViewController {
         dummy.sizeToFit()
         
         self.view.addSubview(dummy)
+        
+        if inRect != nil {
+            
+            dummy.center = CGPoint(x: inRect!.midX, y: inRect!.midY)
+            return
+        }
         
         var center = self.view.center
         

@@ -16,13 +16,14 @@ import Dip
 import ObjectMapper
 import UserNotifications
 import Alamofire
+import ReachabilitySwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate, UNUserNotificationCenterDelegate {
 
     fileprivate var coldStart = true
     
-    fileprivate let manager = NetworkReachabilityManager(host: "www.apple.com")
+    fileprivate let reachability = Reachability()
     
     fileprivate var sessionChecked = false
     
@@ -632,36 +633,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     
     fileprivate func reachabilitySetup() {
         
-        manager?.listener = { status in
+        self.reachability?.whenReachable = { reachability in
             
-            switch status {
-                
-            case .reachable(NetworkReachabilityManager.ConnectionType.wwan),
-            .reachable(NetworkReachabilityManager.ConnectionType.ethernetOrWiFi):
+            DispatchQueue.main.async {
                 
                 self.toast.removeFromSuperview()
-                
-                if self.sessionChecked {
-                    
-                    return
-                }
-                
-                self.checkSession(launchOptions: self.launchOptions)
-                
-                break
-                
-            case .notReachable:
-                
-                self.showToast(message: "reachability_unreachable_text".localized)
-                
-                break
-                
-            default:
-                break
             }
         }
         
-        manager?.startListening()
+        self.reachability?.whenUnreachable = { reachability in
+        
+            DispatchQueue.main.async {
+                
+                self.showToast(message: "reachability_unreachable_text".localized)
+            }
+        }
+
+        do {
+            
+            try reachability?.startNotifier()
+        }
+        catch {
+            
+            print("Unable to start notifier")
+        }
     }
     
     fileprivate func showToast(message : String) {
