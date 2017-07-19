@@ -9,9 +9,9 @@
 import UIKit
 import SHSPhoneComponent
 import NVActivityIndicatorView
-import EmitterKit
 import BrightFutures
 import Bond
+import ReactiveKit
 
 enum STSignUpStateEnum {
     
@@ -40,16 +40,14 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
     
     fileprivate var observableImage = Observable(UIImage())
     
-    fileprivate var textFieldEmitter = Event<Bool>()
-    
-    fileprivate var textFieldListener: EventListener<Bool>?
+    fileprivate var textFieldObservable = Observable(false)
     
     fileprivate var userImage: UIImage?
     
     fileprivate var userFirstName = ""
     
     fileprivate var userLastName = ""
-
+    
     
     deinit {
         
@@ -165,7 +163,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
             
             if textField.tag == 1 {
                 
-                self.textFieldEmitter.emit(true)
+                self.textFieldObservable.value = true
             }
             else {
                 
@@ -715,10 +713,16 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 viewCell.value.tag = 2
                 viewCell.value.delegate = self
                 
-                self.textFieldListener = self.textFieldEmitter.on({ [unowned viewCell] _ in
+                self.textFieldObservable.observeNext{ [viewCell] result in
+                
+                    if result != true {
+                        
+                        return
+                    }
                     
                     viewCell.value.becomeFirstResponder()
-                })
+                }
+                .dispose(in: viewCell.disposeBag)
                 
                 item.validation = { [unowned self] in
                     

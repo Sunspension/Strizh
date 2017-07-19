@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReactiveKit
 
 class STLoginTextTableViewCell: UITableViewCell {
 
@@ -15,6 +16,14 @@ class STLoginTextTableViewCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
     
     @IBOutlet weak var value: UITextField!
+    
+    var disposeBag = DisposeBag()
+    
+    
+    override func prepareForReuse() {
+        
+        self.disposeBag = DisposeBag()
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

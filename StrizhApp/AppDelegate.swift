@@ -16,14 +16,17 @@ import Dip
 import ObjectMapper
 import UserNotifications
 import Alamofire
-import ReachabilitySwift
+//import ReachabilitySwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate, UNUserNotificationCenterDelegate {
 
     fileprivate var coldStart = true
     
-    fileprivate let reachability = Reachability()
+//    fileprivate let reachability = Reachability()
+
+    fileprivate let manager = NetworkReachabilityManager(host: "www.apple.com")
+
     
     fileprivate var sessionChecked = false
     
@@ -625,38 +628,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                     }
                 }
             }
-            .onFailure { error in
-            
-                
-            }
     }
     
     fileprivate func reachabilitySetup() {
         
-        self.reachability?.whenReachable = { reachability in
-            
-            DispatchQueue.main.async {
+        manager?.listener = { status in
+        
+            switch status {
+                
+            case .reachable(NetworkReachabilityManager.ConnectionType.wwan),
+                 .reachable(NetworkReachabilityManager.ConnectionType.ethernetOrWiFi):
                 
                 self.toast.removeFromSuperview()
-            }
-        }
-        
-        self.reachability?.whenUnreachable = { reachability in
-        
-            DispatchQueue.main.async {
+                
+                if self.sessionChecked {
+                    
+                    return
+                }
+                
+                self.checkSession(launchOptions: self.launchOptions)
+                
+                break
+                
+            case .notReachable, .unknown:
                 
                 self.showToast(message: "reachability_unreachable_text".localized)
+                
+                break
             }
         }
-
-        do {
-            
-            try reachability?.startNotifier()
-        }
-        catch {
-            
-            print("Unable to start notifier")
-        }
+        
+        manager?.startListening()
+        
+//        self.reachability?.whenReachable = { reachability in
+//            
+//            DispatchQueue.main.async {
+//                
+//                self.toast.removeFromSuperview()
+//            }
+//        }
+//        
+//        self.reachability?.whenUnreachable = { reachability in
+//        
+//            DispatchQueue.main.async {
+//                
+//                self.showToast(message: "reachability_unreachable_text".localized)
+//            }
+//        }
+//
+//        do {
+//            
+//            try reachability?.startNotifier()
+//        }
+//        catch {
+//            
+//            print("Unable to start notifier")
+//        }
     }
     
     fileprivate func showToast(message : String) {
