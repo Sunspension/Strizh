@@ -24,6 +24,7 @@ target 'StrizhApp' do
     pod 'Dip'
     pod 'Dip-UI'
     pod 'Flurry-iOS-SDK/FlurrySDK'
+    pod 'ReachabilitySwift', '~> 3'
 #    pod 'RxSwift', '~> 3.0'
 #    pod 'RxCocoa', '~> 3.0'
 end
