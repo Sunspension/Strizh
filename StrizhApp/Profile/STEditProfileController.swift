@@ -39,6 +39,8 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
     
     fileprivate var email: String?
     
+    fileprivate var deleteAvatar = false
+    
     
     required init?(coder aDecoder: NSCoder) {
         
@@ -205,7 +207,8 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                             return
                         }
                         
-                        viewCell.userImage.setImage(image, for: .normal)
+                        viewCell.userImage.setImage(image.af_imageRoundedIntoCircle(), for: .normal)
+                        self.deleteAvatar = false
                         
                     }.dispose(in: viewCell.bag)
                     
@@ -257,6 +260,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                     viewCell.userImage.setImage(UIImage(named: "avatar"), for: .normal)
                     self.userImage = nil
                     self.observableImage.value = UIImage()
+                    self.deleteAvatar = true
                     
                 }.dispose(in: viewCell.bag)
                 
@@ -275,6 +279,10 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                         
                         let filter = RoundedCornersFilter(radius: viewCell.userImage.bounds.size.width)
                         viewCell.userImage.af_setImage(for: .normal, url: URL(string: urlString)!, filter: filter)
+                    }
+                    else {
+                        
+                        viewCell.userImage.setImage(UIImage(named: "avatar"), for: .normal)
                     }
                 }
             }
@@ -424,7 +432,8 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
         }
         else {
             
-            if self.firstName == nil && self.lastName == nil && self.email == nil {
+            if self.firstName == nil && self.lastName == nil
+                && self.email == nil && self.deleteAvatar == false {
                 
                 return
             }
@@ -432,6 +441,16 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
             let firstName = self.firstName ?? self.user!.firstName
             let lastName = self.lastName ?? self.user!.lastName
             let email = self.email ?? self.user!.email
+            
+            if self.deleteAvatar {
+                
+                self.updateUserInfo(firstName: firstName,
+                                    lastName: lastName,
+                                    email: email,
+                                    imageId: 0,
+                                    callBack: callBack)
+                return
+            }
             
             self.updateUserInfo(firstName: firstName,
                                 lastName: lastName,

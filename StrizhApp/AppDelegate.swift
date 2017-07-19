@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     static var appSettings: AppSettings = {
        
         return AppSettings(dbConfig: STRealmConfiguration(),
-                           serverApi: STServerApi(serverUrlString: "https://devapi.strizhapp.ru"))
+                           serverApi: STServerApi(serverUrlString: "https://dev.api.strizhapp.ru"))
     }()
     
     
