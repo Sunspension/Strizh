@@ -45,6 +45,7 @@ class ClickableLabel: UILabel {
             if recognizer.didTapAttributedText(in: self, inRange: range) {
                 
                 self.onTextClikAction?(range)
+                break
             }
         }
     }

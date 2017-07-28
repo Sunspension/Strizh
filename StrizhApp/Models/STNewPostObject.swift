@@ -60,7 +60,7 @@ class STUserPostObject {
         self.tillDate = post.dateTo
         self.imageIds = post.imageIds.map({ $0.value })
         self.locationIds = post.locationIds.map({ $0.value })
-        
+        self.userIds = post.userIds.map({ $0.value })
         self.objectType = .old
     }
 }

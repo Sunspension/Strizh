@@ -12,7 +12,7 @@ class STSettingsController: UITableViewController {
 
     fileprivate enum STSettingItemsEnum {
         
-        case deals, messages, terms, offer, logout
+        case deals, messages, terms, policy, agreement, logout
     }
     
     fileprivate let dataSource = TableViewDataSource()
@@ -56,7 +56,7 @@ class STSettingsController: UITableViewController {
         self.tableView.estimatedRowHeight = 44
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
-        self.dataSource.sections.append(self.section1)
+//        self.dataSource.sections.append(self.section1)
         self.dataSource.sections.append(self.section2)
         self.dataSource.sections.append(self.logoutSection)
         
@@ -66,10 +66,10 @@ class STSettingsController: UITableViewController {
         
         self.title = "settings_page_title".localized
         
-        let rigthItem = UIBarButtonItem(title: "action_save".localized, style: .plain, target: self, action: #selector(self.close))
+//        let rigthItem = UIBarButtonItem(title: "action_save".localized, style: .plain, target: self, action: #selector(self.close))
         let leftItem = UIBarButtonItem(title: "action_close".localized, style: .plain, target: self, action: #selector(self.close))
         
-        self.navigationItem.rightBarButtonItem = rigthItem
+//        self.navigationItem.rightBarButtonItem = rigthItem
         self.navigationItem.leftBarButtonItem = leftItem
         
         self.setCustomBackButton()
@@ -82,20 +82,34 @@ class STSettingsController: UITableViewController {
         
         switch item.itemType as! STSettingItemsEnum {
             
-        case .terms:
+        case .policy:
             
-            if let path = Bundle.main.path(forResource: "privacy-policy", ofType: "docx") {
+            if let path = Bundle.main.path(forResource: "policy", ofType: "pdf") {
                 
-                self.st_router_openDocumentController(url: URL(fileURLWithPath: path), title: "settings_terms_&_condictions_text".localized, present: false)
+                self.st_router_openDocumentController(url: URL(fileURLWithPath: path),
+                                                                  title: "settings_privacy_policy_text".localized,
+                                                                  present: false)
             }
             
             break
             
-        case .offer:
+        case .terms:
             
-            if let path = Bundle.main.path(forResource: "privacy-policy", ofType: "docx") {
+            if let path = Bundle.main.path(forResource: "terms", ofType: "pdf") {
                 
-                self.st_router_openDocumentController(url: URL(fileURLWithPath: path), title: "settings_offer_text".localized, present: false)
+                self.st_router_openDocumentController(url: URL(fileURLWithPath: path),
+                                                                  title: "settings_terms_&_condictions_text".localized,
+                                                                  present: false)
+            }
+            
+            break
+            
+        case .agreement:
+            
+            if let path = Bundle.main.path(forResource: "agreement", ofType: "pdf") {
+                
+                self.st_router_openDocumentController(url: URL(fileURLWithPath: path),
+                                                                  title: "settings_processing_personal_data_text".localized, present: false)
             }
             
             break
@@ -119,18 +133,24 @@ class STSettingsController: UITableViewController {
     
     fileprivate func createDataSource() {
         
-        self.section1.addItem(cellClass: STFeedFilterSwitchTableViewCell.self, itemType: STSettingItemsEnum.deals) { (cell, item) in
-            
-            let viewCell = cell as! STFeedFilterSwitchTableViewCell
-            viewCell.title.text = "settings_page_topics_text".localized
-            viewCell.toggle.isOn = true
-        }
+//        self.section1.addItem(cellClass: STFeedFilterSwitchTableViewCell.self, itemType: STSettingItemsEnum.deals) { (cell, item) in
+//            
+//            let viewCell = cell as! STFeedFilterSwitchTableViewCell
+//            viewCell.title.text = "settings_page_topics_text".localized
+//            viewCell.toggle.isOn = true
+//        }
+//        
+//        self.section1.addItem(cellClass: STFeedFilterSwitchTableViewCell.self, itemType: STSettingItemsEnum.messages) { (cell, item) in
+//            
+//            let viewCell = cell as! STFeedFilterSwitchTableViewCell
+//            viewCell.title.text = "settings_page_messages_text".localized
+//            viewCell.toggle.isOn = true
+//        }
         
-        self.section1.addItem(cellClass: STFeedFilterSwitchTableViewCell.self, itemType: STSettingItemsEnum.messages) { (cell, item) in
+        self.section2.addItem(cellStyle: .default, itemType: STSettingItemsEnum.policy) { (cell, item) in
             
-            let viewCell = cell as! STFeedFilterSwitchTableViewCell
-            viewCell.title.text = "settings_page_messages_text".localized
-            viewCell.toggle.isOn = true
+            cell.textLabel?.text = "settings_privacy_policy_text".localized
+            cell.accessoryType = .disclosureIndicator
         }
         
         self.section2.addItem(cellStyle: .default, itemType: STSettingItemsEnum.terms) { (cell, item) in
@@ -139,9 +159,10 @@ class STSettingsController: UITableViewController {
             cell.accessoryType = .disclosureIndicator
         }
         
-        self.section2.addItem(cellStyle: .default, itemType: STSettingItemsEnum.offer) { (cell, item) in
+        self.section2.addItem(cellStyle: .default, itemType: STSettingItemsEnum.agreement) { (cell, item) in
             
-            cell.textLabel?.text = "settings_offer_text".localized
+            cell.textLabel?.text = "settings_processing_personal_data_text".localized
+            cell.textLabel?.numberOfLines = 0
             cell.accessoryType = .disclosureIndicator
         }
         

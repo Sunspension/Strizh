@@ -54,9 +54,10 @@
 "login_page_last_action_text1" = "Осталось немного!\n\n";
 "login_page_last_action_text2" = "Выберите картинку для профиля и заполните поля.";
 "login_page_action_send_password_text" = "Отправить пароль";
-"login_page_offer_text" = "Регистрируясь, Вы принимаете %@ и %@";
-"login_offer_text" = "оферту";
+"login_page_offer_text" = "Регистрируясь, Вы принимаете %@, %@ и даете %@";
+"login_policy_text" = "политику конфиденциальности";
 "login_terms_text" = "пользовательское соглашение";
+"login_personal_data_processing" = "согласие на обработку персональных данных";
 
 // Post
 "post_page_title" = "Открыть сделку";
@@ -131,7 +132,8 @@
 "settings_page_events_text" = "УВЕДОМЛЕНИЯ";
 "settings_page_about_app_text" = "О ПРИЛОЖЕНИИ";
 "settings_terms_&_condictions_text" = "Пользовательское соглашение";
-"settings_offer_text" = "Оферта";
+"settings_privacy_policy_text" = "Политика конфеденциальности";
+"settings_processing_personal_data_text" = "Согласие на обработку персональных данных";
 "settings_page_topics_text" = "Сделки";
 "settings_page_messages_text" = "Сообщения";
 "settings_page_singout_text" = "Выйти из аккаунта";

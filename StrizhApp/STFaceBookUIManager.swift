@@ -34,57 +34,67 @@ class STFaceBookUIManager: NSObject, AKFUIManager {
         cell.backgroundColor = UIColor.red
         
         let text = String(format: "login_page_offer_text".localized,
-                          "login_offer_text".localized, "login_terms_text".localized)
+                          "login_policy_text".localized,
+                          "login_terms_text".localized,
+                          "login_personal_data_processing".localized)
         
         let style = NSNumber(integerLiteral: NSUnderlineStyle.styleSingle.rawValue)
         
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 5
+//        paragraphStyle.lineSpacing = 5
         paragraphStyle.alignment = .center
         
         let attributedText = NSMutableAttributedString(string: text,
                                                        attributes: [ NSFontAttributeName : UIFont.systemFont(ofSize: 11),
                                                                      NSParagraphStyleAttributeName : paragraphStyle ])
         
-        let range1 = attributedText.mutableString.range(of: "login_offer_text".localized, options: .caseInsensitive)
+        let range1 = attributedText.mutableString.range(of: "login_policy_text".localized, options: .caseInsensitive)
         let range2 = attributedText.mutableString.range(of: "login_terms_text".localized, options: .caseInsensitive)
+        let range3 = attributedText.mutableString.range(of: "login_personal_data_processing".localized, options: .caseInsensitive)
         
         let attr: [String : Any] = [NSFontAttributeName : UIFont.systemFont(ofSize: 11),
                                     NSUnderlineStyleAttributeName : style]
         
         attributedText.setAttributes(attr, range: range1)
         attributedText.setAttributes(attr, range: range2)
+        attributedText.setAttributes(attr, range: range3)
 
         let label = self.container.label!
         
         label.numberOfLines = 0
         label.isUserInteractionEnabled = true
         label.attributedText = attributedText
-        label.clikableRanges = [range1, range2]
+        label.clikableRanges = [range1, range2, range3]
         label.onTextClikAction = { range in
             
             switch (range.location, range.length) {
                 
             case (range1.location, range1.length):
                 
-                print("open offer")
-                
-                if let path = Bundle.main.path(forResource: "privacy-policy", ofType: "docx") {
+                if let path = Bundle.main.path(forResource: "policy", ofType: "pdf") {
                     
                     self.controller?.st_router_openDocumentController(url: URL(fileURLWithPath: path),
-                                                                      title: "settings_terms_&_condictions_text".localized)
+                                                                      title: "settings_privacy_policy_text".localized)
                 }
                 
                 break
                 
             case (range2.location, range2.length):
                 
-                print("open terms")
-                
-                if let path = Bundle.main.path(forResource: "privacy-policy", ofType: "docx") {
+                if let path = Bundle.main.path(forResource: "terms", ofType: "pdf") {
                     
                     self.controller?.st_router_openDocumentController(url: URL(fileURLWithPath: path),
                                                                       title: "settings_terms_&_condictions_text".localized)
+                }
+                
+                break
+
+            case (range3.location, range3.length):
+                
+                if let path = Bundle.main.path(forResource: "agreement", ofType: "pdf") {
+                    
+                    self.controller?.st_router_openDocumentController(url: URL(fileURLWithPath: path),
+                                                                      title: "settings_processing_personal_data_text".localized)
                 }
                 
                 break

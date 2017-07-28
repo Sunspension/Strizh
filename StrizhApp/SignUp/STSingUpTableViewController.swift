@@ -485,12 +485,15 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 viewCell.backgroundColor = UIColor.clear
                 viewCell.selectionStyle = .none
                 
-                let text = String(format: "login_page_offer_text".localized, "login_offer_text".localized, "login_terms_text".localized)
+                let text = String(format: "login_page_offer_text".localized,
+                                  "login_policy_text".localized,
+                                  "login_terms_text".localized,
+                                  "login_personal_data_processing".localized)
                 
                 let style = NSNumber(integerLiteral: NSUnderlineStyle.styleSingle.rawValue)
                 
                 let paragraphStyle = NSMutableParagraphStyle()
-                paragraphStyle.lineSpacing = 5
+//                paragraphStyle.lineSpacing = 5
                 paragraphStyle.alignment = .center
                 
                 let attributedText = NSMutableAttributedString(string: text,
@@ -498,8 +501,9 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                                                                              NSForegroundColorAttributeName : UIColor.stWhite70Opacity,
                                                                              NSParagraphStyleAttributeName : paragraphStyle ])
                 
-                let range1 = attributedText.mutableString.range(of: "login_offer_text".localized, options: .caseInsensitive)
+                let range1 = attributedText.mutableString.range(of: "login_policy_text".localized, options: .caseInsensitive)
                 let range2 = attributedText.mutableString.range(of: "login_terms_text".localized, options: .caseInsensitive)
+                let range3 = attributedText.mutableString.range(of: "login_personal_data_processing".localized, options: .caseInsensitive)
                 
                 let attr: [String : Any] = [NSFontAttributeName : UIFont.systemFont(ofSize: 11),
                                             NSForegroundColorAttributeName : UIColor.stWhite70Opacity,
@@ -508,20 +512,19 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 
                 attributedText.setAttributes(attr, range: range1)
                 attributedText.setAttributes(attr, range: range2)
+                attributedText.setAttributes(attr, range: range3)
                 
                 viewCell.clickableLabel.attributedText = attributedText
-                viewCell.clickableLabel.clikableRanges = [range1, range2]
+                viewCell.clickableLabel.clikableRanges = [range1, range2, range3]
                 viewCell.clickableLabel.onTextClikAction = { range in
                     
                     switch (range.location, range.length) {
                      
                     case (range1.location, range1.length):
                         
-                        print("open offer")
-                        
-                        if let path = Bundle.main.path(forResource: "privacy-policy", ofType: "docx") {
+                        if let path = Bundle.main.path(forResource: "policy", ofType: "pdf") {
                             
-                            self.st_router_openDocumentController(url: URL(fileURLWithPath: path), title: "settings_terms_&_condictions_text".localized)
+                            self.st_router_openDocumentController(url: URL(fileURLWithPath: path), title: "settings_privacy_policy_text".localized)
                         }
                         
                         break
@@ -530,9 +533,19 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                         
                         print("open terms")
                         
-                        if let path = Bundle.main.path(forResource: "privacy-policy", ofType: "docx") {
+                        if let path = Bundle.main.path(forResource: "terms", ofType: "pdf") {
                             
                             self.st_router_openDocumentController(url: URL(fileURLWithPath: path), title: "settings_terms_&_condictions_text".localized)
+                        }
+                        
+                        break
+                        
+                    case (range3.location, range3.length):
+                        
+                        if let path = Bundle.main.path(forResource: "agreement", ofType: "pdf") {
+                            
+                            self.st_router_openDocumentController(url: URL(fileURLWithPath: path),
+                                                                              title: "settings_processing_personal_data_text".localized)
                         }
                         
                         break

@@ -24,6 +24,8 @@ target 'StrizhApp' do
     pod 'Dip'
     pod 'Dip-UI'
     pod 'Flurry-iOS-SDK/FlurrySDK'
+#    pod 'ActiveLabel'
+#    pod 'TTTAttributedLabel'
 #    pod 'RxSwift', '~> 3.0'
 #    pod 'RxCocoa', '~> 3.0'
 end

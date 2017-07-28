@@ -55,9 +55,10 @@
 "login_page_last_action_text1" = "Your almost done!\n\n";
 "login_page_last_action_text2" = "Please choose a photo for your profile and fill empty fields";
 "login_page_action_send_password_text" = "Send password";
-"login_page_offer_text" = "By registering you agree to %@ and %@";
-"login_offer_text" = "offer";
+"login_page_offer_text" = "By registering you agree to %@, %@ and %@";
+"login_policy_text" = "privacy policy";
 "login_terms_text" = "terms & conditions";
+"login_personal_data_processing" = "processing your personal data";
 
 // Post
 "post_page_title" = "New deal";
@@ -112,7 +113,7 @@
 "profile_page_my_topics" = "MY DEALS:";
 "profile_page_open_one_dialog_text" = "Opened:";
 "profile_page_open_few_dialogs_text" = "Opened:";
-"profile_page_one_dialog_text" = "dialos";
+"profile_page_one_dialog_text" = "dialogs";
 "profile_page_few_dialogs_text" = "dialogs";
 "profile_page_many_dialogs_text" = "dialogs";
 "profile_page_empty_personal_posts_title" = "No deals";
@@ -132,7 +133,8 @@
 "settings_page_events_text" = "NOTIFICATIONS";
 "settings_page_about_app_text" = "ABOUT APPLICATION";
 "settings_terms_&_condictions_text" = "Terms & conditions";
-"settings_offer_text" = "Offer";
+"settings_privacy_policy_text" = "Privacy policy";
+"settings_processing_personal_data_text" = "Agreement to processing your personal data";
 "settings_page_topics_text" = "Deals";
 "settings_page_messages_text" = "Messages";
 "settings_page_singout_text" = "Logout";

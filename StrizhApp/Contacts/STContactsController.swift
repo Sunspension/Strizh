@@ -67,7 +67,6 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         }
     }
     
-    
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewDidDisappear(animated)
@@ -365,6 +364,19 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
             if let contacts = result.value {
                 
                 self.dataSource.sections.removeAll()
+                
+                // while trying to edit post
+                if self.reason == .newPost && self.postObject.userIds.count > 0 {
+                    
+                    for userId in self.postObject.userIds {
+                        
+                        if let contact = contacts.first(where: { $0.contactUserId == userId }) {
+                            
+                            self.selectedItems.append(contact)
+                        }
+                    }
+                }
+                
                 self.createDataSource(for: self.dataSource, contacts: contacts)
                 self.reloadTableView()
             }

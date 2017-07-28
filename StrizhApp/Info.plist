@@ -6,6 +6,8 @@
 	<string>46c2f8c68c76331a50fd2c380495341d</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>STRIZHAPP</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -19,7 +21,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>15</string>
+	<string>16</string>
 	<key>FacebookAppID</key>
 	<string>1832580017000999</string>
 	<key>ITSAppUsesNonExemptEncryption</key>

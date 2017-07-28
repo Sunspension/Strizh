@@ -151,7 +151,9 @@ extension UIViewController {
         if present {
             
             let navi = STNewPostNavigationController(rootViewController: controller)
-            self.navigationController?.present(navi, animated: true, completion: nil)
+            
+            let presentationController = self.navigationController ?? self
+            presentationController.present(navi, animated: true, completion: nil)
         }
         else {
             
