@@ -16,14 +16,11 @@ import Dip
 import ObjectMapper
 import UserNotifications
 import Alamofire
-//import ReachabilitySwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate, UNUserNotificationCenterDelegate {
 
     fileprivate var coldStart = true
-    
-//    fileprivate let reachability = Reachability()
 
     fileprivate let manager = NetworkReachabilityManager(host: "www.apple.com")
 
@@ -51,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     static var appSettings: AppSettings = {
        
         return AppSettings(dbConfig: STRealmConfiguration(),
-                           serverApi: STServerApi(serverUrlString: "https://dev.api.strizhapp.ru"))
+                           serverApi: STServerApi(serverUrlString: "https://api.strizhapp.ru"))
     }()
     
     
@@ -659,31 +656,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         }
         
         manager?.startListening()
-        
-//        self.reachability?.whenReachable = { reachability in
-//            
-//            DispatchQueue.main.async {
-//                
-//                self.toast.removeFromSuperview()
-//            }
-//        }
-//        
-//        self.reachability?.whenUnreachable = { reachability in
-//        
-//            DispatchQueue.main.async {
-//                
-//                self.showToast(message: "reachability_unreachable_text".localized)
-//            }
-//        }
-//
-//        do {
-//            
-//            try reachability?.startNotifier()
-//        }
-//        catch {
-//            
-//            print("Unable to start notifier")
-//        }
     }
     
     fileprivate func showToast(message : String) {
