@@ -17,6 +17,11 @@ import ObjectMapper
 import UserNotifications
 import Alamofire
 
+fileprivate enum SessionCheckingStatus {
+    
+    case checking, checked, notChecked
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate, UNUserNotificationCenterDelegate {
 
@@ -24,8 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
 
     fileprivate let manager = NetworkReachabilityManager(host: "www.apple.com")
 
-    
-    fileprivate var sessionChecked = false
+    fileprivate var sessionStatus = SessionCheckingStatus.notChecked
     
     fileprivate var launchOptions: [UIApplicationLaunchOptionsKey: Any]? = nil
     
@@ -47,8 +51,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     
     static var appSettings: AppSettings = {
        
-        return AppSettings(dbConfig: STRealmConfiguration(),
-                           serverApi: STServerApi(serverUrlString: "https://api.strizhapp.ru"))
+        let prod = "https://api.strizhapp.ru"
+        let dev = "https://dev.api.strizhapp.ru"
+        
+        return AppSettings(dbConfig: STRealmConfiguration(), serverApi: STServerApi(serverUrlString: prod))
     }()
     
     
@@ -77,8 +83,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
             application.registerUserNotificationSettings(settings)
             application.registerForRemoteNotifications()
         }
-        
-        self.window = UIWindow(frame: UIScreen.main.bounds)
         
         AppDelegate.appSettings.dbConfig.configure()
         
@@ -272,17 +276,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
             
             .onSuccess(callback: { [unowned self] session in
                 
+                session.writeToDB()
+                self.onAuthorized()
+                
                 // check user
                 AppDelegate.appSettings.api.loadUser(transport: .http, userId: session.userId)
                     
                     .onSuccess(callback: { [unowned self] user in
                         
-                        self.onAuthorized()
-                        
                         if user.firstName.isEmpty {
                             
                             let controller = STSingUpTableViewController(signupStep: .signupThirdStep)
-                            let navi = STNavigationController(rootViewController: controller)
+                            let navi = STSignUpNavigationController(rootViewController: controller)
                             
                             self.changeRootViewController(navi)
                             return
@@ -526,13 +531,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     fileprivate func checkSession(launchOptions: [UIApplicationLaunchOptionsKey: Any]? = nil,
                                   animation: Bool = false) {
         
-        self.sessionChecked = false
+        self.sessionStatus = .checking
         
         AppDelegate.appSettings.api.checkSession()
             
             .onSuccess { session in
                 
-                self.sessionChecked = true
+                self.sessionStatus = .checked
                 
                 if !session.isExpired {
                     
@@ -625,6 +630,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                     }
                 }
             }
+            .onFailure { error in
+                
+                self.sessionStatus = .notChecked
+            }
     }
     
     fileprivate func reachabilitySetup() {
@@ -638,7 +647,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                 
                 self.toast.removeFromSuperview()
                 
-                if self.sessionChecked {
+                if self.sessionStatus != .checked {
                     
                     return
                 }

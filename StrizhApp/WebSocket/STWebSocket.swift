@@ -504,10 +504,14 @@ class STWebSocket {
     
     fileprivate func socketSetup() {
         
+        let serverUrl = URL(string: serverUrlString)!
+        
+        let cookies = HTTPCookieStorage.shared.cookies?.filter({ $0.domain == "." + serverUrl.host! })
+        
         let config: SocketIOClientConfiguration = [.log(true),
                                                    .forceWebsockets(true),
                                                    .path("/api/websocket"),
-                                                   SocketIOClientOption.cookies(HTTPCookieStorage.shared.cookies!)]
+                                                   SocketIOClientOption.cookies(cookies ?? [])]
         
         self.socket = SocketIOClient(socketURL: URL(string: serverUrlString)!, config: config)
         

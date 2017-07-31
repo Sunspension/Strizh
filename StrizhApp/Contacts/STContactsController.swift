@@ -496,7 +496,12 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         
         if !contact.isRegistered {
             
-            let textToShare = "contacts_page_share_text".localized
+            var textToShare = "https://strizhapp.ru"
+            
+            if let user = STUser.objects(by: STUser.self).first {
+                
+                textToShare += "/?ref=\(user.id)"
+            }
             
             viewCell.addContact.reactive.tap.observe { [unowned self] _ in
                 

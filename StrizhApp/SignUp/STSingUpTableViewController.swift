@@ -286,6 +286,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                     
                     // write session
                     session.writeToDB()
+                    self.st_router_onAuthorized()
                     
                     // check user
                     self.api.loadUser(transport: .http, userId: session.userId)
@@ -293,7 +294,6 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                         .onSuccess(callback: { [unowned self] user in
                             
                             self.stopAnimating()
-                            self.st_router_onAuthorized()
                             
                             if user.firstName.isEmpty {
                                 
@@ -313,6 +313,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                 })
                 .onFailure(callback: { [unowned self] error in
                     
+                    self.stopAnimating()
                     self.showError(error: error)
                 })
             
