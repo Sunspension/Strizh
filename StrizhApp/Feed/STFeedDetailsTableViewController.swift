@@ -217,6 +217,13 @@ class STFeedDetailsTableViewController: UIViewController {
                                             
                                             guard !user.imageUrl.isEmpty else {
                                                 
+                                                DispatchQueue.main.async {
+                                                    
+                                                    var defaultImage = UIImage(named: "avatar")
+                                                    defaultImage = defaultImage?.af_imageAspectScaled(toFill: viewCell.userIcon.bounds.size)
+                                                    viewCell.userIcon.image = defaultImage?.af_imageRoundedIntoCircle()
+                                                }
+                                                
                                                 return
                                             }
                                             
@@ -242,7 +249,9 @@ class STFeedDetailsTableViewController: UIViewController {
                                         viewCell.postType.isSelected = post.type == 2 ? true : false
                                         viewCell.createdAt.text = post.createdAt?.mediumLocalizedFormat
                                         
-                                        if post.dialogCount == 0 {
+                                        let myUserId = STUser.objects(by: STUser.self).first?.id
+                                        
+                                        if post.dialogCount == 0 || post.userId != myUserId {
                                             
                                             viewCell.dialogsCount.isHidden = true
                                             viewCell.openedDialogs.isHidden = true

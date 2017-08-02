@@ -416,29 +416,26 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         }
         
         // get user
-        if let opponentId = dialog.userIds.first(where: { $0.value != self.myUser.id }) {
+        if let user = self.users.first(where: { $0.id == dialog.ownerUserId }) {
             
-            if let user = self.users.first(where: { $0.id == opponentId.value }) {
+            viewCell.userName.text = user.firstName + " " + user.lastName
+            
+            if !user.imageUrl.isEmpty {
                 
-                viewCell.userName.text = user.firstName + " " + user.lastName
+                let urlString = user.imageUrl + viewCell.userImage.queryResizeString()
                 
-                if !user.imageUrl.isEmpty {
+                let filter = RoundedCornersFilter(radius: viewCell.userImage.bounds.width)
+                viewCell.userImage.af_setImage(withURL: URL(string: urlString)!,
+                                               filter: filter,
+                                               completion: nil)
+            }
+            else {
+                
+                DispatchQueue.main.async {
                     
-                    let urlString = user.imageUrl + viewCell.userImage.queryResizeString()
-                    
-                    let filter = RoundedCornersFilter(radius: viewCell.userImage.bounds.width)
-                    viewCell.userImage.af_setImage(withURL: URL(string: urlString)!,
-                                                   filter: filter,
-                                                   completion: nil)
-                }
-                else {
-                    
-                    DispatchQueue.main.async {
-                        
-                        var defaultImage = UIImage(named: "avatar")
-                        defaultImage = defaultImage?.af_imageAspectScaled(toFill: viewCell.userImage.bounds.size)
-                        viewCell.userImage.image = defaultImage?.af_imageRoundedIntoCircle()
-                    }
+                    var defaultImage = UIImage(named: "avatar")
+                    defaultImage = defaultImage?.af_imageAspectScaled(toFill: viewCell.userImage.bounds.size)
+                    viewCell.userImage.image = defaultImage?.af_imageRoundedIntoCircle()
                 }
             }
         }

@@ -27,8 +27,7 @@ class STChatViewController: UIViewController, UITextViewDelegate {
     
     fileprivate let disposeBag = DisposeBag()
     
-    fileprivate var messages = [STMessage]()
-    
+    fileprivate var messages = Set<STMessage>()
     
     var postId: Int?
     
@@ -182,12 +181,6 @@ class STChatViewController: UIViewController, UITextViewDelegate {
             return
         }
         
-        
-        if self.loadingStatus == .idle {
-            
-            return
-        }
-        
         let message = (notification.object as? STMessage)!
         
         if message.dialogId != dialog.id
@@ -196,13 +189,7 @@ class STChatViewController: UIViewController, UITextViewDelegate {
             return
         }
         
-        if self.dataSource.sections
-            .flatMap({ $0.items })
-            .flatMap({ $0.item as? STMessage })
-            .first(where: { $0.id == message.id }) != nil {
-            
-            return
-        }
+        self.messages.insert(message)
         
         self.analytics.logEvent(eventName: st_eDialogReceiveMessage,
                                 params: ["post_id" : dialog.postId, "dialog_id" : dialog.id])
@@ -210,24 +197,9 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         // notify
         self.notifyMessagesRead(lastReadMessage: message.id)
         
-        var section = self.section(by: message.createdAt)
-        
-        if section == nil {
-            
-            section = self.newSection(date: message.createdAt)
-            self.dataSource.sections.append(section!)
-        }
-        
-        let itemIndex = section!.addItem(cellClass: STDialogOtherCell.self, item: message) { [unowned self] (cell, item) in
-            
-            self.otherCellBindingAction(cell: cell, item: item)
-        }
-        
-        let sectionIndex = self.dataSource.sections.index(of: section!)
-        let indexPath = IndexPath(item: itemIndex, section: sectionIndex!)
-        
+        self.createDataSource()
         self.reloadTableView()
-        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        self.scrollToLastMessage(animated: true)
     }
     
     func sendMessageAction() {
@@ -335,6 +307,12 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         }
         
         api.sendMessage(dialogId: dialog.id, message: message)
+            .onSuccess(callback: { [unowned self] message in
+            
+                self.messages.insert(message)
+                self.createDataSource()
+                self.reloadTableView()
+            })
             .onFailure { [unowned self] error in
                 
                 let alert = UIAlertController(title: "alert_title_error".localized,
@@ -414,20 +392,22 @@ class STChatViewController: UIViewController, UITextViewDelegate {
                 
                 self.hasMore = messages.count == self.pageSize
                 
-                self.createDataSource(messages: messages)
+                for message in messages {
+                    
+                    self.messages.insert(message)
+                }
+                
+                self.createDataSource()
                 
                 if loadMore {
                  
                     let sizeBefore = self.tableView.contentSize
+                    let offSet = self.tableView.contentOffset
                     
                     self.reloadTableView()
-                    
-                    self.tableView.setNeedsLayout()
                     self.tableView.layoutIfNeeded()
                     
                     let sizeAfter = self.tableView.contentSize
-                    let offSet = self.tableView.contentOffset
-                    
                     let newOffsetY = offSet.y + sizeAfter.height - sizeBefore.height
                     
                     self.tableView.contentOffset = CGPoint(x: 0, y: newOffsetY)
@@ -447,9 +427,11 @@ class STChatViewController: UIViewController, UITextViewDelegate {
             }
     }
     
-    fileprivate func createDataSource(messages: [STMessage]) {
+    fileprivate func createDataSource() {
         
-        for message in messages {
+        self.dataSource.sections.removeAll()
+        
+        for message in self.messages.sorted(by: { $0.id > $1.id }) {
             
             var section = self.section(by: message.createdAt)
             
@@ -489,7 +471,6 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         let sectionIndex = self.dataSource.sections.index(of: section)
         
         let indexPath = IndexPath(item: itemIndex, section: sectionIndex!)
-        
         self.tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
     }
     

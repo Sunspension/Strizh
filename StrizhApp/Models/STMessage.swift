@@ -57,6 +57,18 @@ final class STMessage: Object, Mappable, Copying {
         return "id"
     }
     
+    override func isEqual(_ object: Any?) -> Bool {
+        
+        if let other = object as? STMessage {
+            
+            return self.id == other.id
+        }
+        else {
+            
+            return false
+        }
+    }
+    
     required convenience init(original: STMessage) {
         
         self.init()
