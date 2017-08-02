@@ -118,12 +118,9 @@ extension UIViewController {
     
     func showDummyView(imageName: String, title: String, subTitle: String, inRect: CGRect? = nil, setupView: ((_ dummyView: UIView) -> Void)? = nil) {
         
-        guard self.view.subviews.first(where: { $0 is STDummyView }) == nil else {
-            
-            return
-        }
-        
-        guard let dummy = UIView.loadFromNib(view: STDummyView.self) else {
+        guard
+            self.view.subviews.first(where: { $0 is STDummyView }) == nil,
+            let dummy = UIView.loadFromNib(view: STDummyView.self) else {
             
             return
         }

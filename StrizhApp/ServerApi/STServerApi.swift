@@ -35,7 +35,7 @@ struct STServerApi: PRemoteServerApi {
     
     func registration(phoneNumber: String,
                       deviceType: String,
-                      deviceToken: String) -> Future<STRegistration, STAuthorizationError> {
+                      deviceToken: String?) -> Future<STRegistration, STAuthorizationError> {
         
         return self.httpManager.registration(phoneNumber: phoneNumber,
                                              deviceType: deviceType,
@@ -44,7 +44,7 @@ struct STServerApi: PRemoteServerApi {
     }
     
     func authorization(phoneNumber: String,
-                       deviceToken: String,
+                       deviceToken: String?,
                        code: String,
                        type: String,
                        application: String,
@@ -61,7 +61,7 @@ struct STServerApi: PRemoteServerApi {
         
     }
     
-    func fbAuthorization(deviceToken: String, deviceUUID: String, code: String) -> Future<STSession, STAuthorizationError> {
+    func fbAuthorization(deviceToken: String?, deviceUUID: String, code: String) -> Future<STSession, STAuthorizationError> {
         
         return self.httpManager.fbAuthorization(deviceToken: deviceToken, deviceUUID: deviceUUID, code: code)
     }

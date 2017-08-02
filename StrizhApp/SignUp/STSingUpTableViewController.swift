@@ -263,7 +263,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
             
             let phone = AppDelegate.appSettings.lastSessionPhoneNumber!
             
-            let deviceToken = AppDelegate.appSettings.deviceToken ?? "xxxxxxxxxxxxxxxx"
+            let deviceToken = AppDelegate.appSettings.deviceToken
             let type = AppDelegate.appSettings.type
             let bundleId = AppDelegate.appSettings.bundleId!
             let systemVersion = AppDelegate.appSettings.systemVersion
@@ -398,7 +398,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         self.analytics.logEvent(eventName: st_eCode)
         startAnimating()
 
-        let deviceToken = AppDelegate.appSettings.deviceToken ?? "xxxxxxxxxxxxxxxx"
+        let deviceToken = AppDelegate.appSettings.deviceToken
         let deviceType = AppDelegate.appSettings.deviceType
         
         api.registration(phoneNumber: phone, deviceType: deviceType, deviceToken: deviceToken)

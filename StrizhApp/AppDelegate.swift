@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         let prod = "https://api.strizhapp.ru"
         let dev = "https://dev.api.strizhapp.ru"
         
-        return AppSettings(dbConfig: STRealmConfiguration(), serverApi: STServerApi(serverUrlString: prod))
+        return AppSettings(dbConfig: STRealmConfiguration(), serverApi: STServerApi(serverUrlString: dev))
     }()
     
     
@@ -71,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                 
                 if !granted {
                     
-                    print(error!)
+                    return
                 }
                 
                 application.registerForRemoteNotifications()
@@ -269,7 +269,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     // MARK: AKFViewControllerDelegate implementation
     func viewController(_ viewController: UIViewController!, didCompleteLoginWithAuthorizationCode code: String!, state: String!) {
         
-        let deviceToken = AppDelegate.appSettings.deviceToken ?? "xxxxxxxxxxxxxxxx"
+        let deviceToken = AppDelegate.appSettings.deviceToken
         let deviceUUID = UIDevice.current.identifierForVendor!.uuidString
         
         AppDelegate.appSettings.api.fbAuthorization(deviceToken: deviceToken, deviceUUID: deviceUUID, code: code)
@@ -592,36 +592,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                     
                     if let _ = UserDefaults.standard.object(forKey: kNeedIntro) as? Bool {
 
-                        if session.isFacebook {
-
-                            let controller = AppDelegate.appSettings.fbAccountKit
-                                .viewControllerForPhoneLogin() as! AKFViewController
-                            controller.enableSendToFacebook = true
-                            controller.delegate = self
-                            controller.uiManager = STFaceBookUIManager(controller: controller as! UIViewController)
+                        let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
+                        let navi = STSignUpNavigationController(rootViewController: controller)
+                        
+                        if animation {
                             
-                            if animation {
-                                
-                                self.changeRootViewController(controller as! UIViewController)
-                                return
-                            }
-                            
-                            self.window?.rootViewController = controller as? UIViewController
-                            self.window?.makeKeyAndVisible()
+                            self.changeRootViewController(navi)
                         }
-                        else {
-                            
-                            let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
-                            let navi = STSignUpNavigationController(rootViewController: controller)
-                            
-                            if animation {
-                                
-                                self.changeRootViewController(navi)
-                            }
-                            
-                            self.window?.rootViewController = navi
-                            self.window?.makeKeyAndVisible()
-                        }
+                        
+                        self.window?.rootViewController = navi
+                        self.window?.makeKeyAndVisible()
+                        
+//                        if session.isFacebook {
+//
+//                            let controller = AppDelegate.appSettings.fbAccountKit
+//                                .viewControllerForPhoneLogin() as! AKFViewController
+//                            controller.enableSendToFacebook = true
+//                            controller.delegate = self
+//                            controller.uiManager = STFaceBookUIManager(controller: controller as! UIViewController)
+//                            
+//                            if animation {
+//                                
+//                                self.changeRootViewController(controller as! UIViewController)
+//                                return
+//                            }
+//                            
+//                            self.window?.rootViewController = controller as? UIViewController
+//                            self.window?.makeKeyAndVisible()
+//                        }
+//                        else {
+//                            
+//                            let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
+//                            let navi = STSignUpNavigationController(rootViewController: controller)
+//                            
+//                            if animation {
+//                                
+//                                self.changeRootViewController(navi)
+//                            }
+//                            
+//                            self.window?.rootViewController = navi
+//                            self.window?.makeKeyAndVisible()
+//                        }
                     }
                     else {
                         

@@ -20,6 +20,7 @@
 		D40BC8631E5B61120045F327 /* STCommonLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40BC8611E5B61120045F327 /* STCommonLabelCell.swift */; };
 		D40BC8641E5B61120045F327 /* STCommonLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D40BC8621E5B61120045F327 /* STCommonLabelCell.xib */; };
 		D40BC8661E5B706D0045F327 /* SHSPhoneComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40BC8651E5B706D0045F327 /* SHSPhoneComponent.swift */; };
+		D41169D61F3130CD00B57CD7 /* StringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41169D51F3130CD00B57CD7 /* StringFormatter.swift */; };
 		D413A20C1F117A0C0089A614 /* STFaceBookUIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D413A20B1F117A0C0089A614 /* STFaceBookUIManager.swift */; };
 		D413A20E1F11863C0089A614 /* STTermsCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D413A20D1F11863C0089A614 /* STTermsCustomView.swift */; };
 		D413A2101F1186470089A614 /* STTermsCustomView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D413A20F1F1186470089A614 /* STTermsCustomView.xib */; };
@@ -216,6 +217,7 @@
 		D40BC8611E5B61120045F327 /* STCommonLabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STCommonLabelCell.swift; path = CommonUI/STCommonLabelCell.swift; sourceTree = "<group>"; };
 		D40BC8621E5B61120045F327 /* STCommonLabelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STCommonLabelCell.xib; path = CommonUI/STCommonLabelCell.xib; sourceTree = "<group>"; };
 		D40BC8651E5B706D0045F327 /* SHSPhoneComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SHSPhoneComponent.swift; path = Extensions/SHSPhoneComponent.swift; sourceTree = "<group>"; };
+		D41169D51F3130CD00B57CD7 /* StringFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringFormatter.swift; sourceTree = "<group>"; };
 		D413A20B1F117A0C0089A614 /* STFaceBookUIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STFaceBookUIManager.swift; sourceTree = "<group>"; };
 		D413A20D1F11863C0089A614 /* STTermsCustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTermsCustomView.swift; sourceTree = "<group>"; };
 		D413A20F1F1186470089A614 /* STTermsCustomView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STTermsCustomView.xib; sourceTree = "<group>"; };
@@ -714,6 +716,7 @@
 		D49727251E32F34F0076B7A1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				D41169D51F3130CD00B57CD7 /* StringFormatter.swift */,
 				D40A6BE51E3AA7DB00F1D218 /* Router.swift */,
 				E54D88F31E3BB579005233DB /* Realm.swift */,
 				E559067F1E520D7B00F8E20E /* Models.swift */,
@@ -1224,6 +1227,7 @@
 				E59448971E680C98002B2989 /* STPostButtonsCell.swift in Sources */,
 				D40A6BE61E3AA7DB00F1D218 /* Router.swift in Sources */,
 				E53185FE1E364AE700BC6C9A /* STLoginTableViewCell.swift in Sources */,
+				D41169D61F3130CD00B57CD7 /* StringFormatter.swift in Sources */,
 				E53185E81E3609B700BC6C9A /* STSingUpTableViewController.swift in Sources */,
 				D49726FB1E32BDA50076B7A1 /* AppDelegate.swift in Sources */,
 				E59A1B1C1E3F9716009EE669 /* STUser.swift in Sources */,
