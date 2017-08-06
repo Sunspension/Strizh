@@ -19,15 +19,18 @@ class STRealmConfiguration: PDBConfiguration {
     func configure() {
         
         var config = Realm.Configuration()
-        config.schemaVersion = 16
+        config.schemaVersion = 17
         
-//        config.migrationBlock = { (migration: Migration, oldSchemaVersion: UInt64) in
-//            
-//            if oldSchemaVersion < 16 {
-//                
-//                
-//            }
-//        }
+        config.migrationBlock = { (migration: Migration, oldSchemaVersion: UInt64) in
+            
+            if oldSchemaVersion < 17 {
+                
+                migration.enumerateObjects(ofType: STUser.className(), { (oldObject, newObject) in
+                    
+                    newObject?["notificationSettings"] = STUserNotificationSettings()
+                })
+            }
+        }
         
         Realm.Configuration.defaultConfiguration = config;
     }

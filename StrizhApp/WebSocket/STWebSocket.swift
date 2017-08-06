@@ -465,6 +465,27 @@ class STWebSocket {
         return p.future
     }
     
+    func updateUserNotificationSettings(settings: STUserNotificationSettings, userId: Int) -> Future<STUser, STError> {
+        
+        let p = Promise<STUser, STError>()
+        
+        let request = STSocketRequestBuilder.updateUserNotificationSettings(settings: settings, userId: userId).request
+        
+        self.sendRequest(request: request) { json in
+            
+            if let user = STUser(JSON: json) {
+                
+                p.success(user)
+            }
+            else {
+                
+                p.failure(STError.updateNotificationSettingsError)
+            }
+        }
+        
+        return p.future
+    }
+    
     @objc func onApplicationDidBecomeActiveNotification() {
         
         if let socket = self.socket {

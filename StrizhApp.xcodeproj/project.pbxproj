@@ -120,6 +120,7 @@
 		D4CB22771EA1577800A9B80F /* STDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CB22761EA1577800A9B80F /* STDocumentViewController.swift */; };
 		D4CEC6561EB927B3001D8907 /* STIntroObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CEC6551EB927B3001D8907 /* STIntroObject.swift */; };
 		D4D826261EA95BC4007E42FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4D826281EA95BC4007E42FB /* Localizable.strings */; };
+		D4EA75F01F37D5AE0046D780 /* STUserNotificationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EA75EF1F37D5AE0046D780 /* STUserNotificationSettings.swift */; };
 		D4F00F4B1EA3A75500C6E1E8 /* STDummyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4F00F4A1EA3A75500C6E1E8 /* STDummyView.xib */; };
 		D4F00F4D1EA3A89D00C6E1E8 /* STDummyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F00F4C1EA3A89D00C6E1E8 /* STDummyView.swift */; };
 		D4FBE4AE1EE2DCA600C473A3 /* STFilterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FBE4AD1EE2DCA600C473A3 /* STFilterItem.swift */; };
@@ -321,6 +322,7 @@
 		D4CEC6551EB927B3001D8907 /* STIntroObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STIntroObject.swift; path = Intro/STIntroObject.swift; sourceTree = "<group>"; };
 		D4D826271EA95BC4007E42FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4D826291EA95BC9007E42FB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D4EA75EF1F37D5AE0046D780 /* STUserNotificationSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STUserNotificationSettings.swift; path = Models/STUserNotificationSettings.swift; sourceTree = "<group>"; };
 		D4F00F4A1EA3A75500C6E1E8 /* STDummyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STDummyView.xib; path = CommonUI/STDummyView.xib; sourceTree = "<group>"; };
 		D4F00F4C1EA3A89D00C6E1E8 /* STDummyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDummyView.swift; path = CommonUI/STDummyView.swift; sourceTree = "<group>"; };
 		D4FBE4AD1EE2DCA600C473A3 /* STFilterItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFilterItem.swift; path = Models/STFilterItem.swift; sourceTree = "<group>"; };
@@ -472,6 +474,7 @@
 		D4194A121E46024000D0B189 /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				D4EA75EF1F37D5AE0046D780 /* STUserNotificationSettings.swift */,
 				E59A1B151E3F9388009EE669 /* STImage.swift */,
 				E59A1B161E3F9388009EE669 /* STRegistration.swift */,
 				E59A1B171E3F9388009EE669 /* STSession.swift */,
@@ -1264,6 +1267,7 @@
 				D460E0C91EB28E1E0040E856 /* STAnalytics.swift in Sources */,
 				E537712E1E64941C00BBADEA /* STPersonalPostDetailsMainInfoCell.swift in Sources */,
 				D449A8601EA287EF008B9603 /* STPhotoViewController.swift in Sources */,
+				D4EA75F01F37D5AE0046D780 /* STUserNotificationSettings.swift in Sources */,
 				D40405891E91876000F0A8E4 /* ValidationEnum.swift in Sources */,
 				E58AF8511E8A4B9000CEF2B3 /* STChatViewController.swift in Sources */,
 				D45B8B101E9A779F0042C8B6 /* STDialogSectionHeader.swift in Sources */,

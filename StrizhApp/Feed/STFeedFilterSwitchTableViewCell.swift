@@ -14,12 +14,16 @@ class STFeedFilterSwitchTableViewCell: UITableViewCell {
     
     @IBOutlet weak var toggle: UISwitch!
     
+    @IBOutlet weak var spiner: UIActivityIndicatorView!
+    
+    var onTogglePressed: ((_ isOn: Bool) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         self.selectionStyle = .none
         toggle.onTintColor = UIColor.stBrightBlue
+        toggle.addTarget(self, action: #selector(self.togglePressed), for: .valueChanged)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -27,4 +31,8 @@ class STFeedFilterSwitchTableViewCell: UITableViewCell {
         
     }
     
+    @objc fileprivate func togglePressed() {
+        
+        onTogglePressed?(toggle.isOn)
+    }
 }

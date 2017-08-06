@@ -34,6 +34,8 @@ enum STError: Error {
     
     case loadMessageError
     
+    case updateNotificationSettingsError
+    
     case anyError(error: Error)
     
     
@@ -92,6 +94,10 @@ enum STError: Error {
         case .loadMessageError:
             
             return "Error has occurred when was trying to load a message"
+            
+        case .updateNotificationSettingsError:
+            
+            return "Error has occurred when was trying to update user notification settings"
         }
     }
 }

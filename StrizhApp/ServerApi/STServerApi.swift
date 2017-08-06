@@ -211,4 +211,9 @@ struct STServerApi: PRemoteServerApi {
         
         return self.socket.loadMessage(by: id)
     }
+    
+    func updateUserNotificationSettings(settings: STUserNotificationSettings, userId: Int) -> Future<STUser, STError> {
+        
+        return self.socket.updateUserNotificationSettings(settings: settings, userId: userId)
+    }
 }

@@ -87,4 +87,6 @@ protocol PRemoteServerApi {
     //// For creation dialog with user, object id have to be equals to a post id.
     //// For creation dialog with support, object id have to be equals user id
     func createDialog(objectId: Int, objectType: Int) -> Future<STDialog, STError>
+    
+    func updateUserNotificationSettings(settings: STUserNotificationSettings, userId: Int) -> Future<STUser, STError>
 }

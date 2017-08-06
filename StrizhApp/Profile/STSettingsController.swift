@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class STSettingsController: UITableViewController {
 
@@ -23,6 +24,10 @@ class STSettingsController: UITableViewController {
     
     fileprivate let logoutSection = TableSection()
     
+    fileprivate var myUser: STUser {
+        
+        return STUser.objects(by: STUser.self).first!
+    }
     
     required init?(coder aDecoder: NSCoder) {
         
@@ -56,7 +61,7 @@ class STSettingsController: UITableViewController {
         self.tableView.estimatedRowHeight = 44
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
-//        self.dataSource.sections.append(self.section1)
+        self.dataSource.sections.append(self.section1)
         self.dataSource.sections.append(self.section2)
         self.dataSource.sections.append(self.logoutSection)
         
@@ -66,10 +71,8 @@ class STSettingsController: UITableViewController {
         
         self.title = "settings_page_title".localized
         
-//        let rigthItem = UIBarButtonItem(title: "action_save".localized, style: .plain, target: self, action: #selector(self.close))
         let leftItem = UIBarButtonItem(title: "action_close".localized, style: .plain, target: self, action: #selector(self.close))
         
-//        self.navigationItem.rightBarButtonItem = rigthItem
         self.navigationItem.leftBarButtonItem = leftItem
         
         self.setCustomBackButton()
@@ -81,6 +84,10 @@ class STSettingsController: UITableViewController {
         let item = dataSource.item(by: indexPath)
         
         switch item.itemType as! STSettingItemsEnum {
+            
+        case .deals:
+            
+            break
             
         case .policy:
             
@@ -133,19 +140,69 @@ class STSettingsController: UITableViewController {
     
     fileprivate func createDataSource() {
         
-//        self.section1.addItem(cellClass: STFeedFilterSwitchTableViewCell.self, itemType: STSettingItemsEnum.deals) { (cell, item) in
-//            
-//            let viewCell = cell as! STFeedFilterSwitchTableViewCell
-//            viewCell.title.text = "settings_page_topics_text".localized
-//            viewCell.toggle.isOn = true
-//        }
-//        
-//        self.section1.addItem(cellClass: STFeedFilterSwitchTableViewCell.self, itemType: STSettingItemsEnum.messages) { (cell, item) in
-//            
-//            let viewCell = cell as! STFeedFilterSwitchTableViewCell
-//            viewCell.title.text = "settings_page_messages_text".localized
-//            viewCell.toggle.isOn = true
-//        }
+        self.section1.addItem(cellClass: STFeedFilterSwitchTableViewCell.self,
+                              item: self.myUser, itemType: STSettingItemsEnum.deals) { (cell, item) in
+                                
+                                let user = item.item as! STUser
+                                let viewCell = cell as! STFeedFilterSwitchTableViewCell
+                                viewCell.title.text = "settings_page_topics_text".localized
+                                viewCell.toggle.isOn = user.notificationSettings.isTopics
+                                viewCell.onTogglePressed = { [viewCell, weak self] isOn in
+                                    
+                                    viewCell.spiner.startAnimating()
+                                    viewCell.toggle.isEnabled = false
+                                    
+                                    Object.updateObject {
+                                        
+                                        user.notificationSettings.isTopics = isOn
+                                    }
+                                    
+                                    self?.updateNotificationSettings({ error in
+                                    
+                                        viewCell.toggle.isEnabled = true
+                                        viewCell.spiner.stopAnimating()
+                                        
+                                        if error == nil {
+                                            
+                                            return
+                                        }
+                                        
+                                        viewCell.toggle.isOn = user.notificationSettings.isTopics
+                                    })
+                                }
+        }
+        
+        self.section1.addItem(cellClass: STFeedFilterSwitchTableViewCell.self,
+                              item: self.myUser, itemType: STSettingItemsEnum.messages) { (cell, item) in
+                                
+                                let user = item.item as! STUser
+                                let viewCell = cell as! STFeedFilterSwitchTableViewCell
+                                viewCell.title.text = "settings_page_messages_text".localized
+                                viewCell.toggle.isOn = user.notificationSettings.isMessages
+                                viewCell.onTogglePressed = { [viewCell, weak self] isOn in
+                                    
+                                    viewCell.spiner.startAnimating()
+                                    viewCell.toggle.isEnabled = false
+                                    
+                                    Object.updateObject {
+                                        
+                                        user.notificationSettings.isMessages = isOn
+                                    }
+                                    
+                                    self?.updateNotificationSettings({ error in
+                                        
+                                        viewCell.toggle.isEnabled = true
+                                        viewCell.spiner.stopAnimating()
+                                        
+                                        if error == nil {
+                                            
+                                            return
+                                        }
+                                        
+                                        viewCell.toggle.isOn = user.notificationSettings.isMessages
+                                    })
+                                }
+        }
         
         self.section2.addItem(cellStyle: .default, itemType: STSettingItemsEnum.policy) { (cell, item) in
             
@@ -172,5 +229,19 @@ class STSettingsController: UITableViewController {
             cell.textLabel?.textColor = UIColor.stBrick
             cell.textLabel?.text = "settings_page_singout_text".localized
         }
+    }
+    
+    fileprivate func updateNotificationSettings(_ callBack:@escaping (_ error: STError?) -> Void) {
+        
+        api.updateUserNotificationSettings(settings: self.myUser.notificationSettings, userId: self.myUser.id)
+            .onSuccess { user in
+            
+                user.writeToDB()
+                callBack(nil)
+            }
+            .onFailure { error in
+                
+                callBack(error)
+            }
     }
 }

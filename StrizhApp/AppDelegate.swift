@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         let dev = "https://dev.api.strizhapp.ru"
         
         return AppSettings(dbConfig: STRealmConfiguration(),
-                           serverApi: STServerApi(serverUrlString: prod))
+                           serverApi: STServerApi(serverUrlString: dev))
     }()
     
     
@@ -588,8 +588,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                 }
                 else {
                     
-                    // remove session from db
-                    STSession.removeFromDB(by: STSession.self)
+                    // clear db
+                    AppDelegate.appSettings.dbConfig.onLogout()
                     
                     if let _ = UserDefaults.standard.object(forKey: kNeedIntro) as? Bool {
 

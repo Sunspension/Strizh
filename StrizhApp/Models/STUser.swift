@@ -48,10 +48,14 @@ class STUser: Object, Mappable {
     
     dynamic var imageData: Data?
     
+    // available in schema version 17
+    dynamic var notificationSettings: STUserNotificationSettings!
+    
     override var hash: Int {
         
         return id.hashValue ^ firstName.hashValue
     }
+
     
     required convenience init?(map: Map) {
         
@@ -94,5 +98,6 @@ class STUser: Object, Mappable {
         isEmailConfirmed <- map["is_email_confirmed"]
         imageId <- map["image_id"]
         imageUrl <- map["image_url"]
+        notificationSettings <- map["notification"]
     }
 }

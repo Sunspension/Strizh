@@ -74,6 +74,8 @@ enum STSocketRequestBuilder {
     
     case loadMessage(messageId: Int)
     
+    case updateUserNotificationSettings(settings: STUserNotificationSettings, userId: Int)
+    
     
     var request: STSocketRequest {
         
@@ -463,6 +465,19 @@ enum STSocketRequestBuilder {
             // payload
             self.addToPayload(&payLoad, type: .path, value: "/api/message/\(messageId)")
             self.addToPayload(&payLoad, type: .method, value: "GET")
+            
+            break
+            
+        case .updateUserNotificationSettings(let settings, let userId):
+            
+            // payload
+            self.addToPayload(&payLoad, type: .path, value: "/api/user/\(userId)")
+            self.addToPayload(&payLoad, type: .method, value: "PUT")
+            
+            var body = [String : Any]()
+            body["notification"] = ["post" : settings.isTopics, "message" : settings.isMessages]
+            
+            self.addToPayload(&payLoad, type: .body, value: body)
             
             break
         }

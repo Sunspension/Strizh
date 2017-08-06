@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -452,7 +452,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="106"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zMi-7i-kaf" id="11u-pW-mNQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="105.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="106"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar" translatesAutoresizingMaskIntoConstraints="NO" id="xxo-y0-Zcw">
@@ -586,7 +586,7 @@
                                 <rect key="frame" x="0.0" y="614" width="375" height="53"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ISc-aL-sBL">
-                                        <rect key="frame" x="16" y="12" width="299" height="33"/>
+                                        <rect key="frame" x="16" y="12" width="303" height="33"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="33" id="AxH-8g-RLk"/>
@@ -596,7 +596,7 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a message" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VOD-fd-Wqq">
-                                        <rect key="frame" x="24" y="12" width="291" height="33"/>
+                                        <rect key="frame" x="24" y="12" width="295" height="33"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="33" id="O4y-ab-itC"/>
@@ -606,8 +606,9 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OtB-uV-6bT">
-                                        <rect key="frame" x="327" y="15" width="36" height="30"/>
+                                        <rect key="frame" x="319" y="17" width="56" height="28"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                        <inset key="contentEdgeInsets" minX="8" minY="4" maxX="12" maxY="6"/>
                                         <state key="normal" title="Send"/>
                                     </button>
                                 </subviews>
@@ -618,9 +619,9 @@
                                     <constraint firstItem="ISc-aL-sBL" firstAttribute="top" secondItem="tUc-z6-qM5" secondAttribute="top" constant="12" id="CeR-tV-kSC"/>
                                     <constraint firstItem="VOD-fd-Wqq" firstAttribute="leading" secondItem="ISc-aL-sBL" secondAttribute="leading" constant="8" id="DxY-Xo-YwW"/>
                                     <constraint firstItem="VOD-fd-Wqq" firstAttribute="centerY" secondItem="ISc-aL-sBL" secondAttribute="centerY" id="ERl-XQ-NfR"/>
-                                    <constraint firstAttribute="trailing" secondItem="OtB-uV-6bT" secondAttribute="trailing" constant="12" id="PYw-6f-Une"/>
-                                    <constraint firstItem="OtB-uV-6bT" firstAttribute="leading" secondItem="ISc-aL-sBL" secondAttribute="trailing" constant="12" id="SRa-WO-x3c"/>
-                                    <constraint firstAttribute="bottom" secondItem="OtB-uV-6bT" secondAttribute="bottom" constant="8" id="YOV-LI-Fnz"/>
+                                    <constraint firstAttribute="trailing" secondItem="OtB-uV-6bT" secondAttribute="trailing" id="PYw-6f-Une"/>
+                                    <constraint firstItem="OtB-uV-6bT" firstAttribute="leading" secondItem="ISc-aL-sBL" secondAttribute="trailing" id="SRa-WO-x3c"/>
+                                    <constraint firstItem="OtB-uV-6bT" firstAttribute="bottom" secondItem="VOD-fd-Wqq" secondAttribute="bottom" id="bb0-sS-rAq"/>
                                     <constraint firstAttribute="bottom" secondItem="ISc-aL-sBL" secondAttribute="bottom" constant="8" id="sdQ-eS-oIm"/>
                                 </constraints>
                             </view>
@@ -629,10 +630,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="STDialogOtherCell" rowHeight="112" id="pYp-WB-1HO" customClass="STDialogOtherCell" customModule="StrizhApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="112"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="112"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pYp-WB-1HO" id="5tk-wk-C5s">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="111.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="111"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mlP-RR-azc">
@@ -689,10 +690,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="STDialogMyCell" rowHeight="112" id="KxX-LT-dzb" customClass="STDialogMyCell" customModule="StrizhApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="167.5" width="375" height="112"/>
+                                        <rect key="frame" x="0.0" y="168" width="375" height="112"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KxX-LT-dzb" id="6ze-L6-Fp3">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="111.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="111"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble-my" translatesAutoresizingMaskIntoConstraints="NO" id="kFe-z8-AwQ">

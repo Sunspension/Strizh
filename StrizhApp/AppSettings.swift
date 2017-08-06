@@ -103,7 +103,6 @@ struct AppSettings {
             outgoing.id = 6
             
             filter!.filterItems.append(objectsIn: [all, incoming, outgoing])
-            
             filter!.writeToDB()
         }
         

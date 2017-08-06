@@ -104,12 +104,15 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [String : Any]) {
         
-//        let originalImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
+        var image = info["UIImagePickerControllerOriginalImage"] as! UIImage
         
-        let croppedImage = info["UIImagePickerControllerEditedImage"] as! UIImage
+        if picker.sourceType != .camera {
+            
+           image = info["UIImagePickerControllerEditedImage"] as! UIImage
+        }
         
-        self.userImage = croppedImage
-        self.observableImage.value = croppedImage
+        self.userImage = image
+        self.observableImage.value = image
         
         self.presentedViewController?.dismiss(animated: true, completion: nil)
     }
@@ -241,7 +244,6 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                         
                         let pickerController = UIImagePickerController()
                         pickerController.sourceType = .camera
-                        pickerController.allowsEditing = true
                         pickerController.delegate = self
                         
                         self.present(pickerController, animated: true, completion: nil)
