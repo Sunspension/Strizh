@@ -216,12 +216,9 @@ class STFeedDataSourceWrapper {
                 
                 guard !user.imageUrl.isEmpty else {
                     
-                    DispatchQueue.main.async {
-                        
-                        var defaultImage = UIImage(named: "avatar")
-                        defaultImage = defaultImage?.af_imageAspectScaled(toFill: cell.userIcon.bounds.size)
-                        cell.userIcon.image = defaultImage?.af_imageRoundedIntoCircle()
-                    }
+                    var defaultImage = UIImage(named: "avatar")
+                    defaultImage = defaultImage?.af_imageAspectScaled(toFill: cell.userIcon.bounds.size)
+                    cell.userIcon.image = defaultImage?.af_imageRoundedIntoCircle()
                     
                     return
                 }
