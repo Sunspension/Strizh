@@ -8,6 +8,7 @@
 
 import UIKit
 import ReactiveKit
+import AlamofireImage
 
 enum STFeedControllerOpenReason {
     
@@ -17,13 +18,13 @@ enum STFeedControllerOpenReason {
 class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating {
 
     
-    fileprivate var feedDataSource: STFeedDataSourceWrapper?
+    fileprivate var feedDataSource = STFeedDataSource()
     
-    fileprivate var favoritesFeedDataSource: STFeedDataSourceWrapper?
+    fileprivate var favoritesFeedDataSource = STFeedDataSource(isFavorite: true)
     
-    fileprivate var searchFeedDataSource: STFeedDataSourceWrapper?
+    fileprivate var searchFeedDataSource = STFeedDataSource()
     
-    fileprivate var searchFavoriteDataSource: STFeedDataSourceWrapper?
+    fileprivate var searchFavoriteDataSource = STFeedDataSource(isFavorite: true)
     
     fileprivate var dataSourceSwitch = UISegmentedControl(items: ["feed_page_filter_all_feed_text".localized,
                                                                   "feed_page_filter_favorites_text".localized])
@@ -38,6 +39,18 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     
     fileprivate let disposeBag = DisposeBag()
 
+    fileprivate var myUser: STUser {
+        
+        return STUser.objects(by: STUser.self).first!
+    }
+    
+    fileprivate var currentDataSource: STFeedDataSource {
+        
+        return self.dataSourceSwitch.selectedSegmentIndex == 0 ?
+            (self.shouldShowSearchResults ? self.searchFeedDataSource : self.feedDataSource) :
+            (self.shouldShowSearchResults ? self.searchFavoriteDataSource : self.favoritesFeedDataSource)
+    }
+    
     var reason = STDialogsControllerOpenReason.regular
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -45,7 +58,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     
     deinit {
         
-        disposeBag.dispose()
+        print("deinit \(String(describing: self))")
     }
     
     override func viewDidLoad() {
@@ -78,9 +91,6 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         // refresh control setup
         self.createRefreshControl()
         
-        // set data source
-        self.tableView.dataSource = self.feedDataSource!.dataSource
-        
         // set footer view after data source to prevent unwanted data source calls
         self.tableView.tableFooterView = UIView()
         
@@ -93,16 +103,23 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
             .observeNext { [unowned self] notification in
                 
                 // temporary
-                self.feedDataSource?.loadFeed(isRefresh: true)
+                self.feedDataSource.loadFeed(isRefresh: true)
                 
             }.dispose(in: disposeBag)
+        
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kUserUpdatedNotification), object: nil)
+            .observeNext { [unowned self] notification in
+                
+                self.tableView.reloadData()
+            }
+            .dispose(in: disposeBag)
         
         guard self.reason == .regular else {
             
             return
         }
         
-        self.feedDataSource!.loadFeed()
+        self.feedDataSource.loadFeed()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -117,23 +134,142 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         self.analytics.endTimeEvent(eventName: st_eFeed)
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         
-        let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ?
-            (self.shouldShowSearchResults ? self.searchFeedDataSource : self.feedDataSource) :
-            (self.shouldShowSearchResults ? self.searchFavoriteDataSource : self.favoritesFeedDataSource)
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        let post = dataSource!.dataSource!.item(by: indexPath).item
+        return self.currentDataSource.posts.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let images = dataSource!.imagesBy(post: post)
+        let dataSource = self.currentDataSource
+        let post = dataSource.posts[indexPath.row]
         
-        let files = dataSource!.filesBy(post: post)
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: STPostTableViewCell.self),
+                                                 for: indexPath) as! STPostTableViewCell
         
-        let locations = dataSource!.locationsBy(post: post)
-        
-        if let user = dataSource?.userBy(post: post) {
+        if indexPath.row + 10 > dataSource.posts.count && dataSource.canLoadNext {
             
-            if dataSource!.isFavorite {
+            dataSource.loadFeed()
+        }
+        
+        cell.selectionStyle = .none
+        cell.postTitle.text = post.title
+        cell.postDetails.text = post.postDescription
+        cell.iconFavorite.isSelected = post.isFavorite
+        cell.postType.isSelected = post.type == 2 ? true : false
+        cell.postTime.text = post.createdAt?.elapsedInterval()
+        
+        cell.onFavoriteButtonTap = { [outerCell = cell] in
+            
+            let favorite = !outerCell.iconFavorite.isSelected
+            outerCell.iconFavorite.isSelected = favorite
+            
+            self.api.favorite(postId: post.id, favorite: favorite)
+                .onSuccess(callback: { postResponse in
+                    
+                    post.isFavorite = postResponse.isFavorite
+                    NotificationCenter.default.post(name: NSNotification.Name(kItemFavoriteNotification), object: postResponse)
+                })
+        }
+        
+        if post.dateFrom != nil && post.dateTo != nil {
+            
+            cell.durationDate.isHidden = false
+            let period = post.dateFrom!.shortLocalizedFormat + " - " + post.dateTo!.shortLocalizedFormat
+            cell.durationDate.setTitle(period , for: .normal)
+        }
+        else {
+            
+            cell.durationDate.isHidden = true
+        }
+        
+        if post.fileIds.count > 0 {
+            
+            cell.documents.isEnabled = true
+            cell.documents.setTitle("\(post.fileIds.count)", for: .normal)
+        }
+        else {
+            
+            cell.documents.isEnabled = false
+            cell.documents.setTitle("\(0)", for: .normal)
+        }
+        
+        if post.imageIds.count > 0 {
+            
+            cell.images.isEnabled = true
+            cell.images.setTitle("\(post.imageIds.count)", for: .normal)
+        }
+        else {
+            
+            cell.images.isEnabled = false
+            cell.images.setTitle("\(0)", for: .normal)
+        }
+        
+        if post.locationIds.count > 0 {
+            
+            cell.locations.isEnabled = true
+            cell.locations.setTitle("\(post.locationIds.count)", for: .normal)
+        }
+        else {
+            
+            cell.locations.isEnabled = false
+            cell.locations.setTitle("\(0)", for: .normal)
+        }
+        
+        if let user = dataSource.users.first(where: { $0.id == post.userId }) {
+            
+            cell.userName.text = user.lastName + " " + user.firstName
+            
+            if user.id == self.myUser.id && self.myUser.imageData != nil {
+                
+                if let image = UIImage(data: self.myUser.imageData!) {
+                    
+                    let userIcon = image.af_imageAspectScaled(toFill: cell.userIcon.bounds.size)
+                    cell.userIcon.image = userIcon.af_imageRoundedIntoCircle()
+                }
+            }
+            else {
+                
+                if user.imageUrl.isEmpty {
+                    
+                    var defaultImage = UIImage(named: "avatar")
+                    defaultImage = defaultImage?.af_imageAspectScaled(toFill: cell.userIcon.bounds.size)
+                    cell.userIcon.image = defaultImage?.af_imageRoundedIntoCircle()
+                }
+                else {
+                    
+                    let urlString = user.imageUrl + cell.userIcon.queryResizeString()
+                    
+                    let filter = RoundedCornersFilter(radius: cell.userIcon.bounds.size.width)
+                    cell.userIcon.af_setImage(withURL: URL(string: urlString)!,
+                                              filter: filter,
+                                              completion: nil)
+                }
+            }
+        }
+        
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        let dataSource = currentDataSource
+        let post = dataSource.posts[indexPath.row]
+        
+        let images = dataSource.imagesBy(post: post)
+        
+        let files = dataSource.filesBy(post: post)
+        
+        let locations = dataSource.locationsBy(post: post)
+        
+        if let user = dataSource.userBy(post: post) {
+            
+            if dataSource.isFavorite {
                 
                 self.analytics.logEvent(eventName: st_ePostDetails, params: ["post_id" : post.id, "from" : "pFeedFavorite"], timed: true)
             }
@@ -154,10 +290,6 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         self.shouldShowSearchResults = true
         
         self.refreshControl = nil
-        
-        let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ? self.searchFeedDataSource : self.searchFavoriteDataSource
-        
-        self.tableView.dataSource = dataSource!.dataSource
         self.reloadTableView()
         self.tableView.hideBusy()
     }
@@ -167,18 +299,16 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         self.shouldShowSearchResults = false
         
         self.createRefreshControl()
-        
-        let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ? self.feedDataSource : self.favoritesFeedDataSource
-        
-        self.tableView.dataSource = dataSource!.dataSource
         self.reloadTableView()
         self.tableView.hideBusy()
     }
     
     //MARK: - UISearchResultUpdating delegate implementation
+    
     func updateSearchResults(for searchController: UISearchController) {
         
-        let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ? self.searchFeedDataSource : self.searchFavoriteDataSource
+        let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ?
+            self.searchFeedDataSource : self.searchFavoriteDataSource
         
         if let string = searchController.searchBar.text {
             
@@ -193,8 +323,8 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
                     return
                 }
                 
-                dataSource!.reset()
-                dataSource!.loadFeed(searchString: query)
+                dataSource.reset()
+                dataSource.loadFeed(searchString: query)
                 self.searchQueryString = query
             }
         }
@@ -202,10 +332,10 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
 
     func openPostDetails(by id: Int) {
         
-        self.feedDataSource!.reset()
-        self.feedDataSource!.loadFeed() { [weak self] in
+        self.feedDataSource.reset()
+        self.feedDataSource.loadFeed() { [weak self] in
             
-            if let index = self?.feedDataSource!.dataSource?.sections[0].items.index(where: { $0.item.id == id }) {
+            if let index = self?.feedDataSource.posts.index(where: { $0.id == id }) {
                 
                 let indexPath = IndexPath(row: index, section: 0)
                 self?.tableView.selectRow(at: indexPath , animated: false, scrollPosition: .middle)
@@ -216,26 +346,9 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     
     func switchDataSource(control: UISegmentedControl) {
         
-        switch control.selectedSegmentIndex {
-            
-        case 0:
-            
-            self.analytics.endTimeEvent(eventName: st_eFeedPostTab)
-            self.tableView.dataSource = self.feedDataSource!.dataSource
-            self.feedDataSource!.loadFeedIfNotYet()
-            break
-            
-        case 1:
-            
-            self.analytics.endTimeEvent(eventName: st_eFavoritePostTab)
-            self.tableView.dataSource = self.favoritesFeedDataSource!.dataSource
-            self.favoritesFeedDataSource!.loadFeedIfNotYet()
-            break
-            
-        default:
-            return
-        }
-        
+        let feedPost = control.selectedSegmentIndex == 0
+        self.analytics.endTimeEvent(eventName: feedPost ? st_eFeedPostTab : st_eFavoritePostTab)
+        self.currentDataSource.loadFeedIfNotYet()
         self.reloadTableView()
     }
     
@@ -264,8 +377,8 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
                 self.analytics.logEvent(eventName: st_eFeedFilter, params: ["type" : types])
             }
             
-            self.feedDataSource?.reloadFilter(notify: self.dataSourceSwitch.selectedSegmentIndex == 0)
-            self.favoritesFeedDataSource?.reloadFilter(notify: self.dataSourceSwitch.selectedSegmentIndex == 1)
+            self.feedDataSource.reloadFilter(notify: self.dataSourceSwitch.selectedSegmentIndex == 0)
+            self.favoritesFeedDataSource.reloadFilter(notify: self.dataSourceSwitch.selectedSegmentIndex == 1)
             self.reloadTableView()
         }
         
@@ -279,27 +392,33 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     private func setupDataSources() {
         
         // setup data sources
-        self.feedDataSource = STFeedDataSourceWrapper(onDataSourceChanged: self.onDataSourceChanged)
-        self.feedDataSource!.onStartLoading = self.onStartLoading
-        self.feedDataSource!.onStopLoading = self.onStopLoading
-        self.feedDataSource!.initialize()
+        self.feedDataSource.onLoadingStatusChanged = self.onDataSourceLoadingStatusChanged(_:)
+        self.feedDataSource.onDataSourceChanged = self.onDataSourceChanged
         
-        self.searchFeedDataSource = STFeedDataSourceWrapper(onDataSourceChanged: self.onDataSourceChanged)
-        self.searchFeedDataSource!.onStartLoading = self.onStartLoading
-        self.searchFeedDataSource!.onStopLoading = self.onStopLoading
-        self.searchFeedDataSource!.disableAddToFavoriteHadler = true
-        self.searchFeedDataSource!.initialize()
+        self.searchFeedDataSource.onLoadingStatusChanged = self.onDataSourceLoadingStatusChanged(_:)
+        self.searchFeedDataSource.onDataSourceChanged = self.onDataSourceChanged
+        self.searchFeedDataSource.disableAddToFavoriteHadler = true
         
-        self.favoritesFeedDataSource = STFeedDataSourceWrapper(isFavorite: true, onDataSourceChanged: self.onDataSourceChanged)
-        self.favoritesFeedDataSource!.onStartLoading = self.onStartLoading
-        self.favoritesFeedDataSource!.onStopLoading = self.onStopLoading
-        self.favoritesFeedDataSource!.initialize()
+        self.favoritesFeedDataSource.onDataSourceChanged = self.onDataSourceChanged
+        self.favoritesFeedDataSource.onLoadingStatusChanged = self.onDataSourceLoadingStatusChanged(_:)
         
-        self.searchFavoriteDataSource = STFeedDataSourceWrapper(isFavorite: true, onDataSourceChanged: self.onDataSourceChanged)
-        self.searchFavoriteDataSource!.onStartLoading = self.onStartLoading
-        self.searchFavoriteDataSource!.onStopLoading = self.onStopLoading
-        self.searchFavoriteDataSource!.disableAddToFavoriteHadler = true
-        self.searchFavoriteDataSource!.initialize()
+        self.searchFavoriteDataSource.onLoadingStatusChanged = self.onDataSourceLoadingStatusChanged(_:)
+        self.searchFavoriteDataSource.onDataSourceChanged = self.onDataSourceChanged
+        self.searchFavoriteDataSource.disableAddToFavoriteHadler = true
+    }
+    
+    fileprivate func onDataSourceLoadingStatusChanged(_ status: STLoadingStatusEnum) {
+        
+        switch status {
+            
+        case .loading:
+            
+            self.tableView.showBusy()
+            break
+            
+        default:
+            self.tableView.hideBusy()
+        }
     }
     
     private func setupSearchController() {
@@ -319,8 +438,6 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     }
     
     private func onDataSourceChanged(animation: Bool) {
-        
-//        self.tableView.hideBusy()
         
         if let refresh = self.refreshControl, refresh.isRefreshing {
             
@@ -356,7 +473,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
             let dataSource = self.dataSourceSwitch.selectedSegmentIndex == 0 ?
                 self.feedDataSource : self.favoritesFeedDataSource
             
-            dataSource?.loadFeed(isRefresh: true)
+            dataSource.loadFeed(isRefresh: true)
             
         }).dispose(in: disposeBag)
     }
@@ -374,8 +491,8 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         
         if self.tableView.numberOfRows(inSection: 0) == 0 {
             
-            if self.tableView.dataSource === self.favoritesFeedDataSource!.dataSource
-                || self.tableView.dataSource === self.searchFavoriteDataSource!.dataSource {
+            if self.currentDataSource === self.favoritesFeedDataSource
+                || self.currentDataSource === self.searchFavoriteDataSource {
                 
                 self.showDummyView(imageName: "empty-feed-favorite",
                                    title: "feed_page_empty_favotites_feed_title".localized,

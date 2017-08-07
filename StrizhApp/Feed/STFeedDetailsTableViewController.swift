@@ -34,6 +34,11 @@ class STFeedDetailsTableViewController: UIViewController {
     
     fileprivate var coordinateBounds = GMSCoordinateBounds()
     
+    fileprivate var myUser: STUser {
+        
+        return STUser.objects(by: STUser.self).first!
+    }
+    
     var reason = STPostDetailsReasonEnum.feedDetails
     
     
@@ -215,24 +220,32 @@ class STFeedDetailsTableViewController: UIViewController {
                                             
                                             viewCell.userName.text = user.lastName + " " + user.firstName
                                             
-                                            guard !user.imageUrl.isEmpty else {
+                                            if user.id == self.myUser.id && self.myUser.imageData != nil {
                                                 
-                                                DispatchQueue.main.async {
+                                                if let image = UIImage(data: self.myUser.imageData!) {
+                                                    
+                                                    let userIcon = image.af_imageAspectScaled(toFill: viewCell.userIcon.bounds.size)
+                                                    viewCell.userIcon.image = userIcon.af_imageRoundedIntoCircle()
+                                                }
+                                            }
+                                            else {
+                                                
+                                                guard !user.imageUrl.isEmpty else {
                                                     
                                                     var defaultImage = UIImage(named: "avatar")
                                                     defaultImage = defaultImage?.af_imageAspectScaled(toFill: viewCell.userIcon.bounds.size)
                                                     viewCell.userIcon.image = defaultImage?.af_imageRoundedIntoCircle()
+                                                    
+                                                    return
                                                 }
                                                 
-                                                return
+                                                let urlString = user.imageUrl + viewCell.userIcon.queryResizeString()
+                                                
+                                                let filter = RoundedCornersFilter(radius: viewCell.userIcon.bounds.size.width)
+                                                viewCell.userIcon.af_setImage(withURL: URL(string: urlString)!,
+                                                                              filter: filter,
+                                                                              completion: nil)
                                             }
-                                            
-                                            let urlString = user.imageUrl + viewCell.userIcon.queryResizeString()
-                                            
-                                            let filter = RoundedCornersFilter(radius: viewCell.userIcon.bounds.size.width)
-                                            viewCell.userIcon.af_setImage(withURL: URL(string: urlString)!,
-                                                                          filter: filter,
-                                                                          completion: nil)
                                         }
             }
         }

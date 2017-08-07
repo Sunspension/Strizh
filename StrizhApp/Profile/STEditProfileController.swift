@@ -166,7 +166,6 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
             guard error == nil else {
                 
                 self.dismiss(animated: true, completion: nil)
-//                self.showError(error: error!)
                 return
             }
         
@@ -188,7 +187,6 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
         self.userImageSection.addItem(cellClass: STEditProfileHeaderCell.self, item: self.user) { (cell, item) in
             
             let viewCell = cell as! STEditProfileHeaderCell
-            let user = item.item as! STUser
             
             viewCell.selectionStyle = .none
             viewCell.layoutMargins = UIEdgeInsets.zero
@@ -270,7 +268,8 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                 
                 if let image = UIImage(data: data) {
                     
-                    viewCell.userImage.setImage(image.af_imageRoundedIntoCircle(), for: .normal)
+                    let userIcon = image.af_imageAspectScaled(toFill: viewCell.userImage.bounds.size)
+                    viewCell.userImage.setImage(userIcon.af_imageRoundedIntoCircle(), for: .normal)
                 }
             }
             else {

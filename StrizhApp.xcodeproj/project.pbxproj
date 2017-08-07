@@ -182,7 +182,6 @@
 		E59C15601EE172DE00F8B558 /* RemoteNotificationsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59C155F1EE172DE00F8B558 /* RemoteNotificationsHandler.swift */; };
 		E59C15631EE1762700F8B558 /* STNewMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59C15621EE1762700F8B558 /* STNewMessage.swift */; };
 		E59C15651EE54A3A00F8B558 /* STDialogFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59C15641EE54A3A00F8B558 /* STDialogFilter.swift */; };
-		E5BE9E251E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE9E241E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift */; };
 		E5BE9E281E4C8D690022B157 /* STFeedFilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE9E271E4C8D680022B157 /* STFeedFilterTableViewController.swift */; };
 		E5BE9E2B1E4C8F000022B157 /* STFeedFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE9E291E4C8F000022B157 /* STFeedFilterTableViewCell.swift */; };
 		E5BE9E2C1E4C8F000022B157 /* STFeedFilterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5BE9E2A1E4C8F000022B157 /* STFeedFilterTableViewCell.xib */; };
@@ -386,7 +385,6 @@
 		E59C155F1EE172DE00F8B558 /* RemoteNotificationsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RemoteNotificationsHandler.swift; path = RemoteNotifications/RemoteNotificationsHandler.swift; sourceTree = "<group>"; };
 		E59C15621EE1762700F8B558 /* STNewMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STNewMessage.swift; path = Models/STNewMessage.swift; sourceTree = "<group>"; };
 		E59C15641EE54A3A00F8B558 /* STDialogFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialogFilter.swift; path = Dialogs/STDialogFilter.swift; sourceTree = "<group>"; };
-		E5BE9E241E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedDataSourceWrapper.swift; path = Feed/STFeedDataSourceWrapper.swift; sourceTree = "<group>"; };
 		E5BE9E271E4C8D680022B157 /* STFeedFilterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedFilterTableViewController.swift; path = Feed/STFeedFilterTableViewController.swift; sourceTree = "<group>"; };
 		E5BE9E291E4C8F000022B157 /* STFeedFilterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedFilterTableViewCell.swift; path = Feed/STFeedFilterTableViewCell.swift; sourceTree = "<group>"; };
 		E5BE9E2A1E4C8F000022B157 /* STFeedFilterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STFeedFilterTableViewCell.xib; path = Feed/STFeedFilterTableViewCell.xib; sourceTree = "<group>"; };
@@ -746,7 +744,6 @@
 			children = (
 				D4AD43B51E47A991006F13DE /* Controllers */,
 				D4AD43B41E47A980006F13DE /* Views */,
-				E5BE9E241E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift */,
 				E5BE9E311E4C99C00022B157 /* STFeedFilter.swift */,
 				D4DCE6671F38F41F008928F4 /* STFeedDataSource.swift */,
 			);
@@ -1277,7 +1274,6 @@
 				E50FA39A1E6842CE00CAA4D7 /* STNewPostObject.swift in Sources */,
 				D4194A171E46028F00D0B189 /* RealmString.swift in Sources */,
 				D497AB4F1E3BE53A006A393D /* GenericTableSectionItem.swift in Sources */,
-				E5BE9E251E4A2FEE0022B157 /* STFeedDataSourceWrapper.swift in Sources */,
 				E50DBEAF1E76FD8D000C38E4 /* STTextViewCell.swift in Sources */,
 				E53F37BD1E3A632C00393BAD /* STLoginLogoTableViewCell.swift in Sources */,
 				D497AB4C1E3BE53A006A393D /* TableSection.swift in Sources */,

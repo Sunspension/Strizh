@@ -26,11 +26,6 @@ class STFeedDataSource {
     
     fileprivate var hasMore = false
     
-    fileprivate var canLoadNext: Bool {
-        
-        return hasMore && status != .loading
-    }
-    
     fileprivate var filter: STFeedFilter {
         
         return AppDelegate.appSettings.feedFilter
@@ -43,9 +38,14 @@ class STFeedDataSource {
     
     private(set) var isFavorite: Bool
     
+    var canLoadNext: Bool {
+        
+        return hasMore && status != .loading
+    }
+    
     var users = Set<STUser>()
     
-    var locations = [STLocation]()
+    var locations = Set<STLocation>()
     
     var images = Set<STImage>()
     
@@ -170,6 +170,10 @@ class STFeedDataSource {
         
         self.page = 1
         self.posts.removeAll()
+        self.files.removeAll()
+        self.locations.removeAll()
+        self.images.removeAll()
+        self.users.removeAll()
     }
     
     func loadFeed(isRefresh: Bool = false, notify: Bool = true,
@@ -184,7 +188,7 @@ class STFeedDataSource {
         
         if isRefresh {
             
-            self.page = 1
+            reset()
             
             // analytics
             self.analytics.logEvent(eventName: st_eFeedRefresh)
@@ -231,7 +235,10 @@ class STFeedDataSource {
                     self.files.insert(file)
                 })
                 
-                self.locations.append(contentsOf: feed.locations)
+                feed.locations.forEach({ location in
+                    
+                    self.locations.insert(location)
+                })
                 
                 self.hasMore = feed.posts.count == self.pageSize
                 
