@@ -32,6 +32,12 @@ class STEditProfileHeaderCell: UITableViewCell {
         
         deleteAvatar.setTitleColor(UIColor.stBrick, for: .normal)
         userImage.imageView?.contentMode = .scaleAspectFill
+        
+        let transition = CATransition()
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        transition.type = kCATransitionFade
+        transition.duration = 0.2
+        self.userImage.imageView?.layer.add(transition, forKey: "userImage")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

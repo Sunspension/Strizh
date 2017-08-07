@@ -11,11 +11,18 @@ import AlamofireImage
 
 extension STUser {
     
-    func updateUserImageInDB(image: UIImage) {
+    func updateUserImageInDB(image: UIImage?) {
         
         STUser.realm.beginWrite()
         
-        self.imageData = UIImageJPEGRepresentation(image, 1)
+        if let image = image {
+            
+            self.imageData = UIImageJPEGRepresentation(image, 1)
+        }
+        else {
+            
+            self.imageData = nil
+        }
         
         do {
             

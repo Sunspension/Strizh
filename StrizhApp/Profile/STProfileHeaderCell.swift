@@ -19,11 +19,19 @@ class STProfileHeaderCell: UITableViewCell {
     
     @IBOutlet weak var userName: UILabel!
     
-    var binded = false
+    
+    func setImageWithTransition(image: UIImage?) {
+        
+        UIView.transition(with: userImage, duration: 0.3, options: .transitionCrossDissolve, animations: { 
+            
+           self.userImage?.image = image
+            
+        }, completion: nil)
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

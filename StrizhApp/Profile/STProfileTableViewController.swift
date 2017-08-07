@@ -21,7 +21,10 @@ class STProfileTableViewController: UITableViewController {
     
     fileprivate var userPostsSection = TableSection()
     
-    fileprivate var user: STUser?
+    fileprivate var user: STUser {
+        
+        return STUser.objects(by: STUser.self).first!
+    }
     
     fileprivate var status = STLoadingStatusEnum.idle
     
@@ -37,7 +40,6 @@ class STProfileTableViewController: UITableViewController {
     }
 
     fileprivate var disposeBag = DisposeBag()
-    
     
     var images = Set<STImage>()
     
@@ -100,105 +102,61 @@ class STProfileTableViewController: UITableViewController {
             
             let post = item.item as! STPost
             
-            if let user = self.user {
+            let images = self.images.filter { image -> Bool in
                 
-                let images = self.images.filter { image -> Bool in
+                return post.imageIds.contains(where: { $0.value == image.id })
+            }
+            
+            let files = self.files.filter({ file -> Bool in
+                
+                return post.fileIds.contains(where: { $0.value == file.id })
+            })
+            
+            let locations = self.locations.filter({ location -> Bool in
+                
+                return post.locationIds.contains(where: { $0.value == location.id })
+            })
+            
+            self.analytics.logEvent(eventName: st_ePostDetails,
+                                    params: ["post_id" : post.id, "from=" : st_eMyProfile])
+            
+            self.st_router_openPostDetails(personal: true, post: post, user: self.user, images: images,
+                                           files: files, locations: locations)
+        }
+        
+        self.createHeader()
+        self.loadFeed()
+        
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kUserUpdatedNotification), object: nil)
+            .observeNext { [unowned self] notification in
+                
+                self.tableView.reloadSections(IndexSet(integer: 0), with: .none)
+            }
+            .dispose(in: disposeBag)
+        
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostDeleteFromDetailsNotification), object: nil)
+            .observeNext { [unowned self] notification in
+                
+                let post = notification.object as! STPost
+                
+                self.userPostsSection.items = self.userPostsSection.items
+                    .filter({ ($0.item! as! STPost).id != post.id })
+                
+                // save last item id for loading next objects
+                if let lastPost = self.userPostsSection.items.last {
                     
-                    return post.imageIds.contains(where: { $0.value == image.id })
+                    self.minId = (lastPost.item as! STPost).id
+                }
+                else {
+                    
+                    self.minId = 0
                 }
                 
-                let files = self.files.filter({ file -> Bool in
-                    
-                    return post.fileIds.contains(where: { $0.value == file.id })
-                })
-                
-                let locations = self.locations.filter({ location -> Bool in
-                    
-                    return post.locationIds.contains(where: { $0.value == location.id })
-                })
-                
-                self.analytics.logEvent(eventName: st_ePostDetails,
-                                        params: ["post_id" : post.id, "from=" : st_eMyProfile])
-                
-                self.st_router_openPostDetails(personal: true, post: post, user: user, images: images,
-                                               files: files, locations: locations)
+                self.tableView.reloadSections(IndexSet(integer: 1) , with: .none)
             }
-        }
+            .dispose(in: disposeBag)
         
-        if let user = STUser.objects(by: STUser.self).first {
-            
-            self.user = user
-            self.createHeader()
-            self.loadFeed()
-        }
-        else {
-            
-            if let session = STSession.objects(by: STSession.self).first {
-                
-                api.loadUser(transport: .webSocket, userId: session.userId)
-                    .onSuccess(callback: { [unowned self] user in
-                        
-                        self.user = user
-                        user.writeToDB()
-                        user.updateUserImage()
-                        
-                        self.createHeader()
-                        self.loadFeed()
-                    })
-            }
-        }
-        
-        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kUserUpdatedNotification),
-                                                         object: nil).observeNext { [unowned self] notification in
-                                                            
-                                                            if let user = STUser.objects(by: STUser.self).first {
-                                                                
-                                                                self.user = user
-                                                                self.tableView.reloadSections(IndexSet(integer: 0), with: .none)
-                                                            }
-            }.dispose(in: disposeBag)
-        
-//        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostAddedToArchiveNotification),
-//                                                         object: nil).observeNext { [unowned self] notification in
-//                                                            
-//                                                            let post = notification.object as! STPost
-//                                                            
-//                                                            for item in self.userPostsSection.items {
-//                                                                
-//                                                                let p =  item.item as! STPost
-//                                                                
-//                                                                if p.id == post.id {
-//                                                                    
-//                                                                    p.isArchived = true
-//                                                                    self.tableView.reloadRows(at: [item.indexPath], with: .none)
-//                                                                    break
-//                                                                }
-//                                                            }
-//            }.dispose(in: bag)
-        
-        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostDeleteFromDetailsNotification),
-                                                         object: nil).observeNext { [unowned self] notification in
-                                                            
-                                                            let post = notification.object as! STPost
-                                                            
-                                                            self.userPostsSection.items = self.userPostsSection.items
-                                                                .filter({ ($0.item! as! STPost).id != post.id })
-                                                            
-                                                            // save last item id for loading next objects
-                                                            if let lastPost = self.userPostsSection.items.last {
-                                                                
-                                                                self.minId = (lastPost.item as! STPost).id
-                                                            }
-                                                            else {
-                                                                
-                                                                self.minId = 0
-                                                            }
-                                                            
-                                                            self.tableView.reloadSections(IndexSet(integer: 1) , with: .none)
-            }.dispose(in: disposeBag)
-        
-        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostCreatedNotification),
-                                                         object: nil)
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostCreatedNotification), object: nil)
             .observeNext { [unowned self] notification in
                 
                 self.analytics.logEvent(eventName: st_ePostRefresh)
@@ -228,49 +186,46 @@ class STProfileTableViewController: UITableViewController {
     
     private func createHeader() {
         
-        userInfoSection.addItem(cellClass: STProfileHeaderCell.self, item: self.user) { (cell, item) in
+        userInfoSection.addItem(cellClass: STProfileHeaderCell.self) { (cell, item) in
             
-            if let user = item.item as? STUser {
-                
-                let viewCell = cell as! STProfileHeaderCell
+            let viewCell = cell as! STProfileHeaderCell
+            viewCell.selectionStyle = .none
             
-                if viewCell.binded {
+            viewCell.userName.text = self.user.firstName + " " + self.user.lastName
+            viewCell.edit.makeCircular()
+            
+            viewCell.settings.makeCircular()
+            _ = viewCell.settings.reactive.tap.observe { [unowned self] _ in
+                
+                self.st_router_openSettings()
+            }
+            
+            _ = viewCell.edit.reactive.tap.observe { [unowned self] _ in
+                
+                self.st_router_openProfileEditing()
+            }
+            
+            if let imageData = self.user.imageData {
+                
+                var image = UIImage(data: imageData)!
+                image = image.af_imageAspectScaled(toFill: viewCell.userImage.bounds.size)
+                viewCell.setImageWithTransition(image: image.af_imageRoundedIntoCircle())
+            }
+            else {
+                
+                if !self.user.imageUrl.isEmpty {
                     
-                    return
-                }
-                
-                viewCell.selectionStyle = .none
-                
-                viewCell.userName.text = user.firstName + " " + user.lastName
-                viewCell.edit.makeCircular()
-                
-                viewCell.settings.makeCircular()
-                _ = viewCell.settings.reactive.tap.observe { [unowned self] _ in
+                    let urlString = self.user.imageUrl + viewCell.userImage.queryResizeString()
+                    let filter = RoundedCornersFilter(radius: viewCell.userImage.bounds.width)
                     
-                    self.st_router_openSettings()
-                }
-                
-                _ = viewCell.edit.reactive.tap.observe { [unowned self] _ in
-                    
-                    self.st_router_openProfileEditing()
-                }
-                
-                if let imageData = user.imageData {
-                    
-                    viewCell.userImage.image = UIImage(data: imageData)?.af_imageRoundedIntoCircle()
+                    viewCell.userImage.af_setImage(withURL: URL(string: urlString)!, filter: filter, imageTransition: .crossDissolve(0.3))
                 }
                 else {
                     
-                    if !user.imageUrl.isEmpty {
-                        
-                        let urlString = user.imageUrl + viewCell.userImage.queryResizeString()
-                        let filter = RoundedCornersFilter(radius: viewCell.userImage.bounds.width)
-                        
-                        viewCell.userImage.af_setImage(withURL: URL(string: urlString)!, filter: filter)
-                    }
+                    var defaultImage = UIImage(named: "avatar")
+                    defaultImage = defaultImage?.af_imageAspectScaled(toFill: viewCell.userImage.bounds.size)
+                    viewCell.setImageWithTransition(image: defaultImage?.af_imageRoundedIntoCircle())
                 }
-                
-                viewCell.binded = true
             }
         }
         
@@ -305,7 +260,6 @@ class STProfileTableViewController: UITableViewController {
                                         viewCell.postTitle.text = post.title
                                         viewCell.postDetails.text = post.postDescription
                                         viewCell.createdAt.text = post.createdAt?.mediumLocalizedFormat
-//                                        viewCell.isArchived.isHidden = !post.isArchived
                                         
                                         if post.dialogCount == 0 {
                                             
@@ -390,27 +344,6 @@ class STProfileTableViewController: UITableViewController {
                                             })
                                             
                                             actionController.addAction(actionEdit)
-
-                                            
-//                                            if !post.isArchived {
-//                                                
-//                                                let actionArchive = UIAlertAction(title: "В архив", style: .default,
-//                                                                                  handler: { [unowned self, unowned viewCell] action in
-//                                                    
-//                                                    self.api.archivePost(postId: post.id, isArchived: true)
-//                                                        .onSuccess(callback: { _ in
-//                                                            
-//                                                            post.isArchived = true
-//                                                            viewCell.isArchived.isHidden = false
-//                                                        })
-//                                                        .onFailure(callback: { error in
-//                                                            
-//                                                            self.showError(error: error)
-//                                                        })
-//                                                })
-//                                                
-//                                                actionController.addAction(actionArchive)
-//                                            }
                                             
                                             let actionDelete = UIAlertAction(title: "action_delete".localized, style: .default, handler: { action in
                                                 
