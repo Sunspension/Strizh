@@ -50,7 +50,7 @@ class STProfileTableViewController: UITableViewController {
     
     deinit {
         
-        disposeBag.dispose()
+        print("deinit \(String(describing: self))")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -325,7 +325,7 @@ class STProfileTableViewController: UITableViewController {
                                             viewCell.locations.setTitle("\(0)", for: .normal)
                                         }
                                         
-                                        viewCell.more.reactive.tap.observeNext { _ in
+                                        viewCell.more.reactive.tap.observeNext { [unowned self] in
                                             
                                             let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
                                             
@@ -370,7 +370,7 @@ class STProfileTableViewController: UITableViewController {
                                                         self.tableView.reloadSections(IndexSet(integer: item.indexPath.section) , with: .automatic)
                                                         self.showDummyViewIfNeeded()
                                                     })
-                                                    .onFailure(callback: { error in
+                                                    .onFailure(callback: { [unowned self] error in
                                                         
                                                         self.showError(error: error)
                                                     })

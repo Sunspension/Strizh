@@ -95,13 +95,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         self.setupAnalytics()
         self.checkSession(launchOptions: launchOptions)
         
-        if self.window?.rootViewController == nil {
-            
-            let splash = AppDelegate.appSettings.storyBoard.instantiateViewController(withIdentifier: "Splash")
-            self.window?.rootViewController = splash
-            self.window?.makeKeyAndVisible()
-        }
-        
         // Busy indicator setup
         NVActivityIndicatorView.DEFAULT_TYPE = .ballClipRotateMultiple
         
@@ -316,10 +309,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     
     func openMainController(completion: ((Bool) -> Swift.Void)? = nil) {
         
-        if let controller = AppDelegate.appSettings.storyBoard.instantiateInitialViewController() {
-            
-            self.changeRootViewController(controller, completion: completion)
-        }
+        let controller = AppDelegate.appSettings.storyBoard.instantiateViewController(withIdentifier: "TabBar")
+        self.changeRootViewController(controller, completion: completion)
+        
     }
     
     func onAuthorized() {
@@ -536,7 +528,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         
         AppDelegate.appSettings.api.checkSession()
             
-            .onSuccess { session in
+            .onSuccess { [unowned self] session in
                 
                 self.sessionStatus = .checked
                 
@@ -550,7 +542,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                     
                     // load user
                     AppDelegate.appSettings.api.loadUser(transport: .webSocket, userId: session.userId)
-                        .onSuccess(callback: { user in
+                        .onSuccess(callback: { [unowned self] user in
                             
                             if user.firstName.isEmpty || user.lastName.isEmpty {
                                 
@@ -631,7 +623,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                     }
                 }
             }
-            .onFailure { error in
+            .onFailure { [unowned self] error in
                 
                 self.sessionStatus = .notChecked
             }
@@ -648,7 +640,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                 
                 self.toast.removeFromSuperview()
                 
-                if self.sessionStatus != .checked {
+                if self.sessionStatus == .checked {
                     
                     return
                 }

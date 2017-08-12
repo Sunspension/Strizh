@@ -171,4 +171,10 @@ extension UIViewController {
         let navi = STNewPostNavigationController(rootViewController: controller)
         self.present(navi, animated: true, completion: nil)
     }
+    
+    func st_router_openUserProfile(user: STUser) {
+        
+        let controller = STAnyUserProfileController(user: user)
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
 }

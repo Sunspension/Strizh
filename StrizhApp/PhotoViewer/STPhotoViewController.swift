@@ -10,11 +10,6 @@ import UIKit
 import AlamofireImage
 
 class STPhotoViewController: UICollectionViewController {
-
-    private var dataSource: GenericCollectionViewDataSource<STPhotoViewerCell, STImage>?
-    
-    private var section = GenericTableSection<STImage>()
-    
     
     var images: [STImage]!
     
@@ -25,26 +20,10 @@ class STPhotoViewController: UICollectionViewController {
         super.viewDidLoad()
         
         let layout = self.collectionView?.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: self.view.bounds.width, height: self.view.bounds.height)
-        
-        self.setupDataSource()
-        self.createDataSource()
-        
-        self.collectionView?.dataSource = self.dataSource
-        self.collectionView?.delegate = self.dataSource
+        layout.itemSize = self.collectionView!.bounds.size
         
         let leftItem = UIBarButtonItem(title: "action_cancel".localized, style: .plain, target: self, action: #selector(self.cancel))
         self.navigationItem.leftBarButtonItem = leftItem
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,45 +35,65 @@ class STPhotoViewController: UICollectionViewController {
         self.title = "\(self.photoIndex! + 1)/\(self.images!.count)"
     }
     
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        
+        return 1
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return self.images.count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        let viewCell = cell as! STPhotoViewerCell
+        let item = self.images[indexPath.row]
+        
+        viewCell.spiner.startAnimating()
+        
+        let url = URL(string: item.url)!
+        
+        viewCell.imageView.af_setImage(withURL: url,
+                                       imageTransition: .crossDissolve(0.3),
+                                       runImageTransitionIfCached: true, completion: { [weak viewCell] image in
+                                        
+                                        viewCell?.spiner.stopAnimating()
+        })
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: STPhotoViewerCell.self),
+                                                      for: indexPath) as! STPhotoViewerCell
+        return cell
+    }
+    
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+        let rect = CGRect(origin: scrollView.contentOffset, size: scrollView.bounds.size)
+        let point = CGPoint(x: rect.midX , y: rect.midY)
+        
+        let collectionView = scrollView as! UICollectionView
+        
+        if let indexPath = collectionView.indexPathForItem(at: point) {
+            
+            self.title = "\(indexPath.row + 1)/\(self.images.count)"
+        }
+    }
+    
     func cancel() {
         
         self.dismiss(animated: true, completion: nil)
     }
+}
+
+extension UICollectionViewController: UICollectionViewDelegateFlowLayout {
     
-    fileprivate func setupDataSource() {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        self.dataSource = GenericCollectionViewDataSource(cellClass: STPhotoViewerCell.self,
-                                                          binding: { (cell, item) in
-                                                            
-                                                            cell.spiner.startAnimating()
-                                                            
-                                                            let url = URL(string: item.item.url + cell.imageView.queryResizeString())!
-                                                            
-                                                            cell.imageView.af_setImage(withURL: url, imageTransition: .crossDissolve(0.3),
-                                                                                   runImageTransitionIfCached: true, completion: { [weak cell] image in
-                                                                                    
-                                                                                    cell?.spiner.stopAnimating()
-                                                            })
-        })
+        let size = collectionView.bounds.size
         
-        self.dataSource!.sections.append(self.section)
-        
-        self.dataSource!.onDidScrollToCellIndexPath = { (collectionView, indexPath) in
-            
-            self.title = "\(indexPath.row + 1)/\(self.images!.count)"
-        }
-    }
-    
-    fileprivate func createDataSource() {
-        
-        guard let images = self.images else {
-            
-            return
-        }
-        
-        for image in images {
-            
-            self.section.add(item: image)
-        }
+        return CGSize(width: size.width, height: size.height - collectionView.contentInset.top)
     }
 }

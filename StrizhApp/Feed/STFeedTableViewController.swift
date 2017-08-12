@@ -72,6 +72,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.separatorStyle = .none
         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
+        self.tableView.tableFooterView = UIView()
         
         self.tableView.register(nibClass: STPostTableViewCell.self)
         
@@ -90,9 +91,6 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         
         // refresh control setup
         self.createRefreshControl()
-        
-        // set footer view after data source to prevent unwanted data source calls
-        self.tableView.tableFooterView = UIView()
         
         self.dataSourceSwitch.selectedSegmentIndex = 0
         
@@ -149,8 +147,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         let dataSource = self.currentDataSource
         let post = dataSource.posts[indexPath.row]
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: STPostTableViewCell.self),
-                                                 for: indexPath) as! STPostTableViewCell
+        let cell: STPostTableViewCell = tableView.dequeueReusableCell(for: indexPath)
         
         if indexPath.row + 10 > dataSource.posts.count && dataSource.canLoadNext {
             
@@ -164,13 +161,13 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         cell.postType.isSelected = post.type == 2 ? true : false
         cell.postTime.text = post.createdAt?.elapsedInterval()
         
-        cell.onFavoriteButtonTap = { [outerCell = cell] in
+        cell.onFavoriteButtonTap = { [cell, unowned self] in
             
-            let favorite = !outerCell.iconFavorite.isSelected
-            outerCell.iconFavorite.isSelected = favorite
+            let favorite = !cell.iconFavorite.isSelected
+            cell.iconFavorite.isSelected = favorite
             
             self.api.favorite(postId: post.id, favorite: favorite)
-                .onSuccess(callback: { postResponse in
+                .onSuccess(callback: { [post] postResponse in
                     
                     post.isFavorite = postResponse.isFavorite
                     NotificationCenter.default.post(name: NSNotification.Name(kItemFavoriteNotification), object: postResponse)
@@ -223,6 +220,11 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         
         if let user = dataSource.users.first(where: { $0.id == post.userId }) {
             
+            cell.onUserIconButtonTap = { [unowned self] in
+                
+                self.st_router_openUserProfile(user: user)
+            }
+            
             cell.userName.text = user.lastName + " " + user.firstName
             
             if user.id == self.myUser.id && self.myUser.imageData != nil {
@@ -230,7 +232,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
                 if let image = UIImage(data: self.myUser.imageData!) {
                     
                     let userIcon = image.af_imageAspectScaled(toFill: cell.userIcon.bounds.size)
-                    cell.userIcon.image = userIcon.af_imageRoundedIntoCircle()
+                    cell.userIcon.imageView?.image = userIcon.af_imageRoundedIntoCircle()
                 }
             }
             else {
@@ -239,16 +241,13 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
                     
                     var defaultImage = UIImage(named: "avatar")
                     defaultImage = defaultImage?.af_imageAspectScaled(toFill: cell.userIcon.bounds.size)
-                    cell.userIcon.image = defaultImage?.af_imageRoundedIntoCircle()
+                    cell.userIcon.imageView?.image = defaultImage?.af_imageRoundedIntoCircle()
                 }
                 else {
                     
                     let urlString = user.imageUrl + cell.userIcon.queryResizeString()
-                    
                     let filter = RoundedCornersFilter(radius: cell.userIcon.bounds.size.width)
-                    cell.userIcon.af_setImage(withURL: URL(string: urlString)!,
-                                              filter: filter,
-                                              completion: nil)
+                    cell.userIcon.af_setImage(for: .normal, url: URL(string: urlString)!, filter: filter)
                 }
             }
         }
@@ -392,18 +391,47 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     private func setupDataSources() {
         
         // setup data sources
-        self.feedDataSource.onLoadingStatusChanged = self.onDataSourceLoadingStatusChanged(_:)
-        self.feedDataSource.onDataSourceChanged = self.onDataSourceChanged
+        self.feedDataSource.onLoadingStatusChanged = { [unowned self] status in
+            
+            self.onDataSourceLoadingStatusChanged(status)
+        }
+        self.feedDataSource.onDataSourceChanged = { [unowned self] in
+            
+            self.onDataSourceChanged()
+        }
+
+        self.searchFeedDataSource.onLoadingStatusChanged = { [unowned self] status in
+            
+            self.onDataSourceLoadingStatusChanged(status)
+        }
         
-        self.searchFeedDataSource.onLoadingStatusChanged = self.onDataSourceLoadingStatusChanged(_:)
-        self.searchFeedDataSource.onDataSourceChanged = self.onDataSourceChanged
+        self.searchFeedDataSource.onDataSourceChanged = { [unowned self] in
+            
+            self.onDataSourceChanged()
+        }
+        
         self.searchFeedDataSource.disableAddToFavoriteHadler = true
         
-        self.favoritesFeedDataSource.onDataSourceChanged = self.onDataSourceChanged
-        self.favoritesFeedDataSource.onLoadingStatusChanged = self.onDataSourceLoadingStatusChanged(_:)
+        self.favoritesFeedDataSource.onLoadingStatusChanged = { [unowned self] status in
+            
+            self.onDataSourceLoadingStatusChanged(status)
+        }
         
-        self.searchFavoriteDataSource.onLoadingStatusChanged = self.onDataSourceLoadingStatusChanged(_:)
-        self.searchFavoriteDataSource.onDataSourceChanged = self.onDataSourceChanged
+        self.favoritesFeedDataSource.onDataSourceChanged = { [unowned self] in
+            
+            self.onDataSourceChanged()
+        }
+
+        self.searchFavoriteDataSource.onLoadingStatusChanged = { [unowned self] status in
+            
+            self.onDataSourceLoadingStatusChanged(status)
+        }
+
+        self.searchFavoriteDataSource.onDataSourceChanged = { [unowned self] in
+            
+            self.onDataSourceChanged()
+        }
+
         self.searchFavoriteDataSource.disableAddToFavoriteHadler = true
     }
     
@@ -437,17 +465,14 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         tableView.tableHeaderView = searchController.searchBar
     }
     
-    private func onDataSourceChanged(animation: Bool) {
+    private func onDataSourceChanged() {
         
         if let refresh = self.refreshControl, refresh.isRefreshing {
             
-            DispatchQueue.main.async {
-                
-                refresh.endRefreshing()
-            }
+            refresh.endRefreshing()
         }
         
-        self.reloadTableView(animation: animation)
+        self.reloadTableView(animation: false)
     }
     
     private func onStartLoading() {

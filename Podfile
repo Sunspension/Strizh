@@ -29,4 +29,6 @@ target 'StrizhApp' do
 #    pod 'TTTAttributedLabel'
 #    pod 'RxSwift', '~> 3.0'
 #    pod 'RxCocoa', '~> 3.0'
+#    pod 'RxDataSources', '~> 1.0'
+#    pod 'APNGKit', '~> 0.6'
 end

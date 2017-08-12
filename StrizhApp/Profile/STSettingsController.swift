@@ -34,6 +34,11 @@ class STSettingsController: UITableViewController {
         super.init(coder: aDecoder)
     }
     
+    deinit {
+        
+        print("")
+    }
+    
     init() {
         
         super.init(style: .grouped)
@@ -125,6 +130,7 @@ class STSettingsController: UITableViewController {
             
             self.analytics.logEvent(eventName: st_eLogout)
             self.st_router_logout()
+            self.close()
             
             break
             
@@ -231,7 +237,7 @@ class STSettingsController: UITableViewController {
         }
     }
     
-    fileprivate func updateNotificationSettings(_ callBack:@escaping (_ error: STError?) -> Void) {
+    fileprivate func updateNotificationSettings(_ callBack: @escaping (_ error: STError?) -> Void) {
         
         api.updateUserNotificationSettings(settings: self.myUser.notificationSettings, userId: self.myUser.id)
             .onSuccess { user in

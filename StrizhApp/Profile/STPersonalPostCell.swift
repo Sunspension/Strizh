@@ -44,15 +44,9 @@ class STPersonalPostCell: UITableViewCell {
     var disposeBag = DisposeBag()
     
     
-    deinit {
-        
-        disposeBag.dispose()
-    }
-    
-    
     override func prepareForReuse() {
         
-        disposeBag.dispose()
+        disposeBag = DisposeBag()
     }
     
     override func awakeFromNib() {
@@ -81,11 +75,4 @@ class STPersonalPostCell: UITableViewCell {
         
         more.tintColor = UIColor.stGreyblue
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
 }

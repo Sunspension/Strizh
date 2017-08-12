@@ -98,7 +98,7 @@ class STFeedDetailsTableViewController: UIViewController {
         self.tableView.register(nibClass: STCommonLabelCell.self)
         self.tableView.register(nibClass: STPersonalPostDetailsMainInfoCell.self)
         
-        self.navigationItem.title = "feed_details_page_title".localized
+        self.title = "feed_details_page_title".localized
         
         self.setCustomBackButton()
         self.setupDataSource()

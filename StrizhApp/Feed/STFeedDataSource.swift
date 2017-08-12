@@ -8,23 +8,9 @@
 
 import Foundation
 
-class STFeedDataSource {
-    
-    fileprivate var status = STLoadingStatusEnum.idle {
-        
-        willSet {
-            
-            self.onLoadingStatusChanged?(newValue)
-        }
-    }
-    
-    fileprivate var page = 1
+class STFeedDataSource: STDealsDataSourceBase {
     
     fileprivate var searchPage = 1
-    
-    fileprivate var pageSize: Int = 0
-    
-    fileprivate var hasMore = false
     
     fileprivate var filter: STFeedFilter {
         
@@ -36,35 +22,25 @@ class STFeedDataSource {
         return try! AppDelegate.appSettings.dependencyContainer.resolve()
     }()
     
-    private(set) var isFavorite: Bool
-    
-    var canLoadNext: Bool {
-        
-        return hasMore && status != .loading
-    }
+    private(set) var isFavorite = false
     
     var users = Set<STUser>()
-    
-    var locations = Set<STLocation>()
-    
-    var images = Set<STImage>()
-    
-    var files = Set<STFile>()
-    
-    var posts = [STPost]()
-    
-    var onDataSourceChanged:((_ animation: Bool) -> Void)?
-    
-    var onLoadingStatusChanged: ((_ status: STLoadingStatusEnum) -> Void)?
     
     var disableAddToFavoriteHadler = false
     
     
+    deinit {
+        
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    
     init(pageSize: Int = 20, isFavorite: Bool = false) {
         
-        self.pageSize = pageSize
-        self.isFavorite = isFavorite
+        super.init()
         
+        self.isFavorite = isFavorite
+        self.pageSize = pageSize
         
         if !self.disableAddToFavoriteHadler {
             
@@ -88,7 +64,7 @@ class STFeedDataSource {
         
         if count != self.posts.count {
             
-            self.onDataSourceChanged?(false)
+            self.onDataSourceChanged?()
         }
     }
     
@@ -111,14 +87,14 @@ class STFeedDataSource {
                 self.posts.remove(object: post)
             }
             
-            self.onDataSourceChanged?(false)
+            self.onDataSourceChanged?()
         }
         else {
             
             if let item = posts.filter({ $0.id == post.id }).first {
                 
                 item.isFavorite = post.isFavorite
-                self.onDataSourceChanged?(false)
+                self.onDataSourceChanged?()
             }
         }
     }
@@ -126,30 +102,6 @@ class STFeedDataSource {
     func userBy(post: STPost) -> STUser? {
         
         return self.users.first(where: { $0.id == post.userId })
-    }
-    
-    func imagesBy(post: STPost) -> [STImage]? {
-        
-        return self.images.filter { image -> Bool in
-            
-            return post.imageIds.contains(where: { $0.value == image.id })
-        }
-    }
-    
-    func locationsBy(post: STPost) -> [STLocation]? {
-        
-        return self.locations.filter({ location -> Bool in
-            
-            return post.locationIds.contains(where: { $0.value == location.id })
-        })
-    }
-    
-    func filesBy(post: STPost) -> [STFile]? {
-        
-        return self.files.filter({ file -> Bool in
-            
-            return post.fileIds.contains(where: { $0.value == file.id })
-        })
     }
     
     func loadFeedIfNotYet() {
@@ -253,7 +205,7 @@ class STFeedDataSource {
                 
                 if notify {
                     
-                    self.onDataSourceChanged?(false)
+                    self.onDataSourceChanged?()
                 }
             }
             .onFailure { [unowned self] error in
@@ -262,7 +214,7 @@ class STFeedDataSource {
                 
                 if notify {
                     
-                    self.onDataSourceChanged?(false)
+                    self.onDataSourceChanged?()
                 }
         }
     }

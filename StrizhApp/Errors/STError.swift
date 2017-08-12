@@ -16,6 +16,10 @@ enum STError: Error {
     
     case loadContactsFailure
     
+    case loadFeedFailure
+    
+    case loadFeedByUserIdFailure
+    
     case createPostError
     
     case loadDialogsError
@@ -54,6 +58,14 @@ enum STError: Error {
         case .loadContactsFailure:
             
             return "Error has occurred when was trying to load contacts"
+            
+        case .loadFeedFailure:
+            
+            return "Error has occurred when was trying to load feed"
+            
+        case .loadFeedByUserIdFailure:
+            
+            return "Error has occurred when was trying to load feed by user id"
             
         case .archiveFailure:
             

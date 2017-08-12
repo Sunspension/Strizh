@@ -410,18 +410,16 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
     
     fileprivate func createDataSource(for dataSource: TableViewDataSource, contacts: [STContact]) {
         
-        contacts.forEach({ contact in
+        for contact in contacts {
             
             if contact.isRegistered {
                 
                 let letter = String(contact.firstName.characters.first!)
-                
-                var section = dataSource.sections.filter({ ($0.sectionType as? String) == letter }).first
+                var section = dataSource.sections.filter({ $0.title == letter }).first
                 
                 if section == nil {
                     
                     section = TableSection(title: letter)
-                    section!.sectionType = letter
                     
                     section!.header(headerClass: STContactHeaderCell.self, item: letter, bindingAction: { (cell, item) in
                         
@@ -447,12 +445,12 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                                                        item: contact,
                                                        bindingAction: self.binding)
             }
-        })
+        }
         
         // sorting
         dataSource.sections.sort { (oneSection, otherSection) -> Bool in
             
-            return (oneSection.sectionType as! String) < (otherSection.sectionType as! String)
+            return oneSection.title! < otherSection.title!
         }
         
         if self.reason == .usual && self.notRelatedContactsSection.items.count > 0 {

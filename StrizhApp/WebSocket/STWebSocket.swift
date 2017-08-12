@@ -103,6 +103,31 @@ class STWebSocket {
                 
                 p.success(feed)
             }
+            else {
+                
+                p.failure(.loadFeedFailure)
+            }
+        }
+        
+        return p.future
+    }
+    
+    func loadFeed(userId: Int, page: Int, pageSize: Int) -> Future<STFeed, STError> {
+        
+        let p = Promise<STFeed, STError>()
+        
+        let request = STSocketRequestBuilder.loadUserFeed(userId: userId, page: page, pageSize: pageSize).request
+        
+        self.sendRequest(request: request) { json in
+            
+            if let feed = STFeed(JSON: json) {
+                
+                p.success(feed)
+            }
+            else {
+                
+                p.failure(.loadFeedByUserIdFailure)
+            }
         }
         
         return p.future

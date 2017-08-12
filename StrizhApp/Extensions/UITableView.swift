@@ -32,6 +32,26 @@ extension UITableView {
                       forHeaderFooterViewReuseIdentifier: String(describing: headerFooterNibClass))
     }
     
+    func dequeueReusableCell<T: UITableViewCell>(for indexPath: IndexPath) -> T where T: ReusableView {
+        
+        guard let cell = dequeueReusableCell(withIdentifier: T.reuseIdentifier, for: indexPath) as? T else {
+         
+            fatalError("Could not dequeue cell with identifier: \(T.reuseIdentifier)")
+        }
+        
+        return cell
+    }
+    
+    func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>() -> T where T: ReusableView {
+        
+        guard let cell = dequeueReusableHeaderFooterView(withIdentifier: T.reuseIdentifier) as? T else {
+            
+            fatalError("Could not dequeue cell with identifier: \(T.reuseIdentifier)")
+        }
+        
+        return cell
+    }
+    
     func showBusy() {
         
         // Sometimes it possible to call this method from not UI thread, for example when you asking access to Address Book

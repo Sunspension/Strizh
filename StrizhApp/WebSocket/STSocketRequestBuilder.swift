@@ -36,6 +36,8 @@ enum STSocketRequestBuilder {
     case loadFeed(filter: STFeedFilter, page: Int, pageSize: Int,
         isFavorite: Bool, searchString: String?)
     
+    case loadUserFeed(userId: Int, page: Int, pageSize: Int)
+    
     case loadPersonalPosts(minId: Int, pageSize: Int)
     
     case favorite(postId: Int, favorite: Bool)
@@ -114,6 +116,19 @@ enum STSocketRequestBuilder {
             }
             
             self.addToPayload(&payLoad, type: .body, value: body)
+            
+            break
+            
+        case .loadUserFeed(let userId, let page, let pageSize):
+            
+            self.addToPayload(&payLoad, type: .path, value: "/api/post")
+            self.addToPayload(&payLoad, type: .method, value: "GET")
+            
+            self.addToQuery(&query, type: .page, value: page)
+            self.addToQuery(&query, type: .pageSize, value: pageSize)
+            self.addToQuery(&query, type: .filters, value: ["feed" : true ])
+            self.addToQuery(&query, type: .extend, value: "file, location, image")
+            self.addToQuery(&query, type: .conditions, value: ["user_id" : ["eq" : userId]])
             
             break
             
