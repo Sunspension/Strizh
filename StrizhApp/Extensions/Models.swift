@@ -74,7 +74,7 @@ extension STUser {
     
     func refresh() {
         
-        AppDelegate.appSettings.api.loadUser(transport: .webSocket, userId: self.id)
+        AppDelegate.appSettings.api.loadUser(transport: .websocket, userId: self.id)
             .onSuccess(callback: { user in
                 
                 user.writeToDB()

@@ -11,9 +11,9 @@ import AlamofireImage
 
 class STAnyUserProfileController: UITableViewController {
     
-    fileprivate let initialNaviLabelOffset: CGFloat = 36.0
+    fileprivate let initialNaviLabelOffset: CGFloat = 21
     
-    fileprivate let naviLabelStopOffset: CGFloat = -20
+    fileprivate let naviLabelStopOffset: CGFloat = -53
     
     fileprivate var feedItems: STUserFeedDataSource?
     
@@ -23,13 +23,15 @@ class STAnyUserProfileController: UITableViewController {
     
     fileprivate let userFeedSection = TSection()
     
-    fileprivate let headerLabel = UILabel()
+    fileprivate let floatTitle = UILabel()
     
-    var backgroundBarView: UIView?
+    fileprivate var backgroundBarView: UIView?
     
-    var labelContainerView = UIView()
+    fileprivate var floatTitleContainer = UIView()
     
-    var backgroundBarViewAlpha: CGFloat = 1
+    fileprivate var backgroundBarViewAlpha: CGFloat = 0
+    
+    fileprivate var constraints = [NSLayoutConstraint]()
     
     fileprivate var user: STUser
     
@@ -37,6 +39,8 @@ class STAnyUserProfileController: UITableViewController {
         
         return STUser.objects(by: STUser.self).first!
     }
+    
+    fileprivate let topContentOffset: CGFloat = 18
     
     deinit {
         
@@ -49,7 +53,32 @@ class STAnyUserProfileController: UITableViewController {
         self.feedItems = STUserFeedDataSource(userId: user.id)
         
         super.init(nibName: nil, bundle: nil)
+        
+        setupDataSource()
+        feedItems!.loadFeed()
         self.hidesBottomBarWhenPushed = true
+    }
+    
+    init(userId: Int) {
+        
+        self.user = STUser()
+        
+        super.init(nibName: nil, bundle: nil)
+        self.hidesBottomBarWhenPushed = true
+        
+        self.showBusy()
+        api.loadUser(transport: .websocket, userId: userId)
+            .onSuccess { [weak self] user in
+                
+                self?.hideBusy()
+                self?.user = user
+                
+                self?.floatTitle.text = user.firstName + " " + user.lastName
+                self?.floatTitle.sizeToFit()
+                self?.feedItems = STUserFeedDataSource(userId: user.id)
+                self?.setupDataSource()
+                self?.feedItems!.loadFeed()
+            }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -65,7 +94,7 @@ class STAnyUserProfileController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 176
         tableView.separatorStyle = .none
-        tableView.contentInset = UIEdgeInsets(top: 18, left: 0, bottom: 7, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: topContentOffset, left: 0, bottom: 7, right: 0)
         
         tableView.register(nibClass: STProfileHeaderCell.self)
         tableView.register(nibClass: STUserPostCell.self)
@@ -73,39 +102,32 @@ class STAnyUserProfileController: UITableViewController {
         
         automaticallyAdjustsScrollViewInsets = false
         
-        headerLabel.textAlignment = .center
-        
-        headerLabel.font = UIFont.systemFont(ofSize: 17, weight: UIFontWeightMedium)
-        headerLabel.text = user.firstName + " " + user.lastName
-        headerLabel.sizeToFit()
-        
-        labelContainerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        labelContainerView.addSubview(headerLabel)
-        labelContainerView.clipsToBounds = true
-        labelContainerView.backgroundColor = UIColor.clear
-        labelContainerView.isUserInteractionEnabled = false
-        
         setCustomBackButton()
-        
-        setupDataSource()
-        feedItems?.loadFeed()
+        initFloatTitle()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
-     
+        
         UIView.animate(withDuration: 0.3) { 
             
-            self.headerLabel.alpha = 0
+            self.floatTitle.alpha = 0
         }
         
         // checking press back button
         if self.navigationController?.viewControllers.index(of: self) == nil {
             
             backgroundBarView?.alpha = 1
-            labelContainerView.removeFromSuperview()
-            headerLabel.removeFromSuperview()
+            
+            // prevent to change alpha on scroll after back button pressed
+            backgroundBarView = nil
+            
+            // remove label container
+            self.constraints.forEach({ $0.isActive = false })
+            
+            floatTitle.removeFromSuperview()
+            floatTitleContainer.removeFromSuperview()
         }
         else {
             
@@ -115,6 +137,12 @@ class STAnyUserProfileController: UITableViewController {
                 backgroundBarViewAlpha = backNavView.alpha
                 backNavView.alpha = 1
             }
+            
+            // hide title
+            UIView.animate(withDuration: 0.3, animations: {
+                
+                self.floatTitle.alpha = 0
+            })
         }
     }
     
@@ -124,35 +152,17 @@ class STAnyUserProfileController: UITableViewController {
         
         super.viewWillAppear(animated)
         
-        UIView.animate(withDuration: 0.5) { 
+        UIView.animate(withDuration: 0.5) {
             
-            self.headerLabel.alpha = 1
+            self.floatTitle.alpha = 1
         }
         
-        if labelContainerView.superview != nil {
+        if backgroundBarView == nil {
             
-            if let backNavView = backgroundBarView {
-                
-                backNavView.alpha = backgroundBarViewAlpha
-            }
-            
-            return
+            backgroundBarView = self.navigationController?.navigationBar.subviews.first(where: { String(describing: $0.self).contains("_UIBarBackground") })
         }
         
-        guard let bar = navigationController?.navigationBar else {
-            
-            return
-        }
-        
-        backgroundBarView = bar.subviews.first(where: { String(describing: $0.self).contains("_UIBarBackground") })
-        backgroundBarView?.alpha = 0
-        
-        bar.insertSubview(labelContainerView, at: 0)
-        
-        labelContainerView.frame = bar.bounds
-        
-        headerLabel.layer.transform = CATransform3DMakeTranslation(0, initialNaviLabelOffset, 0)
-        headerLabel.center = bar.center
+        backgroundBarView?.alpha = backgroundBarViewAlpha
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -257,7 +267,7 @@ class STAnyUserProfileController: UITableViewController {
                 if let image = UIImage(data: self.myUser.imageData!) {
                     
                     let userIcon = image.af_imageAspectScaled(toFill: cell.userIcon.bounds.size)
-                    cell.userIcon.imageView?.image = userIcon.af_imageRoundedIntoCircle()
+                    cell.userIcon.setImage(userIcon.af_imageRoundedIntoCircle(), for: .normal)
                 }
             }
             else {
@@ -266,7 +276,7 @@ class STAnyUserProfileController: UITableViewController {
                     
                     var defaultImage = UIImage(named: "avatar")
                     defaultImage = defaultImage?.af_imageAspectScaled(toFill: cell.userIcon.bounds.size)
-                    cell.userIcon.imageView?.image = defaultImage?.af_imageRoundedIntoCircle()
+                    cell.userIcon.setImage(defaultImage?.af_imageRoundedIntoCircle(), for: .normal)
                 }
                 else {
                     
@@ -329,12 +339,12 @@ class STAnyUserProfileController: UITableViewController {
         
         if offset > 0 {
             
-            let labelTransform = CATransform3DMakeTranslation(0, max(naviLabelStopOffset, initialNaviLabelOffset - offset), 0)
-            headerLabel.layer.transform = labelTransform
+            let labelTransform = CATransform3DMakeTranslation(0, max(naviLabelStopOffset, initialNaviLabelOffset - (topContentOffset + offset)), 0)
+            floatTitle.layer.transform = labelTransform
         }
         else {
             
-            headerLabel.layer.transform = CATransform3DMakeTranslation(0, initialNaviLabelOffset, 0)
+            floatTitle.layer.transform = CATransform3DMakeTranslation(0, initialNaviLabelOffset, 0)
         }
 
         var alpha = offset / 35
@@ -379,6 +389,66 @@ class STAnyUserProfileController: UITableViewController {
         self.feedItems?.onDataSourceChanged = { [unowned self] in
             
             self.tableView.reloadData()
+            self.showDummyViewIfNeeded()
         }
+    }
+    
+    fileprivate func showDummyViewIfNeeded() {
+        
+        if self.userFeedSection.items.count == 0 {
+            
+            self.showDummyView(imageName: "empty-personal-feed",
+                               title: "profile_page_empty_personal_posts_title".localized,
+                               subTitle: "")
+        }
+        else {
+            
+            self.hideDummyView()
+        }
+    }
+    
+    fileprivate func initFloatTitle() {
+        
+        floatTitle.textAlignment = .center
+        floatTitle.translatesAutoresizingMaskIntoConstraints = false
+        floatTitle.font = UIFont.systemFont(ofSize: 17, weight: UIFontWeightMedium)
+        floatTitle.text = user.firstName + " " + user.lastName
+        floatTitle.sizeToFit()
+        
+        floatTitleContainer.addSubview(floatTitle)
+        floatTitleContainer.clipsToBounds = true
+        floatTitleContainer.backgroundColor = UIColor.clear
+        floatTitleContainer.isUserInteractionEnabled = false
+        
+        let center = floatTitle.centerXAnchor.constraint(equalTo: floatTitleContainer.centerXAnchor)
+        center.isActive = true
+        self.constraints.append(center)
+        
+        let labelTop = floatTitle.topAnchor.constraint(equalTo: floatTitleContainer.bottomAnchor,
+                                                        constant: initialNaviLabelOffset)
+        labelTop.isActive = true
+        self.constraints.append(labelTop)
+        
+        // add to window
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let window = delegate.window!
+        window.addSubview(floatTitleContainer)
+        
+        floatTitleContainer.translatesAutoresizingMaskIntoConstraints = false
+        let left = floatTitleContainer.leadingAnchor.constraint(equalTo: window.leadingAnchor)
+        left.isActive = true
+        self.constraints.append(left)
+        
+        let right = floatTitleContainer.trailingAnchor.constraint(equalTo: window.trailingAnchor)
+        right.isActive = true
+        self.constraints.append(right)
+        
+        let top = floatTitleContainer.topAnchor.constraint(equalTo: window.topAnchor, constant: 20)
+        top.isActive = true
+        self.constraints.append(top)
+        
+        let height = floatTitleContainer.heightAnchor.constraint(equalToConstant: 44)
+        height.isActive = true
+        self.constraints.append(height)
     }
 }

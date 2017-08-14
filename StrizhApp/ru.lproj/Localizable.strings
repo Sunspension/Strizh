@@ -115,7 +115,7 @@
 "profile_page_one_dialog_text" = "диалог";
 "profile_page_few_dialogs_text" = "диалога";
 "profile_page_many_dialogs_text" = "диалогов";
-"profile_page_empty_personal_posts_title" = "Отктытых сделок нет";
+"profile_page_empty_personal_posts_title" = "Открытых сделок нет";
 "profile_page_empty_personal_posts_message" = "Вы еще не открыли ни одной сделки. Чтобы открыть, нажмите на “+”.";
 "profile_edit_page_title" = "Профиль";
 "profile_edit_page_error_empty_first_name_text" = "Поле Имя не должно быть пустым";

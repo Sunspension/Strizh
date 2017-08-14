@@ -13,7 +13,7 @@ import Contacts
 
 enum STServerRequestTransport {
     
-    case http, webSocket
+    case http, websocket
 }
 
 protocol PRemoteServerApi {

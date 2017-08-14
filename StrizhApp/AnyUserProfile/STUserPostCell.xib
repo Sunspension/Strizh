@@ -44,7 +44,7 @@
                                         <color key="textColor" red="0.34509803919999998" green="0.34901960780000002" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="myE-DM-bXV">
+                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="myE-DM-bXV">
                                         <rect key="frame" x="12" y="12" width="24" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="Z2j-OF-vnY"/>
@@ -67,19 +67,19 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Экскаватор Doosan 22551 85" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kPW-Ry-ys8">
-                                <rect key="frame" x="12" y="60" width="283" height="20"/>
+                                <rect key="frame" x="12" y="60" width="279" height="20"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вознаграждение 100 000 рублей за нахождение покупателя." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lLQ-ob-zbN">
-                                <rect key="frame" x="12" y="88" width="283" height="32.5"/>
+                                <rect key="frame" x="12" y="88" width="279" height="33.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.34509803921568627" green="0.34901960784313724" blue="0.35686274509803922" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ltC-Rn-jCT">
-                                <rect key="frame" x="12" y="142.5" width="174" height="24.5"/>
+                                <rect key="frame" x="12" y="143.5" width="174" height="22.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <inset key="imageEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="15 ноя 16 — 12 янв 17" image="icon-time">
@@ -109,9 +109,8 @@
                             <constraint firstItem="lLQ-ob-zbN" firstAttribute="leading" secondItem="kPW-Ry-ys8" secondAttribute="leading" id="1SQ-iu-hUM"/>
                             <constraint firstItem="dHp-K6-enH" firstAttribute="centerY" secondItem="ltC-Rn-jCT" secondAttribute="centerY" id="26t-ae-Y1b"/>
                             <constraint firstItem="y1e-ug-ez8" firstAttribute="top" secondItem="4HC-zN-2oG" secondAttribute="top" id="2Ua-tV-GBk"/>
-                            <constraint firstAttribute="trailing" secondItem="kPW-Ry-ys8" secondAttribute="trailing" constant="8" id="2kQ-qG-R7w"/>
+                            <constraint firstAttribute="trailing" secondItem="kPW-Ry-ys8" secondAttribute="trailing" constant="12" id="2kQ-qG-R7w"/>
                             <constraint firstItem="lLQ-ob-zbN" firstAttribute="trailing" secondItem="kPW-Ry-ys8" secondAttribute="trailing" id="3V0-g0-7U2"/>
-                            <constraint firstItem="ltC-Rn-jCT" firstAttribute="top" secondItem="dHp-K6-enH" secondAttribute="top" id="9Pr-Wb-7TX"/>
                             <constraint firstItem="y1e-ug-ez8" firstAttribute="leading" secondItem="4HC-zN-2oG" secondAttribute="leading" id="ElE-bV-aGm"/>
                             <constraint firstAttribute="bottom" secondItem="dHp-K6-enH" secondAttribute="bottom" constant="12" id="HRS-PJ-IQt"/>
                             <constraint firstItem="KHJ-iJ-1Tc" firstAttribute="top" secondItem="y1e-ug-ez8" secondAttribute="bottom" id="ICa-7T-p4W"/>

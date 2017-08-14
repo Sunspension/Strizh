@@ -158,7 +158,8 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         cell.postTitle.text = post.title
         cell.postDetails.text = post.postDescription
         cell.iconFavorite.isSelected = post.isFavorite
-        cell.postType.isSelected = post.type == 2 ? true : false
+        cell.isSearch = post.type == 2
+        
         cell.postTime.text = post.createdAt?.elapsedInterval()
         
         cell.onFavoriteButtonTap = { [cell, unowned self] in
@@ -185,39 +186,6 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
             cell.durationDate.isHidden = true
         }
         
-        if post.fileIds.count > 0 {
-            
-            cell.documents.isEnabled = true
-            cell.documents.setTitle("\(post.fileIds.count)", for: .normal)
-        }
-        else {
-            
-            cell.documents.isEnabled = false
-            cell.documents.setTitle("\(0)", for: .normal)
-        }
-        
-        if post.imageIds.count > 0 {
-            
-            cell.images.isEnabled = true
-            cell.images.setTitle("\(post.imageIds.count)", for: .normal)
-        }
-        else {
-            
-            cell.images.isEnabled = false
-            cell.images.setTitle("\(0)", for: .normal)
-        }
-        
-        if post.locationIds.count > 0 {
-            
-            cell.locations.isEnabled = true
-            cell.locations.setTitle("\(post.locationIds.count)", for: .normal)
-        }
-        else {
-            
-            cell.locations.isEnabled = false
-            cell.locations.setTitle("\(0)", for: .normal)
-        }
-        
         if let user = dataSource.users.first(where: { $0.id == post.userId }) {
             
             cell.onUserIconButtonTap = { [unowned self] in
@@ -232,7 +200,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
                 if let image = UIImage(data: self.myUser.imageData!) {
                     
                     let userIcon = image.af_imageAspectScaled(toFill: cell.userIcon.bounds.size)
-                    cell.userIcon.imageView?.image = userIcon.af_imageRoundedIntoCircle()
+                    cell.userIcon.setImage(userIcon.af_imageRoundedIntoCircle(), for: .normal)
                 }
             }
             else {
@@ -241,7 +209,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
                     
                     var defaultImage = UIImage(named: "avatar")
                     defaultImage = defaultImage?.af_imageAspectScaled(toFill: cell.userIcon.bounds.size)
-                    cell.userIcon.imageView?.image = defaultImage?.af_imageRoundedIntoCircle()
+                    cell.userIcon.setImage(defaultImage?.af_imageRoundedIntoCircle(), for: .normal)
                 }
                 else {
                     

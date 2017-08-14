@@ -29,12 +29,6 @@ class STPostTableViewCell: UITableViewCell {
     
     @IBOutlet weak var durationDate: UIButton!
     
-    @IBOutlet weak var images: UIButton!
-    
-    @IBOutlet weak var documents: UIButton!
-    
-    @IBOutlet weak var locations: UIButton!
-    
     @IBOutlet weak var separator: UIView!
     
     @IBOutlet weak var header: UIView!
@@ -42,7 +36,21 @@ class STPostTableViewCell: UITableViewCell {
     var onFavoriteButtonTap: (() -> Void)?
     
     var onUserIconButtonTap: (() -> Void)?
-
+    
+    var isSearch: Bool {
+        
+        get {
+            
+            return postType.isSelected
+        }
+        
+        set {
+            
+            postType.isSelected = newValue
+            postType.layer.backgroundColor = newValue == true ?
+                UIColor.stIris.cgColor : UIColor.stDarkMint.cgColor
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -64,20 +72,21 @@ class STPostTableViewCell: UITableViewCell {
         iconFavorite.setImage(UIImage(named: "icon-star"), for: .normal)
         iconFavorite.setImage(UIImage(named: "icon-star-selected"), for: .selected)
         
-        postType.setImage(UIImage(named: "icon-offer"), for: .normal)
-        postType.setImage(UIImage(named: "icon-search"), for: .selected)
+        postType.setImage(UIImage(named: "ic-offer"), for: .normal)
+        postType.setImage(UIImage(named: "ic-search"), for: .selected)
         
-        let disabledColor = UIColor(red: 211 / 255.0, green: 211 / 255.0, blue: 211 / 255.0, alpha: 1)
+        postType.setTitle("post_page_button_offer_title".localized, for: .normal)
+        postType.setTitle("post_page_button_search_title".localized, for: .selected)
         
-        images.setTitleColor(disabledColor, for: .disabled)
-        locations.setTitleColor(disabledColor, for: .disabled)
-        documents.setTitleColor(disabledColor, for: .disabled)
+        postType.imageEdgeInsets = UIEdgeInsets(top: 0, left: -8, bottom: 0, right: 0)
+        postType.contentEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 6)
+        
+        postType.layer.backgroundColor = UIColor.stDarkMint.cgColor
+        postType.layer.cornerRadius = 5
+        postType.layer.masksToBounds = true
+        postType.imageView?.contentMode = .scaleAspectFit
         
         iconFavorite.addTarget(self, action: #selector(self.tapOnFavorite), for: .touchUpInside)
-        
-        userIcon.imageView?.contentMode = .scaleAspectFit
-        userIcon.imageView?.image = nil
-        
         userIcon.addTarget(self, action: #selector(self.tapOnUserIcon), for: .touchUpInside)
     }
 

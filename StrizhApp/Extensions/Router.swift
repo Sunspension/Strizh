@@ -177,4 +177,10 @@ extension UIViewController {
         let controller = STAnyUserProfileController(user: user)
         self.navigationController?.pushViewController(controller, animated: true)
     }
+    
+    func st_router_openUserProfile(userId: Int) {
+        
+        let controller = STAnyUserProfileController(userId: userId)
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
 }

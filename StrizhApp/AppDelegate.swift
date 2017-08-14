@@ -541,7 +541,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                     self.onAuthorized()
                     
                     // load user
-                    AppDelegate.appSettings.api.loadUser(transport: .webSocket, userId: session.userId)
+                    AppDelegate.appSettings.api.loadUser(transport: .websocket, userId: session.userId)
                         .onSuccess(callback: { [unowned self] user in
                             
                             if user.firstName.isEmpty || user.lastName.isEmpty {

@@ -94,7 +94,7 @@ extension UIViewController {
     
     func showBusy() {
         
-        self.hideBusy()
+        guard self.view.subviews.first(where: { $0 is UIActivityIndicatorView }) == nil else { return }
         
         let busy = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         busy.frame = CGRect(x: 0, y: 0, width: 50, height: 50)

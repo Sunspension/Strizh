@@ -9,13 +9,12 @@
 import UIKit
 import AlamofireImage
 import ReactiveKit
+import Bond
 
 class STChatViewController: UIViewController, UITextViewDelegate {
     
     
     fileprivate let dataSource = TableViewDataSource()
-    
-    fileprivate var myUser: STUser!
     
     fileprivate var loadingStatus = STLoadingStatusEnum.idle
     
@@ -28,6 +27,11 @@ class STChatViewController: UIViewController, UITextViewDelegate {
     fileprivate let disposeBag = DisposeBag()
     
     fileprivate var messages = Set<STMessage>()
+    
+    fileprivate var myUser: STUser {
+        
+        return STUser.objects(by: STUser.self).first!
+    }
     
     var postId: Int?
     
@@ -99,8 +103,6 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         
         self.sendButton.addTarget(self, action: #selector(self.sendMessageAction), for: .touchUpInside)
         
-        self.myUser = STUser.objects(by: STUser.self).first!
-        
         self.tableView.delegate = self.dataSource
         self.tableView.dataSource = self.dataSource
         
@@ -129,6 +131,7 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon-more"),
                                                                  style: .plain, target: self, action: #selector(self.openFilterAction))
         
+        setCustomBackButton()
         self.loadNecessaryDataIfNeeded()
     }
 
@@ -493,11 +496,24 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         
         if let user = self.users.first(where: { $0.id == message.userId }) {
             
-            let urlString = user.imageUrl + viewCell.userImage.imageView!.queryResizeString()
+            viewCell.userImage.reactive.tap.observeNext { [weak self] in
+                
+                    self?.st_router_openUserProfile(user: user)
+                }
+                .dispose(in: viewCell.disposeBag)
             
-            let filter = RoundedCornersFilter(radius: CGFloat(viewCell.userImage.imageView!.bounds.width))
-            
-            viewCell.userImage.af_setImage(for: .normal, url: URL(string: urlString)!, filter: filter)
+            if user.imageUrl.isEmpty {
+                
+                var defaultImage = UIImage(named: "avatar")
+                defaultImage = defaultImage?.af_imageAspectScaled(toFill: viewCell.userImage.bounds.size)
+                viewCell.userImage.setImage(defaultImage?.af_imageRoundedIntoCircle(), for: .normal)
+            }
+            else {
+                
+                let urlString = user.imageUrl + viewCell.userImage.queryResizeString()
+                let filter = RoundedCornersFilter(radius: viewCell.userImage.bounds.size.width)
+                viewCell.userImage.af_setImage(for: .normal, url: URL(string: urlString)!, filter: filter)
+            }
         }
     }
     
@@ -518,13 +534,30 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         viewCell.messageText.text = message.message
         viewCell.time.text = message.createdAt.time
         
-        if let user = self.users.first(where: { $0.id == message.userId }) {
+        let myUser = self.myUser
+        
+        if myUser.imageData != nil {
             
-            let urlString = user.imageUrl + viewCell.userImage.imageView!.queryResizeString()
+            if let image = UIImage(data: self.myUser.imageData!) {
+                
+                let userIcon = image.af_imageAspectScaled(toFill: viewCell.userImage.bounds.size)
+                viewCell.userImage.setImage(userIcon.af_imageRoundedIntoCircle(), for: .normal)
+            }
+        }
+        else {
             
-            let filter = RoundedCornersFilter(radius: CGFloat(viewCell.userImage.imageView!.bounds.width))
-            
-            viewCell.userImage.af_setImage(for: .normal, url: URL(string: urlString)!, filter: filter)
+            if myUser.imageUrl.isEmpty {
+                
+                var defaultImage = UIImage(named: "avatar")
+                defaultImage = defaultImage?.af_imageAspectScaled(toFill: viewCell.userImage.bounds.size)
+                viewCell.userImage.setImage(defaultImage?.af_imageRoundedIntoCircle(), for: .normal)
+            }
+            else {
+                
+                let urlString = myUser.imageUrl + viewCell.userImage.queryResizeString()
+                let filter = RoundedCornersFilter(radius: viewCell.userImage.bounds.size.width)
+                viewCell.userImage.af_setImage(for: .normal, url: URL(string: urlString)!, filter: filter)
+            }
         }
     }
     
@@ -597,7 +630,7 @@ class STChatViewController: UIViewController, UITextViewDelegate {
                         // load an apponent id
                         if let userId = dialog.userIds.first(where: { $0.value != sself.myUser.id }) {
                             
-                            sself.api.loadUser(transport: .webSocket, userId: userId.value)
+                            sself.api.loadUser(transport: .websocket, userId: userId.value)
                                 .onSuccess(callback: { [weak self] user in
                                     
                                     self?.tableView.hideBusy()

@@ -18,13 +18,20 @@ class STDialogMyCell: UITableViewCell {
 
     @IBOutlet weak var bubbleImage: UIImageView!
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         self.bubbleImage.tintColor = UIColor(red: 71 / 255.0, green: 122 / 255.0, blue: 251 / 255.0, alpha: 1)
         self.selectionStyle = .none
+        self.userImage.imageView?.image = nil
     }
 
+    override func prepareForReuse() {
+        
+        self.userImage.imageView?.image = nil
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

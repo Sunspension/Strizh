@@ -796,7 +796,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
         
         if let session = STSession.objects(by: STSession.self).first {
             
-            api.updateUserInformation(transport: .webSocket, userId: session.userId, firstName: firstName,
+            api.updateUserInformation(transport: .websocket, userId: session.userId, firstName: firstName,
                                       lastName: lastName, email: nil, imageId: imageId)
                 .onSuccess(callback: { user in
                     

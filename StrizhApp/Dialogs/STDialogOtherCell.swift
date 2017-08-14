@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReactiveKit
 
 class STDialogOtherCell: UITableViewCell {
 
@@ -18,6 +19,9 @@ class STDialogOtherCell: UITableViewCell {
     
     @IBOutlet weak var bubbleImage: UIImageView!
     
+    var disposeBag = DisposeBag()
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -25,8 +29,15 @@ class STDialogOtherCell: UITableViewCell {
         self.messageText.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.75)
         self.time.textColor = UIColor(red: 167 / 255.0, green: 167 / 255.0, blue: 167 / 255.0, alpha: 0.8)
         self.selectionStyle = .none
+        self.userImage.imageView?.image = nil
     }
 
+    override func prepareForReuse() {
+        
+        disposeBag = DisposeBag()
+        self.userImage.imageView?.image = nil
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

@@ -10,7 +10,7 @@ import Foundation
 
 protocol ReusableView: class {
     
-    static var reuseIdentifier: String {get}
+    static var reuseIdentifier: String { get }
 }
 
 extension ReusableView {

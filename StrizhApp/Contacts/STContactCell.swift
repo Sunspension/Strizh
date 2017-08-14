@@ -11,7 +11,7 @@ import ReactiveKit
 
 class STContactCell: UITableViewCell {
 
-    @IBOutlet weak var contactImage: CircledImageView!
+    @IBOutlet weak var contactImage: UIButton!
     
     @IBOutlet weak var contactName: UILabel!
     
@@ -22,11 +22,6 @@ class STContactCell: UITableViewCell {
     var disableSelection = false
     
     
-    deinit {
-        
-        disposeBag.dispose()
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -36,14 +31,12 @@ class STContactCell: UITableViewCell {
             
             self.backgroundView = UIView()
         }
-        
-        contactImage.image = nil;
     }
 
     override func prepareForReuse() {
         
         disposeBag = DisposeBag()
-        contactImage.image = nil;
+        contactImage.imageView?.image = nil;
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

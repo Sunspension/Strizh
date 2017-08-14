@@ -74,6 +74,9 @@ class STUserPostCell: UITableViewCell {
         postType.setImage(UIImage(named: "ic-offer"), for: .normal)
         postType.setImage(UIImage(named: "ic-search"), for: .selected)
         
+        postType.setTitle("post_page_button_offer_title".localized, for: .normal)
+        postType.setTitle("post_page_button_search_title".localized, for: .selected)
+        
         postType.imageEdgeInsets = UIEdgeInsets(top: 0, left: -8, bottom: 0, right: 0)
         postType.contentEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 6)
         

@@ -11,6 +11,7 @@ import NVActivityIndicatorView
 import ReactiveKit
 import Bond
 import Dip
+import AlamofireImage
 
 enum OpenContactsReasonEnum {
     
@@ -47,6 +48,10 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
     
     var reason = OpenContactsReasonEnum.usual
     
+    fileprivate var myUser: STUser {
+        
+        return STUser.objects(by: STUser.self).first!
+    }
     
     deinit {
         
@@ -191,6 +196,8 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         self.setupSearchController()
         self.synchronizeContacts()
         
+        setCustomBackButton()
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.keyboardWillShow),
                                                name: Notification.Name.UIKeyboardWillShow,
@@ -200,6 +207,13 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                                                selector: #selector(self.keyboardWillHide),
                                                name: Notification.Name.UIKeyboardWillHide,
                                                object: nil)
+        
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kUserUpdatedNotification), object: nil)
+            .observeNext { [unowned self] notification in
+                
+                self.tableView.reloadData()
+            }
+            .dispose(in: disposeBag)
     }
     
     func nextAction() {
@@ -509,25 +523,43 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                 analytics.logEvent(eventName: st_eContactInvite)
                 
                 let activity = UIActivityViewController(activityItems: [textToShare], applicationActivities: nil)
+                
                 self.present(activity, animated: true, completion: nil)
                 
-                }.dispose(in: viewCell.bag)
+            }.dispose(in: viewCell.bag)
+        }
+        else {
+            
+            viewCell.contactImage.reactive.tap.observeNext { [unowned self] in
+                
+                    self.st_router_openUserProfile(userId: contact.contactUserId)
+                }
+                .dispose(in: viewCell.disposeBag)
         }
         
-        if contact.imageUrl.isEmpty {
+        if contact.userId == myUser.id && self.myUser.imageData != nil {
             
-            DispatchQueue.main.async {
+            if let image = UIImage(data: self.myUser.imageData!) {
+                
+                let userIcon = image.af_imageAspectScaled(toFill: viewCell.contactImage.bounds.size)
+                viewCell.contactImage.setImage(userIcon.af_imageRoundedIntoCircle(), for: .normal)
+            }
+        }
+        else {
+            
+            if contact.imageUrl.isEmpty {
                 
                 var defaultImage = UIImage(named: "avatar")
                 defaultImage = defaultImage?.af_imageAspectScaled(toFill: viewCell.contactImage.bounds.size)
-                viewCell.contactImage.image = defaultImage?.af_imageRoundedIntoCircle()
+                viewCell.contactImage.setImage(defaultImage?.af_imageRoundedIntoCircle(), for: .normal)
             }
-            
-            return
+            else {
+                
+                let urlString = contact.imageUrl + viewCell.contactImage.queryResizeString()
+                let filter = RoundedCornersFilter(radius: viewCell.contactImage.bounds.size.width)
+                viewCell.contactImage.af_setImage(for: .normal, url: URL(string: urlString)!, filter: filter)
+            }
         }
-        
-        let urlString = contact.imageUrl + viewCell.contactImage.queryResizeString()
-        viewCell.contactImage.af_setImage(withURL: URL(string: urlString)!, completion: nil)
     }
     
     private func reloadTableView(animation: Bool = false) {
