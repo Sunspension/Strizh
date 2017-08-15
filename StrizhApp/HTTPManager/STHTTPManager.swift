@@ -144,6 +144,12 @@ class STHTTPManager {
             params["device_token"] = token
         }
         
+        #if DEBUG
+        
+            params["ios_debug"] = true
+            
+        #endif
+        
         request(method: .post, remotePath: serverBaseUrlString + "/api/auth", params: params)
             .responseJSON(completionHandler: { response in
                 

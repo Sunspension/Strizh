@@ -128,6 +128,7 @@ enum STSocketRequestBuilder {
             self.addToQuery(&query, type: .pageSize, value: pageSize)
             self.addToQuery(&query, type: .filters, value: ["feed" : true ])
             self.addToQuery(&query, type: .extend, value: "file, location, image")
+            self.addToQuery(&query, type: .sortingOrder, value: ["id" : "desc"])
             self.addToQuery(&query, type: .conditions, value: ["user_id" : ["eq" : userId]])
             
             break

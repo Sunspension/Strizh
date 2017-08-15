@@ -28,6 +28,8 @@ final class STUserFeedDataSource: STDealsDataSourceBase {
             .onSuccess { feed in
             
                 self.status = .loaded
+                self.hasMore = feed.posts.count == self.pageSize
+                self.page += 1
                 
                 feed.images.forEach({ image in
                     

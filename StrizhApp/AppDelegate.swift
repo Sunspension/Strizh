@@ -55,11 +55,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         let dev = "https://dev.api.strizhapp.ru"
         
         return AppSettings(dbConfig: STRealmConfiguration(),
-                           serverApi: STServerApi(serverUrlString: dev))
+                           serverApi: STServerApi(serverUrlString: prod))
     }()
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        self.launchOptions = launchOptions
         
         // notifications
         if #available(iOS 10.0, *) {
@@ -93,7 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         
         self.reachabilitySetup()
         self.setupAnalytics()
-        self.checkSession(launchOptions: launchOptions)
+        self.checkLaunchOptions()
         
         // Busy indicator setup
         NVActivityIndicatorView.DEFAULT_TYPE = .ballClipRotateMultiple
@@ -307,11 +309,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         print("The user cancel the login")
     }
     
-    func openMainController(completion: ((Bool) -> Swift.Void)? = nil) {
+    func openMainController(completion: ((Bool) -> Void)? = nil) {
         
         let controller = AppDelegate.appSettings.storyBoard.instantiateViewController(withIdentifier: "TabBar")
         self.changeRootViewController(controller, completion: completion)
-        
     }
     
     func onAuthorized() {
@@ -325,15 +326,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         AppDelegate.appSettings.api.logout()
             .onSuccess { session in
                 
-                print("logout")
-                print(session)
-                
                 // delete all contacts
                 STContactsProvider.sharedInstance.reset()
                 AppDelegate.appSettings.fbAccountKit.logOut()
                 STContactsProvider.sharedInstance.reset()
                 
-                self.checkSession()
+                self.checkSession(onComplete: { complete in
+                    
+                    self.coldStart = false
+                })
             }
     }
     
@@ -347,22 +348,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         defaults.set(false, forKey: kNeedIntro)
         defaults.synchronize()
         
-        self.checkSession(animation: true)
+        self.checkSession(animation: true, onComplete: { complete in
+            
+            self.coldStart = false
+        })
     }
     
     // MARK: Internal methods
     
-    func changeRootViewController(_ viewController: UIViewController, completion: ((Bool) -> Swift.Void)? = nil) {
+    func changeRootViewController(_ viewController: UIViewController, completion: ((Bool) -> Void)? = nil) {
         
         UIView.transition(with: self.window!,
                           duration: 0.5,
                           options: .transitionCrossDissolve,
                           animations: {
                             
-                            let oldState = UIView.areAnimationsEnabled
-                            UIView.setAnimationsEnabled(false)
-                            self.window!.rootViewController = viewController
-                            UIView.setAnimationsEnabled(oldState)
+                            UIView.performWithoutAnimation {
+                                
+                                self.window!.rootViewController = viewController
+                            }
+                            
+//                            let oldState = UIView.areAnimationsEnabled
+//                            UIView.setAnimationsEnabled(false)
+//                            self.window!.rootViewController = viewController
+//                            UIView.setAnimationsEnabled(oldState)
                             
         }, completion: completion)
     }
@@ -429,42 +438,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                 
                 if let newMessage = Mapper<STNewMessage>().map(JSON: payload) {
                     
-                    let openDialogsControllerClosure = {
+                    if let tabController = self.window?.rootViewController! as? STTabBarViewController {
                         
-                        if let tabController = self.window?.rootViewController! as? STTabBarViewController {
+                        if let count = tabController.viewControllers?.count {
                             
-                            if let count = tabController.viewControllers?.count {
+                            for index in 0...count {
                                 
-                                for index in 0...count {
+                                let navi = tabController.viewControllers![index] as! UINavigationController
+                                
+                                if let controller = navi.viewControllers.first(where: { $0 is STDialogsController }) {
                                     
-                                    let navi = tabController.viewControllers![index] as! UINavigationController
+                                    tabController.selectedIndex = index
+                                    navi.popToViewController(controller, animated: false)
                                     
-                                    if let controller = navi.viewControllers.first(where: { $0 is STDialogsController }) {
-                                        
-                                        tabController.selectedIndex = index
-                                        navi.popToViewController(controller, animated: false)
-                                        
-                                        let dialogsController = controller as! STDialogsController
-                                        dialogsController.reason = .openFromPush
-                                        dialogsController.openDialog(by: newMessage.dialogId)
-                                        
-                                        break
-                                    }
+                                    let dialogsController = controller as! STDialogsController
+                                    dialogsController.reason = .openFromPush
+                                    dialogsController.openDialog(by: newMessage.dialogId)
+                                    
+                                    break
                                 }
                             }
                         }
-                    }
-                    
-                    if self.window?.rootViewController == nil || !(self.window?.rootViewController is STTabBarViewController) {
-                        
-                        self.openMainController(completion: { completion in
-                            
-                            openDialogsControllerClosure()
-                        })
-                    }
-                    else {
-                        
-                        openDialogsControllerClosure()
                     }
                 }
                 
@@ -474,42 +468,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                 
                 if let newPost = Mapper<STNewPost>().map(JSON: payload) {
                     
-                    let openPostDetailsControllerClosure = {
+                    if let tabController = self.window?.rootViewController! as? STTabBarViewController {
                         
-                        if let tabController = self.window?.rootViewController! as? STTabBarViewController {
+                        if let count = tabController.viewControllers?.count {
                             
-                            if let count = tabController.viewControllers?.count {
+                            for index in 0...count {
                                 
-                                for index in 0...count {
+                                let navi = tabController.viewControllers![index] as! UINavigationController
+                                
+                                if let controller = navi.viewControllers.first(where: { $0 is STFeedTableViewController }) {
                                     
-                                    let navi = tabController.viewControllers![index] as! UINavigationController
+                                    tabController.selectedIndex = index
+                                    navi.popToViewController(controller, animated: false)
                                     
-                                    if let controller = navi.viewControllers.first(where: { $0 is STFeedTableViewController }) {
-                                        
-                                        tabController.selectedIndex = index
-                                        navi.popToViewController(controller, animated: false)
-                                        
-                                        let postsController = controller as! STFeedTableViewController
-                                        postsController.reason = .openFromPush
-                                        postsController.openPostDetails(by: newPost.postId)
-                                        
-                                        break
-                                    }
+                                    let postsController = controller as! STFeedTableViewController
+                                    postsController.reason = .openFromPush
+                                    postsController.openPostDetails(by: newPost.postId)
+                                    
+                                    break
                                 }
                             }
                         }
-                    }
-                    
-                    if self.window?.rootViewController == nil || !(self.window?.rootViewController is STTabBarViewController) {
-                        
-                        self.openMainController(completion: { completion in
-                            
-                            openPostDetailsControllerClosure()
-                        })
-                    }
-                    else {
-                        
-                        openPostDetailsControllerClosure()
                     }
                 }
                 
@@ -521,8 +500,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         }
     }
     
-    fileprivate func checkSession(launchOptions: [UIApplicationLaunchOptionsKey: Any]? = nil,
-                                  animation: Bool = false) {
+    fileprivate func checkSession(animation: Bool = false, onComplete: ((Bool) -> Void)? = nil) {
         
         self.sessionStatus = .checking
         
@@ -531,6 +509,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
             .onSuccess { [unowned self] session in
                 
                 self.sessionStatus = .checked
+                self.coldStart = false
                 
                 if !session.isExpired {
                     
@@ -553,29 +532,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                             }
                             else {
                                 
-                                if let options = launchOptions {
-                                    
-                                    let key = UIApplicationLaunchOptionsKey("UIApplicationLaunchOptionsRemoteNotificationKey")
-                                    
-                                    if let payload = options[key] as? [String : Any] {
-                                        
-                                        self.pushNotificationHandler(payload: payload)
-                                    }
-                                    else {
-                                        
-                                        self.openMainController()
-                                    }
-                                }
-                                else {
-                                    
-                                    self.openMainController()
-                                }
+                                self.openMainController(completion: onComplete)
                             }
                             
                             user.writeToDB()
                             user.updateUserImage()
-                            
-                            self.coldStart = false
                         })
                 }
                 else {
@@ -610,6 +571,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                             if animation {
                                 
                                 self.changeRootViewController(navi)
+                                return
                             }
                             
                             self.window?.rootViewController = navi
@@ -640,12 +602,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                 
                 self.toast.removeFromSuperview()
                 
-                if self.sessionStatus == .checked {
+                if self.sessionStatus == .checked || self.coldStart == true {
                     
                     return
                 }
                 
-                self.checkSession(launchOptions: self.launchOptions)
+                self.checkLaunchOptions()
                 
                 break
                 
@@ -660,7 +622,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         manager?.startListening()
     }
     
-    fileprivate func showToast(message : String) {
+    fileprivate func showToast(message: String) {
         
         guard let window = self.window, self.toast.superview == nil else {
             
@@ -681,6 +643,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
             self.toast.alpha = 1
             
         }, completion: nil)
+    }
+    
+    fileprivate func checkLaunchOptions() {
+        
+        if let options = self.launchOptions {
+            
+            let key = UIApplicationLaunchOptionsKey("UIApplicationLaunchOptionsRemoteNotificationKey")
+            
+            if let payload = options[key] as? [String : Any] {
+                
+                self.checkSession(onComplete: { complete in
+                    
+                    self.coldStart = false
+                    self.pushNotificationHandler(payload: payload)
+                })
+            }
+            else {
+                
+                self.checkSession(onComplete: { complete in
+                    
+                    self.coldStart = false
+                })
+            }
+        }
+        else {
+            
+            self.checkSession(onComplete: { complete in
+                
+                self.coldStart = false
+            })
+        }
     }
 }
 
