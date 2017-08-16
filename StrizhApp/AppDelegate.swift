@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         let dev = "https://dev.api.strizhapp.ru"
         
         return AppSettings(dbConfig: STRealmConfiguration(),
-                           serverApi: STServerApi(serverUrlString: prod))
+                           serverApi: STServerApi(serverUrlString: dev))
     }()
     
     
@@ -93,12 +93,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         
         GMSServices.provideAPIKey("AIzaSyB9Xe2_0osvR8RC8nBkRttpIEWOQuUbdI8")
         
+        // Busy indicator setup
+        NVActivityIndicatorView.DEFAULT_TYPE = .ballClipRotateMultiple
+        
         self.reachabilitySetup()
         self.setupAnalytics()
         self.checkLaunchOptions()
-        
-        // Busy indicator setup
-        NVActivityIndicatorView.DEFAULT_TYPE = .ballClipRotateMultiple
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.introEnded), name: Notification.Name(rawValue: kIntroHasEndedNotification), object: nil)
         

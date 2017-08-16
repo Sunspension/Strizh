@@ -109,7 +109,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
         
         if picker.sourceType != .camera {
             
-           image = info["UIImagePickerControllerEditedImage"] as! UIImage
+            image = info["UIImagePickerControllerEditedImage"] as! UIImage
         }
         
         self.userImage = image
@@ -168,7 +168,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                 self.dismiss(animated: true, completion: nil)
                 return
             }
-        
+            
             self.analytics.logEvent(eventName: st_eSaveProfile)
             
             NotificationCenter.default.post(Notification(name: Notification.Name(kUserUpdatedNotification)))
@@ -184,7 +184,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
     
     private func createDataSource() {
         
-        self.userImageSection.addItem(cellClass: STEditProfileHeaderCell.self, item: self.user) { (cell, item) in
+        self.userImageSection.add(item: self.user, cellClass: STEditProfileHeaderCell.self) { (cell, item) in
             
             let viewCell = cell as! STEditProfileHeaderCell
             
@@ -290,112 +290,112 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
             }
         }
         
-        self.userInfoSection.addItem(cellClass: STEditProfileTextCell.self,
-                                     item: self.user,
-                                     itemType: EditProfileFieldsEnum.firstName) { (cell, item) in
+        self.userInfoSection.add(item: self.user,
+                                 itemType: EditProfileFieldsEnum.firstName,
+                                 cellClass: STEditProfileTextCell.self) { (cell, item) in
+                                    
+                                    let viewCell = cell as! STEditProfileTextCell
+                                    let user = item.item as! STUser
+                                    
+                                    viewCell.title.text = "login_page_name_title".localized
+                                    viewCell.value.placeholder = "login_page_enter_name_text".localized
+                                    viewCell.value.text = user.firstName
+                                    viewCell.selectionStyle = .none
+                                    viewCell.layoutMargins = UIEdgeInsets.zero
+                                    viewCell.separatorInset = UIEdgeInsets.zero
+                                    
+                                    viewCell.value.reactive.text.observeNext { [unowned self] text in
                                         
-                                        let viewCell = cell as! STEditProfileTextCell
-                                        let user = item.item as! STUser
+                                        self.firstName = text
                                         
-                                        viewCell.title.text = "login_page_name_title".localized
-                                        viewCell.value.placeholder = "login_page_enter_name_text".localized
-                                        viewCell.value.text = user.firstName
-                                        viewCell.selectionStyle = .none
-                                        viewCell.layoutMargins = UIEdgeInsets.zero
-                                        viewCell.separatorInset = UIEdgeInsets.zero
+                                        }.dispose(in: viewCell.bag)
+                                    
+                                    item.validation = {
                                         
-                                        viewCell.value.reactive.text.observeNext { [unowned self] text in
+                                        if !viewCell.value.text!.isEmpty {
                                             
-                                            self.firstName = text
-                                            
-                                            }.dispose(in: viewCell.bag)
-                                        
-                                        item.validation = {
-                                            
-                                            if !viewCell.value.text!.isEmpty {
-                                                
-                                                return ValidationResult.onSuccess
-                                            }
-                                            
-                                            return ValidationResult.onError(errorMessage: "profile_edit_page_error_empty_first_name_text".localized)
+                                            return ValidationResult.onSuccess
                                         }
+                                        
+                                        return ValidationResult.onError(errorMessage: "profile_edit_page_error_empty_first_name_text".localized)
+                                    }
         }
         
-        self.userInfoSection.addItem(cellClass: STEditProfileTextCell.self,
-                                     item: self.user,
-                                     itemType: EditProfileFieldsEnum.lastName) { (cell, item) in
+        self.userInfoSection.add(item: self.user,
+                                 itemType: EditProfileFieldsEnum.lastName,
+                                 cellClass: STEditProfileTextCell.self) { (cell, item) in
+                                    
+                                    let viewCell = cell as! STEditProfileTextCell
+                                    let user = item.item as! STUser
+                                    
+                                    viewCell.title.text = "login_page_last_name_title".localized
+                                    viewCell.value.placeholder = "login_page_last_name_action_text".localized
+                                    viewCell.value.text = user.lastName
+                                    viewCell.selectionStyle = .none
+                                    viewCell.layoutMargins = UIEdgeInsets.zero
+                                    viewCell.separatorInset = UIEdgeInsets.zero
+                                    
+                                    viewCell.value.reactive.text.observeNext { [unowned self] text in
                                         
-                                        let viewCell = cell as! STEditProfileTextCell
-                                        let user = item.item as! STUser
+                                        self.lastName = text
                                         
-                                        viewCell.title.text = "login_page_last_name_title".localized
-                                        viewCell.value.placeholder = "login_page_last_name_action_text".localized
-                                        viewCell.value.text = user.lastName
-                                        viewCell.selectionStyle = .none
-                                        viewCell.layoutMargins = UIEdgeInsets.zero
-                                        viewCell.separatorInset = UIEdgeInsets.zero
+                                        }.dispose(in: viewCell.bag)
+                                    
+                                    item.validation = {
                                         
-                                        viewCell.value.reactive.text.observeNext { [unowned self] text in
+                                        if !viewCell.value.text!.isEmpty {
                                             
-                                            self.lastName = text
-                                            
-                                            }.dispose(in: viewCell.bag)
-                                        
-                                        item.validation = {
-                                            
-                                            if !viewCell.value.text!.isEmpty {
-                                                
-                                                return ValidationResult.onSuccess
-                                            }
-                                            
-                                            return ValidationResult.onError(errorMessage: "profile_edit_page_error_empty_last_name_text".localized)
+                                            return ValidationResult.onSuccess
                                         }
+                                        
+                                        return ValidationResult.onError(errorMessage: "profile_edit_page_error_empty_last_name_text".localized)
+                                    }
         }
         
-        self.userInfoSection.addItem(cellClass: STEditProfileTextCell.self,
-                                     item: self.user,
-                                     itemType: EditProfileFieldsEnum.email) { (cell, item) in
+        self.userInfoSection.add(item: self.user,
+                                 itemType: EditProfileFieldsEnum.email,
+                                 cellClass: STEditProfileTextCell.self) { (cell, item) in
+                                    
+                                    let viewCell = cell as! STEditProfileTextCell
+                                    let user = item.item as! STUser
+                                    
+                                    viewCell.title.text = "profile_edit_email_text".localized
+                                    viewCell.value.placeholder = "profile_edit_email_placeholder".localized
+                                    viewCell.value.text = user.email
+                                    viewCell.selectionStyle = .none
+                                    viewCell.layoutMargins = UIEdgeInsets.zero
+                                    viewCell.separatorInset = UIEdgeInsets.zero
+                                    
+                                    viewCell.value.reactive.text.observeNext { [unowned self] text in
                                         
-                                        let viewCell = cell as! STEditProfileTextCell
-                                        let user = item.item as! STUser
+                                        self.email = text
                                         
-                                        viewCell.title.text = "profile_edit_email_text".localized
-                                        viewCell.value.placeholder = "profile_edit_email_placeholder".localized
-                                        viewCell.value.text = user.email
-                                        viewCell.selectionStyle = .none
-                                        viewCell.layoutMargins = UIEdgeInsets.zero
-                                        viewCell.separatorInset = UIEdgeInsets.zero
-                                        
-                                        viewCell.value.reactive.text.observeNext { [unowned self] text in
-                                            
-                                            self.email = text
-                                            
-                                            }.dispose(in: viewCell.bag)
+                                        }.dispose(in: viewCell.bag)
         }
         
-        self.userInfoSection.addItem(cellClass: STEditProfileTextCell.self,
-                                     item: self.user) { (cell, item) in
-                                        
-                                        let viewCell = cell as! STEditProfileTextCell
-                                        let user = item.item as! STUser
-                                        
-                                        viewCell.title.text = "login_page_phone_title".localized
-                                        viewCell.value.placeholder = ""
-                                        viewCell.selectionStyle = .none
-                                        viewCell.layoutMargins = UIEdgeInsets.zero
-                                        viewCell.separatorInset = UIEdgeInsets.zero
-                                        
-                                        let formatter = SHSPhoneNumberFormatter()
-                                        
-                                        formatter.prefix = "+7"
-                                        formatter.setDefaultOutputPattern(" (###) ### ## ##")
-                                        
-                                        let phone = String(user.phone.characters.dropFirst())
-                                        viewCell.value.text = formatter.formattedPhone(phone)
-                                        viewCell.value.isUserInteractionEnabled = false
-                                        viewCell.title.textColor = UIColor.stPinkishGreyTwo
-                                        viewCell.value.textColor = UIColor.stPinkishGreyTwo
-                                        viewCell.contentView.backgroundColor = UIColor.stWhiteTwo
+        self.userInfoSection.add(item: self.user,
+                                 cellClass: STEditProfileTextCell.self) { (cell, item) in
+                                    
+                                    let viewCell = cell as! STEditProfileTextCell
+                                    let user = item.item as! STUser
+                                    
+                                    viewCell.title.text = "login_page_phone_title".localized
+                                    viewCell.value.placeholder = ""
+                                    viewCell.selectionStyle = .none
+                                    viewCell.layoutMargins = UIEdgeInsets.zero
+                                    viewCell.separatorInset = UIEdgeInsets.zero
+                                    
+                                    let formatter = SHSPhoneNumberFormatter()
+                                    
+                                    formatter.prefix = "+7"
+                                    formatter.setDefaultOutputPattern(" (###) ### ## ##")
+                                    
+                                    let phone = String(user.phone.characters.dropFirst())
+                                    viewCell.value.text = formatter.formattedPhone(phone)
+                                    viewCell.value.isUserInteractionEnabled = false
+                                    viewCell.title.textColor = UIColor.stPinkishGreyTwo
+                                    viewCell.value.textColor = UIColor.stPinkishGreyTwo
+                                    viewCell.contentView.backgroundColor = UIColor.stWhiteTwo
         }
     }
     

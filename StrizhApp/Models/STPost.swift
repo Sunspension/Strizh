@@ -48,6 +48,8 @@ class STPost : Object, Mappable {
     
     dynamic var user: STUser?
     
+    dynamic var isPublic = false
+    
     var images = List<STImage>()
     
     var files = List<STFile>()
@@ -106,6 +108,7 @@ class STPost : Object, Mappable {
         deletedAt <- map["deleted_at"]
         dialogCount <- map["dialog_count"]
         isFavorite <- map["is_favorite"]
+        isPublic <- map["is_public"]
         imageIds <- (map["image_ids"], ArrayOfCustomRealmObjectsTransform<RealmInt64>())
         userIds <- (map["user_ids"], ArrayOfCustomRealmObjectsTransform<RealmInt>())
         fileIds <- (map["file_ids"], ArrayOfCustomRealmObjectsTransform<RealmInt64>())

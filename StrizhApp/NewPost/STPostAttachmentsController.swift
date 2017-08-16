@@ -69,7 +69,7 @@ class STPostAttachmentsController: UITableViewController {
         super.viewDidDisappear(animated)
 
         // checking press back button
-        if self.navigationController?.viewControllers.index(of: self) == NSNotFound {
+        if self.navigationController?.viewControllers.index(of: self) == nil {
             
             self.analytics.endTimeEvent(eventName: st_eBackNewPostStep1)
         }
@@ -276,7 +276,7 @@ class STPostAttachmentsController: UITableViewController {
         
         self.section.headerItem?.cellHeight = 46
         
-        self.section.addItem(cellClass: STAttachmentCell.self, itemType: STAttachmentItemsEnum.photo) { [unowned self] (cell, item) in
+        self.section.add(itemType: STAttachmentItemsEnum.photo, cellClass: STAttachmentCell.self) { [unowned self] (cell, item) in
             
             let viewCell = cell as! STAttachmentCell
             viewCell.icon.image = UIImage(named: "icon-attachment-image")

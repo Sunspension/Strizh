@@ -16,8 +16,8 @@ enum STDialogsControllerOpenReason {
 }
 
 class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating {
-
-
+    
+    
     fileprivate let dataSource = TableViewDataSource()
     
     fileprivate let section = TableSection()
@@ -77,7 +77,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.stLightBlueGrey
         self.tableView.backgroundView = backgroundView
@@ -150,8 +150,8 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
                     
                     self.searchController.searchBar.text == query,
                     self.searchQueryString != query else {
-                    
-                    return
+                        
+                        return
                 }
                 
                 self.searchSection.items.removeAll()
@@ -161,7 +161,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
             }
         }
     }
-   
+    
     func openDialog(by id: Int) {
         
         self.page = 1
@@ -190,13 +190,13 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
                     
                     userIdAndIsIncoming = (self.myUser.id, true)
                 }
-                    
+                
                 if filter.isOutgoing {
                     
                     userIdAndIsIncoming = (self.myUser.id, false)
                 }
             }
-         
+            
             self.page = 1
             self.loadDialogs(userIdAndIsIncoming: userIdAndIsIncoming)
         }
@@ -207,7 +207,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         
         self.present(navi, animated: true, completion: nil)
     }
-
+    
     func onDidReceiveNewMessageNotification(_ notification: Notification) {
         
         self.page = 1
@@ -253,9 +253,6 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
     //MARK: - Private methods
     
     private func setupSearchController() {
-        
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor =
-            UIColor(red: 232 / 255.0, green: 237 / 255.0, blue: 247 / 255.0, alpha: 1)
         
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "placeholder_search".localized
@@ -313,7 +310,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
                         searchString: searchQueryString)
             
             .onSuccess { [unowned self] dialogPage in
-            
+                
                 self.loadingStatus = .loaded
                 self.tableView.hideBusy()
                 
@@ -362,7 +359,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
                 }
                 
                 self.showError(error: error)
-            }
+        }
     }
     
     fileprivate func handleResponse(_ dialogsPage: STDialogsPage) {
@@ -374,16 +371,16 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
             
             for dialog in dialogsPage.dialogs {
                 
-                self.searchSection.addItem(cellClass: STDialogCell.self,
-                                           item: dialog, bindingAction: self.bindingAction)
+                self.searchSection.add(item: dialog,
+                                       cellClass: STDialogCell.self, bindingAction: self.bindingAction)
             }
         }
         else {
             
             for dialog in dialogsPage.dialogs {
                 
-                self.section.addItem(cellClass: STDialogCell.self,
-                                     item: dialog, bindingAction: self.bindingAction)
+                self.section.add(item: dialog,
+                                 cellClass: STDialogCell.self, bindingAction: self.bindingAction)
             }
         }
     }
@@ -416,7 +413,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         }
         
         // get user
-        if let user = self.users.first(where: { $0.id == dialog.ownerUserId }) {
+        if let user = self.users.first(where: { $0.id != dialog.ownerUserId }) {
             
             viewCell.userName.text = user.firstName + " " + user.lastName
             

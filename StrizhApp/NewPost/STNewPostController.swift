@@ -130,7 +130,7 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
         
         self.requiredFieldsSection.headerItem?.cellHeight = 46
         
-        self.requiredFieldsSection.addItem(cellClass: STPostButtonsCell.self) { (cell, item) in
+        self.requiredFieldsSection.add(cellClass: STPostButtonsCell.self) { (cell, item) in
             
             let viewCell = cell as! STPostButtonsCell
             
@@ -156,7 +156,7 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
                 }.dispose(in: viewCell.bag)
         }
         
-        self.requiredFieldsSection.addItem(cellClass: STTextFieldCell.self) { (cell, item) in
+        self.requiredFieldsSection.add(cellClass: STTextFieldCell.self) { (cell, item) in
             
             let viewCell = cell as! STTextFieldCell
             
@@ -196,7 +196,7 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             }
         }
         
-        self.requiredFieldsSection.addItem(cellClass: STTextViewCell.self) { (cell, item) in
+        self.requiredFieldsSection.add(cellClass: STTextViewCell.self) { (cell, item) in
             
             let viewCell = cell as! STTextViewCell
             
@@ -257,7 +257,7 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
         
         self.optionalFieldsSection.headerItem?.cellHeight = 46
         
-        self.optionalFieldsSection.addItem(cellClass: STTextFieldsCell.self) { (cell, item) in
+        self.optionalFieldsSection.add(cellClass: STTextFieldsCell.self) { (cell, item) in
             
             let viewCell = cell as! STTextFieldsCell
             
@@ -296,7 +296,7 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             }
         }
         
-        self.optionalFieldsSection.addItem(cellClass: STTextFieldCell.self) { (cell, item) in
+        self.optionalFieldsSection.add(cellClass: STTextFieldCell.self) { (cell, item) in
             
             let viewCell = cell as! STTextFieldCell
             
@@ -313,7 +313,7 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             }.dispose(in: viewCell.bag)
         }
         
-        self.optionalFieldsSection.addItem(cellClass: STTextViewCell.self) { (cell, item) in
+        self.optionalFieldsSection.add(cellClass: STTextViewCell.self) { (cell, item) in
             
             let viewCell = cell as! STTextViewCell
             
@@ -333,7 +333,7 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             }
         }
         
-        self.optionalFieldsSection.addItem(cellClass: STTextViewCell.self) { (cell, item) in
+        self.optionalFieldsSection.add(cellClass: STTextViewCell.self) { (cell, item) in
             
             let viewCell = cell as! STTextViewCell
             

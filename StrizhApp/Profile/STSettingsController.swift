@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 
 class STSettingsController: UITableViewController {
-
+    
     fileprivate enum STSettingItemsEnum {
         
         case deals, messages, terms, policy, agreement, logout
@@ -43,7 +43,7 @@ class STSettingsController: UITableViewController {
         
         super.init(style: .grouped)
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
@@ -60,7 +60,7 @@ class STSettingsController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.tableView.tableFooterView = UIView()
         self.tableView.backgroundColor = UIColor.stLightBlueGrey
         self.tableView.estimatedRowHeight = 44
@@ -99,8 +99,8 @@ class STSettingsController: UITableViewController {
             if let path = Bundle.main.path(forResource: "policy", ofType: "pdf") {
                 
                 self.st_router_openDocumentController(url: URL(fileURLWithPath: path),
-                                                                  title: "settings_privacy_policy_text".localized,
-                                                                  present: false)
+                                                      title: "settings_privacy_policy_text".localized,
+                                                      present: false)
             }
             
             break
@@ -110,8 +110,8 @@ class STSettingsController: UITableViewController {
             if let path = Bundle.main.path(forResource: "terms", ofType: "pdf") {
                 
                 self.st_router_openDocumentController(url: URL(fileURLWithPath: path),
-                                                                  title: "settings_terms_&_condictions_text".localized,
-                                                                  present: false)
+                                                      title: "settings_terms_&_condictions_text".localized,
+                                                      present: false)
             }
             
             break
@@ -121,7 +121,7 @@ class STSettingsController: UITableViewController {
             if let path = Bundle.main.path(forResource: "agreement", ofType: "pdf") {
                 
                 self.st_router_openDocumentController(url: URL(fileURLWithPath: path),
-                                                                  title: "settings_processing_personal_data_text".localized, present: false)
+                                                      title: "settings_processing_personal_data_text".localized, present: false)
             }
             
             break
@@ -146,90 +146,92 @@ class STSettingsController: UITableViewController {
     
     fileprivate func createDataSource() {
         
-        self.section1.addItem(cellClass: STFeedFilterSwitchTableViewCell.self,
-                              item: self.myUser, itemType: STSettingItemsEnum.deals) { (cell, item) in
+        self.section1.add(item: self.myUser,
+                          itemType: STSettingItemsEnum.deals,
+                          cellClass: STFeedFilterSwitchTableViewCell.self) { (cell, item) in
+                            
+                            let user = item.item as! STUser
+                            let viewCell = cell as! STFeedFilterSwitchTableViewCell
+                            viewCell.title.text = "settings_page_topics_text".localized
+                            viewCell.toggle.isOn = user.notificationSettings.isTopics
+                            viewCell.onTogglePressed = { [viewCell, weak self] isOn in
                                 
-                                let user = item.item as! STUser
-                                let viewCell = cell as! STFeedFilterSwitchTableViewCell
-                                viewCell.title.text = "settings_page_topics_text".localized
-                                viewCell.toggle.isOn = user.notificationSettings.isTopics
-                                viewCell.onTogglePressed = { [viewCell, weak self] isOn in
+                                viewCell.spiner.startAnimating()
+                                viewCell.toggle.isEnabled = false
+                                
+                                Object.updateObject {
                                     
-                                    viewCell.spiner.startAnimating()
-                                    viewCell.toggle.isEnabled = false
+                                    user.notificationSettings.isTopics = isOn
+                                }
+                                
+                                self?.updateNotificationSettings({ error in
                                     
-                                    Object.updateObject {
+                                    viewCell.toggle.isEnabled = true
+                                    viewCell.spiner.stopAnimating()
+                                    
+                                    if error == nil {
                                         
-                                        user.notificationSettings.isTopics = isOn
+                                        return
                                     }
                                     
-                                    self?.updateNotificationSettings({ error in
-                                    
-                                        viewCell.toggle.isEnabled = true
-                                        viewCell.spiner.stopAnimating()
-                                        
-                                        if error == nil {
-                                            
-                                            return
-                                        }
-                                        
-                                        viewCell.toggle.isOn = user.notificationSettings.isTopics
-                                    })
-                                }
+                                    viewCell.toggle.isOn = user.notificationSettings.isTopics
+                                })
+                            }
         }
         
-        self.section1.addItem(cellClass: STFeedFilterSwitchTableViewCell.self,
-                              item: self.myUser, itemType: STSettingItemsEnum.messages) { (cell, item) in
+        self.section1.add(item: self.myUser,
+                          itemType: STSettingItemsEnum.messages,
+                          cellClass: STFeedFilterSwitchTableViewCell.self) { (cell, item) in
+                            
+                            let user = item.item as! STUser
+                            let viewCell = cell as! STFeedFilterSwitchTableViewCell
+                            viewCell.title.text = "settings_page_messages_text".localized
+                            viewCell.toggle.isOn = user.notificationSettings.isMessages
+                            viewCell.onTogglePressed = { [viewCell, weak self] isOn in
                                 
-                                let user = item.item as! STUser
-                                let viewCell = cell as! STFeedFilterSwitchTableViewCell
-                                viewCell.title.text = "settings_page_messages_text".localized
-                                viewCell.toggle.isOn = user.notificationSettings.isMessages
-                                viewCell.onTogglePressed = { [viewCell, weak self] isOn in
+                                viewCell.spiner.startAnimating()
+                                viewCell.toggle.isEnabled = false
+                                
+                                Object.updateObject {
                                     
-                                    viewCell.spiner.startAnimating()
-                                    viewCell.toggle.isEnabled = false
+                                    user.notificationSettings.isMessages = isOn
+                                }
+                                
+                                self?.updateNotificationSettings({ error in
                                     
-                                    Object.updateObject {
+                                    viewCell.toggle.isEnabled = true
+                                    viewCell.spiner.stopAnimating()
+                                    
+                                    if error == nil {
                                         
-                                        user.notificationSettings.isMessages = isOn
+                                        return
                                     }
                                     
-                                    self?.updateNotificationSettings({ error in
-                                        
-                                        viewCell.toggle.isEnabled = true
-                                        viewCell.spiner.stopAnimating()
-                                        
-                                        if error == nil {
-                                            
-                                            return
-                                        }
-                                        
-                                        viewCell.toggle.isOn = user.notificationSettings.isMessages
-                                    })
-                                }
+                                    viewCell.toggle.isOn = user.notificationSettings.isMessages
+                                })
+                            }
         }
         
-        self.section2.addItem(cellStyle: .default, itemType: STSettingItemsEnum.policy) { (cell, item) in
+        self.section2.add(itemType: STSettingItemsEnum.policy, cellStyle: .default) { (cell, item) in
             
             cell.textLabel?.text = "settings_privacy_policy_text".localized
             cell.accessoryType = .disclosureIndicator
         }
         
-        self.section2.addItem(cellStyle: .default, itemType: STSettingItemsEnum.terms) { (cell, item) in
+        self.section2.add(itemType: STSettingItemsEnum.terms, cellStyle: .default) { (cell, item) in
             
             cell.textLabel?.text = "settings_terms_&_condictions_text".localized
             cell.accessoryType = .disclosureIndicator
         }
         
-        self.section2.addItem(cellStyle: .default, itemType: STSettingItemsEnum.agreement) { (cell, item) in
+        self.section2.add(itemType: STSettingItemsEnum.agreement, cellStyle: .default) { (cell, item) in
             
             cell.textLabel?.text = "settings_processing_personal_data_text".localized
             cell.textLabel?.numberOfLines = 0
             cell.accessoryType = .disclosureIndicator
         }
         
-        self.logoutSection.addItem(cellStyle: .default, itemType: STSettingItemsEnum.logout) { (cell, item) in
+        self.logoutSection.add(itemType: STSettingItemsEnum.logout, cellStyle: .default) { (cell, item) in
             
             cell.textLabel?.textAlignment = .center
             cell.textLabel?.textColor = UIColor.stBrick
@@ -241,13 +243,13 @@ class STSettingsController: UITableViewController {
         
         api.updateUserNotificationSettings(settings: self.myUser.notificationSettings, userId: self.myUser.id)
             .onSuccess { user in
-            
+                
                 user.writeToDB()
                 callBack(nil)
             }
             .onFailure { error in
                 
                 callBack(error)
-            }
+        }
     }
 }

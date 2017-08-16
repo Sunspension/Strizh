@@ -15,12 +15,25 @@ class STContactCell: UITableViewCell {
     
     @IBOutlet weak var contactName: UILabel!
     
-    @IBOutlet weak var addContact: UIButton!
+    fileprivate var isDisable = false
     
     var disposeBag = DisposeBag()
     
     var disableSelection = false
     
+    var isDisabledCell: Bool {
+        
+        get {
+            
+            return self.isDisable
+        }
+        
+        set {
+            
+            self.isUserInteractionEnabled = !newValue
+            self.contentView.alpha = newValue ? 0.4 : 1
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,7 +49,7 @@ class STContactCell: UITableViewCell {
     override func prepareForReuse() {
         
         disposeBag = DisposeBag()
-        contactImage.imageView?.image = nil;
+        contactImage.imageView?.image = nil
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

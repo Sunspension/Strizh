@@ -75,7 +75,7 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         self.analytics.endTimeEvent(eventName: st_eDialog)
         
         // checking press back button
-        if self.navigationController?.viewControllers.index(of: self) == NSNotFound {
+        if self.navigationController?.viewControllers.index(of: self) == nil {
             
             guard let dialog = self.dialog else {
                 
@@ -227,7 +227,7 @@ class STChatViewController: UIViewController, UITextViewDelegate {
             self.dataSource.sections.append(section!)
         }
         
-        let messageIndex = section!.addItem(cellClass: STDialogMyCell.self, item: message) { [unowned self] (cell, item) in
+        let messageIndex = section!.add(item: message, cellClass: STDialogMyCell.self) { [unowned self] (cell, item) in
             
             self.myCellBindingAction(cell: cell, item: item)
         }
@@ -565,8 +565,8 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         
         let section = TableSection()
         section.sectionType = date
-        section.header(headerClass: STDialogSectionHeader.self,
-                        item: date.dayMonthFormat,
+        section.header(item: date.dayMonthFormat,
+                       headerClass: STDialogSectionHeader.self,
                         bindingAction: { (cell, item) in
                             
                             let header = cell as! STDialogSectionHeader

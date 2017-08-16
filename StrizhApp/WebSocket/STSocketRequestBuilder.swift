@@ -306,6 +306,7 @@ enum STSocketRequestBuilder {
             body["title"] = post.title
             body["description"] = post.details
             body["type"] = post.type
+            body["is_public"] = post.isPublic
             
             if post.fromDate != nil {
                 

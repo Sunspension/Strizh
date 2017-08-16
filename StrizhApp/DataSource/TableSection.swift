@@ -51,8 +51,8 @@ class TableSection: Equatable {
     }
     
     @discardableResult
-    func addItem(cellClass: AnyClass, item: Any? = nil,
-                          itemType: Any? = nil, bindingAction: TableCellBindingAction? = nil) -> Int {
+    func add(item: Any? = nil, itemType: Any? = nil,
+                 cellClass: AnyClass, bindingAction: TableCellBindingAction? = nil) -> Int {
         
         let item = TableSectionItem(cellClass: cellClass,
                                          item: item,
@@ -62,8 +62,8 @@ class TableSection: Equatable {
         return self.items.index(of: item)!
     }
     
-    func addItem(cellStyle: UITableViewCellStyle, item: Any? = nil,
-                          itemType: Any? = nil, bindingAction: TableCellBindingAction? = nil) {
+    func add(item: Any? = nil, itemType: Any? = nil,
+                 cellStyle: UITableViewCellStyle, bindingAction: TableCellBindingAction? = nil) {
         
         let item = TableSectionItem(cellStyle: cellStyle,
                                          item: item,
@@ -84,13 +84,13 @@ class TableSection: Equatable {
         self.items.insert(item, at: index)
     }
     
-    func header(headerClass: AnyClass,  item: Any? = nil, bindingAction: BindingHeaderFooterAction? = nil) {
+    func header(item: Any? = nil, headerClass: AnyClass, bindingAction: BindingHeaderFooterAction? = nil) {
         
         let header = TableSectionHeaderFooter(headerFooterNibClass: headerClass, item: item, binding: bindingAction)
         self.headerItem = header
     }
     
-    func footer(footerClass: AnyClass,  item: Any? = nil, bindingAction: BindingHeaderFooterAction? = nil) {
+    func footer(item: Any? = nil, footerClass: AnyClass, bindingAction: BindingHeaderFooterAction? = nil) {
         
         let footer = TableSectionHeaderFooter(headerFooterNibClass: footerClass, item: item, binding: bindingAction)
         self.footerItem = footer

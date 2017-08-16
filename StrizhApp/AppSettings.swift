@@ -170,5 +170,12 @@ struct AppSettings {
         
         self.dbConfig = dbConfig
         self.api = serverApi
+        
+        self.appearanceSetup()
+    }
+    
+    fileprivate func appearanceSetup() {
+        
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = UIColor.stPaleGreyTwo
     }
 }

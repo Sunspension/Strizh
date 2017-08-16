@@ -419,9 +419,6 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
     
     private func setupSearchController() {
         
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor =
-            UIColor(red: 232 / 255.0, green: 237 / 255.0, blue: 247 / 255.0, alpha: 1)
-        
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "placeholder_search".localized
         searchController.searchResultsUpdater = self

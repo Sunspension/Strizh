@@ -39,6 +39,11 @@ class TableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        guard self.sections.count > 0 else {
+            
+            return 0
+        }
+        
         return self.sections[section].items.count 
     }
     
@@ -137,7 +142,7 @@ class TableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        guard let header = self.sections[section].headerItem else {
+        guard self.sections.count > 0, let header = self.sections[section].headerItem else {
             
             return 0.01
         }
@@ -147,7 +152,7 @@ class TableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         
-        guard let footer = self.sections[section].footerItem else {
+        guard self.sections.count > 0, let footer = self.sections[section].footerItem else {
             
             return 0.01
         }

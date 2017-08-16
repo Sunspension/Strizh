@@ -20,7 +20,7 @@ class STFeedFilterTableViewController: UITableViewController {
     fileprivate let section = TableSection()
     
     fileprivate var filterCallback: (() -> Void)?
-
+    
     var filter: STBaseFilter?
     
     
@@ -28,7 +28,7 @@ class STFeedFilterTableViewController: UITableViewController {
         
         super.init(coder: aDecoder)
     }
-
+    
     init(applyFilterCallback: (() -> Void)?) {
         
         super.init(style: .plain)
@@ -38,7 +38,7 @@ class STFeedFilterTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.tableView.tableFooterView = UIView()
         self.tableView.backgroundColor = UIColor.stLightBlueGrey
         self.tableView.estimatedRowHeight = 44
@@ -66,7 +66,7 @@ class STFeedFilterTableViewController: UITableViewController {
         
         for filter in filter.filterItems {
             
-            self.section.addItem(cellClass: STFeedFilterTableViewCell.self, item: filter,
+            self.section.add(item: filter, cellClass: STFeedFilterTableViewCell.self,
                              bindingAction: { [unowned self] (cell, item) in
                                 
                                 let viewCell = cell as! STFeedFilterTableViewCell
@@ -87,7 +87,7 @@ class STFeedFilterTableViewController: UITableViewController {
             })
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let item = self.dataSource.item(by: indexPath)
@@ -106,7 +106,7 @@ class STFeedFilterTableViewController: UITableViewController {
     }
     
     func applyFilter() {
-
+        
         guard self.filter != nil else {
             
             return

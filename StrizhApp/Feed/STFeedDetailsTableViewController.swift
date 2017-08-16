@@ -12,7 +12,7 @@ import GoogleMaps
 
 
 class STFeedDetailsTableViewController: UIViewController {
-
+    
     fileprivate enum STItemTypeEnum {
         
         case file, image, location
@@ -122,7 +122,7 @@ class STFeedDetailsTableViewController: UIViewController {
                 
                 self.api.loadPost(by: postId)
                     .onSuccess(callback: { [weak self] post in
-                
+                        
                         self?.hideBusy()
                         
                         self?.post = post
@@ -138,7 +138,7 @@ class STFeedDetailsTableViewController: UIViewController {
                         self?.tableView.reloadData()
                     })
                     .onFailure(callback: { (error) in
-                    
+                        
                         self.hideBusy()
                     })
             }
@@ -150,7 +150,7 @@ class STFeedDetailsTableViewController: UIViewController {
         self.createDataSource()
         self.tableView.tableFooterView = UIView()
     }
-
+    
     func close() {
         
         self.dismiss(animated: true, completion: nil)
@@ -189,106 +189,106 @@ class STFeedDetailsTableViewController: UIViewController {
         
         if self.reason == .feedDetails {
             
-            self.tableSection.addItem(cellClass: STPostDetailsMainInfoCell.self,
-                                      item: self.post) { [unowned self] (cell, item) in
+            self.tableSection.add(item: self.post,
+                                  cellClass: STPostDetailsMainInfoCell.self) { [unowned self] (cell, item) in
+                                    
+                                    cell.selectionStyle = .none
+                                    
+                                    let viewCell = cell as! STPostDetailsMainInfoCell
+                                    
+                                    viewCell.postTitle.text = post.title
+                                    viewCell.favorite.isSelected = post.isFavorite
+                                    viewCell.postType.isSelected = post.type == 2 ? true : false
+                                    viewCell.postTime.text = post.createdAt?.elapsedInterval()
+                                    
+                                    viewCell.favorite.reactive.tap.observe {_ in
                                         
-                                        cell.selectionStyle = .none
+                                        let favorite = !viewCell.favorite.isSelected
+                                        viewCell.favorite.isSelected = favorite
                                         
-                                        let viewCell = cell as! STPostDetailsMainInfoCell
-                                        
-                                        viewCell.postTitle.text = post.title
-                                        viewCell.favorite.isSelected = post.isFavorite
-                                        viewCell.postType.isSelected = post.type == 2 ? true : false
-                                        viewCell.postTime.text = post.createdAt?.elapsedInterval()
-                                        
-                                        viewCell.favorite.reactive.tap.observe {_ in
-                                            
-                                            let favorite = !viewCell.favorite.isSelected
-                                            viewCell.favorite.isSelected = favorite
-                                            
-                                            AppDelegate.appSettings.api.favorite(postId: post.id, favorite: favorite)
-                                                .onSuccess(callback: { postResponse in
-                                                    
-                                                    post.isFavorite = postResponse.isFavorite
-                                                    
-                                                    NotificationCenter.default.post(name: NSNotification.Name(kItemFavoriteNotification), object: postResponse)
-                                                })
-                                            
-                                            }.dispose(in: viewCell.bag)
-                                        
-                                        if let user = self.user {
-                                            
-                                            viewCell.userName.text = user.lastName + " " + user.firstName
-                                            
-                                            if user.id == self.myUser.id && self.myUser.imageData != nil {
+                                        AppDelegate.appSettings.api.favorite(postId: post.id, favorite: favorite)
+                                            .onSuccess(callback: { postResponse in
                                                 
-                                                if let image = UIImage(data: self.myUser.imageData!) {
-                                                    
-                                                    let userIcon = image.af_imageAspectScaled(toFill: viewCell.userIcon.bounds.size)
-                                                    viewCell.userIcon.image = userIcon.af_imageRoundedIntoCircle()
-                                                }
-                                            }
-                                            else {
+                                                post.isFavorite = postResponse.isFavorite
                                                 
-                                                guard !user.imageUrl.isEmpty else {
-                                                    
-                                                    var defaultImage = UIImage(named: "avatar")
-                                                    defaultImage = defaultImage?.af_imageAspectScaled(toFill: viewCell.userIcon.bounds.size)
-                                                    viewCell.userIcon.image = defaultImage?.af_imageRoundedIntoCircle()
-                                                    
-                                                    return
-                                                }
+                                                NotificationCenter.default.post(name: NSNotification.Name(kItemFavoriteNotification), object: postResponse)
+                                            })
+                                        
+                                        }.dispose(in: viewCell.bag)
+                                    
+                                    if let user = self.user {
+                                        
+                                        viewCell.userName.text = user.lastName + " " + user.firstName
+                                        
+                                        if user.id == self.myUser.id && self.myUser.imageData != nil {
+                                            
+                                            if let image = UIImage(data: self.myUser.imageData!) {
                                                 
-                                                let urlString = user.imageUrl + viewCell.userIcon.queryResizeString()
-                                                
-                                                let filter = RoundedCornersFilter(radius: viewCell.userIcon.bounds.size.width)
-                                                viewCell.userIcon.af_setImage(withURL: URL(string: urlString)!,
-                                                                              filter: filter,
-                                                                              completion: nil)
+                                                let userIcon = image.af_imageAspectScaled(toFill: viewCell.userIcon.bounds.size)
+                                                viewCell.userIcon.image = userIcon.af_imageRoundedIntoCircle()
                                             }
                                         }
+                                        else {
+                                            
+                                            guard !user.imageUrl.isEmpty else {
+                                                
+                                                var defaultImage = UIImage(named: "avatar")
+                                                defaultImage = defaultImage?.af_imageAspectScaled(toFill: viewCell.userIcon.bounds.size)
+                                                viewCell.userIcon.image = defaultImage?.af_imageRoundedIntoCircle()
+                                                
+                                                return
+                                            }
+                                            
+                                            let urlString = user.imageUrl + viewCell.userIcon.queryResizeString()
+                                            
+                                            let filter = RoundedCornersFilter(radius: viewCell.userIcon.bounds.size.width)
+                                            viewCell.userIcon.af_setImage(withURL: URL(string: urlString)!,
+                                                                          filter: filter,
+                                                                          completion: nil)
+                                        }
+                                    }
             }
         }
         else {
             
-            self.tableSection.addItem(cellClass: STPersonalPostDetailsMainInfoCell.self,
-                                      item: self.post) { (cell, item) in
+            self.tableSection.add(item: self.post,
+                                  cellClass: STPersonalPostDetailsMainInfoCell.self) { (cell, item) in
+                                    
+                                    cell.selectionStyle = .none
+                                    
+                                    let viewCell = cell as! STPersonalPostDetailsMainInfoCell
+                                    
+                                    viewCell.postTitle.text = post.title
+                                    viewCell.postType.isSelected = post.type == 2 ? true : false
+                                    viewCell.createdAt.text = post.createdAt?.mediumLocalizedFormat
+                                    
+                                    let myUserId = STUser.objects(by: STUser.self).first?.id
+                                    
+                                    if post.dialogCount == 0 || post.userId != myUserId {
                                         
-                                        cell.selectionStyle = .none
+                                        viewCell.dialogsCount.isHidden = true
+                                        viewCell.openedDialogs.isHidden = true
+                                    }
+                                    else {
                                         
-                                        let viewCell = cell as! STPersonalPostDetailsMainInfoCell
+                                        viewCell.dialogsCount.isHidden = false
+                                        viewCell.openedDialogs.isHidden = false
+                                        viewCell.openedDialogs.text = post.dialogCount == 1
+                                            ? "profile_page_open_one_dialog_text".localized
+                                            : "profile_page_open_few_dialogs_text".localized
                                         
-                                        viewCell.postTitle.text = post.title
-                                        viewCell.postType.isSelected = post.type == 2 ? true : false
-                                        viewCell.createdAt.text = post.createdAt?.mediumLocalizedFormat
+                                        let ending = post.dialogCount.ending(yabloko: "profile_page_one_dialog_text".localized,
+                                                                             yabloka: "profile_page_few_dialogs_text".localized,
+                                                                             yablok: "profile_page_many_dialogs_text".localized)
                                         
-                                        let myUserId = STUser.objects(by: STUser.self).first?.id
-                                        
-                                        if post.dialogCount == 0 || post.userId != myUserId {
-                                            
-                                            viewCell.dialogsCount.isHidden = true
-                                            viewCell.openedDialogs.isHidden = true
-                                        }
-                                        else {
-                                            
-                                            viewCell.dialogsCount.isHidden = false
-                                            viewCell.openedDialogs.isHidden = false
-                                            viewCell.openedDialogs.text = post.dialogCount == 1
-                                                ? "profile_page_open_one_dialog_text".localized
-                                                : "profile_page_open_few_dialogs_text".localized
-                                            
-                                            let ending = post.dialogCount.ending(yabloko: "profile_page_one_dialog_text".localized,
-                                                                                 yabloka: "profile_page_few_dialogs_text".localized,
-                                                                                 yablok: "profile_page_many_dialogs_text".localized)
-                                            
-                                            viewCell.dialogsCount.text = "\(post.dialogCount)" + " " + ending
-                                        }
+                                        viewCell.dialogsCount.text = "\(post.dialogCount)" + " " + ending
+                                    }
             }
         }
         
         if !post.profitDescription.isEmpty {
             
-            self.tableSection.addItem(cellClass: STCommonLabelCell.self, item: post) { (cell, item) in
+            self.tableSection.add(item: post, cellClass: STCommonLabelCell.self) { (cell, item) in
                 
                 cell.selectionStyle = .none
                 
@@ -304,46 +304,46 @@ class STFeedDetailsTableViewController: UIViewController {
         
         if post.dateFrom != nil && post.dateTo != nil {
             
-            self.tableSection.addItem(cellClass: STCommonButtonCell.self,
-                                      item: post) { (cell, item) in
-                                        
-                                        cell.selectionStyle = .none
-                                        
-                                        let viewCell = cell as! STCommonButtonCell
-                                        let post = item.item as! STPost
-                                        
-                                        viewCell.title.setImage(UIImage(named: "icon-time"), for: .normal)
-                                        
-                                        let period = post.dateFrom!.mediumLocalizedFormat +
-                                            " - " + post.dateTo!.mediumLocalizedFormat
-                                        
-                                        viewCell.title.setTitle(period, for: .normal)
-                                        viewCell.title.titleEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0)
-                                        viewCell.title.setTitleColor(UIColor.black, for: .normal)
+            self.tableSection.add(item: post,
+                                  cellClass: STCommonButtonCell.self) { (cell, item) in
+                                    
+                                    cell.selectionStyle = .none
+                                    
+                                    let viewCell = cell as! STCommonButtonCell
+                                    let post = item.item as! STPost
+                                    
+                                    viewCell.title.setImage(UIImage(named: "icon-time"), for: .normal)
+                                    
+                                    let period = post.dateFrom!.mediumLocalizedFormat +
+                                        " - " + post.dateTo!.mediumLocalizedFormat
+                                    
+                                    viewCell.title.setTitle(period, for: .normal)
+                                    viewCell.title.titleEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0)
+                                    viewCell.title.setTitleColor(UIColor.black, for: .normal)
             }
         }
         
         if !post.price.isEmpty {
             
-            self.tableSection.addItem(cellClass: STCommonButtonCell.self,
-                                      item: post) { (cell, item) in
-                                        
-                                        cell.selectionStyle = .none
-                                        
-                                        let viewCell = cell as! STCommonButtonCell
-                                        let post = item.item as! STPost
-                                        
-                                        viewCell.title.setImage(UIImage(named: "icon-rub"), for: .normal)
-                                        viewCell.title.setTitle(post.price, for: .normal)
-                                        viewCell.title.imageEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0)
-                                        viewCell.title.titleEdgeInsets = UIEdgeInsetsMake(0, 12, 0, 0)
-                                        viewCell.title.setTitleColor(UIColor.black, for: .normal)
+            self.tableSection.add(item: post,
+                                  cellClass: STCommonButtonCell.self) { (cell, item) in
+                                    
+                                    cell.selectionStyle = .none
+                                    
+                                    let viewCell = cell as! STCommonButtonCell
+                                    let post = item.item as! STPost
+                                    
+                                    viewCell.title.setImage(UIImage(named: "icon-rub"), for: .normal)
+                                    viewCell.title.setTitle(post.price, for: .normal)
+                                    viewCell.title.imageEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0)
+                                    viewCell.title.titleEdgeInsets = UIEdgeInsetsMake(0, 12, 0, 0)
+                                    viewCell.title.setTitleColor(UIColor.black, for: .normal)
             }
         }
         
         if !post.priceDescription.isEmpty {
             
-            self.tableSection.addItem(cellClass: STCommonLabelCell.self, item: post) { (cell, item) in
+            self.tableSection.add(item: post, cellClass: STCommonLabelCell.self) { (cell, item) in
                 
                 cell.selectionStyle = .none
                 
@@ -359,9 +359,9 @@ class STFeedDetailsTableViewController: UIViewController {
         
         if let locations = self.locations, locations.count > 0 {
             
-            self.tableSection.addItem(cellClass: STPostDetailsMapsCell.self,
-                                 item: locations,
-                                 bindingAction: { [unowned self] (cell, item) in
+            self.tableSection.add(item: locations,
+                                  cellClass: STPostDetailsMapsCell.self,
+                                  bindingAction: { [unowned self] (cell, item) in
                                     
                                     let locations = item.item as! [STLocation]
                                     let viewCell = cell as! STPostDetailsMapsCell
@@ -412,10 +412,10 @@ class STFeedDetailsTableViewController: UIViewController {
                 self.collectionSection.add(item: image)
             })
             
-            tableSection.addItem(cellClass: STCommonCollectionViewCell.self,
-                            item: self.imageDataSource,
-                            bindingAction: { (cell, item) in
-            
+            tableSection.add(item: self.imageDataSource,
+                             cellClass: STCommonCollectionViewCell.self,
+                             bindingAction: { (cell, item) in
+                                
                                 let viewCell = cell as! STCommonCollectionViewCell
                                 viewCell.selectionStyle = .none
                                 let dataSource = item.item as! GenericCollectionViewDataSource<STPostDetailsPhotoCell, STImage>
@@ -437,27 +437,27 @@ class STFeedDetailsTableViewController: UIViewController {
             
             files.forEach({ file in
                 
-                tableSection.addItem(cellClass: STCommonButtonCell.self,
-                                     item: file,
-                                     itemType: STItemTypeEnum.file,
-                                     bindingAction: { (cell, item) in
-                                        
-                                        let viewCell = cell as! STCommonButtonCell
-                                        let file = item.item as! STFile
-                                        
-                                        viewCell.title.setTitle(file.title, for: .normal)
-                                        viewCell.title.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 0)
-                                        viewCell.title.isUserInteractionEnabled = false
+                tableSection.add(item: file,
+                                 itemType: STItemTypeEnum.file,
+                                 cellClass: STCommonButtonCell.self,
+                                 bindingAction: { (cell, item) in
+                                    
+                                    let viewCell = cell as! STCommonButtonCell
+                                    let file = item.item as! STFile
+                                    
+                                    viewCell.title.setTitle(file.title, for: .normal)
+                                    viewCell.title.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 0)
+                                    viewCell.title.isUserInteractionEnabled = false
                 })
             })
         }
         
         if post.postDescription.isEmpty {
             
-           return
+            return
         }
         
-        self.tableSection.addItem(cellClass: STCommonLabelCell.self, item: post) { (cell, item) in
+        self.tableSection.add(item: post, cellClass: STCommonLabelCell.self) { (cell, item) in
             
             cell.selectionStyle = .none
             
@@ -493,26 +493,6 @@ class STFeedDetailsTableViewController: UIViewController {
         })
         
         actionController.addAction(actionEdit)
-        
-//        if !post.isArchived {
-//
-//            let actionArchive = UIAlertAction(title: "В архив", style: .default,
-//                                              handler: { [unowned self] action in
-//                                                
-//                                                self.api.archivePost(postId: post.id, isArchived: true)
-//                                                    .onSuccess(callback: { _ in
-//                                                        
-//                                                        post.isArchived = true
-//                                                        NotificationCenter.default.post(name: NSNotification.Name(kPostAddedToArchiveNotification), object: post)
-//                                                    })
-//                                                    .onFailure(callback: { error in
-//                                                        
-//                                                        self.showError(error: error)
-//                                                    })
-//            })
-//            
-//            actionController.addAction(actionArchive)
-//        }
         
         let actionDelete = UIAlertAction(title: "action_delete".localized, style: .default, handler: { action in
             

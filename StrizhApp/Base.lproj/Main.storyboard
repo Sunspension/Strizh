@@ -164,11 +164,11 @@
             </objects>
             <point key="canvasLocation" x="801" y="-1183"/>
         </scene>
-        <!--Feed-->
+        <!--Deals-->
         <scene sceneID="QDT-5B-ZiH">
             <objects>
                 <navigationController id="y8a-4d-R7j" customClass="STNavigationController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Feed" image="tab1" selectedImage="tab1-selected" id="1vh-bf-t6H"/>
+                    <tabBarItem key="tabBarItem" title="Deals" image="tab1" selectedImage="tab1-selected" id="1vh-bf-t6H"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Jhj-Ko-WV5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

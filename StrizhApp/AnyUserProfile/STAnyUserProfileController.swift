@@ -159,7 +159,7 @@ class STAnyUserProfileController: UITableViewController {
         
         if backgroundBarView == nil {
             
-            backgroundBarView = self.navigationController?.navigationBar.subviews.first(where: { String(describing: $0.self).contains("_UIBarBackground") })
+            backgroundBarView = self.navigationController?.navigationBar.subviews.first(where: { String(describing: $0.self).contains("BarBackground") })
         }
         
         backgroundBarView?.alpha = backgroundBarViewAlpha

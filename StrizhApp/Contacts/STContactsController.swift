@@ -18,6 +18,15 @@ enum OpenContactsReasonEnum {
     case usual, newPost
 }
 
+fileprivate enum TypeOfRecepientsEnum {
+    
+    case all, contactsOnly
+}
+
+fileprivate enum InviteSectionItemEnum {
+    
+    case invite
+}
 
 class STContactsController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating, NVActivityIndicatorViewable {
     
@@ -40,11 +49,17 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
     
     fileprivate let notRelatedContactsSection = TableSection()
     
+    fileprivate let typeOfRecepientsSection = TableSection()
+    
+    fileprivate let inviteSection = TableSection()
+    
     fileprivate var disposeBag = DisposeBag()
     
     fileprivate var searchString = ""
     
     fileprivate var keyBoardHeight: CGFloat = 0
+    
+    fileprivate var isPublic = true
     
     var reason = OpenContactsReasonEnum.usual
     
@@ -52,6 +67,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         
         return STUser.objects(by: STUser.self).first!
     }
+    
     
     deinit {
         
@@ -77,7 +93,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         super.viewDidDisappear(animated)
         
         // checking press back button
-        if self.navigationController?.viewControllers.index(of: self) == NSNotFound {
+        if self.navigationController?.viewControllers.index(of: self) == nil {
             
             if self.reason != .newPost {
                 
@@ -93,132 +109,29 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.stLightBlueGrey
-        self.tableView.backgroundView = backgroundView
         
+        self.tableView.backgroundView = backgroundView
+        self.tableView.tableFooterView = UIView()
         self.tableView.backgroundColor = UIColor.stLightBlueGrey
         self.tableView.estimatedRowHeight = 50
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.register(nibClass: STContactCell.self)
         self.tableView.register(headerFooterNibClass: STContactHeaderCell.self)
-        
-        self.title = "contacts_page_title".localized
-        
-        if self.reason == .newPost {
-            
-            let rightItem = UIBarButtonItem(title: "contacts_page_create_text".localized,
-                                            style: .plain, target: self, action: #selector(self.nextAction))
-            rightItem.isEnabled = false
-            self.navigationItem.rightBarButtonItem = rightItem
-            
-            self.selectedItems.observeNext(with: { [unowned self] event in
-                
-                rightItem.isEnabled = event.dataSource.count != 0
-                
-                if (event.dataSource.count == 0) {
-                    
-                    self.title = "contacts_page_title".localized
-                }
-                else {
-                    
-                    self.title = "contacts_page_title".localized + "(\(event.dataSource.count))"
-                }
-            })
-            .dispose(in: self.disposeBag)
-            
-            self.tableView.allowsMultipleSelection = true
-            self.tableView.allowsSelection = true
-        }
-        else {
-            
-            self.tableView.allowsSelection = false
-            
-            self.notRelatedContactsSection.header(headerClass: STContactHeaderCell.self, bindingAction: { (cell, item) in
-                
-                let header = cell as! STContactHeaderCell
-                header.title.text = "contacts_page_users_who_don't_use_app_title".localized
-                header.title.textColor = UIColor.stSteelGrey
-            })
-            
-            self.notRelatedContactsSection.headerItem?.cellHeight = 30
-        }
-        
-        self.contactsProvider.loadingStatusChanged = { loadingStatus in
-        
-            switch loadingStatus {
-                
-            case .loading:
-                
-                self.tableView.showBusy()
-                
-            default:
-                
-                self.tableView.hideBusy()
-            }
-        }
-        
-        self.dataSource.onDidSelectRowAtIndexPath = {
-            
-            (_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) in
-        
-            self.selectedItems.append((item.item as! STContact))
-        }
-        
-        self.dataSource.onDidDeselectRowAtIndexPath = {
-            
-            (_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) in
-            
-            let index = self.selectedItems.index(of: item.item as! STContact)!
-            self.selectedItems.remove(at: index)
-        }
-        
-        self.searchDataSource.onDidSelectRowAtIndexPath = {
-            
-            (_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) in
-            
-            self.selectedItems.append((item.item as! STContact))
-        }
-        
-        self.searchDataSource.onDidDeselectRowAtIndexPath = {
-            
-            (_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) in
-            
-            let index = self.selectedItems.index(of: item.item as! STContact)!
-            self.selectedItems.remove(at: index)
-        }
-        
-        self.dataSource.sections.append(TableSection())
-        
         self.tableView.dataSource = self.dataSource
         self.tableView.delegate = self.dataSource
         
-        self.tableView.tableFooterView = UIView()
+        self.title = "contacts_page_title".localized
         
-        self.setupSearchController()
-        self.synchronizeContacts()
-        
+        setup()
         setCustomBackButton()
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.keyboardWillShow),
-                                               name: Notification.Name.UIKeyboardWillShow,
-                                               object: nil)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.keyboardWillHide),
-                                               name: Notification.Name.UIKeyboardWillHide,
-                                               object: nil)
-        
-        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kUserUpdatedNotification), object: nil)
-            .observeNext { [unowned self] notification in
-                
-                self.tableView.reloadData()
-            }
-            .dispose(in: disposeBag)
+        setupDataSource()
+        synchronizeContacts()
     }
     
     func nextAction() {
         
         self.postObject.userIds.append(contentsOf: self.selectedItems.array.map({ $0.contactUserId }))
+        self.postObject.isPublic = self.isPublic
         
         self.startAnimating()
         
@@ -245,7 +158,6 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                 .onSuccess(callback: { [unowned self] post in
                     
                     self.stopAnimating()
-                    
                     self.analytics.logEvent(eventName: st_eNewPostCreateFinish, params: ["select_count" : self.selectedItems.count])
                     
                     NotificationCenter.default.post(name: NSNotification.Name(kPostCreatedNotification), object: post)
@@ -328,6 +240,11 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
     
     //MARK: - UISearchBar delegate implementation
     
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        
+        return reason == .usual ? true : isPublic == false
+    }
+    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         
         if self.reason == .newPost {
@@ -371,27 +288,257 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
     
     //MARK: - Private methods
     
+    fileprivate func setup() {
+        
+        if self.reason == .newPost {
+            
+            let rightItem = UIBarButtonItem(title: "contacts_page_create_text".localized,
+                                            style: .plain, target: self, action: #selector(self.nextAction))
+            rightItem.isEnabled = false
+            self.navigationItem.rightBarButtonItem = rightItem
+            
+            self.selectedItems.observeNext(with: { [unowned self] event in
+                
+                rightItem.isEnabled = event.dataSource.count != 0
+                
+                if (event.dataSource.count == 0) {
+                    
+                    self.title = "contacts_page_title".localized
+                }
+                else {
+                    
+                    self.title = "contacts_page_title".localized + "(\(event.dataSource.count))"
+                }
+            })
+                .dispose(in: self.disposeBag)
+            
+            self.tableView.allowsMultipleSelection = !isPublic
+            
+            //            self.notRelatedContactsSection.header(headerClass: STContactHeaderCell.self, bindingAction: { (cell, item) in
+            //
+            //                let header = cell as! STContactHeaderCell
+            //                header.title.text = "contacts_page_users_who_don't_use_app_title".localized
+            //                header.title.textColor = UIColor.stSteelGrey
+            //            })
+            //
+            //            self.notRelatedContactsSection.headerItem?.cellHeight = 30
+        }
+        
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.keyboardWillShow),
+                                               name: Notification.Name.UIKeyboardWillShow,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.keyboardWillHide),
+                                               name: Notification.Name.UIKeyboardWillHide,
+                                               object: nil)
+        
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kUserUpdatedNotification), object: nil)
+            .observeNext { [unowned self] notification in
+                
+                self.tableView.reloadData()
+            }
+            .dispose(in: disposeBag)
+    }
+    
+    fileprivate func setupTypeOfRecepientsSection() {
+        
+        self.typeOfRecepientsSection.add(itemType: TypeOfRecepientsEnum.all, cellStyle: .subtitle) { (cell, item) in
+            
+            item.cellHeight = 65
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 12)
+            cell.detailTextLabel?.textColor = UIColor(red: 129 / 255.0, green: 137 / 255.0, blue: 150 / 255.0, alpha: 1)
+            cell.detailTextLabel?.numberOfLines = 0
+            cell.textLabel?.text = "Все пользователи Strizhapp"
+            cell.detailTextLabel?.text = "После модерации сделка отправится всем пользователям Strizhapp"
+            cell.accessoryType = .checkmark
+            cell.selectionStyle = .none
+            cell.tintColor = self.isPublic ? UIColor.stBrightBlue : UIColor.lightGray
+            
+            self.tableView.selectRow(at: item.indexPath, animated: false, scrollPosition: .none)
+        }
+        
+        self.typeOfRecepientsSection.add(itemType: TypeOfRecepientsEnum.contactsOnly, cellStyle: .subtitle) { (cell, item) in
+            
+            item.cellHeight = 65
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 12)
+            cell.detailTextLabel?.textColor = UIColor(red: 129 / 255.0, green: 137 / 255.0, blue: 150 / 255.0, alpha: 1)
+            cell.detailTextLabel?.numberOfLines = 0
+            cell.textLabel?.text = "Мои контакты"
+            cell.detailTextLabel?.text = "Выберите получателей из своих зарегистрированных контактов"
+            cell.selectionStyle = .none
+            cell.accessoryType = .checkmark
+            cell.tintColor = !self.isPublic ? UIColor.stBrightBlue : UIColor.lightGray
+        }
+        
+        self.dataSource.sections.append(self.typeOfRecepientsSection)
+        
+        let dummySection = TableSection()
+        
+        // dummy cell
+        dummySection.add(cellStyle: .default, bindingAction: { (cell, item) in
+            
+            item.cellHeight = 14
+            cell.backgroundColor = UIColor.clear
+        })
+        
+        self.dataSource.sections.append(dummySection)
+    }
+    
+    fileprivate func setupDataSource() {
+        
+        self.contactsProvider.loadingStatusChanged = { loadingStatus in
+            
+            switch loadingStatus {
+                
+            case .loading:
+                
+                self.tableView.showBusy()
+                
+            default:
+                
+                self.tableView.hideBusy()
+            }
+        }
+        
+        self.dataSource.onDidSelectRowAtIndexPath = {
+            
+            (_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) in
+            
+            if let type =  item.itemType as? TypeOfRecepientsEnum {
+                
+                switch type {
+                    
+                case .contactsOnly:
+                    
+                    self.isPublic = false
+                    self.navigationItem.rightBarButtonItem?.isEnabled = false
+                    self.tableView.allowsMultipleSelection = !self.isPublic
+                    self.tableView.reloadData()
+                    
+                    break
+                    
+                default:
+                    break
+                }
+                
+                return
+            }
+            
+            if let type = item.itemType as? InviteSectionItemEnum {
+                
+                switch type {
+                    
+                case .invite:
+                    
+                    tableView.deselectRow(at: indexPath, animated: true)
+                    self.inviteContacts()
+                    
+                    break
+                }
+                
+                return
+            }
+            
+            if self.reason != .newPost {
+                
+                return
+            }
+            
+            self.selectedItems.append((item.item as! STContact))
+        }
+        
+        self.dataSource.onDidDeselectRowAtIndexPath = {
+            
+            (_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) in
+            
+            if let type =  item.itemType as? TypeOfRecepientsEnum {
+                
+                if type == .all {
+                    
+                    self.isPublic = true
+                    self.selectedItems.removeAll()
+                    self.tableView.allowsMultipleSelection = !self.isPublic
+                    self.tableView.reloadData()
+                    self.navigationItem.rightBarButtonItem?.isEnabled = true
+                    tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+                }
+                
+                return
+            }
+            
+            if self.reason != .newPost {
+                
+                return
+            }
+            
+            let index = self.selectedItems.index(of: item.item as! STContact)!
+            self.selectedItems.remove(at: index)
+        }
+        
+        self.searchDataSource.onDidSelectRowAtIndexPath = {
+            
+            (_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) in
+            
+            self.selectedItems.append((item.item as! STContact))
+        }
+        
+        self.searchDataSource.onDidDeselectRowAtIndexPath = {
+            
+            (_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) in
+            
+            let index = self.selectedItems.index(of: item.item as! STContact)!
+            self.selectedItems.remove(at: index)
+        }
+    }
+    
     fileprivate func synchronizeContacts() {
         
-        _ = self.contactsProvider.contacts.andThen { result in
+        _ = self.contactsProvider.registeredContacts.andThen { result in
             
             if let contacts = result.value {
                 
-                self.dataSource.sections.removeAll()
-                
-                // while trying to edit post
-                if self.reason == .newPost && self.postObject.userIds.count > 0 {
+                // when user trying to edit post
+                if self.reason == .newPost {
                     
-                    for userId in self.postObject.userIds {
+                    if self.postObject.userIds.count > 0 {
                         
-                        if let contact = contacts.first(where: { $0.contactUserId == userId }) {
+                        for userId in self.postObject.userIds {
                             
-                            self.selectedItems.append(contact)
+                            if let contact = contacts.first(where: { $0.contactUserId == userId }) {
+                                
+                                self.selectedItems.append(contact)
+                            }
                         }
                     }
+                    
+                    self.setupTypeOfRecepientsSection()
+                    self.navigationItem.rightBarButtonItem?.isEnabled = true
+                }
+                else {
+                    
+                    self.inviteSection.add(itemType: InviteSectionItemEnum.invite,
+                                           cellClass: STContactCell.self, bindingAction: { (cell, item) in
+                                            
+                                            let viewCell = cell as! STContactCell
+                                            viewCell.contactImage.setImage(UIImage(named: "icon-invite"), for: .normal)
+                                            viewCell.contactName.text = "Пригласить в STRIZHAPP"
+                                            viewCell.contactName.font = UIFont.systemFont(ofSize: 16)
+                                            viewCell.contactName.textColor = UIColor.stBrightBlue
+                                            viewCell.accessoryType = .none
+                                            viewCell.disableSelection = true
+                                            viewCell.selectionStyle = .default
+                    })
+                    
+                    self.dataSource.sections.append(self.inviteSection)
                 }
                 
                 self.createDataSource(for: self.dataSource, contacts: contacts)
+                self.setupSearchController()
                 self.reloadTableView()
             }
         }
@@ -400,9 +547,9 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
     fileprivate func searchContacts(searchString: String) {
         
         self.searchDataSource.sections.removeAll()
-        self.notRelatedContactsSection.items.removeAll()
+//        self.notRelatedContactsSection.items.removeAll()
         
-        _ = self.contactsProvider.contacts.andThen { result in
+        _ = self.contactsProvider.registeredContacts.andThen { result in
             
             guard let contacts = result.value else {
                 
@@ -435,7 +582,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                     
                     section = TableSection(title: letter)
                     
-                    section!.header(headerClass: STContactHeaderCell.self, item: letter, bindingAction: { (cell, item) in
+                    section!.header(item: letter, headerClass: STContactHeaderCell.self, bindingAction: { (cell, item) in
                         
                         let header = cell as! STContactHeaderCell
                         let title = item.item as! String
@@ -449,15 +596,15 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                     dataSource.sections.append(section!)
                 }
                 
-                section!.addItem(cellClass: STContactCell.self,
-                                 item: contact,
-                                 bindingAction: self.binding)
+                section!.add(item: contact,
+                             cellClass: STContactCell.self,
+                             bindingAction: self.binding)
             }
             else {
                 
-                self.notRelatedContactsSection.addItem(cellClass: STContactCell.self,
-                                                       item: contact,
-                                                       bindingAction: self.binding)
+                self.notRelatedContactsSection.add(item: contact,
+                                                   cellClass: STContactCell.self,
+                                                   bindingAction: self.binding)
             }
         }
         
@@ -467,16 +614,13 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
             return oneSection.title! < otherSection.title!
         }
         
-        if self.reason == .usual && self.notRelatedContactsSection.items.count > 0 {
-            
-            dataSource.sections.append(self.notRelatedContactsSection)
-        }
+//        if self.reason == .newPost && self.notRelatedContactsSection.items.count > 0 {
+//            
+//            dataSource.sections.append(self.notRelatedContactsSection)
+//        }
     }
     
     private func setupSearchController() {
-        
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor =
-            UIColor(red: 232 / 255.0, green: 237 / 255.0, blue: 247 / 255.0, alpha: 1)
         
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "placeholder_search".localized
@@ -484,9 +628,33 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         searchController.searchBar.delegate = self
         searchController.searchBar.barTintColor = UIColor.stLightBlueGrey
         searchController.searchBar.backgroundImage = UIImage()
+        
+        if let textField = searchController.searchBar.value(forKey: "_searchField") as? UITextField {
+            
+            textField.backgroundColor = UIColor.stPaleGreyTwo
+        }
+        
         self.definesPresentationContext = true
         
         tableView.tableHeaderView = searchController.searchBar
+    }
+    
+    @objc fileprivate func inviteContacts() {
+        
+        var textToShare = "https://strizhapp.ru"
+        
+        if let user = STUser.objects(by: STUser.self).first {
+            
+            textToShare += "/?ref=\(user.id)"
+        }
+        
+        let activity = UIActivityViewController(activityItems: [textToShare], applicationActivities: nil)
+        self.present(activity, animated: true, completion: nil)
+        
+        // analytics
+        let container = AppDelegate.appSettings.dependencyContainer
+        let analytics: STAnalytics = try! container.resolve()
+        analytics.logEvent(eventName: st_eContactInvite)
     }
     
     fileprivate func binding(_ cell: UITableViewCell, item: TableSectionItem) {
@@ -494,48 +662,34 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         let viewCell = cell as! STContactCell
         let contact = item.item as! STContact
         
+        viewCell.contactName.textColor = UIColor.black
         viewCell.contactName.text = contact.firstName + " " + contact.lastName
-        viewCell.addContact.isHidden = contact.isRegistered
         viewCell.layoutMargins = UIEdgeInsets.zero
         viewCell.separatorInset = UIEdgeInsets.zero
-        viewCell.accessoryType = self.tableView.allowsSelection ? .checkmark : .none
+        viewCell.accessoryType = self.reason == .newPost ? .checkmark : .none
         viewCell.disableSelection = self.reason == .usual
+        viewCell.selectionStyle = .none
+        
+        if reason == .usual {
+            
+            viewCell.disableSelection = true
+        }
+        else {
+            
+            viewCell.disableSelection = false
+            viewCell.isDisabledCell = self.isPublic
+        }
         
         if self.tableView.allowsSelection && self.selectedItems.contains(item.item as! STContact) {
             
             self.tableView.selectRow(at: item.indexPath, animated: false, scrollPosition: .none)
         }
         
-        if !contact.isRegistered {
+        viewCell.contactImage.reactive.tap.observeNext { [unowned self] in
             
-            var textToShare = "https://strizhapp.ru"
-            
-            if let user = STUser.objects(by: STUser.self).first {
-                
-                textToShare += "/?ref=\(user.id)"
+                self.st_router_openUserProfile(userId: contact.contactUserId)
             }
-            
-            viewCell.addContact.reactive.tap.observe { [unowned self] _ in
-                
-                // analytics
-                let container = AppDelegate.appSettings.dependencyContainer
-                let analytics: STAnalytics = try! container.resolve()
-                analytics.logEvent(eventName: st_eContactInvite)
-                
-                let activity = UIActivityViewController(activityItems: [textToShare], applicationActivities: nil)
-                
-                self.present(activity, animated: true, completion: nil)
-                
-            }.dispose(in: viewCell.bag)
-        }
-        else {
-            
-            viewCell.contactImage.reactive.tap.observeNext { [unowned self] in
-                
-                    self.st_router_openUserProfile(userId: contact.contactUserId)
-                }
-                .dispose(in: viewCell.disposeBag)
-        }
+            .dispose(in: viewCell.disposeBag)
         
         if contact.userId == myUser.id && self.myUser.imageData != nil {
             

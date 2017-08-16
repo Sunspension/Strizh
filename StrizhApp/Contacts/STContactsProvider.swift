@@ -22,10 +22,37 @@ class STContactsProvider {
         }
     }
     
-    private var privateContacts = [STContact]()
+    fileprivate var privateContacts = [STContact]()
     
+    fileprivate var privateRegisteredContacts = [STContact]()
     
     var loadingStatusChanged: ((_ loadigStatus: STLoadingStatusEnum) -> Void)?
+    
+    var registeredContacts: Future<[STContact], STError> {
+        
+        let p = Promise<[STContact], STError>()
+        
+        guard privateContacts.count > 0, loadingStatus == .loaded else {
+            
+            _ = contacts.andThen(callback: { result in
+                
+                if let error = result.error {
+                    
+                    p.failure(error)
+                }
+                else if let contacts = result.value {
+                    
+                    p.success(contacts)
+                }
+            })
+            
+            return p.future
+        }
+        
+        p.success(privateRegisteredContacts)
+        
+        return p.future
+    }
     
     var contacts: Future<[STContact], STError> {
        
@@ -145,6 +172,7 @@ class STContactsProvider {
             .onSuccess { [unowned self] contacts in
                 
                 self.privateContacts.append(contentsOf: contacts)
+                self.privateRegisteredContacts.append(contentsOf: contacts.filter({ $0.isRegistered }))
                 
                 p.success(contacts)
                 self.loadingStatus = .loaded

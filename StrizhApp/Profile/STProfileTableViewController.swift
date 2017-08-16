@@ -38,7 +38,7 @@ class STProfileTableViewController: UITableViewController {
         
         return hasMore && status != .loading
     }
-
+    
     fileprivate var disposeBag = DisposeBag()
     
     var images = Set<STImage>()
@@ -186,7 +186,7 @@ class STProfileTableViewController: UITableViewController {
     
     private func createHeader() {
         
-        userInfoSection.addItem(cellClass: STProfileHeaderCell.self) { (cell, item) in
+        userInfoSection.add(cellClass: STProfileHeaderCell.self) { (cell, item) in
             
             let viewCell = cell as! STProfileHeaderCell
             viewCell.selectionStyle = .none
@@ -230,7 +230,7 @@ class STProfileTableViewController: UITableViewController {
         }
         
         userInfoSection.footer(footerClass: STProfileFooterCell.self) { (view, item) in
-        
+            
             let footer = view as! STProfileFooterCell
             footer.label.text = "profile_page_my_topics".localized
         }
@@ -242,112 +242,112 @@ class STProfileTableViewController: UITableViewController {
         
         posts.forEach { post in
             
-            userPostsSection.addItem(cellClass: STPersonalPostCell.self,
-                                     item: post,
-                                     bindingAction: { [unowned self] (cell, item) in
+            userPostsSection.add(item: post,
+                                 cellClass: STPersonalPostCell.self,
+                                 bindingAction: { [unowned self] (cell, item) in
+                                    
+                                    if item.indexPath.row + 10 >
+                                        self.userPostsSection.items.count &&
+                                        self.canLoadNext {
                                         
-                                        if item.indexPath.row + 10 >
-                                            self.userPostsSection.items.count &&
-                                            self.canLoadNext {
-                                            
-                                            self.loadFeed()
-                                        }
+                                        self.loadFeed()
+                                    }
+                                    
+                                    let viewCell = cell as! STPersonalPostCell
+                                    let post = item.item as! STPost
+                                    
+                                    viewCell.selectionStyle = .none
+                                    viewCell.postTitle.text = post.title
+                                    viewCell.postDetails.text = post.postDescription
+                                    viewCell.createdAt.text = post.createdAt?.mediumLocalizedFormat
+                                    
+                                    if post.dialogCount == 0 {
                                         
-                                        let viewCell = cell as! STPersonalPostCell
-                                        let post = item.item as! STPost
+                                        viewCell.dialogsCount.isHidden = true
+                                        viewCell.openDialogsTitle.isHidden = true
+                                    }
+                                    else {
                                         
-                                        viewCell.selectionStyle = .none
-                                        viewCell.postTitle.text = post.title
-                                        viewCell.postDetails.text = post.postDescription
-                                        viewCell.createdAt.text = post.createdAt?.mediumLocalizedFormat
+                                        viewCell.dialogsCount.isHidden = false
+                                        viewCell.openDialogsTitle.isHidden = false
+                                        viewCell.openDialogsTitle.text = post.dialogCount == 1
+                                            ? "profile_page_open_one_dialog_text".localized
+                                            : "profile_page_open_few_dialogs_text".localized
                                         
-                                        if post.dialogCount == 0 {
-                                            
-                                            viewCell.dialogsCount.isHidden = true
-                                            viewCell.openDialogsTitle.isHidden = true
-                                        }
-                                        else {
-                                            
-                                            viewCell.dialogsCount.isHidden = false
-                                            viewCell.openDialogsTitle.isHidden = false
-                                            viewCell.openDialogsTitle.text = post.dialogCount == 1
-                                                ? "profile_page_open_one_dialog_text".localized
-                                                : "profile_page_open_few_dialogs_text".localized
-                                            
-                                            let ending = post.dialogCount.ending(yabloko: "profile_page_one_dialog_text".localized,
-                                                                                 yabloka: "profile_page_few_dialogs_text".localized,
-                                                                                 yablok: "profile_page_many_dialogs_text".localized)
-                                            
-                                            viewCell.dialogsCount.text = "\(post.dialogCount)" + " " + ending
-                                        }
+                                        let ending = post.dialogCount.ending(yabloko: "profile_page_one_dialog_text".localized,
+                                                                             yabloka: "profile_page_few_dialogs_text".localized,
+                                                                             yablok: "profile_page_many_dialogs_text".localized)
                                         
-                                        if post.dateFrom != nil && post.dateTo != nil {
-                                            
-                                            viewCell.duration.isHidden = false
-                                            let period = post.dateFrom!.mediumLocalizedFormat + " - " + post.dateTo!.mediumLocalizedFormat
-                                            viewCell.duration.setTitle(period , for: .normal)
-                                        }
-                                        else {
-                                            
-                                            viewCell.duration.isHidden = true
-                                        }
+                                        viewCell.dialogsCount.text = "\(post.dialogCount)" + " " + ending
+                                    }
+                                    
+                                    if post.dateFrom != nil && post.dateTo != nil {
                                         
-                                        viewCell.more.reactive.tap.observeNext { [unowned self] in
+                                        viewCell.duration.isHidden = false
+                                        let period = post.dateFrom!.mediumLocalizedFormat + " - " + post.dateTo!.mediumLocalizedFormat
+                                        viewCell.duration.setTitle(period , for: .normal)
+                                    }
+                                    else {
+                                        
+                                        viewCell.duration.isHidden = true
+                                    }
+                                    
+                                    viewCell.more.reactive.tap.observeNext { [unowned self] in
+                                        
+                                        let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+                                        
+                                        let cancel = UIAlertAction(title: "action_cancel".localized, style: .cancel, handler: nil)
+                                        
+                                        let actionEdit = UIAlertAction(title: "action_edit".localized, style: .default, handler: { action in
                                             
-                                            let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+                                            // open edit controller
+                                            let postObject = STUserPostObject(post: post)
+                                            postObject.images = self.images
                                             
-                                            let cancel = UIAlertAction(title: "action_cancel".localized, style: .cancel, handler: nil)
+                                            self.analytics.logEvent(eventName: st_ePostEdit,
+                                                                    params: ["post_id" : post.id])
                                             
-                                            let actionEdit = UIAlertAction(title: "action_edit".localized, style: .default, handler: { action in
-                                                
-                                                // open edit controller
-                                                let postObject = STUserPostObject(post: post)
-                                                postObject.images = self.images
-                                                
-                                                self.analytics.logEvent(eventName: st_ePostEdit,
-                                                                        params: ["post_id" : post.id])
-                                                
-                                                self.st_router_openPostController(postObject: postObject)
-                                            })
+                                            self.st_router_openPostController(postObject: postObject)
+                                        })
+                                        
+                                        actionController.addAction(actionEdit)
+                                        
+                                        let actionDelete = UIAlertAction(title: "action_delete".localized, style: .default, handler: { action in
                                             
-                                            actionController.addAction(actionEdit)
-                                            
-                                            let actionDelete = UIAlertAction(title: "action_delete".localized, style: .default, handler: { action in
-                                                
-                                                self.api.deletePost(postId: post.id)
-                                                    .onSuccess(callback: { [unowned self] _ in
+                                            self.api.deletePost(postId: post.id)
+                                                .onSuccess(callback: { [unowned self] _ in
+                                                    
+                                                    self.analytics.logEvent(eventName: st_ePostDelete, params: ["post_id" : post.id])
+                                                    
+                                                    self.userPostsSection.items = self.userPostsSection.items
+                                                        .filter({ ($0.item! as! STPost).id != (item.item! as! STPost).id })
+                                                    
+                                                    NotificationCenter.default.post(name: NSNotification.Name(kPostDeleteNotification), object: post)
+                                                    
+                                                    // save last item id for loading next objects
+                                                    if let lastPost = self.userPostsSection.items.last {
                                                         
-                                                        self.analytics.logEvent(eventName: st_ePostDelete, params: ["post_id" : post.id])
+                                                        self.minId = (lastPost.item as! STPost).id
+                                                    }
+                                                    else {
                                                         
-                                                        self.userPostsSection.items = self.userPostsSection.items
-                                                                .filter({ ($0.item! as! STPost).id != (item.item! as! STPost).id })
-                                                        
-                                                        NotificationCenter.default.post(name: NSNotification.Name(kPostDeleteNotification), object: post)
-                                                        
-                                                        // save last item id for loading next objects
-                                                        if let lastPost = self.userPostsSection.items.last {
-                                                            
-                                                            self.minId = (lastPost.item as! STPost).id
-                                                        }
-                                                        else {
-                                                            
-                                                            self.minId = 0
-                                                        }
-                                                        
-                                                        self.tableView.reloadSections(IndexSet(integer: item.indexPath.section) , with: .automatic)
-                                                        self.showDummyViewIfNeeded()
-                                                    })
-                                                    .onFailure(callback: { [unowned self] error in
-                                                        
-                                                        self.showError(error: error)
-                                                    })
-                                            })
-                                            
-                                            actionController.addAction(cancel)
-                                            actionController.addAction(actionDelete)
-                                            
-                                            self.present(actionController, animated: true, completion: nil)
-                                            
+                                                        self.minId = 0
+                                                    }
+                                                    
+                                                    self.tableView.reloadSections(IndexSet(integer: item.indexPath.section) , with: .automatic)
+                                                    self.showDummyViewIfNeeded()
+                                                })
+                                                .onFailure(callback: { [unowned self] error in
+                                                    
+                                                    self.showError(error: error)
+                                                })
+                                        })
+                                        
+                                        actionController.addAction(cancel)
+                                        actionController.addAction(actionDelete)
+                                        
+                                        self.present(actionController, animated: true, completion: nil)
+                                        
                                         }.dispose(in: viewCell.bag)
             })
         }

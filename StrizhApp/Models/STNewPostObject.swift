@@ -43,6 +43,8 @@ class STUserPostObject {
     
     var objectType = PostObjectType.new
     
+    var isPublic = false
+    
     
     init() { }
     
@@ -62,5 +64,6 @@ class STUserPostObject {
         self.locationIds = post.locationIds.map({ $0.value })
         self.userIds = post.userIds.map({ $0.value })
         self.objectType = .old
+        self.isPublic = post.isPublic
     }
 }
