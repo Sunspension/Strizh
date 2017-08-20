@@ -95,11 +95,11 @@ extension UIViewController {
         
         if let error = error as? STError {
             
-            showOkAlert(title: "Ошибка", message: error.localizedDescription)
+            showOkAlert(title: "alert_title_error".localized, message: error.localizedDescription)
             return
         }
         
-        showOkAlert(title: "Ошибка", message: error.localizedDescription)
+        showOkAlert(title: "alert_title_error".localized, message: error.localizedDescription)
     }
     
     func changeRootViewController(_ viewController: UIViewController) {

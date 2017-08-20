@@ -32,9 +32,9 @@ class STContactsProvider {
         
         let p = Promise<[STContact], STError>()
         
-        guard privateContacts.count > 0, loadingStatus == .loaded else {
+        guard privateRegisteredContacts.count > 0, loadingStatus == .loaded else {
             
-            _ = contacts.andThen(callback: { result in
+            _ = contacts.andThen(callback: { [unowned self] result in
                 
                 if let error = result.error {
                     
@@ -42,6 +42,7 @@ class STContactsProvider {
                 }
                 else if let contacts = result.value {
                     
+                    self.privateRegisteredContacts.append(contentsOf: contacts.filter({ $0.isRegistered }))
                     p.success(contacts)
                 }
             })
@@ -60,7 +61,7 @@ class STContactsProvider {
         
         guard privateContacts.count > 0, loadingStatus == .loaded else {
             
-            _ = synchronizeContacts().andThen(callback: { result in
+            _ = synchronizeContacts().andThen(callback: { [unowned self] result in
                 
                 if let error = result.error {
                     
@@ -68,6 +69,7 @@ class STContactsProvider {
                 }
                 else if let contacts = result.value {
                     
+                    self.privateContacts.append(contentsOf: contacts)
                     p.success(contacts)
                 }
             })
@@ -170,9 +172,6 @@ class STContactsProvider {
         
         AppDelegate.appSettings.api.uploadContacts(contacts: contacts)
             .onSuccess { [unowned self] contacts in
-                
-                self.privateContacts.append(contentsOf: contacts)
-                self.privateRegisteredContacts.append(contentsOf: contacts.filter({ $0.isRegistered }))
                 
                 p.success(contacts)
                 self.loadingStatus = .loaded

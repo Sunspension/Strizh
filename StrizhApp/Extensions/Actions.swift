@@ -19,16 +19,18 @@ extension UIViewController {
             self.analytics.logEvent(eventName: st_ePostEdit, params: ["post_id" : postObject.id])
             
             postObject.parentId = postObject.post!.id
+            postObject.userIds.removeAll()
             self.st_router_openPostController(postObject: postObject)
         }
         
-        let resend = UIAlertAction.defaultAction(title: "Переслать") { action in
+        let resend = UIAlertAction.defaultAction(title: "action_resend".localized) { action in
             
             postObject.parentId = postObject.post!.id
+            postObject.userIds.removeAll()
             self.st_router_openContactsController(postObject)
         }
         
-        let message = "Вы можете переслать сделку в исходном виде или отредактировав ее содержание"
+        let message = "action_resent_message".localized
         self.showActionController(message: message, actions: [cancel, resend, edit])
     }
     

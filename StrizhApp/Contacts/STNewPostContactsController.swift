@@ -111,6 +111,8 @@ class STNewPostContactsController: STContactsController {
         let viewCell = cell as! STContactCell
         viewCell.disableSelection = false
         viewCell.accessoryType = .checkmark
+        viewCell.selectionStyle = .none
+        viewCell.disableSelection = false
         viewCell.isDisabledCell = postObject.objectType == .new ? self.isPublic : false
         
         if self.tableView.allowsSelection && self.selectedItems.contains(item.item as! STContact) {

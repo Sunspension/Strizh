@@ -19,6 +19,10 @@
 "action_apply" = "Применить";
 "action_add" = "Добавить";
 "action_skip" = "Пропустить";
+"action_resend" = "Переслать";
+
+// action titles
+"action_resent_message" = "Вы можете переслать сделку в исходном виде или отредактировав ее содержание";
 
 // Place holders
 "placeholder_search" = "Поиск";

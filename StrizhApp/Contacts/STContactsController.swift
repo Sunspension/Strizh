@@ -204,9 +204,12 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                     tableView.deselectRow(at: indexPath, animated: true)
                     self.inviteContacts()
                     
-                    break
+                    return
                 }
             }
+            
+            let contact = item.item as! STContact
+            self.st_router_openUserProfile(userId: contact.contactUserId)
         }
         
         self.contactsProvider.loadingStatusChanged = { loadingStatus in
@@ -235,6 +238,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                                         
                                         let viewCell = cell as! STContactCell
                                         viewCell.contactImage.setImage(UIImage(named: "icon-invite"), for: .normal)
+                                        viewCell.contactImage.isUserInteractionEnabled = false
                                         viewCell.contactName.text = "Пригласить в STRIZHAPP"
                                         viewCell.contactName.font = UIFont.systemFont(ofSize: 16)
                                         viewCell.contactName.textColor = UIColor.stBrightBlue
@@ -350,15 +354,10 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         viewCell.contactName.text = contact.firstName + " " + contact.lastName
         viewCell.layoutMargins = UIEdgeInsets.zero
         viewCell.separatorInset = UIEdgeInsets.zero
-        viewCell.selectionStyle = .none
+        viewCell.selectionStyle = .default
         viewCell.disableSelection = true
         viewCell.accessoryType = .none
-        
-        viewCell.contactImage.reactive.tap.observeNext { [unowned self] in
-            
-                self.st_router_openUserProfile(userId: contact.contactUserId)
-            }
-            .dispose(in: viewCell.disposeBag)
+        viewCell.contactImage.isUserInteractionEnabled = false
         
         if contact.userId == myUser.id && self.myUser.imageData != nil {
             

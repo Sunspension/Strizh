@@ -20,6 +20,10 @@
 "action_apply" = "Apply";
 "action_add" = "Add";
 "action_skip" = "Skip";
+"action_resend" = "Resend";
+
+// action titles
+"action_resent_message" = "You can edit a content before send or just send as is";
 
 // Place holders
 "placeholder_search" = "Search";

@@ -60,7 +60,8 @@ class STContactCell: UITableViewCell {
             return
         }
         
-        self.tintColor = selected ? UIColor.stBrightBlue : UIColor.lightGray
-        self.backgroundView?.backgroundColor = selected ? UIColor.stLightGreenGrey : UIColor.clear
+        self.tintColor = selected ? UIColor.white : UIColor.lightGray
+        self.contactName.textColor = selected ? UIColor.white : UIColor.black
+        self.backgroundView?.backgroundColor = selected ? UIColor.stBoringGreen : UIColor.clear
     }
 }
