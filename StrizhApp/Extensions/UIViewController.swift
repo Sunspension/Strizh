@@ -65,6 +65,15 @@ extension UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    func showActionController(title: String? = nil, message: String? = nil, actions: [UIAlertAction]) {
+        
+        let actionController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        
+        actions.forEach({ actionController.addAction($0) })
+        
+        self.present(actionController, animated: true, completion: nil)
+    }
+    
     func showOkCancellAlert(title: String?, message: String?,
                             okTitle: String?, okAction: ((UIAlertAction) -> Void)?,
                             cancelTitle: String?, cancelAction: ((UIAlertAction) -> Void)? ) {
@@ -83,6 +92,12 @@ extension UIViewController {
     }
     
     func showError(error: Error) {
+        
+        if let error = error as? STError {
+            
+            showOkAlert(title: "Ошибка", message: error.localizedDescription)
+            return
+        }
         
         showOkAlert(title: "Ошибка", message: error.localizedDescription)
     }

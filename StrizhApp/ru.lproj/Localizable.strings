@@ -139,7 +139,7 @@
 "settings_page_singout_text" = "Выйти из аккаунта";
 
 // Feed
-"feed_page_filter_all_feed_text" = "Вся Лента";
+"feed_page_filter_all_feed_text" = "Все сделки";
 "feed_page_filter_favorites_text" = "Избранное";
 "feed_page_empty_feed_title" = "Лента пуста";
 "feed_page_empty_feed_message" = "К сожалению, для Вас еще нет открытых сделок. Они появятся, когда кто-то упомянет Вас в получателях.";

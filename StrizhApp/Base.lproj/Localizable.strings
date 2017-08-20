@@ -140,7 +140,7 @@
 "settings_page_singout_text" = "Logout";
 
 // Feed
-"feed_page_filter_all_feed_text" = "Feed";
+"feed_page_filter_all_feed_text" = "All deals";
 "feed_page_filter_favorites_text" = "Favorites";
 "feed_page_empty_feed_title" = "Empty feed";
 "feed_page_empty_feed_message" = "Unfortunately there are no opened deals for you. They will appear when someone mentions you in the recipients";

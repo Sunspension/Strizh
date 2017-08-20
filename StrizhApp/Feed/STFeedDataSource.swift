@@ -49,9 +49,6 @@ class STFeedDataSource: STDealsDataSourceBase {
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.onPostDeleteNotification),
-                                               name: NSNotification.Name(kPostDeleteFromDetailsNotification), object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.onPostDeleteNotification),
                                                name: NSNotification.Name(kPostDeleteNotification), object: nil)
     }
     

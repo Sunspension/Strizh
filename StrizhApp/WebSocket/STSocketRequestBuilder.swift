@@ -308,6 +308,11 @@ enum STSocketRequestBuilder {
             body["type"] = post.type
             body["is_public"] = post.isPublic
             
+            if let parentId = post.parentId {
+                
+                body["parent_id"] = parentId
+            }
+            
             if post.fromDate != nil {
                 
                 body["date_from"] = post.fromDate!.defaultFormat

@@ -13,16 +13,6 @@ import Bond
 import Dip
 import AlamofireImage
 
-enum OpenContactsReasonEnum {
-    
-    case usual, newPost
-}
-
-fileprivate enum TypeOfRecepientsEnum {
-    
-    case all, contactsOnly
-}
-
 fileprivate enum InviteSectionItemEnum {
     
     case invite
@@ -31,42 +21,31 @@ fileprivate enum InviteSectionItemEnum {
 class STContactsController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating, NVActivityIndicatorViewable {
     
     
-    fileprivate var contactsProvider = STContactsProvider.sharedInstance
-    
     fileprivate let searchController = UISearchController(searchResultsController: nil)
-    
-    fileprivate let selectedItems = MutableObservableArray([STContact]())
-    
-    fileprivate lazy var postObject: STUserPostObject = {
-        
-        return try! self.dependencyContainer.resolve(STUserPostObject.self) as! STUserPostObject
-        
-    }()
-    
-    fileprivate let dataSource = TableViewDataSource()
-    
-    fileprivate let searchDataSource = TableViewDataSource()
     
     fileprivate let notRelatedContactsSection = TableSection()
     
-    fileprivate let typeOfRecepientsSection = TableSection()
-    
     fileprivate let inviteSection = TableSection()
-    
-    fileprivate var disposeBag = DisposeBag()
     
     fileprivate var searchString = ""
     
     fileprivate var keyBoardHeight: CGFloat = 0
     
-    fileprivate var isPublic = true
+    var contactsProvider: STContactsProvider {
+        
+        return STContactsProvider.sharedInstance
+    }
     
-    var reason = OpenContactsReasonEnum.usual
+    var disposeBag = DisposeBag()
     
-    fileprivate var myUser: STUser {
+    var myUser: STUser {
         
         return STUser.objects(by: STUser.self).first!
     }
+
+    let dataSource = TableViewDataSource()
+    
+    let searchDataSource = TableViewDataSource()
     
     
     deinit {
@@ -78,29 +57,10 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         
         super.viewWillAppear(animated)
         
-        if self.reason == .newPost {
+        if self.navigationController != nil && self.navigationController!.isBeingPresented {
             
-            self.analytics.logEvent(eventName: st_eNewPostStep3, timed: true)
-        }
-        else {
-            
-            self.analytics.logEvent(eventName: st_eContacts)
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        
-        super.viewDidDisappear(animated)
-        
-        // checking press back button
-        if self.navigationController?.viewControllers.index(of: self) == nil {
-            
-            if self.reason != .newPost {
-                
-                return
-            }
-            
-            self.analytics.endTimeEvent(eventName: st_eNewPostStep3)
+            let leftItem = UIBarButtonItem(title: "action_cancel".localized, style: .plain, target: self, action: #selector(self.close))
+            self.navigationItem.leftBarButtonItem = leftItem
         }
     }
     
@@ -126,81 +86,6 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         setCustomBackButton()
         setupDataSource()
         synchronizeContacts()
-    }
-    
-    func nextAction() {
-        
-        self.postObject.userIds.append(contentsOf: self.selectedItems.array.map({ $0.contactUserId }))
-        self.postObject.isPublic = self.isPublic
-        
-        self.startAnimating()
-        
-        switch self.postObject.objectType {
-            
-        case .new:
-         
-            if self.selectedItems.count > 0 {
-                
-                _ = self.contactsProvider.contacts.andThen(callback: { result in
-                    
-                    if let totalContacts = result.value {
-                        
-                        self.analytics.logEvent(eventName: st_eNewPostContactSelect, params: ["select_count" : self.selectedItems.count,
-                                                                                              "total_count" : totalContacts.count])
-                    }
-                })
-            }
-            
-            self.analytics.endTimeEvent(eventName: st_eNewPostStep3)
-            
-            api.createPost(post: self.postObject)
-                
-                .onSuccess(callback: { [unowned self] post in
-                    
-                    self.stopAnimating()
-                    self.analytics.logEvent(eventName: st_eNewPostCreateFinish, params: ["select_count" : self.selectedItems.count])
-                    
-                    NotificationCenter.default.post(name: NSNotification.Name(kPostCreatedNotification), object: post)
-                    
-                    self.showOkAlert(title: "contacts_page_success_title".localized,
-                                     message:"contacts_page_success_create_message".localized, okAction: {
-                        
-                        action in self.navigationController?.dismiss(animated: true, completion: nil)
-                    })
-                })
-                .onFailure(callback: { [unowned self] error in
-                    
-                    self.stopAnimating()
-                    self.showError(error: error)
-                })
-            
-            break
-            
-        case .old:
-            
-            api.updatePost(post: self.postObject)
-                
-                .onSuccess(callback: { [unowned self] post in
-                    
-                    self.stopAnimating()
-                    
-                    // still having the same behavior
-                    NotificationCenter.default.post(name: NSNotification.Name(kPostCreatedNotification), object: post)
-                    
-                    self.showOkAlert(title: "contacts_page_success_title".localized,
-                                     message:"contacts_page_success_update_message".localized, okAction: {
-                        
-                        action in self.navigationController?.dismiss(animated: true, completion: nil)
-                    })
-                })
-                .onFailure(callback: { [unowned self] error in
-                    
-                    self.stopAnimating()
-                    self.showError(error: error)
-                })
-            
-            break
-        }
     }
     
     func keyboardWillShow(_ notification: Notification) {
@@ -240,17 +125,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
     
     //MARK: - UISearchBar delegate implementation
     
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        
-        return reason == .usual ? true : isPublic == false
-    }
-    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        
-        if self.reason == .newPost {
-            
-            self.analytics.logEvent(eventName: st_eNewPostContactSearch)
-        }
         
         self.tableView.dataSource = self.searchDataSource
         self.tableView.delegate = self.searchDataSource
@@ -286,44 +161,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         }
     }
     
-    //MARK: - Private methods
-    
-    fileprivate func setup() {
-        
-        if self.reason == .newPost {
-            
-            let rightItem = UIBarButtonItem(title: "contacts_page_create_text".localized,
-                                            style: .plain, target: self, action: #selector(self.nextAction))
-            rightItem.isEnabled = false
-            self.navigationItem.rightBarButtonItem = rightItem
-            
-            self.selectedItems.observeNext(with: { [unowned self] event in
-                
-                rightItem.isEnabled = event.dataSource.count != 0
-                
-                if (event.dataSource.count == 0) {
-                    
-                    self.title = "contacts_page_title".localized
-                }
-                else {
-                    
-                    self.title = "contacts_page_title".localized + "(\(event.dataSource.count))"
-                }
-            })
-                .dispose(in: self.disposeBag)
-            
-            self.tableView.allowsMultipleSelection = !isPublic
-            
-            //            self.notRelatedContactsSection.header(headerClass: STContactHeaderCell.self, bindingAction: { (cell, item) in
-            //
-            //                let header = cell as! STContactHeaderCell
-            //                header.title.text = "contacts_page_users_who_don't_use_app_title".localized
-            //                header.title.textColor = UIColor.stSteelGrey
-            //            })
-            //
-            //            self.notRelatedContactsSection.headerItem?.cellHeight = 30
-        }
-        
+    func setup() {
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.keyboardWillShow),
@@ -343,53 +181,33 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
             .dispose(in: disposeBag)
     }
     
-    fileprivate func setupTypeOfRecepientsSection() {
-        
-        self.typeOfRecepientsSection.add(itemType: TypeOfRecepientsEnum.all, cellStyle: .subtitle) { (cell, item) in
-            
-            item.cellHeight = 65
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
-            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 12)
-            cell.detailTextLabel?.textColor = UIColor(red: 129 / 255.0, green: 137 / 255.0, blue: 150 / 255.0, alpha: 1)
-            cell.detailTextLabel?.numberOfLines = 0
-            cell.textLabel?.text = "Все пользователи Strizhapp"
-            cell.detailTextLabel?.text = "После модерации сделка отправится всем пользователям Strizhapp"
-            cell.accessoryType = .checkmark
-            cell.selectionStyle = .none
-            cell.tintColor = self.isPublic ? UIColor.stBrightBlue : UIColor.lightGray
-            
-            self.tableView.selectRow(at: item.indexPath, animated: false, scrollPosition: .none)
-        }
-        
-        self.typeOfRecepientsSection.add(itemType: TypeOfRecepientsEnum.contactsOnly, cellStyle: .subtitle) { (cell, item) in
-            
-            item.cellHeight = 65
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
-            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 12)
-            cell.detailTextLabel?.textColor = UIColor(red: 129 / 255.0, green: 137 / 255.0, blue: 150 / 255.0, alpha: 1)
-            cell.detailTextLabel?.numberOfLines = 0
-            cell.textLabel?.text = "Мои контакты"
-            cell.detailTextLabel?.text = "Выберите получателей из своих зарегистрированных контактов"
-            cell.selectionStyle = .none
-            cell.accessoryType = .checkmark
-            cell.tintColor = !self.isPublic ? UIColor.stBrightBlue : UIColor.lightGray
-        }
-        
-        self.dataSource.sections.append(self.typeOfRecepientsSection)
-        
-        let dummySection = TableSection()
-        
-        // dummy cell
-        dummySection.add(cellStyle: .default, bindingAction: { (cell, item) in
-            
-            item.cellHeight = 14
-            cell.backgroundColor = UIColor.clear
-        })
-        
-        self.dataSource.sections.append(dummySection)
-    }
+    //MARK: - Private methods
     
-    fileprivate func setupDataSource() {
+    @objc fileprivate func close() {
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+
+    func setupDataSource() {
+        
+        self.dataSource.onDidSelectRowAtIndexPath = {
+            
+            (_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) in
+            
+            
+            if let type = item.itemType as? InviteSectionItemEnum {
+                
+                switch type {
+                    
+                case .invite:
+                    
+                    tableView.deselectRow(at: indexPath, animated: true)
+                    self.inviteContacts()
+                    
+                    break
+                }
+            }
+        }
         
         self.contactsProvider.loadingStatusChanged = { loadingStatus in
             
@@ -404,138 +222,28 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                 self.tableView.hideBusy()
             }
         }
-        
-        self.dataSource.onDidSelectRowAtIndexPath = {
-            
-            (_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) in
-            
-            if let type =  item.itemType as? TypeOfRecepientsEnum {
-                
-                switch type {
-                    
-                case .contactsOnly:
-                    
-                    self.isPublic = false
-                    self.navigationItem.rightBarButtonItem?.isEnabled = false
-                    self.tableView.allowsMultipleSelection = !self.isPublic
-                    self.tableView.reloadData()
-                    
-                    break
-                    
-                default:
-                    break
-                }
-                
-                return
-            }
-            
-            if let type = item.itemType as? InviteSectionItemEnum {
-                
-                switch type {
-                    
-                case .invite:
-                    
-                    tableView.deselectRow(at: indexPath, animated: true)
-                    self.inviteContacts()
-                    
-                    break
-                }
-                
-                return
-            }
-            
-            if self.reason != .newPost {
-                
-                return
-            }
-            
-            self.selectedItems.append((item.item as! STContact))
-        }
-        
-        self.dataSource.onDidDeselectRowAtIndexPath = {
-            
-            (_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) in
-            
-            if let type =  item.itemType as? TypeOfRecepientsEnum {
-                
-                if type == .all {
-                    
-                    self.isPublic = true
-                    self.selectedItems.removeAll()
-                    self.tableView.allowsMultipleSelection = !self.isPublic
-                    self.tableView.reloadData()
-                    self.navigationItem.rightBarButtonItem?.isEnabled = true
-                    tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
-                }
-                
-                return
-            }
-            
-            if self.reason != .newPost {
-                
-                return
-            }
-            
-            let index = self.selectedItems.index(of: item.item as! STContact)!
-            self.selectedItems.remove(at: index)
-        }
-        
-        self.searchDataSource.onDidSelectRowAtIndexPath = {
-            
-            (_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) in
-            
-            self.selectedItems.append((item.item as! STContact))
-        }
-        
-        self.searchDataSource.onDidDeselectRowAtIndexPath = {
-            
-            (_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) in
-            
-            let index = self.selectedItems.index(of: item.item as! STContact)!
-            self.selectedItems.remove(at: index)
-        }
     }
     
-    fileprivate func synchronizeContacts() {
+    func synchronizeContacts() {
         
         _ = self.contactsProvider.registeredContacts.andThen { result in
             
             if let contacts = result.value {
                 
-                // when user trying to edit post
-                if self.reason == .newPost {
-                    
-                    if self.postObject.userIds.count > 0 {
-                        
-                        for userId in self.postObject.userIds {
-                            
-                            if let contact = contacts.first(where: { $0.contactUserId == userId }) {
-                                
-                                self.selectedItems.append(contact)
-                            }
-                        }
-                    }
-                    
-                    self.setupTypeOfRecepientsSection()
-                    self.navigationItem.rightBarButtonItem?.isEnabled = true
-                }
-                else {
-                    
-                    self.inviteSection.add(itemType: InviteSectionItemEnum.invite,
-                                           cellClass: STContactCell.self, bindingAction: { (cell, item) in
-                                            
-                                            let viewCell = cell as! STContactCell
-                                            viewCell.contactImage.setImage(UIImage(named: "icon-invite"), for: .normal)
-                                            viewCell.contactName.text = "Пригласить в STRIZHAPP"
-                                            viewCell.contactName.font = UIFont.systemFont(ofSize: 16)
-                                            viewCell.contactName.textColor = UIColor.stBrightBlue
-                                            viewCell.accessoryType = .none
-                                            viewCell.disableSelection = true
-                                            viewCell.selectionStyle = .default
-                    })
-                    
-                    self.dataSource.sections.append(self.inviteSection)
-                }
+                self.inviteSection.add(itemType: InviteSectionItemEnum.invite,
+                                       cellClass: STContactCell.self, bindingAction: { (cell, item) in
+                                        
+                                        let viewCell = cell as! STContactCell
+                                        viewCell.contactImage.setImage(UIImage(named: "icon-invite"), for: .normal)
+                                        viewCell.contactName.text = "Пригласить в STRIZHAPP"
+                                        viewCell.contactName.font = UIFont.systemFont(ofSize: 16)
+                                        viewCell.contactName.textColor = UIColor.stBrightBlue
+                                        viewCell.accessoryType = .none
+                                        viewCell.disableSelection = true
+                                        viewCell.selectionStyle = .default
+                })
+                
+                self.dataSource.sections.append(self.inviteSection)
                 
                 self.createDataSource(for: self.dataSource, contacts: contacts)
                 self.setupSearchController()
@@ -547,7 +255,6 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
     fileprivate func searchContacts(searchString: String) {
         
         self.searchDataSource.sections.removeAll()
-//        self.notRelatedContactsSection.items.removeAll()
         
         _ = self.contactsProvider.registeredContacts.andThen { result in
             
@@ -569,7 +276,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         }
     }
     
-    fileprivate func createDataSource(for dataSource: TableViewDataSource, contacts: [STContact]) {
+    func createDataSource(for dataSource: TableViewDataSource, contacts: [STContact]) {
         
         for contact in contacts {
             
@@ -613,14 +320,9 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
             
             return oneSection.title! < otherSection.title!
         }
-        
-//        if self.reason == .newPost && self.notRelatedContactsSection.items.count > 0 {
-//            
-//            dataSource.sections.append(self.notRelatedContactsSection)
-//        }
     }
     
-    private func setupSearchController() {
+    func setupSearchController() {
         
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "placeholder_search".localized
@@ -639,25 +341,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         tableView.tableHeaderView = searchController.searchBar
     }
     
-    @objc fileprivate func inviteContacts() {
-        
-        var textToShare = "https://strizhapp.ru"
-        
-        if let user = STUser.objects(by: STUser.self).first {
-            
-            textToShare += "/?ref=\(user.id)"
-        }
-        
-        let activity = UIActivityViewController(activityItems: [textToShare], applicationActivities: nil)
-        self.present(activity, animated: true, completion: nil)
-        
-        // analytics
-        let container = AppDelegate.appSettings.dependencyContainer
-        let analytics: STAnalytics = try! container.resolve()
-        analytics.logEvent(eventName: st_eContactInvite)
-    }
-    
-    fileprivate func binding(_ cell: UITableViewCell, item: TableSectionItem) {
+    func binding(_ cell: UITableViewCell, item: TableSectionItem) {
         
         let viewCell = cell as! STContactCell
         let contact = item.item as! STContact
@@ -666,24 +350,9 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         viewCell.contactName.text = contact.firstName + " " + contact.lastName
         viewCell.layoutMargins = UIEdgeInsets.zero
         viewCell.separatorInset = UIEdgeInsets.zero
-        viewCell.accessoryType = self.reason == .newPost ? .checkmark : .none
-        viewCell.disableSelection = self.reason == .usual
         viewCell.selectionStyle = .none
-        
-        if reason == .usual {
-            
-            viewCell.disableSelection = true
-        }
-        else {
-            
-            viewCell.disableSelection = false
-            viewCell.isDisabledCell = self.isPublic
-        }
-        
-        if self.tableView.allowsSelection && self.selectedItems.contains(item.item as! STContact) {
-            
-            self.tableView.selectRow(at: item.indexPath, animated: false, scrollPosition: .none)
-        }
+        viewCell.disableSelection = true
+        viewCell.accessoryType = .none
         
         viewCell.contactImage.reactive.tap.observeNext { [unowned self] in
             
@@ -716,7 +385,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         }
     }
     
-    private func reloadTableView(animation: Bool = false) {
+    func reloadTableView(animation: Bool = false) {
         
         if animation {
             
@@ -754,5 +423,23 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
             
             self.hideDummyView()
         }
+    }
+    
+    @objc fileprivate func inviteContacts() {
+        
+        var textToShare = "https://strizhapp.ru"
+        
+        if let user = STUser.objects(by: STUser.self).first {
+            
+            textToShare += "/?ref=\(user.id)"
+        }
+        
+        let activity = UIActivityViewController(activityItems: [textToShare], applicationActivities: nil)
+        self.present(activity, animated: true, completion: nil)
+        
+        // analytics
+        let container = AppDelegate.appSettings.dependencyContainer
+        let analytics: STAnalytics = try! container.resolve()
+        analytics.logEvent(eventName: st_eContactInvite)
     }
 }

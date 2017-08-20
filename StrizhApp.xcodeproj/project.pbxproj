@@ -114,6 +114,7 @@
 		D49EB19E1E45212F00B6F5DC /* STSocketRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49EB19D1E45212F00B6F5DC /* STSocketRequestBuilder.swift */; };
 		D49EB1A01E452B9A00B6F5DC /* STSocketRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49EB19F1E452B9A00B6F5DC /* STSocketRequest.swift */; };
 		D4A62EDA1F3B3D5400C9AE8C /* UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A62ED91F3B3D5400C9AE8C /* UITableViewCell.swift */; };
+		D4AAE34E1F49220D008CE94C /* STNewPostContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AAE34D1F49220D008CE94C /* STNewPostContactsController.swift */; };
 		D4AB1F601F3BA2C00080CC73 /* STUserPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4AB1F5F1F3BA2C00080CC73 /* STUserPostCell.xib */; };
 		D4AB1F621F3BA2CF0080CC73 /* STUserPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AB1F611F3BA2CF0080CC73 /* STUserPostCell.swift */; };
 		D4AD43B31E47A970006F13DE /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AD43B21E47A970006F13DE /* AppSettings.swift */; };
@@ -123,6 +124,8 @@
 		D4AD43BF1E47DB52006F13DE /* STSignUpNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AD43BE1E47DB52006F13DE /* STSignUpNavigationController.swift */; };
 		D4AD43C11E47DB7B006F13DE /* STNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AD43C01E47DB7B006F13DE /* STNavigationController.swift */; };
 		D4B97FEE1F093E9A00875630 /* STNewPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B97FED1F093E9A00875630 /* STNewPost.swift */; };
+		D4BCB4641F45E86100D05872 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BCB4631F45E86100D05872 /* Actions.swift */; };
+		D4BCB4681F465DEB00D05872 /* UIAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BCB4671F465DEB00D05872 /* UIAlertAction.swift */; };
 		D4BEB4061E9ED96500E2402E /* STDialogMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BEB4051E9ED96500E2402E /* STDialogMessage.swift */; };
 		D4C2AD7F1E538FAE009CD55A /* STProfileFooterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C2AD7E1E538FAE009CD55A /* STProfileFooterCell.swift */; };
 		D4C2AD811E538FC6009CD55A /* STProfileFooterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4C2AD801E538FC6009CD55A /* STProfileFooterCell.xib */; };
@@ -326,6 +329,7 @@
 		D49EB19D1E45212F00B6F5DC /* STSocketRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSocketRequestBuilder.swift; path = WebSocket/STSocketRequestBuilder.swift; sourceTree = "<group>"; };
 		D49EB19F1E452B9A00B6F5DC /* STSocketRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSocketRequest.swift; path = WebSocket/STSocketRequest.swift; sourceTree = "<group>"; };
 		D4A62ED91F3B3D5400C9AE8C /* UITableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITableViewCell.swift; path = Extensions/UITableViewCell.swift; sourceTree = "<group>"; };
+		D4AAE34D1F49220D008CE94C /* STNewPostContactsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STNewPostContactsController.swift; path = Contacts/STNewPostContactsController.swift; sourceTree = "<group>"; };
 		D4AB1F5F1F3BA2C00080CC73 /* STUserPostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STUserPostCell.xib; path = AnyUserProfile/STUserPostCell.xib; sourceTree = "<group>"; };
 		D4AB1F611F3BA2CF0080CC73 /* STUserPostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STUserPostCell.swift; path = AnyUserProfile/STUserPostCell.swift; sourceTree = "<group>"; };
 		D4AD43B21E47A970006F13DE /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
@@ -335,6 +339,8 @@
 		D4AD43BE1E47DB52006F13DE /* STSignUpNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSignUpNavigationController.swift; path = SignUp/STSignUpNavigationController.swift; sourceTree = "<group>"; };
 		D4AD43C01E47DB7B006F13DE /* STNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STNavigationController.swift; sourceTree = "<group>"; };
 		D4B97FED1F093E9A00875630 /* STNewPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STNewPost.swift; path = Models/STNewPost.swift; sourceTree = "<group>"; };
+		D4BCB4631F45E86100D05872 /* Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Actions.swift; path = Extensions/Actions.swift; sourceTree = "<group>"; };
+		D4BCB4671F465DEB00D05872 /* UIAlertAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIAlertAction.swift; path = Extensions/UIAlertAction.swift; sourceTree = "<group>"; };
 		D4BEB4051E9ED96500E2402E /* STDialogMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialogMessage.swift; path = Models/STDialogMessage.swift; sourceTree = "<group>"; };
 		D4C2AD7E1E538FAE009CD55A /* STProfileFooterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STProfileFooterCell.swift; path = Profile/STProfileFooterCell.swift; sourceTree = "<group>"; };
 		D4C2AD801E538FC6009CD55A /* STProfileFooterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STProfileFooterCell.xib; path = Profile/STProfileFooterCell.xib; sourceTree = "<group>"; };
@@ -549,6 +555,7 @@
 			isa = PBXGroup;
 			children = (
 				D4227F501E62126D00BCB8B1 /* STContactsController.swift */,
+				D4AAE34D1F49220D008CE94C /* STNewPostContactsController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -788,6 +795,8 @@
 				E50941CB1F0FD01300E08B4E /* NSMutableAttributedString.swift */,
 				D47DB51A1F3A9C340027F40E /* UINavigationController.swift */,
 				D4A62ED91F3B3D5400C9AE8C /* UITableViewCell.swift */,
+				D4BCB4631F45E86100D05872 /* Actions.swift */,
+				D4BCB4671F465DEB00D05872 /* UIAlertAction.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -1108,6 +1117,9 @@
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -1391,6 +1403,7 @@
 				E5E3A6551E9B7EA6009B1BFA /* STDialogBadge.swift in Sources */,
 				D413A20C1F117A0C0089A614 /* STFaceBookUIManager.swift in Sources */,
 				D43BED661E70570500683D5C /* STTextFieldsCell.swift in Sources */,
+				D4AAE34E1F49220D008CE94C /* STNewPostContactsController.swift in Sources */,
 				D433D1041E54F56900974AB1 /* STSettingsController.swift in Sources */,
 				D49EB19E1E45212F00B6F5DC /* STSocketRequestBuilder.swift in Sources */,
 				D431BA691F3A8CBF00207C1D /* TItem.swift in Sources */,
@@ -1403,6 +1416,7 @@
 				D49545D01E3D064700EDCF01 /* STLoginTextTableViewCell.swift in Sources */,
 				D43A75671E4E883700DB0850 /* STFeed.swift in Sources */,
 				D4B97FEE1F093E9A00875630 /* STNewPost.swift in Sources */,
+				D4BCB4681F465DEB00D05872 /* UIAlertAction.swift in Sources */,
 				E55ED8E91EA7558D00917B3E /* String.swift in Sources */,
 				D4CEC6561EB927B3001D8907 /* STIntroObject.swift in Sources */,
 				E59448891E66D8AD002B2989 /* STTabBarViewController.swift in Sources */,
@@ -1411,6 +1425,7 @@
 				D44AB4EB1E4FCC210013A972 /* GenericCollectionViewDataSource.swift in Sources */,
 				E5BE9E341E4E181E0022B157 /* STFeedDetailsTableViewController.swift in Sources */,
 				D497AB511E3BE53A006A393D /* TableViewDataSource.swift in Sources */,
+				D4BCB4641F45E86100D05872 /* Actions.swift in Sources */,
 				D43A75601E4E610700DB0850 /* STPostDetailsMapsCell.swift in Sources */,
 				E59A1B1A1E3F9388009EE669 /* STSession.swift in Sources */,
 			);

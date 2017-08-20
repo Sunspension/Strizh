@@ -43,7 +43,7 @@ extension UIViewController {
         appDelegate?.onLogout()
     }
     
-    func st_router_openPostDetails(personal: Bool = false, post: STPost, user: STUser,
+    func st_router_openPostDetails(post: STPost, user: STUser,
                                    images: [STImage]?, files: [STFile]?, locations: [STLocation]?) -> Void {
         
         let controller = storyBoard.instantiateViewController(withIdentifier: String(describing: STFeedDetailsTableViewController.self))
@@ -53,7 +53,6 @@ extension UIViewController {
         controller.images = images
         controller.files = files
         controller.locations = locations
-        controller.reason = personal ? .personalPostDetails : .feedDetails
         
         self.navigationController?.pushViewController(controller, animated: true)
     }
@@ -107,10 +106,17 @@ extension UIViewController {
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
+    func st_router_openContactsController(_ postObject: STUserPostObject) {
+        
+        self.dependencyContainer.register(.singleton) { postObject }
+        
+        let navi = STNewPostNavigationController(rootViewController: STNewPostContactsController())
+        self.present(navi, animated: true, completion: nil)
+    }
+    
     func st_router_openContactsController() {
     
-        let controller = STContactsController()
-        controller.reason = .newPost
+        let controller = STNewPostContactsController()
         self.navigationController?.pushViewController(controller, animated: true)
     }
     

@@ -43,6 +43,11 @@ extension Object {
         return Array(realm.objects(T.self))
     }
     
+    static func dbFind<T: Object>(by: T.Type) -> T? {
+        
+        return realm.objects(T.self).first
+    }
+    
     static func object<T: Object>(by: T.Type) -> T? {
         
         return realm.object(ofType: T.self, forPrimaryKey: T.primaryKey())

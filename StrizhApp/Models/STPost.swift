@@ -14,6 +14,8 @@ class STPost : Object, Mappable {
     
     dynamic var id = 0
     
+    dynamic var parentId = 0
+    
     dynamic var title = ""
     
     dynamic var postDescription = ""
@@ -92,6 +94,7 @@ class STPost : Object, Mappable {
     func mapping(map: Map) {
         
         id <- map["id"]
+        parentId <- map["parent_id"]
         title <- map["title"]
         postDescription <- map["description"]
         price <- map["price"]

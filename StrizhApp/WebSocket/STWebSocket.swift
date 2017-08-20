@@ -18,7 +18,7 @@ class STWebSocket {
     
     fileprivate var serverUrlString: String
     
-    fileprivate var requestCallbacks: [String : ([String : Any]) -> Void] = [:]
+    fileprivate var requestCallbacks: [String : ([String : Any]?, [String : Any]?) -> Void] = [:]
     
     
     init(serverUrlString: String) {
@@ -49,15 +49,16 @@ class STWebSocket {
         
         let request = STSocketRequestBuilder.loadUser(id: userId).request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let user = STUser(JSON: json) {
+            if response.1 != nil {
+                
+                p.failure(.loadUserFalure)
+            }
+            
+            if let user = STUser(JSON: response.0!) {
                 
                 p.success(user)
-            }
-            else {
-                
-//                p.failure(STError.anyError(error: <#T##Error#>))
             }
         }
         
@@ -78,9 +79,13 @@ class STWebSocket {
                                                                    email: email,
                                                                    imageId: imageId).request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let user = STUser(JSON: json) {
+            if response.1 != nil {
+                
+                p.failure(.updateUserFailure)
+            }
+            else if let user = STUser(JSON: response.0!) {
                 
                 p.success(user)
             }
@@ -97,15 +102,15 @@ class STWebSocket {
         
         let request = STSocketRequestBuilder.loadFeed(filter: filter, page: page, pageSize: pageSize, isFavorite: isFavorite, searchString: searchString).request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let feed = STFeed(JSON: json) {
-                
-                p.success(feed)
-            }
-            else {
+            if response.1 != nil {
                 
                 p.failure(.loadFeedFailure)
+            }
+            else if let feed = STFeed(JSON: response.0!) {
+                
+                p.success(feed)
             }
         }
         
@@ -118,15 +123,15 @@ class STWebSocket {
         
         let request = STSocketRequestBuilder.loadUserFeed(userId: userId, page: page, pageSize: pageSize).request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let feed = STFeed(JSON: json) {
-                
-                p.success(feed)
-            }
-            else {
+            if response.1 != nil {
                 
                 p.failure(.loadFeedByUserIdFailure)
+            }
+            else if let feed = STFeed(JSON: response.0!) {
+                
+                p.success(feed)
             }
         }
         
@@ -139,9 +144,13 @@ class STWebSocket {
         
         let request = STSocketRequestBuilder.loadPersonalPosts(minId: minId, pageSize: pageSize).request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let feed = STFeed(JSON: json) {
+            if response.1 != nil {
+                
+                p.failure(.loadFeedFailure)
+            }
+            else if let feed = STFeed(JSON: response.0!) {
                 
                 p.success(feed)
             }
@@ -156,15 +165,15 @@ class STWebSocket {
         
         let request = STSocketRequestBuilder.favorite(postId: postId, favorite: favorite).request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let post = STPost(JSON: json) {
-                
-                p.success(post)
-            }
-            else {
+            if response.1 != nil {
                 
                 p.failure(.favoriteFailure)
+            }
+            else if let post = STPost(JSON: response.0!) {
+                
+                p.success(post)
             }
         }
         
@@ -177,15 +186,15 @@ class STWebSocket {
         
         let request = STSocketRequestBuilder.archivePost(postId: postId, isArchived: isArchived).request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let post = STPost(JSON: json) {
-                
-                p.success(post)
-            }
-            else {
+            if response.1 != nil {
                 
                 p.failure(.archiveFailure)
+            }
+            else if let post = STPost(JSON: response.0!) {
+                
+                p.success(post)
             }
         }
         
@@ -198,15 +207,15 @@ class STWebSocket {
         
         let request = STSocketRequestBuilder.deletePost(postId: postId).request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let post = STPost(JSON: json) {
+            if response.1 != nil {
+                
+                p.failure(.deletePostFailure)
+            }
+            else if let post = STPost(JSON: response.0!) {
                 
                 p.success(post)
-            }
-            else {
-                
-                p.failure(.archiveFailure)
             }
         }
         
@@ -219,16 +228,17 @@ class STWebSocket {
         
         let request = STSocketRequestBuilder.loadContacts.request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let contacts = json["contact"] as? [[String : Any]] {
+            if response.1 != nil {
+                
+                p.failure(.uploadContactsFailure)
+            }
+            
+            if let contacts = response.0!["contact"] as? [[String : Any]] {
                 
                 let remoteContacts = Mapper<STContact>().mapArray(JSONArray: contacts)
                 p.success(remoteContacts)
-            }
-            else {
-                
-                p.failure(.loadContactsFailure)
             }
         }
         
@@ -241,16 +251,16 @@ class STWebSocket {
         
         let request = STSocketRequestBuilder.uploadContacts(contacts: contacts).request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let contacts = json["contact"] as? [[String : Any]] {
+            if response.1 != nil {
+                
+                p.failure(.loadContactsFailure)
+            }
+            else if let contacts = response.0!["contact"] as? [[String : Any]] {
                 
                 let remoteContacts = Mapper<STContact>().mapArray(JSONArray: contacts)
                 p.success(remoteContacts)
-            }
-            else {
-                
-                p.failure(.loadContactsFailure)
             }
         }
         
@@ -263,15 +273,15 @@ class STWebSocket {
         
         let request = STSocketRequestBuilder.createPost(post: post, update: false).request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let post = STPost(JSON: json) {
+            if response.1 != nil {
+                
+                p.failure(.createPostError)
+            }
+            else if let post = STPost(JSON: response.0!) {
                 
                 p.success(post)
-            }
-            else {
-                
-                p.failure(.favoriteFailure)
             }
         }
         
@@ -284,15 +294,15 @@ class STWebSocket {
         
         let request = STSocketRequestBuilder.createPost(post: post, update: true).request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let post = STPost(JSON: json) {
+            if response.1 != nil {
+                
+                p.failure(.updatePostError)
+            }
+            else if let post = STPost(JSON: response.0!) {
                 
                 p.success(post)
-            }
-            else {
-                
-                p.failure(.favoriteFailure)
             }
         }
         
@@ -306,15 +316,15 @@ class STWebSocket {
         let request = STSocketRequestBuilder.loadDialogs(page: page, pageSize: pageSize, postId: postId,
                                                          userIdAndIsIncoming: userIdAndIsIncoming, searchString: searchString).request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let post = STDialogsPage(JSON: json) {
-                
-                p.success(post)
-            }
-            else {
+            if response.1 != nil {
                 
                 p.failure(.loadDialogsError)
+            }
+            else if let post = STDialogsPage(JSON: response.0!) {
+                
+                p.success(post)
             }
         }
         
@@ -327,15 +337,15 @@ class STWebSocket {
         
         let request = STSocketRequestBuilder.loadDialog(dialogId: id).request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let dialog = STDialog(JSON: json) {
-                
-                p.success(dialog)
-            }
-            else {
+            if response.1 != nil {
                 
                 p.failure(.loadDialogsError)
+            }
+            else if let dialog = STDialog(JSON: response.0!) {
+                
+                p.success(dialog)
             }
         }
         
@@ -348,15 +358,15 @@ class STWebSocket {
         
         let request = STSocketRequestBuilder.loadPost(postId: id).request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let post = STPost(JSON: json) {
+            if response.1 != nil {
+                
+                p.failure(.loadPostError)
+            }
+            else if let post = STPost(JSON: response.0!) {
                 
                 p.success(post)
-            }
-            else {
-                
-                p.failure(.loadDialogsError)
             }
         }
         
@@ -369,15 +379,15 @@ class STWebSocket {
         
         let request = STSocketRequestBuilder.loadDialogWithLastMessage(dialogId: dialogId).request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let dialog = STDialog(JSON: json) {
-                
-                p.success(dialog)
-            }
-            else {
+            if response.1 != nil {
                 
                 p.failure(.loadDialogError)
+            }
+            else if let dialog = STDialog(JSON: response.0!) {
+                
+                p.success(dialog)
             }
         }
         
@@ -390,16 +400,16 @@ class STWebSocket {
         
         let request = STSocketRequestBuilder.loadDialogMessages(dialogId: dialogId, pageSize: pageSize, lastId: lastId).request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let messagePath = json["message"] as? [[String : Any]] {
+            if response.1 != nil {
+                
+                p.failure(.loadMessagesError)
+            }
+            else if let messagePath = response.0!["message"] as? [[String : Any]] {
                 
                 let messages = Mapper<STMessage>().mapArray(JSONArray: messagePath)
                 p.success(messages)
-            }
-            else {
-                
-                p.failure(.loadMessagesError)
             }
         }
         
@@ -412,15 +422,15 @@ class STWebSocket {
         
         let request = STSocketRequestBuilder.sendMessage(dialogId: dialogId, message: message).request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let message = STMessage(JSON: json) {
-                
-                p.success(message)
-            }
-            else {
+            if response.1 != nil {
                 
                 p.failure(.sendMessageError)
+            }
+            else if let message = STMessage(JSON: response.0!) {
+                
+                p.success(message)
             }
         }
         
@@ -433,15 +443,15 @@ class STWebSocket {
         
         let request = STSocketRequestBuilder.notifyMessagesRead(dialogId: dialogId, lastMessageId: lastMessageId).request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let message = STDialog(JSON: json) {
-                
-                p.success(message)
-            }
-            else {
+            if response.1 != nil {
                 
                 p.failure(.notifyMessagesReadError)
+            }
+            else if let message = STDialog(JSON: response.0!) {
+                
+                p.success(message)
             }
         }
         
@@ -454,15 +464,15 @@ class STWebSocket {
         
         let request = STSocketRequestBuilder.createDialog(objectId: objectId, objectType: objectType).request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let dialog = STDialog(JSON: json) {
-                
-                p.success(dialog)
-            }
-            else {
+            if response.1 != nil {
                 
                 p.failure(.createDialogError)
+            }
+            else if let dialog = STDialog(JSON: response.0!) {
+                
+                p.success(dialog)
             }
         }
         
@@ -475,15 +485,15 @@ class STWebSocket {
         
         let request = STSocketRequestBuilder.loadMessage(messageId: id).request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let message = STMessage(JSON: json) {
-                
-                p.success(message)
-            }
-            else {
+            if response.1 != nil {
                 
                 p.failure(.loadMessageError)
+            }
+            else if let message = STMessage(JSON: response.0!) {
+                
+                p.success(message)
             }
         }
         
@@ -496,15 +506,15 @@ class STWebSocket {
         
         let request = STSocketRequestBuilder.updateUserNotificationSettings(settings: settings, userId: userId).request
         
-        self.sendRequest(request: request) { json in
+        self.sendRequest(request: request) { response in
             
-            if let user = STUser(JSON: json) {
-                
-                p.success(user)
-            }
-            else {
+            if response.1 != nil {
                 
                 p.failure(STError.updateNotificationSettingsError)
+            }
+            else if let user = STUser(JSON: response.0!) {
+                
+                p.success(user)
             }
         }
         
@@ -535,7 +545,7 @@ class STWebSocket {
     
     // MARK: Private methods
     fileprivate func sendRequest(request: STSocketRequest,
-                                 callback: @escaping (_ json: [String : Any]) -> Void) {
+                                 callback: @escaping (_ json: [String : Any]?, _ error: [String : Any]?) -> Void) {
         
         self.socketConnect { [weak self] in
             
@@ -606,22 +616,21 @@ class STWebSocket {
                 return
             }
             
-            debugPrint(json)
-            
             if let requestId = json["request_id"] as? String {
                 
-                if let data = json["data"] as? [String : Any] {
+                if let callback = self.requestCallbacks[requestId] {
                     
-                    if let callback = self.requestCallbacks.first(where: { $0.key == requestId }) {
+                    self.requestCallbacks.removeValue(forKey: requestId)
+                    
+                    if let data = json["data"] as? [String : Any] {
                         
-                        callback.value(data)
-                        self.requestCallbacks.removeValue(forKey: callback.key)
+                        callback(data, nil)
                     }
-                }
-                else {
-                    
-                    // TODO error handler
-                    debugPrint(json)
+                    else {
+                        
+                        callback(nil, json)
+//                        debugPrint(json)
+                    }
                 }
             }
         }

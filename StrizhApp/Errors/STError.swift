@@ -16,15 +16,25 @@ enum STError: Error {
     
     case loadContactsFailure
     
+    case uploadContactsFailure
+    
     case loadFeedFailure
+    
+    case updateUserFailure
+    
+    case loadUserFalure
     
     case loadFeedByUserIdFailure
     
     case createPostError
     
+    case updatePostError
+    
     case loadDialogsError
     
     case loadPostError
+    
+    case deletePostFailure
     
     case loadDialogError
     
@@ -55,6 +65,18 @@ enum STError: Error {
             
             return "Error has occurred when was trying to add to favorite or remove from favorite"
             
+        case .loadUserFalure:
+            
+            return "Error has occurred when was trying to load user"
+            
+        case .updateUserFailure:
+            
+            return "Error has occurred when was trying to update user information"
+            
+        case .uploadContactsFailure:
+            
+            return "Error has occurred when was trying to upload contacts"
+            
         case .loadContactsFailure:
             
             return "Error has occurred when was trying to load contacts"
@@ -67,13 +89,21 @@ enum STError: Error {
             
             return "Error has occurred when was trying to load feed by user id"
             
+        case .deletePostFailure:
+            
+            return "Error has occurred when was trying to delete post"
+            
         case .archiveFailure:
             
-            return "Error has occurred when was trying to archive a post"
+            return "Error has occurred when was trying to archive post"
             
         case .createPostError:
             
-            return "Error has occurred when was trying to create a post"
+            return "Error has occurred when was trying to create post"
+            
+        case .updatePostError:
+            
+            return "Error has occurred when was trying to update post"
             
         case .loadDialogsError:
             
@@ -81,11 +111,11 @@ enum STError: Error {
             
         case .loadDialogError:
             
-            return "Error has occurred when was trying to load a dialog"
+            return "Error has occurred when was trying to load dialog"
             
         case .loadPostError:
             
-            return "Error has occurred when was trying to load a post"
+            return "Error has occurred when was trying to load post"
             
         case .loadMessagesError:
             

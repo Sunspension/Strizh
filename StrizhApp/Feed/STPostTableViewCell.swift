@@ -57,10 +57,6 @@ class STPostTableViewCell: UITableViewCell {
         
         container.layer.cornerRadius = 5
         container.layer.masksToBounds = true
-        container.layer.shouldRasterize = true
-        container.layer.rasterizationScale = UIScreen.main.scale
-        container.layer.contentsScale = UIScreen.main.scale
-        
         separator.layer.shouldRasterize = true
         
         header.layer.shouldRasterize = true
@@ -71,6 +67,7 @@ class STPostTableViewCell: UITableViewCell {
         
         iconFavorite.setImage(UIImage(named: "icon-star"), for: .normal)
         iconFavorite.setImage(UIImage(named: "icon-star-selected"), for: .selected)
+        iconFavorite.tintColor = UIColor.lightGray
         
         postType.setImage(UIImage(named: "ic-offer"), for: .normal)
         postType.setImage(UIImage(named: "ic-search"), for: .selected)

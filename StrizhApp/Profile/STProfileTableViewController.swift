@@ -23,7 +23,7 @@ class STProfileTableViewController: UITableViewController {
     
     fileprivate var user: STUser {
         
-        return STUser.objects(by: STUser.self).first!
+        return STUser.dbFind(by: STUser.self)!
     }
     
     fileprivate var status = STLoadingStatusEnum.idle
@@ -120,21 +120,14 @@ class STProfileTableViewController: UITableViewController {
             self.analytics.logEvent(eventName: st_ePostDetails,
                                     params: ["post_id" : post.id, "from=" : st_eMyProfile])
             
-            self.st_router_openPostDetails(personal: true, post: post, user: self.user, images: images,
+            self.st_router_openPostDetails(post: post, user: self.user, images: images,
                                            files: files, locations: locations)
         }
         
         self.createHeader()
         self.loadFeed()
         
-        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kUserUpdatedNotification), object: nil)
-            .observeNext { [unowned self] notification in
-                
-                self.tableView.reloadSections(IndexSet(integer: 0), with: .none)
-            }
-            .dispose(in: disposeBag)
-        
-        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostDeleteFromDetailsNotification), object: nil)
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostDeleteNotification), object: nil)
             .observeNext { [unowned self] notification in
                 
                 let post = notification.object as! STPost
@@ -152,7 +145,16 @@ class STProfileTableViewController: UITableViewController {
                     self.minId = 0
                 }
                 
-                self.tableView.reloadSections(IndexSet(integer: 1) , with: .none)
+                self.tableView.reloadSections(IndexSet(integer: 1) , with: .automatic)
+                self.showDummyViewIfNeeded()
+            }
+            .dispose(in: disposeBag)
+
+        
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kUserUpdatedNotification), object: nil)
+            .observeNext { [unowned self] notification in
+                
+                self.tableView.reloadSections(IndexSet(integer: 0), with: .none)
             }
             .dispose(in: disposeBag)
         
@@ -368,10 +370,7 @@ class STProfileTableViewController: UITableViewController {
                 
                 if let refresh = self.refreshControl, refresh.isRefreshing {
                     
-                    DispatchQueue.main.async {
-                        
-                        refresh.endRefreshing()
-                    }
+                    refresh.endRefreshing()
                 }
                 
                 self.hasMore = feed.posts.count == self.pageSize

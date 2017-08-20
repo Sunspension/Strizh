@@ -70,6 +70,7 @@ class STUserPostCell: UITableViewCell {
         
         iconFavorite.setImage(UIImage(named: "icon-star"), for: .normal)
         iconFavorite.setImage(UIImage(named: "icon-star-selected"), for: .selected)
+        iconFavorite.tintColor = UIColor.lightGray
         
         postType.setImage(UIImage(named: "ic-offer"), for: .normal)
         postType.setImage(UIImage(named: "ic-search"), for: .selected)

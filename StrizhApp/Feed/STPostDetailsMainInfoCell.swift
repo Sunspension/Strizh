@@ -19,37 +19,42 @@ class STPostDetailsMainInfoCell: UITableViewCell {
     
     @IBOutlet weak var postType: UIButton!
     
-    @IBOutlet weak var favorite: UIButton!
-    
     @IBOutlet weak var postTitle: UILabel!
     
     var disposeBag = DisposeBag()
     
-
-    deinit {
+    var isSearch: Bool {
         
-        disposeBag.dispose()
+        get {
+            
+            return postType.isSelected
+        }
+        
+        set {
+            
+            postType.isSelected = newValue
+            postType.layer.backgroundColor = newValue == true ?
+                UIColor.stIris.cgColor : UIColor.stDarkMint.cgColor
+        }
     }
     
     override func prepareForReuse() {
         
-        disposeBag.dispose()
+        disposeBag = DisposeBag()
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        favorite.setImage(UIImage(named: "icon-star"), for: .normal)
-        favorite.setImage(UIImage(named: "icon-star-selected"), for: .selected)
-        
         postType.setImage(UIImage(named: "icon-offer"), for: .normal)
         postType.setImage(UIImage(named: "icon-search"), for: .selected)
+        
+        postType.setTitle("post_page_button_offer_title".localized, for: .normal)
+        postType.setTitle("post_page_button_search_title".localized, for: .selected)
+        
+        postType.layer.backgroundColor = UIColor.stDarkMint.cgColor
+        postType.layer.cornerRadius = 5
+        postType.layer.masksToBounds = true
+        postType.imageView?.contentMode = .scaleAspectFit
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
 }

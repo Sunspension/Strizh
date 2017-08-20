@@ -12,10 +12,18 @@ class STUserPostObject {
     
     enum PostObjectType {
         
-        case new, old
+        case new, edit, resend
     }
     
     var id = 0
+    
+    var parentId: Int? {
+        
+        willSet {
+            
+            self.objectType = .resend
+        }
+    }
     
     var type = 0
     
@@ -41,9 +49,15 @@ class STUserPostObject {
     
     var images: Set<STImage>?
     
+    var locations: Set<STLocation>?
+    
+    var files: Set<STFile>?
+    
     var objectType = PostObjectType.new
     
     var isPublic = false
+    
+    var post: STPost?
     
     
     init() { }
@@ -63,7 +77,8 @@ class STUserPostObject {
         self.imageIds = post.imageIds.map({ $0.value })
         self.locationIds = post.locationIds.map({ $0.value })
         self.userIds = post.userIds.map({ $0.value })
-        self.objectType = .old
+        self.objectType = .edit
+        self.post = post
         self.isPublic = post.isPublic
     }
 }

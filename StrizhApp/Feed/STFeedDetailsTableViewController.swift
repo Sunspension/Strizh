@@ -9,7 +9,12 @@
 import UIKit
 import AlamofireImage
 import GoogleMaps
+import ReactiveKit
 
+enum STPostDetailsReasonEnum {
+    
+    case usual, fromChat
+}
 
 class STFeedDetailsTableViewController: UIViewController {
     
@@ -17,12 +22,6 @@ class STFeedDetailsTableViewController: UIViewController {
         
         case file, image, location
     }
-    
-    enum STPostDetailsReasonEnum {
-        
-        case feedDetails, personalPostDetails, fromChat
-    }
-    
     
     fileprivate let dataSource = TableViewDataSource()
     
@@ -36,16 +35,17 @@ class STFeedDetailsTableViewController: UIViewController {
     
     fileprivate var myUser: STUser {
         
-        return STUser.objects(by: STUser.self).first!
+        return STUser.dbFind(by: STUser.self)!
     }
     
-    var reason = STPostDetailsReasonEnum.feedDetails
+    fileprivate var isPersonal: Bool {
+        
+        return self.post?.userId == myUser.id
+    }
     
+    fileprivate let disposeBag = DisposeBag()
     
-    @IBOutlet weak var tableView: UITableView!
-    
-    @IBOutlet weak var writeMessage: UIButton!
-    
+    var reason = STPostDetailsReasonEnum.usual
     
     var postId: Int?
     
@@ -59,10 +59,14 @@ class STFeedDetailsTableViewController: UIViewController {
     
     var locations: [STLocation]?
     
+    @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var writeMessage: UIButton!
+    
     
     deinit {
-        
-        print("deinit \(String(describing: self))")
+
+        debugPrint("deinit \(String(describing: self))")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -101,18 +105,18 @@ class STFeedDetailsTableViewController: UIViewController {
         self.title = "feed_details_page_title".localized
         
         self.setCustomBackButton()
-        self.setupDataSource()
         
-        if self.reason == .personalPostDetails {
-            
-            let moreButton = UIBarButtonItem(image: UIImage(named: "icon-more"),
-                                             style: .plain,
-                                             target: self,
-                                             action: #selector(self.contextActions))
-            
-            moreButton.tintColor = UIColor.stGreyblue
-            self.navigationItem.rightBarButtonItem = moreButton
-        }
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kPostDeleteNotification), object: nil)
+            .observeNext { [unowned self] notification in
+                
+                let post = notification.object as! STPost
+                
+                if self.post == post {
+                    
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+            .dispose(in: disposeBag)
         
         if reason == .fromChat {
             
@@ -131,10 +135,10 @@ class STFeedDetailsTableViewController: UIViewController {
                         self?.files = Array(post.files)
                         self?.locations = Array(post.locations)
                         
+                        self?.setupNavigationItems()
                         self?.setupWriteAction()
+                        self?.setupDataSource()
                         self?.createDataSource()
-                        self?.tableView.tableFooterView = UIView()
-                        
                         self?.tableView.reloadData()
                     })
                     .onFailure(callback: { (error) in
@@ -146,9 +150,10 @@ class STFeedDetailsTableViewController: UIViewController {
             return
         }
         
+        self.setupNavigationItems()
         self.setupWriteAction()
+        self.setupDataSource()
         self.createDataSource()
-        self.tableView.tableFooterView = UIView()
     }
     
     func close() {
@@ -180,6 +185,97 @@ class STFeedDetailsTableViewController: UIViewController {
         self.st_router_openChatController(post: post)
     }
     
+    fileprivate func setupNavigationItems() {
+        
+        guard let post = self.post else { return }
+        
+        var rightItems = [UIBarButtonItem]()
+        
+        if isPersonal {
+            
+            let more = UIButton(type: .custom)
+            more.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+            more.setImage(UIImage(named: "icon-more"), for: .normal)
+            
+            more.reactive.tap.observeNext {
+                
+                let postObject = STUserPostObject(post: post)
+                
+                if let images = self.images {
+                    
+                    postObject.images = Set(images)
+                }
+                
+                if let locations = self.locations {
+                    
+                    postObject.locations = Set(locations)
+                }
+                
+                if let files = self.files {
+                    
+                    postObject.files = Set(files)
+                }
+                
+                self.st_action_showMoreActionSheet(postObject: postObject)
+            }
+            .dispose(in: self.disposeBag)
+            
+            rightItems.append(UIBarButtonItem(customView: more))
+        }
+        else {
+            
+            if !post.isPublic {
+                
+                let repost = UIButton(type: .custom)
+                repost.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+                repost.setImage(UIImage(named: "icon-repost"), for: .normal)
+                
+                repost.reactive.tap.observeNext {
+                    
+                    guard let post = self.post else {
+                        
+                        return
+                    }
+                    
+                    let postObject = STUserPostObject(post: post)
+                    
+                    if let images = self.images {
+                        
+                        postObject.images = Set(images)
+                    }
+                    
+                    self.st_action_repostActionSheet(postObject: postObject)
+                }
+                .dispose(in: self.disposeBag)
+                
+                rightItems.append(UIBarButtonItem(customView: repost))
+            }
+        }
+        
+        let favorite = UIButton(type: .custom)
+        favorite.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+        favorite.setImage(UIImage(named: "icon-star"), for: .normal)
+        favorite.setImage(UIImage(named: "icon-star-selected"), for: .selected)
+        
+        favorite.isSelected = post.isFavorite
+        favorite.reactive.tap.observeNext {
+            
+            favorite.isSelected = !favorite.isSelected
+            AppDelegate.appSettings.api.favorite(postId: post.id, favorite: favorite.isSelected)
+                .onSuccess(callback: { postResponse in
+                    
+                    post.isFavorite = postResponse.isFavorite
+                    
+                    NotificationCenter.default.post(name: NSNotification.Name(kItemFavoriteNotification), object: postResponse)
+                })
+            }
+            .dispose(in: self.disposeBag)
+        
+        rightItems.append(UIBarButtonItem(customView: favorite))
+        
+        self.navigationItem.rightBarButtonItems = rightItems
+    }
+    
     fileprivate func createDataSource() {
         
         guard let post = self.post else {
@@ -187,103 +283,48 @@ class STFeedDetailsTableViewController: UIViewController {
             return
         }
         
-        if self.reason == .feedDetails {
-            
-            self.tableSection.add(item: self.post,
-                                  cellClass: STPostDetailsMainInfoCell.self) { [unowned self] (cell, item) in
+        self.tableSection.add(item: post,
+                              cellClass: STPostDetailsMainInfoCell.self) { [unowned self] (cell, item) in
+                                
+                                cell.selectionStyle = .none
+                                
+                                let viewCell = cell as! STPostDetailsMainInfoCell
+                                
+                                viewCell.postTitle.text = post.title
+                                viewCell.isSearch = post.type == 2
+                                viewCell.postTime.text = post.createdAt?.elapsedInterval()
+                                
+                                if let user = self.user {
                                     
-                                    cell.selectionStyle = .none
+                                    viewCell.userName.text = user.lastName + " " + user.firstName
                                     
-                                    let viewCell = cell as! STPostDetailsMainInfoCell
-                                    
-                                    viewCell.postTitle.text = post.title
-                                    viewCell.favorite.isSelected = post.isFavorite
-                                    viewCell.postType.isSelected = post.type == 2 ? true : false
-                                    viewCell.postTime.text = post.createdAt?.elapsedInterval()
-                                    
-                                    viewCell.favorite.reactive.tap.observe {_ in
+                                    if user.id == self.myUser.id && self.myUser.imageData != nil {
                                         
-                                        let favorite = !viewCell.favorite.isSelected
-                                        viewCell.favorite.isSelected = favorite
-                                        
-                                        AppDelegate.appSettings.api.favorite(postId: post.id, favorite: favorite)
-                                            .onSuccess(callback: { postResponse in
-                                                
-                                                post.isFavorite = postResponse.isFavorite
-                                                
-                                                NotificationCenter.default.post(name: NSNotification.Name(kItemFavoriteNotification), object: postResponse)
-                                            })
-                                        
-                                        }.dispose(in: viewCell.bag)
-                                    
-                                    if let user = self.user {
-                                        
-                                        viewCell.userName.text = user.lastName + " " + user.firstName
-                                        
-                                        if user.id == self.myUser.id && self.myUser.imageData != nil {
+                                        if let image = UIImage(data: self.myUser.imageData!) {
                                             
-                                            if let image = UIImage(data: self.myUser.imageData!) {
-                                                
-                                                let userIcon = image.af_imageAspectScaled(toFill: viewCell.userIcon.bounds.size)
-                                                viewCell.userIcon.image = userIcon.af_imageRoundedIntoCircle()
-                                            }
+                                            let userIcon = image.af_imageAspectScaled(toFill: viewCell.userIcon.bounds.size)
+                                            viewCell.userIcon.image = userIcon.af_imageRoundedIntoCircle()
                                         }
-                                        else {
-                                            
-                                            guard !user.imageUrl.isEmpty else {
-                                                
-                                                var defaultImage = UIImage(named: "avatar")
-                                                defaultImage = defaultImage?.af_imageAspectScaled(toFill: viewCell.userIcon.bounds.size)
-                                                viewCell.userIcon.image = defaultImage?.af_imageRoundedIntoCircle()
-                                                
-                                                return
-                                            }
-                                            
-                                            let urlString = user.imageUrl + viewCell.userIcon.queryResizeString()
-                                            
-                                            let filter = RoundedCornersFilter(radius: viewCell.userIcon.bounds.size.width)
-                                            viewCell.userIcon.af_setImage(withURL: URL(string: urlString)!,
-                                                                          filter: filter,
-                                                                          completion: nil)
-                                        }
-                                    }
-            }
-        }
-        else {
-            
-            self.tableSection.add(item: self.post,
-                                  cellClass: STPersonalPostDetailsMainInfoCell.self) { (cell, item) in
-                                    
-                                    cell.selectionStyle = .none
-                                    
-                                    let viewCell = cell as! STPersonalPostDetailsMainInfoCell
-                                    
-                                    viewCell.postTitle.text = post.title
-                                    viewCell.postType.isSelected = post.type == 2 ? true : false
-                                    viewCell.createdAt.text = post.createdAt?.mediumLocalizedFormat
-                                    
-                                    let myUserId = STUser.objects(by: STUser.self).first?.id
-                                    
-                                    if post.dialogCount == 0 || post.userId != myUserId {
-                                        
-                                        viewCell.dialogsCount.isHidden = true
-                                        viewCell.openedDialogs.isHidden = true
                                     }
                                     else {
                                         
-                                        viewCell.dialogsCount.isHidden = false
-                                        viewCell.openedDialogs.isHidden = false
-                                        viewCell.openedDialogs.text = post.dialogCount == 1
-                                            ? "profile_page_open_one_dialog_text".localized
-                                            : "profile_page_open_few_dialogs_text".localized
+                                        guard !user.imageUrl.isEmpty else {
+                                            
+                                            var defaultImage = UIImage(named: "avatar")
+                                            defaultImage = defaultImage?.af_imageAspectScaled(toFill: viewCell.userIcon.bounds.size)
+                                            viewCell.userIcon.image = defaultImage?.af_imageRoundedIntoCircle()
+                                            
+                                            return
+                                        }
                                         
-                                        let ending = post.dialogCount.ending(yabloko: "profile_page_one_dialog_text".localized,
-                                                                             yabloka: "profile_page_few_dialogs_text".localized,
-                                                                             yablok: "profile_page_many_dialogs_text".localized)
+                                        let urlString = user.imageUrl + viewCell.userIcon.queryResizeString()
                                         
-                                        viewCell.dialogsCount.text = "\(post.dialogCount)" + " " + ending
+                                        let filter = RoundedCornersFilter(radius: viewCell.userIcon.bounds.size.width)
+                                        viewCell.userIcon.af_setImage(withURL: URL(string: urlString)!,
+                                                                      filter: filter,
+                                                                      completion: nil)
                                     }
-            }
+                                }
         }
         
         if !post.profitDescription.isEmpty {
@@ -466,51 +507,6 @@ class STFeedDetailsTableViewController: UIViewController {
             
             viewCell.value.text = post.postDescription
         }
-    }
-    
-    func contextActions() {
-        
-        guard let post = self.post, post.deleted == false else {
-            
-            return
-        }
-        
-        let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-        let cancel = UIAlertAction(title: "action_cancel".localized, style: .cancel, handler: nil)
-        
-        let actionEdit = UIAlertAction(title: "action_edit".localized, style: .default, handler: { action in
-            
-            // open edit controller
-            let postObject = STUserPostObject(post: post)
-            
-            if let images = self.images {
-                
-                postObject.images = Set(images)
-            }
-            
-            self.st_router_openPostController(postObject: postObject)
-        })
-        
-        actionController.addAction(actionEdit)
-        
-        let actionDelete = UIAlertAction(title: "action_delete".localized, style: .default, handler: { action in
-            
-            self.api.deletePost(postId: post.id)
-                .onSuccess(callback: { _ in
-                    
-                    NotificationCenter.default.post(name: NSNotification.Name(kPostDeleteFromDetailsNotification), object: post)
-                })
-                .onFailure(callback: { error in
-                    
-                    self.showError(error: error)
-                })
-        })
-        
-        actionController.addAction(cancel)
-        actionController.addAction(actionDelete)
-        
-        self.present(actionController, animated: true, completion: nil)
     }
     
     fileprivate func setupDataSource() {
