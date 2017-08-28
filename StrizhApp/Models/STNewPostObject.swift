@@ -25,7 +25,7 @@ class STUserPostObject {
         }
     }
     
-    var type = 0
+    var type = 1
     
     var title = ""
     

@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="98"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="98"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="97.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jB3-Hh-Kuh">
@@ -39,7 +39,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Экскаватор Doosan 22551 85" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJI-my-rTx">
-                        <rect key="frame" x="20" y="58.5" width="221" height="27"/>
+                        <rect key="frame" x="20" y="58.5" width="280" height="27"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -61,6 +61,7 @@
                     <constraint firstAttribute="trailingMargin" secondItem="xS8-O5-mjC" secondAttribute="trailing" constant="12" id="5jw-S3-Zyz"/>
                     <constraint firstItem="SS5-lJ-LXs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="BWY-bo-zm5"/>
                     <constraint firstItem="UJI-my-rTx" firstAttribute="leading" secondItem="jB3-Hh-Kuh" secondAttribute="leading" id="Fmr-sC-PfP"/>
+                    <constraint firstItem="UJI-my-rTx" firstAttribute="trailing" secondItem="xS8-O5-mjC" secondAttribute="trailing" id="Jda-Cq-p3E"/>
                     <constraint firstItem="Mkd-Pe-kKp" firstAttribute="top" secondItem="SS5-lJ-LXs" secondAttribute="bottom" constant="1" id="OnB-pq-p9u"/>
                     <constraint firstItem="Mkd-Pe-kKp" firstAttribute="trailing" secondItem="SS5-lJ-LXs" secondAttribute="trailing" id="XZR-rM-khY"/>
                     <constraint firstItem="Mkd-Pe-kKp" firstAttribute="leading" secondItem="SS5-lJ-LXs" secondAttribute="leading" id="esh-in-0AL"/>

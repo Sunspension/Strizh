@@ -413,7 +413,10 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         }
         
         // get user
-        if let user = self.users.first(where: { $0.id != dialog.ownerUserId }) {
+        
+        let userId = dialog.userIds.first(where: { $0.value != myUser.id })
+        
+        if let user = self.users.first(where: { $0.id == userId?.value }) {
             
             viewCell.userName.text = user.firstName + " " + user.lastName
             

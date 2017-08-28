@@ -107,9 +107,6 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
     
     fileprivate func createDataSource() {
         
-        // set by default
-        self.postObject.type = 1
-        
         self.dataSource.onDidSelectRowAtIndexPath = { (tableView, indexPath, item) in
             
             if let cell = tableView.cellForRow(at: item.indexPath) as? STTextFieldCell {
@@ -134,9 +131,15 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             
             let viewCell = cell as! STPostButtonsCell
             
-            self.postObject.type = 1
+            if self.postObject.type == 1 {
+                
+                viewCell.offerButtonSelected(true)
+            }
+            else {
+                
+                viewCell.searchButtonSelected(true)
+            }
             
-            viewCell.offerButtonSelected(true)
             viewCell.title.text = "post_page_topic_type_text".localized
             viewCell.setType(type: self.postObject.type)
             

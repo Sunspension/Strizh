@@ -275,7 +275,10 @@ class STNewPostContactsController: STContactsController {
         
         self.postObject.userIds.append(contentsOf: self.selectedItems.array.map({ $0.contactUserId }))
         
-        self.postObject.isPublic = self.isPublic
+        if postObject.objectType != .resend {
+            
+            self.postObject.isPublic = self.isPublic
+        }
         
         self.startAnimating()
         

@@ -567,7 +567,7 @@ class STWebSocket {
         let config: SocketIOClientConfiguration = [.log(true),
                                                    .forceWebsockets(true),
                                                    .path("/api/websocket"),
-                                                   SocketIOClientOption.cookies(cookies ?? [])]
+                                                   .cookies(cookies ?? [])]
         
         self.socket = SocketIOClient(socketURL: URL(string: serverUrlString)!, config: config)
         
@@ -629,7 +629,6 @@ class STWebSocket {
                     else {
                         
                         callback(nil, json)
-//                        debugPrint(json)
                     }
                 }
             }
@@ -665,8 +664,6 @@ class STWebSocket {
         if self.socket?.status != .connected {
             
             self.socket?.connect()
-            
-            // we dont want to have this all the time, just once for delayed callback
             self.socket?.once("connect") { (data, ack) in
                 
                 callback()
