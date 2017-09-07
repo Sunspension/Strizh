@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -124,8 +124,12 @@
 		D4AD43BF1E47DB52006F13DE /* STSignUpNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AD43BE1E47DB52006F13DE /* STSignUpNavigationController.swift */; };
 		D4AD43C11E47DB7B006F13DE /* STNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AD43C01E47DB7B006F13DE /* STNavigationController.swift */; };
 		D4B97FEE1F093E9A00875630 /* STNewPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B97FED1F093E9A00875630 /* STNewPost.swift */; };
+		D4BAE3F61F60D14B0083993A /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE3F51F60D14B0083993A /* Login.swift */; };
+		D4BAE3F81F60D23E0083993A /* ContactsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE3F71F60D23E0083993A /* ContactsProvider.swift */; };
 		D4BCB4641F45E86100D05872 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BCB4631F45E86100D05872 /* Actions.swift */; };
 		D4BCB4681F465DEB00D05872 /* UIAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BCB4671F465DEB00D05872 /* UIAlertAction.swift */; };
+		D4BE59381F60D8DC00C677C2 /* AccountKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D489D9F11EB148400018BD0A /* AccountKit.framework */; };
+		D4BE59391F60D8DF00C677C2 /* AccountKitStrings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D489D9F21EB148400018BD0A /* AccountKitStrings.bundle */; };
 		D4BEB4061E9ED96500E2402E /* STDialogMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BEB4051E9ED96500E2402E /* STDialogMessage.swift */; };
 		D4C2AD7F1E538FAE009CD55A /* STProfileFooterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C2AD7E1E538FAE009CD55A /* STProfileFooterCell.swift */; };
 		D4C2AD811E538FC6009CD55A /* STProfileFooterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4C2AD801E538FC6009CD55A /* STProfileFooterCell.xib */; };
@@ -193,7 +197,6 @@
 		E59A1B1C1E3F9716009EE669 /* STUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B1B1E3F9716009EE669 /* STUser.swift */; };
 		E59B98C91E8E5BC10069F9C0 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59B98C81E8E5BC10069F9C0 /* Colors.swift */; };
 		E59B98CB1E8E5C9D0069F9C0 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59B98CA1E8E5C9D0069F9C0 /* Date.swift */; };
-		E59C15601EE172DE00F8B558 /* RemoteNotificationsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59C155F1EE172DE00F8B558 /* RemoteNotificationsHandler.swift */; };
 		E59C15631EE1762700F8B558 /* STNewMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59C15621EE1762700F8B558 /* STNewMessage.swift */; };
 		E59C15651EE54A3A00F8B558 /* STDialogFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59C15641EE54A3A00F8B558 /* STDialogFilter.swift */; };
 		E5BE9E281E4C8D690022B157 /* STFeedFilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE9E271E4C8D680022B157 /* STFeedFilterTableViewController.swift */; };
@@ -215,11 +218,23 @@
 		E5FF31271E55D3FA0013B713 /* STEditProfileHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5FF31251E55D3FA0013B713 /* STEditProfileHeaderCell.xib */; };
 		E5FF312A1E55E7DD0013B713 /* STEditProfileTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF31281E55E7DD0013B713 /* STEditProfileTextCell.swift */; };
 		E5FF312B1E55E7DD0013B713 /* STEditProfileTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5FF31291E55E7DD0013B713 /* STEditProfileTextCell.xib */; };
+		F71E85E4A2E561A9E82C0E06 /* Pods_StrizhAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC5A55F3FCAF3C81EFC31742 /* Pods_StrizhAppTests.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D4BAE3F01F60D1060083993A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D49726EF1E32BDA50076B7A1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D49726F61E32BDA50076B7A1;
+			remoteInfo = StrizhApp;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		277E51B2F6F272FF051A01F5 /* Pods_StrizhApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StrizhApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E8A8787F4373C051854C7D5 /* Pods-StrizhApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp.debug.xcconfig"; sourceTree = "<group>"; };
+		A4C394FFBB322D21170E98DE /* Pods-StrizhAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhAppTests/Pods-StrizhAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		D402C2331E7DFEE700237EB9 /* RealmInt64.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmInt64.swift; sourceTree = "<group>"; };
 		D40405801E917F8400F0A8E4 /* CollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewDataSource.swift; path = DataSource/CollectionViewDataSource.swift; sourceTree = "<group>"; };
 		D40405841E91869D00F0A8E4 /* CollectionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionSection.swift; path = DataSource/CollectionSection.swift; sourceTree = "<group>"; };
@@ -339,6 +354,10 @@
 		D4AD43BE1E47DB52006F13DE /* STSignUpNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSignUpNavigationController.swift; path = SignUp/STSignUpNavigationController.swift; sourceTree = "<group>"; };
 		D4AD43C01E47DB7B006F13DE /* STNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STNavigationController.swift; sourceTree = "<group>"; };
 		D4B97FED1F093E9A00875630 /* STNewPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STNewPost.swift; path = Models/STNewPost.swift; sourceTree = "<group>"; };
+		D4BAE3EB1F60D1060083993A /* StrizhAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StrizhAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4BAE3EF1F60D1060083993A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4BAE3F51F60D14B0083993A /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		D4BAE3F71F60D23E0083993A /* ContactsProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsProvider.swift; sourceTree = "<group>"; };
 		D4BCB4631F45E86100D05872 /* Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Actions.swift; path = Extensions/Actions.swift; sourceTree = "<group>"; };
 		D4BCB4671F465DEB00D05872 /* UIAlertAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIAlertAction.swift; path = Extensions/UIAlertAction.swift; sourceTree = "<group>"; };
 		D4BEB4051E9ED96500E2402E /* STDialogMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialogMessage.swift; path = Models/STDialogMessage.swift; sourceTree = "<group>"; };
@@ -357,6 +376,7 @@
 		D4FBE4AD1EE2DCA600C473A3 /* STFilterItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFilterItem.swift; path = Models/STFilterItem.swift; sourceTree = "<group>"; };
 		D4FFDFA91E8705590090BE5A /* STDialogsPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialogsPage.swift; path = Models/STDialogsPage.swift; sourceTree = "<group>"; };
 		D4FFDFAB1E8706580090BE5A /* STMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STMessage.swift; path = Models/STMessage.swift; sourceTree = "<group>"; };
+		D60122E50B434066F7A9971D /* Pods-StrizhAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhAppTests/Pods-StrizhAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E50941C31F0FBCF300E08B4E /* UITapGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITapGestureRecognizer.swift; path = Extensions/UITapGestureRecognizer.swift; sourceTree = "<group>"; };
 		E50941C51F0FBFA600E08B4E /* ClickableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClickableLabel.swift; path = CustomControls/ClickableLabel.swift; sourceTree = "<group>"; };
 		E50941C71F0FC57D00E08B4E /* STClickableLabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STClickableLabelCell.swift; path = SignUp/STClickableLabelCell.swift; sourceTree = "<group>"; };
@@ -410,7 +430,6 @@
 		E59A1B1B1E3F9716009EE669 /* STUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STUser.swift; path = Models/STUser.swift; sourceTree = "<group>"; };
 		E59B98C81E8E5BC10069F9C0 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Colors.swift; path = Extensions/Colors.swift; sourceTree = "<group>"; };
 		E59B98CA1E8E5C9D0069F9C0 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Date.swift; path = Extensions/Date.swift; sourceTree = "<group>"; };
-		E59C155F1EE172DE00F8B558 /* RemoteNotificationsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RemoteNotificationsHandler.swift; path = RemoteNotifications/RemoteNotificationsHandler.swift; sourceTree = "<group>"; };
 		E59C15621EE1762700F8B558 /* STNewMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STNewMessage.swift; path = Models/STNewMessage.swift; sourceTree = "<group>"; };
 		E59C15641EE54A3A00F8B558 /* STDialogFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STDialogFilter.swift; path = Dialogs/STDialogFilter.swift; sourceTree = "<group>"; };
 		E5BE9E271E4C8D680022B157 /* STFeedFilterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFeedFilterTableViewController.swift; path = Feed/STFeedFilterTableViewController.swift; sourceTree = "<group>"; };
@@ -434,6 +453,7 @@
 		E5FF31281E55E7DD0013B713 /* STEditProfileTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STEditProfileTextCell.swift; path = Profile/STEditProfileTextCell.swift; sourceTree = "<group>"; };
 		E5FF31291E55E7DD0013B713 /* STEditProfileTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STEditProfileTextCell.xib; path = Profile/STEditProfileTextCell.xib; sourceTree = "<group>"; };
 		F00E8042FB9C8BEBFEB8BA5E /* Pods-StrizhApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp.release.xcconfig"; sourceTree = "<group>"; };
+		FC5A55F3FCAF3C81EFC31742 /* Pods_StrizhAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StrizhAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -446,6 +466,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D4BAE3E81F60D1060083993A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F71E85E4A2E561A9E82C0E06 /* Pods_StrizhAppTests.framework in Frameworks */,
+				D4BE59381F60D8DC00C677C2 /* AccountKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -453,6 +482,7 @@
 			isa = PBXGroup;
 			children = (
 				277E51B2F6F272FF051A01F5 /* Pods_StrizhApp.framework */,
+				FC5A55F3FCAF3C81EFC31742 /* Pods_StrizhAppTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -680,6 +710,7 @@
 			isa = PBXGroup;
 			children = (
 				D49726F91E32BDA50076B7A1 /* StrizhApp */,
+				D4BAE3EC1F60D1060083993A /* StrizhAppTests */,
 				D49726F81E32BDA50076B7A1 /* Products */,
 				FDD52C1D4865C815C5FA8996 /* Pods */,
 				8076508875A9EAA67D0F34E2 /* Frameworks */,
@@ -690,6 +721,7 @@
 			isa = PBXGroup;
 			children = (
 				D49726F71E32BDA50076B7A1 /* StrizhApp.app */,
+				D4BAE3EB1F60D1060083993A /* StrizhAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -699,7 +731,6 @@
 			children = (
 				D466F47F1F3D33F100971722 /* CustomViews */,
 				D431BA5E1F3A79BD00207C1D /* Base */,
-				E59C155E1EE1719A00F8B558 /* RemoteNotifications */,
 				D460E0C31EB288420040E856 /* Analytics */,
 				D489D9F01EB1481A0018BD0A /* FBSDK */,
 				D449A85E1EA2879E008B9603 /* PhotoViewer */,
@@ -861,6 +892,16 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		D4BAE3EC1F60D1060083993A /* StrizhAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				D4BAE3F51F60D14B0083993A /* Login.swift */,
+				D4BAE3F71F60D23E0083993A /* ContactsProvider.swift */,
+				D4BAE3EF1F60D1060083993A /* Info.plist */,
+			);
+			path = StrizhAppTests;
+			sourceTree = "<group>";
+		};
 		D4FBE4AC1EE2DC8500C473A3 /* Filter */ = {
 			isa = PBXGroup;
 			children = (
@@ -1009,14 +1050,6 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-		E59C155E1EE1719A00F8B558 /* RemoteNotifications */ = {
-			isa = PBXGroup;
-			children = (
-				E59C155F1EE172DE00F8B558 /* RemoteNotificationsHandler.swift */,
-			);
-			name = RemoteNotifications;
-			sourceTree = "<group>";
-		};
 		E59C15611EE175EC00F8B558 /* Push */ = {
 			isa = PBXGroup;
 			children = (
@@ -1073,6 +1106,8 @@
 			children = (
 				3E8A8787F4373C051854C7D5 /* Pods-StrizhApp.debug.xcconfig */,
 				F00E8042FB9C8BEBFEB8BA5E /* Pods-StrizhApp.release.xcconfig */,
+				D60122E50B434066F7A9971D /* Pods-StrizhAppTests.debug.xcconfig */,
+				A4C394FFBB322D21170E98DE /* Pods-StrizhAppTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1101,13 +1136,35 @@
 			productReference = D49726F71E32BDA50076B7A1 /* StrizhApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D4BAE3EA1F60D1060083993A /* StrizhAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4BAE3F41F60D1060083993A /* Build configuration list for PBXNativeTarget "StrizhAppTests" */;
+			buildPhases = (
+				472A7AB57AED478A1D2635C6 /* [CP] Check Pods Manifest.lock */,
+				D4BAE3E71F60D1060083993A /* Sources */,
+				D4BAE3E81F60D1060083993A /* Frameworks */,
+				D4BAE3E91F60D1060083993A /* Resources */,
+				1A53077C47680F639D0F32A3 /* [CP] Embed Pods Frameworks */,
+				46023C118591DBA0F14BF93F /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D4BAE3F11F60D1060083993A /* PBXTargetDependency */,
+			);
+			name = StrizhAppTests;
+			productName = StrizhAppTests;
+			productReference = D4BAE3EB1F60D1060083993A /* StrizhAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		D49726EF1E32BDA50076B7A1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0820;
+				CLASSPREFIX = ST;
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Vladimir Kokhanevich";
 				TargetAttributes = {
@@ -1125,10 +1182,16 @@
 							};
 						};
 					};
+					D4BAE3EA1F60D1060083993A = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 5KSEC35F26;
+						ProvisioningStyle = Automatic;
+						TestTargetID = D49726F61E32BDA50076B7A1;
+					};
 				};
 			};
 			buildConfigurationList = D49726F21E32BDA50076B7A1 /* Build configuration list for PBXProject "StrizhApp" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1142,6 +1205,7 @@
 			projectRoot = "";
 			targets = (
 				D49726F61E32BDA50076B7A1 /* StrizhApp */,
+				D4BAE3EA1F60D1060083993A /* StrizhAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1194,6 +1258,14 @@
 				D43BED711E70A72D00683D5C /* Main.storyboard in Resources */,
 				E53F37BE1E3A632C00393BAD /* STLoginLogoTableViewCell.xib in Resources */,
 				E50941CA1F0FC57D00E08B4E /* STClickableLabelCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4BAE3E91F60D1060083993A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4BE59391F60D8DF00C677C2 /* AccountKitStrings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1262,6 +1334,102 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		1A53077C47680F639D0F32A3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-StrizhAppTests/Pods-StrizhAppTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/Bond/Bond.framework",
+				"${BUILT_PRODUCTS_DIR}/BrightFutures/BrightFutures.framework",
+				"${BUILT_PRODUCTS_DIR}/DKImagePickerController/DKImagePickerController.framework",
+				"${BUILT_PRODUCTS_DIR}/Diff/Diff.framework",
+				"${BUILT_PRODUCTS_DIR}/Dip/Dip.framework",
+				"${BUILT_PRODUCTS_DIR}/Dip-UI/Dip_UI.framework",
+				"${BUILT_PRODUCTS_DIR}/Flurry-iOS-SDK/Flurry_iOS_SDK.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/KDCircularProgress/KDCircularProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/ReactiveKit/ReactiveKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/SHSPhoneComponent/SHSPhoneComponent.framework",
+				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
+				"${BUILT_PRODUCTS_DIR}/StarscreamSocketIO/StarscreamSocketIO.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bond.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightFutures.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DKImagePickerController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Diff.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip_UI.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flurry_iOS_SDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KDCircularProgress.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SHSPhoneComponent.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StarscreamSocketIO.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-StrizhAppTests/Pods-StrizhAppTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		46023C118591DBA0F14BF93F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-StrizhAppTests/Pods-StrizhAppTests-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-StrizhAppTests/Pods-StrizhAppTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		472A7AB57AED478A1D2635C6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-StrizhAppTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4A24ED632928005EEA7F7AEA /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1323,7 +1491,6 @@
 				E5E334B81E7AD64A00EA274A /* STContactsProvider.swift in Sources */,
 				D4A62EDA1F3B3D5400C9AE8C /* UITableViewCell.swift in Sources */,
 				D4AD43BF1E47DB52006F13DE /* STSignUpNavigationController.swift in Sources */,
-				E59C15601EE172DE00F8B558 /* RemoteNotificationsHandler.swift in Sources */,
 				D49545CC1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift in Sources */,
 				D4AD43B71E47A9C2006F13DE /* STFeedTableViewController.swift in Sources */,
 				D4FFDFAA1E8705590090BE5A /* STDialogsPage.swift in Sources */,
@@ -1484,7 +1651,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D4BAE3E71F60D1060083993A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4BAE3F81F60D23E0083993A /* ContactsProvider.swift in Sources */,
+				D4BAE3F61F60D14B0083993A /* Login.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D4BAE3F11F60D1060083993A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D49726F61E32BDA50076B7A1 /* StrizhApp */;
+			targetProxy = D4BAE3F01F60D1060083993A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		D43BED6F1E70A72D00683D5C /* Main.storyboard */ = {
@@ -1652,6 +1836,48 @@
 			};
 			name = Release;
 		};
+		D4BAE3F21F60D1060083993A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D60122E50B434066F7A9971D /* Pods-StrizhAppTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = 5KSEC35F26;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/StrizhApp",
+				);
+				INFOPLIST_FILE = StrizhAppTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.StrizhAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StrizhApp.app/StrizhApp";
+			};
+			name = Debug;
+		};
+		D4BAE3F31F60D1060083993A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A4C394FFBB322D21170E98DE /* Pods-StrizhAppTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = 5KSEC35F26;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/StrizhApp",
+				);
+				INFOPLIST_FILE = StrizhAppTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.StrizhAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StrizhApp.app/StrizhApp";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1669,6 +1895,15 @@
 			buildConfigurations = (
 				D497270C1E32BDA50076B7A1 /* Debug */,
 				D497270D1E32BDA50076B7A1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4BAE3F41F60D1060083993A /* Build configuration list for PBXNativeTarget "StrizhAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4BAE3F21F60D1060083993A /* Debug */,
+				D4BAE3F31F60D1060083993A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

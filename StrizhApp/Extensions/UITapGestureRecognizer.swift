@@ -6,7 +6,7 @@
 //  Copyright © 2017 Vladimir Kokhanevich. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension UITapGestureRecognizer {
     

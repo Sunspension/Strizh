@@ -47,17 +47,17 @@ final class STMessage: Object, Mappable, Copying {
         self.userId = userId
     }
     
-    required convenience init?(map: Map) {
+    required convenience public init?(map: Map) {
         
         self.init()
     }
     
-    override static func primaryKey() -> String? {
+    override public static func primaryKey() -> String? {
         
         return "id"
     }
     
-    override func isEqual(_ object: Any?) -> Bool {
+    override public func isEqual(_ object: Any?) -> Bool {
         
         if let other = object as? STMessage {
             
@@ -69,7 +69,7 @@ final class STMessage: Object, Mappable, Copying {
         }
     }
     
-    required convenience init(original: STMessage) {
+    required convenience public init(original: STMessage) {
         
         self.init()
         
@@ -95,7 +95,7 @@ final class STMessage: Object, Mappable, Copying {
         self.audioIds.append(objectsIn: original.audioIds)
     }
     
-    func mapping(map: Map) {
+    public func mapping(map: Map) {
         
         id <- map["id"]
         userId <- map["user_id"]

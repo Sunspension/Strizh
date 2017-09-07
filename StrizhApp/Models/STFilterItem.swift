@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 import Realm
 
-class STFilterItem: Object {
+public class STFilterItem: Object {
     
     dynamic var id = 0
     
@@ -20,7 +20,7 @@ class STFilterItem: Object {
     
     dynamic var isSelected = false
     
-    override static func primaryKey() -> String? {
+    override public static func primaryKey() -> String? {
         
         return "id"
     }

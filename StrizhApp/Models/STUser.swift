@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import ObjectMapper
 
-class STUser: Object, Mappable {
+final class STUser: Object, Mappable {
 
     dynamic var id = 0
     
@@ -51,23 +51,23 @@ class STUser: Object, Mappable {
     // available in schema version 17
     dynamic var notificationSettings: STUserNotificationSettings!
     
-    override var hash: Int {
+    override public var hash: Int {
         
         return id.hashValue ^ firstName.hashValue
     }
 
     
-    required convenience init?(map: Map) {
+    required convenience public init?(map: Map) {
         
         self.init()
     }
     
-    override static func primaryKey() -> String? {
+    override public static func primaryKey() -> String? {
         
         return "id"
     }
     
-    override func isEqual(_ object: Any?) -> Bool {
+    override public func isEqual(_ object: Any?) -> Bool {
         
         if let other = object as? STUser {
             
@@ -79,7 +79,7 @@ class STUser: Object, Mappable {
         }
     }
     
-    func mapping(map: Map) {
+    public func mapping(map: Map) {
         
         id <- map["id"]
         phone <- map["phone"]

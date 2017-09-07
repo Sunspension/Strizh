@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 import ObjectMapper
 
-class STPost : Object, Mappable {
+final class STPost : Object, Mappable {
     
     dynamic var id = 0
     
@@ -69,17 +69,17 @@ class STPost : Object, Mappable {
     var imageUrls = List<RealmString>()
     
     
-    required convenience init?(map: Map) {
+    required convenience public init?(map: Map) {
         
         self.init()
     }
     
-    override static func primaryKey() -> String? {
+    override public static func primaryKey() -> String? {
         
         return "id"
     }
     
-    override func isEqual(_ object: Any?) -> Bool {
+    override public func isEqual(_ object: Any?) -> Bool {
         
         if let other = object as? STPost {
             
@@ -91,7 +91,7 @@ class STPost : Object, Mappable {
         }
     }
     
-    func mapping(map: Map) {
+    public func mapping(map: Map) {
         
         id <- map["id"]
         parentId <- map["parent_id"]

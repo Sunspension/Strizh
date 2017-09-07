@@ -10,7 +10,7 @@ import Foundation
 import ObjectMapper
 import RealmSwift
 
-class STFile: Object, Mappable {
+final class STFile: Object, Mappable {
     
     dynamic var id: Int64 = 0
     
@@ -35,17 +35,17 @@ class STFile: Object, Mappable {
     dynamic var type = 0
     
     
-    required convenience init?(map: Map) {
+    required convenience public init?(map: Map) {
         
         self.init()
     }
     
-    override static func primaryKey() -> String? {
+    override public static func primaryKey() -> String? {
         
         return "id"
     }
     
-    override func isEqual(_ object: Any?) -> Bool {
+    override public func isEqual(_ object: Any?) -> Bool {
         
         if let other = object as? STFile {
             
@@ -57,7 +57,7 @@ class STFile: Object, Mappable {
         }
     }
     
-    func mapping(map: Map) {
+    public func mapping(map: Map) {
         
         id <- (map["id"], NSNumberToInt64Transform())
         deleted <- map["deleted"]

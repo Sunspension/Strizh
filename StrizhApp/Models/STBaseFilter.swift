@@ -9,13 +9,13 @@
 import Foundation
 import RealmSwift
 
-class STBaseFilter : Object {
+public class STBaseFilter : Object {
     
     dynamic var id = 0
     
     let filterItems = List<STFilterItem>()
     
-    override static func primaryKey() -> String? {
+    override public static func primaryKey() -> String? {
         
         return "id"
     }

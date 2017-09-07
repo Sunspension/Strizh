@@ -9,7 +9,7 @@
 import ObjectMapper
 import RealmSwift
 
-class STSession: Object, Mappable {
+final class STSession: Object, Mappable {
 
     dynamic var sid = ""
     
@@ -27,17 +27,17 @@ class STSession: Object, Mappable {
         return userId == 0
     }
     
-    required convenience init?(map: Map) {
+    required convenience public init?(map: Map) {
         
         self.init()
     }
     
-    override static func primaryKey() -> String? {
+    override public static func primaryKey() -> String? {
         
         return "sid"
     }
     
-    func mapping(map: Map) {
+    public func mapping(map: Map) {
         
         sid <- map["sid"]
         userId <- map["user_id"]

@@ -19,17 +19,17 @@ class STUserNotificationSettings: Object, Mappable {
     dynamic var isMessages = true
     
     
-    override static func primaryKey() -> String {
+    override public static func primaryKey() -> String {
         
         return "id"
     }
     
-    required convenience init?(map: Map) {
+    required convenience public init?(map: Map) {
         
         self.init()
     }
     
-    func mapping(map: Map) {
+    public func mapping(map: Map) {
         
         isTopics <- map["post"]
         isMessages <- map["message"]

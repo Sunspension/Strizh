@@ -43,7 +43,7 @@ class STContactsProvider {
                 else if let contacts = result.value {
                     
                     self.privateRegisteredContacts.append(contentsOf: contacts.filter({ $0.isRegistered }))
-                    p.success(contacts)
+                    p.success(self.privateRegisteredContacts)
                 }
             })
             

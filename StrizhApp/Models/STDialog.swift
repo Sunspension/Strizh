@@ -10,7 +10,7 @@ import Foundation
 import ObjectMapper
 import RealmSwift
 
-class STDialog: Object, Mappable {
+final class STDialog: Object, Mappable {
     
     dynamic var id = 0
     
@@ -41,17 +41,17 @@ class STDialog: Object, Mappable {
     dynamic var message: STMessage?
     
     
-    required convenience init?(map: Map) {
+    required convenience public init?(map: Map) {
         
         self.init()
     }
     
-    override static func primaryKey() -> String? {
+    override public static func primaryKey() -> String? {
         
         return "id"
     }
     
-    func mapping(map: Map) {
+    public func mapping(map: Map) {
         
         id <- map["id"]
         objectType <- map["object_type"]

@@ -10,7 +10,7 @@ import Foundation
 import ObjectMapper
 import RealmSwift
 
-class STLocation: Object, Mappable {
+final class STLocation: Object, Mappable {
     
     dynamic var id = 0
     
@@ -31,17 +31,17 @@ class STLocation: Object, Mappable {
     dynamic var userId = 0
     
     
-    required convenience init?(map: Map) {
+    required convenience public init?(map: Map) {
         
         self.init()
     }
     
-    override static func primaryKey() -> String? {
+    override public static func primaryKey() -> String? {
         
         return "id"
     }
     
-    override func isEqual(_ object: Any?) -> Bool {
+    override public func isEqual(_ object: Any?) -> Bool {
         
         if let other = object as? STLocation {
             
@@ -53,7 +53,7 @@ class STLocation: Object, Mappable {
         }
     }
     
-    func mapping(map: Map) {
+    public func mapping(map: Map) {
         
         id <- map["id"]
         deleted <- map["deleted"]
