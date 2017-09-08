@@ -17,26 +17,12 @@ class STPostDetailsMainInfoCell: UITableViewCell {
     
     @IBOutlet weak var postTime: UILabel!
     
-    @IBOutlet weak var postType: UIButton!
+    @IBOutlet weak var dialogsCount: UIButton!
     
     @IBOutlet weak var postTitle: UILabel!
     
     var disposeBag = DisposeBag()
     
-    var isSearch: Bool {
-        
-        get {
-            
-            return postType.isSelected
-        }
-        
-        set {
-            
-            postType.isSelected = newValue
-            postType.layer.backgroundColor = newValue == true ?
-                UIColor.stIris.cgColor : UIColor.stDarkMint.cgColor
-        }
-    }
     
     override func prepareForReuse() {
         
@@ -46,15 +32,9 @@ class STPostDetailsMainInfoCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        postType.setImage(UIImage(named: "icon-offer"), for: .normal)
-        postType.setImage(UIImage(named: "icon-search"), for: .selected)
-        
-        postType.setTitle("post_page_button_offer_title".localized, for: .normal)
-        postType.setTitle("post_page_button_search_title".localized, for: .selected)
-        
-        postType.layer.backgroundColor = UIColor.stDarkMint.cgColor
-        postType.layer.cornerRadius = 5
-        postType.layer.masksToBounds = true
-        postType.imageView?.contentMode = .scaleAspectFit
+        dialogsCount.setTitleColor(UIColor.stSteelGrey, for: .normal)
+        dialogsCount.layer.backgroundColor = UIColor.stPaleGrey.cgColor
+        dialogsCount.layer.cornerRadius = 5
+        dialogsCount.layer.masksToBounds = true
     }
 }

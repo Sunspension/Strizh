@@ -27,13 +27,13 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Смирнова Надежда" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SS5-lJ-LXs">
-                        <rect key="frame" x="52" y="18" width="143" height="13.5"/>
+                        <rect key="frame" x="52" y="18" width="147" height="13.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                        <color key="textColor" red="0.34509803919999998" green="0.34901960780000002" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="3 часа 12 минут" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mkd-Pe-kKp">
-                        <rect key="frame" x="52" y="32.5" width="143" height="14"/>
+                        <rect key="frame" x="52" y="32.5" width="147" height="14"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" red="0.34509803919999998" green="0.34901960780000002" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -45,14 +45,14 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xS8-O5-mjC">
-                        <rect key="frame" x="203" y="21" width="97" height="23"/>
+                        <rect key="frame" x="207" y="21" width="93" height="23"/>
                         <color key="backgroundColor" red="0.3294117647" green="0.81176470590000005" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="23" id="xVK-SJ-l4E"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="6" maxY="0.0"/>
-                        <state key="normal" title="Предложение" image="ic-offer"/>
+                        <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                        <state key="normal" title="Предложение"/>
                     </button>
                 </subviews>
                 <constraints>
@@ -73,16 +73,13 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="dialogsCount" destination="xS8-O5-mjC" id="leD-MT-7l3"/>
                 <outlet property="postTime" destination="Mkd-Pe-kKp" id="lEg-fd-tAj"/>
                 <outlet property="postTitle" destination="UJI-my-rTx" id="yum-K8-UGe"/>
-                <outlet property="postType" destination="xS8-O5-mjC" id="Lqs-91-aze"/>
                 <outlet property="userIcon" destination="jB3-Hh-Kuh" id="Cxt-SN-0tF"/>
                 <outlet property="userName" destination="SS5-lJ-LXs" id="9Az-Gv-vcd"/>
             </connections>
             <point key="canvasLocation" x="34" y="81"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="ic-offer" width="14" height="12"/>
-    </resources>
 </document>

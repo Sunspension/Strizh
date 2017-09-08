@@ -22,7 +22,7 @@
 "action_resend" = "Переслать";
 
 // action titles
-"action_resent_message" = "Вы можете переслать сделку в исходном виде или отредактировав ее содержание";
+"action_resent_message" = "Вы можете переслать запрос в исходном виде или отредактировав его содержание";
 
 // Place holders
 "placeholder_search" = "Поиск";
@@ -31,7 +31,7 @@
 "dummy_dialogs_title" = "Диалогов нет";
 "dummy_dialogs_subtitle" = "Начните обсуждение сделок, нажав \"написать сообщение\" в карточке из ленты.";
 "dummy_chat_empty_mesages_title" = "Сообщений нет";
-"dummy_chat_empty_mesages_subtitle" = "Чтобы получить дополнительную информацию по сделке, начните диалог.";
+"dummy_chat_empty_mesages_subtitle" = "Чтобы получить дополнительную информацию по запросу, начните диалог.";
 
 // Alert
 "alert_title_error" = "Ошибка";
@@ -64,15 +64,10 @@
 "login_personal_data_processing" = "согласие на обработку персональных данных";
 
 // Post
-"post_page_title" = "Открыть сделку";
-"post_page_button_offer_title" = "Предложение";
-"post_page_button_search_title" = "Запрос/Поиск";
+"post_page_title" = "Новый запрос";
 "post_page_time_to_begin_text" = "Начало";
 "post_page_time_to_end_text" = "Конец";
 "post_page_duration" = "Срок действия";
-"post_page_additional_fields_text" = "ДОПОЛНИТЕЛЬНЫЕ ПОЛЯ:";
-"post_page_required_fields_text" = "ОБЯЗАТЕЛЬНЫЕ ПОЛЯ:";
-"post_page_topic_type_text" = "Вид сделки";
 "post_page_name_text" = "Название";
 "post_page_enter_topic_name_text" = "Введите название проекта";
 "post_page_description_text" = "Описание";
@@ -83,12 +78,13 @@
 "post_page_price_comment_placeholder" = "Торг возможен, ниже рыночной цены и т.д.";
 "post_page_agency_profit_text" = "Агентское вознаграждение";
 "post_page_agency_profit_placeholder" = "Опишите выгоду для адресатов";
-"post_page_attach_to_topic_text" = "Прикрепить к сделке";
-"post_page_attach_to_topic_title" = "ПРИКРЕПИТЬ К СДЕЛКЕ:";
+"post_page_attach_to_topic_text" = "Прикрепить к запросу";
+"post_page_attach_to_topic_title" = "ПРИКРЕПИТЬ К ЗАПРОСУ:";
 "post_page_photos_text" = "Фотографии";
 "post_page_photos_description_text" = "До 10 фотографий";
 "post_page_attament_loading_text" = "Загрузка...";
-
+"post_page_post_description_explanation" = "Опишите суть вашего коммерческого запроса, задачу, которую вы хотите решить.";
+"post_page_post_duration_description_explanation" = "Если вы оставите поля пустыми, то срок действия запроса будет не ограничен.";
 // Post errors
 "post_page_error_validation_message" = "Это поле не может быть пустым";
 "post_page_attachment_error_title" = "Ошибка!";
@@ -96,31 +92,31 @@
 
 // Chat
 "prefix_you" = "Вы: ";
-"chat_filter_action_go_to_post_details_text" = "Детали сделки";
-"dialog_filter_page_incoming_text" = "Входящие сделки";
-"dialog_filter_page_outgoing_text" = "Исходящие сделки";
-"dialog_filter_page_all_text" = "Все сделки";
+"chat_filter_action_go_to_post_details_text" = "Детали запроса";
+"dialog_filter_page_incoming_text" = "Входящие запросы";
+"dialog_filter_page_outgoing_text" = "Исходящие запросы";
+"dialog_filter_page_all_text" = "Все запросы";
 
 // Contacts
 "contacts_page_title" = "Контакты";
 "contacts_page_create_text" = "Создать";
 "contacts_page_success_title" = "Успешно";
-"contacts_page_success_create_message" = "Вы успешно открыли новую сделку";
-"contacts_page_success_update_message" = "Вы успешно обновили информацию по сделке";
+"contacts_page_success_create_message" = "Вы успешно создали новый запрос";
+"contacts_page_success_update_message" = "Вы успешно обновили информацию по запросу";
 "contacts_page_empty_contacts_title" = "Контактов нет";
 "contacts_page_empty_contacts_message" = "Для работы с приложением необходимо разрешить доступ к Вашим контактам. Вы можете сделать это в настройках Вашего iPhone.";
 "contacts_page_users_who_don't_use_app_title" = "НЕ ИСПОЛЬЗУЮТ STRIZHAPP";
 "contacts_page_share_text" = "Приглашаю в приложение StrizhApp, которое можно скачать в App Store";
 
 // Profile
-"profile_page_my_topics" = "МОИ СДЕЛКИ:";
+"profile_page_my_topics" = "МОИ ЗАПРОСЫ:";
 "profile_page_open_one_dialog_text" = "Открыт:";
 "profile_page_open_few_dialogs_text" = "Открыто:";
 "profile_page_one_dialog_text" = "диалог";
 "profile_page_few_dialogs_text" = "диалога";
 "profile_page_many_dialogs_text" = "диалогов";
 "profile_page_empty_personal_posts_title" = "Открытых сделок нет";
-"profile_page_empty_personal_posts_message" = "Вы еще не открыли ни одной сделки. Чтобы открыть, нажмите на “+”.";
+"profile_page_empty_personal_posts_message" = "Вы еще не создали ни одного запроса. Чтобы открыть, нажмите на “+”.";
 "profile_edit_page_title" = "Профиль";
 "profile_edit_page_error_empty_first_name_text" = "Поле Имя не должно быть пустым";
 "profile_edit_page_error_empty_last_name_text" = "Поле Фамилия не должно быть пустым";
@@ -138,17 +134,17 @@
 "settings_terms_&_condictions_text" = "Пользовательское соглашение";
 "settings_privacy_policy_text" = "Политика конфеденциальности";
 "settings_processing_personal_data_text" = "Согласие на обработку персональных данных";
-"settings_page_topics_text" = "Сделки";
+"settings_page_topics_text" = "Запросы";
 "settings_page_messages_text" = "Сообщения";
 "settings_page_singout_text" = "Выйти из аккаунта";
 
 // Feed
-"feed_page_filter_all_feed_text" = "Все сделки";
+"feed_page_filter_all_feed_text" = "Все запросы";
 "feed_page_filter_favorites_text" = "Избранное";
 "feed_page_empty_feed_title" = "Лента пуста";
 "feed_page_empty_feed_message" = "К сожалению, для Вас еще нет открытых сделок. Они появятся, когда кто-то упомянет Вас в получателях.";
 "feed_page_empty_favotites_feed_title" = "Избранных сделок нет";
-"feed_page_empty_favotites_feed_message" = "Чтобы добавить сделку в избранное, отметьте ее звездочкой в правом верхнем углу карточки.";
+"feed_page_empty_favotites_feed_message" = "Чтобы добавить запрос в избранное, отметьте его звездочкой в правом верхнем углу карточки.";
 "feed_filter_page_title" = "Фильтр";
 "feed_filter_page_offer_text" = "Предложения";
 "feed_filter_page_search_text" = "Запросы/Поиск";

@@ -12,7 +12,6 @@ import Dip
 
 class STNewPostController: UITableViewController, UITextViewDelegate {
 
-    
     fileprivate var dataSource = TableViewDataSource()
     
     fileprivate var requiredFieldsSection = TableSection()
@@ -55,7 +54,6 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
         self.tableView.separatorInset = UIEdgeInsets.zero
         
         self.tableView.register(nibClass: STTextFieldCell.self)
-        self.tableView.register(nibClass: STPostButtonsCell.self)
         self.tableView.register(nibClass: STTextFieldsCell.self)
         self.tableView.register(nibClass: STTextViewCell.self)
         self.tableView.register(headerFooterNibClass: STContactHeaderCell.self)
@@ -67,18 +65,35 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
         self.tableView.delegate = self.dataSource
         
         setCustomBackButton()
-        
-        self.createDataSource()
+        createDataSource()
         
         self.title = !self.postObject.title.isEmpty ? self.postObject.title : "post_page_title".localized
+        
+        let tapRecognaizer = UITapGestureRecognizer(target: self, action: #selector(self.tapGestureHandler))
+        tapRecognaizer.numberOfTapsRequired = 1
+        tapRecognaizer.numberOfTouchesRequired = 1
+        
+        self.view.addGestureRecognizer(tapRecognaizer)
     }
     
-    func cancel() {
+    // MARK: - Private methods
+    
+    @objc private func tapGestureHandler(tapRecognizer: UITapGestureRecognizer) {
+        
+        if tapRecognizer.state != .recognized {
+            
+            return
+        }
+        
+        self.view.endEditing(true)
+    }
+    
+    @objc private func cancel() {
         
         self.dismiss(animated: true, completion: nil)
     }
     
-    func nextAction() {
+    @objc private func nextAction() {
         
         self.view.endEditing(true)
         
@@ -105,58 +120,68 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
         self.st_router_openPostAttachmentsController()
     }
     
-    fileprivate func createDataSource() {
+    private func setupOptionalSection() {
         
-        self.dataSource.onDidSelectRowAtIndexPath = { (tableView, indexPath, item) in
+        self.optionalFieldsSection.add(cellStyle: .default) { (cell, item) in
             
-            if let cell = tableView.cellForRow(at: item.indexPath) as? STTextFieldCell {
+            cell.heightAnchor.constraint(equalToConstant: 10).isActive = true
+            cell.backgroundColor = UIColor.stLightBlueGrey
+            cell.selectionStyle = .none
+        }
+        
+        self.optionalFieldsSection.add(cellClass: STTextFieldsCell.self) { (cell, item) in
+            
+            let viewCell = cell as! STTextFieldsCell
+            
+            viewCell.title.text = "post_page_duration".localized
+            viewCell.leftValue.placeholder = "post_page_time_to_begin_text".localized
+            viewCell.rightValue.placeholder = "post_page_time_to_end_text".localized
+            
+            viewCell.leftValue.text = self.postObject.fromDate?.mediumLocalizedFormat
+            viewCell.rightValue.text = self.postObject.tillDate?.mediumLocalizedFormat
+            
+            viewCell.onLeftValueShouldBeginEditing = { [unowned viewCell] in
                 
-                cell.value.becomeFirstResponder()
+                let controller = DatePickerViewController.instance()
+                controller.navigationTitle = "post_page_time_to_begin_text".localized
+                controller.onDidSelectDate = { [unowned viewCell, unowned self] selectedDate in
+                    
+                    self.postObject.fromDate = selectedDate
+                    viewCell.leftValue.text = self.postObject.fromDate!.mediumLocalizedFormat
+                }
+                
+                self.present(controller, animated: true, completion: nil)
+            }
+            
+            viewCell.onRightValueShouldBeginEditing = { [unowned viewCell, unowned self] in
+                
+                let controller = DatePickerViewController.instance()
+                controller.navigationTitle = "post_page_time_to_end_text".localized
+                
+                controller.onDidSelectDate = { [unowned viewCell, unowned self] selectedDate in
+                    
+                    self.postObject.tillDate = selectedDate
+                    viewCell.rightValue.text = self.postObject.tillDate?.mediumLocalizedFormat
+                }
+                
+                self.present(controller, animated: true, completion: nil)
             }
         }
         
-        self.requiredFieldsSection.header(headerClass: STContactHeaderCell.self) { (view, section) in
+        self.optionalFieldsSection.add(cellStyle: .default) { (cell, item) in
             
-            let header = view as! STContactHeaderCell
-            
-            header.title.text = "post_page_required_fields_text".localized
-            header.title.font = UIFont.systemFont(ofSize: 12)
-            header.title.textColor = UIColor.stSteelGrey
-            header.topSpace.constant = 16
+            self.configureDummyCell(cell: cell)
+            cell.textLabel?.text = "post_page_post_duration_description_explanation".localized
         }
+    }
+    
+    private func setupRequiredSection() {
         
-        self.requiredFieldsSection.headerItem?.cellHeight = 46
-        
-        self.requiredFieldsSection.add(cellClass: STPostButtonsCell.self) { (cell, item) in
+        self.requiredFieldsSection.add(cellStyle: .default) { (cell, item) in
             
-            let viewCell = cell as! STPostButtonsCell
-            
-            if self.postObject.type == 1 {
-                
-                viewCell.offerButtonSelected(true)
-            }
-            else {
-                
-                viewCell.searchButtonSelected(true)
-            }
-            
-            viewCell.title.text = "post_page_topic_type_text".localized
-            viewCell.setType(type: self.postObject.type)
-            
-            
-            viewCell.offer.reactive.tap.observe { [unowned viewCell, unowned self] _ in
-                
-                self.postObject.type = 1
-                viewCell.offerButtonSelected(true)
-                
-                }.dispose(in: viewCell.bag)
-            
-            viewCell.search.reactive.tap.observe {[unowned viewCell] _ in
-                
-                self.postObject.type = 2
-                viewCell.searchButtonSelected(true)
-                
-                }.dispose(in: viewCell.bag)
+            cell.heightAnchor.constraint(equalToConstant: 20).isActive = true
+            cell.backgroundColor = UIColor.stLightBlueGrey
+            cell.selectionStyle = .none
         }
         
         self.requiredFieldsSection.add(cellClass: STTextFieldCell.self) { (cell, item) in
@@ -220,9 +245,8 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
                 self.refreshTableView()
             }
             
-            
             viewCell.onErrorHandler = { [unowned self] in
-
+                
                 self.showValidationAlert()
             }
             
@@ -247,122 +271,42 @@ class STNewPostController: UITableViewController, UITextViewDelegate {
             }
         }
         
-        // optional
-        self.optionalFieldsSection.header(headerClass: STContactHeaderCell.self) { (view, section) in
+        self.requiredFieldsSection.add(cellStyle: .default) { (cell, item) in
             
-            let header = view as! STContactHeaderCell
-            
-            header.title.text = "post_page_additional_fields_text".localized
-            header.title.font = UIFont.systemFont(ofSize: 12)
-            header.title.textColor = UIColor.stSteelGrey
-            header.topSpace.constant = 16
-        }
-        
-        self.optionalFieldsSection.headerItem?.cellHeight = 46
-        
-        self.optionalFieldsSection.add(cellClass: STTextFieldsCell.self) { (cell, item) in
-            
-            let viewCell = cell as! STTextFieldsCell
-            
-            viewCell.title.text = "post_page_duration".localized
-            viewCell.leftValue.placeholder = "post_page_time_to_begin_text".localized
-            viewCell.rightValue.placeholder = "post_page_time_to_end_text".localized
-            
-            viewCell.leftValue.text = self.postObject.fromDate?.mediumLocalizedFormat
-            viewCell.rightValue.text = self.postObject.tillDate?.mediumLocalizedFormat
-            
-            viewCell.onLeftValueShouldBeginEditing = { [unowned viewCell] in
-                
-                let controller = DatePickerViewController.instance()
-                controller.navigationTitle = "post_page_time_to_begin_text".localized
-                controller.onDidSelectDate = { [unowned viewCell, unowned self] selectedDate in
-                    
-                    self.postObject.fromDate = selectedDate
-                    viewCell.leftValue.text = self.postObject.fromDate!.mediumLocalizedFormat
-                }
-                
-                self.present(controller, animated: true, completion: nil)
-            }
-            
-            viewCell.onRightValueShouldBeginEditing = { [unowned viewCell, unowned self] in
-                
-                let controller = DatePickerViewController.instance()
-                controller.navigationTitle = "post_page_time_to_end_text".localized
-                
-                controller.onDidSelectDate = { [unowned viewCell, unowned self] selectedDate in
-                    
-                    self.postObject.tillDate = selectedDate
-                    viewCell.rightValue.text = self.postObject.tillDate?.mediumLocalizedFormat
-                }
-                
-                self.present(controller, animated: true, completion: nil)
-            }
-        }
-        
-        self.optionalFieldsSection.add(cellClass: STTextFieldCell.self) { (cell, item) in
-            
-            let viewCell = cell as! STTextFieldCell
-            
-            viewCell.title.text = "post_page_price_text".localized
-            viewCell.value.placeholder = "post_page_price_details_placeholder".localized
-            viewCell.value.keyboardType = .numbersAndPunctuation
-            
-            viewCell.value.text = self.postObject.price
-            
-            viewCell.value.reactive.text.observeNext { text in
-                
-                self.postObject.price = text ?? ""
-                
-            }.dispose(in: viewCell.bag)
-        }
-        
-        self.optionalFieldsSection.add(cellClass: STTextViewCell.self) { (cell, item) in
-            
-            let viewCell = cell as! STTextViewCell
-            
-            viewCell.title.text = "post_page_price_comment_text".localized
-            viewCell.placeHolder.placeholder = "post_page_price_comment_placeholder".localized
-            viewCell.textValue = self.postObject.priceDescription
-            
-            viewCell.onReturn = { [unowned self] in
-                
-                self.view.endEditing(true)
-            }
-            
-            viewCell.onTextViewDidChange = { [unowned self] textView in
-                
-                self.postObject.priceDescription = textView.text ?? ""
-                self.refreshTableView()
-            }
-        }
-        
-        self.optionalFieldsSection.add(cellClass: STTextViewCell.self) { (cell, item) in
-            
-            let viewCell = cell as! STTextViewCell
-            
-            viewCell.title.text = "post_page_agency_profit_text".localized
-            viewCell.placeHolder.placeholder = "post_page_agency_profit_placeholder".localized
-            viewCell.textValue = self.postObject.profitDescription
-            
-            viewCell.onReturn = { [unowned self] in
-                
-                self.view.endEditing(true)
-            }
-            
-            viewCell.onTextViewDidChange = { [unowned self] textView in
-                
-                self.postObject.profitDescription = textView.text ?? ""
-                self.refreshTableView()
-            }
+            self.configureDummyCell(cell: cell)
+            cell.textLabel?.text = "post_page_post_description_explanation".localized
         }
     }
     
-    fileprivate func showValidationAlert() {
+    private func configureDummyCell(cell: UITableViewCell) {
+        
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 11)
+        cell.textLabel?.textColor = UIColor.stSteelGrey
+        cell.textLabel?.numberOfLines = 0
+        cell.backgroundColor = UIColor.stLightBlueGrey
+        cell.selectionStyle = .none
+    }
+    
+    private func createDataSource() {
+        
+        self.dataSource.onDidSelectRowAtIndexPath = { (tableView, indexPath, item) in
+            
+            if let cell = tableView.cellForRow(at: item.indexPath) as? STTextFieldCell {
+                
+                cell.value.becomeFirstResponder()
+            }
+        }
+        
+        setupRequiredSection()
+        setupOptionalSection()
+    }
+    
+    private func showValidationAlert() {
         
         self.showOkAlert(title: "alert_title_error".localized, message: "post_page_error_validation_message".localized)
     }
     
-    func refreshTableView() {
+    private func refreshTableView() {
         
         let currentOffset = tableView.contentOffset
         

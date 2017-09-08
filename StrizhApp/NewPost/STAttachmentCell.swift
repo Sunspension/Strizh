@@ -27,10 +27,6 @@ class STAttachmentCell: UITableViewCell {
     
     var disposeBag = DisposeBag()
     
-    deinit {
-        
-        disposeBag.dispose()
-    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -51,7 +47,7 @@ class STAttachmentCell: UITableViewCell {
     override func prepareForReuse() {
         
         self.containerHeight.constant = 60
-        disposeBag.dispose()
+        disposeBag = DisposeBag()
     }
     
     func expandCell() {

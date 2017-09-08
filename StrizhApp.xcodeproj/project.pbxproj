@@ -57,6 +57,7 @@
 		D43BED6E1E708D4100683D5C /* DatePickerPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43BED6D1E708D4100683D5C /* DatePickerPresentationController.swift */; };
 		D43BED711E70A72D00683D5C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D43BED6F1E70A72D00683D5C /* Main.storyboard */; };
 		D440F8FF1E79CA380011C22D /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D440F8FE1E79CA380011C22D /* AsyncOperation.swift */; };
+		D441C3871F61C41300D4DC81 /* StrizhAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D441C3861F61C41300D4DC81 /* StrizhAppUITests.swift */; };
 		D4427E661E757C8F0002BCCF /* STCommonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4427E641E757C8F0002BCCF /* STCommonCollectionViewCell.swift */; };
 		D4427E671E757C8F0002BCCF /* STCommonCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4427E651E757C8F0002BCCF /* STCommonCollectionViewCell.xib */; };
 		D449A8601EA287EF008B9603 /* STPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D449A85F1EA287EF008B9603 /* STPhotoViewController.swift */; };
@@ -188,8 +189,6 @@
 		E59448901E680797002B2989 /* STNewPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E594488F1E680797002B2989 /* STNewPostController.swift */; };
 		E59448931E680B83002B2989 /* STTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59448911E680B83002B2989 /* STTextFieldCell.swift */; };
 		E59448941E680B83002B2989 /* STTextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E59448921E680B83002B2989 /* STTextFieldCell.xib */; };
-		E59448971E680C98002B2989 /* STPostButtonsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59448951E680C98002B2989 /* STPostButtonsCell.swift */; };
-		E59448981E680C98002B2989 /* STPostButtonsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E59448961E680C98002B2989 /* STPostButtonsCell.xib */; };
 		E59A1B141E3F89A7009EE669 /* STImageUploadError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B131E3F89A7009EE669 /* STImageUploadError.swift */; };
 		E59A1B181E3F9388009EE669 /* STImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B151E3F9388009EE669 /* STImage.swift */; };
 		E59A1B191E3F9388009EE669 /* STRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B161E3F9388009EE669 /* STRegistration.swift */; };
@@ -222,6 +221,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D441C3891F61C41300D4DC81 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D49726EF1E32BDA50076B7A1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D49726F61E32BDA50076B7A1;
+			remoteInfo = StrizhApp;
+		};
 		D4BAE3F01F60D1060083993A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D49726EF1E32BDA50076B7A1 /* Project object */;
@@ -284,6 +290,9 @@
 		D43BED6D1E708D4100683D5C /* DatePickerPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DatePickerPresentationController.swift; path = CommonUI/DatePickerPresentationController.swift; sourceTree = "<group>"; };
 		D43BED701E70A72D00683D5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D440F8FE1E79CA380011C22D /* AsyncOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
+		D441C3841F61C41300D4DC81 /* StrizhAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StrizhAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D441C3861F61C41300D4DC81 /* StrizhAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrizhAppUITests.swift; sourceTree = "<group>"; };
+		D441C3881F61C41300D4DC81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4427E641E757C8F0002BCCF /* STCommonCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STCommonCollectionViewCell.swift; path = CommonUI/STCommonCollectionViewCell.swift; sourceTree = "<group>"; };
 		D4427E651E757C8F0002BCCF /* STCommonCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STCommonCollectionViewCell.xib; path = CommonUI/STCommonCollectionViewCell.xib; sourceTree = "<group>"; };
 		D449A85F1EA287EF008B9603 /* STPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPhotoViewController.swift; path = PhotoViewer/STPhotoViewController.swift; sourceTree = "<group>"; };
@@ -421,8 +430,6 @@
 		E594488F1E680797002B2989 /* STNewPostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STNewPostController.swift; path = NewPost/STNewPostController.swift; sourceTree = "<group>"; };
 		E59448911E680B83002B2989 /* STTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STTextFieldCell.swift; path = NewPost/STTextFieldCell.swift; sourceTree = "<group>"; };
 		E59448921E680B83002B2989 /* STTextFieldCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STTextFieldCell.xib; path = NewPost/STTextFieldCell.xib; sourceTree = "<group>"; };
-		E59448951E680C98002B2989 /* STPostButtonsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPostButtonsCell.swift; path = NewPost/STPostButtonsCell.swift; sourceTree = "<group>"; };
-		E59448961E680C98002B2989 /* STPostButtonsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STPostButtonsCell.xib; path = NewPost/STPostButtonsCell.xib; sourceTree = "<group>"; };
 		E59A1B131E3F89A7009EE669 /* STImageUploadError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STImageUploadError.swift; path = Errors/STImageUploadError.swift; sourceTree = "<group>"; };
 		E59A1B151E3F9388009EE669 /* STImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STImage.swift; path = Models/STImage.swift; sourceTree = "<group>"; };
 		E59A1B161E3F9388009EE669 /* STRegistration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STRegistration.swift; path = Models/STRegistration.swift; sourceTree = "<group>"; };
@@ -457,6 +464,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D441C3811F61C41300D4DC81 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D49726F41E32BDA50076B7A1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -630,6 +644,15 @@
 			name = DatePickerController;
 			sourceTree = "<group>";
 		};
+		D441C3851F61C41300D4DC81 /* StrizhAppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D441C3861F61C41300D4DC81 /* StrizhAppUITests.swift */,
+				D441C3881F61C41300D4DC81 /* Info.plist */,
+			);
+			path = StrizhAppUITests;
+			sourceTree = "<group>";
+		};
 		D449A85E1EA2879E008B9603 /* PhotoViewer */ = {
 			isa = PBXGroup;
 			children = (
@@ -711,6 +734,7 @@
 			children = (
 				D49726F91E32BDA50076B7A1 /* StrizhApp */,
 				D4BAE3EC1F60D1060083993A /* StrizhAppTests */,
+				D441C3851F61C41300D4DC81 /* StrizhAppUITests */,
 				D49726F81E32BDA50076B7A1 /* Products */,
 				FDD52C1D4865C815C5FA8996 /* Pods */,
 				8076508875A9EAA67D0F34E2 /* Frameworks */,
@@ -722,6 +746,7 @@
 			children = (
 				D49726F71E32BDA50076B7A1 /* StrizhApp.app */,
 				D4BAE3EB1F60D1060083993A /* StrizhAppTests.xctest */,
+				D441C3841F61C41300D4DC81 /* StrizhAppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1036,8 +1061,6 @@
 			children = (
 				E59448911E680B83002B2989 /* STTextFieldCell.swift */,
 				E59448921E680B83002B2989 /* STTextFieldCell.xib */,
-				E59448951E680C98002B2989 /* STPostButtonsCell.swift */,
-				E59448961E680C98002B2989 /* STPostButtonsCell.xib */,
 				D43BED641E70570500683D5C /* STTextFieldsCell.swift */,
 				D43BED651E70570500683D5C /* STTextFieldsCell.xib */,
 				E561F5681E72FCD300C7407C /* STAttachmentCell.swift */,
@@ -1115,6 +1138,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D441C3831F61C41300D4DC81 /* StrizhAppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D441C38D1F61C41300D4DC81 /* Build configuration list for PBXNativeTarget "StrizhAppUITests" */;
+			buildPhases = (
+				D441C3801F61C41300D4DC81 /* Sources */,
+				D441C3811F61C41300D4DC81 /* Frameworks */,
+				D441C3821F61C41300D4DC81 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D441C38A1F61C41300D4DC81 /* PBXTargetDependency */,
+			);
+			name = StrizhAppUITests;
+			productName = StrizhAppUITests;
+			productReference = D441C3841F61C41300D4DC81 /* StrizhAppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		D49726F61E32BDA50076B7A1 /* StrizhApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D497270B1E32BDA50076B7A1 /* Build configuration list for PBXNativeTarget "StrizhApp" */;
@@ -1168,6 +1209,12 @@
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Vladimir Kokhanevich";
 				TargetAttributes = {
+					D441C3831F61C41300D4DC81 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 5KSEC35F26;
+						ProvisioningStyle = Automatic;
+						TestTargetID = D49726F61E32BDA50076B7A1;
+					};
 					D49726F61E32BDA50076B7A1 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 5KSEC35F26;
@@ -1206,11 +1253,19 @@
 			targets = (
 				D49726F61E32BDA50076B7A1 /* StrizhApp */,
 				D4BAE3EA1F60D1060083993A /* StrizhAppTests */,
+				D441C3831F61C41300D4DC81 /* StrizhAppUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D441C3821F61C41300D4DC81 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D49726F51E32BDA50076B7A1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1254,7 +1309,6 @@
 				E53185FF1E364AE700BC6C9A /* STLoginTableViewCell.xib in Resources */,
 				D43A75611E4E610700DB0850 /* STPostDetailsMapsCell.xib in Resources */,
 				D4D826261EA95BC4007E42FB /* Localizable.strings in Resources */,
-				E59448981E680C98002B2989 /* STPostButtonsCell.xib in Resources */,
 				D43BED711E70A72D00683D5C /* Main.storyboard in Resources */,
 				E53F37BE1E3A632C00393BAD /* STLoginLogoTableViewCell.xib in Resources */,
 				E50941CA1F0FC57D00E08B4E /* STClickableLabelCell.xib in Resources */,
@@ -1482,6 +1536,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D441C3801F61C41300D4DC81 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D441C3871F61C41300D4DC81 /* StrizhAppUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D49726F31E32BDA50076B7A1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1518,7 +1580,6 @@
 				D460E0C71EB289310040E856 /* STFlurryAnalytics.swift in Sources */,
 				D4927F3A1EAEA8FE00995352 /* STIntroContainerViewController.swift in Sources */,
 				E559067A1E51FF5900F8E20E /* TableSectionHeaderFooter.swift in Sources */,
-				E59448971E680C98002B2989 /* STPostButtonsCell.swift in Sources */,
 				D40A6BE61E3AA7DB00F1D218 /* Router.swift in Sources */,
 				D4AB1F621F3BA2CF0080CC73 /* STUserPostCell.swift in Sources */,
 				E53185FE1E364AE700BC6C9A /* STLoginTableViewCell.swift in Sources */,
@@ -1663,6 +1724,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D441C38A1F61C41300D4DC81 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D49726F61E32BDA50076B7A1 /* StrizhApp */;
+			targetProxy = D441C3891F61C41300D4DC81 /* PBXContainerItemProxy */;
+		};
 		D4BAE3F11F60D1060083993A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D49726F61E32BDA50076B7A1 /* StrizhApp */;
@@ -1700,6 +1766,36 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		D441C38B1F61C41300D4DC81 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = 5KSEC35F26;
+				INFOPLIST_FILE = StrizhAppUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.StrizhAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = StrizhApp;
+			};
+			name = Debug;
+		};
+		D441C38C1F61C41300D4DC81 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = 5KSEC35F26;
+				INFOPLIST_FILE = StrizhAppUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.StrizhAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = StrizhApp;
+			};
+			name = Release;
+		};
 		D49727091E32BDA50076B7A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1881,6 +1977,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D441C38D1F61C41300D4DC81 /* Build configuration list for PBXNativeTarget "StrizhAppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D441C38B1F61C41300D4DC81 /* Debug */,
+				D441C38C1F61C41300D4DC81 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D49726F21E32BDA50076B7A1 /* Build configuration list for PBXProject "StrizhApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

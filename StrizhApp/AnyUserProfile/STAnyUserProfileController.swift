@@ -184,37 +184,8 @@ class STAnyUserProfileController: UITableViewController {
         case 0:
         
             let cell: STProfileHeaderCell = tableView.dequeueReusableCell(for: indexPath)
-            
             let user = item.model as! STUser
-            
-            cell.userName.text = user.firstName + " " + user.lastName
-            
-            if let imageData = user.imageData {
-                
-                var image = UIImage(data: imageData)!
-                image = image.af_imageAspectScaled(toFill: cell.userImage.bounds.size)
-                cell.setImageWithTransition(image: image.af_imageRoundedIntoCircle())
-            }
-            else {
-                
-                if !self.user.imageUrl.isEmpty {
-                    
-                    let urlString = self.user.imageUrl + cell.userImage.queryResizeString()
-                    let filter = RoundedCornersFilter(radius: cell.userImage.bounds.width)
-                    
-                    cell.userImage.af_setImage(withURL: URL(string: urlString)!, filter: filter, imageTransition: .crossDissolve(0.3))
-                }
-                else {
-                    
-                    var defaultImage = UIImage(named: "avatar")
-                    defaultImage = defaultImage?.af_imageAspectScaled(toFill: cell.userImage.bounds.size)
-                    cell.setImageWithTransition(image: defaultImage?.af_imageRoundedIntoCircle())
-                }
-            }
-            
-            cell.edit.alpha = 0
-            cell.settings.alpha = 0
-            cell.selectionStyle = .none
+            configureProfileHeader(user, cell)
             
             return cell
             
@@ -228,63 +199,7 @@ class STAnyUserProfileController: UITableViewController {
             
             let cell: STUserPostCell = tableView.dequeueReusableCell(for: indexPath)
             let post = item.model as! STPost
-            
-            cell.selectionStyle = .none
-            cell.postTitle.text = post.title
-            cell.postDetails.text = post.postDescription
-            cell.postTime.text = post.createdAt?.mediumLocalizedFormat
-            cell.isSearch = post.type == 2
-            
-            cell.onFavoriteButtonTap = { [cell, unowned self] in
-                
-                let favorite = !cell.iconFavorite.isSelected
-                cell.iconFavorite.isSelected = favorite
-                
-                self.api.favorite(postId: post.id, favorite: favorite)
-                    .onSuccess(callback: { [post] postResponse in
-                        
-                        post.isFavorite = postResponse.isFavorite
-                        NotificationCenter.default.post(name: NSNotification.Name(kItemFavoriteNotification), object: postResponse)
-                    })
-            }
-            
-            if post.dateFrom != nil && post.dateTo != nil {
-                
-                cell.durationDate.isHidden = false
-                let period = post.dateFrom!.mediumLocalizedFormat + " - " + post.dateTo!.mediumLocalizedFormat
-                cell.durationDate.setTitle(period , for: .normal)
-            }
-            else {
-                
-                cell.durationDate.isHidden = true
-            }
-            
-            // user
-            cell.userName.text = user.lastName + " " + user.firstName
-            
-            if user.id == user.id && self.myUser.imageData != nil {
-                
-                if let image = UIImage(data: self.myUser.imageData!) {
-                    
-                    let userIcon = image.af_imageAspectScaled(toFill: cell.userIcon.bounds.size)
-                    cell.userIcon.setImage(userIcon.af_imageRoundedIntoCircle(), for: .normal)
-                }
-            }
-            else {
-                
-                if user.imageUrl.isEmpty {
-                    
-                    var defaultImage = UIImage(named: "avatar")
-                    defaultImage = defaultImage?.af_imageAspectScaled(toFill: cell.userIcon.bounds.size)
-                    cell.userIcon.setImage(defaultImage?.af_imageRoundedIntoCircle(), for: .normal)
-                }
-                else {
-                    
-                    let urlString = user.imageUrl + cell.userIcon.queryResizeString()
-                    let filter = RoundedCornersFilter(radius: cell.userIcon.bounds.size.width)
-                    cell.userIcon.af_setImage(for: .normal, url: URL(string: urlString)!, filter: filter)
-                }
-            }
+            configurePostCell(post, cell)
             
             return cell
             
@@ -361,7 +276,104 @@ class STAnyUserProfileController: UITableViewController {
         backgroundBarView?.alpha = alpha
     }
     
-    fileprivate func setupDataSource() {
+    private func configurePostCell(_ post: STPost, _ cell: STUserPostCell) {
+        
+        cell.selectionStyle = .none
+        cell.postTitle.text = post.title
+        cell.postDetails.text = post.postDescription
+        cell.postTime.text = post.createdAt?.mediumLocalizedFormat
+        cell.iconFavorite.isSelected = post.isFavorite
+        
+        let end = post.dialogCount.ending(yabloko: "отклик", yabloka: "отлика", yablok: "откликов")
+        let title = "\(post.dialogCount)" + " " + end
+        
+        cell.dialogsCount.setTitle( title, for: .normal)
+        
+        cell.onFavoriteButtonTap = { [cell, unowned self] in
+            
+            let favorite = !cell.iconFavorite.isSelected
+            cell.iconFavorite.isSelected = favorite
+            
+            self.api.favorite(postId: post.id, favorite: favorite)
+                .onSuccess(callback: { [post] postResponse in
+                    
+                    post.isFavorite = postResponse.isFavorite
+                    NotificationCenter.default.post(name: NSNotification.Name(kItemFavoriteNotification), object: postResponse)
+                })
+        }
+        
+        if post.dateFrom != nil && post.dateTo != nil {
+            
+            cell.durationDate.isHidden = false
+            let period = post.dateFrom!.mediumLocalizedFormat + " - " + post.dateTo!.mediumLocalizedFormat
+            cell.durationDate.setTitle(period , for: .normal)
+        }
+        else {
+            
+            cell.durationDate.isHidden = true
+        }
+        
+        // user
+        cell.userName.text = user.lastName + " " + user.firstName
+        
+        if user.id == user.id && self.myUser.imageData != nil {
+            
+            if let image = UIImage(data: self.myUser.imageData!) {
+                
+                let userIcon = image.af_imageAspectScaled(toFill: cell.userIcon.bounds.size)
+                cell.userIcon.setImage(userIcon.af_imageRoundedIntoCircle(), for: .normal)
+            }
+        }
+        else {
+            
+            if user.imageUrl.isEmpty {
+                
+                var defaultImage = UIImage(named: "avatar")
+                defaultImage = defaultImage?.af_imageAspectScaled(toFill: cell.userIcon.bounds.size)
+                cell.userIcon.setImage(defaultImage?.af_imageRoundedIntoCircle(), for: .normal)
+            }
+            else {
+                
+                let urlString = user.imageUrl + cell.userIcon.queryResizeString()
+                let filter = RoundedCornersFilter(radius: cell.userIcon.bounds.size.width)
+                cell.userIcon.af_setImage(for: .normal, url: URL(string: urlString)!, filter: filter)
+            }
+        }
+    }
+    
+    private func configureProfileHeader(_ user: STUser, _ cell: STProfileHeaderCell) {
+        
+        cell.userName.text = user.firstName + " " + user.lastName
+        
+        if let imageData = user.imageData {
+            
+            var image = UIImage(data: imageData)!
+            image = image.af_imageAspectScaled(toFill: cell.userImage.bounds.size)
+            cell.setImageWithTransition(image: image.af_imageRoundedIntoCircle())
+        }
+        else {
+            
+            if !self.user.imageUrl.isEmpty {
+                
+                let urlString = self.user.imageUrl + cell.userImage.queryResizeString()
+                let filter = RoundedCornersFilter(radius: cell.userImage.bounds.width)
+                
+                cell.userImage.af_setImage(withURL: URL(string: urlString)!, filter: filter, imageTransition: .crossDissolve(0.3))
+            }
+            else {
+                
+                var defaultImage = UIImage(named: "avatar")
+                defaultImage = defaultImage?.af_imageAspectScaled(toFill: cell.userImage.bounds.size)
+                cell.setImageWithTransition(image: defaultImage?.af_imageRoundedIntoCircle())
+            }
+        }
+        
+        cell.edit.alpha = 0
+        cell.settings.alpha = 0
+        cell.selectionStyle = .none
+    }
+    
+    private func setupDataSource() {
         
         self.sections.append(contentsOf: [userInfoSection, userFeedSection])
         
@@ -393,7 +405,7 @@ class STAnyUserProfileController: UITableViewController {
         }
     }
     
-    fileprivate func showDummyViewIfNeeded() {
+    private func showDummyViewIfNeeded() {
         
         if self.userFeedSection.items.count == 0 {
             
@@ -407,7 +419,7 @@ class STAnyUserProfileController: UITableViewController {
         }
     }
     
-    fileprivate func initFloatTitle() {
+    private func initFloatTitle() {
         
         floatTitle.textAlignment = .center
         floatTitle.translatesAutoresizingMaskIntoConstraints = false

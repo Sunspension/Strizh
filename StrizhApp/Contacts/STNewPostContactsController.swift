@@ -235,7 +235,7 @@ class STNewPostContactsController: STContactsController {
             cell.detailTextLabel?.textColor = UIColor(red: 129 / 255.0, green: 137 / 255.0, blue: 150 / 255.0, alpha: 1)
             cell.detailTextLabel?.numberOfLines = 0
             cell.textLabel?.text = "Все пользователи Strizhapp"
-            cell.detailTextLabel?.text = "После модерации сделка отправится всем пользователям Strizhapp"
+            cell.detailTextLabel?.text = "После модерации запрос отправится всем пользователям Strizhapp"
             cell.accessoryType = .checkmark
             cell.selectionStyle = .none
             cell.tintColor = self.isPublic ? UIColor.stBrightBlue : UIColor.lightGray

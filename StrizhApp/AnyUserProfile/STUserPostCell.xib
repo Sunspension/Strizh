@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="319" height="186"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="319" height="185.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="319" height="186"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4HC-zN-2oG">
@@ -79,11 +79,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ltC-Rn-jCT">
-                                <rect key="frame" x="12" y="143.5" width="174" height="22.5"/>
+                                <rect key="frame" x="12" y="143.5" width="178" height="22.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="imageEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="15 ноя 16 — 12 янв 17" image="icon-time">
-                                    <color key="titleColor" red="0.5725490196078431" green="0.58039215686274503" blue="0.58823529411764708" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KHJ-iJ-1Tc" userLabel="Separator">
@@ -94,14 +95,14 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHp-K6-enH">
-                                <rect key="frame" x="194" y="142.5" width="97" height="23"/>
+                                <rect key="frame" x="198" y="142.5" width="93" height="23"/>
                                 <color key="backgroundColor" red="0.3294117647" green="0.81176470590000005" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="23" id="9uV-92-Cb9"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="6" maxY="0.0"/>
-                                <state key="normal" title="Предложение" image="ic-offer"/>
+                                <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                                <state key="normal" title="Предложение"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -137,13 +138,13 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="container" destination="4HC-zN-2oG" id="b1X-vr-uLk"/>
+                <outlet property="dialogsCount" destination="dHp-K6-enH" id="ggi-cw-Uu9"/>
                 <outlet property="durationDate" destination="ltC-Rn-jCT" id="IgR-DP-kZI"/>
                 <outlet property="header" destination="y1e-ug-ez8" id="E6I-2y-lbT"/>
                 <outlet property="iconFavorite" destination="MA2-AF-jWM" id="qqW-ji-9oS"/>
                 <outlet property="postDetails" destination="lLQ-ob-zbN" id="QQq-JP-xm2"/>
                 <outlet property="postTime" destination="5gd-45-L2y" id="VTM-e3-ddl"/>
                 <outlet property="postTitle" destination="kPW-Ry-ys8" id="17Q-ES-R4B"/>
-                <outlet property="postType" destination="dHp-K6-enH" id="1lE-Zb-LUj"/>
                 <outlet property="separator" destination="KHJ-iJ-1Tc" id="foG-Fp-CSw"/>
                 <outlet property="userIcon" destination="myE-DM-bXV" id="Bs0-w4-hpM"/>
                 <outlet property="userName" destination="gmI-Zq-d4E" id="rWh-3o-fJe"/>
@@ -152,8 +153,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic-offer" width="14" height="12"/>
-        <image name="icon-star" width="28" height="28"/>
+        <image name="icon-star" width="25" height="25"/>
         <image name="icon-time" width="18" height="18"/>
     </resources>
 </document>

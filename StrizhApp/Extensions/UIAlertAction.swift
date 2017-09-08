@@ -10,17 +10,17 @@ import UIKit
 
 extension UIAlertAction {
     
-    static var cancel: UIAlertAction {
+    @objc class var cancel: UIAlertAction {
         
         return UIAlertAction(title: "action_cancel".localized, style: .cancel, handler: nil)
     }
     
-    static func defaultAction(title: String, handler: @escaping (UIAlertAction) -> Void) -> UIAlertAction {
+    @objc class func defaultAction(title: String, handler: @escaping (UIAlertAction) -> Void) -> UIAlertAction {
         
         return UIAlertAction(title: title, style: .default, handler: handler)
     }
     
-    static func destructiveAction(title: String, handler: @escaping (UIAlertAction) -> Void) -> UIAlertAction {
+    @objc class func destructiveAction(title: String, handler: @escaping (UIAlertAction) -> Void) -> UIAlertAction {
         
         return UIAlertAction(title: title, style: .destructive, handler: handler)
     }

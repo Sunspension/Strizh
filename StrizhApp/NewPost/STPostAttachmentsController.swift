@@ -350,7 +350,7 @@ class STPostAttachmentsController: UITableViewController {
                     self.present(photoController, animated: true, completion: nil)
                 }
                 
-            }.dispose(in: viewCell.bag)
+            }.dispose(in: viewCell.disposeBag)
             
             
             // collection section changed handler

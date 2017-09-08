@@ -682,7 +682,7 @@ class STSingUpTableViewController: UITableViewController, NVActivityIndicatorVie
                     
                     viewCell.avatarButton.setImage(image.af_imageRoundedIntoCircle(), for: .normal)
                     
-                    }.dispose(in: viewCell.bag)
+                    }.dispose(in: viewCell.disposeBag)
             }
             
             section.add(cellClass: STLoginTextTableViewCell.self) { [unowned self] (cell, item) in

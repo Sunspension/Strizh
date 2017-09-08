@@ -43,14 +43,10 @@ class STTextViewCell: UITableViewCell, UITextViewDelegate {
     }
     
     
-    deinit {
-        
-        disposeBag.dispose()
-    }
-    
     override func prepareForReuse() {
 
-        disposeBag.dispose()
+        disposeBag = DisposeBag()
+        
         title.text = ""
         value.text = ""
         placeHolder.isHidden = false

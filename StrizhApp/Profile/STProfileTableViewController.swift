@@ -14,32 +14,31 @@ import ReactiveKit
 
 class STProfileTableViewController: UITableViewController {
     
+    private var dataSource = TableViewDataSource()
     
-    fileprivate var dataSource = TableViewDataSource()
+    private var userInfoSection = TableSection()
     
-    fileprivate var userInfoSection = TableSection()
+    private var userPostsSection = TableSection()
     
-    fileprivate var userPostsSection = TableSection()
-    
-    fileprivate var user: STUser {
+    private var user: STUser {
         
         return STUser.dbFind(by: STUser.self)!
     }
     
-    fileprivate var status = STLoadingStatusEnum.idle
+    private var status = STLoadingStatusEnum.idle
     
-    fileprivate var minId = 0
+    private var minId = 0
     
-    fileprivate var pageSize = 20
+    private var pageSize = 20
     
-    fileprivate var hasMore = false
+    private var hasMore = false
     
-    fileprivate var canLoadNext: Bool {
+    private var canLoadNext: Bool {
         
         return hasMore && status != .loading
     }
     
-    fileprivate var disposeBag = DisposeBag()
+    private var disposeBag = DisposeBag()
     
     var images = Set<STImage>()
     
@@ -47,6 +46,7 @@ class STProfileTableViewController: UITableViewController {
     
     var locations = [STLocation]()
     
+    var userImage: UIImage?
     
     deinit {
         
@@ -57,14 +57,12 @@ class STProfileTableViewController: UITableViewController {
         
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
-        
         self.analytics.logEvent(eventName: st_eMyProfile, timed: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
-        
         self.analytics.endTimeEvent(eventName: st_eMyProfile)
     }
     
@@ -91,6 +89,11 @@ class STProfileTableViewController: UITableViewController {
         self.tableView.delegate = dataSource
         
         self.setCustomBackButton()
+        
+        if let data = self.user.imageData {
+            
+            self.userImage = UIImage(data: data)
+        }
         
         self.dataSource.onDidSelectRowAtIndexPath = { [unowned self] (tableView, indexPath, item) in
             
@@ -153,6 +156,11 @@ class STProfileTableViewController: UITableViewController {
         
         NotificationCenter.default.reactive.notification(name: NSNotification.Name(kUserUpdatedNotification), object: nil)
             .observeNext { [unowned self] notification in
+                
+                if let data = self.user.imageData {
+                    
+                    self.userImage = UIImage(data: data)
+                }
                 
                 self.tableView.reloadSections(IndexSet(integer: 0), with: .none)
             }
@@ -242,7 +250,7 @@ class STProfileTableViewController: UITableViewController {
     
     private func createDataSource(posts: [STPost]) {
         
-        posts.forEach { post in
+        for post in posts {
             
             userPostsSection.add(item: post,
                                  cellClass: STPersonalPostCell.self,
@@ -258,101 +266,133 @@ class STProfileTableViewController: UITableViewController {
                                     let viewCell = cell as! STPersonalPostCell
                                     let post = item.item as! STPost
                                     
-                                    viewCell.selectionStyle = .none
-                                    viewCell.postTitle.text = post.title
-                                    viewCell.postDetails.text = post.postDescription
-                                    viewCell.createdAt.text = post.createdAt?.mediumLocalizedFormat
-                                    
-                                    if post.dialogCount == 0 {
-                                        
-                                        viewCell.dialogsCount.isHidden = true
-                                        viewCell.openDialogsTitle.isHidden = true
-                                    }
-                                    else {
-                                        
-                                        viewCell.dialogsCount.isHidden = false
-                                        viewCell.openDialogsTitle.isHidden = false
-                                        viewCell.openDialogsTitle.text = post.dialogCount == 1
-                                            ? "profile_page_open_one_dialog_text".localized
-                                            : "profile_page_open_few_dialogs_text".localized
-                                        
-                                        let ending = post.dialogCount.ending(yabloko: "profile_page_one_dialog_text".localized,
-                                                                             yabloka: "profile_page_few_dialogs_text".localized,
-                                                                             yablok: "profile_page_many_dialogs_text".localized)
-                                        
-                                        viewCell.dialogsCount.text = "\(post.dialogCount)" + " " + ending
-                                    }
-                                    
-                                    if post.dateFrom != nil && post.dateTo != nil {
-                                        
-                                        viewCell.duration.isHidden = false
-                                        let period = post.dateFrom!.mediumLocalizedFormat + " - " + post.dateTo!.mediumLocalizedFormat
-                                        viewCell.duration.setTitle(period , for: .normal)
-                                    }
-                                    else {
-                                        
-                                        viewCell.duration.isHidden = true
-                                    }
-                                    
-                                    viewCell.more.reactive.tap.observeNext { [unowned self] in
-                                        
-                                        let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-                                        
-                                        let cancel = UIAlertAction(title: "action_cancel".localized, style: .cancel, handler: nil)
-                                        
-                                        let actionEdit = UIAlertAction(title: "action_edit".localized, style: .default, handler: { action in
-                                            
-                                            // open edit controller
-                                            let postObject = STUserPostObject(post: post)
-                                            postObject.images = self.images
-                                            
-                                            self.analytics.logEvent(eventName: st_ePostEdit,
-                                                                    params: ["post_id" : post.id])
-                                            
-                                            self.st_router_openPostController(postObject: postObject)
-                                        })
-                                        
-                                        actionController.addAction(actionEdit)
-                                        
-                                        let actionDelete = UIAlertAction(title: "action_delete".localized, style: .default, handler: { action in
-                                            
-                                            self.api.deletePost(postId: post.id)
-                                                .onSuccess(callback: { [unowned self] _ in
-                                                    
-                                                    self.analytics.logEvent(eventName: st_ePostDelete, params: ["post_id" : post.id])
-                                                    
-                                                    self.userPostsSection.items = self.userPostsSection.items
-                                                        .filter({ ($0.item! as! STPost).id != (item.item! as! STPost).id })
-                                                    
-                                                    NotificationCenter.default.post(name: NSNotification.Name(kPostDeleteNotification), object: post)
-                                                    
-                                                    // save last item id for loading next objects
-                                                    if let lastPost = self.userPostsSection.items.last {
-                                                        
-                                                        self.minId = (lastPost.item as! STPost).id
-                                                    }
-                                                    else {
-                                                        
-                                                        self.minId = 0
-                                                    }
-                                                    
-                                                    self.tableView.reloadSections(IndexSet(integer: item.indexPath.section) , with: .automatic)
-                                                    self.showDummyViewIfNeeded()
-                                                })
-                                                .onFailure(callback: { [unowned self] error in
-                                                    
-                                                    self.showError(error: error)
-                                                })
-                                        })
-                                        
-                                        actionController.addAction(cancel)
-                                        actionController.addAction(actionDelete)
-                                        
-                                        self.present(actionController, animated: true, completion: nil)
-                                        
-                                        }.dispose(in: viewCell.bag)
+                                    self.configureCell(post, viewCell)
             })
         }
+    }
+    
+    private func configureCell(_ post: STPost, _ viewCell: STPersonalPostCell) {
+        
+        viewCell.selectionStyle = .none
+        viewCell.postTitle.text = post.title
+        viewCell.postDetails.text = post.postDescription
+        viewCell.createdAt.text = post.createdAt?.mediumLocalizedFormat
+        viewCell.iconFavorite.isSelected = post.isFavorite
+        
+        viewCell.userName.text = self.user.lastName + " " + self.user.firstName
+        
+        let end = post.dialogCount.ending(yabloko: "отклик", yabloka: "отлика", yablok: "откликов")
+        let title = "\(post.dialogCount)" + " " + end
+        
+        viewCell.dialogsCount.setTitle( title, for: .normal)
+        
+        viewCell.onFavoriteButtonTap = { [viewCell, unowned self] in
+            
+            let favorite = !viewCell.iconFavorite.isSelected
+            viewCell.iconFavorite.isSelected = favorite
+            
+            self.api.favorite(postId: post.id, favorite: favorite)
+                .onSuccess(callback: { [post] postResponse in
+                    
+                    post.isFavorite = postResponse.isFavorite
+                    NotificationCenter.default.post(name: NSNotification.Name(kItemFavoriteNotification), object: postResponse)
+                })
+        }
+        
+        if post.dateFrom != nil && post.dateTo != nil {
+            
+            viewCell.duration.isHidden = false
+            let period = post.dateFrom!.mediumLocalizedFormat + " - " + post.dateTo!.mediumLocalizedFormat
+            viewCell.duration.setTitle(period , for: .normal)
+        }
+        else {
+            
+            viewCell.duration.isHidden = true
+        }
+        
+        viewCell.more.reactive.tap.observeNext { [unowned self] in
+            
+            self.showActionController(post)
+            
+        }.dispose(in: viewCell.disposeBag)
+        
+        if user.id == user.id && self.userImage != nil {
+            
+            let userIcon = self.userImage!.af_imageAspectScaled(toFill: viewCell.userIcon.bounds.size)
+            viewCell.userIcon.setImage(userIcon.af_imageRoundedIntoCircle(), for: .normal)
+        }
+        else {
+            
+            if user.imageUrl.isEmpty {
+                
+                var defaultImage = UIImage(named: "avatar")
+                defaultImage = defaultImage?.af_imageAspectScaled(toFill: viewCell.userIcon.bounds.size)
+                viewCell.userIcon.setImage(defaultImage?.af_imageRoundedIntoCircle(), for: .normal)
+            }
+            else {
+                
+                let urlString = user.imageUrl + viewCell.userIcon.queryResizeString()
+                let filter = RoundedCornersFilter(radius: viewCell.userIcon.bounds.size.width)
+                viewCell.userIcon.af_setImage(for: .normal, url: URL(string: urlString)!, filter: filter)
+            }
+        }
+    }
+    
+    private func showActionController(_ post: STPost) {
+        
+        let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let cancel = UIAlertAction.cancel
+        
+        let actionEdit = UIAlertAction.defaultAction(title: "action_edit".localized) { action in
+            
+            // open edit controller
+            let postObject = STUserPostObject(post: post)
+            postObject.images = self.images
+            
+            self.analytics.logEvent(eventName: st_ePostEdit,
+                                    params: ["post_id" : post.id])
+            
+            self.st_router_openPostController(postObject: postObject)
+        }
+        
+        actionController.addAction(actionEdit)
+        
+        let actionDelete = UIAlertAction.destructiveAction(title: "action_delete".localized) { action in
+            
+            self.api.deletePost(postId: post.id)
+                .onSuccess(callback: { [unowned self] _ in
+                    
+                    self.analytics.logEvent(eventName: st_ePostDelete, params: ["post_id" : post.id])
+                    
+                    self.userPostsSection.items = self.userPostsSection.items
+                        .filter({ ($0.item! as! STPost).id != post.id })
+                    
+                    NotificationCenter.default.post(name: NSNotification.Name(kPostDeleteNotification), object: post)
+                    
+                    // save last item id for loading next objects
+                    if let lastPost = self.userPostsSection.items.last {
+                        
+                        self.minId = (lastPost.item as! STPost).id
+                    }
+                    else {
+                        
+                        self.minId = 0
+                    }
+                    
+                    self.tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
+                    self.showDummyViewIfNeeded()
+                })
+                .onFailure(callback: { [unowned self] error in
+                    
+                    self.showError(error: error)
+                })
+        }
+        
+        actionController.addAction(cancel)
+        actionController.addAction(actionDelete)
+        
+        self.present(actionController, animated: true, completion: nil)
     }
     
     private func loadFeed(isRefresh: Bool = false) {
@@ -411,7 +451,7 @@ class STProfileTableViewController: UITableViewController {
         }
     }
     
-    fileprivate func showDummyViewIfNeeded() {
+    private func showDummyViewIfNeeded() {
         
         if self.userPostsSection.items.count == 0 {
             

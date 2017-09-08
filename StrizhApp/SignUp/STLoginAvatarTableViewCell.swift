@@ -13,27 +13,17 @@ class STLoginAvatarTableViewCell: UITableViewCell {
 
     @IBOutlet weak var avatarButton: UIButton!
 
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     
-    deinit {
-        
-        disposeBag.dispose()
-    }
     
     override func prepareForReuse() {
         
-        disposeBag.dispose()
+        disposeBag = DisposeBag()
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         self.avatarButton.imageView?.contentMode = .scaleAspectFill
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 }

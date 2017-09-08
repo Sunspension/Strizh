@@ -291,8 +291,12 @@ class STFeedDetailsTableViewController: UIViewController {
                                 let viewCell = cell as! STPostDetailsMainInfoCell
                                 
                                 viewCell.postTitle.text = post.title
-                                viewCell.isSearch = post.type == 2
                                 viewCell.postTime.text = post.createdAt?.elapsedInterval()
+                                
+                                let end = post.dialogCount.ending(yabloko: "отклик", yabloka: "отлика", yablok: "откликов")
+                                let title = "\(post.dialogCount)" + " " + end
+                                
+                                viewCell.dialogsCount.setTitle( title, for: .normal)
                                 
                                 if let user = self.user {
                                     

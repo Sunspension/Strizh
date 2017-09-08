@@ -17,7 +17,6 @@ enum STDialogsControllerOpenReason {
 
 class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating {
     
-    
     fileprivate let dataSource = TableViewDataSource()
     
     fileprivate let section = TableSection()
@@ -177,37 +176,6 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         }
     }
     
-    func openFilter() {
-        
-        let controller = STFeedFilterTableViewController() { [unowned self] in
-            
-            var userIdAndIsIncoming: (Int, Bool)? = nil
-            
-            // analytics
-            if let filter = STDialogFilter.objects(by: STDialogFilter.self).first {
-                
-                if filter.isIncoming {
-                    
-                    userIdAndIsIncoming = (self.myUser.id, true)
-                }
-                
-                if filter.isOutgoing {
-                    
-                    userIdAndIsIncoming = (self.myUser.id, false)
-                }
-            }
-            
-            self.page = 1
-            self.loadDialogs(userIdAndIsIncoming: userIdAndIsIncoming)
-        }
-        
-        controller.filter = AppDelegate.appSettings.dialogFilter
-        
-        let navi = STNavigationController(rootViewController: controller)
-        
-        self.present(navi, animated: true, completion: nil)
-    }
-    
     func onDidReceiveNewMessageNotification(_ notification: Notification) {
         
         self.page = 1
@@ -251,6 +219,37 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
     }
     
     //MARK: - Private methods
+    
+    @objc private func openFilter() {
+        
+        let controller = STFeedFilterTableViewController() { [unowned self] in
+            
+            var userIdAndIsIncoming: (Int, Bool)? = nil
+            
+            // analytics
+            if let filter = STDialogFilter.objects(by: STDialogFilter.self).first {
+                
+                if filter.isIncoming {
+                    
+                    userIdAndIsIncoming = (self.myUser.id, true)
+                }
+                
+                if filter.isOutgoing {
+                    
+                    userIdAndIsIncoming = (self.myUser.id, false)
+                }
+            }
+            
+            self.page = 1
+            self.loadDialogs(userIdAndIsIncoming: userIdAndIsIncoming)
+        }
+        
+        controller.filter = AppDelegate.appSettings.dialogFilter
+        
+        let navi = STNavigationController(rootViewController: controller)
+        
+        self.present(navi, animated: true, completion: nil)
+    }
     
     private func setupSearchController() {
         

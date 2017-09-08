@@ -46,7 +46,7 @@ class STIntroContainerViewController: UIViewController {
             var intro1 = STIntroObject()
             intro1.imageName = "intro-1"
             intro1.title = "Добро пожаловать!"
-            intro1.subtitle = "Упрощайте рабочий процесс, договаривайтесь о сделках в 3 шага."
+            intro1.subtitle = "Упрощайте рабочий процесс, создавайте запросы в 3 шага."
             intro1.nextTitle = "Далее"
             
             var intro2 = STIntroObject()

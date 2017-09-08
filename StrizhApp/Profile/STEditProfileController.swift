@@ -208,7 +208,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                     viewCell.userImage.setImage(image.af_imageRoundedIntoCircle(), for: .normal)
                     self.deleteAvatar = false
                     
-                    }.dispose(in: viewCell.bag)
+                    }.dispose(in: viewCell.disposeBag)
                 
                 let choosePhotoAction = UIAlertAction(title: "login_page_choose_photo_text".localized, style: .default) { [unowned self] action in
                     
@@ -250,7 +250,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                 
                 self.present(alert, animated: true, completion: nil)
                 
-                }.dispose(in: viewCell.bag)
+                }.dispose(in: viewCell.disposeBag)
             
             viewCell.deleteAvatar.reactive.tap.observe { [unowned viewCell, unowned self] _ in
                 
@@ -262,7 +262,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                 self.observableImage.value = UIImage()
                 self.deleteAvatar = true
                 
-                }.dispose(in: viewCell.bag)
+                }.dispose(in: viewCell.disposeBag)
             
             if let data = self.user.imageData {
                 
@@ -308,7 +308,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                                         
                                         self.firstName = text
                                         
-                                        }.dispose(in: viewCell.bag)
+                                        }.dispose(in: viewCell.disposeBag)
                                     
                                     item.validation = {
                                         
@@ -339,7 +339,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                                         
                                         self.lastName = text
                                         
-                                        }.dispose(in: viewCell.bag)
+                                        }.dispose(in: viewCell.disposeBag)
                                     
                                     item.validation = {
                                         
@@ -370,7 +370,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
                                         
                                         self.email = text
                                         
-                                        }.dispose(in: viewCell.bag)
+                                        }.dispose(in: viewCell.disposeBag)
         }
         
         self.userInfoSection.add(item: self.user,

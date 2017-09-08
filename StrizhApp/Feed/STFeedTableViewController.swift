@@ -80,12 +80,6 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         self.dataSourceSwitch.addTarget(self, action: #selector(self.switchDataSource(control:)), for: .valueChanged)
         self.navigationItem.titleView = self.dataSourceSwitch
         
-        let rigthItem = UIBarButtonItem(image: UIImage(named: "icon-filter"),
-                                        landscapeImagePhone: UIImage(named: "icon-filter"),
-                                        style: .plain, target: self, action: #selector(self.openFilter))
-        
-        self.navigationItem.rightBarButtonItem = rigthItem
-        
         self.setCustomBackButton()
         self.setupDataSources()
         
@@ -154,71 +148,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
             dataSource.loadFeed()
         }
         
-        cell.selectionStyle = .none
-        cell.postTitle.text = post.title
-        cell.postDetails.text = post.postDescription
-        cell.iconFavorite.isSelected = post.isFavorite
-        cell.isSearch = post.type == 2
-        
-        cell.postTime.text = post.createdAt?.elapsedInterval()
-        
-        cell.onFavoriteButtonTap = { [cell, unowned self] in
-            
-            let favorite = !cell.iconFavorite.isSelected
-            cell.iconFavorite.isSelected = favorite
-            
-            self.api.favorite(postId: post.id, favorite: favorite)
-                .onSuccess(callback: { [post] postResponse in
-                    
-                    post.isFavorite = postResponse.isFavorite
-                    NotificationCenter.default.post(name: NSNotification.Name(kItemFavoriteNotification), object: postResponse)
-                })
-        }
-        
-        if post.dateFrom != nil && post.dateTo != nil {
-            
-            cell.durationDate.isHidden = false
-            let period = post.dateFrom!.shortLocalizedFormat + " - " + post.dateTo!.shortLocalizedFormat
-            cell.durationDate.setTitle(period , for: .normal)
-        }
-        else {
-            
-            cell.durationDate.isHidden = true
-        }
-        
-        if let user = dataSource.users.first(where: { $0.id == post.userId }) {
-            
-            cell.onUserIconButtonTap = { [unowned self] in
-                
-                self.st_router_openUserProfile(user: user)
-            }
-            
-            cell.userName.text = user.lastName + " " + user.firstName
-            
-            if user.id == self.myUser.id && self.myUser.imageData != nil {
-                
-                if let image = UIImage(data: self.myUser.imageData!) {
-                    
-                    let userIcon = image.af_imageAspectScaled(toFill: cell.userIcon.bounds.size)
-                    cell.userIcon.setImage(userIcon.af_imageRoundedIntoCircle(), for: .normal)
-                }
-            }
-            else {
-                
-                if user.imageUrl.isEmpty {
-                    
-                    var defaultImage = UIImage(named: "avatar")
-                    defaultImage = defaultImage?.af_imageAspectScaled(toFill: cell.userIcon.bounds.size)
-                    cell.userIcon.setImage(defaultImage?.af_imageRoundedIntoCircle(), for: .normal)
-                }
-                else {
-                    
-                    let urlString = user.imageUrl + cell.userIcon.queryResizeString()
-                    let filter = RoundedCornersFilter(radius: cell.userIcon.bounds.size.width)
-                    cell.userIcon.af_setImage(for: .normal, url: URL(string: urlString)!, filter: filter)
-                }
-            }
-        }
+        configureCell(post, cell)
         
         return cell
     }
@@ -319,43 +249,6 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         self.reloadTableView()
     }
     
-    func openFilter() {
-        
-        let controller = STFeedFilterTableViewController() { [unowned self] in
-            
-            // analytics
-            if let filter = STFeedFilter.objects(by: STFeedFilter.self).first {
-                
-                var types = [Int]()
-                
-                if filter.isOffer {
-                    
-                    types.append(1)
-                }
-                else if filter.isSearch {
-                    
-                    types.append(2)
-                }
-                else {
-                    
-                    types.append(contentsOf: [1, 2])
-                }
-                
-                self.analytics.logEvent(eventName: st_eFeedFilter, params: ["type" : types])
-            }
-            
-            self.feedDataSource.reloadFilter(notify: self.dataSourceSwitch.selectedSegmentIndex == 0)
-            self.favoritesFeedDataSource.reloadFilter(notify: self.dataSourceSwitch.selectedSegmentIndex == 1)
-            self.reloadTableView()
-        }
-        
-        controller.filter = AppDelegate.appSettings.feedFilter
-        
-        let navi = STNavigationController(rootViewController: controller)
-        
-        self.present(navi, animated: true, completion: nil)
-    }
-    
     private func setupDataSources() {
         
         // setup data sources
@@ -403,7 +296,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         self.searchFavoriteDataSource.disableAddToFavoriteHadler = true
     }
     
-    fileprivate func onDataSourceLoadingStatusChanged(_ status: STLoadingStatusEnum) {
+    private func onDataSourceLoadingStatusChanged(_ status: STLoadingStatusEnum) {
         
         switch status {
             
@@ -425,7 +318,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         searchController.searchBar.delegate = self
         searchController.searchBar.barTintColor = UIColor.stLightBlueGrey
         searchController.searchBar.backgroundImage = UIImage()
-        self.definesPresentationContext = true
+        definesPresentationContext = true
         
         tableView.tableHeaderView = searchController.searchBar
     }
@@ -498,6 +391,80 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         else {
             
             self.hideDummyView()
+        }
+    }
+    
+    private func configureCell(_ post: STPost, _ cell: STPostTableViewCell) {
+        
+        cell.selectionStyle = .none
+        cell.postTitle.text = post.title
+        cell.postDetails.text = post.postDescription
+        cell.iconFavorite.isSelected = post.isFavorite
+        
+        let end = post.dialogCount.ending(yabloko: "отклик", yabloka: "отлика", yablok: "откликов")
+        let title = "\(post.dialogCount)" + " " + end
+        
+        cell.dialogsCount.setTitle( title, for: .normal)
+        cell.postTime.text = post.createdAt?.elapsedInterval()
+        
+        cell.onFavoriteButtonTap = { [cell, unowned self] in
+            
+            let favorite = !cell.iconFavorite.isSelected
+            cell.iconFavorite.isSelected = favorite
+            
+            self.api.favorite(postId: post.id, favorite: favorite)
+                .onSuccess(callback: { [post] postResponse in
+                    
+                    post.isFavorite = postResponse.isFavorite
+                    NotificationCenter.default.post(name: NSNotification.Name(kItemFavoriteNotification), object: postResponse)
+                })
+        }
+        
+        if post.dateFrom != nil && post.dateTo != nil {
+            
+            cell.durationDate.isHidden = false
+            let period = post.dateFrom!.mediumLocalizedFormat + " - " + post.dateTo!.mediumLocalizedFormat
+            cell.durationDate.setTitle(period , for: .normal)
+        }
+        else {
+            
+            cell.durationDate.isHidden = true
+        }
+        
+        let dataSource = self.currentDataSource
+        
+        if let user = dataSource.users.first(where: { $0.id == post.userId }) {
+            
+            cell.onUserIconButtonTap = { [unowned self] in
+                
+                self.st_router_openUserProfile(user: user)
+            }
+            
+            cell.userName.text = user.lastName + " " + user.firstName
+            
+            if user.id == self.myUser.id && self.myUser.imageData != nil {
+                
+                if let image = UIImage(data: self.myUser.imageData!) {
+                    
+                    let userIcon = image.af_imageAspectScaled(toFill: cell.userIcon.bounds.size)
+                    cell.userIcon.setImage(userIcon.af_imageRoundedIntoCircle(), for: .normal)
+                }
+            }
+            else {
+                
+                if user.imageUrl.isEmpty {
+                    
+                    var defaultImage = UIImage(named: "avatar")
+                    defaultImage = defaultImage?.af_imageAspectScaled(toFill: cell.userIcon.bounds.size)
+                    cell.userIcon.setImage(defaultImage?.af_imageRoundedIntoCircle(), for: .normal)
+                }
+                else {
+                    
+                    let urlString = user.imageUrl + cell.userIcon.queryResizeString()
+                    let filter = RoundedCornersFilter(radius: cell.userIcon.bounds.size.width)
+                    cell.userIcon.af_setImage(for: .normal, url: URL(string: urlString)!, filter: filter)
+                }
+            }
         }
     }
 }

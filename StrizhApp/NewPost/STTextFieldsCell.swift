@@ -28,11 +28,6 @@ class STTextFieldsCell: UITableViewCell, UITextFieldDelegate {
     var disposeBag = DisposeBag()
     
     
-    deinit {
-        
-        disposeBag.dispose()
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -48,13 +43,13 @@ class STTextFieldsCell: UITableViewCell, UITextFieldDelegate {
     
     override func prepareForReuse() {
         
-        disposeBag.dispose()
+        disposeBag = DisposeBag()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        
+        textField.text = ""
+        return false
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
