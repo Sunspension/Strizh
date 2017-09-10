@@ -67,11 +67,11 @@
 "post_page_title" = "Новый запрос";
 "post_page_time_to_begin_text" = "Начало";
 "post_page_time_to_end_text" = "Конец";
-"post_page_duration" = "Срок действия";
+"post_page_duration" = "Срок действия запроса";
 "post_page_name_text" = "Название";
-"post_page_enter_topic_name_text" = "Введите название проекта";
+"post_page_enter_topic_name_text" = "Введите название запроса";
 "post_page_description_text" = "Описание";
-"post_page_enter_topic_description_text" = "Введите описание проекта";
+"post_page_enter_topic_description_text" = "Введите описание запроса";
 "post_page_price_text" = "Цена";
 "post_page_price_details_placeholder" = "5000 руб. за штуку";
 "post_page_price_comment_text" = "Комментарий к цене";

@@ -68,11 +68,11 @@
 "post_page_title" = "New request";
 "post_page_time_to_begin_text" = "Begining";
 "post_page_time_to_end_text" = "End";
-"post_page_duration" = "Duration";
-"post_page_name_text" = "Project name";
-"post_page_enter_topic_name_text" = "Enter a project name";
-"post_page_description_text" = "Description";
-"post_page_enter_topic_description_text" = "Enter a description of project";
+"post_page_duration" = "Request duration";
+"post_page_name_text" = "Requets name";
+"post_page_enter_topic_name_text" = "Enter a request name";
+"post_page_description_text" = "Request description";
+"post_page_enter_topic_description_text" = "Enter a request description";
 "post_page_price_text" = "Price";
 "post_page_price_details_placeholder" = "5000 rubles for one piece";
 "post_page_price_comment_text" = "Price description";
