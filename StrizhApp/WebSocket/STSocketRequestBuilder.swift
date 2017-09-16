@@ -305,7 +305,7 @@ enum STSocketRequestBuilder {
             
             body["title"] = post.title
             body["description"] = post.details
-            body["type"] = post.type
+            body["type"] = 0
             body["is_public"] = post.isPublic
             
             if let parentId = post.parentId {

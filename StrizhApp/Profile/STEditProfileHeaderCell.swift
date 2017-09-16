@@ -19,7 +19,7 @@ class STEditProfileHeaderCell: UITableViewCell {
     
     override func prepareForReuse() {
         
-        var disposeBag = DisposeBag()
+        disposeBag = DisposeBag()
     }
     
     override func awakeFromNib() {

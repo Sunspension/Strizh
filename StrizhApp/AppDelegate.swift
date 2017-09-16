@@ -54,8 +54,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         let prod = "https://api.strizhapp.ru"
         let dev = "https://dev.api.strizhapp.ru"
         
+        var serverApiString: String!
+        
+        #if DEV
+            
+            serverApiString = dev
+        #else
+        
+            serverApiString = prod
+        #endif
+        
         return AppSettings(dbConfig: STRealmConfiguration(),
-                           serverApi: STServerApi(serverUrlString: prod))
+                           serverApi: STServerApi(serverUrlString: serverApiString))
     }()
     
     

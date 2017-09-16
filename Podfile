@@ -38,6 +38,19 @@ target 'StrizhApp' do
     pod 'RealmSwift'
 end
 
+target 'StrizhAppDev' do
+    
+    common_pods
+    pod 'RealmSwift'
+end
+
+target 'StrizhAppStage' do
+    
+    common_pods
+    pod 'RealmSwift'
+end
+
+
 target 'StrizhAppTests' do
     
     common_pods
