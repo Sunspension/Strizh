@@ -5,12 +5,12 @@ use_frameworks!
 def common_pods
     
     pod 'Alamofire', '~> 4.3'
-    pod 'ObjectMapper', '~> 2.2'
+    pod 'ObjectMapper', '< 2.2.9'
     pod 'AlamofireObjectMapper', '~> 4.0'
     pod 'AlamofireImage', '~> 3.1'
     pod 'BrightFutures'
-    pod 'Bond', '~> 6.0'
-    pod 'Socket.IO-Client-Swift'
+    pod 'Bond', '< 6.2.7'
+    pod 'Socket.IO-Client-Swift', '< 12'
     pod 'Firebase/Crash'
     #    pod 'PhoneNumberKit', '~> 1.2'
     pod 'SHSPhoneComponent'

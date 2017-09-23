@@ -38,10 +38,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         let toastLabel = UILabel()
         toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         toastLabel.textColor = UIColor.white
-        toastLabel.textAlignment = .center;
+        toastLabel.textAlignment = .center
         toastLabel.font = UIFont.systemFont(ofSize: 12)
-        toastLabel.layer.cornerRadius = 10;
-        toastLabel.clipsToBounds  =  true
+        toastLabel.layer.cornerRadius = 10
+        toastLabel.clipsToBounds = true
         toastLabel.numberOfLines = 0
         
         return toastLabel
@@ -110,7 +110,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         self.setupAnalytics()
         self.checkLaunchOptions()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.introEnded), name: Notification.Name(rawValue: kIntroHasEndedNotification), object: nil)
+        let name = Notification.Name(rawValue: kIntroHasEndedNotification)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.introEnded), name: name, object: nil)
         
         return true
     }
@@ -292,7 +293,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                         
                         if user.firstName.isEmpty {
                             
-                            let controller = STSingUpTableViewController(signupStep: .signupThirdStep)
+                            let controller = STSingUpThirdStepController()
                             let navi = STSignUpNavigationController(rootViewController: controller)
                             
                             self.changeRootViewController(navi)
@@ -535,7 +536,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                             
                             if user.firstName.isEmpty || user.lastName.isEmpty {
                                 
-                                let controller = STSingUpTableViewController(signupStep: .signupThirdStep)
+                                let controller = STSingUpThirdStepController()
                                 let navi = STSignUpNavigationController(rootViewController: controller)
                                 
                                 self.changeRootViewController(navi)
@@ -556,6 +557,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                     
                     if let _ = UserDefaults.standard.object(forKey: kNeedIntro) as? Bool {
 
+                        let controller = STSingUpThirdStepController()
+                        let navi = STSignUpNavigationController(rootViewController: controller)
+                        
+                        if animation {
+                            
+                            self.changeRootViewController(navi)
+                            return
+                        }
+                        
+                        self.window?.rootViewController = navi
+                        self.window?.makeKeyAndVisible()
+                        
+                        return
+                        
                         if session.isFacebook {
 
                             let controller = AppDelegate.appSettings.fbAccountKit
@@ -575,7 +590,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                         }
                         else {
                             
-                            let controller = STSingUpTableViewController(signupStep: .signupFirstStep)
+                            let controller = STSingUpThirdStepController()
                             let navi = STSignUpNavigationController(rootViewController: controller)
                             
                             if animation {

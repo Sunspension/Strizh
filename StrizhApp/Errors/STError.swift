@@ -52,6 +52,8 @@ enum STError: Error {
     
     case anyError(error: Error)
     
+    case error(message: String)
+    
     
     var localizedDescription: String {
         
@@ -140,6 +142,10 @@ enum STError: Error {
         case .updateNotificationSettingsError:
             
             return "Error has occurred when was trying to update user notification settings"
+            
+        case .error(let message):
+            
+            return message
         }
     }
 }

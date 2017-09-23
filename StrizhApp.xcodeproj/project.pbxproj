@@ -8,6 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		0D4712BF056042E4491062F2 /* Pods_StrizhApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 277E51B2F6F272FF051A01F5 /* Pods_StrizhApp.framework */; };
+		7731F9C01F769F0100B875D4 /* STSingUpBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7731F9BF1F769F0100B875D4 /* STSingUpBaseController.swift */; };
+		7731F9C11F769F0100B875D4 /* STSingUpBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7731F9BF1F769F0100B875D4 /* STSingUpBaseController.swift */; };
+		7731F9C21F769F0100B875D4 /* STSingUpBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7731F9BF1F769F0100B875D4 /* STSingUpBaseController.swift */; };
+		7731F9C41F76A32400B875D4 /* STSingUpFirstStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7731F9C31F76A32400B875D4 /* STSingUpFirstStepController.swift */; };
+		7731F9C51F76A32400B875D4 /* STSingUpFirstStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7731F9C31F76A32400B875D4 /* STSingUpFirstStepController.swift */; };
+		7731F9C61F76A32400B875D4 /* STSingUpFirstStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7731F9C31F76A32400B875D4 /* STSingUpFirstStepController.swift */; };
+		779A92AA1F76A8B70005BA19 /* STSingUpSecondStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A92A91F76A8B70005BA19 /* STSingUpSecondStepController.swift */; };
+		779A92AB1F76A8B70005BA19 /* STSingUpSecondStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A92A91F76A8B70005BA19 /* STSingUpSecondStepController.swift */; };
+		779A92AC1F76A8B70005BA19 /* STSingUpSecondStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A92A91F76A8B70005BA19 /* STSingUpSecondStepController.swift */; };
+		779A92AE1F76AD1F0005BA19 /* STSingUpThirdStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A92AD1F76AD1F0005BA19 /* STSingUpThirdStepController.swift */; };
+		779A92AF1F76AD1F0005BA19 /* STSingUpThirdStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A92AD1F76AD1F0005BA19 /* STSingUpThirdStepController.swift */; };
+		779A92B01F76AD1F0005BA19 /* STSingUpThirdStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A92AD1F76AD1F0005BA19 /* STSingUpThirdStepController.swift */; };
 		8C1EA0104E6AFC1EDC4D756C /* Pods_StrizhAppDev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558B463B8DDDBC142C67CBBD /* Pods_StrizhAppDev.framework */; };
 		D402C2341E7DFEE700237EB9 /* RealmInt64.swift in Sources */ = {isa = PBXBuildFile; fileRef = D402C2331E7DFEE700237EB9 /* RealmInt64.swift */; };
 		D40405811E917F8400F0A8E4 /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40405801E917F8400F0A8E4 /* CollectionViewDataSource.swift */; };
@@ -61,7 +73,6 @@
 		D415DA7B1F6C6B2F00EE1129 /* STUserPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AB1F611F3BA2CF0080CC73 /* STUserPostCell.swift */; };
 		D415DA7C1F6C6B2F00EE1129 /* STLoginTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185FC1E364AE700BC6C9A /* STLoginTableViewCell.swift */; };
 		D415DA7D1F6C6B2F00EE1129 /* StringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41169D51F3130CD00B57CD7 /* StringFormatter.swift */; };
-		D415DA7E1F6C6B2F00EE1129 /* STSingUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185E71E3609B700BC6C9A /* STSingUpTableViewController.swift */; };
 		D415DA7F1F6C6B2F00EE1129 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49726FA1E32BDA50076B7A1 /* AppDelegate.swift */; };
 		D415DA801F6C6B2F00EE1129 /* STUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B1B1E3F9716009EE669 /* STUser.swift */; };
 		D415DA811F6C6B2F00EE1129 /* STContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4227F451E61C48900BCB8B1 /* STContact.swift */; };
@@ -271,7 +282,6 @@
 		D41D911D1F6C66C100D78547 /* STUserPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AB1F611F3BA2CF0080CC73 /* STUserPostCell.swift */; };
 		D41D911E1F6C66C100D78547 /* STLoginTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185FC1E364AE700BC6C9A /* STLoginTableViewCell.swift */; };
 		D41D911F1F6C66C100D78547 /* StringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41169D51F3130CD00B57CD7 /* StringFormatter.swift */; };
-		D41D91201F6C66C100D78547 /* STSingUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185E71E3609B700BC6C9A /* STSingUpTableViewController.swift */; };
 		D41D91211F6C66C100D78547 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49726FA1E32BDA50076B7A1 /* AppDelegate.swift */; };
 		D41D91221F6C66C100D78547 /* STUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B1B1E3F9716009EE669 /* STUser.swift */; };
 		D41D91231F6C66C100D78547 /* STContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4227F451E61C48900BCB8B1 /* STContact.swift */; };
@@ -566,7 +576,6 @@
 		E50DBEB01E76FD8D000C38E4 /* STTextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50DBEAE1E76FD8D000C38E4 /* STTextViewCell.xib */; };
 		E50FA39A1E6842CE00CAA4D7 /* STNewPostObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50FA3991E6842CD00CAA4D7 /* STNewPostObject.swift */; };
 		E50FA39D1E68510E00CAA4D7 /* STNewPostNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50FA39C1E68510E00CAA4D7 /* STNewPostNavigationController.swift */; };
-		E53185E81E3609B700BC6C9A /* STSingUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185E71E3609B700BC6C9A /* STSingUpTableViewController.swift */; };
 		E53185F71E3612EF00BC6C9A /* STLoadingStatusEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185F01E3612EF00BC6C9A /* STLoadingStatusEnum.swift */; };
 		E53185FE1E364AE700BC6C9A /* STLoginTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53185FC1E364AE700BC6C9A /* STLoginTableViewCell.swift */; };
 		E53185FF1E364AE700BC6C9A /* STLoginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E53185FD1E364AE700BC6C9A /* STLoginTableViewCell.xib */; };
@@ -655,6 +664,10 @@
 		277E51B2F6F272FF051A01F5 /* Pods_StrizhApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StrizhApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E8A8787F4373C051854C7D5 /* Pods-StrizhApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp.debug.xcconfig"; sourceTree = "<group>"; };
 		558B463B8DDDBC142C67CBBD /* Pods_StrizhAppDev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StrizhAppDev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7731F9BF1F769F0100B875D4 /* STSingUpBaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpBaseController.swift; path = SignUp/STSingUpBaseController.swift; sourceTree = "<group>"; };
+		7731F9C31F76A32400B875D4 /* STSingUpFirstStepController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpFirstStepController.swift; path = SignUp/STSingUpFirstStepController.swift; sourceTree = "<group>"; };
+		779A92A91F76A8B70005BA19 /* STSingUpSecondStepController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpSecondStepController.swift; path = SignUp/STSingUpSecondStepController.swift; sourceTree = "<group>"; };
+		779A92AD1F76AD1F0005BA19 /* STSingUpThirdStepController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpThirdStepController.swift; path = SignUp/STSingUpThirdStepController.swift; sourceTree = "<group>"; };
 		A4C394FFBB322D21170E98DE /* Pods-StrizhAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhAppTests/Pods-StrizhAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		AA29B537FB5401BEA5B8C84F /* Pods-StrizhAppStage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhAppStage.release.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhAppStage/Pods-StrizhAppStage.release.xcconfig"; sourceTree = "<group>"; };
 		AF968DC44AC9AB98518054D9 /* Pods-StrizhAppStage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhAppStage.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhAppStage/Pods-StrizhAppStage.debug.xcconfig"; sourceTree = "<group>"; };
@@ -817,7 +830,6 @@
 		E50DBEAE1E76FD8D000C38E4 /* STTextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STTextViewCell.xib; path = NewPost/STTextViewCell.xib; sourceTree = "<group>"; };
 		E50FA3991E6842CD00CAA4D7 /* STNewPostObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STNewPostObject.swift; path = Models/STNewPostObject.swift; sourceTree = "<group>"; };
 		E50FA39C1E68510E00CAA4D7 /* STNewPostNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STNewPostNavigationController.swift; path = NewPost/STNewPostNavigationController.swift; sourceTree = "<group>"; };
-		E53185E71E3609B700BC6C9A /* STSingUpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpTableViewController.swift; path = SignUp/STSingUpTableViewController.swift; sourceTree = "<group>"; };
 		E53185F01E3612EF00BC6C9A /* STLoadingStatusEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STLoadingStatusEnum.swift; sourceTree = "<group>"; };
 		E53185FC1E364AE700BC6C9A /* STLoginTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STLoginTableViewCell.swift; path = SignUp/STLoginTableViewCell.swift; sourceTree = "<group>"; };
 		E53185FD1E364AE700BC6C9A /* STLoginTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STLoginTableViewCell.xib; path = SignUp/STLoginTableViewCell.xib; sourceTree = "<group>"; };
@@ -1410,7 +1422,10 @@
 			isa = PBXGroup;
 			children = (
 				D4AD43BE1E47DB52006F13DE /* STSignUpNavigationController.swift */,
-				E53185E71E3609B700BC6C9A /* STSingUpTableViewController.swift */,
+				7731F9BF1F769F0100B875D4 /* STSingUpBaseController.swift */,
+				7731F9C31F76A32400B875D4 /* STSingUpFirstStepController.swift */,
+				779A92A91F76A8B70005BA19 /* STSingUpSecondStepController.swift */,
+				779A92AD1F76AD1F0005BA19 /* STSingUpThirdStepController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2363,6 +2378,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D415DA5A1F6C6B2F00EE1129 /* CircledButton.swift in Sources */,
+				7731F9C21F769F0100B875D4 /* STSingUpBaseController.swift in Sources */,
 				D415DA5B1F6C6B2F00EE1129 /* ChatCollectionViewFlowLayout.swift in Sources */,
 				D415DA5C1F6C6B2F00EE1129 /* STContactsProvider.swift in Sources */,
 				D415DA5D1F6C6B2F00EE1129 /* UITableViewCell.swift in Sources */,
@@ -2398,7 +2414,6 @@
 				D415DA7B1F6C6B2F00EE1129 /* STUserPostCell.swift in Sources */,
 				D415DA7C1F6C6B2F00EE1129 /* STLoginTableViewCell.swift in Sources */,
 				D415DA7D1F6C6B2F00EE1129 /* StringFormatter.swift in Sources */,
-				D415DA7E1F6C6B2F00EE1129 /* STSingUpTableViewController.swift in Sources */,
 				D415DA7F1F6C6B2F00EE1129 /* AppDelegate.swift in Sources */,
 				D415DA801F6C6B2F00EE1129 /* STUser.swift in Sources */,
 				D415DA811F6C6B2F00EE1129 /* STContact.swift in Sources */,
@@ -2409,6 +2424,7 @@
 				D415DA861F6C6B2F00EE1129 /* Colors.swift in Sources */,
 				D415DA871F6C6B2F00EE1129 /* UINavigationController.swift in Sources */,
 				D415DA881F6C6B2F00EE1129 /* NSNumberToInt64Transform.swift in Sources */,
+				7731F9C61F76A32400B875D4 /* STSingUpFirstStepController.swift in Sources */,
 				D415DA891F6C6B2F00EE1129 /* STContactCell.swift in Sources */,
 				D415DA8A1F6C6B2F00EE1129 /* AppSettings.swift in Sources */,
 				D415DA8B1F6C6B2F00EE1129 /* STRegistration.swift in Sources */,
@@ -2479,6 +2495,7 @@
 				D415DACC1F6C6B2F00EE1129 /* STNewPostController.swift in Sources */,
 				D415DACD1F6C6B2F00EE1129 /* STDialogMyCell.swift in Sources */,
 				D415DACE1F6C6B2F00EE1129 /* STFile.swift in Sources */,
+				779A92B01F76AD1F0005BA19 /* STSingUpThirdStepController.swift in Sources */,
 				D415DACF1F6C6B2F00EE1129 /* STHTTPManager.swift in Sources */,
 				D415DAD01F6C6B2F00EE1129 /* STDialogsController.swift in Sources */,
 				D415DAD11F6C6B2F00EE1129 /* GenericTableSection.swift in Sources */,
@@ -2514,6 +2531,7 @@
 				D415DAEF1F6C6B2F00EE1129 /* UIAlertAction.swift in Sources */,
 				D415DAF01F6C6B2F00EE1129 /* String.swift in Sources */,
 				D415DAF11F6C6B2F00EE1129 /* STIntroObject.swift in Sources */,
+				779A92AC1F76A8B70005BA19 /* STSingUpSecondStepController.swift in Sources */,
 				D415DAF21F6C6B2F00EE1129 /* STTabBarViewController.swift in Sources */,
 				D415DAF31F6C6B2F00EE1129 /* STFilterItem.swift in Sources */,
 				D415DAF41F6C6B2F00EE1129 /* TableSectionItem.swift in Sources */,
@@ -2531,6 +2549,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D41D90FC1F6C66C100D78547 /* CircledButton.swift in Sources */,
+				7731F9C11F769F0100B875D4 /* STSingUpBaseController.swift in Sources */,
 				D41D90FD1F6C66C100D78547 /* ChatCollectionViewFlowLayout.swift in Sources */,
 				D41D90FE1F6C66C100D78547 /* STContactsProvider.swift in Sources */,
 				D41D90FF1F6C66C100D78547 /* UITableViewCell.swift in Sources */,
@@ -2566,7 +2585,6 @@
 				D41D911D1F6C66C100D78547 /* STUserPostCell.swift in Sources */,
 				D41D911E1F6C66C100D78547 /* STLoginTableViewCell.swift in Sources */,
 				D41D911F1F6C66C100D78547 /* StringFormatter.swift in Sources */,
-				D41D91201F6C66C100D78547 /* STSingUpTableViewController.swift in Sources */,
 				D41D91211F6C66C100D78547 /* AppDelegate.swift in Sources */,
 				D41D91221F6C66C100D78547 /* STUser.swift in Sources */,
 				D41D91231F6C66C100D78547 /* STContact.swift in Sources */,
@@ -2577,6 +2595,7 @@
 				D41D91281F6C66C100D78547 /* Colors.swift in Sources */,
 				D41D91291F6C66C100D78547 /* UINavigationController.swift in Sources */,
 				D41D912A1F6C66C100D78547 /* NSNumberToInt64Transform.swift in Sources */,
+				7731F9C51F76A32400B875D4 /* STSingUpFirstStepController.swift in Sources */,
 				D41D912B1F6C66C100D78547 /* STContactCell.swift in Sources */,
 				D41D912C1F6C66C100D78547 /* AppSettings.swift in Sources */,
 				D41D912D1F6C66C100D78547 /* STRegistration.swift in Sources */,
@@ -2647,6 +2666,7 @@
 				D41D916E1F6C66C100D78547 /* STNewPostController.swift in Sources */,
 				D41D916F1F6C66C100D78547 /* STDialogMyCell.swift in Sources */,
 				D41D91701F6C66C100D78547 /* STFile.swift in Sources */,
+				779A92AF1F76AD1F0005BA19 /* STSingUpThirdStepController.swift in Sources */,
 				D41D91711F6C66C100D78547 /* STHTTPManager.swift in Sources */,
 				D41D91721F6C66C100D78547 /* STDialogsController.swift in Sources */,
 				D41D91731F6C66C100D78547 /* GenericTableSection.swift in Sources */,
@@ -2682,6 +2702,7 @@
 				D41D91911F6C66C100D78547 /* UIAlertAction.swift in Sources */,
 				D41D91921F6C66C100D78547 /* String.swift in Sources */,
 				D41D91931F6C66C100D78547 /* STIntroObject.swift in Sources */,
+				779A92AB1F76A8B70005BA19 /* STSingUpSecondStepController.swift in Sources */,
 				D41D91941F6C66C100D78547 /* STTabBarViewController.swift in Sources */,
 				D41D91951F6C66C100D78547 /* STFilterItem.swift in Sources */,
 				D41D91961F6C66C100D78547 /* TableSectionItem.swift in Sources */,
@@ -2707,6 +2728,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5E4E9C11E81139D00B77102 /* CircledButton.swift in Sources */,
+				7731F9C01F769F0100B875D4 /* STSingUpBaseController.swift in Sources */,
 				D46FFA691E959EF700578F07 /* ChatCollectionViewFlowLayout.swift in Sources */,
 				E5E334B81E7AD64A00EA274A /* STContactsProvider.swift in Sources */,
 				D4A62EDA1F3B3D5400C9AE8C /* UITableViewCell.swift in Sources */,
@@ -2742,7 +2764,6 @@
 				D4AB1F621F3BA2CF0080CC73 /* STUserPostCell.swift in Sources */,
 				E53185FE1E364AE700BC6C9A /* STLoginTableViewCell.swift in Sources */,
 				D41169D61F3130CD00B57CD7 /* StringFormatter.swift in Sources */,
-				E53185E81E3609B700BC6C9A /* STSingUpTableViewController.swift in Sources */,
 				D49726FB1E32BDA50076B7A1 /* AppDelegate.swift in Sources */,
 				E59A1B1C1E3F9716009EE669 /* STUser.swift in Sources */,
 				D4227F461E61C48900BCB8B1 /* STContact.swift in Sources */,
@@ -2753,6 +2774,7 @@
 				E59B98C91E8E5BC10069F9C0 /* Colors.swift in Sources */,
 				D47DB51B1F3A9C340027F40E /* UINavigationController.swift in Sources */,
 				D459437C1E7E15EE00139D16 /* NSNumberToInt64Transform.swift in Sources */,
+				7731F9C41F76A32400B875D4 /* STSingUpFirstStepController.swift in Sources */,
 				D4227F4E1E61FE7600BCB8B1 /* STContactCell.swift in Sources */,
 				D4AD43B31E47A970006F13DE /* AppSettings.swift in Sources */,
 				E59A1B191E3F9388009EE669 /* STRegistration.swift in Sources */,
@@ -2823,6 +2845,7 @@
 				E59448901E680797002B2989 /* STNewPostController.swift in Sources */,
 				E55434E01E969FDB00EF254E /* STDialogMyCell.swift in Sources */,
 				D43A75631E4E6A3B00DB0850 /* STFile.swift in Sources */,
+				779A92AE1F76AD1F0005BA19 /* STSingUpThirdStepController.swift in Sources */,
 				D4922AAD1E43F6B9006FF4D5 /* STHTTPManager.swift in Sources */,
 				E5E4E9C51E8115D500B77102 /* STDialogsController.swift in Sources */,
 				D497AB4E1E3BE53A006A393D /* GenericTableSection.swift in Sources */,
@@ -2858,6 +2881,7 @@
 				D4BCB4681F465DEB00D05872 /* UIAlertAction.swift in Sources */,
 				E55ED8E91EA7558D00917B3E /* String.swift in Sources */,
 				D4CEC6561EB927B3001D8907 /* STIntroObject.swift in Sources */,
+				779A92AA1F76A8B70005BA19 /* STSingUpSecondStepController.swift in Sources */,
 				E59448891E66D8AD002B2989 /* STTabBarViewController.swift in Sources */,
 				D4FBE4AE1EE2DCA600C473A3 /* STFilterItem.swift in Sources */,
 				D497AB4D1E3BE53A006A393D /* TableSectionItem.swift in Sources */,
