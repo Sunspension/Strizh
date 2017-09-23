@@ -556,20 +556,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                     AppDelegate.appSettings.dbConfig.onLogout()
                     
                     if let _ = UserDefaults.standard.object(forKey: kNeedIntro) as? Bool {
-
-                        let controller = STSingUpThirdStepController()
-                        let navi = STSignUpNavigationController(rootViewController: controller)
-                        
-                        if animation {
-                            
-                            self.changeRootViewController(navi)
-                            return
-                        }
-                        
-                        self.window?.rootViewController = navi
-                        self.window?.makeKeyAndVisible()
-                        
-                        return
                         
                         if session.isFacebook {
 
