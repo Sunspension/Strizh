@@ -227,9 +227,6 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                 }
             }
             
-            // TODO handle tap on not registered contact
-            
-            
             let contact = item.item as! STContact
             self.st_router_openUserProfile(userId: contact.contactUserId)
         }
@@ -282,6 +279,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
     func searchContacts(searchString: String) {
         
         self.searchDataSource.sections.removeAll()
+        self.notRegisteredContactsSection.items.removeAll()
         
         _ = self.contactsProvider.contacts.andThen { result in
             
@@ -320,8 +318,6 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                         
                         let header = cell as! STContactHeaderCell
                         let title = item.item as! String
-                        
-                        header.title.textColor = UIColor.black
                         header.title.text = title
                     })
                     
@@ -357,7 +353,6 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                 
                 let header = cell as! STContactHeaderCell
                 header.title.text = "contacts_page_users_who_don't_use_app_title".localized
-                header.title.textColor = UIColor.stSteelGrey
             })
             
             self.notRegisteredContactsSection.headerItem?.cellHeight = 30
