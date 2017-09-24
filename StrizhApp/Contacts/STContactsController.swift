@@ -106,7 +106,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
     
     func keyboardWillShow(_ notification: Notification) {
         
-        if let height = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.height {
+        if let height = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
             
             self.keyBoardHeight = height
         }

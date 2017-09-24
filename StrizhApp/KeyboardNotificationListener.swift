@@ -42,7 +42,7 @@ class KeyboardNotificationListener: NSObject {
     
     func keyboardWillShow(_ notification: Notification) {
         
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size {
             
             let contentInset = UIEdgeInsetsMake(0, 0, keyboardSize.height, 0)
             self.scrollView?.contentInset = contentInset

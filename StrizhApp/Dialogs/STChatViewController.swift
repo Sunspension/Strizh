@@ -137,7 +137,7 @@ class STChatViewController: UIViewController, UITextViewDelegate {
 
     func keyboardWillShow(_ notification: Notification) {
         
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size {
 
             self.bottomToolbarSpace.constant = keyboardSize.height
             self.textView.contentOffset = CGPoint.zero
