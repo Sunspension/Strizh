@@ -22,9 +22,9 @@ class STContactsProvider {
         }
     }
     
-    fileprivate var privateContacts = [STContact]()
+    private var privateContacts = [STContact]()
     
-    fileprivate var privateRegisteredContacts = [STContact]()
+    private var privateRegisteredContacts = [STContact]()
     
     var loadingStatusChanged: ((_ loadigStatus: STLoadingStatusEnum) -> Void)?
     

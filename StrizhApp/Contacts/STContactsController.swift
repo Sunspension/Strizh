@@ -12,24 +12,42 @@ import ReactiveKit
 import Bond
 import Dip
 import AlamofireImage
+import MessageUI
 
-fileprivate enum InviteSectionItemEnum {
+fileprivate enum SectionItemTypeEnum {
     
-    case invite
+    case invite, notRegistered
 }
 
-class STContactsController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating, NVActivityIndicatorViewable {
+class STContactsController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating, NVActivityIndicatorViewable, MFMessageComposeViewControllerDelegate, UINavigationControllerDelegate {
     
+    private let searchController = UISearchController(searchResultsController: nil)
     
-    fileprivate let searchController = UISearchController(searchResultsController: nil)
+    private let notRegisteredContactsSection = TableSection()
     
-    fileprivate let notRelatedContactsSection = TableSection()
+    private let inviteSection = TableSection()
     
-    fileprivate let inviteSection = TableSection()
+    private var searchString = ""
     
-    fileprivate var searchString = ""
+    private var keyBoardHeight: CGFloat = 0
     
-    fileprivate var keyBoardHeight: CGFloat = 0
+    private lazy var textToShare: String = {
+        
+        var textToShare = "https://strizhapp.ru"
+        
+        if let user = STUser.objects(by: STUser.self).first {
+            
+            textToShare += "/?ref=\(user.id)"
+        }
+        
+        return textToShare
+    }()
+    
+    private var smsController: MFMessageComposeViewController?
+    
+    let dataSource = TableViewDataSource()
+    
+    let searchDataSource = TableViewDataSource()
     
     var contactsProvider: STContactsProvider {
         
@@ -42,16 +60,13 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         
         return STUser.objects(by: STUser.self).first!
     }
-
-    let dataSource = TableViewDataSource()
-    
-    let searchDataSource = TableViewDataSource()
     
     
     deinit {
         
         NotificationCenter.default.removeObserver(self)
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -75,10 +90,11 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         self.tableView.backgroundColor = UIColor.stLightBlueGrey
         self.tableView.estimatedRowHeight = 50
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.register(nibClass: STContactCell.self)
-        self.tableView.register(headerFooterNibClass: STContactHeaderCell.self)
         self.tableView.dataSource = self.dataSource
         self.tableView.delegate = self.dataSource
+        
+        self.tableView.register(nibClass: STContactCell.self)
+        self.tableView.register(headerFooterNibClass: STContactHeaderCell.self)
         
         self.title = "contacts_page_title".localized
         
@@ -194,8 +210,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
             
             (_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) in
             
-            
-            if let type = item.itemType as? InviteSectionItemEnum {
+            if let type = item.itemType as? SectionItemTypeEnum {
                 
                 switch type {
                     
@@ -205,8 +220,15 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                     self.inviteContacts()
                     
                     return
+                    
+                case .notRegistered:
+                    
+                    return
                 }
             }
+            
+            // TODO handle tap on not registered contact
+            
             
             let contact = item.item as! STContact
             self.st_router_openUserProfile(userId: contact.contactUserId)
@@ -229,11 +251,11 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
     
     func synchronizeContacts() {
         
-        _ = self.contactsProvider.registeredContacts.andThen { result in
+        _ = self.contactsProvider.contacts.andThen { result in
             
             if let contacts = result.value {
                 
-                self.inviteSection.add(itemType: InviteSectionItemEnum.invite,
+                self.inviteSection.add(itemType: SectionItemTypeEnum.invite,
                                        cellClass: STContactCell.self, bindingAction: { (cell, item) in
                                         
                                         let viewCell = cell as! STContactCell
@@ -245,6 +267,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                                         viewCell.accessoryType = .none
                                         viewCell.disableSelection = true
                                         viewCell.selectionStyle = .default
+                                        viewCell.invite.isHidden = true
                 })
                 
                 self.dataSource.sections.append(self.inviteSection)
@@ -256,11 +279,11 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         }
     }
     
-    fileprivate func searchContacts(searchString: String) {
+    func searchContacts(searchString: String) {
         
         self.searchDataSource.sections.removeAll()
         
-        _ = self.contactsProvider.registeredContacts.andThen { result in
+        _ = self.contactsProvider.contacts.andThen { result in
             
             guard let contacts = result.value else {
                 
@@ -313,9 +336,10 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
             }
             else {
                 
-                self.notRelatedContactsSection.add(item: contact,
-                                                   cellClass: STContactCell.self,
-                                                   bindingAction: self.binding)
+                self.notRegisteredContactsSection.add(item: contact,
+                                                      itemType: SectionItemTypeEnum.notRegistered,
+                                                      cellClass: STContactCell.self,
+                                                      bindingAction: self.binding)
             }
         }
         
@@ -323,6 +347,20 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         dataSource.sections.sort { (oneSection, otherSection) -> Bool in
             
             return oneSection.title! < otherSection.title!
+        }
+        
+        if self.notRegisteredContactsSection.items.count > 0 {
+            
+            dataSource.sections.append(self.notRegisteredContactsSection)
+            
+            self.notRegisteredContactsSection.header(headerClass: STContactHeaderCell.self, bindingAction: { (cell, item) in
+                
+                let header = cell as! STContactHeaderCell
+                header.title.text = "contacts_page_users_who_don't_use_app_title".localized
+                header.title.textColor = UIColor.stSteelGrey
+            })
+            
+            self.notRegisteredContactsSection.headerItem?.cellHeight = 30
         }
     }
     
@@ -382,6 +420,23 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
                 viewCell.contactImage.af_setImage(for: .normal, url: URL(string: urlString)!, filter: filter)
             }
         }
+        
+        if contact.isRegistered {
+            
+            viewCell.invite.isHidden = true
+            viewCell.selectionStyle = .default
+        }
+        else {
+            
+            viewCell.invite.isHidden = false
+            viewCell.selectionStyle = .none
+            viewCell.invite.reactive.tap.observeNext {
+                
+                let phoneNumber = "+" + contact.phone
+                self.iviteViaSMS(phoneNumber: phoneNumber)
+            }
+            .dispose(in: viewCell.disposeBag)
+        }
     }
     
     func reloadTableView(animation: Bool = false) {
@@ -424,14 +479,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         }
     }
     
-    @objc fileprivate func inviteContacts() {
-        
-        var textToShare = "https://strizhapp.ru"
-        
-        if let user = STUser.objects(by: STUser.self).first {
-            
-            textToShare += "/?ref=\(user.id)"
-        }
+    @objc private func inviteContacts() {
         
         let activity = UIActivityViewController(activityItems: [textToShare], applicationActivities: nil)
         self.present(activity, animated: true, completion: nil)
@@ -440,5 +488,24 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         let container = AppDelegate.appSettings.dependencyContainer
         let analytics: STAnalytics = try! container.resolve()
         analytics.logEvent(eventName: st_eContactInvite)
+    }
+    
+    private func iviteViaSMS(phoneNumber: String) {
+        
+        if MFMessageComposeViewController.canSendText() {
+            
+            smsController = MFMessageComposeViewController()
+            smsController!.body = textToShare
+            smsController!.recipients = [phoneNumber]
+            smsController!.messageComposeDelegate = self
+            self.present(smsController!, animated: true, completion: nil)
+        }
+    }
+    
+    //MARK: - MFMessageComposeViewControllerDelegate implementation
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        
+        smsController!.dismiss(animated: true, completion: nil)
     }
 }

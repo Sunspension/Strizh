@@ -15,6 +15,8 @@ class STContactCell: UITableViewCell {
     
     @IBOutlet weak var contactName: UILabel!
     
+    @IBOutlet weak var invite: UIButton!
+    
     fileprivate var isDisable = false
     
     var disposeBag = DisposeBag()

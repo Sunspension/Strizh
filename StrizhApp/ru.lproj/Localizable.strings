@@ -105,7 +105,7 @@
 "contacts_page_success_update_message" = "Вы успешно обновили информацию по запросу";
 "contacts_page_empty_contacts_title" = "Контактов нет";
 "contacts_page_empty_contacts_message" = "Для работы с приложением необходимо разрешить доступ к Вашим контактам. Вы можете сделать это в настройках Вашего iPhone.";
-"contacts_page_users_who_don't_use_app_title" = "НЕ ИСПОЛЬЗУЮТ STRIZHAPP";
+"contacts_page_users_who_don't_use_app_title" = "Еще не в STRIZHAPP";
 "contacts_page_share_text" = "Приглашаю в приложение StrizhApp, которое можно скачать в App Store";
 
 // Profile

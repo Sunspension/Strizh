@@ -20,6 +20,9 @@
 		779A92AE1F76AD1F0005BA19 /* STSingUpThirdStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A92AD1F76AD1F0005BA19 /* STSingUpThirdStepController.swift */; };
 		779A92AF1F76AD1F0005BA19 /* STSingUpThirdStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A92AD1F76AD1F0005BA19 /* STSingUpThirdStepController.swift */; };
 		779A92B01F76AD1F0005BA19 /* STSingUpThirdStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A92AD1F76AD1F0005BA19 /* STSingUpThirdStepController.swift */; };
+		779CF4411F7848CE00ADDFD4 /* STApplicationInterability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779CF4401F7848CE00ADDFD4 /* STApplicationInterability.swift */; };
+		779CF4421F7848CE00ADDFD4 /* STApplicationInterability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779CF4401F7848CE00ADDFD4 /* STApplicationInterability.swift */; };
+		779CF4431F7848CE00ADDFD4 /* STApplicationInterability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779CF4401F7848CE00ADDFD4 /* STApplicationInterability.swift */; };
 		8C1EA0104E6AFC1EDC4D756C /* Pods_StrizhAppDev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558B463B8DDDBC142C67CBBD /* Pods_StrizhAppDev.framework */; };
 		D402C2341E7DFEE700237EB9 /* RealmInt64.swift in Sources */ = {isa = PBXBuildFile; fileRef = D402C2331E7DFEE700237EB9 /* RealmInt64.swift */; };
 		D40405811E917F8400F0A8E4 /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40405801E917F8400F0A8E4 /* CollectionViewDataSource.swift */; };
@@ -668,6 +671,7 @@
 		7731F9C31F76A32400B875D4 /* STSingUpFirstStepController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpFirstStepController.swift; path = SignUp/STSingUpFirstStepController.swift; sourceTree = "<group>"; };
 		779A92A91F76A8B70005BA19 /* STSingUpSecondStepController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpSecondStepController.swift; path = SignUp/STSingUpSecondStepController.swift; sourceTree = "<group>"; };
 		779A92AD1F76AD1F0005BA19 /* STSingUpThirdStepController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpThirdStepController.swift; path = SignUp/STSingUpThirdStepController.swift; sourceTree = "<group>"; };
+		779CF4401F7848CE00ADDFD4 /* STApplicationInterability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STApplicationInterability.swift; path = Services/STApplicationInterability.swift; sourceTree = "<group>"; };
 		A4C394FFBB322D21170E98DE /* Pods-StrizhAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhAppTests/Pods-StrizhAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		AA29B537FB5401BEA5B8C84F /* Pods-StrizhAppStage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhAppStage.release.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhAppStage/Pods-StrizhAppStage.release.xcconfig"; sourceTree = "<group>"; };
 		AF968DC44AC9AB98518054D9 /* Pods-StrizhAppStage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhAppStage.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhAppStage/Pods-StrizhAppStage.debug.xcconfig"; sourceTree = "<group>"; };
@@ -946,6 +950,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		779CF43F1F78489600ADDFD4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				779CF4401F7848CE00ADDFD4 /* STApplicationInterability.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
 		8076508875A9EAA67D0F34E2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1212,6 +1224,7 @@
 		D49726F91E32BDA50076B7A1 /* StrizhApp */ = {
 			isa = PBXGroup;
 			children = (
+				779CF43F1F78489600ADDFD4 /* Services */,
 				D466F47F1F3D33F100971722 /* CustomViews */,
 				D431BA5E1F3A79BD00207C1D /* Base */,
 				D460E0C31EB288420040E856 /* Analytics */,
@@ -2508,6 +2521,7 @@
 				D415DAD81F6C6B2F00EE1129 /* PAnalytics.swift in Sources */,
 				D415DAD91F6C6B2F00EE1129 /* SectionItem.swift in Sources */,
 				D415DADA1F6C6B2F00EE1129 /* STPostTableViewCell.swift in Sources */,
+				779CF4431F7848CE00ADDFD4 /* STApplicationInterability.swift in Sources */,
 				D415DADB1F6C6B2F00EE1129 /* STPostDetailsPhotoCell.swift in Sources */,
 				D415DADC1F6C6B2F00EE1129 /* UICollectionView.swift in Sources */,
 				D415DADD1F6C6B2F00EE1129 /* ImageUploadOperation.swift in Sources */,
@@ -2679,6 +2693,7 @@
 				D41D917A1F6C66C100D78547 /* PAnalytics.swift in Sources */,
 				D41D917B1F6C66C100D78547 /* SectionItem.swift in Sources */,
 				D41D917C1F6C66C100D78547 /* STPostTableViewCell.swift in Sources */,
+				779CF4421F7848CE00ADDFD4 /* STApplicationInterability.swift in Sources */,
 				D41D917D1F6C66C100D78547 /* STPostDetailsPhotoCell.swift in Sources */,
 				D41D917E1F6C66C100D78547 /* UICollectionView.swift in Sources */,
 				D41D917F1F6C66C100D78547 /* ImageUploadOperation.swift in Sources */,
@@ -2858,6 +2873,7 @@
 				D460E0C51EB288790040E856 /* PAnalytics.swift in Sources */,
 				D404058B1E91886C00F0A8E4 /* SectionItem.swift in Sources */,
 				D4AD43BC1E47B504006F13DE /* STPostTableViewCell.swift in Sources */,
+				779CF4411F7848CE00ADDFD4 /* STApplicationInterability.swift in Sources */,
 				D44AB4EE1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift in Sources */,
 				E55ED8F11EA756E100917B3E /* UICollectionView.swift in Sources */,
 				D44E339B1E74B9B8006F4709 /* ImageUploadOperation.swift in Sources */,
