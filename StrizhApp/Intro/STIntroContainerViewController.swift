@@ -46,25 +46,25 @@ class STIntroContainerViewController: UIViewController {
             var intro1 = STIntroObject()
             intro1.imageName = "intro-1"
             intro1.title = "Добро пожаловать!"
-            intro1.subtitle = "Упрощайте рабочий процесс, создавайте запросы в 3 шага."
+            intro1.subtitle = "Решайте задачи своего бизнеса быстрее!."
             intro1.nextTitle = "Далее"
             
             var intro2 = STIntroObject()
             intro2.imageName = "intro-2"
             intro2.title = "Шаг 1"
-            intro2.subtitle = "Описывайте свое деловое предложение или запрос."
+            intro2.subtitle = "Опишите суть вашего запроса, задачу, которую вы хотите решить."
             intro2.nextTitle = "Далее"
             
             var intro3 = STIntroObject()
             intro3.imageName = "intro-3"
             intro3.title = "Шаг 2"
-            intro3.subtitle = "Выбирайте получателей из своей контактной книги."
+            intro3.subtitle = "Узнавайте первым о запросах других пользователей."
             intro3.nextTitle = "Далее"
 
             var intro4 = STIntroObject()
             intro4.imageName = "intro-4"
             intro4.title = "Шаг 3"
-            intro4.subtitle = "Обсуждайте и договаривайтесь о сделке в персональном чате."
+            intro4.subtitle = "Обсуждайте задачу и договаривайтесь о сотрудничестве в персональном чате."
             intro4.nextTitle = "Начать"
             
             let dataSource = [intro1, intro2, intro3, intro4]

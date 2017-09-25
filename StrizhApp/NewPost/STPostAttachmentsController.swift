@@ -9,6 +9,7 @@
 import UIKit
 import DKImagePickerController
 import Dip
+import NVActivityIndicatorView
 
 private enum STAttachmentItemsEnum {
     
@@ -34,7 +35,7 @@ struct ImageAsset {
 }
 
 
-class STPostAttachmentsController: UITableViewController {
+class STPostAttachmentsController: UITableViewController, NVActivityIndicatorViewable {
 
     fileprivate var dataSource = TableViewDataSource()
     
@@ -84,7 +85,9 @@ class STPostAttachmentsController: UITableViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.separatorInset = UIEdgeInsets.zero
         
-        let rightItem = UIBarButtonItem(title: "action_next".localized, style: .plain, target: self, action: #selector(self.nextAction))
+        let rightButtonTitle = self.postObject.isPublic && self.postObject.objectType == .edit ? "contacts_page_create_text".localized : "action_next".localized
+        
+        let rightItem = UIBarButtonItem(title: rightButtonTitle, style: .plain, target: self, action: #selector(self.nextAction))
         self.navigationItem.rightBarButtonItem = rightItem
         
         self.setCustomBackButton()
@@ -125,7 +128,33 @@ class STPostAttachmentsController: UITableViewController {
             }
         }
         
-        self.st_router_openContactsController()
+        if self.postObject.isPublic && self.postObject.objectType == .edit {
+            
+            api.updatePost(post: self.postObject)
+                
+                .onSuccess(callback: { [unowned self] post in
+                    
+                    self.stopAnimating()
+                    
+                    // still having the same behavior
+                    NotificationCenter.default.post(name: NSNotification.Name(kPostCreatedNotification), object: post)
+                    
+                    self.showOkAlert(title: "contacts_page_success_title".localized,
+                                     message:"contacts_page_success_update_message".localized, okAction: {
+                                        
+                                        action in self.navigationController?.dismiss(animated: true, completion: nil)
+                    })
+                })
+                .onFailure(callback: { [unowned self] error in
+                    
+                    self.stopAnimating()
+                    self.showError(error: error)
+                })
+        }
+        else {
+            
+            self.st_router_openContactsController()
+        }
     }
     
     fileprivate func setupDataSource() {

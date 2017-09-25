@@ -576,7 +576,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                         }
                         else {
                             
-                            let controller = STSingUpThirdStepController()
+                            let controller = STSingUpFirstStepController()
                             let navi = STSignUpNavigationController(rootViewController: controller)
                             
                             if animation {

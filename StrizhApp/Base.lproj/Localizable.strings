@@ -54,7 +54,7 @@
 "login_page_no_access_camera_subtitle" = "Access to the Camera is unable on your device";
 "login_page_action_send_password_description" = "Please wait a text message with a password";
 "login_page_password_text" = "Password";
-"login_page_enter_password_from_text_messsage_text" = "Password from the text message";
+"login_page_enter_password_from_text_messsage_text" = "Password from SMS";
 "login_page_resend_password_text" = "Send a password again in ";
 "login_page_last_action_text1" = "Your almost done!\n\n";
 "login_page_last_action_text2" = "Please choose a photo for your profile and fill empty fields";
