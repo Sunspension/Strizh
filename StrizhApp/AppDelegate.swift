@@ -87,7 +87,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                     return
                 }
                 
-                application.registerForRemoteNotifications()
+                DispatchQueue.main.async {
+                    
+                    application.registerForRemoteNotifications()
+                }
             })
             
         } else {

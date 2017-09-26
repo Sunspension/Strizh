@@ -115,7 +115,7 @@ class STNewPostContactsController: STContactsController {
         viewCell.disableSelection = false
         viewCell.isDisabledCell = postObject.objectType == .new ? self.isPublic : false
         
-        if self.tableView.allowsSelection && self.selectedItems.contains(item.item as! STContact) {
+        if self.tableView.allowsSelection && self.selectedItems.array.contains(item.item as! STContact) {
             
             self.tableView.selectRow(at: item.indexPath, animated: false, scrollPosition: .none)
         }
@@ -205,7 +205,7 @@ class STNewPostContactsController: STContactsController {
                 return
             }
             
-            let index = self.selectedItems.index(of: item.item as! STContact)!
+            let index = self.selectedItems.array.index(of: item.item as! STContact)!
             self.selectedItems.remove(at: index)
         }
         
@@ -220,7 +220,7 @@ class STNewPostContactsController: STContactsController {
             
             (_ tableView: UITableView, _ indexPath: IndexPath, _ item: TableSectionItem) in
             
-            let index = self.selectedItems.index(of: item.item as! STContact)!
+            let index = self.selectedItems.array.index(of: item.item as! STContact)!
             self.selectedItems.remove(at: index)
         }
     }
