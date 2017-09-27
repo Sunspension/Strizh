@@ -8,39 +8,42 @@
 
 import UIKit
 import AlamofireImage
+import Bond
 
 class STAnyUserProfileController: UITableViewController {
     
-    fileprivate let initialNaviLabelOffset: CGFloat = 21
+    private let initialNaviLabelOffset: CGFloat = 17
     
-    fileprivate let naviLabelStopOffset: CGFloat = -53
+    private let naviLabelStopOffset: CGFloat = -50
     
-    fileprivate var feedItems: STUserFeedDataSource?
+    private let topContentOffset: CGFloat = 10
     
-    fileprivate var sections = [TSection]()
+    private var feedItems: STUserFeedDataSource?
     
-    fileprivate let userInfoSection = TSection()
+    private var sections = [TSection]()
     
-    fileprivate let userFeedSection = TSection()
+    private let userInfoSection = TSection()
     
-    fileprivate let floatTitle = UILabel()
+    private let userFeedSection = TSection()
     
-    fileprivate var backgroundBarView: UIView?
+    private let floatTitle = UILabel()
     
-    fileprivate var floatTitleContainer = UIView()
+    private var backgroundBarView: UIView?
     
-    fileprivate var backgroundBarViewAlpha: CGFloat = 0
+    private var floatTitleContainer = UIView()
     
-    fileprivate var constraints = [NSLayoutConstraint]()
+    private var backgroundBarViewAlpha: CGFloat = 0
     
-    fileprivate var user: STUser
+    private var constraints = [NSLayoutConstraint]()
     
-    fileprivate var myUser: STUser {
+    private var user: STUser
+    
+    private let alphaKeyPath = "alpha"
+    
+    private var myUser: STUser {
         
         return STUser.objects(by: STUser.self).first!
     }
-    
-    fileprivate let topContentOffset: CGFloat = 18
     
     deinit {
         
@@ -163,13 +166,30 @@ class STAnyUserProfileController: UITableViewController {
         }
         
         backgroundBarView?.alpha = backgroundBarViewAlpha
+        backgroundBarView?.addObserver(self, forKeyPath: alphaKeyPath, options: .new, context: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        super.viewDidAppear(animated)
+        backgroundBarView?.removeObserver(self, forKeyPath: alphaKeyPath)
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        if keyPath == alphaKeyPath {
+        
+            backgroundBarView?.removeObserver(self, forKeyPath: alphaKeyPath)
+            backgroundBarView?.alpha = backgroundBarViewAlpha
+            backgroundBarView?.addObserver(self, forKeyPath: alphaKeyPath, options: .new, context: nil)
+        }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         
         return self.sections.count
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return self.sections[section].items.count
@@ -262,7 +282,7 @@ class STAnyUserProfileController: UITableViewController {
             floatTitle.layer.transform = CATransform3DMakeTranslation(0, initialNaviLabelOffset, 0)
         }
 
-        var alpha = offset / 35
+        var alpha = offset / 36
         
         if alpha > 1 {
             
