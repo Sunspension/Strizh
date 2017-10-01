@@ -23,6 +23,8 @@
 		779CF4411F7848CE00ADDFD4 /* STApplicationInterability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779CF4401F7848CE00ADDFD4 /* STApplicationInterability.swift */; };
 		779CF4421F7848CE00ADDFD4 /* STApplicationInterability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779CF4401F7848CE00ADDFD4 /* STApplicationInterability.swift */; };
 		779CF4431F7848CE00ADDFD4 /* STApplicationInterability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779CF4401F7848CE00ADDFD4 /* STApplicationInterability.swift */; };
+		77F7AC4F1F813385006689EB /* Dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 77F7AC4D1F813384006689EB /* Dev-Info.plist */; };
+		77F7AC501F813385006689EB /* Stage-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 77F7AC4E1F813385006689EB /* Stage-Info.plist */; };
 		8C1EA0104E6AFC1EDC4D756C /* Pods_StrizhAppDev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558B463B8DDDBC142C67CBBD /* Pods_StrizhAppDev.framework */; };
 		D402C2341E7DFEE700237EB9 /* RealmInt64.swift in Sources */ = {isa = PBXBuildFile; fileRef = D402C2331E7DFEE700237EB9 /* RealmInt64.swift */; };
 		D40405811E917F8400F0A8E4 /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40405801E917F8400F0A8E4 /* CollectionViewDataSource.swift */; };
@@ -208,7 +210,6 @@
 		D415DB021F6C6B2F00EE1129 /* STLoginAvatarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D49545CB1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.xib */; };
 		D415DB031F6C6B2F00EE1129 /* STCommonLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D40BC8621E5B61120045F327 /* STCommonLabelCell.xib */; };
 		D415DB041F6C6B2F00EE1129 /* STEditProfileTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5FF31291E55E7DD0013B713 /* STEditProfileTextCell.xib */; };
-		D415DB051F6C6B2F00EE1129 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D460E0CA1EB2A8560040E856 /* GoogleService-Info.plist */; };
 		D415DB061F6C6B2F00EE1129 /* STLoginSeparatorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D49545D31E3D0B8800EDCF01 /* STLoginSeparatorTableViewCell.xib */; };
 		D415DB071F6C6B2F00EE1129 /* STFeedFilterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5BE9E2A1E4C8F000022B157 /* STFeedFilterTableViewCell.xib */; };
 		D415DB081F6C6B2F00EE1129 /* STFeedFilterSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5BE9E2E1E4C90680022B157 /* STFeedFilterSwitchTableViewCell.xib */; };
@@ -229,7 +230,6 @@
 		D415DB171F6C6B2F00EE1129 /* STAttachmentPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44E33931E749FCD006F4709 /* STAttachmentPhotoCell.xib */; };
 		D415DB181F6C6B2F00EE1129 /* STDialogSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = D45B8B111E9A77B60042C8B6 /* STDialogSectionHeader.xib */; };
 		D415DB191F6C6B2F00EE1129 /* STPersonalPostDetailsMainInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E537712D1E64941C00BBADEA /* STPersonalPostDetailsMainInfoCell.xib */; };
-		D415DB1A1F6C6B2F00EE1129 /* strizhapp-78ed2-firebase-crashreporting-fglbu-962209ea7c.json in Resources */ = {isa = PBXBuildFile; fileRef = D460E0CC1EB2AA710040E856 /* strizhapp-78ed2-firebase-crashreporting-fglbu-962209ea7c.json */; };
 		D415DB1B1F6C6B2F00EE1129 /* agreement.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D43936CB1F2A6ECF00600C4F /* agreement.pdf */; };
 		D415DB1C1F6C6B2F00EE1129 /* STAttachmentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E561F5691E72FCD300C7407C /* STAttachmentCell.xib */; };
 		D415DB1D1F6C6B2F00EE1129 /* STProfileHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E55906761E51A74500F8E20E /* STProfileHeaderCell.xib */; };
@@ -417,7 +417,6 @@
 		D41D91A41F6C66C100D78547 /* STLoginAvatarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D49545CB1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.xib */; };
 		D41D91A51F6C66C100D78547 /* STCommonLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D40BC8621E5B61120045F327 /* STCommonLabelCell.xib */; };
 		D41D91A61F6C66C100D78547 /* STEditProfileTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5FF31291E55E7DD0013B713 /* STEditProfileTextCell.xib */; };
-		D41D91A71F6C66C100D78547 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D460E0CA1EB2A8560040E856 /* GoogleService-Info.plist */; };
 		D41D91A81F6C66C100D78547 /* STLoginSeparatorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D49545D31E3D0B8800EDCF01 /* STLoginSeparatorTableViewCell.xib */; };
 		D41D91A91F6C66C100D78547 /* STFeedFilterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5BE9E2A1E4C8F000022B157 /* STFeedFilterTableViewCell.xib */; };
 		D41D91AA1F6C66C100D78547 /* STFeedFilterSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5BE9E2E1E4C90680022B157 /* STFeedFilterSwitchTableViewCell.xib */; };
@@ -438,7 +437,6 @@
 		D41D91B91F6C66C100D78547 /* STAttachmentPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44E33931E749FCD006F4709 /* STAttachmentPhotoCell.xib */; };
 		D41D91BA1F6C66C100D78547 /* STDialogSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = D45B8B111E9A77B60042C8B6 /* STDialogSectionHeader.xib */; };
 		D41D91BB1F6C66C100D78547 /* STPersonalPostDetailsMainInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E537712D1E64941C00BBADEA /* STPersonalPostDetailsMainInfoCell.xib */; };
-		D41D91BC1F6C66C100D78547 /* strizhapp-78ed2-firebase-crashreporting-fglbu-962209ea7c.json in Resources */ = {isa = PBXBuildFile; fileRef = D460E0CC1EB2AA710040E856 /* strizhapp-78ed2-firebase-crashreporting-fglbu-962209ea7c.json */; };
 		D41D91BD1F6C66C100D78547 /* agreement.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D43936CB1F2A6ECF00600C4F /* agreement.pdf */; };
 		D41D91BE1F6C66C100D78547 /* STAttachmentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E561F5691E72FCD300C7407C /* STAttachmentCell.xib */; };
 		D41D91BF1F6C66C100D78547 /* STProfileHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E55906761E51A74500F8E20E /* STProfileHeaderCell.xib */; };
@@ -500,8 +498,6 @@
 		D460E0C51EB288790040E856 /* PAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460E0C41EB288790040E856 /* PAnalytics.swift */; };
 		D460E0C71EB289310040E856 /* STFlurryAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460E0C61EB289310040E856 /* STFlurryAnalytics.swift */; };
 		D460E0C91EB28E1E0040E856 /* STAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460E0C81EB28E1E0040E856 /* STAnalytics.swift */; };
-		D460E0CB1EB2A8560040E856 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D460E0CA1EB2A8560040E856 /* GoogleService-Info.plist */; };
-		D460E0CD1EB2AA710040E856 /* strizhapp-78ed2-firebase-crashreporting-fglbu-962209ea7c.json in Resources */ = {isa = PBXBuildFile; fileRef = D460E0CC1EB2AA710040E856 /* strizhapp-78ed2-firebase-crashreporting-fglbu-962209ea7c.json */; };
 		D466F4811F3D340100971722 /* ILTranslucentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466F4801F3D340100971722 /* ILTranslucentView.swift */; };
 		D466F4831F3D3C5E00971722 /* STCustomNavigationBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466F4821F3D3C5E00971722 /* STCustomNavigationBarController.swift */; };
 		D46FFA691E959EF700578F07 /* ChatCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46FFA681E959EF700578F07 /* ChatCollectionViewFlowLayout.swift */; };
@@ -672,6 +668,8 @@
 		779A92A91F76A8B70005BA19 /* STSingUpSecondStepController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpSecondStepController.swift; path = SignUp/STSingUpSecondStepController.swift; sourceTree = "<group>"; };
 		779A92AD1F76AD1F0005BA19 /* STSingUpThirdStepController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpThirdStepController.swift; path = SignUp/STSingUpThirdStepController.swift; sourceTree = "<group>"; };
 		779CF4401F7848CE00ADDFD4 /* STApplicationInterability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STApplicationInterability.swift; path = Services/STApplicationInterability.swift; sourceTree = "<group>"; };
+		77F7AC4D1F813384006689EB /* Dev-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Dev-Info.plist"; sourceTree = "<group>"; };
+		77F7AC4E1F813385006689EB /* Stage-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Stage-Info.plist"; sourceTree = "<group>"; };
 		A4C394FFBB322D21170E98DE /* Pods-StrizhAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhAppTests/Pods-StrizhAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		AA29B537FB5401BEA5B8C84F /* Pods-StrizhAppStage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhAppStage.release.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhAppStage/Pods-StrizhAppStage.release.xcconfig"; sourceTree = "<group>"; };
 		AF968DC44AC9AB98518054D9 /* Pods-StrizhAppStage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhAppStage.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhAppStage/Pods-StrizhAppStage.debug.xcconfig"; sourceTree = "<group>"; };
@@ -693,14 +691,12 @@
 		D413A20D1F11863C0089A614 /* STTermsCustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTermsCustomView.swift; sourceTree = "<group>"; };
 		D413A20F1F1186470089A614 /* STTermsCustomView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STTermsCustomView.xib; sourceTree = "<group>"; };
 		D415DB2F1F6C6B2F00EE1129 /* StrizhAppStage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StrizhAppStage.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D415DB301F6C6B2F00EE1129 /* Stage-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Stage-Info.plist"; path = "/Users/rewire/Projects/Strizh/Stage-Info.plist"; sourceTree = "<absolute>"; };
 		D4194A101E4600F000D0B189 /* STPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPost.swift; path = Models/STPost.swift; sourceTree = "<group>"; };
 		D4194A141E46028F00D0B189 /* RealmInt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmInt.swift; sourceTree = "<group>"; };
 		D4194A151E46028F00D0B189 /* RealmString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmString.swift; sourceTree = "<group>"; };
 		D4194A191E460D4400D0B189 /* ArrayTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayTransform.swift; sourceTree = "<group>"; };
 		D4194A1D1E463F4300D0B189 /* ArrayOfCustomRealmObjectsTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayOfCustomRealmObjectsTransform.swift; sourceTree = "<group>"; };
 		D41D91D11F6C66C100D78547 /* StrizhAppDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StrizhAppDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D41D91D21F6C66C200D78547 /* Dev-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Dev-Info.plist"; path = "/Users/rewire/Projects/Strizh/Dev-Info.plist"; sourceTree = "<absolute>"; };
 		D4227F451E61C48900BCB8B1 /* STContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STContact.swift; path = Models/STContact.swift; sourceTree = "<group>"; };
 		D4227F4C1E61FE7600BCB8B1 /* STContactCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STContactCell.swift; path = Contacts/STContactCell.swift; sourceTree = "<group>"; };
 		D4227F4D1E61FE7600BCB8B1 /* STContactCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STContactCell.xib; path = Contacts/STContactCell.xib; sourceTree = "<group>"; };
@@ -750,8 +746,6 @@
 		D460E0C41EB288790040E856 /* PAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PAnalytics.swift; path = Analytics/PAnalytics.swift; sourceTree = "<group>"; };
 		D460E0C61EB289310040E856 /* STFlurryAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STFlurryAnalytics.swift; path = Analytics/STFlurryAnalytics.swift; sourceTree = "<group>"; };
 		D460E0C81EB28E1E0040E856 /* STAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STAnalytics.swift; path = Analytics/STAnalytics.swift; sourceTree = "<group>"; };
-		D460E0CA1EB2A8560040E856 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		D460E0CC1EB2AA710040E856 /* strizhapp-78ed2-firebase-crashreporting-fglbu-962209ea7c.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "strizhapp-78ed2-firebase-crashreporting-fglbu-962209ea7c.json"; sourceTree = "<group>"; };
 		D466F4801F3D340100971722 /* ILTranslucentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILTranslucentView.swift; sourceTree = "<group>"; };
 		D466F4821F3D3C5E00971722 /* STCustomNavigationBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STCustomNavigationBarController.swift; sourceTree = "<group>"; };
 		D46FFA681E959EF700578F07 /* ChatCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
@@ -1245,17 +1239,15 @@
 				D49726FA1E32BDA50076B7A1 /* AppDelegate.swift */,
 				D489D9F51EB148EE0018BD0A /* StrizhApp-Bridging-Header.h */,
 				E5E4E9BE1E81105000B77102 /* StrizhApp.entitlements */,
-				D460E0CC1EB2AA710040E856 /* strizhapp-78ed2-firebase-crashreporting-fglbu-962209ea7c.json */,
 				D43936C71F2A6DD900600C4F /* policy.pdf */,
 				D43936C91F2A6E3B00600C4F /* terms.pdf */,
 				D43936CB1F2A6ECF00600C4F /* agreement.pdf */,
-				D460E0CA1EB2A8560040E856 /* GoogleService-Info.plist */,
 				D49727031E32BDA50076B7A1 /* Assets.xcassets */,
 				D43BED6F1E70A72D00683D5C /* Main.storyboard */,
 				D49727051E32BDA50076B7A1 /* LaunchScreen.storyboard */,
 				D49727081E32BDA50076B7A1 /* Info.plist */,
-				D41D91D21F6C66C200D78547 /* Dev-Info.plist */,
-				D415DB301F6C6B2F00EE1129 /* Stage-Info.plist */,
+				77F7AC4D1F813384006689EB /* Dev-Info.plist */,
+				77F7AC4E1F813385006689EB /* Stage-Info.plist */,
 				D4D826281EA95BC4007E42FB /* Localizable.strings */,
 			);
 			path = StrizhApp;
@@ -1688,7 +1680,7 @@
 				D49726F51E32BDA50076B7A1 /* Resources */,
 				17190BFA52DEF46BDCFF6DA8 /* [CP] Embed Pods Frameworks */,
 				4A24ED632928005EEA7F7AEA /* [CP] Copy Pods Resources */,
-				E53185E51E35E72A00BC6C9A /* ShellScript */,
+				77F7AC4C1F812E73006689EB /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1799,7 +1791,6 @@
 				D415DB021F6C6B2F00EE1129 /* STLoginAvatarTableViewCell.xib in Resources */,
 				D415DB031F6C6B2F00EE1129 /* STCommonLabelCell.xib in Resources */,
 				D415DB041F6C6B2F00EE1129 /* STEditProfileTextCell.xib in Resources */,
-				D415DB051F6C6B2F00EE1129 /* GoogleService-Info.plist in Resources */,
 				D415DB061F6C6B2F00EE1129 /* STLoginSeparatorTableViewCell.xib in Resources */,
 				D415DB071F6C6B2F00EE1129 /* STFeedFilterTableViewCell.xib in Resources */,
 				D415DB081F6C6B2F00EE1129 /* STFeedFilterSwitchTableViewCell.xib in Resources */,
@@ -1820,7 +1811,6 @@
 				D415DB171F6C6B2F00EE1129 /* STAttachmentPhotoCell.xib in Resources */,
 				D415DB181F6C6B2F00EE1129 /* STDialogSectionHeader.xib in Resources */,
 				D415DB191F6C6B2F00EE1129 /* STPersonalPostDetailsMainInfoCell.xib in Resources */,
-				D415DB1A1F6C6B2F00EE1129 /* strizhapp-78ed2-firebase-crashreporting-fglbu-962209ea7c.json in Resources */,
 				D415DB1B1F6C6B2F00EE1129 /* agreement.pdf in Resources */,
 				D415DB1C1F6C6B2F00EE1129 /* STAttachmentCell.xib in Resources */,
 				D415DB1D1F6C6B2F00EE1129 /* STProfileHeaderCell.xib in Resources */,
@@ -1848,7 +1838,6 @@
 				D41D91A41F6C66C100D78547 /* STLoginAvatarTableViewCell.xib in Resources */,
 				D41D91A51F6C66C100D78547 /* STCommonLabelCell.xib in Resources */,
 				D41D91A61F6C66C100D78547 /* STEditProfileTextCell.xib in Resources */,
-				D41D91A71F6C66C100D78547 /* GoogleService-Info.plist in Resources */,
 				D41D91A81F6C66C100D78547 /* STLoginSeparatorTableViewCell.xib in Resources */,
 				D41D91A91F6C66C100D78547 /* STFeedFilterTableViewCell.xib in Resources */,
 				D41D91AA1F6C66C100D78547 /* STFeedFilterSwitchTableViewCell.xib in Resources */,
@@ -1869,7 +1858,6 @@
 				D41D91B91F6C66C100D78547 /* STAttachmentPhotoCell.xib in Resources */,
 				D41D91BA1F6C66C100D78547 /* STDialogSectionHeader.xib in Resources */,
 				D41D91BB1F6C66C100D78547 /* STPersonalPostDetailsMainInfoCell.xib in Resources */,
-				D41D91BC1F6C66C100D78547 /* strizhapp-78ed2-firebase-crashreporting-fglbu-962209ea7c.json in Resources */,
 				D41D91BD1F6C66C100D78547 /* agreement.pdf in Resources */,
 				D41D91BE1F6C66C100D78547 /* STAttachmentCell.xib in Resources */,
 				D41D91BF1F6C66C100D78547 /* STProfileHeaderCell.xib in Resources */,
@@ -1901,10 +1889,10 @@
 				D49727071E32BDA50076B7A1 /* LaunchScreen.storyboard in Resources */,
 				D4C2AD811E538FC6009CD55A /* STProfileFooterCell.xib in Resources */,
 				D4427E671E757C8F0002BCCF /* STCommonCollectionViewCell.xib in Resources */,
+				77F7AC501F813385006689EB /* Stage-Info.plist in Resources */,
 				D49545CD1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.xib in Resources */,
 				D40BC8641E5B61120045F327 /* STCommonLabelCell.xib in Resources */,
 				E5FF312B1E55E7DD0013B713 /* STEditProfileTextCell.xib in Resources */,
-				D460E0CB1EB2A8560040E856 /* GoogleService-Info.plist in Resources */,
 				D49545D51E3D0B8800EDCF01 /* STLoginSeparatorTableViewCell.xib in Resources */,
 				E5BE9E2C1E4C8F000022B157 /* STFeedFilterTableViewCell.xib in Resources */,
 				E5BE9E301E4C90680022B157 /* STFeedFilterSwitchTableViewCell.xib in Resources */,
@@ -1917,6 +1905,7 @@
 				D4F00F4B1EA3A75500C6E1E8 /* STDummyView.xib in Resources */,
 				D4227F4F1E61FE7600BCB8B1 /* STContactCell.xib in Resources */,
 				D44AB4EF1E4FCFAE0013A972 /* STPostDetailsPhotoCell.xib in Resources */,
+				77F7AC4F1F813385006689EB /* Dev-Info.plist in Resources */,
 				D43936CA1F2A6E3B00600C4F /* terms.pdf in Resources */,
 				E50DBEB01E76FD8D000C38E4 /* STTextViewCell.xib in Resources */,
 				D4227F551E6270F600BCB8B1 /* STContactHeaderCell.xib in Resources */,
@@ -1925,7 +1914,6 @@
 				D44E33951E749FCD006F4709 /* STAttachmentPhotoCell.xib in Resources */,
 				D45B8B121E9A77B60042C8B6 /* STDialogSectionHeader.xib in Resources */,
 				E537712F1E64941C00BBADEA /* STPersonalPostDetailsMainInfoCell.xib in Resources */,
-				D460E0CD1EB2AA710040E856 /* strizhapp-78ed2-firebase-crashreporting-fglbu-962209ea7c.json in Resources */,
 				D43936CC1F2A6ECF00600C4F /* agreement.pdf in Resources */,
 				E561F56B1E72FCD300C7407C /* STAttachmentCell.xib in Resources */,
 				E55906781E51A74500F8E20E /* STProfileHeaderCell.xib in Resources */,
@@ -1971,11 +1959,9 @@
 				"${BUILT_PRODUCTS_DIR}/Dip/Dip.framework",
 				"${BUILT_PRODUCTS_DIR}/Dip-UI/Dip_UI.framework",
 				"${BUILT_PRODUCTS_DIR}/Flurry-iOS-SDK/Flurry_iOS_SDK.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/KDCircularProgress/KDCircularProgress.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveKit/ReactiveKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
@@ -1983,7 +1969,6 @@
 				"${BUILT_PRODUCTS_DIR}/SHSPhoneComponent/SHSPhoneComponent.framework",
 				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
 				"${BUILT_PRODUCTS_DIR}/StarscreamSocketIO/StarscreamSocketIO.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1997,11 +1982,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip_UI.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flurry_iOS_SDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KDCircularProgress.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
@@ -2009,7 +1992,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SHSPhoneComponent.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StarscreamSocketIO.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2033,18 +2015,15 @@
 				"${BUILT_PRODUCTS_DIR}/Dip/Dip.framework",
 				"${BUILT_PRODUCTS_DIR}/Dip-UI/Dip_UI.framework",
 				"${BUILT_PRODUCTS_DIR}/Flurry-iOS-SDK/Flurry_iOS_SDK.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/KDCircularProgress/KDCircularProgress.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveKit/ReactiveKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/SHSPhoneComponent/SHSPhoneComponent.framework",
 				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
 				"${BUILT_PRODUCTS_DIR}/StarscreamSocketIO/StarscreamSocketIO.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -2058,18 +2037,15 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip_UI.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flurry_iOS_SDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KDCircularProgress.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SHSPhoneComponent.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StarscreamSocketIO.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2130,6 +2106,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		77F7AC4C1F812E73006689EB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 2304e236dd83d9705d129283cbeabbcf628c45ad 8bced51f15de66fec83d797b04ac7f83c97b7e814130fdd19a362e0762f0cdd3\n";
+		};
 		B9E4773C0C9B395BCF5B174C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2183,11 +2172,9 @@
 				"${BUILT_PRODUCTS_DIR}/Dip/Dip.framework",
 				"${BUILT_PRODUCTS_DIR}/Dip-UI/Dip_UI.framework",
 				"${BUILT_PRODUCTS_DIR}/Flurry-iOS-SDK/Flurry_iOS_SDK.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/KDCircularProgress/KDCircularProgress.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveKit/ReactiveKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
@@ -2195,7 +2182,6 @@
 				"${BUILT_PRODUCTS_DIR}/SHSPhoneComponent/SHSPhoneComponent.framework",
 				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
 				"${BUILT_PRODUCTS_DIR}/StarscreamSocketIO/StarscreamSocketIO.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -2209,11 +2195,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip_UI.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flurry_iOS_SDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KDCircularProgress.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
@@ -2221,7 +2205,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SHSPhoneComponent.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StarscreamSocketIO.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2257,7 +2240,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:658913964014:ios:4a46bd1b7f74ab80\n\n# Replace the /Path/To/ServiceAccount.json with the path to the key you just downloaded\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"${PROJECT_DIR}/StrizhApp/strizhapp-78ed2-firebase-crashreporting-fglbu-962209ea7c.json\"";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 2304e236dd83d9705d129283cbeabbcf628c45ad 8bced51f15de66fec83d797b04ac7f83c97b7e814130fdd19a362e0762f0cdd3";
 		};
 		D41D90FA1F6C66C100D78547 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2294,11 +2277,9 @@
 				"${BUILT_PRODUCTS_DIR}/Dip/Dip.framework",
 				"${BUILT_PRODUCTS_DIR}/Dip-UI/Dip_UI.framework",
 				"${BUILT_PRODUCTS_DIR}/Flurry-iOS-SDK/Flurry_iOS_SDK.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/KDCircularProgress/KDCircularProgress.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveKit/ReactiveKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
@@ -2306,7 +2287,6 @@
 				"${BUILT_PRODUCTS_DIR}/SHSPhoneComponent/SHSPhoneComponent.framework",
 				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
 				"${BUILT_PRODUCTS_DIR}/StarscreamSocketIO/StarscreamSocketIO.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -2320,11 +2300,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip_UI.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flurry_iOS_SDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KDCircularProgress.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
@@ -2332,7 +2310,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SHSPhoneComponent.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StarscreamSocketIO.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2368,20 +2345,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:658913964014:ios:4a46bd1b7f74ab80\n\n# Replace the /Path/To/ServiceAccount.json with the path to the key you just downloaded\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"${PROJECT_DIR}/StrizhApp/strizhapp-78ed2-firebase-crashreporting-fglbu-962209ea7c.json\"";
-		};
-		E53185E51E35E72A00BC6C9A /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:658913964014:ios:4a46bd1b7f74ab80\n\n# Replace the /Path/To/ServiceAccount.json with the path to the key you just downloaded\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"${PROJECT_DIR}/StrizhApp/strizhapp-78ed2-firebase-crashreporting-fglbu-962209ea7c.json\"";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 2304e236dd83d9705d129283cbeabbcf628c45ad 8bced51f15de66fec83d797b04ac7f83c97b7e814130fdd19a362e0762f0cdd3";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2975,7 +2939,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/StrizhApp",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Stage-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/StrizhApp/Stage-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DSTAGE";
@@ -2998,7 +2962,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/StrizhApp",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Stage-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/StrizhApp/Stage-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DSTAGE";
@@ -3020,7 +2984,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/StrizhApp",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Dev-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/StrizhApp/Dev-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEV";
@@ -3043,7 +3007,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/StrizhApp",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Dev-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/StrizhApp/Dev-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEV";

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReactiveKit
 
 class STPostTableViewCell: UITableViewCell {
 
@@ -35,6 +36,8 @@ class STPostTableViewCell: UITableViewCell {
     var onFavoriteButtonTap: (() -> Void)?
     
     var onUserIconButtonTap: (() -> Void)?
+    
+    var disposeBag = DisposeBag()
     
     
     override func awakeFromNib() {
@@ -66,6 +69,7 @@ class STPostTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         
         userIcon.imageView?.image = nil
+        self.disposeBag = DisposeBag()
     }
     
     func tapOnFavorite() {

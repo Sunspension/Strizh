@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Firebase
 import GoogleMaps
 import NVActivityIndicatorView
 import AccountKit
@@ -16,6 +15,8 @@ import Dip
 import ObjectMapper
 import UserNotifications
 import Alamofire
+import Fabric
+import Crashlytics
 
 fileprivate enum SessionCheckingStatus {
     
@@ -102,9 +103,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         
         AppDelegate.appSettings.dbConfig.configure()
         
-        FirebaseApp.configure()
+        Fabric.with([Crashlytics.self])
         
-        GMSServices.provideAPIKey("AIzaSyB9Xe2_0osvR8RC8nBkRttpIEWOQuUbdI8")
+        GMSServices.provideAPIKey("AIzaSyATUBLEXbSedJVsSjubUqKd8Iv1KIzfcQ0")
         
         // Busy indicator setup
         NVActivityIndicatorView.DEFAULT_TYPE = .ballClipRotateMultiple

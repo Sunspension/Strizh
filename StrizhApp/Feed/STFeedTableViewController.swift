@@ -9,6 +9,7 @@
 import UIKit
 import ReactiveKit
 import AlamofireImage
+import Bond
 
 enum STFeedControllerOpenReason {
     
@@ -94,12 +95,12 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
                                                          object: nil)
             .observeNext { [unowned self] notification in
                 
-                // temporary
                 self.feedDataSource.loadFeed(isRefresh: true)
-                
-            }.dispose(in: disposeBag)
+            }
+            .dispose(in: disposeBag)
         
-        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kUserUpdatedNotification), object: nil)
+        NotificationCenter.default.reactive.notification(name: NSNotification.Name(kUserUpdatedNotification),
+                                                         object: nil)
             .observeNext { [unowned self] notification in
                 
                 self.tableView.reloadData()
@@ -407,7 +408,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         cell.dialogsCount.setTitle( title, for: .normal)
         cell.postTime.text = post.createdAt?.elapsedInterval()
         
-        cell.onFavoriteButtonTap = { [cell, unowned self] in
+        cell.iconFavorite.reactive.tap.observeNext { [cell] in
             
             let favorite = !cell.iconFavorite.isSelected
             cell.iconFavorite.isSelected = favorite
@@ -418,7 +419,8 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
                     post.isFavorite = postResponse.isFavorite
                     NotificationCenter.default.post(name: NSNotification.Name(kItemFavoriteNotification), object: postResponse)
                 })
-        }
+            }
+            .dispose(in: cell.disposeBag)
         
         if post.dateFrom != nil && post.dateTo != nil {
             

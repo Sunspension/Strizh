@@ -10,6 +10,8 @@ PODS:
     - ReactiveKit (~> 3.6.2)
   - BrightFutures (5.2.0):
     - Result (~> 3.2)
+  - Crashlytics (3.8.6):
+    - Fabric (~> 1.6.3)
   - Diff (0.5.3)
   - Dip (5.1)
   - Dip-UI (1.1):
@@ -19,50 +21,18 @@ PODS:
     - DKImagePickerController/ImageManager (= 3.6.1)
   - DKImagePickerController/Camera (3.6.1)
   - DKImagePickerController/ImageManager (3.6.1)
-  - Firebase/Core (4.1.1):
-    - FirebaseAnalytics (= 4.0.3)
-    - FirebaseCore (= 4.0.6)
-  - Firebase/Crash (4.1.1):
-    - Firebase/Core
-    - FirebaseCrash (= 2.0.1)
-  - FirebaseAnalytics (4.0.3):
-    - FirebaseCore (~> 4.0)
-    - FirebaseInstanceID (~> 2.0)
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-    - nanopb (~> 0.3)
-  - FirebaseCore (4.0.6):
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-    - nanopb (~> 0.3)
-  - FirebaseCrash (2.0.1):
-    - FirebaseAnalytics (~> 4.0)
-    - FirebaseInstanceID (~> 2.0)
-    - GoogleToolboxForMac/Logger (~> 2.1)
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-    - Protobuf (~> 3.1)
-  - FirebaseInstanceID (2.0.2):
-    - FirebaseCore (~> 4.0)
+  - Fabric (1.6.13)
   - Flurry-iOS-SDK/FlurrySDK (8.2.1)
   - GoogleMaps (2.4.0):
     - GoogleMaps/Maps (= 2.4.0)
   - GoogleMaps/Base (2.4.0)
   - GoogleMaps/Maps (2.4.0):
     - GoogleMaps/Base
-  - GoogleToolboxForMac/Defines (2.1.1)
-  - GoogleToolboxForMac/Logger (2.1.1):
-    - GoogleToolboxForMac/Defines (= 2.1.1)
-  - GoogleToolboxForMac/NSData+zlib (2.1.1):
-    - GoogleToolboxForMac/Defines (= 2.1.1)
   - KDCircularProgress (1.5.2)
-  - nanopb (0.3.8):
-    - nanopb/decode (= 0.3.8)
-    - nanopb/encode (= 0.3.8)
-  - nanopb/decode (0.3.8)
-  - nanopb/encode (0.3.8)
   - NVActivityIndicatorView (3.7.0):
     - NVActivityIndicatorView/Presenter (= 3.7.0)
   - NVActivityIndicatorView/Presenter (3.7.0)
   - ObjectMapper (2.2.9)
-  - Protobuf (3.4.0)
   - ReactiveKit (3.6.2)
   - Realm (2.10.1):
     - Realm/Headers (= 2.10.1)
@@ -81,10 +51,11 @@ DEPENDENCIES:
   - AlamofireObjectMapper (~> 4.0)
   - Bond (= 6.3.0)
   - BrightFutures
+  - Crashlytics
   - Dip
   - Dip-UI
   - DKImagePickerController (= 3.6.1)
-  - Firebase/Crash
+  - Fabric
   - Flurry-iOS-SDK/FlurrySDK
   - GoogleMaps
   - KDCircularProgress
@@ -101,23 +72,17 @@ SPEC CHECKSUMS:
   AlamofireObjectMapper: 435adc82f5b367679bd9e71c4974a54efd0b2521
   Bond: 6a15b0635bbaae915d91b4c4ffa1396807530ef3
   BrightFutures: 8681dbb9fa831b69b6e7dc4a498b9e081d5daeb5
+  Crashlytics: 95d05f4e4c19a771250c4bd9ce344d996de32bbf
   Diff: befa1d19c32726b2b36ce915d98793e2fbde8dcc
   Dip: f5a7bd4e1a8af48516e4adc0952d6efc29015589
   Dip-UI: 1c64807d98d493281e87651921b80e1c2dce1f2c
   DKImagePickerController: 4f8072aed44119a33955c9583273ea7c8739c0f4
-  Firebase: 052c0de688fc87b414996eea13e223dd9fee3fa2
-  FirebaseAnalytics: 76f754d37ca5b04f36856729b6af3ca0152d1069
-  FirebaseCore: 28def3c643989c97ea5a69ea5000f5fa9902b9fd
-  FirebaseCrash: bce9fbfb7dd6cc850a41fe39740a2292e6b61f2e
-  FirebaseInstanceID: c4c7fca62c7b7330caee5da04f19a37ea37bb1c1
+  Fabric: 2fb5676bc811af011a04513451f463dac6803206
   Flurry-iOS-SDK: b0dcfbdb6e87c55b9e41ad4441945be492348132
   GoogleMaps: 8436ab5d1c25e36915b2f7416d0c8e3fa2e76c61
-  GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   KDCircularProgress: 12f677b2deb02409ab48c6cae1898d146b8ad549
-  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   NVActivityIndicatorView: d3738df7e2e476aca0ba6bf32a8c9fbcfc33d64b
   ObjectMapper: 63cfe41bc6f8e7c8f44344c49901b8ae7de14c52
-  Protobuf: 03eef2ee0b674770735cf79d9c4d3659cf6908e8
   ReactiveKit: 59813e52505065d14fa77b453d8be5981eced6b7
   Realm: fc7a317a5c2c9ba91f5f235ede4e2ea76e9eba0c
   RealmSwift: 505ed6c15942a2e76f5cfa78a8667cfa997ee75b
@@ -126,6 +91,6 @@ SPEC CHECKSUMS:
   Socket.IO-Client-Swift: b8e59ddc16bc3609ca2f49a4b50253f095d535c8
   StarscreamSocketIO: 00b54e4208481ca5cef089545353aaf126bae16d
 
-PODFILE CHECKSUM: 5ebd70b620df4312aa163aebd3fa96b7a0a18df3
+PODFILE CHECKSUM: cf2380932f09509935c2d09c0ee35e6c5943fe81
 
 COCOAPODS: 1.3.1

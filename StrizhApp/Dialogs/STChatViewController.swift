@@ -313,8 +313,6 @@ class STChatViewController: UIViewController, UITextViewDelegate {
             .onSuccess(callback: { [unowned self] message in
             
                 self.messages.insert(message)
-                self.createDataSource()
-                self.reloadTableView()
             })
             .onFailure { [unowned self] error in
                 
