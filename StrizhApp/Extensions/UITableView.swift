@@ -32,7 +32,7 @@ extension UITableView {
                       forHeaderFooterViewReuseIdentifier: String(describing: headerFooterNibClass))
     }
     
-    func dequeueReusableCell<T: UITableViewCell>(for indexPath: IndexPath) -> T where T: ReusableView {
+    func dequeueReusableCell<T: UITableViewCell>(for indexPath: IndexPath) -> T {
         
         guard let cell = dequeueReusableCell(withIdentifier: T.reuseIdentifier, for: indexPath) as? T else {
          
@@ -42,7 +42,7 @@ extension UITableView {
         return cell
     }
     
-    func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>() -> T where T: ReusableView {
+    func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>() -> T {
         
         guard let cell = dequeueReusableHeaderFooterView(withIdentifier: T.reuseIdentifier) as? T else {
             
