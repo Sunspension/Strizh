@@ -74,7 +74,7 @@ class STDocumentViewController: UIViewController, WKNavigationDelegate {
         self.hideBusy()
     }
     
-    func close() {
+    @objc func close() {
         
         self.dismiss(animated: true, completion: nil)
     }

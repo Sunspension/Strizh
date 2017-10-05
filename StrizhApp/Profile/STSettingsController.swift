@@ -139,7 +139,7 @@ class STSettingsController: UITableViewController {
         }
     }
     
-    func close() {
+    @objc func close() {
         
         self.dismiss(animated: true, completion: nil)
     }

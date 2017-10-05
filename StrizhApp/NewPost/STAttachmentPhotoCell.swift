@@ -80,7 +80,7 @@ class STAttachmentPhotoCell: UICollectionViewCell {
         self.coloredLayer.removeFromSuperlayer()
     }
     
-    func deleteAction() {
+    @objc func deleteAction() {
         
         self.onDeleteAction?()
     }

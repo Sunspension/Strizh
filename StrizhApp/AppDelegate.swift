@@ -278,7 +278,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     }
     
     // MARK: AKFViewControllerDelegate implementation
-    func viewController(_ viewController: UIViewController!, didCompleteLoginWithAuthorizationCode code: String!, state: String!) {
+    private func viewController(_ viewController: UIViewController!, didCompleteLoginWithAuthorizationCode code: String!, state: String!) {
         
         let deviceToken = AppDelegate.appSettings.deviceToken
         let deviceUUID = UIDevice.current.identifierForVendor!.uuidString
@@ -319,7 +319,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         print("We have an error \(error)")
     }
     
-    func viewControllerDidCancel(_ viewController: UIViewController!) {
+    private func viewControllerDidCancel(_ viewController: UIViewController!) {
         
         print("The user cancel the login")
     }
@@ -353,7 +353,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
             }
     }
     
-    func introEnded() {
+    @objc func introEnded() {
         
         let dip = AppDelegate.appSettings.dependencyContainer
         let analytics: STAnalytics = try! dip.resolve()
@@ -563,19 +563,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                         
                         if session.isFacebook {
 
-                            let controller = AppDelegate.appSettings.fbAccountKit
-                                .viewControllerForPhoneLogin() as! AKFViewController
+                            let controller = AppDelegate.appSettings.fbAccountKit.viewControllerForPhoneLogin()
                             controller.enableSendToFacebook = true
                             controller.delegate = self
-                            controller.uiManager = STFaceBookUIManager(controller: controller as! UIViewController)
+                            controller.uiManager = STFaceBookUIManager(controller: controller)
                             
                             if animation {
                                 
-                                self.changeRootViewController(controller as! UIViewController)
+                                self.changeRootViewController(controller)
                                 return
                             }
                             
-                            self.window?.rootViewController = controller as? UIViewController
+                            self.window?.rootViewController = controller
                             self.window?.makeKeyAndVisible()
                         }
                         else {

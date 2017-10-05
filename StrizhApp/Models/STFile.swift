@@ -12,27 +12,27 @@ import RealmSwift
 
 final class STFile: Object, Mappable {
     
-    dynamic var id: Int64 = 0
+    @objc dynamic var id: Int64 = 0
     
-    dynamic var createdAt = Date()
+    @objc dynamic var createdAt = Date()
     
-    dynamic var deleted = false
+    @objc dynamic var deleted = false
     
-    dynamic var deletedAt: Date?
+    @objc dynamic var deletedAt: Date?
     
-    dynamic var md5 = ""
+    @objc dynamic var md5 = ""
     
-    dynamic var mimeType = ""
+    @objc dynamic var mimeType = ""
     
-    dynamic var title = ""
+    @objc dynamic var title = ""
     
-    dynamic var updatedAt: Date?
+    @objc dynamic var updatedAt: Date?
     
-    dynamic var url = ""
+    @objc dynamic var url = ""
     
-    dynamic var path = ""
+    @objc dynamic var path = ""
     
-    dynamic var type = 0
+    @objc dynamic var type = 0
     
     
     required convenience public init?(map: Map) {
@@ -72,7 +72,7 @@ final class STFile: Object, Mappable {
         type <- map["type"]
     }
     
-    fileprivate func formatter() -> DateFormatter {
+    private func formatter() -> DateFormatter {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"

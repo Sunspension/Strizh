@@ -119,18 +119,18 @@ class STSingUpFirstStepController: STSingUpBaseController {
             paragraphStyle.alignment = .center
             
             let attributedText = NSMutableAttributedString(string: text,
-                                                           attributes: [ NSFontAttributeName : UIFont.systemFont(ofSize: 11),
-                                                                         NSForegroundColorAttributeName : UIColor.stWhite70Opacity,
-                                                                         NSParagraphStyleAttributeName : paragraphStyle ])
+                                                           attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 11),
+                                                                         NSAttributedStringKey.foregroundColor : UIColor.stWhite70Opacity,
+                                                                         NSAttributedStringKey.paragraphStyle : paragraphStyle ])
             
             let range1 = attributedText.mutableString.range(of: "login_policy_text".localized, options: .caseInsensitive)
             let range2 = attributedText.mutableString.range(of: "login_terms_text".localized, options: .caseInsensitive)
             let range3 = attributedText.mutableString.range(of: "login_personal_data_processing".localized, options: .caseInsensitive)
             
-            let attr: [String : Any] = [NSFontAttributeName : UIFont.systemFont(ofSize: 11),
-                                        NSForegroundColorAttributeName : UIColor.stWhite70Opacity,
-                                        NSUnderlineColorAttributeName : UIColor.stWhite70Opacity,
-                                        NSUnderlineStyleAttributeName : style]
+            let attr: [NSAttributedStringKey : Any] = [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 11),
+                                                       NSAttributedStringKey.foregroundColor : UIColor.stWhite70Opacity,
+                                                       NSAttributedStringKey.underlineColor : UIColor.stWhite70Opacity,
+                                                       NSAttributedStringKey.underlineStyle : style]
             
             attributedText.setAttributes(attr, range: range1)
             attributedText.setAttributes(attr, range: range2)

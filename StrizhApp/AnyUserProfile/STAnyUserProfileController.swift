@@ -443,7 +443,7 @@ class STAnyUserProfileController: UITableViewController {
         
         floatTitle.textAlignment = .center
         floatTitle.translatesAutoresizingMaskIntoConstraints = false
-        floatTitle.font = UIFont.systemFont(ofSize: 17, weight: UIFontWeightMedium)
+        floatTitle.font = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.medium)
         floatTitle.text = user.firstName + " " + user.lastName
         floatTitle.sizeToFit()
         

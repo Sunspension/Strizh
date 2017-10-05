@@ -33,7 +33,7 @@ class ClickableLabel: UILabel {
         self.addGestureRecognizer(tapRecognizer)
     }
     
-    func recognizerHandler(_ recognizer: UITapGestureRecognizer) {
+    @objc func recognizerHandler(_ recognizer: UITapGestureRecognizer) {
         
         guard recognizer.state == .ended else {
             

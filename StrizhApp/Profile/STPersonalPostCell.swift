@@ -72,7 +72,7 @@ class STPersonalPostCell: UITableViewCell {
         more.tintColor = UIColor.lightGray
     }
     
-    func tapOnFavorite() {
+    @objc func tapOnFavorite() {
         
         self.onFavoriteButtonTap?()
     }

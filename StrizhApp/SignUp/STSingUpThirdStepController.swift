@@ -155,12 +155,13 @@ UINavigationControllerDelegate, UITextFieldDelegate {
             cell.textLabel?.textAlignment = .center
             
             let title = NSMutableAttributedString(string: "login_page_last_action_text1".localized,
-                                                  attributes: [NSForegroundColorAttributeName : UIColor.white,
-                                                               NSFontAttributeName : UIFont.systemFont(ofSize: 16)])
+                                                  attributes: [NSAttributedStringKey.foregroundColor : UIColor.white,
+                                                               NSAttributedStringKey.font : UIFont.systemFont(ofSize: 16)])
             
             let text = "login_page_last_action_text2".localized
             
-            let subtitle = NSAttributedString(string: text, attributes: [NSForegroundColorAttributeName : UIColor.white, NSFontAttributeName : UIFont.systemFont(ofSize: 13)])
+            let subtitle = NSAttributedString(string: text, attributes: [NSAttributedStringKey.foregroundColor : UIColor.white,
+                                                                         NSAttributedStringKey.font : UIFont.systemFont(ofSize: 13)])
             
             title.append(subtitle)
             cell.textLabel?.attributedText = title
@@ -215,7 +216,9 @@ UINavigationControllerDelegate, UITextFieldDelegate {
             viewCell.contentView.backgroundColor = UIColor.stWhite20Opacity
             viewCell.title.text = "login_page_name_title".localized
             viewCell.title.textColor = UIColor.white
-            viewCell.value.attributedPlaceholder = NSAttributedString(string: "login_page_enter_name_text".localized, attributes: [NSForegroundColorAttributeName : UIColor.stWhite70Opacity])
+            
+            viewCell.value.attributedText = NSAttributedString(string: "login_page_enter_name_text".localized,
+                                                               attributes: [NSAttributedStringKey.foregroundColor : UIColor.stWhite70Opacity])
             viewCell.value.textColor = UIColor.white
             viewCell.value.tag = 1
             viewCell.value.delegate = self
@@ -229,7 +232,7 @@ UINavigationControllerDelegate, UITextFieldDelegate {
             viewCell.selectionStyle = .none
             viewCell.title.text = "login_page_last_name_title".localized
             viewCell.title.textColor = UIColor.white
-            viewCell.value.attributedPlaceholder = NSAttributedString(string: "login_page_last_name_action_text".localized, attributes: [NSForegroundColorAttributeName : UIColor.stWhite70Opacity])
+            viewCell.value.attributedText = NSAttributedString(string: "login_page_last_name_action_text".localized, attributes: [NSAttributedStringKey.foregroundColor : UIColor.stWhite70Opacity])
             
             viewCell.value.textColor = UIColor.white
             viewCell.contentView.backgroundColor = UIColor.stWhite20Opacity

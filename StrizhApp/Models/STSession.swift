@@ -11,11 +11,11 @@ import RealmSwift
 
 final class STSession: Object, Mappable {
 
-    dynamic var sid = ""
+    @objc dynamic var sid = ""
     
-    dynamic var userId = 0
+    @objc dynamic var userId = 0
     
-    dynamic var type = ""
+    @objc dynamic var type = ""
     
     var isFacebook: Bool {
         

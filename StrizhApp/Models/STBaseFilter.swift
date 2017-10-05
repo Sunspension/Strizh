@@ -11,7 +11,7 @@ import RealmSwift
 
 public class STBaseFilter : Object {
     
-    dynamic var id = 0
+    @objc dynamic var id = 0
     
     let filterItems = List<STFilterItem>()
     

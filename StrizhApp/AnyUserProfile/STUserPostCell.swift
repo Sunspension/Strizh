@@ -69,12 +69,12 @@ class STUserPostCell: UITableViewCell {
         userIcon.imageView?.image = nil
     }
     
-    func tapOnFavorite() {
+    @objc func tapOnFavorite() {
         
         self.onFavoriteButtonTap?()
     }
     
-    func tapOnUserIcon() {
+    @objc func tapOnUserIcon() {
         
         self.onUserIconButtonTap?()
     }

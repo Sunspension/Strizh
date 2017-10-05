@@ -87,7 +87,7 @@ class STSingUpBaseController: UITableViewController, NVActivityIndicatorViewable
         self.view.endEditing(true)
     }
     
-    func actionNext() {
+    @objc func actionNext() {
         
         self.view.endEditing(true)
     }

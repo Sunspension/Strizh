@@ -12,13 +12,13 @@ import Realm
 
 public class STFilterItem: Object {
     
-    dynamic var id = 0
+    @objc dynamic var id = 0
     
-    dynamic var itemName = ""
+    @objc dynamic var itemName = ""
     
-    dynamic var itemIconName = ""
+    @objc dynamic var itemIconName = ""
     
-    dynamic var isSelected = false
+    @objc dynamic var isSelected = false
     
     override public static func primaryKey() -> String? {
         

@@ -50,7 +50,7 @@ class CountdownTimer: NSObject {
                                           repeats: true)
     }
     
-    func updateTimer() {
+    @objc func updateTimer() {
         
         let now = Date()
         

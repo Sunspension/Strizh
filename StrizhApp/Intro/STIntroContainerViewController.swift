@@ -32,7 +32,7 @@ class STIntroContainerViewController: UIViewController {
         self.analytics.logEvent(eventName: st_eIntro, timed: true)
     }
     
-    func didChangePageControlValue() {
+    @objc func didChangePageControlValue() {
         
         self.pageViewController?.scrollToViewController(index: self.pageControl.currentPage, completionAction: nil)
     }
@@ -88,7 +88,7 @@ class STIntroContainerViewController: UIViewController {
         self.pageViewController!.nextAction()
     }
     
-    func skipAction() {
+    @objc func skipAction() {
         
         self.analytics.logEvent(eventName: st_eSkipIntro)
         

@@ -75,7 +75,7 @@ class STTextFieldCell: UITableViewCell {
         self.value.rightView = nil
     }
     
-    func textDidChange() {
+    @objc func textDidChange() {
         
         if let text = value.text {
             

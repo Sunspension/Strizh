@@ -12,13 +12,13 @@ import RealmSwift
 
 final class STImage: Object, Mappable {
 
-    dynamic var id: Int64 = 0
+    @objc dynamic var id: Int64 = 0
     
-    dynamic var userId = 0
+    @objc dynamic var userId = 0
     
-    dynamic var path = ""
+    @objc dynamic var path = ""
     
-    dynamic var url = ""
+    @objc dynamic var url = ""
     
     
     required convenience public init?(map: Map) {

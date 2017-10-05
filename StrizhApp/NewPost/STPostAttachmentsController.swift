@@ -104,7 +104,7 @@ class STPostAttachmentsController: UITableViewController, NVActivityIndicatorVie
         self.createDataSource()
     }
     
-    func nextAction() {
+    @objc func nextAction() {
         
         var imageIds = [Int64]()
         

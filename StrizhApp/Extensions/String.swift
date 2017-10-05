@@ -40,6 +40,6 @@ extension String {
     
     func string(with color: UIColor) -> NSAttributedString {
         
-        return NSAttributedString(string: self, attributes: [ NSForegroundColorAttributeName : color])
+        return NSAttributedString(string: self, attributes: [ NSAttributedStringKey.foregroundColor : color])
     }
 }

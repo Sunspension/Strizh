@@ -40,7 +40,7 @@ class KeyboardNotificationListener: NSObject {
     }
     
     
-    func keyboardWillShow(_ notification: Notification) {
+    @objc func keyboardWillShow(_ notification: Notification) {
         
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size {
             
@@ -50,7 +50,7 @@ class KeyboardNotificationListener: NSObject {
         }
     }
     
-    func keyboardWillHide(_ notification: Notification) {
+    @objc func keyboardWillHide(_ notification: Notification) {
         
         self.scrollView?.contentInset = self.contentInset ?? UIEdgeInsets.zero
         self.scrollView?.scrollIndicatorInsets = self.contentInset ?? UIEdgeInsets.zero

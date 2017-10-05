@@ -100,12 +100,12 @@ class STFeedFilterTableViewController: UITableViewController {
         item.selected = false
     }
     
-    func cancel() {
+    @objc func cancel() {
         
         self.dismiss(animated: true, completion: nil)
     }
     
-    func applyFilter() {
+    @objc func applyFilter() {
         
         guard self.filter != nil else {
             

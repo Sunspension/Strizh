@@ -149,7 +149,7 @@ class STSingUpSecondStepController: STSingUpBaseController {
                 self.password = wcell.value.phoneNumber()
             }
             
-            viewCell.value.attributedPlaceholder = NSAttributedString(string: "login_page_enter_password_from_text_messsage_text".localized, attributes: [NSForegroundColorAttributeName : UIColor.stWhite70Opacity])
+            viewCell.value.attributedPlaceholder = NSAttributedString(string: "login_page_enter_password_from_text_messsage_text".localized, attributes: [NSAttributedStringKey.foregroundColor : UIColor.stWhite70Opacity])
             viewCell.value.isSecureTextEntry = true
         }
         

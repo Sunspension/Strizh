@@ -124,7 +124,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
         self.view.endEditing(true)
     }
     
-    func save() {
+    @objc func save() {
         
         var errors = [String]()
         
@@ -177,7 +177,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndic
         }
     }
     
-    func close() {
+    @objc func close() {
         
         self.dismiss(animated: true, completion: nil)
     }

@@ -12,45 +12,45 @@ import ObjectMapper
 
 final class STPost : Object, Mappable {
     
-    dynamic var id = 0
+    @objc dynamic var id = 0
     
-    dynamic var parentId = 0
+    @objc dynamic var parentId = 0
     
-    dynamic var title = ""
+    @objc dynamic var title = ""
     
-    dynamic var postDescription = ""
+    @objc dynamic var postDescription = ""
     
-    dynamic var price = ""
+    @objc dynamic var price = ""
     
-    dynamic var priceDescription = ""
+    @objc dynamic var priceDescription = ""
     
-    dynamic var profitDescription = ""
+    @objc dynamic var profitDescription = ""
     
-    dynamic var dateFrom: Date?
+    @objc dynamic var dateFrom: Date?
     
-    dynamic var dateTo: Date?
+    @objc dynamic var dateTo: Date?
     
-    dynamic var type = 0
+    @objc dynamic var type = 0
     
-    dynamic var isArchived = false
+    @objc dynamic var isArchived = false
     
-    dynamic var userId = 0
+    @objc dynamic var userId = 0
     
-    dynamic var createdAt: Date? // "2015-05-07 23:36:38"
+    @objc dynamic var createdAt: Date? // "2015-05-07 23:36:38"
     
-    dynamic var updatedAt: Date? // "2016-10-18 19:55:26"
+    @objc dynamic var updatedAt: Date? // "2016-10-18 19:55:26"
     
-    dynamic var deleted = false
+    @objc dynamic var deleted = false
     
-    dynamic var deletedAt: String?
+    @objc dynamic var deletedAt: String?
     
-    dynamic var dialogCount = 0
+    @objc dynamic var dialogCount = 0
     
-    dynamic var isFavorite = false
+    @objc dynamic var isFavorite = false
     
-    dynamic var user: STUser?
+    @objc dynamic var user: STUser?
     
-    dynamic var isPublic = false
+    @objc dynamic var isPublic = false
     
     var images = List<STImage>()
     
@@ -123,14 +123,14 @@ final class STPost : Object, Mappable {
         locations <- (map["location"], ArrayTransform<STLocation>())
     }
     
-    fileprivate func formatter() -> DateFormatter {
+    private func formatter() -> DateFormatter {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return formatter
     }
     
-    fileprivate func fromToFormatter() -> DateFormatter {
+    private func fromToFormatter() -> DateFormatter {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"

@@ -13,21 +13,21 @@ import Realm
 
 final class STMessage: Object, Mappable, Copying {
     
-    dynamic var id: Int64 = 0
+    @objc dynamic var id: Int64 = 0
     
-    dynamic var userId = 0
+    @objc dynamic var userId = 0
     
-    dynamic var message = ""
+    @objc dynamic var message = ""
     
-    dynamic var createdAt = Date()
+    @objc dynamic var createdAt = Date()
     
-    dynamic var dialogId = 0
+    @objc dynamic var dialogId = 0
     
-    dynamic var objectId = 0
+    @objc dynamic var objectId = 0
     
-    dynamic var objectType = 0
+    @objc dynamic var objectType = 0
     
-    dynamic var lastMessageId: Int64 = 0
+    @objc dynamic var lastMessageId: Int64 = 0
     
     var fileIds = List<RealmInt64>()
     

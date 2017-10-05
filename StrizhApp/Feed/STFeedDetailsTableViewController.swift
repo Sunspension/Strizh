@@ -156,12 +156,12 @@ class STFeedDetailsTableViewController: UIViewController {
         self.createDataSource()
     }
     
-    func close() {
+    @objc func close() {
         
         self.dismiss(animated: true, completion: nil)
     }
     
-    func openDialogsController() {
+    @objc func openDialogsController() {
         
         guard let post = self.post else {
             
@@ -173,7 +173,7 @@ class STFeedDetailsTableViewController: UIViewController {
         self.st_router_openDialogsController(postId: post.id)
     }
     
-    func openChatController() {
+    @objc func openChatController() {
         
         guard let post = self.post else {
             

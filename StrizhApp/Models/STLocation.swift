@@ -12,23 +12,23 @@ import RealmSwift
 
 final class STLocation: Object, Mappable {
     
-    dynamic var id = 0
+    @objc dynamic var id = 0
     
-    dynamic var deleted = false
+    @objc dynamic var deleted = false
     
-    dynamic var createdAt = Date()
+    @objc dynamic var createdAt = Date()
     
-    dynamic var deletedAt: Date?
+    @objc dynamic var deletedAt: Date?
     
-    dynamic var updatedAt: Date?
+    @objc dynamic var updatedAt: Date?
     
-    dynamic var lat = 0.0
+    @objc dynamic var lat = 0.0
     
-    dynamic var lon = 0.0
+    @objc dynamic var lon = 0.0
     
-    dynamic var title = ""
+    @objc dynamic var title = ""
     
-    dynamic var userId = 0
+    @objc dynamic var userId = 0
     
     
     required convenience public init?(map: Map) {
@@ -65,7 +65,7 @@ final class STLocation: Object, Mappable {
         userId <- map["user_id"]
     }
     
-    fileprivate func formatter() -> DateFormatter {
+    private func formatter() -> DateFormatter {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"

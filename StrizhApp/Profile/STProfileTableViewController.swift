@@ -123,8 +123,8 @@ class STProfileTableViewController: UITableViewController {
             self.analytics.logEvent(eventName: st_ePostDetails,
                                     params: ["post_id" : post.id, "from=" : st_eMyProfile])
             
-            self.st_router_openPostDetails(post: post, user: self.user, images: images,
-                                           files: files, locations: locations)
+            self.st_router_openPostDetails(post: post, user: self.user, images: Array(images),
+                                           files: Array(files), locations: Array(locations))
         }
         
         self.createHeader()

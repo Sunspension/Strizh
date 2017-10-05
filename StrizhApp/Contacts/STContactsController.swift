@@ -104,7 +104,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         synchronizeContacts()
     }
     
-    func keyboardWillShow(_ notification: Notification) {
+    @objc func keyboardWillShow(_ notification: Notification) {
         
         if let height = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
             
@@ -124,7 +124,7 @@ class STContactsController: UITableViewController, UISearchBarDelegate, UISearch
         }
     }
     
-    func keyboardWillHide(_ notification: Notification) {
+    @objc func keyboardWillHide(_ notification: Notification) {
         
         if let dummy = self.dummyView() {
             

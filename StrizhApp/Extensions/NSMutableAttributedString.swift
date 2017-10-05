@@ -10,7 +10,7 @@ import Foundation
 
 extension NSMutableAttributedString {
     
-    func addAttributes(_ attrs: [String : Any], for text: String) {
+    func addAttributes(_ attrs: [NSAttributedStringKey : Any], for text: String) {
         
         let range = self.mutableString.range(of: text, options: .caseInsensitive)
         

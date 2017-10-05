@@ -72,12 +72,12 @@ class STPostTableViewCell: UITableViewCell {
         self.disposeBag = DisposeBag()
     }
     
-    func tapOnFavorite() {
+    @objc func tapOnFavorite() {
         
         self.onFavoriteButtonTap?()
     }
     
-    func tapOnUserIcon() {
+    @objc func tapOnUserIcon() {
         
         self.onUserIconButtonTap?()
     }

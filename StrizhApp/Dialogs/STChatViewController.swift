@@ -13,7 +13,6 @@ import Bond
 
 class STChatViewController: UIViewController, UITextViewDelegate {
     
-    
     fileprivate let dataSource = TableViewDataSource()
     
     fileprivate var loadingStatus = STLoadingStatusEnum.idle
@@ -135,7 +134,7 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         self.loadNecessaryDataIfNeeded()
     }
 
-    func keyboardWillShow(_ notification: Notification) {
+    @objc func keyboardWillShow(_ notification: Notification) {
         
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size {
 
@@ -161,7 +160,7 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    func keyboardWillHide(_ notification: Notification) {
+    @objc func keyboardWillHide(_ notification: Notification) {
         
         if let dummy = self.dummyView() {
             
@@ -177,7 +176,7 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         })
     }
     
-    func onMessageReceive(notification: Notification) {
+    @objc func onMessageReceive(notification: Notification) {
         
         guard let dialog = self.dialog else {
             
@@ -205,7 +204,7 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         self.scrollToLastMessage(animated: true)
     }
     
-    func sendMessageAction() {
+    @objc func sendMessageAction() {
         
         let text = self.textView.text.trimmingCharacters(in: .whitespaces)
         
@@ -256,7 +255,7 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         self.placeHolder.isHidden = !textView.text.isEmpty
     }
     
-    func tapGestureHandler(tapRecognizer: UITapGestureRecognizer) {
+    @objc func tapGestureHandler(tapRecognizer: UITapGestureRecognizer) {
         
         if tapRecognizer.state != .recognized {
             
@@ -266,7 +265,7 @@ class STChatViewController: UIViewController, UITextViewDelegate {
         self.view.endEditing(true)
     }
     
-    func openFilterAction() {
+    @objc func openFilterAction() {
         
         let controller = UIAlertController(title: nil, message: nil,preferredStyle: .actionSheet)
         

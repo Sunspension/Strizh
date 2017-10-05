@@ -49,12 +49,12 @@ class DatePickerViewController: UIViewController, UIViewControllerTransitioningD
         self.datePicker.addTarget(self, action: #selector(self.didSelectDate(_:)), for: .valueChanged)
     }
     
-    func close() {
+    @objc func close() {
         
         self.dismiss(animated: true, completion: nil)
     }
     
-    func selectDate() {
+    @objc func selectDate() {
         
         if let selectedDate = self.selectedDate {
             
@@ -64,7 +64,7 @@ class DatePickerViewController: UIViewController, UIViewControllerTransitioningD
         self.dismiss(animated: true, completion: nil)
     }
     
-    func didSelectDate(_ sender: UIDatePicker) {
+    @objc func didSelectDate(_ sender: UIDatePicker) {
         
         selectedDate = sender.date
     }

@@ -12,11 +12,11 @@ import ObjectMapper
 
 class STUserNotificationSettings: Object, Mappable {
     
-    dynamic var id = 1
+    @objc dynamic var id = 1
     
-    dynamic var isTopics = true
+    @objc dynamic var isTopics = true
     
-    dynamic var isMessages = true
+    @objc dynamic var isMessages = true
     
     
     override public static func primaryKey() -> String {

@@ -12,44 +12,44 @@ import ObjectMapper
 
 final class STUser: Object, Mappable {
 
-    dynamic var id = 0
+    @objc dynamic var id = 0
     
-    dynamic var phone = ""
+    @objc dynamic var phone = ""
     
-    dynamic var firstName = ""
+    @objc dynamic var firstName = ""
     
-    dynamic var lastName = ""
+    @objc dynamic var lastName = ""
     
-    dynamic var createdAt = ""
+    @objc dynamic var createdAt = ""
     
-    dynamic var updatedAt = ""
+    @objc dynamic var updatedAt = ""
     
-    dynamic var deleted = false
+    @objc dynamic var deleted = false
     
-    dynamic var deletedAt: String?
+    @objc dynamic var deletedAt: String?
     
-    dynamic var status = 0
+    @objc dynamic var status = 0
     
-    dynamic var sendEmail = false
+    @objc dynamic var sendEmail = false
     
-    dynamic var sendPush = false
+    @objc dynamic var sendPush = false
     
-    dynamic var sendSMS = false
+    @objc dynamic var sendSMS = false
     
-    dynamic var alias = ""
+    @objc dynamic var alias = ""
     
-    dynamic var email = ""
+    @objc dynamic var email = ""
     
-    dynamic var isEmailConfirmed = false
+    @objc dynamic var isEmailConfirmed = false
     
-    dynamic var imageId = 0
+    @objc dynamic var imageId = 0
     
-    dynamic var imageUrl = ""
+    @objc dynamic var imageUrl = ""
     
-    dynamic var imageData: Data?
+    @objc dynamic var imageData: Data?
     
     // available in schema version 17
-    dynamic var notificationSettings: STUserNotificationSettings!
+    @objc dynamic var notificationSettings: STUserNotificationSettings!
     
     override public var hash: Int {
         

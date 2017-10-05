@@ -176,13 +176,13 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         }
     }
     
-    func onDidReceiveNewMessageNotification(_ notification: Notification) {
+    @objc func onDidReceiveNewMessageNotification(_ notification: Notification) {
         
         self.page = 1
         self.loadDialogs()
     }
     
-    func onDidReceiveDialogBadgeNotification(_ notification: Notification) {
+    @objc func onDidReceiveDialogBadgeNotification(_ notification: Notification) {
         
         if self.loadingStatus == .loading {
             
@@ -277,7 +277,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
             let userIds = dialog.userIds.map({ $0.value })
             let users = self.users.filter({ userIds.contains($0.id) })
             
-            self.st_router_openChatController(dialog: dialog, users: users)
+            self.st_router_openChatController(dialog: dialog, users: Array(users))
         }
         
         self.searchDataSource.sections.append(self.searchSection)
@@ -289,7 +289,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
             let userIds = dialog.userIds.map({ $0.value })
             let users = self.users.filter({ userIds.contains($0.id) })
             
-            self.st_router_openChatController(dialog: dialog, users: users)
+            self.st_router_openChatController(dialog: dialog, users: Array(users))
         }
     }
     

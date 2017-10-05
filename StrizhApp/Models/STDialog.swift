@@ -12,33 +12,33 @@ import RealmSwift
 
 final class STDialog: Object, Mappable {
     
-    dynamic var id = 0
+    @objc dynamic var id = 0
     
-    dynamic var objectType = 0
+    @objc dynamic var objectType = 0
     
-    dynamic var objectId = 0
+    @objc dynamic var objectId = 0
     
-    dynamic var createdAt = Date()
+    @objc dynamic var createdAt = Date()
     
-    dynamic var updatedAt: Date?
+    @objc dynamic var updatedAt: Date?
     
-    dynamic var messageId: Int64 = 0
+    @objc dynamic var messageId: Int64 = 0
     
-    dynamic var title = ""
+    @objc dynamic var title = ""
     
-    dynamic var ownerUserId = 0
+    @objc dynamic var ownerUserId = 0
     
-    dynamic var postId = 0
+    @objc dynamic var postId = 0
     
-    dynamic var lastReadMessageId = 0
+    @objc dynamic var lastReadMessageId = 0
     
-    dynamic var maxLastReadMessageId = 0
+    @objc dynamic var maxLastReadMessageId = 0
     
-    dynamic var unreadMessageCount = 0
+    @objc dynamic var unreadMessageCount = 0
     
     var userIds = List<RealmInt>()
     
-    dynamic var message: STMessage?
+    @objc dynamic var message: STMessage?
     
     
     required convenience public init?(map: Map) {

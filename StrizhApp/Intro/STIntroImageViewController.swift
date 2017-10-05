@@ -47,7 +47,7 @@ class STIntroImageViewController : UIViewController {
         }
     }
     
-    func nextActionHandler() {
+    @objc func nextActionHandler() {
         
         self.nextActionClosure?()
     }

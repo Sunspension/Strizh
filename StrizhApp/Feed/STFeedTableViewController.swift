@@ -242,7 +242,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         }
     }
     
-    func switchDataSource(control: UISegmentedControl) {
+    @objc func switchDataSource(control: UISegmentedControl) {
         
         let feedPost = control.selectedSegmentIndex == 0
         self.analytics.endTimeEvent(eventName: feedPost ? st_eFeedPostTab : st_eFavoritePostTab)
