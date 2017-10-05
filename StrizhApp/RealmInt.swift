@@ -12,5 +12,5 @@ class RealmInt: Object, RealmCustomObject {
     
     typealias ObjectType = Int
     
-    var value = 0
+    @objc dynamic var value = 0
 }

@@ -51,7 +51,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error)  in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(.loadUserFalure)
             }
@@ -81,7 +81,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error) in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(.updateUserFailure)
             }
@@ -104,7 +104,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error) in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(.loadFeedFailure)
             }
@@ -125,7 +125,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error) in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(.loadFeedByUserIdFailure)
             }
@@ -146,7 +146,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error) in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(.loadFeedFailure)
             }
@@ -167,7 +167,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error) in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(.favoriteFailure)
             }
@@ -188,7 +188,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error) in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(.archiveFailure)
             }
@@ -209,7 +209,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error) in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(.deletePostFailure)
             }
@@ -230,7 +230,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error) in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(.uploadContactsFailure)
             }
@@ -253,7 +253,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error) in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(.loadContactsFailure)
             }
@@ -275,7 +275,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error) in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(.createPostError)
             }
@@ -296,7 +296,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error) in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(.updatePostError)
             }
@@ -318,7 +318,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error) in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(.loadDialogsError)
             }
@@ -339,7 +339,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error) in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(.loadDialogsError)
             }
@@ -360,7 +360,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error) in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(.loadPostError)
             }
@@ -381,7 +381,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error) in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(.loadDialogError)
             }
@@ -402,7 +402,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error) in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(.loadMessagesError)
             }
@@ -424,7 +424,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error) in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(.sendMessageError)
             }
@@ -445,7 +445,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error) in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(.notifyMessagesReadError)
             }
@@ -466,7 +466,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error) in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(.createDialogError)
             }
@@ -487,7 +487,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error) in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(.loadMessageError)
             }
@@ -508,7 +508,7 @@ class STWebSocket {
         
         self.sendRequest(request: request) { (response, error) in
             
-            if response != nil {
+            if error != nil {
                 
                 p.failure(STError.updateNotificationSettingsError)
             }

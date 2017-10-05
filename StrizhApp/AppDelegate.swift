@@ -24,7 +24,7 @@ fileprivate enum SessionCheckingStatus {
 }
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     fileprivate var coldStart = true
 
@@ -275,43 +275,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
         }
         
         self.pushNotificationHandler(payload: userInfo as! [String : Any])
-    }
-    
-    // MARK: AKFViewControllerDelegate implementation
-    private func viewController(_ viewController: UIViewController!, didCompleteLoginWithAuthorizationCode code: String!, state: String!) {
-        
-        let deviceToken = AppDelegate.appSettings.deviceToken
-        let deviceUUID = UIDevice.current.identifierForVendor!.uuidString
-        
-        AppDelegate.appSettings.api.fbAuthorization(deviceToken: deviceToken, deviceUUID: deviceUUID, code: code)
-            
-            .onSuccess(callback: { [unowned self] session in
-                
-                session.writeToDB()
-                self.onAuthorized()
-                
-                // check user
-                AppDelegate.appSettings.api.loadUser(transport: .http, userId: session.userId)
-                    
-                    .onSuccess(callback: { [unowned self] user in
-                        
-                        if user.firstName.isEmpty {
-                            
-                            let controller = STSingUpThirdStepController()
-                            let navi = STSignUpNavigationController(rootViewController: controller)
-                            
-                            self.changeRootViewController(navi)
-                            return
-                        }
-                        
-                        user.writeToDB()
-                        self.openMainController()
-                    })
-                    .onFailure(callback: { error in
-                        
-                        // TODO show error
-                    })
-            })
     }
     
     private func viewController(_ viewController: UIViewController!, didFailWithError error: NSError!) {
@@ -566,7 +529,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
                             let controller = AppDelegate.appSettings.fbAccountKit.viewControllerForPhoneLogin()
                             controller.enableSendToFacebook = true
                             controller.delegate = self
-                            controller.uiManager = STFaceBookUIManager(controller: controller)
+//                            controller.uiManager = STFaceBookUIManager(controller: controller)
                             
                             if animation {
                                 
@@ -691,3 +654,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AKFViewControllerDelegate
     }
 }
 
+ extension AppDelegate: AKFViewControllerDelegate {
+    
+    
+    func viewController(_ viewController: (UIViewController & AKFViewController)!, didCompleteLoginWithAuthorizationCode code: String!, state: String!) {
+        
+        let deviceToken = AppDelegate.appSettings.deviceToken
+        let deviceUUID = UIDevice.current.identifierForVendor!.uuidString
+        
+        AppDelegate.appSettings.api.fbAuthorization(deviceToken: deviceToken, deviceUUID: deviceUUID, code: code)
+            
+            .onSuccess(callback: { [unowned self] session in
+                
+                session.writeToDB()
+                self.onAuthorized()
+                
+                // check user
+                AppDelegate.appSettings.api.loadUser(transport: .http, userId: session.userId)
+                    
+                    .onSuccess(callback: { [unowned self] user in
+                        
+                        if user.firstName.isEmpty {
+                            
+                            let controller = STSingUpThirdStepController()
+                            let navi = STSignUpNavigationController(rootViewController: controller)
+                            
+                            self.changeRootViewController(navi)
+                            return
+                        }
+                        
+                        user.writeToDB()
+                        self.openMainController()
+                    })
+                    .onFailure(callback: { error in
+                        
+                        // TODO show error
+                    })
+            })
+    }
+ }

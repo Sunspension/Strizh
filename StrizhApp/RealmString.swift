@@ -12,5 +12,5 @@ class RealmString: Object, RealmCustomObject {
     
     typealias ObjectType = String
     
-    var value = ""
+    @objc dynamic var value = ""
 }
