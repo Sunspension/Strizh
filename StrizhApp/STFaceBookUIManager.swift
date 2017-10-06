@@ -16,10 +16,16 @@ class STFaceBookUIManager: NSObject, AKFUIManager {
     fileprivate weak var controller: UIViewController?
     
     
+    
     init(controller: UIViewController) {
         
         self.controller = controller
         super.init()
+    }
+    
+    func theme() -> AKFTheme? {
+        
+        return AKFTheme()
     }
     
     func bodyView(for state: AKFLoginFlowState) -> UIView? {

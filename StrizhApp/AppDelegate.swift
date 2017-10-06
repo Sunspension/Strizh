@@ -529,7 +529,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                             let controller = AppDelegate.appSettings.fbAccountKit.viewControllerForPhoneLogin()
                             controller.enableSendToFacebook = true
                             controller.delegate = self
-//                            controller.uiManager = STFaceBookUIManager(controller: controller)
+                            controller.uiManager = STFaceBookUIManager(controller: controller)
                             
                             if animation {
                                 
