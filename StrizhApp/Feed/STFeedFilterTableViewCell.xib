@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -39,10 +40,12 @@
                     <constraint firstItem="hty-nr-OAy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="4" id="ag3-pV-EwL"/>
                     <constraint firstAttribute="trailingMargin" secondItem="v3U-RR-9iE" secondAttribute="trailing" constant="8" id="daM-Bb-4KZ"/>
                     <constraint firstItem="v3U-RR-9iE" firstAttribute="centerY" secondItem="hty-nr-OAy" secondAttribute="centerY" id="dbz-SX-18w"/>
-                    <constraint firstItem="hty-nr-OAy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="ybm-Rh-H8g"/>
+                    <constraint firstItem="hty-nr-OAy" firstAttribute="leading" secondItem="2P7-qM-jDW" secondAttribute="leading" constant="16" id="ybm-Rh-H8g"/>
                 </constraints>
+                <viewLayoutGuide key="safeArea" id="2P7-qM-jDW"/>
             </tableViewCellContentView>
             <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+            <viewLayoutGuide key="safeArea" id="QkS-B0-XZP"/>
             <connections>
                 <outlet property="icon" destination="hty-nr-OAy" id="EHj-Q2-ZKz"/>
                 <outlet property="title" destination="v3U-RR-9iE" id="Rn0-YY-F2P"/>

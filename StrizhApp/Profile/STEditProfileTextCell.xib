@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,7 +17,7 @@
             <rect key="frame" x="0.0" y="0.0" width="373" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="373" height="49"/>
+                <rect key="frame" x="0.0" y="0.0" width="373" height="49.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNp-EK-hEh">
@@ -33,14 +34,16 @@
                     </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="qNp-EK-hEh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="6xk-4k-OTM"/>
+                    <constraint firstItem="qNp-EK-hEh" firstAttribute="leading" secondItem="idd-FK-hqz" secondAttribute="leading" constant="16" id="6xk-4k-OTM"/>
                     <constraint firstAttribute="bottomMargin" secondItem="qNp-EK-hEh" secondAttribute="bottom" constant="8" id="Htb-rc-2ss"/>
                     <constraint firstItem="dg2-4x-o3r" firstAttribute="leading" secondItem="qNp-EK-hEh" secondAttribute="trailing" constant="16" id="XvW-kM-4CS"/>
                     <constraint firstItem="qNp-EK-hEh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="eBp-xR-SV6"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="dg2-4x-o3r" secondAttribute="trailing" constant="8" id="hWc-wv-Crd"/>
+                    <constraint firstItem="idd-FK-hqz" firstAttribute="trailing" secondItem="dg2-4x-o3r" secondAttribute="trailing" constant="16" id="hWc-wv-Crd"/>
                     <constraint firstItem="dg2-4x-o3r" firstAttribute="centerY" secondItem="qNp-EK-hEh" secondAttribute="centerY" id="tiD-kF-rom"/>
                 </constraints>
+                <viewLayoutGuide key="safeArea" id="idd-FK-hqz"/>
             </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="Xzf-c5-r0q"/>
             <connections>
                 <outlet property="title" destination="qNp-EK-hEh" id="bgX-0P-6tx"/>
                 <outlet property="value" destination="dg2-4x-o3r" id="mNT-y6-IiD"/>

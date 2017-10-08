@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,24 +17,27 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8qw-dy-2nP">
-                        <rect key="frame" x="18" y="8" width="284" height="27"/>
+                        <rect key="frame" x="14" y="8" width="292" height="27"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="tintColor" red="0.66666666666666663" green="0.66666668653488159" blue="0.66666668653488159" alpha="1" colorSpace="calibratedRGB"/>
                         <state key="normal" title="dogovor-privatizachiya.docx" image="icon-file-attached">
                             <color key="titleColor" red="0.043137254901960784" green="0.31372549019607843" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="8qw-dy-2nP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="07u-pS-ScZ"/>
+                    <constraint firstItem="8qw-dy-2nP" firstAttribute="leading" secondItem="OPd-Pz-NFr" secondAttribute="leading" constant="14" id="07u-pS-ScZ"/>
                     <constraint firstAttribute="bottomMargin" secondItem="8qw-dy-2nP" secondAttribute="bottom" priority="750" id="A9w-uh-NTN"/>
                     <constraint firstItem="8qw-dy-2nP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Bou-TT-tJW"/>
-                    <constraint firstAttribute="trailing" secondItem="8qw-dy-2nP" secondAttribute="trailing" constant="18" id="pw6-ca-NXK"/>
+                    <constraint firstItem="OPd-Pz-NFr" firstAttribute="trailing" secondItem="8qw-dy-2nP" secondAttribute="trailing" constant="14" id="pw6-ca-NXK"/>
                 </constraints>
+                <viewLayoutGuide key="safeArea" id="OPd-Pz-NFr"/>
             </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="bZY-Sa-5Gc"/>
             <connections>
                 <outlet property="title" destination="8qw-dy-2nP" id="sMc-FY-2oT"/>
             </connections>

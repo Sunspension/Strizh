@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,13 +21,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Заголовок" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WDA-KO-GD7">
-                        <rect key="frame" x="16" y="8" width="288" height="30"/>
+                        <rect key="frame" x="15" y="8" width="290" height="30"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Начало" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="h82-pk-za4">
-                        <rect key="frame" x="16" y="45.5" width="140" height="21"/>
+                        <rect key="frame" x="15" y="45.5" width="141" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="pwe-po-mTx"/>
                         </constraints>
@@ -35,7 +36,7 @@
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Конец" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="zCe-hK-3bz">
-                        <rect key="frame" x="164" y="47" width="140" height="19"/>
+                        <rect key="frame" x="164" y="47" width="141" height="19"/>
                         <nil key="textColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
@@ -45,15 +46,19 @@
                     <constraint firstItem="h82-pk-za4" firstAttribute="top" secondItem="WDA-KO-GD7" secondAttribute="bottom" constant="8" id="FMB-WK-6ad"/>
                     <constraint firstAttribute="bottomMargin" secondItem="h82-pk-za4" secondAttribute="bottom" priority="750" id="Ias-CZ-KoA"/>
                     <constraint firstItem="zCe-hK-3bz" firstAttribute="leading" secondItem="h82-pk-za4" secondAttribute="trailing" constant="8" id="OlU-fo-Ib3"/>
-                    <constraint firstItem="WDA-KO-GD7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="PLV-vq-egD"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="WDA-KO-GD7" secondAttribute="trailing" constant="8" id="RDJ-Rg-wgM"/>
                     <constraint firstItem="h82-pk-za4" firstAttribute="width" secondItem="zCe-hK-3bz" secondAttribute="width" id="SvM-l1-iUZ"/>
-                    <constraint firstItem="WDA-KO-GD7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="efR-YS-I1e"/>
+                    <constraint firstItem="WDA-KO-GD7" firstAttribute="top" secondItem="are-Io-kqh" secondAttribute="top" constant="8" id="efR-YS-I1e"/>
                     <constraint firstItem="zCe-hK-3bz" firstAttribute="trailing" secondItem="WDA-KO-GD7" secondAttribute="trailing" id="rmC-nF-rDR"/>
                     <constraint firstItem="h82-pk-za4" firstAttribute="leading" secondItem="WDA-KO-GD7" secondAttribute="leading" id="shG-bi-shj"/>
                     <constraint firstItem="zCe-hK-3bz" firstAttribute="centerY" secondItem="h82-pk-za4" secondAttribute="centerY" id="vEM-9z-ciV"/>
                 </constraints>
+                <viewLayoutGuide key="safeArea" id="are-Io-kqh"/>
             </tableViewCellContentView>
+            <constraints>
+                <constraint firstItem="0QK-18-6cd" firstAttribute="trailing" secondItem="WDA-KO-GD7" secondAttribute="trailing" constant="15" id="5gq-eR-RyZ"/>
+                <constraint firstItem="WDA-KO-GD7" firstAttribute="leading" secondItem="0QK-18-6cd" secondAttribute="leading" constant="15" id="FeR-rW-pvk"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="0QK-18-6cd"/>
             <connections>
                 <outlet property="leftValue" destination="h82-pk-za4" id="GqJ-y4-j4n"/>
                 <outlet property="rightValue" destination="zCe-hK-3bz" id="bWr-q7-jrq"/>

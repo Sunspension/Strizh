@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,22 +17,16 @@
             <rect key="frame" x="0.0" y="0.0" width="378" height="154"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="378" height="153"/>
+                <rect key="frame" x="0.0" y="0.0" width="378" height="153.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Заголовок" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FcG-2Q-2RN">
-                        <rect key="frame" x="16" y="8" width="346" height="20"/>
-                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" alwaysBounceVertical="YES" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="pbp-5a-gui">
                         <rect key="frame" x="16" y="36" width="346" height="109"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="sSt-Yz-fkM"/>
                         </constraints>
-                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                        <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
@@ -52,6 +47,12 @@
                         </constraints>
                         <state key="normal" image="icon-error"/>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Заголовок" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FcG-2Q-2RN">
+                        <rect key="frame" x="16" y="8" width="346" height="20"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="zV4-SG-ht2" firstAttribute="trailing" secondItem="FcG-2Q-2RN" secondAttribute="trailing" id="4QN-Uu-Xt6"/>
@@ -61,13 +62,15 @@
                     <constraint firstAttribute="bottomMargin" secondItem="pbp-5a-gui" secondAttribute="bottom" id="Faq-m4-HM3"/>
                     <constraint firstItem="zV4-SG-ht2" firstAttribute="leading" secondItem="FcG-2Q-2RN" secondAttribute="leading" id="Hku-5S-BvK"/>
                     <constraint firstItem="zV4-SG-ht2" firstAttribute="top" secondItem="FcG-2Q-2RN" secondAttribute="bottom" constant="8" id="Sco-H0-DGU"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="FcG-2Q-2RN" secondAttribute="trailing" constant="8" id="Uc6-x5-rHU"/>
+                    <constraint firstItem="3tM-oT-3fx" firstAttribute="trailing" secondItem="FcG-2Q-2RN" secondAttribute="trailing" constant="16" id="Uc6-x5-rHU"/>
                     <constraint firstItem="FcG-2Q-2RN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="dK6-2P-wff"/>
                     <constraint firstItem="pbp-5a-gui" firstAttribute="leading" secondItem="FcG-2Q-2RN" secondAttribute="leading" id="eJx-Be-DXh"/>
-                    <constraint firstItem="FcG-2Q-2RN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="k03-nq-axj"/>
+                    <constraint firstItem="FcG-2Q-2RN" firstAttribute="leading" secondItem="3tM-oT-3fx" secondAttribute="leading" constant="16" id="k03-nq-axj"/>
                     <constraint firstItem="pbp-5a-gui" firstAttribute="top" secondItem="FcG-2Q-2RN" secondAttribute="bottom" constant="8" id="pgT-Db-jCY"/>
                 </constraints>
+                <viewLayoutGuide key="safeArea" id="3tM-oT-3fx"/>
             </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="wnZ-M5-3yR"/>
             <connections>
                 <outlet property="error" destination="eci-Bg-e1W" id="0c9-YI-fmb"/>
                 <outlet property="placeHolder" destination="zV4-SG-ht2" id="mTo-7Y-WPk"/>

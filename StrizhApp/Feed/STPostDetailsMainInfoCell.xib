@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,32 +21,32 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jB3-Hh-Kuh">
-                        <rect key="frame" x="20" y="20" width="24" height="24"/>
+                        <rect key="frame" x="16" y="20" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="19Z-oi-7kz"/>
                             <constraint firstAttribute="width" constant="24" id="jOO-5C-ZrI"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Смирнова Надежда" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SS5-lJ-LXs">
-                        <rect key="frame" x="52" y="18" width="147" height="13.5"/>
+                        <rect key="frame" x="48" y="18" width="155" height="13.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="3 часа 12 минут" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mkd-Pe-kKp">
-                        <rect key="frame" x="52" y="32.5" width="147" height="14"/>
+                        <rect key="frame" x="48" y="32.5" width="155" height="14"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" red="0.34509803919999998" green="0.34901960780000002" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Экскаватор Doosan 22551 85" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJI-my-rTx">
-                        <rect key="frame" x="20" y="58.5" width="280" height="27"/>
+                        <rect key="frame" x="16" y="58.5" width="288" height="27"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xS8-O5-mjC">
-                        <rect key="frame" x="207" y="21" width="93" height="23"/>
+                        <rect key="frame" x="211" y="21" width="93" height="23"/>
                         <color key="backgroundColor" red="0.3294117647" green="0.81176470590000005" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="23" id="xVK-SJ-l4E"/>
@@ -58,20 +59,22 @@
                 <constraints>
                     <constraint firstItem="jB3-Hh-Kuh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="12" id="0B1-0y-tsE"/>
                     <constraint firstItem="xS8-O5-mjC" firstAttribute="centerY" secondItem="jB3-Hh-Kuh" secondAttribute="centerY" id="3Tl-qG-81q"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="xS8-O5-mjC" secondAttribute="trailing" constant="12" id="5jw-S3-Zyz"/>
+                    <constraint firstItem="1gs-Yr-UoK" firstAttribute="trailing" secondItem="xS8-O5-mjC" secondAttribute="trailing" constant="16" id="5jw-S3-Zyz"/>
                     <constraint firstItem="SS5-lJ-LXs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="BWY-bo-zm5"/>
                     <constraint firstItem="UJI-my-rTx" firstAttribute="leading" secondItem="jB3-Hh-Kuh" secondAttribute="leading" id="Fmr-sC-PfP"/>
                     <constraint firstItem="UJI-my-rTx" firstAttribute="trailing" secondItem="xS8-O5-mjC" secondAttribute="trailing" id="Jda-Cq-p3E"/>
                     <constraint firstItem="Mkd-Pe-kKp" firstAttribute="top" secondItem="SS5-lJ-LXs" secondAttribute="bottom" constant="1" id="OnB-pq-p9u"/>
                     <constraint firstItem="Mkd-Pe-kKp" firstAttribute="trailing" secondItem="SS5-lJ-LXs" secondAttribute="trailing" id="XZR-rM-khY"/>
                     <constraint firstItem="Mkd-Pe-kKp" firstAttribute="leading" secondItem="SS5-lJ-LXs" secondAttribute="leading" id="esh-in-0AL"/>
-                    <constraint firstItem="jB3-Hh-Kuh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="12" id="hdd-0A-HGg"/>
+                    <constraint firstItem="jB3-Hh-Kuh" firstAttribute="leading" secondItem="1gs-Yr-UoK" secondAttribute="leading" constant="16" id="hdd-0A-HGg"/>
                     <constraint firstItem="xS8-O5-mjC" firstAttribute="leading" secondItem="Mkd-Pe-kKp" secondAttribute="trailing" constant="8" id="mM7-7P-LuI"/>
                     <constraint firstItem="UJI-my-rTx" firstAttribute="top" secondItem="Mkd-Pe-kKp" secondAttribute="bottom" constant="12" id="mVF-FT-ysQ"/>
                     <constraint firstItem="SS5-lJ-LXs" firstAttribute="leading" secondItem="jB3-Hh-Kuh" secondAttribute="trailing" constant="8" id="sD8-8b-h4d"/>
                     <constraint firstAttribute="bottomMargin" secondItem="UJI-my-rTx" secondAttribute="bottom" priority="999" constant="4" id="wIq-Tu-Jk6"/>
                 </constraints>
+                <viewLayoutGuide key="safeArea" id="1gs-Yr-UoK"/>
             </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="pDa-Lb-Tcb"/>
             <connections>
                 <outlet property="dialogsCount" destination="xS8-O5-mjC" id="leD-MT-7l3"/>
                 <outlet property="postTime" destination="Mkd-Pe-kKp" id="lEg-fd-tAj"/>

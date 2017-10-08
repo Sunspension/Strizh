@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -40,14 +41,16 @@
                 <constraints>
                     <constraint firstItem="6Jv-6G-206" firstAttribute="centerY" secondItem="XjN-vP-Jpz" secondAttribute="centerY" id="8o5-sj-Fzl"/>
                     <constraint firstItem="28D-Ni-SG7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Hi9-7Q-Agf"/>
-                    <constraint firstItem="28D-Ni-SG7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="U5e-TT-afL"/>
+                    <constraint firstItem="28D-Ni-SG7" firstAttribute="leading" secondItem="Foc-N8-6bR" secondAttribute="leading" constant="16" id="U5e-TT-afL"/>
                     <constraint firstAttribute="bottomMargin" secondItem="28D-Ni-SG7" secondAttribute="bottom" priority="999" id="fZM-PO-OwQ"/>
                     <constraint firstItem="XjN-vP-Jpz" firstAttribute="leading" secondItem="28D-Ni-SG7" secondAttribute="trailing" constant="8" id="hjl-Sa-ILk"/>
                     <constraint firstItem="6Jv-6G-206" firstAttribute="leading" secondItem="XjN-vP-Jpz" secondAttribute="trailing" constant="8" id="mQg-Hd-qmD"/>
                     <constraint firstItem="XjN-vP-Jpz" firstAttribute="centerY" secondItem="28D-Ni-SG7" secondAttribute="centerY" id="qVn-an-Jky"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="6Jv-6G-206" secondAttribute="trailing" constant="8" id="r6F-dl-cGa"/>
+                    <constraint firstItem="Foc-N8-6bR" firstAttribute="trailing" secondItem="6Jv-6G-206" secondAttribute="trailing" constant="16" id="r6F-dl-cGa"/>
                 </constraints>
+                <viewLayoutGuide key="safeArea" id="Foc-N8-6bR"/>
             </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="gLg-yA-0Nj"/>
             <connections>
                 <outlet property="contactImage" destination="28D-Ni-SG7" id="H9S-m6-FJI"/>
                 <outlet property="contactName" destination="XjN-vP-Jpz" id="Wdo-fL-HRi"/>

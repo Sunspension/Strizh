@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,7 +17,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="90.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Заголовок" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N0F-bN-8XP">
@@ -36,15 +37,19 @@
                     </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="N0F-bN-8XP" secondAttribute="trailing" constant="8" id="1ux-rO-fRW"/>
-                    <constraint firstItem="N0F-bN-8XP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="3ll-y2-jY0"/>
-                    <constraint firstItem="N0F-bN-8XP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="4Ef-dq-j7C"/>
+                    <constraint firstItem="N0F-bN-8XP" firstAttribute="top" secondItem="7o7-j4-1rV" secondAttribute="top" constant="8" id="3ll-y2-jY0"/>
                     <constraint firstItem="cYE-V6-Rpa" firstAttribute="top" secondItem="N0F-bN-8XP" secondAttribute="bottom" constant="8" id="YoL-d1-3qi"/>
                     <constraint firstItem="cYE-V6-Rpa" firstAttribute="trailing" secondItem="N0F-bN-8XP" secondAttribute="trailing" id="h3T-cl-iEn"/>
                     <constraint firstAttribute="bottomMargin" secondItem="cYE-V6-Rpa" secondAttribute="bottom" priority="750" id="oYa-oH-dZ5"/>
                     <constraint firstItem="cYE-V6-Rpa" firstAttribute="leading" secondItem="N0F-bN-8XP" secondAttribute="leading" id="yEp-np-83Y"/>
                 </constraints>
+                <viewLayoutGuide key="safeArea" id="7o7-j4-1rV"/>
             </tableViewCellContentView>
+            <constraints>
+                <constraint firstItem="N0F-bN-8XP" firstAttribute="leading" secondItem="6o2-Vl-1wW" secondAttribute="leading" constant="16" id="Khf-tv-bHe"/>
+                <constraint firstItem="6o2-Vl-1wW" firstAttribute="trailing" secondItem="N0F-bN-8XP" secondAttribute="trailing" constant="16" id="oK6-Rc-eCP"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="6o2-Vl-1wW"/>
             <connections>
                 <outlet property="title" destination="N0F-bN-8XP" id="R7Q-fH-svo"/>
                 <outlet property="value" destination="cYE-V6-Rpa" id="aru-pK-Ev3"/>

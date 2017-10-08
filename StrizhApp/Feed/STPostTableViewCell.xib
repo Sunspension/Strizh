@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -81,7 +82,7 @@
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ltC-Rn-jCT">
                                 <rect key="frame" x="12" y="151" width="173" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="0.66666666666666663" green="0.66666668653488159" blue="0.66666668653488159" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="imageEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="15 ноя 16 — 12 янв 17" image="icon-time">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -131,13 +132,15 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="4HC-zN-2oG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="3U8-Fa-kcc"/>
-                    <constraint firstItem="4HC-zN-2oG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="F2n-Xq-pAu"/>
-                    <constraint firstAttribute="bottom" secondItem="4HC-zN-2oG" secondAttribute="bottom" id="bfI-D6-b7v"/>
-                    <constraint firstAttribute="trailing" secondItem="4HC-zN-2oG" secondAttribute="trailing" constant="8" id="v9Y-5z-EKH"/>
+                    <constraint firstItem="4HC-zN-2oG" firstAttribute="leading" secondItem="LFC-oN-gM9" secondAttribute="leading" constant="8" id="3U8-Fa-kcc"/>
+                    <constraint firstItem="4HC-zN-2oG" firstAttribute="top" secondItem="LFC-oN-gM9" secondAttribute="top" constant="8" id="F2n-Xq-pAu"/>
+                    <constraint firstItem="LFC-oN-gM9" firstAttribute="bottom" secondItem="4HC-zN-2oG" secondAttribute="bottom" id="bfI-D6-b7v"/>
+                    <constraint firstItem="LFC-oN-gM9" firstAttribute="trailing" secondItem="4HC-zN-2oG" secondAttribute="trailing" constant="8" id="v9Y-5z-EKH"/>
                 </constraints>
+                <viewLayoutGuide key="safeArea" id="LFC-oN-gM9"/>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <viewLayoutGuide key="safeArea" id="Ay4-yK-li3"/>
             <connections>
                 <outlet property="container" destination="4HC-zN-2oG" id="b1X-vr-uLk"/>
                 <outlet property="dialogsCount" destination="V6p-HJ-OFG" id="avm-qD-N1q"/>
