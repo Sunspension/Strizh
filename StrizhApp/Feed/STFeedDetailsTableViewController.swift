@@ -293,7 +293,7 @@ class STFeedDetailsTableViewController: UIViewController {
                                 viewCell.postTitle.text = post.title
                                 viewCell.postTime.text = post.createdAt?.elapsedInterval()
                                 
-                                let end = post.dialogCount.ending(yabloko: "отклик", yabloka: "отлика", yablok: "откликов")
+                                let end = post.dialogCount.ending(yabloko: "отклик", yabloka: "отклика", yablok: "откликов")
                                 let title = "\(post.dialogCount)" + " " + end
                                 
                                 viewCell.dialogsCount.setTitle( title, for: .normal)

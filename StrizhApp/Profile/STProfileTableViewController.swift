@@ -281,7 +281,7 @@ class STProfileTableViewController: UITableViewController {
         
         viewCell.userName.text = self.user.lastName + " " + self.user.firstName
         
-        let end = post.dialogCount.ending(yabloko: "отклик", yabloka: "отлика", yablok: "откликов")
+        let end = post.dialogCount.ending(yabloko: "отклик", yabloka: "отклика", yablok: "откликов")
         let title = "\(post.dialogCount)" + " " + end
         
         viewCell.dialogsCount.setTitle( title, for: .normal)

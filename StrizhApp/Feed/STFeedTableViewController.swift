@@ -402,7 +402,7 @@ class STFeedTableViewController: UITableViewController, UISearchBarDelegate, UIS
         cell.postDetails.text = post.postDescription
         cell.iconFavorite.isSelected = post.isFavorite
         
-        let end = post.dialogCount.ending(yabloko: "отклик", yabloka: "отлика", yablok: "откликов")
+        let end = post.dialogCount.ending(yabloko: "отклик", yabloka: "отклика", yablok: "откликов")
         let title = "\(post.dialogCount)" + " " + end
         
         cell.dialogsCount.setTitle( title, for: .normal)
