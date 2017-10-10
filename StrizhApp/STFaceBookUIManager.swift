@@ -9,12 +9,11 @@
 import Foundation
 import AccountKit
 
-class STFaceBookUIManager: NSObject, AKFUIManager {
+class STFaceBookUIManager: NSObject {
     
-    fileprivate let container = UIView.loadFromNib(view: STTermsCustomView.self)!
+    private let container = UIView.loadFromNib(view: STTermsCustomView.self)!
     
-    fileprivate weak var controller: UIViewController?
-    
+    private weak var controller: UIViewController?
     
     
     init(controller: UIViewController) {
@@ -22,11 +21,14 @@ class STFaceBookUIManager: NSObject, AKFUIManager {
         self.controller = controller
         super.init()
     }
+}
+
+extension STFaceBookUIManager: AKFUIManager {
     
-    func theme() -> AKFTheme? {
-        
-        return AKFTheme()
-    }
+//    func theme() -> AKFTheme? {
+//        
+//        return nil
+//    }
     
     func bodyView(for state: AKFLoginFlowState) -> UIView? {
         
@@ -34,10 +36,6 @@ class STFaceBookUIManager: NSObject, AKFUIManager {
             
             return nil
         }
-        
-        let cell = UIView.loadFromNib(view: STTermsCustomView.self)!
-        
-        cell.backgroundColor = UIColor.red
         
         let text = String(format: "login_page_offer_text".localized,
                           "login_policy_text".localized,
@@ -47,7 +45,7 @@ class STFaceBookUIManager: NSObject, AKFUIManager {
         let style = NSNumber(integerLiteral: NSUnderlineStyle.styleSingle.rawValue)
         
         let paragraphStyle = NSMutableParagraphStyle()
-//        paragraphStyle.lineSpacing = 5
+        //        paragraphStyle.lineSpacing = 5
         paragraphStyle.alignment = .center
         
         let attributedText = NSMutableAttributedString(string: text,
@@ -64,7 +62,7 @@ class STFaceBookUIManager: NSObject, AKFUIManager {
         attributedText.setAttributes(attr, range: range1)
         attributedText.setAttributes(attr, range: range2)
         attributedText.setAttributes(attr, range: range3)
-
+        
         let label = self.container.label!
         
         label.numberOfLines = 0
@@ -94,7 +92,7 @@ class STFaceBookUIManager: NSObject, AKFUIManager {
                 }
                 
                 break
-
+                
             case (range3.location, range3.length):
                 
                 if let path = Bundle.main.path(forResource: "agreement", ofType: "pdf") {
@@ -109,7 +107,7 @@ class STFaceBookUIManager: NSObject, AKFUIManager {
                 break
             }
         }
-
+        
         return container
     }
 }

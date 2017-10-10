@@ -14,6 +14,7 @@
 		7731F9C41F76A32400B875D4 /* STSingUpFirstStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7731F9C31F76A32400B875D4 /* STSingUpFirstStepController.swift */; };
 		7731F9C51F76A32400B875D4 /* STSingUpFirstStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7731F9C31F76A32400B875D4 /* STSingUpFirstStepController.swift */; };
 		7731F9C61F76A32400B875D4 /* STSingUpFirstStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7731F9C31F76A32400B875D4 /* STSingUpFirstStepController.swift */; };
+		7740D5CA1F8D2CAA0073DDE1 /* AccountKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7740D5C91F8D2CAA0073DDE1 /* AccountKit.framework */; };
 		779A92AA1F76A8B70005BA19 /* STSingUpSecondStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A92A91F76A8B70005BA19 /* STSingUpSecondStepController.swift */; };
 		779A92AB1F76A8B70005BA19 /* STSingUpSecondStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A92A91F76A8B70005BA19 /* STSingUpSecondStepController.swift */; };
 		779A92AC1F76A8B70005BA19 /* STSingUpSecondStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A92A91F76A8B70005BA19 /* STSingUpSecondStepController.swift */; };
@@ -203,7 +204,6 @@
 		D415DAF91F6C6B2F00EE1129 /* STPostDetailsMapsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43A755E1E4E610700DB0850 /* STPostDetailsMapsCell.swift */; };
 		D415DAFA1F6C6B2F00EE1129 /* STSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B171E3F9388009EE669 /* STSession.swift */; };
 		D415DAFC1F6C6B2F00EE1129 /* Pods_StrizhApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 277E51B2F6F272FF051A01F5 /* Pods_StrizhApp.framework */; };
-		D415DAFD1F6C6B2F00EE1129 /* AccountKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D489D9F11EB148400018BD0A /* AccountKit.framework */; };
 		D415DAFF1F6C6B2F00EE1129 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D49727051E32BDA50076B7A1 /* LaunchScreen.storyboard */; };
 		D415DB001F6C6B2F00EE1129 /* STProfileFooterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4C2AD801E538FC6009CD55A /* STProfileFooterCell.xib */; };
 		D415DB011F6C6B2F00EE1129 /* STCommonCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4427E651E757C8F0002BCCF /* STCommonCollectionViewCell.xib */; };
@@ -410,7 +410,6 @@
 		D41D919B1F6C66C100D78547 /* STPostDetailsMapsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43A755E1E4E610700DB0850 /* STPostDetailsMapsCell.swift */; };
 		D41D919C1F6C66C100D78547 /* STSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A1B171E3F9388009EE669 /* STSession.swift */; };
 		D41D919E1F6C66C100D78547 /* Pods_StrizhApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 277E51B2F6F272FF051A01F5 /* Pods_StrizhApp.framework */; };
-		D41D919F1F6C66C100D78547 /* AccountKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D489D9F11EB148400018BD0A /* AccountKit.framework */; };
 		D41D91A11F6C66C100D78547 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D49727051E32BDA50076B7A1 /* LaunchScreen.storyboard */; };
 		D41D91A21F6C66C100D78547 /* STProfileFooterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4C2AD801E538FC6009CD55A /* STProfileFooterCell.xib */; };
 		D41D91A31F6C66C100D78547 /* STCommonCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4427E651E757C8F0002BCCF /* STCommonCollectionViewCell.xib */; };
@@ -503,7 +502,6 @@
 		D46FFA691E959EF700578F07 /* ChatCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46FFA681E959EF700578F07 /* ChatCollectionViewFlowLayout.swift */; };
 		D47DB51B1F3A9C340027F40E /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47DB51A1F3A9C340027F40E /* UINavigationController.swift */; };
 		D483AF401EE2E89600E07392 /* STBaseFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D483AF3F1EE2E89600E07392 /* STBaseFilter.swift */; };
-		D489D9F31EB148400018BD0A /* AccountKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D489D9F11EB148400018BD0A /* AccountKit.framework */; };
 		D489D9F41EB148400018BD0A /* AccountKitStrings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D489D9F21EB148400018BD0A /* AccountKitStrings.bundle */; };
 		D4922AA61E43DB67006FF4D5 /* STWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */; };
 		D4922AAD1E43F6B9006FF4D5 /* STHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4922AAC1E43F6B9006FF4D5 /* STHTTPManager.swift */; };
@@ -549,7 +547,6 @@
 		D4BAE3F81F60D23E0083993A /* ContactsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE3F71F60D23E0083993A /* ContactsProvider.swift */; };
 		D4BCB4641F45E86100D05872 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BCB4631F45E86100D05872 /* Actions.swift */; };
 		D4BCB4681F465DEB00D05872 /* UIAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BCB4671F465DEB00D05872 /* UIAlertAction.swift */; };
-		D4BE59381F60D8DC00C677C2 /* AccountKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D489D9F11EB148400018BD0A /* AccountKit.framework */; };
 		D4BE59391F60D8DF00C677C2 /* AccountKitStrings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D489D9F21EB148400018BD0A /* AccountKitStrings.bundle */; };
 		D4BEB4061E9ED96500E2402E /* STDialogMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BEB4051E9ED96500E2402E /* STDialogMessage.swift */; };
 		D4C2AD7F1E538FAE009CD55A /* STProfileFooterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C2AD7E1E538FAE009CD55A /* STProfileFooterCell.swift */; };
@@ -665,6 +662,7 @@
 		558B463B8DDDBC142C67CBBD /* Pods_StrizhAppDev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StrizhAppDev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7731F9BF1F769F0100B875D4 /* STSingUpBaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpBaseController.swift; path = SignUp/STSingUpBaseController.swift; sourceTree = "<group>"; };
 		7731F9C31F76A32400B875D4 /* STSingUpFirstStepController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpFirstStepController.swift; path = SignUp/STSingUpFirstStepController.swift; sourceTree = "<group>"; };
+		7740D5C91F8D2CAA0073DDE1 /* AccountKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AccountKit.framework; sourceTree = "<group>"; };
 		779A92A91F76A8B70005BA19 /* STSingUpSecondStepController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpSecondStepController.swift; path = SignUp/STSingUpSecondStepController.swift; sourceTree = "<group>"; };
 		779A92AD1F76AD1F0005BA19 /* STSingUpThirdStepController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpThirdStepController.swift; path = SignUp/STSingUpThirdStepController.swift; sourceTree = "<group>"; };
 		779CF4401F7848CE00ADDFD4 /* STApplicationInterability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STApplicationInterability.swift; path = Services/STApplicationInterability.swift; sourceTree = "<group>"; };
@@ -751,7 +749,6 @@
 		D46FFA681E959EF700578F07 /* ChatCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		D47DB51A1F3A9C340027F40E /* UINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UINavigationController.swift; path = Extensions/UINavigationController.swift; sourceTree = "<group>"; };
 		D483AF3F1EE2E89600E07392 /* STBaseFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STBaseFilter.swift; path = Models/STBaseFilter.swift; sourceTree = "<group>"; };
-		D489D9F11EB148400018BD0A /* AccountKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AccountKit.framework; sourceTree = "<group>"; };
 		D489D9F21EB148400018BD0A /* AccountKitStrings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AccountKitStrings.bundle; sourceTree = "<group>"; };
 		D489D9F51EB148EE0018BD0A /* StrizhApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StrizhApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		D4922AA51E43DB67006FF4D5 /* STWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STWebSocket.swift; path = WebSocket/STWebSocket.swift; sourceTree = "<group>"; };
@@ -901,7 +898,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D415DAFC1F6C6B2F00EE1129 /* Pods_StrizhApp.framework in Frameworks */,
-				D415DAFD1F6C6B2F00EE1129 /* AccountKit.framework in Frameworks */,
 				F5AC50E937A58443F55A6BD4 /* Pods_StrizhAppStage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -911,7 +907,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D41D919E1F6C66C100D78547 /* Pods_StrizhApp.framework in Frameworks */,
-				D41D919F1F6C66C100D78547 /* AccountKit.framework in Frameworks */,
 				8C1EA0104E6AFC1EDC4D756C /* Pods_StrizhAppDev.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -928,7 +923,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D4712BF056042E4491062F2 /* Pods_StrizhApp.framework in Frameworks */,
-				D489D9F31EB148400018BD0A /* AccountKit.framework in Frameworks */,
+				7740D5CA1F8D2CAA0073DDE1 /* AccountKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -937,7 +932,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F71E85E4A2E561A9E82C0E06 /* Pods_StrizhAppTests.framework in Frameworks */,
-				D4BE59381F60D8DC00C677C2 /* AccountKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1145,7 +1139,7 @@
 		D489D9F01EB1481A0018BD0A /* FBSDK */ = {
 			isa = PBXGroup;
 			children = (
-				D489D9F11EB148400018BD0A /* AccountKit.framework */,
+				7740D5C91F8D2CAA0073DDE1 /* AccountKit.framework */,
 				D489D9F21EB148400018BD0A /* AccountKitStrings.bundle */,
 				D413A20B1F117A0C0089A614 /* STFaceBookUIManager.swift */,
 				D413A20D1F11863C0089A614 /* STTermsCustomView.swift */,
