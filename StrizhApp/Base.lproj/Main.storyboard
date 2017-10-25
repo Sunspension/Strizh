@@ -556,10 +556,10 @@
             </objects>
             <point key="canvasLocation" x="801" y="1815"/>
         </scene>
-        <!--Chat View Controller-->
+        <!--Chat View-->
         <scene sceneID="J3F-Kb-Hpm">
             <objects>
-                <viewController storyboardIdentifier="STChatViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Scf-72-HdU" customClass="STChatViewController" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="STChatViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Scf-72-HdU" customClass="ChatView" customModule="StrizhApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Du8-nQ-4ZT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -716,6 +716,7 @@
                                                 <constraint firstItem="kFe-z8-AwQ" firstAttribute="top" secondItem="6ze-L6-Fp3" secondAttribute="topMargin" id="TNw-t2-EMU"/>
                                                 <constraint firstItem="Tu8-nu-XWl" firstAttribute="bottom" secondItem="kFe-z8-AwQ" secondAttribute="bottom" constant="-16" id="YyQ-59-WuM"/>
                                                 <constraint firstItem="kFe-z8-AwQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="B6P-FY-7nz" secondAttribute="leading" constant="20" id="adC-P1-DV7"/>
+                                                <constraint firstItem="Tu8-nu-XWl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Iwf-py-WPi" secondAttribute="leading" id="cnK-e1-dTi"/>
                                                 <constraint firstItem="kFe-z8-AwQ" firstAttribute="trailing" secondItem="Iwf-py-WPi" secondAttribute="trailing" constant="24" id="fHd-91-GvY"/>
                                                 <constraint firstItem="Tu8-nu-XWl" firstAttribute="top" secondItem="Iwf-py-WPi" secondAttribute="bottom" constant="4" id="i3D-vP-Q0f"/>
                                                 <constraint firstItem="Iwf-py-WPi" firstAttribute="leading" secondItem="kFe-z8-AwQ" secondAttribute="leading" constant="18" id="iRd-UL-O3s"/>
@@ -748,17 +749,17 @@
                         <viewLayoutGuide key="safeArea" id="GFK-SE-ybf"/>
                     </view>
                     <connections>
-                        <outlet property="bottomToolbar" destination="tUc-z6-qM5" id="F91-7i-kbq"/>
-                        <outlet property="bottomToolbarSpace" destination="ngd-e1-n1C" id="29J-CU-NsR"/>
-                        <outlet property="placeHolder" destination="VOD-fd-Wqq" id="8UU-xd-ZM2"/>
-                        <outlet property="sendButton" destination="OtB-uV-6bT" id="axG-p4-fJb"/>
-                        <outlet property="tableView" destination="DBr-26-h06" id="IML-I9-ZhV"/>
-                        <outlet property="textView" destination="ISc-aL-sBL" id="CSt-U1-SK6"/>
+                        <outlet property="bottomToolbar" destination="tUc-z6-qM5" id="aDY-gs-Vji"/>
+                        <outlet property="bottomToolbarSpace" destination="ngd-e1-n1C" id="QuZ-kb-CLb"/>
+                        <outlet property="placeHolder" destination="VOD-fd-Wqq" id="ICV-I3-mpq"/>
+                        <outlet property="sendButton" destination="OtB-uV-6bT" id="Ek1-Ur-0pt"/>
+                        <outlet property="tableView" destination="DBr-26-h06" id="7CU-Mw-zms"/>
+                        <outlet property="textView" destination="ISc-aL-sBL" id="oZg-rz-Y5A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cGa-oa-Eb5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2550" y="1863"/>
+            <point key="canvasLocation" x="2549.5999999999999" y="1862.5187406296852"/>
         </scene>
         <!--Intro Page Controller-->
         <scene sceneID="KGa-zd-Wdn">

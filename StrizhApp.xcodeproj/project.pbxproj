@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0D4712BF056042E4491062F2 /* Pods_StrizhApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 277E51B2F6F272FF051A01F5 /* Pods_StrizhApp.framework */; };
+		772131F31F90F826006A63D4 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772131F21F90F826006A63D4 /* UserManager.swift */; };
+		772131F41F90F826006A63D4 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772131F21F90F826006A63D4 /* UserManager.swift */; };
+		772131F51F90F826006A63D4 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772131F21F90F826006A63D4 /* UserManager.swift */; };
 		7731F9C01F769F0100B875D4 /* STSingUpBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7731F9BF1F769F0100B875D4 /* STSingUpBaseController.swift */; };
 		7731F9C11F769F0100B875D4 /* STSingUpBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7731F9BF1F769F0100B875D4 /* STSingUpBaseController.swift */; };
 		7731F9C21F769F0100B875D4 /* STSingUpBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7731F9BF1F769F0100B875D4 /* STSingUpBaseController.swift */; };
@@ -15,6 +18,21 @@
 		7731F9C51F76A32400B875D4 /* STSingUpFirstStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7731F9C31F76A32400B875D4 /* STSingUpFirstStepController.swift */; };
 		7731F9C61F76A32400B875D4 /* STSingUpFirstStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7731F9C31F76A32400B875D4 /* STSingUpFirstStepController.swift */; };
 		7740D5CA1F8D2CAA0073DDE1 /* AccountKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7740D5C91F8D2CAA0073DDE1 /* AccountKit.framework */; };
+		778705F11F90CC3B001271D8 /* DialogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778705F01F90CC3B001271D8 /* DialogManager.swift */; };
+		778705F21F90CC3B001271D8 /* DialogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778705F01F90CC3B001271D8 /* DialogManager.swift */; };
+		778705F31F90CC3B001271D8 /* DialogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778705F01F90CC3B001271D8 /* DialogManager.swift */; };
+		778980F71F8FBC6D006959EF /* ChatInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778980F61F8FBC6D006959EF /* ChatInteractor.swift */; };
+		778980F81F8FBC6D006959EF /* ChatInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778980F61F8FBC6D006959EF /* ChatInteractor.swift */; };
+		778980F91F8FBC6D006959EF /* ChatInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778980F61F8FBC6D006959EF /* ChatInteractor.swift */; };
+		778980FB1F8FBC7F006959EF /* ChatPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778980FA1F8FBC7F006959EF /* ChatPresenter.swift */; };
+		778980FC1F8FBC7F006959EF /* ChatPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778980FA1F8FBC7F006959EF /* ChatPresenter.swift */; };
+		778980FD1F8FBC7F006959EF /* ChatPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778980FA1F8FBC7F006959EF /* ChatPresenter.swift */; };
+		778980FF1F8FBC8D006959EF /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778980FE1F8FBC8D006959EF /* ChatView.swift */; };
+		778981001F8FBC8D006959EF /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778980FE1F8FBC8D006959EF /* ChatView.swift */; };
+		778981011F8FBC8D006959EF /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778980FE1F8FBC8D006959EF /* ChatView.swift */; };
+		778981051F8FBD59006959EF /* DialogMessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778981041F8FBD59006959EF /* DialogMessageManager.swift */; };
+		778981061F8FBD59006959EF /* DialogMessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778981041F8FBD59006959EF /* DialogMessageManager.swift */; };
+		778981071F8FBD59006959EF /* DialogMessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778981041F8FBD59006959EF /* DialogMessageManager.swift */; };
 		779A92AA1F76A8B70005BA19 /* STSingUpSecondStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A92A91F76A8B70005BA19 /* STSingUpSecondStepController.swift */; };
 		779A92AB1F76A8B70005BA19 /* STSingUpSecondStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A92A91F76A8B70005BA19 /* STSingUpSecondStepController.swift */; };
 		779A92AC1F76A8B70005BA19 /* STSingUpSecondStepController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A92A91F76A8B70005BA19 /* STSingUpSecondStepController.swift */; };
@@ -660,9 +678,15 @@
 		277E51B2F6F272FF051A01F5 /* Pods_StrizhApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StrizhApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E8A8787F4373C051854C7D5 /* Pods-StrizhApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrizhApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StrizhApp/Pods-StrizhApp.debug.xcconfig"; sourceTree = "<group>"; };
 		558B463B8DDDBC142C67CBBD /* Pods_StrizhAppDev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StrizhAppDev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		772131F21F90F826006A63D4 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		7731F9BF1F769F0100B875D4 /* STSingUpBaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpBaseController.swift; path = SignUp/STSingUpBaseController.swift; sourceTree = "<group>"; };
 		7731F9C31F76A32400B875D4 /* STSingUpFirstStepController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpFirstStepController.swift; path = SignUp/STSingUpFirstStepController.swift; sourceTree = "<group>"; };
 		7740D5C91F8D2CAA0073DDE1 /* AccountKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AccountKit.framework; sourceTree = "<group>"; };
+		778705F01F90CC3B001271D8 /* DialogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogManager.swift; sourceTree = "<group>"; };
+		778980F61F8FBC6D006959EF /* ChatInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInteractor.swift; sourceTree = "<group>"; };
+		778980FA1F8FBC7F006959EF /* ChatPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPresenter.swift; sourceTree = "<group>"; };
+		778980FE1F8FBC8D006959EF /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		778981041F8FBD59006959EF /* DialogMessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogMessageManager.swift; sourceTree = "<group>"; };
 		779A92A91F76A8B70005BA19 /* STSingUpSecondStepController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpSecondStepController.swift; path = SignUp/STSingUpSecondStepController.swift; sourceTree = "<group>"; };
 		779A92AD1F76AD1F0005BA19 /* STSingUpThirdStepController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STSingUpThirdStepController.swift; path = SignUp/STSingUpThirdStepController.swift; sourceTree = "<group>"; };
 		779CF4401F7848CE00ADDFD4 /* STApplicationInterability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STApplicationInterability.swift; path = Services/STApplicationInterability.swift; sourceTree = "<group>"; };
@@ -938,6 +962,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		778980F41F8FBC3A006959EF /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				778980F51F8FBC4F006959EF /* Chat */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		778980F51F8FBC4F006959EF /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				778980F61F8FBC6D006959EF /* ChatInteractor.swift */,
+				778980FA1F8FBC7F006959EF /* ChatPresenter.swift */,
+				778980FE1F8FBC8D006959EF /* ChatView.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		778981031F8FBD21006959EF /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				778981041F8FBD59006959EF /* DialogMessageManager.swift */,
+				778705F01F90CC3B001271D8 /* DialogManager.swift */,
+				772131F21F90F826006A63D4 /* UserManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		779CF43F1F78489600ADDFD4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -1212,6 +1264,8 @@
 		D49726F91E32BDA50076B7A1 /* StrizhApp */ = {
 			isa = PBXGroup;
 			children = (
+				778981031F8FBD21006959EF /* Managers */,
+				778980F41F8FBC3A006959EF /* Modules */,
 				779CF43F1F78489600ADDFD4 /* Services */,
 				D466F47F1F3D33F100971722 /* CustomViews */,
 				D431BA5E1F3A79BD00207C1D /* Base */,
@@ -2352,6 +2406,7 @@
 				7731F9C21F769F0100B875D4 /* STSingUpBaseController.swift in Sources */,
 				D415DA5B1F6C6B2F00EE1129 /* ChatCollectionViewFlowLayout.swift in Sources */,
 				D415DA5C1F6C6B2F00EE1129 /* STContactsProvider.swift in Sources */,
+				778981011F8FBC8D006959EF /* ChatView.swift in Sources */,
 				D415DA5D1F6C6B2F00EE1129 /* UITableViewCell.swift in Sources */,
 				D415DA5E1F6C6B2F00EE1129 /* STSignUpNavigationController.swift in Sources */,
 				D415DA5F1F6C6B2F00EE1129 /* STLoginAvatarTableViewCell.swift in Sources */,
@@ -2413,6 +2468,7 @@
 				D415DA971F6C6B2F00EE1129 /* STAttachmentPhotoCell.swift in Sources */,
 				D415DA981F6C6B2F00EE1129 /* STDialog.swift in Sources */,
 				D415DA991F6C6B2F00EE1129 /* STCommonLabelCell.swift in Sources */,
+				778981071F8FBD59006959EF /* DialogMessageManager.swift in Sources */,
 				D415DA9A1F6C6B2F00EE1129 /* ILTranslucentView.swift in Sources */,
 				D415DA9B1F6C6B2F00EE1129 /* STDialogOtherCell.swift in Sources */,
 				D415DA9C1F6C6B2F00EE1129 /* ClickableLabel.swift in Sources */,
@@ -2422,7 +2478,9 @@
 				D415DAA01F6C6B2F00EE1129 /* STCollectionLayout.swift in Sources */,
 				D415DAA11F6C6B2F00EE1129 /* STPhotoViewerCell.swift in Sources */,
 				D415DAA21F6C6B2F00EE1129 /* STEditProfileHeaderCell.swift in Sources */,
+				778980F91F8FBC6D006959EF /* ChatInteractor.swift in Sources */,
 				D415DAA31F6C6B2F00EE1129 /* STAnalytics.swift in Sources */,
+				778980FD1F8FBC7F006959EF /* ChatPresenter.swift in Sources */,
 				D415DAA41F6C6B2F00EE1129 /* STPersonalPostDetailsMainInfoCell.swift in Sources */,
 				D415DAA51F6C6B2F00EE1129 /* STPhotoViewController.swift in Sources */,
 				D415DAA61F6C6B2F00EE1129 /* STUserNotificationSettings.swift in Sources */,
@@ -2477,7 +2535,9 @@
 				D415DAD61F6C6B2F00EE1129 /* ArrayTransform.swift in Sources */,
 				D415DAD71F6C6B2F00EE1129 /* STNewMessage.swift in Sources */,
 				D415DAD81F6C6B2F00EE1129 /* PAnalytics.swift in Sources */,
+				778705F31F90CC3B001271D8 /* DialogManager.swift in Sources */,
 				D415DAD91F6C6B2F00EE1129 /* SectionItem.swift in Sources */,
+				772131F51F90F826006A63D4 /* UserManager.swift in Sources */,
 				D415DADA1F6C6B2F00EE1129 /* STPostTableViewCell.swift in Sources */,
 				779CF4431F7848CE00ADDFD4 /* STApplicationInterability.swift in Sources */,
 				D415DADB1F6C6B2F00EE1129 /* STPostDetailsPhotoCell.swift in Sources */,
@@ -2524,6 +2584,7 @@
 				7731F9C11F769F0100B875D4 /* STSingUpBaseController.swift in Sources */,
 				D41D90FD1F6C66C100D78547 /* ChatCollectionViewFlowLayout.swift in Sources */,
 				D41D90FE1F6C66C100D78547 /* STContactsProvider.swift in Sources */,
+				778981001F8FBC8D006959EF /* ChatView.swift in Sources */,
 				D41D90FF1F6C66C100D78547 /* UITableViewCell.swift in Sources */,
 				D41D91001F6C66C100D78547 /* STSignUpNavigationController.swift in Sources */,
 				D41D91011F6C66C100D78547 /* STLoginAvatarTableViewCell.swift in Sources */,
@@ -2585,6 +2646,7 @@
 				D41D91391F6C66C100D78547 /* STAttachmentPhotoCell.swift in Sources */,
 				D41D913A1F6C66C100D78547 /* STDialog.swift in Sources */,
 				D41D913B1F6C66C100D78547 /* STCommonLabelCell.swift in Sources */,
+				778981061F8FBD59006959EF /* DialogMessageManager.swift in Sources */,
 				D41D913C1F6C66C100D78547 /* ILTranslucentView.swift in Sources */,
 				D41D913D1F6C66C100D78547 /* STDialogOtherCell.swift in Sources */,
 				D41D913E1F6C66C100D78547 /* ClickableLabel.swift in Sources */,
@@ -2594,7 +2656,9 @@
 				D41D91421F6C66C100D78547 /* STCollectionLayout.swift in Sources */,
 				D41D91431F6C66C100D78547 /* STPhotoViewerCell.swift in Sources */,
 				D41D91441F6C66C100D78547 /* STEditProfileHeaderCell.swift in Sources */,
+				778980F81F8FBC6D006959EF /* ChatInteractor.swift in Sources */,
 				D41D91451F6C66C100D78547 /* STAnalytics.swift in Sources */,
+				778980FC1F8FBC7F006959EF /* ChatPresenter.swift in Sources */,
 				D41D91461F6C66C100D78547 /* STPersonalPostDetailsMainInfoCell.swift in Sources */,
 				D41D91471F6C66C100D78547 /* STPhotoViewController.swift in Sources */,
 				D41D91481F6C66C100D78547 /* STUserNotificationSettings.swift in Sources */,
@@ -2649,7 +2713,9 @@
 				D41D91781F6C66C100D78547 /* ArrayTransform.swift in Sources */,
 				D41D91791F6C66C100D78547 /* STNewMessage.swift in Sources */,
 				D41D917A1F6C66C100D78547 /* PAnalytics.swift in Sources */,
+				778705F21F90CC3B001271D8 /* DialogManager.swift in Sources */,
 				D41D917B1F6C66C100D78547 /* SectionItem.swift in Sources */,
+				772131F41F90F826006A63D4 /* UserManager.swift in Sources */,
 				D41D917C1F6C66C100D78547 /* STPostTableViewCell.swift in Sources */,
 				779CF4421F7848CE00ADDFD4 /* STApplicationInterability.swift in Sources */,
 				D41D917D1F6C66C100D78547 /* STPostDetailsPhotoCell.swift in Sources */,
@@ -2704,6 +2770,7 @@
 				7731F9C01F769F0100B875D4 /* STSingUpBaseController.swift in Sources */,
 				D46FFA691E959EF700578F07 /* ChatCollectionViewFlowLayout.swift in Sources */,
 				E5E334B81E7AD64A00EA274A /* STContactsProvider.swift in Sources */,
+				778980FF1F8FBC8D006959EF /* ChatView.swift in Sources */,
 				D4A62EDA1F3B3D5400C9AE8C /* UITableViewCell.swift in Sources */,
 				D4AD43BF1E47DB52006F13DE /* STSignUpNavigationController.swift in Sources */,
 				D49545CC1E3CF46200EDCF01 /* STLoginAvatarTableViewCell.swift in Sources */,
@@ -2765,6 +2832,7 @@
 				D44E33941E749FCD006F4709 /* STAttachmentPhotoCell.swift in Sources */,
 				D45DC06C1E86C87400E9DB2B /* STDialog.swift in Sources */,
 				D40BC8631E5B61120045F327 /* STCommonLabelCell.swift in Sources */,
+				778981051F8FBD59006959EF /* DialogMessageManager.swift in Sources */,
 				D466F4811F3D340100971722 /* ILTranslucentView.swift in Sources */,
 				E55434E21E969FF500EF254E /* STDialogOtherCell.swift in Sources */,
 				E50941C61F0FBFA600E08B4E /* ClickableLabel.swift in Sources */,
@@ -2774,7 +2842,9 @@
 				D42D530C1E915473007952AD /* STCollectionLayout.swift in Sources */,
 				D449A8621EA28A3B008B9603 /* STPhotoViewerCell.swift in Sources */,
 				E5FF31261E55D3FA0013B713 /* STEditProfileHeaderCell.swift in Sources */,
+				778980F71F8FBC6D006959EF /* ChatInteractor.swift in Sources */,
 				D460E0C91EB28E1E0040E856 /* STAnalytics.swift in Sources */,
+				778980FB1F8FBC7F006959EF /* ChatPresenter.swift in Sources */,
 				E537712E1E64941C00BBADEA /* STPersonalPostDetailsMainInfoCell.swift in Sources */,
 				D449A8601EA287EF008B9603 /* STPhotoViewController.swift in Sources */,
 				D4EA75F01F37D5AE0046D780 /* STUserNotificationSettings.swift in Sources */,
@@ -2829,7 +2899,9 @@
 				D4194A1A1E460D4400D0B189 /* ArrayTransform.swift in Sources */,
 				E59C15631EE1762700F8B558 /* STNewMessage.swift in Sources */,
 				D460E0C51EB288790040E856 /* PAnalytics.swift in Sources */,
+				778705F11F90CC3B001271D8 /* DialogManager.swift in Sources */,
 				D404058B1E91886C00F0A8E4 /* SectionItem.swift in Sources */,
+				772131F31F90F826006A63D4 /* UserManager.swift in Sources */,
 				D4AD43BC1E47B504006F13DE /* STPostTableViewCell.swift in Sources */,
 				779CF4411F7848CE00ADDFD4 /* STApplicationInterability.swift in Sources */,
 				D44AB4EE1E4FCFAE0013A972 /* STPostDetailsPhotoCell.swift in Sources */,

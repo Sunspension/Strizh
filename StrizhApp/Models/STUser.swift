@@ -67,7 +67,7 @@ final class STUser: Object, Mappable {
         return "id"
     }
     
-    override public func isEqual(_ object: Any?) -> Bool {
+    @objc override public func isEqual(_ object: Any?) -> Bool {
         
         if let other = object as? STUser {
             

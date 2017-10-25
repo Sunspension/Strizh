@@ -197,6 +197,11 @@ struct STServerApi: PRemoteServerApi {
         return self.socket.loadDialogMessages(dialogId: dialogId, pageSize: pageSize, lastId: lastId)
     }
     
+    func loadNewDialogMassages(dialogId: Int, lastId: Int64) -> Future<[STMessage], STError> {
+        
+        return self.socket.loadNewDialogMassages(dialogId: dialogId, lastId: lastId)
+    }
+    
     func sendMessage(dialogId: Int, message: String) -> Future<STMessage, STError> {
         
         return self.socket.sendMessage(dialogId: dialogId, message: message)

@@ -416,6 +416,28 @@ class STWebSocket {
         return p.future
     }
     
+    func loadNewDialogMassages(dialogId: Int, lastId: Int64) -> Future<[STMessage], STError> {
+        
+        let p = Promise<[STMessage], STError>()
+        
+        let request = STSocketRequestBuilder.loadNewDialogMassages(dialogId: dialogId, lastId: lastId).request
+        
+        self.sendRequest(request: request) { (response, error) in
+            
+            if error != nil {
+                
+                p.failure(.loadMessagesError)
+            }
+            else if let messagePath = response!["message"] as? [[String : Any]] {
+                
+                let messages = Mapper<STMessage>().mapArray(JSONArray: messagePath)
+                p.success(messages)
+            }
+        }
+        
+        return p.future
+    }
+    
     func sendMessage(dialogId: Int, message: String) -> Future<STMessage, STError> {
         
         let p = Promise<STMessage, STError>()

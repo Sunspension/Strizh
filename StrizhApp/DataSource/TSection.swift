@@ -46,3 +46,49 @@ final class TSection: Equatable {
         self.items.insert(item, at: at)
     }
 }
+
+
+final class GenericSection<T> {
+    
+    var id = UUID()
+    
+    var title: String?
+    
+    private(set) var items = [T]()
+    
+    var selectedItems = [T]()
+    
+    var type: Any?
+    
+    
+    init(title: String? = "") {
+        
+        self.title = title;
+    }
+    
+    func add(_ item: T) {
+        
+        items.append(item)
+    }
+    
+    func insert(_ item: T, at index: Int) {
+        
+        self.items.insert(item, at: index)
+    }
+}
+
+extension GenericSection: Equatable {
+    
+    public static func == (lhs: GenericSection, rhs: GenericSection) -> Bool {
+        
+        return lhs.id == rhs.id
+    }
+}
+
+extension GenericSection: Hashable {
+    
+    var hashValue: Int {
+        
+        return id.hashValue ^ 2
+    }
+}

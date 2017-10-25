@@ -68,6 +68,8 @@ enum STSocketRequestBuilder {
     
     case loadDialogMessages(dialogId: Int, pageSize: Int, lastId: Int64?)
     
+    case loadNewDialogMassages(dialogId: Int, lastId: Int64)
+    
     case sendMessage(dialogId: Int, message: String)
     
     case notifyMessagesRead(dialogId: Int, lastMessageId: Int64?)
@@ -431,6 +433,19 @@ enum STSocketRequestBuilder {
             }
             
             self.addToQuery(&query, type: .pageSize, value: pageSize)
+            self.addToQuery(&query, type: .sortingOrder, value: ["id" : "desc"])
+            self.addToQuery(&query, type: .filters, value: ["dialog_id" : dialogId])
+            
+            break
+            
+        case .loadNewDialogMassages(let dialogId, let lastId):
+            
+            // payload
+            self.addToPayload(&payLoad, type: .path, value: "/api/message")
+            self.addToPayload(&payLoad, type: .method, value: "GET")
+            
+            // query
+            self.addToQuery(&query, type: .conditions, value: ["id" : [">" : lastId]])
             self.addToQuery(&query, type: .sortingOrder, value: ["id" : "desc"])
             self.addToQuery(&query, type: .filters, value: ["dialog_id" : dialogId])
             

@@ -95,9 +95,7 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon-filter"), style: .plain, target: self, action: #selector(self.openFilter))
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.onDidReceiveNewMessageNotification(_:)), name: NSNotification.Name(kReceiveMessageNotification), object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.onDidReceiveDialogBadgeNotification(_:)), name: NSNotification.Name(kReceiveDialogBadgeNotification), object: nil)
+        self.notificationObserversSetup()
         
         guard self.reason == .regular else {
             
@@ -176,13 +174,22 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
         }
     }
     
-    @objc func onDidReceiveNewMessageNotification(_ notification: Notification) {
+    //MARK: - Private methods
+    
+    private func notificationObserversSetup() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onDidReceiveNewMessageNotification(_:)), name: NSNotification.Name(kReceiveMessageNotification), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onDidReceiveDialogBadgeNotification(_:)), name: NSNotification.Name(kReceiveDialogBadgeNotification), object: nil)
+    }
+    
+    @objc private func onDidReceiveNewMessageNotification(_ notification: Notification) {
         
         self.page = 1
         self.loadDialogs()
     }
     
-    @objc func onDidReceiveDialogBadgeNotification(_ notification: Notification) {
+    @objc private func onDidReceiveDialogBadgeNotification(_ notification: Notification) {
         
         if self.loadingStatus == .loading {
             
@@ -217,8 +224,6 @@ class STDialogsController: UITableViewController, UISearchBarDelegate, UISearchR
                 })
         }
     }
-    
-    //MARK: - Private methods
     
     @objc private func openFilter() {
         

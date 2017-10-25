@@ -80,6 +80,8 @@ protocol PRemoteServerApi {
     
     func loadDialogMessages(dialogId: Int, pageSize: Int, lastId: Int64?) -> Future<[STMessage], STError>
     
+    func loadNewDialogMassages(dialogId: Int, lastId: Int64) -> Future<[STMessage], STError>
+    
     func loadMessage(by id: Int) -> Future<STMessage, STError>
     
     func sendMessage(dialogId: Int, message: String) -> Future<STMessage, STError>
